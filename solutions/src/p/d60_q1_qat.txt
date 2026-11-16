@@ -1,0 +1,98 @@
+id: d60_q1_qat
+group: stackqueue
+lesson: 04 · Queue (circular array)
+stars: 1
+kind: student.h
+tags: CP::queue, operator[], negative index
+title: Queue At
+title_th: เข้าถึงข้อมูลในคิวด้วย [] (Queue At)
+blurb: q[k] returns the k-th element from the front; negative k counts from the back (−1 = last). Convert to a position, then to a physical slot.
+blurb_th: q[k] คืนข้อมูลตัวที่ k จากหัวคิว; k ติดลบนับจากท้าย (−1 = ตัวสุดท้าย) แปลงเป็นตำแหน่งก่อน แล้วค่อยแปลงเป็นช่องจริง
+files: sol/d60_q1_qat/student.h
+tests: both PDF scripts; 300 random a / d / k / p scripts with positive and negative k on wrapped queues against Python indexing. ASan + UBSan clean.
+tests_th: ชุดคำสั่งใน PDF ทั้งสองชุด; สุ่มชุดคำสั่ง a / d / k / p 300 ชุด ทั้ง k บวกและลบ บนคิวที่วนรอบ เทียบกับ index ของ Python ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Override `operator[](int k)` for CP::queue: return the element at **position k** (front = 0, …, back = n−1). **Negative k** counts from the back: −1 = back, −2 = the one before it, …, −n = front.
+
+- Must not change the queue (no push/pop, no member changes).
+- Commands: `a x` push, `d` pop, `k idx` print "Data at idx is …", `p` print, `q` quit. 50% of tests use only k ≥ 0.
+
+## 2. What it really means
+Two conversions, like Python's `list[k]` on a circular buffer:
+
+```text
+queue (front→back):  10 20 30 40 50        n = 5
+k:                    0  1  2  3  4
+negative k:          -5 -4 -3 -2 -1        position = n + k
+physical slot = (mFront + position) % mCap
+```
+
+## 3. What, why, how
+1. If k < 0, `k = n + k` (−1 → n−1, −n → 0).
+2. Return `mData[(mFront + k) % mCap]`. O(1).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 2** after two pops (mCap = 8, mFront = 2, queue 30 40 50):
+
+| k | position | slot (2 + pos) % 8 | value |
+|---|---|---|---|
+| 0 | 0 | 2 | 30 |
+| 1 | 1 | 3 | 40 |
+| −1 | 3 + (−1) = 2 | 4 | 50 |
+
+## 5. Traps
+- **`(mFront + k) % mCap` with negative k:** with mFront = 2, k = −1 gives slot 1 — the slot **before the front**, which is garbage. In C++ `%` of a negative number is negative too, so it can even become an invalid index. Always convert to a non-negative position first.
+- **Forgetting mFront** (`mData[k]`) fails after any pop.
+- **`% mSize`** instead of `% mCap`.
+
+## 6. Background
+Lesson 04: logical ↔ physical index in a circular array. Negative indices from the back are Python's convention; here they're just `n + k`. C++'s `%` keeps the sign of the left operand — a classic source of bugs.
+==== th
+## 1. โจทย์บอกอะไร
+override `operator[](int k)` ให้ CP::queue: คืนข้อมูลที่ **ตำแหน่ง k** (หัวคิว = 0, …, ท้ายคิว = n−1) ถ้า **k ติดลบ** ให้นับจากท้าย: −1 = ท้ายคิว, −2 = ตัวก่อนท้าย, …, −n = หัวคิว
+
+- ห้ามเปลี่ยนคิว (ห้าม push/pop ห้ามแก้ member)
+- คำสั่ง: `a x` push, `d` pop, `k idx` พิมพ์ "Data at idx is …", `p` พิมพ์, `q` จบ ชุดทดสอบ 50% ใช้แค่ k ≥ 0
+
+## 2. จริง ๆ แล้วถามอะไร
+แปลงสองขั้น เหมือน `list[k]` ของ Python บนบัฟเฟอร์วงกลม:
+
+```text
+queue (front→back):  10 20 30 40 50        n = 5
+k:                    0  1  2  3  4
+negative k:          -5 -4 -3 -2 -1        position = n + k
+physical slot = (mFront + position) % mCap
+```
+
+## 3. อะไร ทำไม อย่างไร
+1. ถ้า k < 0 ให้ `k = n + k` (−1 → n−1, −n → 0)
+2. คืน `mData[(mFront + k) % mCap]` เวลา O(1)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 2** หลัง pop สองครั้ง (mCap = 8, mFront = 2, คิว 30 40 50):
+
+| k | ตำแหน่ง | ช่องจริง (2 + pos) % 8 | ค่า |
+|---|---|---|---|
+| 0 | 0 | 2 | 30 |
+| 1 | 1 | 3 | 40 |
+| −1 | 3 + (−1) = 2 | 4 | 50 |
+
+## 5. จุดที่มักพลาด
+- **ใช้ `(mFront + k) % mCap` ตรง ๆ กับ k ติดลบ:** ถ้า mFront = 2, k = −1 จะได้ช่อง 1 — ช่อง **ก่อนหัวคิว** ซึ่งเป็นขยะ และใน C++ `%` ของเลขลบก็ได้เลขลบ อาจกลายเป็น index ที่ใช้ไม่ได้ ต้องแปลงเป็นตำแหน่งที่ไม่ติดลบก่อนเสมอ
+- **ลืม mFront** (`mData[k]`) ผิดทันทีหลัง pop
+- **ใช้ `% mSize`** แทน `% mCap`
+
+```text
+ผิด:  k = -1, mFront = 2 → ช่อง 1  ✗ (อยู่ก่อนหัวคิว)
+ถูก:  pos = 3 + (-1) = 2 → ช่อง (2 + 2) % 8 = 4  ✓ (= 50)
+```
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04: แปลง index ตามความหมาย ↔ ช่องจริงในอาร์เรย์วงกลม index ติดลบนับจากท้ายเป็นธรรมเนียมของ Python ในข้อนี้แค่ `n + k` ส่วน `%` ของ C++ ให้ผลมีเครื่องหมายตามตัวตั้ง — ต้นเหตุบั๊กคลาสสิก

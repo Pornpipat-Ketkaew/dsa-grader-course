@@ -1,0 +1,145 @@
+id: d63_q4a_leaves_count
+group: tree
+lesson: 07 · Trees & BST
+stars: 1
+kind: leaves_count()
+tags: recursion, leaf, map_bst
+title: Leaves Count
+title_th: นับจำนวนใบ (Leaves Count)
+blurb: Count the nodes with no children in a map_bst. Three-case recursion: empty, leaf, or add both sides.
+blurb_th: นับโหนดที่ไม่มีลูกใน map_bst ด้วยการเวียนเกิดสามกรณี: ว่าง, เป็นใบ, หรือรวมสองฝั่ง
+files: sol/d63_q4a_leaves_count/student.h
+tests: both PDF samples (the harness prints the count before every insert and once at the end, as the PDF describes); 300 random insert sequences against a Python BST. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้งสองใน PDF (ตัวทดสอบพิมพ์จำนวนใบก่อนใส่ทุกครั้งและอีกครั้งตอนจบ ตามที่ PDF บอก); สุ่มลำดับการใส่ 300 ชุดเทียบกับ BST ใน Python ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `size_t leaves_count()` to `CP::map_bst`: return the number of **leaf nodes** (nodes with no children) in the BST. A helper `size_t leaves_count(node* n)` (leaves in the subtree rooted at n) is already declared for you to fill in and call.
+
+- Edit only `student.h`; any STL is allowed; **no input/output** in `student.h`.
+- `main` reads n and n keys. **Before** each insert it prints `Leaves = <count>`, and once more after the last insert. The grader's `main` is different but tests the same way.
+
+## 2. What it really means
+A leaf is a node whose `left` and `right` are both `NULL`. Sample 2 inserts 3 1 2 4 5:
+
+```text
+before 3:  (empty)            Leaves = 0
+before 1:  3                  Leaves = 1   (3 alone is a leaf)
+before 2:  3                  Leaves = 1   (1 is the leaf, 3 is not any more)
+          /
+         1
+before 4:  3                  Leaves = 1   (only 2)
+          /
+         1
+          \
+           2
+before 5:  3                  Leaves = 2   (2 and 4)
+          / \
+         1   4
+          \
+           2
+at end:    3                  Leaves = 2   (2 and 5; 4 stopped being a leaf)
+          / \
+         1   4
+          \   \
+           2   5
+```
+
+## 3. What, why, how
+- "How many leaves below n?" splits naturally into "how many on the left + how many on the right". That is recursion.
+- Three cases for `leaves_count(n)`:
+  1. `n == NULL` → an empty subtree has **0** leaves (the base case that stops the recursion).
+  2. `n` has no children → `n` itself is a leaf → **1**.
+  3. otherwise → `leaves_count(n->left) + leaves_count(n->right)`. `n` is not a leaf, so it adds nothing itself.
+- `leaves_count()` just returns `leaves_count(mRoot)`.
+- **Cost:** every node is visited once → O(n). Depth of recursion = height of the tree.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace on the final tree of sample 2** (3 with children 1 and 4; 1 has right child 2; 4 has right child 5):
+
+| call | case | returns |
+|---|---|---|
+| lc(3) | has children | lc(1) + lc(4) |
+| lc(1) | has a child | lc(NULL) + lc(2) = 0 + 1 = **1** |
+| lc(2) | no children → leaf | **1** |
+| lc(4) | has a child | lc(NULL) + lc(5) = 0 + 1 = **1** |
+| lc(5) | leaf | **1** |
+| lc(3) | | 1 + 1 = **2** |
+
+## 5. Traps
+- **Forgetting the NULL case:** a node with one child calls the helper on its NULL side. Without `if (n == NULL) return 0;` you dereference NULL.
+- **Counting nodes instead of leaves:** `1 + left + right` is the size. A leaf is only counted when **both** children are NULL.
+- **Counting a node with one child as a leaf** (`left == NULL || right == NULL`): node 1 above would be counted wrongly.
+- **Empty tree:** must give 0. `leaves_count(mRoot)` with mRoot = NULL handles it via case 1.
+- **Printing inside student.h:** forbidden; `main` does the printing.
+
+## 6. Background
+Lesson 07, section 4: **the recursive template for trees**: base case for NULL, then combine the answers of the two subtrees. Size, height, sum, leaves, and "count nodes with property P" all follow it; only the combine step changes. Leaves at a given depth (Tree Leaves Depth) passes extra information *down* the recursion.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `size_t leaves_count()` ในคลาส `CP::map_bst` คืนจำนวน **ปมใบ** (ปมที่ไม่มีลูก) ใน BST มีฟังก์ชันช่วย `size_t leaves_count(node* n)` (นับใบในต้นไม้ย่อยที่มี n เป็นราก) ประกาศไว้ให้เติมและเรียกใช้ได้
+
+- แก้ได้เฉพาะ `student.h` ใช้ STL ได้ทุกอย่าง แต่ **ห้ามอ่าน/พิมพ์ข้อมูล** ใน `student.h`
+- `main` อ่าน n และค่า n ตัว **ก่อน** ใส่แต่ละค่า จะพิมพ์ `Leaves = <จำนวน>` และพิมพ์อีกครั้งหลังใส่ครบ `main` ใน grader ต่างออกไปแต่ทดสอบแบบเดียวกัน
+
+## 2. จริง ๆ แล้วถามอะไร
+ใบ คือโหนดที่ `left` และ `right` เป็น `NULL` ทั้งคู่ (เหมือนใบไม้ที่ปลายกิ่ง ไม่มีกิ่งแตกต่อ) ตัวอย่างที่ 2 ใส่ 3 1 2 4 5:
+
+```text
+before 3:  (empty)            Leaves = 0
+before 1:  3                  Leaves = 1   (3 alone is a leaf)
+before 2:  3                  Leaves = 1   (1 is the leaf, 3 is not any more)
+          /
+         1
+before 4:  3                  Leaves = 1   (only 2)
+          /
+         1
+          \
+           2
+before 5:  3                  Leaves = 2   (2 and 4)
+          / \
+         1   4
+          \
+           2
+at end:    3                  Leaves = 2   (2 and 5; 4 stopped being a leaf)
+          / \
+         1   4
+          \   \
+           2   5
+```
+
+## 3. อะไร ทำไม อย่างไร
+- คำถาม "ใต้ n มีใบกี่ใบ?" แตกได้เป็น "ฝั่งซ้ายมีกี่ใบ + ฝั่งขวามีกี่ใบ" นี่คือการเวียนเกิด
+- `leaves_count(n)` มีสามกรณี:
+  1. `n == NULL` → ต้นไม้ย่อยว่างมีใบ **0** ใบ (กรณีฐานที่ทำให้การเวียนเกิดหยุด)
+  2. `n` ไม่มีลูกเลย → `n` เป็นใบเอง → **1**
+  3. นอกนั้น → `leaves_count(n->left) + leaves_count(n->right)` ตัว `n` ไม่ใช่ใบ จึงไม่นับตัวเอง
+- `leaves_count()` แค่คืน `leaves_count(mRoot)`
+- **เวลา:** เยี่ยมทุกโหนดครั้งเดียว → O(n) ความลึกของการเวียนเกิด = ความสูงของต้นไม้
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่บนต้นไม้สุดท้ายของตัวอย่างที่ 2** (3 มีลูก 1 และ 4; 1 มีลูกขวา 2; 4 มีลูกขวา 5):
+
+| การเรียก | กรณี | คืนค่า |
+|---|---|---|
+| lc(3) | มีลูก | lc(1) + lc(4) |
+| lc(1) | มีลูกหนึ่งตัว | lc(NULL) + lc(2) = 0 + 1 = **1** |
+| lc(2) | ไม่มีลูก → เป็นใบ | **1** |
+| lc(4) | มีลูกหนึ่งตัว | lc(NULL) + lc(5) = 0 + 1 = **1** |
+| lc(5) | เป็นใบ | **1** |
+| lc(3) | | 1 + 1 = **2** |
+
+## 5. จุดที่มักพลาด
+- **ลืมกรณี NULL:** โหนดที่มีลูกตัวเดียวจะเรียกฟังก์ชันกับฝั่งที่เป็น NULL ถ้าไม่มี `if (n == NULL) return 0;` จะอ่านพอยน์เตอร์ NULL แล้วพัง
+- **นับโหนดแทนนับใบ:** `1 + left + right` คือขนาดต้นไม้ ใบจะนับก็ต่อเมื่อลูก **ทั้งสองข้าง** เป็น NULL
+- **นับโหนดที่มีลูกตัวเดียวเป็นใบ** (`left == NULL || right == NULL`): โหนด 1 ข้างบนจะถูกนับผิด
+- **ต้นไม้ว่าง:** ต้องได้ 0 ซึ่ง `leaves_count(mRoot)` ที่ mRoot = NULL จัดการให้แล้วผ่านกรณีที่ 1
+- **พิมพ์ใน student.h:** ห้าม `main` เป็นคนพิมพ์
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07 หัวข้อ 4: **แม่แบบการเวียนเกิดบนต้นไม้**: กรณีฐานสำหรับ NULL แล้วรวมคำตอบของต้นไม้ย่อยสองข้าง ขนาด ความสูง ผลรวม จำนวนใบ และ "นับโหนดที่มีคุณสมบัติ P" ใช้โครงเดียวกันหมด เปลี่ยนแค่ขั้นรวมคำตอบ ข้อนับใบตามความลึก (Tree Leaves Depth) จะส่งข้อมูล *ลง* ไปในการเวียนเกิดด้วย

@@ -1,0 +1,125 @@
+id: d64_q2a_vector_block_swap
+group: vector
+lesson: 03 · Vector internals
+stars: 1
+kind: student.h
+tags: CP::vector, iterators, validation, swap
+title: Vector Block Swap
+title_th: สลับข้อมูลเป็นบล็อก (Vector Block Swap)
+blurb: Swap two equal-length blocks — but first check that both are inside the vector, m > 0, and they don't overlap.
+blurb_th: สลับบล็อกสองบล็อกที่ยาวเท่ากัน — แต่ต้องเช็กก่อนว่าอยู่ในเวกเตอร์, m > 0 และไม่ทับกัน
+files: sol/d64_q2a_vector_block_swap/student.h
+tests: every row of the PDF table; 300 random (a, b, m) including negative starts, m = 0, overlaps and blocks that run past the end, against a Python model. ASan + UBSan clean.
+tests_th: ทุกแถวในตารางของ PDF; สุ่ม (a, b, m) 300 ชุด รวมจุดเริ่มติดลบ, m = 0, บล็อกทับกัน และบล็อกที่เลยท้าย เทียบกับโมเดล Python ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `bool block_swap(iterator a, iterator b, size_t m)`: swap the m elements `a .. a+m−1` with the m elements `b .. b+m−1`. Example: v = {10,…,80}, a = begin()+5, b = begin()+1, m = 2 → {10,**60,70**,40,50,**20,30**,80}.
+
+- It only works when **a, b, a+m−1, b+m−1 are valid iterators of v**, the two blocks **don't overlap**, and **m > 0**. Then return `true`.
+- Otherwise return `false` and **change nothing**.
+- The grader's `main` is different from the starter's.
+
+## 2. What it really means
+Two jobs: **validate**, then **swap pairwise**. The validation is where marks are lost.
+
+```text
+v = 1 2 3 4 5           a=1, b=3, m=2
+block A = [1..2] = 2 3   block B = [3..4] = 4 5   disjoint ✓
+result    1 4 5 2 3
+
+a=1, b=2, m=2: A = [1..2], B = [2..3] share index 2 → overlap → false
+```
+
+## 3. What, why, how
+- Convert to indices: `ia = a − begin()`, `ib = b − begin()`. Use a **signed** type: if a is before `begin()`, the difference is negative.
+- Valid when:
+  - `m > 0`;
+  - `ia ≥ 0` and `ib ≥ 0`;
+  - `ia + m ≤ n` and `ib + m ≤ n` (the last index `ia + m − 1 ≤ n − 1`);
+  - **disjoint**: `ia + m ≤ ib` (A ends before B) **or** `ib + m ≤ ia` (B ends before A).
+- Then for k = 0 .. m−1 swap `mData[ia+k]` and `mData[ib+k]`. O(m).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**The PDF table checked against the conditions** (v = {1,2,3,4,5}, n = 5):
+
+| a | b | m | in range? | disjoint? | result |
+|---|---|---|---|---|---|
+| 0 | 1 | 0 | — | — | false (m = 0) |
+| 0 | 1 | 1 | ✓ | 0+1 ≤ 1 ✓ | true → 2 1 3 4 5 |
+| 1 | 3 | 2 | ✓ | 1+2 ≤ 3 ✓ | true → 1 4 5 2 3 |
+| 1 | 4 | 2 | 4+2 = 6 > 5 ✗ | | false |
+| 3 | 0 | 2 | ✓ | 0+2 ≤ 3 ✓ | true → 4 5 3 1 2 |
+| 0 | 3 | 3 | 3+3 = 6 > 5 ✗ | | false |
+| 0 | 2 | 3 (n=7) | ✓ | 0+3 ≤ 2 ✗, 2+3 ≤ 0 ✗ | false (overlap) |
+
+## 5. Traps
+- **`size_t` arithmetic:** `a − begin()` stored in `size_t` turns −1 into a huge number, and `m − 1` with m = 0 wraps to 2⁶⁴−1. Use signed integers.
+- **Checking only one order** for overlap: blocks can be given with b < a (row `3 0 2`).
+- **Off-by-one in the range test:** the condition is `ia + m ≤ n`, not `< n`.
+- **Swapping before validating** → when the answer is false the vector has already changed.
+
+## 6. Background
+Lesson 03: iterator − `begin()` = index. Interval overlap test: two half-open intervals [x, x+m) and [y, y+m) are disjoint **iff** `x + m ≤ y || y + m ≤ x`. Validate everything first, then act — the same "all or nothing" rule as many container operations.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `bool block_swap(iterator a, iterator b, size_t m)` ที่สลับข้อมูล m ตัว `a .. a+m−1` กับ m ตัว `b .. b+m−1` ตัวอย่าง: v = {10,…,80}, a = begin()+5, b = begin()+1, m = 2 → {10,**60,70**,40,50,**20,30**,80}
+
+- ทำงานได้เฉพาะเมื่อ **a, b, a+m−1, b+m−1 เป็น iterator ที่ถูกต้องของ v**, สองบล็อก **ไม่ทับกัน** และ **m > 0** แล้วคืน `true`
+- ไม่อย่างนั้นคืน `false` และ **ไม่เปลี่ยนอะไรเลย**
+- `main` ใน grader ต่างจากในไฟล์เริ่มต้น
+
+## 2. จริง ๆ แล้วถามอะไร
+มีสองงาน: **ตรวจความถูกต้อง** แล้ว **สลับทีละคู่** ส่วนที่คนเสียคะแนนคือการตรวจ
+
+```text
+v = 1 2 3 4 5           a=1, b=3, m=2
+block A = [1..2] = 2 3   block B = [3..4] = 4 5   disjoint ✓
+result    1 4 5 2 3
+
+a=1, b=2, m=2: A = [1..2], B = [2..3] share index 2 → overlap → false
+```
+
+## 3. อะไร ทำไม อย่างไร
+- แปลงเป็น index: `ia = a − begin()`, `ib = b − begin()` ใช้ชนิด **มีเครื่องหมาย** ถ้า a อยู่ก่อน `begin()` ผลต่างจะติดลบ
+- ถูกต้องเมื่อ:
+  - `m > 0`
+  - `ia ≥ 0` และ `ib ≥ 0`
+  - `ia + m ≤ n` และ `ib + m ≤ n` (index สุดท้าย `ia + m − 1 ≤ n − 1`)
+  - **ไม่ทับกัน**: `ia + m ≤ ib` (A จบก่อน B เริ่ม) **หรือ** `ib + m ≤ ia` (B จบก่อน A เริ่ม)
+
+```text
+ไม่ทับ:   A [■■]     B [■■]        ia+m ≤ ib
+ไม่ทับ:   B [■■]     A [■■]        ib+m ≤ ia
+ทับ:      A [■■■]
+              B [■■■]               ทั้งสองเงื่อนไขเป็นเท็จ
+```
+
+- จากนั้น k = 0 .. m−1 สลับ `mData[ia+k]` กับ `mData[ib+k]` เวลา O(m)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ตรวจตารางใน PDF ด้วยเงื่อนไข** (v = {1,2,3,4,5}, n = 5):
+
+| a | b | m | อยู่ในช่วง? | ไม่ทับ? | ผล |
+|---|---|---|---|---|---|
+| 0 | 1 | 0 | — | — | false (m = 0) |
+| 0 | 1 | 1 | ✓ | 0+1 ≤ 1 ✓ | true → 2 1 3 4 5 |
+| 1 | 3 | 2 | ✓ | 1+2 ≤ 3 ✓ | true → 1 4 5 2 3 |
+| 1 | 4 | 2 | 4+2 = 6 > 5 ✗ | | false |
+| 3 | 0 | 2 | ✓ | 0+2 ≤ 3 ✓ | true → 4 5 3 1 2 |
+| 0 | 3 | 3 | 3+3 = 6 > 5 ✗ | | false |
+| 0 | 2 | 3 (n=7) | ✓ | 0+3 ≤ 2 ✗, 2+3 ≤ 0 ✗ | false (ทับกัน) |
+
+## 5. จุดที่มักพลาด
+- **คำนวณด้วย `size_t`:** เก็บ `a − begin()` ใน `size_t` จะทำให้ −1 กลายเป็นเลขมหาศาล และ `m − 1` ตอน m = 0 จะวนเป็น 2⁶⁴−1 ใช้จำนวนเต็มแบบมีเครื่องหมาย
+- **เช็กการทับแค่ทิศเดียว:** b อาจน้อยกว่า a ได้ (แถว `3 0 2`)
+- **ขอบเขตเกินหนึ่ง:** เงื่อนไขคือ `ia + m ≤ n` ไม่ใช่ `< n`
+- **สลับก่อนตรวจ** → ตอนที่คำตอบเป็น false เวกเตอร์ถูกเปลี่ยนไปแล้ว
+
+## 6. ความรู้พื้นฐาน
+บทที่ 03: iterator − `begin()` = index การเช็กช่วงทับกัน: ช่วงครึ่งเปิด [x, x+m) กับ [y, y+m) ไม่ทับกัน **ก็ต่อเมื่อ** `x + m ≤ y || y + m ≤ x` ตรวจทุกอย่างก่อนแล้วค่อยลงมือ — กฎ "ทำทั้งหมดหรือไม่ทำเลย" แบบเดียวกับการทำงานของ container หลายตัว

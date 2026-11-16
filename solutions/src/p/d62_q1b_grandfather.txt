@@ -1,0 +1,111 @@
+id: d62_q1b_grandfather
+group: search
+lesson: 02 · STL (map / unordered_map)
+stars: 1
+kind: program
+tags: unordered_map, find vs [], long long
+title: Grandfather
+title_th: ปู่คนเดียวกัน (Grandfather)
+blurb: Two different people are cousins-for-the-promo if they have the same known grandfather — a father map looked up twice.
+blurb_th: สองคนที่ไม่ใช่คนเดียวกันและมีปู่ (ที่รู้จัก) คนเดียวกัน — เก็บ map พ่อ แล้วค้นสองชั้น
+files: sol/d62_q1b_grandfather/main.cpp
+tests: both PDF samples; 300 random families (unknown people, self-queries, 13-digit ids) against a Python dict model; N = M = 10⁶ runs in 0.76 s (reading the input alone takes 0.36 s).
+tests_th: ตัวอย่างใน PDF ทั้งสองชุด; สุ่ม 300 ครอบครัว (คนที่ไม่มีข้อมูล, ถามคนเดียวกัน, เลขบัตร 13 หลัก) เทียบกับโมเดล dict ใน Python; N = M = 10⁶ ใช้ 0.76 วินาที (แค่อ่านข้อมูลก็ 0.36 วินาที)
+==== en
+## 1. What the problem says
+You get N facts "F is the father of S" and M questions "are A and B cousins?". Two people count as cousins **only if they have the same grandfather and they are not the same person**. Print YES/NO for each question.
+
+- 1 ≤ N, M ≤ 1,000,000. Ids go up to 10¹³ (13 digits) → use `long long`.
+- Ids are not consecutive; an id in a question may never appear in the facts.
+- Use `ios_base::sync_with_stdio(false); cin.tie(0);`.
+
+## 2. What it really means
+Grandfather(x) = father(father(x)). Answer YES when both grandfathers **exist** and are **equal**, and A ≠ B. (By this definition, brothers also count: same father → same grandfather.)
+
+```text
+        1                 facts: 1→2, 1→3, 2→20, 3→30, 2→21
+      /   \
+     2     3              grandfather(20) = 1, grandfather(30) = 1
+    / \     \
+  20   21    30           (30, 20) → YES;  (1, 2) → NO (no grandfather known)
+```
+
+## 3. What, why, how
+- Ids are huge and sparse, so an array indexed by id is impossible. Store `father[son] = f` in a **hash map** (`unordered_map<long long,long long>`): O(1) average per insert/lookup.
+- For each question do 2 lookups for A and 2 for B. Total O(N + M).
+- **Use `find`, not `[]`, for lookups.** `father[x]` on a missing x *inserts* x with value 0, which wastes memory and can make 0 look like a real father.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1:**
+
+| A, B | grandfather(A) | grandfather(B) | A ≠ B? | answer |
+|---|---|---|---|---|
+| 1, 2 | father(1) unknown → −1 | father(1) unknown → −1 | ✓ | NO (unknown) |
+| 2, 30 | −1 | father(3) = 1 | ✓ | NO |
+| 30, 20 | 1 | 1 | ✓ | **YES** |
+| 20, 20 | 1 | 1 | ✗ same person | NO |
+
+## 5. Traps
+- **`int` ids** overflow (13 digits).
+- **"Both unknown" is not "equal":** without the `!= -1` check, two people with no grandfather both get −1 and you answer YES.
+- **Forgetting A ≠ B** (the `20 20` query).
+- **Slow I/O:** 2·10⁶ lines without the sync line can exceed 1 s.
+- `map` instead of `unordered_map` also passes (O(log n)), but is a few times slower.
+
+## 6. Background
+Lesson 02 (STL): **map as a "parent pointer" table** for sparse ids. Walking `father` twice is a 2-step walk up a tree; the same idea with a loop gives "k-th ancestor". `find` vs `[]`: `[]` creates missing keys — use `find`/`count` when you only want to read.
+==== th
+## 1. โจทย์บอกอะไร
+มีข้อมูล N ข้อ "F เป็นพ่อของ S" และคำถาม M ข้อ "A กับ B เป็นลูกพี่ลูกน้องกันไหม?" สองคนนับเป็นลูกพี่ลูกน้อง **ก็ต่อเมื่อมีปู่คนเดียวกัน และไม่ใช่คนเดียวกัน** พิมพ์ YES/NO ทุกคำถาม
+
+- 1 ≤ N, M ≤ 1,000,000 เลขบัตรได้ถึง 10¹³ (13 หลัก) → ใช้ `long long`
+- เลขบัตรไม่เรียงกัน และเลขในคำถามอาจไม่เคยปรากฏในข้อมูล
+- ใช้ `ios_base::sync_with_stdio(false); cin.tie(0);`
+
+## 2. จริง ๆ แล้วถามอะไร
+ปู่(x) = พ่อ(พ่อ(x)) ตอบ YES เมื่อปู่ของทั้งสองคน **มีอยู่จริง** และ **เป็นคนเดียวกัน** และ A ≠ B (ตามนิยามนี้ พี่น้องแท้ ๆ ก็นับ เพราะพ่อเดียวกัน → ปู่เดียวกัน)
+
+```text
+        1                 facts: 1→2, 1→3, 2→20, 3→30, 2→21
+      /   \
+     2     3              grandfather(20) = 1, grandfather(30) = 1
+    / \     \
+  20   21    30           (30, 20) → YES;  (1, 2) → NO (no grandfather known)
+```
+
+## 3. อะไร ทำไม อย่างไร
+- เลขบัตรใหญ่และกระจาย จึงใช้อาร์เรย์ที่ index เป็นเลขบัตรไม่ได้ ให้เก็บ `father[ลูก] = พ่อ` ใน **hash map** (`unordered_map<long long,long long>`) เฉลี่ย O(1) ต่อการเพิ่ม/ค้น
+- แต่ละคำถามค้น 2 ครั้งสำหรับ A และ 2 ครั้งสำหรับ B รวม O(N + M)
+- **ใช้ `find` ไม่ใช่ `[]` ตอนค้น** `father[x]` ที่ x ไม่มีอยู่จะ *เพิ่ม* x เข้าไปพร้อมค่า 0 เปลืองหน่วยความจำและอาจทำให้ 0 ดูเหมือนเป็นพ่อจริง
+
+```text
+father (สมุดจด "ลูก → พ่อ"):
+  2 → 1    3 → 1    20 → 2    30 → 3    21 → 2
+ปู่ของ 30: ดู 30 → ได้ 3, ดู 3 → ได้ 1   ⇒ ปู่ = 1
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1:**
+
+| A, B | ปู่(A) | ปู่(B) | A ≠ B? | คำตอบ |
+|---|---|---|---|---|
+| 1, 2 | ไม่รู้พ่อของ 1 → −1 | ไม่รู้พ่อของ 1 → −1 | ✓ | NO (ไม่รู้) |
+| 2, 30 | −1 | พ่อ(3) = 1 | ✓ | NO |
+| 30, 20 | 1 | 1 | ✓ | **YES** |
+| 20, 20 | 1 | 1 | ✗ คนเดียวกัน | NO |
+
+## 5. จุดที่มักพลาด
+- **ใช้ `int` เก็บเลขบัตร** ล้น (13 หลัก)
+- **"ไม่รู้ทั้งคู่" ไม่ใช่ "เท่ากัน":** ถ้าไม่เช็ก `!= -1` สองคนที่ไม่มีปู่จะได้ −1 ทั้งคู่ แล้วตอบ YES ผิด
+- **ลืมเช็ก A ≠ B** (คำถาม `20 20`)
+- **I/O ช้า:** 2·10⁶ บรรทัดถ้าไม่ใส่บรรทัด sync อาจเกิน 1 วินาที
+- ใช้ `map` แทน `unordered_map` ก็ผ่าน (O(log n)) แต่ช้ากว่าหลายเท่า
+
+## 6. ความรู้พื้นฐาน
+บทที่ 02 (STL): **ใช้ map เป็นตาราง "พอยน์เตอร์ไปหาพ่อ"** สำหรับ id ที่กระจาย การเดินตาม `father` สองครั้งคือการเดินขึ้นต้นไม้ 2 ขั้น ถ้าใช้ลูปก็ได้ "บรรพบุรุษลำดับที่ k" เรื่อง `find` กับ `[]`: `[]` จะสร้าง key ที่ไม่มีขึ้นมา ถ้าแค่อยากอ่านให้ใช้ `find`/`count`

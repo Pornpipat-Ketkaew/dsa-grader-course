@@ -1,0 +1,127 @@
+id: d60_q3_same_tree
+group: tree
+lesson: 07 · Trees & BST
+stars: 1
+kind: isSameBinaryTree()
+tags: recursion, two trees in lockstep, short-circuit &&
+title: Same Tree
+title_th: ต้นไม้เหมือน (Same Tree)
+blurb: Are two binary trees identical in shape and data? Walk both trees together, one recursive check per pair of nodes.
+blurb_th: ต้นไม้ทวิภาคสองต้นเหมือนกันทั้งรูปร่างและข้อมูลหรือไม่? เดินพร้อมกันทั้งสองต้น ตรวจทีละคู่โหนดแบบเวียนเกิด
+files: sol/d60_q3_same_tree/tree.h
+tests: both PDF samples, two empty trees, empty vs one node; 300 random pairs (often the same keys in a different order) against a Python BST; two 10,000-node chains (worst-case depth) in 0.57 s with ASan. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้งสองใน PDF, ต้นไม้ว่างสองต้น, ต้นไม้ว่างกับต้นไม้หนึ่งโหนด; สุ่ม 300 คู่ (ส่วนใหญ่เป็นค่าชุดเดียวกันแต่ใส่คนละลำดับ) เทียบกับ BST ใน Python; ต้นไม้เป็นเส้นตรง 10,000 โหนดสองต้น (ลึกที่สุด) ใช้ 0.57 วินาทีแม้เปิด ASan ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Write `bool isSameBinaryTree(Tree& t)` that tells whether tree `t` is "the same" as the tree it is called on. Two binary trees are the same when
+- **both are empty**, or
+- with roots A and B: **A's data equals B's data**, **A's left subtree is the same as B's left subtree**, and **A's right subtree is the same as B's right subtree**.
+
+Rules: **no STL** inside `isSameBinaryTree`; edit only `tree.h` (you may add functions to `Tree`, but don't change existing ones). `main` builds two BSTs with `insert` (n, m ≤ 10,000) and prints `True`/`False`. The grader's `main` is different, so the function must work however the trees were built.
+
+## 2. What it really means
+"Same" = **same shape AND same value at every position**. Having the same set of values is not enough. Sample 2 inserts the same five keys in a different order:
+
+```text
+sample 1: 3 4 1 8 2  vs  3 1 4 8 2        sample 2: 3 4 1 2 8  vs  3 4 2 1 8
+        3                 3                        3                  3
+       / \               / \                      / \                / \
+      1   4             1   4                    1   4              2   4
+       \   \             \   \                    \   \            /     \
+        2   8             2   8                    2   8          1       8
+        identical  → True                          1 has a right child 2,
+                                                   2 has a left child 1  → False
+```
+
+## 3. What, why, how
+- The definition **is already recursive**, so the code is the definition written in C++. We need a helper that takes two node pointers, because `isSameBinaryTree` only receives a whole tree: `sameAt(Node* a, Node* b)`.
+- Four cases, in this order:
+  1. `a == NULL && b == NULL` → both empty → **true**.
+  2. exactly one is NULL → one has a node where the other has nothing → **false**.
+  3. both exist: `a->data == b->data && sameAt(a->left, b->left) && sameAt(a->right, b->right)`.
+- **Why the order matters:** case 2 must come before reading `a->data`. Once we pass the first two checks we know both pointers are real nodes.
+- `&&` stops at the first `false`, so a mismatch near the root ends the search immediately.
+- **Cost:** each pair of nodes is visited at most once → O(min(n, m)). Recursion depth = tree height (≤ 10,000 for a chain, which the stack handles).
+- `Tree` is one class, so `sameAt` may read `t.mRoot` even though it is `protected` (access is per class, not per object).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 2** (a = first tree, b = second tree):
+
+| call | a node | b node | result |
+|---|---|---|---|
+| sameAt(3, 3) | 3 | 3 | data equal → check left subtrees |
+| sameAt(1, 2) | 1 | 2 | **1 ≠ 2 → false** |
+| back in sameAt(3, 3) | | | `&&` already false → right side is never checked → **false** |
+
+**Trace of sample 1** (all equal): sameAt(3,3) → sameAt(1,1) → sameAt(NULL,NULL)=true, sameAt(2,2) → its two NULL pairs true → true → … → sameAt(4,4) → sameAt(NULL,NULL), sameAt(8,8) → true. Every call returns true → `True`.
+
+## 5. Traps
+- **Comparing only the values** (e.g. in-order traversal of both trees): two BSTs with the same keys always have the same in-order sequence (sample 2!), yet their shapes differ.
+- **Comparing only sizes, or only pre-order:** pre-order alone also loses shape information when NULL children are not recorded.
+- **Dereferencing before the NULL checks:** `a->data == b->data` when one side is NULL crashes. Check NULLs first.
+- **Writing `if (a == NULL || b == NULL) return a == b;`** is also correct (true only when both NULL), just shorter. Use whichever you can read.
+- **Recursing on `isSameBinaryTree` itself:** it takes a `Tree&`, not a node, so you would have to build a Tree around each subtree. Use a node-level helper.
+
+## 6. Background
+Lesson 07: **recursion on two trees at once**. The same skeleton (both NULL / one NULL / compare and recurse) solves "is t a mirror of s" (compare a->left with b->right), "is t a subtree of s", and tree equality in general. The pattern "write a private `f(Node*)` and make the public function call `f(mRoot)`" appears in every tree problem in this book.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เขียน `bool isSameBinaryTree(Tree& t)` ตรวจว่าต้นไม้ `t` "เหมือน" กับต้นไม้ที่เรียกฟังก์ชันนี้หรือไม่ ต้นไม้ทวิภาคสองต้นจะเหมือนกันเมื่อ
+- **ทั้งสองต้นเป็นต้นไม้ว่าง** หรือ
+- ให้ A และ B เป็นรากของแต่ละต้น: **A เก็บข้อมูลเท่ากับ B**, **ต้นไม้ย่อยซ้ายของ A เหมือนกับต้นไม้ย่อยซ้ายของ B** และ **ต้นไม้ย่อยขวาของ A เหมือนกับต้นไม้ย่อยขวาของ B**
+
+ข้อบังคับ: **ห้ามใช้ STL** ใน `isSameBinaryTree`; แก้ได้เฉพาะ `tree.h` (เพิ่มฟังก์ชันในคลาส `Tree` ได้ แต่ห้ามแก้ของเดิม) `main` สร้าง BST สองต้นด้วย `insert` (n, m ≤ 10,000) แล้วพิมพ์ `True`/`False` ส่วน `main` ใน grader ต่างออกไป ฟังก์ชันจึงต้องถูกไม่ว่าต้นไม้จะถูกสร้างมาอย่างไร
+
+## 2. จริง ๆ แล้วถามอะไร
+"เหมือน" = **รูปร่างเหมือนกัน และ ค่าทุกตำแหน่งเหมือนกัน** แค่มีค่าชุดเดียวกันยังไม่พอ ตัวอย่างที่ 2 ใส่ค่าห้าตัวเดียวกันแต่ลำดับต่างกัน:
+
+```text
+sample 1: 3 4 1 8 2  vs  3 1 4 8 2        sample 2: 3 4 1 2 8  vs  3 4 2 1 8
+        3                 3                        3                  3
+       / \               / \                      / \                / \
+      1   4             1   4                    1   4              2   4
+       \   \             \   \                    \   \            /     \
+        2   8             2   8                    2   8          1       8
+        identical  → True                          1 has a right child 2,
+                                                   2 has a left child 1  → False
+```
+
+เปรียบเทียบง่าย ๆ: เหมือนเอาแผนผังครอบครัวสองแผ่นมาวางซ้อนกัน ต้องตรงกันทุกช่อง ทั้ง "มีคนอยู่ตรงนั้นไหม" และ "คนนั้นชื่ออะไร"
+
+## 3. อะไร ทำไม อย่างไร
+- นิยามในโจทย์ **เป็นแบบเวียนเกิดอยู่แล้ว** โค้ดก็คือนิยามนั้นเขียนเป็น C++ แต่ `isSameBinaryTree` รับมาทั้งต้น เราจึงต้องมีฟังก์ชันช่วยที่รับพอยน์เตอร์โหนดสองตัว: `sameAt(Node* a, Node* b)`
+- มีสี่กรณี ตามลำดับนี้:
+  1. `a == NULL && b == NULL` → ว่างทั้งคู่ → **true**
+  2. ว่างแค่ฝั่งเดียว → ฝั่งหนึ่งมีโหนด อีกฝั่งไม่มี → **false**
+  3. มีโหนดทั้งคู่: `a->data == b->data && sameAt(a->left, b->left) && sameAt(a->right, b->right)`
+- **ทำไมลำดับสำคัญ:** กรณีที่ 2 ต้องมาก่อนการอ่าน `a->data` พอผ่านสองเช็กแรกแล้ว เรารู้แน่ว่าทั้งคู่เป็นโหนดจริง
+- `&&` หยุดทันทีเมื่อเจอ `false` ถ้าต่างกันตั้งแต่ใกล้ราก ก็จบเร็ว
+- **เวลา:** แต่ละคู่โหนดถูกเยี่ยมไม่เกินหนึ่งครั้ง → O(min(n, m)) ความลึกของการเวียนเกิด = ความสูงของต้นไม้ (เส้นตรง 10,000 ชั้นก็ยังรับไหว)
+- `Tree` เป็นคลาสเดียวกัน `sameAt` จึงอ่าน `t.mRoot` ได้ แม้จะเป็น `protected` (สิทธิ์เข้าถึงคิดตามคลาส ไม่ใช่ตามออบเจกต์)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 2** (a = ต้นแรก, b = ต้นที่สอง):
+
+| การเรียก | โหนด a | โหนด b | ผล |
+|---|---|---|---|
+| sameAt(3, 3) | 3 | 3 | ข้อมูลเท่ากัน → ไปเช็กต้นย่อยซ้าย |
+| sameAt(1, 2) | 1 | 2 | **1 ≠ 2 → false** |
+| กลับมาที่ sameAt(3, 3) | | | `&&` เป็น false แล้ว → ไม่เช็กฝั่งขวาเลย → **false** |
+
+**ไล่ตัวอย่างที่ 1** (เท่ากันหมด): sameAt(3,3) → sameAt(1,1) → sameAt(NULL,NULL)=true, sameAt(2,2) → คู่ NULL สองคู่ true → true → … → sameAt(4,4) → sameAt(NULL,NULL), sameAt(8,8) → true ทุกการเรียกคืน true → `True`
+
+## 5. จุดที่มักพลาด
+- **เทียบแค่ค่า** (เช่นไล่ in-order ทั้งสองต้น): BST สองต้นที่มีค่าชุดเดียวกัน in-order จะเหมือนกันเสมอ (ตัวอย่างที่ 2!) แต่รูปร่างต่างกัน
+- **เทียบแค่ขนาด หรือแค่ pre-order:** pre-order อย่างเดียวก็เสียข้อมูลรูปร่างถ้าไม่บันทึกลูกที่เป็น NULL
+- **อ่านค่าก่อนเช็ก NULL:** `a->data == b->data` ตอนที่ฝั่งหนึ่งเป็น NULL → โปรแกรมพัง ต้องเช็ก NULL ก่อน
+- **เขียน `if (a == NULL || b == NULL) return a == b;`** ก็ถูกเหมือนกัน (true เฉพาะตอน NULL ทั้งคู่) แค่สั้นกว่า เลือกแบบที่อ่านเข้าใจ
+- **เรียก `isSameBinaryTree` ซ้ำตัวเอง:** มันรับ `Tree&` ไม่ใช่โหนด ต้องสร้าง Tree ครอบต้นย่อยทุกครั้ง ใช้ฟังก์ชันช่วยระดับโหนดดีกว่า
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07: **การเวียนเกิดบนต้นไม้สองต้นพร้อมกัน** โครงเดียวกัน (NULL ทั้งคู่ / NULL ข้างเดียว / เทียบแล้วเวียนเกิด) ใช้แก้ "t เป็นภาพสะท้อนของ s ไหม" (เทียบ a->left กับ b->right), "t เป็นต้นไม้ย่อยของ s ไหม" และการเทียบต้นไม้ทั่วไป รูปแบบ "เขียน `f(Node*)` ส่วนตัว แล้วให้ฟังก์ชันสาธารณะเรียก `f(mRoot)`" จะเจอในทุกข้อเรื่องต้นไม้ในเล่มนี้

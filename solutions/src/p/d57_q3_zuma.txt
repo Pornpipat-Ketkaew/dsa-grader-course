@@ -1,0 +1,109 @@
+id: d57_q3_zuma
+group: list
+lesson: 05 · Linked list / two pointers
+stars: 3
+kind: program
+tags: simulation, two pointers, chain reaction
+title: Zuma
+title_th: เกมซูมา (Zuma)
+blurb: Shoot one bead into a string of up to 10⁶ beads and simulate the chain of explosions — the result is always "a prefix + a suffix", so two pointers moving outward solve it in O(N).
+blurb_th: ยิงลูกปัดหนึ่งลูกเข้าไปในสายลูกปัดยาวถึง 10⁶ แล้วจำลองการระเบิดต่อเนื่อง — ผลลัพธ์คือ "ส่วนหน้า + ส่วนหลัง" เสมอ จึงใช้ตัวชี้สองตัวเดินออกด้านนอกได้ใน O(N)
+files: sol/d57_q3_zuma/main.cpp
+tests: all 4 PDF samples (including one where everything explodes → empty line); 400 random strings with few colours against a direct Python simulation that really deletes beads; N = 10⁶ in 0.08 s.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF (รวมกรณีที่ระเบิดหมด → บรรทัดว่าง); สุ่มสายที่มีไม่กี่สี 400 ชุด เทียบกับการจำลองใน Python ที่ลบลูกปัดจริง; N = 10⁶ ใช้ 0.08 วินาที
+==== en
+## 1. What the problem says
+A string of N coloured beads (N ≤ 10⁶). A bead of colour V is shot in at position K (0 ≤ K ≤ N: it goes before bead K). Then:
+
+- If the new bead is part of a run of **≥ 3 beads of the same colour**, that run explodes and the two sides slide together.
+- If the two beads that **meet** have the same colour and their combined run is ≥ 3, that run explodes too — repeatedly.
+- Runs of ≥ 3 that existed from the start, or that meet with **different** colours, do **not** explode.
+- Print the remaining beads (an empty line if none).
+
+## 2. What it really means
+Everything that explodes is one contiguous block around the shot. The answer is always `a[0..L]` + `a[R..N−1]`.
+
+```text
+1 3 1 4 4 1 1 5 5 5,  shoot 4 at K = 5
+1 3 1 4 4 [4] 1 1 5 5 5   run of 4s = 3   → explode
+1 3 1 | 1 1 5 5 5         1 meets 1, run = 3 → explode
+1 3 | 5 5 5               3 meets 5: different → stop
+answer: 1 3 5 5 5
+```
+
+## 3. What, why, how
+- **Don't delete anything.** Keep L = last surviving index on the left, R = first surviving index on the right.
+- Step 1: from the shot, extend left over beads == V and right over beads == V. If the run (with the new bead) < 3, nothing explodes — print the string with V inserted.
+- Step 2: while `a[L] == a[R]`: extend over that colour on both sides; if the combined run ≥ 3, move L and R past it; else stop.
+- Each bead is passed over at most once → **O(N)**. A real `std::list` simulation also works (erase is O(1)), but you'd still need the same "only where they meet" logic.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 3** (`1 1 4 4 4 1 1`, shoot 4 at K = 2):
+
+| step | L | R | meeting colours | run | result |
+|---|---|---|---|---|---|
+| shot: 4s at 2,3,4 + new | 1 | 5 | — | 4 | explode |
+| a[1]=1, a[5]=1 | −1 | 7 | 1 = 1 | 2 + 2 = 4 | explode |
+| L < 0 | | | | | stop → **empty** |
+
+## 5. Traps
+- **Exploding pre-existing runs** (`1 1 1 1 1`, shoot 4 → nothing happens).
+- **Checking only the shot run** — misses the chain reaction.
+- **Chain with different colours meeting:** `3 | 5 5 5` must not explode even though 5 5 5 is a run.
+- **Copying vectors on every explosion** (`erase` on a vector) → O(N²) for long chains.
+- **Printing a trailing space / nothing for the empty result** — print an empty line.
+
+## 6. Background
+Two pointers moving outward from a centre (like expanding a palindrome). The key observation — "the removed part is one contiguous block" — turns a simulation that looks like it needs deletions into pure index arithmetic.
+==== th
+## 1. โจทย์บอกอะไร
+สายลูกปัดสีต่าง ๆ N ลูก (N ≤ 10⁶) ยิงลูกปัดสี V เข้าไปที่ตำแหน่ง K (0 ≤ K ≤ N: ไปอยู่ก่อนลูกที่ K) แล้ว:
+
+- ถ้าลูกใหม่อยู่ในกลุ่ม **สีเดียวกันติดกัน ≥ 3 ลูก** กลุ่มนั้นระเบิด และสองฝั่งไหลมาชนกัน
+- ถ้าลูกปัดสองลูกที่ **ชนกัน** สีเดียวกันและรวมกันเป็นกลุ่ม ≥ 3 ก็ระเบิดต่อ — ไปเรื่อย ๆ
+- กลุ่ม ≥ 3 ที่มีอยู่แต่แรก หรือที่ชนกันแต่ **คนละสี** จะ **ไม่** ระเบิด
+- พิมพ์ลูกปัดที่เหลือ (ถ้าไม่เหลือให้พิมพ์บรรทัดว่าง)
+
+## 2. จริง ๆ แล้วถามอะไร
+ทุกอย่างที่ระเบิดเป็นก้อนเดียวติดกันรอบจุดที่ยิง คำตอบจึงเป็น `a[0..L]` + `a[R..N−1]` เสมอ
+
+```text
+1 3 1 4 4 1 1 5 5 5,  shoot 4 at K = 5
+1 3 1 4 4 [4] 1 1 5 5 5   run of 4s = 3   → explode
+1 3 1 | 1 1 5 5 5         1 meets 1, run = 3 → explode
+1 3 | 5 5 5               3 meets 5: different → stop
+answer: 1 3 5 5 5
+```
+
+เหมือนรูที่ค่อย ๆ ขยายออกทั้งสองข้าง: L ถอยไปซ้าย R ถอยไปขวา จนกว่าสองฝั่งที่ชนกันจะคนละสีหรือไม่ครบ 3
+
+## 3. อะไร ทำไม อย่างไร
+- **ไม่ต้องลบอะไรจริง** เก็บแค่ L = index สุดท้ายที่รอดฝั่งซ้าย และ R = index แรกที่รอดฝั่งขวา
+- ขั้น 1: จากจุดยิง ขยายไปซ้ายบนลูกที่เป็นสี V และไปขวาบนลูกที่เป็นสี V ถ้ากลุ่ม (รวมลูกใหม่) < 3 ไม่มีอะไรระเบิด — พิมพ์สายที่แทรก V แล้ว
+- ขั้น 2: ขณะที่ `a[L] == a[R]`: ขยายบนสีนั้นทั้งสองฝั่ง ถ้ารวมกัน ≥ 3 ให้ขยับ L และ R ข้ามไป ไม่อย่างนั้นหยุด
+- แต่ละลูกถูกข้ามไม่เกินหนึ่งครั้ง → **O(N)** ใช้ `std::list` จำลองจริงก็ได้ (erase เป็น O(1)) แต่ก็ยังต้องใช้ตรรกะ "เฉพาะจุดที่ชนกัน" แบบเดียวกัน
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 3** (`1 1 4 4 4 1 1` ยิง 4 ที่ K = 2):
+
+| ขั้น | L | R | สีที่ชนกัน | ขนาดกลุ่ม | ผล |
+|---|---|---|---|---|---|
+| ยิง: 4 ที่ 2,3,4 + ลูกใหม่ | 1 | 5 | — | 4 | ระเบิด |
+| a[1]=1, a[5]=1 | −1 | 7 | 1 = 1 | 2 + 2 = 4 | ระเบิด |
+| L < 0 | | | | | หยุด → **ว่าง** |
+
+## 5. จุดที่มักพลาด
+- **ให้กลุ่มที่มีอยู่แต่แรกระเบิด** (`1 1 1 1 1` ยิง 4 → ไม่มีอะไรเกิดขึ้น)
+- **เช็กแค่กลุ่มที่ยิง** — พลาดการระเบิดต่อเนื่อง
+- **ชนกันแต่คนละสี:** `3 | 5 5 5` ต้องไม่ระเบิด แม้ 5 5 5 จะติดกันสามลูก
+- **คัดลอก vector ทุกครั้งที่ระเบิด** (`erase` ใน vector) → O(N²) เมื่อระเบิดต่อเนื่องยาว
+- **ไม่พิมพ์อะไรเลยเมื่อว่าง** — ต้องพิมพ์บรรทัดว่าง
+
+## 6. ความรู้พื้นฐาน
+ตัวชี้สองตัวที่เดินออกจากจุดกลาง (เหมือนการขยายหา palindrome) ข้อสังเกตสำคัญ — "ส่วนที่หายไปเป็นก้อนเดียวติดกัน" — ทำให้การจำลองที่ดูเหมือนต้องลบข้อมูล กลายเป็นการคำนวณ index ล้วน ๆ

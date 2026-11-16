@@ -1,0 +1,105 @@
+id: d62_q1a_vote
+group: search
+lesson: 02 · STL (map)
+stars: 1
+kind: program
+tags: map counting, sort descending
+title: Election Winner
+title_th: หาผู้ชนะเลือกตั้ง (Vote)
+blurb: Count ballots per name with a map, sort the counts from high to low, the answer is the K-th count (or the last one if fewer than K got votes).
+blurb_th: นับคะแนนแต่ละชื่อด้วย map, sort คะแนนจากมากไปน้อย คำตอบคือคะแนนลำดับที่ K (หรือตัวสุดท้ายถ้ามีคนได้คะแนนน้อยกว่า K คน)
+files: sol/d62_q1a_vote/main.cpp
+tests: both PDF samples; 300 random elections (ties, everybody equal, fewer than K candidates) against Python Counter.
+tests_th: ตัวอย่างใน PDF ทั้งสองชุด; สุ่มการเลือกตั้ง 300 ชุด (คะแนนเสมอ, ทุกคนเท่ากัน, ผู้สมัครน้อยกว่า K) เทียบกับ Counter ใน Python
+==== en
+## 1. What the problem says
+N ballots, each with a candidate's name. The top **K** candidates by votes are elected (each needs ≥ 1 vote). Print **how many votes the weakest elected candidate has**.
+
+- If fewer than K candidates got votes, all of them are elected.
+- Ties with the K-th place are all elected — but that doesn't change the answer (they have the same count).
+- 1 ≤ K ≤ N ≤ 1,000; names are lowercase, ≤ 20 letters.
+
+## 2. What it really means
+"The K-th largest vote count", clamped to the number of candidates.
+
+```text
+votes: somchai 3, adisak 2, yingyos 2, direk 1     K = 2
+sorted desc: 3 2 2 1  → index K−1 = 1 → 2
+K = 3 in sample 2: counts 4 1 → only 2 candidates → last one → 1
+```
+
+## 3. What, why, how
+- `map<string,int> cnt; cnt[name]++` counts the ballots (a new name starts at 0).
+- Copy the counts into a vector, `sort(..., greater<int>())`.
+- Answer = `votes[min(K, size) − 1]`. O(N log N).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1:**
+
+| step | state |
+|---|---|
+| count | adisak 2, direk 1, somchai 3, yingyos 2 (map order = alphabetical) |
+| vector | 2 1 3 2 |
+| sort desc | 3 2 2 1 |
+| min(K=2, 4) − 1 = 1 | votes[1] = **2** |
+
+## 5. Traps
+- **`vector<int> votes(n)` + `push_back`:** the constructor already makes n zeros, push_back adds after them → the vector has n extra zeros and the K-th largest may be 0. Use an empty vector (or index assignment).
+- **Fewer than K candidates:** `votes[K − 1]` reads past the end. Clamp with `min`.
+- **Sorting ascending** and taking index K−1 gives the K-th *smallest*.
+
+## 6. Background
+Lesson 02 (STL): **map as a counter** (`cnt[key]++`). Then "k-th largest" = sort descending and index, or `nth_element`, or a min-heap of size K (see Heap K-th).
+==== th
+## 1. โจทย์บอกอะไร
+มีบัตรเลือกตั้ง N ใบ แต่ละใบเขียนชื่อผู้สมัคร ผู้ได้คะแนนสูงสุด **K** คนได้รับเลือก (ต้องได้อย่างน้อย 1 คะแนน) ให้พิมพ์ **คะแนนของคนที่ได้น้อยที่สุดในบรรดาผู้ได้รับเลือก**
+
+- ถ้าผู้ที่ได้คะแนนมีไม่ถึง K คน ทุกคนได้รับเลือก
+- ถ้ามีคนคะแนนเท่ากับอันดับที่ K ได้รับเลือกทั้งหมด — แต่คำตอบไม่เปลี่ยน (คะแนนเท่ากัน)
+- 1 ≤ K ≤ N ≤ 1,000 ชื่อเป็นตัวพิมพ์เล็ก ยาวไม่เกิน 20 ตัว
+
+## 2. จริง ๆ แล้วถามอะไร
+"คะแนนที่มากเป็นอันดับ K" แต่ถ้ามีผู้สมัครไม่ถึง K คนให้ใช้คนสุดท้าย
+
+```text
+votes: somchai 3, adisak 2, yingyos 2, direk 1     K = 2
+sorted desc: 3 2 2 1  → index K−1 = 1 → 2
+K = 3 in sample 2: counts 4 1 → only 2 candidates → last one → 1
+```
+
+## 3. อะไร ทำไม อย่างไร
+- `map<string,int> cnt; cnt[name]++` นับบัตร (ชื่อใหม่เริ่มที่ 0)
+- คัดลอกคะแนนลง vector แล้ว `sort(..., greater<int>())`
+- คำตอบ = `votes[min(K, size) − 1]` เวลา O(N log N)
+
+```text
+map cnt (กระดานนับคะแนน):
+  adisak  ││        2
+  direk   │         1
+  somchai │││       3
+  yingyos ││        2
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1:**
+
+| ขั้น | สถานะ |
+|---|---|
+| นับ | adisak 2, direk 1, somchai 3, yingyos 2 (map เรียงตามตัวอักษร) |
+| vector | 2 1 3 2 |
+| sort มากไปน้อย | 3 2 2 1 |
+| min(K=2, 4) − 1 = 1 | votes[1] = **2** |
+
+## 5. จุดที่มักพลาด
+- **`vector<int> votes(n)` + `push_back`:** constructor สร้างเลข 0 ไว้ n ตัวแล้ว push_back ไปต่อท้าย → มี 0 เกินมา n ตัว คะแนนอันดับ K อาจกลายเป็น 0 ให้เริ่มจาก vector ว่าง (หรือใช้การกำหนดค่าด้วย index)
+- **ผู้สมัครไม่ถึง K คน:** `votes[K − 1]` อ่านเลยท้าย ต้องจำกัดด้วย `min`
+- **sort จากน้อยไปมาก** แล้วเอา index K−1 จะได้ค่าที่น้อยเป็นอันดับ K
+
+## 6. ความรู้พื้นฐาน
+บทที่ 02 (STL): **ใช้ map นับ** (`cnt[key]++`) แล้ว "ค่ามากเป็นอันดับ k" = sort มากไปน้อยแล้วใช้ index, หรือ `nth_element`, หรือ min-heap ขนาด K (ดูข้อ Heap K-th)

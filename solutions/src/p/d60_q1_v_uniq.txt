@@ -1,0 +1,117 @@
+id: d60_q1_v_uniq
+group: vector
+lesson: 03 · Vector internals + 02 · STL (set)
+stars: 2
+kind: student.h
+tags: CP::vector, std::set, compaction
+title: Vector Unique
+title_th: ทำให้เวกเตอร์ไม่มีตัวซ้ำ (Vector Unique)
+blurb: Remove later repeats while keeping the first occurrence and the order — compaction plus a set of "seen" values.
+blurb_th: ลบตัวที่ซ้ำทีหลังออก โดยเก็บตัวที่เจอครั้งแรกและลำดับเดิมไว้ — บีบอัดอาร์เรย์ + set ของค่าที่เคยเห็น
+files: sol/d60_q1_v_uniq/student.h
+tests: all 3 PDF samples and an empty vector; 300 random vectors with many repeats against a Python model; also tested with `string` and `float` (the real grader uses them) and 10⁶ ints in 0.05 s. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และเวกเตอร์ว่าง; สุ่ม 300 ชุดที่มีค่าซ้ำเยอะเทียบกับโมเดล Python; ทดสอบกับ `string` และ `float` ด้วย (grader จริงใช้) และ int 10⁶ ตัวใช้ 0.05 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void uniq()` to CP::vector: after the call no value appears twice. If a value appears more than once, **the copies that appear later are removed**. Example: {5,1,2,3,1,1,4,1,1,2,3,5} → {5,1,2,3,4}.
+
+- It only has to work for **string, int, float** — all three can be compared with `<`.
+- The grader's `main` differs from yours: it also tests float and string.
+
+## 2. What it really means
+Walk left to right and keep a value **only the first time** you meet it. The kept values stay in their original order.
+
+```text
+v:     5  1  2  3  1  1  4  1  1  2  3  5
+keep?  ✓  ✓  ✓  ✓  ✗  ✗  ✓  ✗  ✗  ✗  ✗  ✗
+result 5  1  2  3  4
+```
+
+## 3. What, why, how
+- **Naive:** for each element, scan everything before it to check for a copy → O(n²). With n around 10⁵–10⁶ that is too slow.
+- **Sort + `std::unique`:** fast, but **destroys the order** (the answer must be 5 1 2 3 4, not 1 2 3 4 5).
+- **Right idea:** a `std::set<T> seen` answers "have I kept this value already?" in O(log n). Combine it with the **read/write compaction** from Erase Many: read index r, write index w ≤ r.
+- `set` works for all three types because it only needs `<` — that is the hint in the problem.
+- Cost: O(n log n) time, O(number of distinct values) extra memory.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 2** (`3 2 1 2 3`):
+
+| r | mData[r] | in seen? | action | w | mData[0..w−1] |
+|---|---|---|---|---|---|
+| 0 | 3 | no | keep → mData[0] | 1 | 3 |
+| 1 | 2 | no | keep → mData[1] | 2 | 3 2 |
+| 2 | 1 | no | keep → mData[2] | 3 | 3 2 1 |
+| 3 | 2 | yes | skip | 3 | 3 2 1 |
+| 4 | 3 | yes | skip | 3 | 3 2 1 |
+
+`mSize = 3` → `3 2 1`.
+
+## 5. Traps
+- **Sorting** changes the order → wrong answer.
+- **`unordered_set`** needs a hash; it works for these three types but `set` is the safe choice the hint points to.
+- **Erasing in place with `erase`** for every repeat → O(n²) shifting.
+- **Comparing floats with `==` in a nested loop** is what the set avoids; the set treats two floats as equal when neither is `<` the other.
+- Forgetting `#include <set>` at the top of `student.h`.
+
+## 6. Background
+Lesson 03 compaction (read r, write w) + Lesson 02 (STL) **set as a "seen" table**. The same pair — "first occurrence wins, keep order" — shows up in many problems; with a hash set it is expected O(n).
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void uniq()` ให้ CP::vector หลังเรียกแล้วจะไม่มีค่าใดซ้ำ ถ้าค่าใดมีมากกว่า 1 ตัว **ตัวที่ปรากฏทีหลังต้องหายไป** ตัวอย่าง: {5,1,2,3,1,1,4,1,1,2,3,5} → {5,1,2,3,4}
+
+- ต้องใช้ได้กับ **string, int, float** เท่านั้น — ทั้งสามแบบเปรียบเทียบด้วย `<` ได้
+- `main` ใน grader ต่างจากที่ได้รับ: ทดสอบ float และ string ด้วย
+
+## 2. จริง ๆ แล้วถามอะไร
+ไล่จากซ้ายไปขวา เก็บค่าไว้ **เฉพาะครั้งแรก** ที่เจอ ค่าที่เก็บไว้ยังเรียงตามลำดับเดิม
+
+```text
+v:     5  1  2  3  1  1  4  1  1  2  3  5
+keep?  ✓  ✓  ✓  ✓  ✗  ✗  ✓  ✗  ✗  ✗  ✗  ✗
+result 5  1  2  3  4
+```
+
+เหมือนจดรายชื่อคนเข้างาน: ใครมาครั้งแรกจดชื่อ ใครเดินผ่านประตูซ้ำไม่ต้องจดอีก
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** แต่ละตัวไล่ดูทุกตัวก่อนหน้าว่าซ้ำไหม → O(n²) ถ้า n ราว 10⁵–10⁶ ช้าเกินไป
+- **sort + `std::unique`:** เร็ว แต่ **ทำลายลำดับ** (คำตอบต้องเป็น 5 1 2 3 4 ไม่ใช่ 1 2 3 4 5)
+- **แนวคิดที่ถูก:** ใช้ `std::set<T> seen` ตอบว่า "ค่านี้เก็บไปแล้วหรือยัง?" ใน O(log n) ร่วมกับ **การบีบอัดแบบอ่าน/เขียน** จากข้อ Erase Many: index อ่าน r, index เขียน w ≤ r
+- `set` ใช้ได้กับทั้งสามชนิดเพราะต้องการแค่ `<` — นี่คือคำใบ้ในโจทย์
+- เวลา O(n log n) หน่วยความจำเพิ่ม O(จำนวนค่าที่ไม่ซ้ำ)
+
+```text
+seen = { }            r อ่านทีละตัว
+r=0: 3 ไม่อยู่ใน seen → เก็บ, seen = {3}
+r=1: 2 ไม่อยู่        → เก็บ, seen = {2,3}
+r=3: 2 อยู่แล้ว        → ข้าม
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 2** (`3 2 1 2 3`):
+
+| r | mData[r] | อยู่ใน seen? | ทำอะไร | w | mData[0..w−1] |
+|---|---|---|---|---|---|
+| 0 | 3 | ไม่ | เก็บ → mData[0] | 1 | 3 |
+| 1 | 2 | ไม่ | เก็บ → mData[1] | 2 | 3 2 |
+| 2 | 1 | ไม่ | เก็บ → mData[2] | 3 | 3 2 1 |
+| 3 | 2 | ใช่ | ข้าม | 3 | 3 2 1 |
+| 4 | 3 | ใช่ | ข้าม | 3 | 3 2 1 |
+
+`mSize = 3` → `3 2 1`
+
+## 5. จุดที่มักพลาด
+- **sort** ทำให้ลำดับเปลี่ยน → ผิด
+- **`unordered_set`** ต้องมี hash ใช้ได้กับสามชนิดนี้ แต่ `set` ปลอดภัยกว่าและตรงกับคำใบ้
+- **เรียก `erase` ทีละตัวที่ซ้ำ** → เลื่อนข้อมูล O(n²)
+- ลืม `#include <set>` ที่ด้านบนของ `student.h`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 03 การบีบอัด (อ่าน r, เขียน w) + บทที่ 02 (STL) **ใช้ set เป็นตาราง "เคยเห็นแล้ว"** คู่นี้ — "ตัวแรกชนะ เก็บลำดับเดิม" — พบในโจทย์หลายข้อ ถ้าใช้ hash set จะเป็น O(n) โดยเฉลี่ย

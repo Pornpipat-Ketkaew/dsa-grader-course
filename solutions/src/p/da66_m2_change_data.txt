@@ -1,0 +1,145 @@
+id: da66_m2_change_data
+group: stl
+lesson: 02 · STL (containers)
+stars: 2
+kind: change_1/2/3()
+tags: stack, queue, priority_queue, map, set, list, const keys, rebuild
+title: Change Data
+title_th: เปลี่ยนข้อมูล (Change Data)
+blurb: Replace every int equal to `from` by `to` inside three nested STL structures. The skill tested: which parts of each container you can read and change.
+blurb_th: เปลี่ยน int ทุกตัวที่เท่ากับ from ให้เป็น to ในโครงสร้าง STL ซ้อนกันสามแบบ สิ่งที่ทดสอบคือ แต่ละคอนเทนเนอร์ให้อ่านและแก้ส่วนไหนได้บ้าง
+files: sol/da66_m2_change_data/student.h
+tests: all 3 PDF samples; 400 random cases across all three functions (including from = to, empty containers, and sets where two elements become equal after the change) against a Python model of each structure and its print order; about 10⁶ ints per structure in 0.19 / 0.27 / 0.33 s. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF; สุ่ม 400 ชุดครบทั้งสามฟังก์ชัน (รวม from = to, คอนเทนเนอร์ว่าง และ set ที่สมาชิกสองตัวกลายเป็นตัวเดียวกันหลังเปลี่ยน) เทียบกับโมเดลใน Python ที่จำลองแต่ละโครงสร้างและลำดับการพิมพ์; ประมาณ 10⁶ int ต่อโครงสร้าง ใช้ 0.19 / 0.27 / 0.33 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Write three functions. Each takes a container `a` and two ints `from`, `to`, and must change **every `int` inside `a` whose value is `from` into `to`**, keeping all other data. You may modify `a` any way you like (even remove and re-add things) as long as the final content is right. The checker prints `a` in the container's own order.
+
+- `void change_1(stack<vector<queue<int>>> &a, int from, int to)`
+- `void change_2(map<string, pair<priority_queue<int>, int>> &a, int from, int to)`
+- `void change_3(set<pair<list<int>, map<int, pair<int,string>>>> &a, int from, int to)`
+
+Edit only `student.h`, no I/O. Input: `x from to`, then the data for `input_x`. Subtasks: 20% only change_1; 20% only change_2 with ≤ 1,000 ints; 10% only change_2; 20% only change_3 with ≤ 1,000 ints and **no existing map key equals `to`**; 30% only change_3, again no existing key equals `to`.
+
+## 2. What it really means
+First find **where the ints are** in each type, then ask **what that container lets you do**:
+
+| function | ints live in | obstacle | fix |
+|---|---|---|---|
+| change_1 | the queues | stack: only `top()` visible; queue: only `front()` | pop the stack into a vector and push back; rotate each queue |
+| change_2 | the priority_queue, and `pair.second` | priority_queue: only `top()`; map **keys** are strings (no change) | empty the heap into a new heap; edit `.second` in place |
+| change_3 | the list, the map **keys**, and the map values' `.first` | set elements are **const**; map keys are **const** | build a new map and a new set, then replace |
+
+```text
+change_1 sample (from 1 to 2):         stack top →  [ (7,1) ]
+                                                    [ (1,2) (1,4) (5,6) ]   ← bottom
+after:                                              [ (7,2) ]
+                                                    [ (2,2) (2,4) (5,6) ]
+printed top first:   7,2,
+                     2,2, 2,4, 5,6,
+```
+
+## 3. What, why, how
+- **change_1.** A `stack` has no iterators. Pop every vector into `tmp` (so `tmp[0]` is the old top), fix the queues, and push back from `tmp[last]` down to `tmp[0]` so the old bottom goes in first. A `queue` has no iterators either: **rotate** it `n = size()` times (front → fix → push back); after exactly n rotations the order is the original one.
+- **change_2.** Iterating a `map` with `auto &kv` gives `kv.first` (const key) and `kv.second` (changeable value). A `priority_queue` only shows its top: pop all values, fix each, push into a fresh heap (it re-sorts itself, which matters because the printed order is largest first). Then fix `kv.second.second`.
+- **change_3.** Elements of a `set` are const: changing them in place could break the sorted order, so C++ forbids it. The same holds for map keys. So for each element build a **fixed copy** of the list and a **new map** (changed key, fixed value), and insert the pair into a **new set**; finally `a = move(result)`. The new set sorts itself, and if two elements become identical they merge, exactly what a set holding the changed data must look like.
+- **Cost:** every int is handled once, plus the log factors of the heap / set / map → O(total · log).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of change_2 sample** (from 1, to 2):
+
+| key | heap before (top first) | popped → fixed | new heap printed | second |
+|---|---|---|---|---|
+| a | 3 2 1 | 3, 2, **1→2** | 3 2 2 | 6 |
+| b | 9 8 7 | 9, 8, 7 | 9 8 7 | **1→2** |
+| c | 1 −20 | **1→2**, −20 | 2 −20 | 99 |
+
+**Trace of change_3 sample** (from 1, to 2):
+
+| element | list after | map after (key:value) | note |
+|---|---|---|---|
+| ⟨1 2 3 4 5⟩ | 2 2 3 4 5 | 2:(2,a) 3:(4,b) 5:(2,c) | key **1→2**, values 2 and **1→2** |
+| ⟨−9 1 −7 1⟩ | −9 2 −7 2 | 8:(3,aa) 9:(2,dd) 11:(4,bb) | map unchanged |
+
+The new set orders by the list first: ⟨−9 …⟩ < ⟨2 …⟩, so the second element prints first.
+
+## 5. Traps
+- **Changing set elements through an iterator** (`const_cast` or similar): breaks the set's ordering; later lookups and the printed order can be wrong. Rebuild instead.
+- **Forgetting the hidden ints:** the `int` in `pair<priority_queue<int>, int>`, the **map keys** in change_3, and `pair<int,string>.first`.
+- **Changing a map key by `m[to] = m[from]` without erasing `from`:** leaves the old entry. Building a new map avoids that.
+- **Putting the stack back in the wrong order:** pushing `tmp[0]` first reverses the stack.
+- **Rotating a queue while it grows** (`while (!q.empty())` with pushes inside never ends). Fix the count `n` first.
+- **Copying big containers by value** in loops: fine for correctness; `std::move` avoids extra copies.
+- If an existing key already equals `to`, two keys would merge and the result is undefined by the statement; the tests guarantee it doesn't happen.
+
+## 6. Background
+Lesson 02 (STL), sections 5–8: each container's **interface decides the algorithm**. `stack`/`queue`/`priority_queue` are adapters with no iterators: you can only take things out and put them back. `map` values are editable, keys are not. `set` elements are not editable at all. When you can't edit in place, **rebuild** and swap. The same reasoning appears whenever you need to "update a key" in a map or set: erase + insert (or `extract` in C++17).
+==== th
+## 1. โจทย์บอกอะไร
+ให้เขียนสามฟังก์ชัน แต่ละฟังก์ชันรับคอนเทนเนอร์ `a` กับ int สองตัว `from`, `to` และต้องเปลี่ยน **`int` ทุกตัวใน `a` ที่มีค่าเป็น `from` ให้เป็น `to`** โดยข้อมูลอื่นยังอยู่ครบ จะแก้ `a` อย่างไรก็ได้ (ลบแล้วเพิ่มใหม่ก็ได้) ขอแค่ผลสุดท้ายถูก ตัวตรวจจะพิมพ์ `a` ตามลำดับของคอนเทนเนอร์นั้น
+
+- `void change_1(stack<vector<queue<int>>> &a, int from, int to)`
+- `void change_2(map<string, pair<priority_queue<int>, int>> &a, int from, int to)`
+- `void change_3(set<pair<list<int>, map<int, pair<int,string>>>> &a, int from, int to)`
+
+แก้ได้เฉพาะ `student.h` ห้ามอ่าน/พิมพ์ข้อมูล ข้อมูลนำเข้า: `x from to` แล้วตามด้วยข้อมูลของ `input_x` ชุดทดสอบ: 20% เรียกแค่ change_1; 20% แค่ change_2 และ int ไม่เกิน 1,000 ตัว; 10% แค่ change_2; 20% แค่ change_3 โดย int ไม่เกิน 1,000 ตัวและ **ไม่มี key ใน map ที่เท่ากับ `to` อยู่ก่อน**; 30% แค่ change_3 และไม่มี key ที่เท่ากับ `to` เช่นกัน
+
+## 2. จริง ๆ แล้วถามอะไร
+ขั้นแรกหาว่า **int อยู่ตรงไหน** ในแต่ละชนิด แล้วถามว่า **คอนเทนเนอร์นั้นยอมให้ทำอะไรได้บ้าง** (เหมือนกล่องซ้อนกล่อง: บางกล่องเปิดได้แค่ด้านบน บางกล่องปิดผนึก ต้องเทออกมาใส่กล่องใหม่)
+
+| ฟังก์ชัน | int อยู่ใน | อุปสรรค | วิธีแก้ |
+|---|---|---|---|
+| change_1 | ในคิว | stack เห็นแค่ `top()`; queue เห็นแค่ `front()` | pop stack ลง vector แล้ว push กลับ; หมุนคิวแต่ละตัว |
+| change_2 | ใน priority_queue และ `pair.second` | priority_queue เห็นแค่ `top()`; **key** ของ map เป็น string (ไม่ต้องเปลี่ยน) | เทฮีปลงฮีปใหม่; แก้ `.second` ได้ตรง ๆ |
+| change_3 | ในลิสต์, **key** ของ map และ `.first` ของค่าใน map | สมาชิกของ set เป็น **const**; key ของ map เป็น **const** | สร้าง map ใหม่และ set ใหม่ แล้วแทนที่ |
+
+```text
+change_1 sample (from 1 to 2):         stack top →  [ (7,1) ]
+                                                    [ (1,2) (1,4) (5,6) ]   ← bottom
+after:                                              [ (7,2) ]
+                                                    [ (2,2) (2,4) (5,6) ]
+printed top first:   7,2,
+                     2,2, 2,4, 5,6,
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **change_1** `stack` ไม่มี iterator ให้ pop vector ทุกตัวลง `tmp` (`tmp[0]` คือ top เดิม) แก้คิว แล้ว push กลับจาก `tmp[ตัวสุดท้าย]` ลงไปจนถึง `tmp[0]` เพื่อให้ตัวล่างสุดเดิมเข้าไปก่อน `queue` ก็ไม่มี iterator: ให้ **หมุน** คิว `n = size()` ครั้ง (เอาหัวออก → แก้ → ใส่ท้าย) หมุนครบ n ครั้งพอดี ลำดับจะกลับมาเหมือนเดิม
+- **change_2** วนใน `map` ด้วย `auto &kv` ได้ `kv.first` (key แก้ไม่ได้) และ `kv.second` (ค่า แก้ได้) `priority_queue` เห็นแค่ตัวบนสุด: pop ทุกตัว แก้ แล้ว push ลงฮีปใหม่ (ฮีปเรียงตัวเอง ซึ่งสำคัญเพราะพิมพ์จากมากไปน้อย) แล้วแก้ `kv.second.second`
+- **change_3** สมาชิกของ `set` เป็น const: ถ้าแก้ในที่อาจทำให้ลำดับที่เรียงไว้พัง C++ จึงห้าม key ของ map ก็เช่นกัน ดังนั้นสำหรับแต่ละสมาชิก ให้สร้าง **สำเนาลิสต์ที่แก้แล้ว** และ **map ใหม่** (key ที่เปลี่ยนแล้ว ค่าที่แก้แล้ว) ใส่คู่นั้นลง **set ใหม่** สุดท้าย `a = move(result)` set ใหม่จะเรียงตัวเอง และถ้าสองสมาชิกกลายเป็นตัวเดียวกันก็จะรวมเป็นตัวเดียว ซึ่งเป็นสิ่งที่ set ที่เก็บข้อมูลหลังเปลี่ยนควรเป็น
+- **เวลา:** int แต่ละตัวถูกจัดการครั้งเดียว บวก log ของฮีป / set / map → O(ทั้งหมด · log)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง change_2** (from 1, to 2):
+
+| key | ฮีปก่อน (บนสุดก่อน) | pop → แก้ | ฮีปใหม่ที่พิมพ์ | second |
+|---|---|---|---|---|
+| a | 3 2 1 | 3, 2, **1→2** | 3 2 2 | 6 |
+| b | 9 8 7 | 9, 8, 7 | 9 8 7 | **1→2** |
+| c | 1 −20 | **1→2**, −20 | 2 −20 | 99 |
+
+**ไล่ตัวอย่าง change_3** (from 1, to 2):
+
+| สมาชิก | ลิสต์หลังแก้ | map หลังแก้ (key:ค่า) | หมายเหตุ |
+|---|---|---|---|
+| ⟨1 2 3 4 5⟩ | 2 2 3 4 5 | 2:(2,a) 3:(4,b) 5:(2,c) | key **1→2**, ค่า 2 และ **1→2** |
+| ⟨−9 1 −7 1⟩ | −9 2 −7 2 | 8:(3,aa) 9:(2,dd) 11:(4,bb) | map ไม่เปลี่ยน |
+
+set ใหม่เรียงตามลิสต์ก่อน: ⟨−9 …⟩ < ⟨2 …⟩ สมาชิกที่สองจึงถูกพิมพ์ก่อน
+
+## 5. จุดที่มักพลาด
+- **แก้สมาชิกของ set ผ่าน iterator** (`const_cast` หรือวิธีคล้ายกัน): ทำให้ลำดับใน set พัง การค้นหาและลำดับการพิมพ์ทีหลังอาจผิด ให้สร้างใหม่แทน
+- **ลืม int ที่ซ่อนอยู่:** `int` ใน `pair<priority_queue<int>, int>`, **key ของ map** ใน change_3 และ `.first` ของ `pair<int,string>`
+- **เปลี่ยน key ของ map ด้วย `m[to] = m[from]` โดยไม่ลบ `from`:** ตัวเก่ายังอยู่ การสร้าง map ใหม่เลี่ยงปัญหานี้
+- **ใส่ stack กลับผิดลำดับ:** push `tmp[0]` ก่อน จะทำให้ stack กลับด้าน
+- **หมุนคิวขณะที่มันโตขึ้น** (`while (!q.empty())` ที่มี push ข้างในจะไม่มีวันจบ) ให้กำหนดจำนวนรอบ `n` ไว้ก่อน
+- **คัดลอกคอนเทนเนอร์ใหญ่ ๆ แบบ by value** ในลูป: ยังถูก แต่ `std::move` ช่วยลดการคัดลอก
+- ถ้ามี key เดิมที่เท่ากับ `to` อยู่แล้ว สอง key จะรวมกัน โจทย์ไม่ได้กำหนดว่าต้องเป็นอย่างไร และชุดทดสอบรับประกันว่าไม่เกิดกรณีนี้
+
+## 6. ความรู้พื้นฐาน
+บทที่ 02 (STL) หัวข้อ 5–8: **interface ของคอนเทนเนอร์เป็นตัวกำหนดอัลกอริทึม** `stack`/`queue`/`priority_queue` เป็น adapter ที่ไม่มี iterator: ได้แค่เอาออกแล้วใส่กลับ ค่าใน `map` แก้ได้ แต่ key แก้ไม่ได้ สมาชิกของ `set` แก้ไม่ได้เลย ถ้าแก้ในที่ไม่ได้ ให้ **สร้างใหม่** แล้วสลับ เหตุผลเดียวกันใช้ทุกครั้งที่ต้อง "เปลี่ยน key" ใน map หรือ set: ลบแล้วใส่ใหม่ (หรือใช้ `extract` ใน C++17)

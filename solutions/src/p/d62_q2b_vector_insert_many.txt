@@ -1,0 +1,117 @@
+id: d62_q2b_vector_insert_many
+group: vector
+lesson: 03 · Vector internals
+stars: 3
+kind: student.h
+tags: CP::vector, sort, merge, new array
+title: Insert Many to Vector
+title_th: แทรกข้อมูลหลายตำแหน่ง (Insert Many)
+blurb: Insert many (position, value) pairs given in ORIGINAL positions — sort them, then merge with the old array into a new one.
+blurb_th: แทรกคู่ (ตำแหน่ง, ค่า) หลายคู่ที่อ้างตำแหน่ง "เดิม" — sort คู่เหล่านั้นแล้ว merge กับอาร์เรย์เดิมลงอาร์เรย์ใหม่
+files: sol/d62_q2b_vector_insert_many/student.h
+tests: the PDF sample and inserting into an empty vector; 300 random cases (all positions 0..n, any subset, unsorted) against a Python model; n = m = 10⁵ in 0.10 s. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF และแทรกในเวกเตอร์ว่าง; สุ่ม 300 ชุด (ตำแหน่ง 0..n เลือกบางส่วน ไม่เรียง) เทียบกับโมเดล Python; n = m = 10⁵ ใช้ 0.10 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void insert_many(CP::vector<pair<int,T>> data)`. Each pair means "insert `.second` at position `.first`", and **positions are positions in v before any insertion**. Example: v = {A,B,C,D,E,F}, data = {{0,X},{6,Y},{2,Z}} → {X,A,B,Z,C,D,E,F,Y}.
+
+- Positions are all different; a position may equal `v.size()` (insert at the end).
+- data is **not sorted**.
+- Input: n, the n values, m, then m lines `position value`. Output: the new v.
+
+## 2. What it really means
+"Position p" = "just before old element p". So read the old array once, and **before copying old element i, emit the new value whose position is i** (if any). Position n means "after everything".
+
+```text
+old v:      A   B   C   D   E   F
+index:      0   1   2   3   4   5   6(end)
+requests:   X       Z                Y
+result:   X A   B Z C   D   E   F Y
+```
+
+## 3. What, why, how
+- **Naive:** call `insert` once per pair. Two problems: (1) every insert shifts the tail → O(n·m); (2) after the first insert, the old positions move, so you must insert from the **largest** position first.
+- **Right idea — merge:** sort data by position (O(m log m)), then fill a **new array of size n + m** with two pointers: i over the old elements, j over the sorted requests. Total O(n + m log m).
+- **How:**
+  1. `sort` data by `.first`.
+  2. `arr = new T[n + m]`; k = next free slot.
+  3. For i = 0 .. n−1: while `data[j].first == i`, put `data[j].second`; then put `mData[i]`.
+  4. Put the remaining requests (position n).
+  5. `delete[] mData`, `mData = arr`, `mSize = mCap = n + m`.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the sample** (v = 1 2 3 4 5 6; sorted data = (0,10) (2,12) (6,11)):
+
+| i | requests with pos = i | arr after this step |
+|---|---|---|
+| 0 | 10 | 10 **1** |
+| 1 | — | 10 1 **2** |
+| 2 | 12 | 10 1 2 12 **3** |
+| 3, 4, 5 | — | 10 1 2 12 3 **4 5 6** |
+| after loop | 11 (pos 6) | 10 1 2 12 3 4 5 6 **11** |
+
+## 5. Traps
+- **`k` and `j` must advance after each write** (`arr[k] = ...; k++; j++;`). If you write `arr[k] = data[j].second` without `k++`, the next write overwrites it; without `j++` the while never ends.
+- **Forgetting requests at position n** → the "insert at end" values disappear.
+- **Not sorting** → requests out of order are skipped by the merge.
+- **Inserting front-to-back with `insert`** → positions drift.
+- **Leaking** the old `mData`.
+
+## 6. Background
+Lesson 03 + the **merge** step of merge sort: two sorted streams, two indices, one output. When updates are given relative to the original array, "sort the updates, then sweep once" is the standard trick (also Erase Many).
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void insert_many(CP::vector<pair<int,T>> data)` แต่ละคู่แปลว่า "แทรก `.second` ที่ตำแหน่ง `.first`" โดย **ตำแหน่งคือตำแหน่งใน v ก่อนมีการแทรกใด ๆ** ตัวอย่าง: v = {A,B,C,D,E,F}, data = {{0,X},{6,Y},{2,Z}} → {X,A,B,Z,C,D,E,F,Y}
+
+- ตำแหน่งไม่ซ้ำกัน และอาจเท่ากับ `v.size()` (แทรกท้ายสุด)
+- data **ไม่ได้เรียงมา**
+- ข้อมูลนำเข้า: n, ค่า n ตัว, m แล้ว m บรรทัด `ตำแหน่ง ค่า` ผลลัพธ์: v ใหม่
+
+## 2. จริง ๆ แล้วถามอะไร
+"ตำแหน่ง p" = "ก่อนข้อมูลเดิมตัวที่ p" ดังนั้นอ่านอาร์เรย์เดิมรอบเดียว และ **ก่อนคัดลอกข้อมูลเดิมตัวที่ i ให้ใส่ค่าใหม่ที่ตำแหน่งเป็น i ก่อน** (ถ้ามี) ตำแหน่ง n คือ "ต่อท้ายทั้งหมด"
+
+```text
+old v:      A   B   C   D   E   F
+index:      0   1   2   3   4   5   6(end)
+requests:   X       Z                Y
+result:   X A   B Z C   D   E   F Y
+```
+
+เหมือนสลับไพ่สองกอง: กองหนึ่งคือข้อมูลเดิม อีกกองคือคำขอที่เรียงตามตำแหน่งแล้ว หยิบลงกองใหม่ทีละใบตามลำดับ
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** เรียก `insert` ทีละคู่ มีสองปัญหา: (1) ทุกครั้งต้องเลื่อนส่วนท้าย → O(n·m) (2) หลังแทรกตัวแรก ตำแหน่งเดิมจะคลาด ต้องแทรกจากตำแหน่ง **มากสุด** ก่อน
+- **แนวคิดที่ถูก — merge:** sort data ตามตำแหน่ง (O(m log m)) แล้วเติม **อาร์เรย์ใหม่ขนาด n + m** ด้วยตัวชี้สองตัว: i ไล่ข้อมูลเดิม j ไล่คำขอที่เรียงแล้ว รวม O(n + m log m)
+- **ขั้นตอน:**
+  1. `sort` data ตาม `.first`
+  2. `arr = new T[n + m]`; k = ช่องว่างถัดไป
+  3. i = 0 .. n−1: ขณะที่ `data[j].first == i` ใส่ `data[j].second` ก่อน แล้วค่อยใส่ `mData[i]`
+  4. ใส่คำขอที่เหลือ (ตำแหน่ง n)
+  5. `delete[] mData`, `mData = arr`, `mSize = mCap = n + m`
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (v = 1 2 3 4 5 6; data ที่เรียงแล้ว = (0,10) (2,12) (6,11)):
+
+| i | คำขอที่ pos = i | arr หลังขั้นนี้ |
+|---|---|---|
+| 0 | 10 | 10 **1** |
+| 1 | — | 10 1 **2** |
+| 2 | 12 | 10 1 2 12 **3** |
+| 3, 4, 5 | — | 10 1 2 12 3 **4 5 6** |
+| หลังลูป | 11 (pos 6) | 10 1 2 12 3 4 5 6 **11** |
+
+## 5. จุดที่มักพลาด
+- **`k` และ `j` ต้องเพิ่มหลังเขียนทุกครั้ง** (`arr[k] = ...; k++; j++;`) ถ้าไม่ `k++` ครั้งต่อไปจะเขียนทับช่องเดิม ถ้าไม่ `j++` ลูป while จะไม่จบ
+- **ลืมคำขอที่ตำแหน่ง n** → ค่าที่ต้องต่อท้ายหายไป
+- **ไม่ sort** → คำขอที่ไม่เรียงจะถูก merge ข้ามไป
+- **แทรกจากหน้าไปหลังด้วย `insert`** → ตำแหน่งคลาด
+- **ไม่ delete** `mData` เก่า → leak
+
+## 6. ความรู้พื้นฐาน
+บทที่ 03 + ขั้นตอน **merge** ของ merge sort: สองสายที่เรียงแล้ว สอง index หนึ่งผลลัพธ์ เมื่อคำสั่งแก้ไขอ้างอิงอาร์เรย์เดิม "sort คำสั่งแล้วไล่ครั้งเดียว" คือเทคนิคมาตรฐาน (เหมือนข้อ Erase Many)

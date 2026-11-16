@@ -1,0 +1,109 @@
+id: d64_q4a_list_merge
+group: list
+lesson: 05 · Linked list
+stars: 2
+kind: student.h
+tags: CP::list, splice, O(ls.size())
+title: List Merge
+title_th: รวมลิสต์ (List Merge)
+blurb: Append every list inside ls to *this in O(ls.size()) — splice each list's whole chain with four pointer writes and leave it empty.
+blurb_th: ต่อทุกลิสต์ใน ls เข้าท้าย *this ใน O(ls.size()) — ต่อทั้งสายของแต่ละลิสต์ด้วยการเขียนพอยน์เตอร์ 4 ครั้งแล้วทำให้มันว่าง
+files: sol/d64_q4a_list_merge/student.h
+tests: the PDF example; 300 random cases (empty *this, empty inner lists, no inner lists) checked forward, backward, by size, and that every inner list is empty and still usable; 10⁵ inner lists in 0.08 s.
+tests_th: ตัวอย่างใน PDF; สุ่ม 300 ชุด (*this ว่าง, ลิสต์ข้างในว่าง, ไม่มีลิสต์ข้างใน) ตรวจเดินหน้า ถอยหลัง ขนาด และทุกลิสต์ข้างในว่างและยังใช้ต่อได้; ลิสต์ข้างใน 10⁵ ตัวใช้ 0.08 วินาที
+==== en
+## 1. What the problem says
+Add `void merge(CP::list<CP::list<T>> &ls)`: move all data of the lists in ls, in order, to the end of *this. Afterwards ls has **the same number of lists**, but every one is **empty**.
+
+- a = {1,2,3}, ls = {{10,20,30},{100},{},{990,991,992}} → a = {1,2,3,10,20,30,100,990,991,992}, ls = {{},{},{},{}}.
+- It should take **O(ls.size())** — independent of how many elements there are.
+
+## 2. What it really means
+Copying element by element costs O(total elements). To be O(ls.size()) we must move **each list as a whole chain** — a splice.
+
+```text
+this: H ⇄ 1 ⇄ 2 ⇄ 3 ⇄ H
+x:    Hx ⇄ 10 ⇄ 20 ⇄ 30 ⇄ Hx
+after:H ⇄ 1 ⇄ 2 ⇄ 3 ⇄ 10 ⇄ 20 ⇄ 30 ⇄ H        Hx ⇄ Hx (empty)
+```
+
+## 3. What, why, how
+For each list x in ls (walk ls with its iterator — ls is a list *of lists*):
+
+- skip it if empty;
+- `first = x.mHeader->next`, `last = x.mHeader->prev`, `myLast = mHeader->prev`;
+- `myLast->next = first; first->prev = myLast; last->next = mHeader; mHeader->prev = last;`
+- `mSize += x.mSize`; make x empty: its header points to itself, `x.mSize = 0`.
+
+O(1) per inner list → O(ls.size()).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the example:**
+
+| x | moved chain | this after |
+|---|---|---|
+| {10,20,30} | 10..30 | 1 2 3 10 20 30 |
+| {100} | 100 | … 30 100 |
+| {} | skip | |
+| {990,991,992} | 990..992 | … 100 990 991 992 |
+
+## 5. Traps
+- **`push_back` every element** — correct output but O(total), may TLE, and leaves x with its data (must be empty).
+- **Accessing `ls.mHeader`**: ls is a `CP::list<CP::list<T>>`, a *different* class from `CP::list<T>`, so its protected members are not accessible here — use `ls.begin()/end()`. The inner lists *are* `CP::list<T>`, so `x.mHeader` is fine.
+- **`auto x = *it`** makes a **copy**; you'd empty the copy and leave ls unchanged. Use a reference `CP::list<T> &x = *it`.
+- **Splicing an empty list:** first/last would be its header → corrupts the ring.
+
+## 6. Background
+Lesson 05: splice is the reason to use linked lists. Template detail: `list<int>` and `list<list<int>>` are unrelated classes, so `protected` is per instantiation.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void merge(CP::list<CP::list<T>> &ls)`: ย้ายข้อมูลทั้งหมดของลิสต์ใน ls ตามลำดับ ไปต่อท้าย *this หลังเรียกแล้ว ls ยังมี **จำนวนลิสต์เท่าเดิม** แต่ทุกลิสต์ **ว่าง**
+
+- a = {1,2,3}, ls = {{10,20,30},{100},{},{990,991,992}} → a = {1,2,3,10,20,30,100,990,991,992}, ls = {{},{},{},{}}
+- ควรใช้เวลา **O(ls.size())** — ไม่ขึ้นกับจำนวนข้อมูลข้างใน
+
+## 2. จริง ๆ แล้วถามอะไร
+คัดลอกทีละตัวใช้เวลา O(จำนวนข้อมูลทั้งหมด) ถ้าจะให้เป็น O(ls.size()) ต้องย้าย **แต่ละลิสต์ทั้งสาย** — คือการ splice
+
+```text
+this: H ⇄ 1 ⇄ 2 ⇄ 3 ⇄ H
+x:    Hx ⇄ 10 ⇄ 20 ⇄ 30 ⇄ Hx
+after:H ⇄ 1 ⇄ 2 ⇄ 3 ⇄ 10 ⇄ 20 ⇄ 30 ⇄ H        Hx ⇄ Hx (empty)
+```
+
+เหมือนต่อตู้รถไฟทั้งขบวนเข้าท้ายขบวนเรา: ไม่ต้องย้ายผู้โดยสารทีละคน แค่ต่อข้อต่อสองจุด
+
+## 3. อะไร ทำไม อย่างไร
+สำหรับแต่ละลิสต์ x ใน ls (เดิน ls ด้วย iterator — ls คือลิสต์ *ของลิสต์*):
+
+- ถ้าว่างก็ข้าม
+- `first = x.mHeader->next`, `last = x.mHeader->prev`, `myLast = mHeader->prev`
+- `myLast->next = first; first->prev = myLast; last->next = mHeader; mHeader->prev = last;`
+- `mSize += x.mSize` แล้วทำให้ x ว่าง: header ชี้หาตัวเอง `x.mSize = 0`
+
+O(1) ต่อลิสต์ข้างใน → O(ls.size())
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง:**
+
+| x | สายที่ย้าย | this หลังทำ |
+|---|---|---|
+| {10,20,30} | 10..30 | 1 2 3 10 20 30 |
+| {100} | 100 | … 30 100 |
+| {} | ข้าม | |
+| {990,991,992} | 990..992 | … 100 990 991 992 |
+
+## 5. จุดที่มักพลาด
+- **push_back ทีละตัว** — ผลถูกแต่ O(ทั้งหมด) อาจ TLE และ x ยังมีข้อมูลอยู่ (ต้องว่าง)
+- **เข้าถึง `ls.mHeader`**: ls เป็น `CP::list<CP::list<T>>` ซึ่งเป็น *คนละคลาส* กับ `CP::list<T>` จึงเข้าถึงสมาชิก protected ไม่ได้ — ใช้ `ls.begin()/end()` ส่วนลิสต์ข้างใน *เป็น* `CP::list<T>` ใช้ `x.mHeader` ได้
+- **`auto x = *it`** คือการ **คัดลอก** จะไปทำให้สำเนาว่าง ส่วน ls ไม่เปลี่ยน ต้องใช้ reference `CP::list<T> &x = *it`
+- **splice ลิสต์ว่าง:** first/last จะเป็น header ของมัน → วงพัง
+
+## 6. ความรู้พื้นฐาน
+บทที่ 05: splice คือเหตุผลที่เลือกใช้ลิสต์โยง รายละเอียดเรื่อง template: `list<int>` กับ `list<list<int>>` เป็นคลาสที่ไม่เกี่ยวกัน `protected` จึงแยกตามแต่ละ instantiation

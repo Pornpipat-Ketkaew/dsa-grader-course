@@ -1,0 +1,97 @@
+id: d63_q2a_pair_gte
+group: heap
+lesson: 06 · Comparators & operator overloading
+stars: 1
+kind: student.h
+tags: CP::pair, operator>=, lexicographic order
+title: Pair GTE
+title_th: เปรียบเทียบคู่ด้วย >= (Pair GTE)
+blurb: Write operator>= for CP::pair (first, then second) without calling pair's own < or ==.
+blurb_th: เขียน operator>= ของ CP::pair (เทียบ first ก่อน แล้วค่อย second) โดยห้ามเรียก < หรือ == ของ pair
+files: sol/d63_q2a_pair_gte/student.h
+tests: the PDF table; 300 random pairs of CP::pair<int,string> (many equal firsts / seconds) against Python tuple >=. The forbidden operators print a message if called — they never were.
+tests_th: ตารางใน PDF; สุ่ม CP::pair<int,string> 300 คู่ (first / second เท่ากันบ่อย) เทียบกับ tuple >= ใน Python; operator ที่ห้ามใช้จะพิมพ์ข้อความถ้าถูกเรียก — ไม่เคยถูกเรียก
+==== en
+## 1. What the problem says
+Override `operator>=` of CP::pair with these rules:
+
+- a == b when both first and both second are equal.
+- a > b when **a.first > b.first**, or **firsts equal and a.second > b.second**.
+- `>=` must not modify either pair and **must not call pair's `operator<` or `operator==`** (they print "You cannot call …").
+- Example: {5,"yes"} ≥ {1,"haha"} → true; {1,"haha"} ≥ {1,"haha"} → true; {9,"no"} ≥ {9,"zzz"} → false.
+
+## 2. What it really means
+**Lexicographic** (dictionary) order on two fields — the same order as `std::pair`. Comparing the *fields* (int, string) with `<` is fine; only the *pair's* operators are banned.
+
+```text
+compare first:   a.first > b.first → true     a.first < b.first → false
+firsts tie  →  compare second:  a.second >= b.second ?
+```
+
+## 3. What, why, how
+- With only `<` on the fields: "x > y" is `y < x`, and "x ≥ y" is `!(x < y)`.
+- So: if `b.first < a.first` → true; if `a.first < b.first` → false; else return `!(a.second < b.second)`.
+- Using only `<` means it works for any T1/T2 that has `<` (strings, ints, …).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**The PDF table:**
+
+| a | b | first decides? | second | a >= b |
+|---|---|---|---|---|
+| {5, yes} | {1, haha} | 1 < 5 → true | — | true |
+| {1, haha} | {1, haha} | tie | !("haha" < "haha") | true |
+| {9, no} | {9, zzz} | tie | !("no" < "zzz") = false | false |
+
+## 5. Traps
+- **Calling `*this < other` or `*this == other`** — forbidden, prints a message and loses marks.
+- **`first >= other.first && second >= other.second`** is wrong: {2,"a"} ≥ {1,"z"} must be true (first decides alone).
+- **Using `==` on the fields** is allowed, but writing the logic with only `<` is more general.
+
+## 6. Background
+Lesson 06: every ordering in C++ can be built from one `<` ("strict weak ordering"): `a > b ⇔ b < a`, `a ≥ b ⇔ !(a < b)`, `a == b ⇔ !(a<b) && !(b<a)`. Multi-key comparison is the same idea used in Custom Order and in heap comparators.
+==== th
+## 1. โจทย์บอกอะไร
+override `operator>=` ของ CP::pair ตามกฎนี้:
+
+- a == b เมื่อ first เท่ากันและ second เท่ากัน
+- a > b เมื่อ **a.first > b.first** หรือ **first เท่ากันและ a.second > b.second**
+- `>=` ต้องไม่แก้ข้อมูลของทั้งสองคู่ และ **ห้ามเรียก `operator<` หรือ `operator==` ของ pair** (มันจะพิมพ์ "You cannot call …")
+- ตัวอย่าง: {5,"yes"} ≥ {1,"haha"} → true; {1,"haha"} ≥ {1,"haha"} → true; {9,"no"} ≥ {9,"zzz"} → false
+
+## 2. จริง ๆ แล้วถามอะไร
+ลำดับ **แบบพจนานุกรม** (lexicographic) บนสองฟิลด์ — แบบเดียวกับ `std::pair` การเทียบ *ฟิลด์* (int, string) ด้วย `<` ทำได้ ที่ห้ามคือ operator ของ *pair*
+
+```text
+compare first:   a.first > b.first → true     a.first < b.first → false
+firsts tie  →  compare second:  a.second >= b.second ?
+```
+
+เหมือนเรียงชื่อในสมุดโทรศัพท์: ดูนามสกุลก่อน ถ้านามสกุลเหมือนกันค่อยดูชื่อ
+
+## 3. อะไร ทำไม อย่างไร
+- ถ้ามีแค่ `<` บนฟิลด์: "x > y" คือ `y < x` และ "x ≥ y" คือ `!(x < y)`
+- ดังนั้น: ถ้า `b.first < a.first` → true; ถ้า `a.first < b.first` → false; ไม่อย่างนั้นคืน `!(a.second < b.second)`
+- ใช้แค่ `<` ทำให้ใช้ได้กับ T1/T2 ใดก็ได้ที่มี `<` (string, int, …)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ตารางใน PDF:**
+
+| a | b | first ตัดสินได้ไหม? | second | a >= b |
+|---|---|---|---|---|
+| {5, yes} | {1, haha} | 1 < 5 → true | — | true |
+| {1, haha} | {1, haha} | เท่ากัน | !("haha" < "haha") | true |
+| {9, no} | {9, zzz} | เท่ากัน | !("no" < "zzz") = false | false |
+
+## 5. จุดที่มักพลาด
+- **เรียก `*this < other` หรือ `*this == other`** — ห้าม จะพิมพ์ข้อความและเสียคะแนน
+- **`first >= other.first && second >= other.second`** ผิด: {2,"a"} ≥ {1,"z"} ต้องเป็น true (first ตัดสินได้เลย)
+- **ใช้ `==` กับฟิลด์** ทำได้ แต่เขียนด้วย `<` อย่างเดียวจะใช้ได้กว้างกว่า
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: การเรียงลำดับทุกแบบใน C++ สร้างจาก `<` ตัวเดียวได้ ("strict weak ordering"): `a > b ⇔ b < a`, `a ≥ b ⇔ !(a < b)`, `a == b ⇔ !(a<b) && !(b<a)` การเทียบหลายคีย์เป็นแนวคิดเดียวกับข้อ Custom Order และ comparator ของฮีป

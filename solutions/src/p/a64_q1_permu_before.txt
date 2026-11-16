@@ -1,0 +1,123 @@
+id: a64_q1_permu_before
+group: algo
+lesson: 11 · Recursion & backtracking
+stars: 2
+kind: program
+tags: permutations, lexicographic order, pruning, used[]
+title: Permutation with Constraint
+title_th: การเรียงสับเปลี่ยนแบบมีเงื่อนไข (Permutation with Constraint)
+blurb: All permutations of 0..n−1 in lexicographic order where each rule "a before b" holds. Never place b while a is still unused.
+blurb_th: การเรียงสับเปลี่ยนทั้งหมดของ 0..n−1 ตามลำดับพจนานุกรม ที่ทุกกฎ "a มาก่อน b" เป็นจริง ห้ามวาง b ตราบใดที่ยังไม่ได้วาง a
+files: sol/a64_q1_permu_before/main.cpp
+tests: all 5 PDF samples plus a contradictory pair (0 before 1 and 1 before 0 → no output); 300 random cases (n ≤ 7, random rules) compared line by line with Python itertools.permutations + filter; n = 11 with 5 rules (1,247,400 lines) in 0.23 s; n = 20 with a 19-rule chain in 0.006 s thanks to pruning.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF และคู่ที่ขัดกัน (0 ก่อน 1 และ 1 ก่อน 0 → ไม่มีผลลัพธ์); สุ่ม 300 ชุด (n ≤ 7 กฎสุ่ม) เทียบทีละบรรทัดกับ itertools.permutations + กรอง ใน Python; n = 11 กับกฎ 5 ข้อ (1,247,400 บรรทัด) ใช้ 0.23 วินาที; n = 20 กับกฎต่อกันเป็นสาย 19 ข้อ ใช้ 0.006 วินาทีเพราะตัดกิ่ง
+==== en
+## 1. What the problem says
+Print **all permutations of 0 … n−1** in **lexicographic order** (compare position by position; the first differing position decides), but only those that satisfy **m rules "a[i] appears before b[i]"**. The b values are all different; a values may repeat.
+
+- Input: `n m` (1 ≤ n ≤ 20, the samples also use m = 0), then m lines `a b`.
+- Output: one permutation per line, n numbers.
+- Subtasks: 20% n ≤ 4 and m = 0; 30% n ≤ 10; 50% no other limits.
+- Hint from the PDF: for the last 50%, **stop the recursion as soon as a rule is broken** (if 2 must come before 1, never build [1,2,…] or [1,0,2,…]). The inputs are chosen so that this is fast enough.
+
+## 2. What it really means
+Standard "generate permutations by recursion" with a filter applied **while building**, not at the end. Sample 4 (n = 4, rules 3 before 2, 2 before 1, so 3 → 2 → 1 in that order; 0 can go anywhere):
+
+```text
+position:  0    1    2    3
+           0    3    2    1      ← 0 first, then the chain
+           3    0    2    1
+           3    2    0    1
+           3    2    1    0
+```
+
+Only 4 of the 24 permutations survive.
+
+## 3. What, why, how
+- **Lexicographic order:** fill positions left to right and at each position try values **0, 1, …, n−1 in increasing order**. The first permutation found has the smallest first element, and so on.
+- **The rule check is local:** a rule "a before b" can only be broken at the moment we place b while a is **not yet placed**. So when trying v at the current position, skip it if `pred[v]` exists and is unused. That's all.
+- Because each b has **at most one** a (the b values are distinct), one array `pred[b] = a` stores all rules.
+- **Why pruning is enough:** every branch we skip would only lead to invalid permutations. Without pruning, n = 20 means 20! ≈ 2.4·10¹⁸ leaves; with it, work is proportional to the answers (when the rules have no cycle, every partial permutation we keep can be completed).
+- `used[]` + undo after the recursive call (`used[v] = false`) is the backtracking step.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace for sample 2** (n = 3, rule 1 before 2, so `pred[2] = 1`):
+
+| pos | placed so far | try v | decision |
+|---|---|---|---|
+| 0 | — | 0 | ok |
+| 1 | 0 | 1 | ok |
+| 2 | 0 1 | 2 | pred 1 used → ok → **0 1 2** |
+| 1 | 0 | 2 | pred 1 **not used → skip** |
+| 0 | — | 1 | ok |
+| 1 | 1 | 0 | ok → then 2 (pred used) → **1 0 2** |
+| 1 | 1 | 2 | ok → then 0 → **1 2 0** |
+| 0 | — | 2 | pred 1 **not used → skip** (all of 2 _ _ is cut at once) |
+
+## 5. Traps
+- **Generating everything and filtering at the end:** passes only the small subtasks (the PDF says so).
+- **Using `next_permutation` with a final check:** same problem, 20! permutations.
+- **Forgetting to undo `used[v]`** after the recursive call: later branches think v is still placed.
+- **Printing format:** the PDF shows digits stuck together (`012`), but with n up to 20 numbers like 10 and 1,0 would be ambiguous, so print them separated by spaces.
+- **Contradictory rules** (a cycle such as 0 before 1 and 1 before 0): no permutation is valid, and the pruning naturally prints nothing.
+
+## 6. Background
+Lesson 11: **permutations with a `used[]` array**, the most common backtracking template, plus **pruning by a partial check**. The rules "a before b" form a precedence graph; the valid permutations are exactly its **topological orders** (Lesson 16), and this program lists all of them in lexicographic order.
+==== th
+## 1. โจทย์บอกอะไร
+พิมพ์ **การเรียงสับเปลี่ยนทั้งหมดของ 0 … n−1** ตาม **ลำดับพจนานุกรม** (เทียบทีละตำแหน่ง ตำแหน่งแรกที่ต่างกันเป็นตัวตัดสิน) แต่เอาเฉพาะแบบที่ทำตาม **กฎ m ข้อ "a[i] ต้องปรากฏก่อน b[i]"** ค่า b ไม่ซ้ำกันเลย ส่วน a ซ้ำได้
+
+- ข้อมูลนำเข้า: `n m` (1 ≤ n ≤ 20 ตัวอย่างใช้ m = 0 ด้วย) แล้วตามด้วย m บรรทัด `a b`
+- ผลลัพธ์: บรรทัดละหนึ่งการเรียงสับเปลี่ยน มีตัวเลข n ตัว
+- ชุดทดสอบ: 20% n ≤ 4 และ m = 0; 30% n ≤ 10; 50% ไม่มีข้อกำหนดอื่น
+- คำแนะนำใน PDF: สำหรับ 50% สุดท้าย ให้ **หยุดการเวียนเกิดทันทีที่รู้ว่าผิดกฎ** (ถ้า 2 ต้องมาก่อน 1 อย่าสร้าง [1,2,…] หรือ [1,0,2,…]) ข้อมูลทดสอบถูกเลือกให้วิธีนี้เร็วพอ
+
+## 2. จริง ๆ แล้วถามอะไร
+การ "สร้าง permutation ด้วยการเวียนเกิด" แบบมาตรฐาน แต่กรองตั้งแต่ **ระหว่างสร้าง** ไม่ใช่ตอนจบ ตัวอย่างที่ 4 (n = 4 กฎ 3 ก่อน 2 และ 2 ก่อน 1 จึงต้องเป็น 3 → 2 → 1 ตามลำดับ ส่วน 0 อยู่ตรงไหนก็ได้) เหมือนการเข้าแถวที่บางคนต้องยืนหลังคนที่กำหนด:
+
+```text
+position:  0    1    2    3
+           0    3    2    1      ← 0 first, then the chain
+           3    0    2    1
+           3    2    0    1
+           3    2    1    0
+```
+
+จาก 24 แบบเหลือแค่ 4 แบบ
+
+## 3. อะไร ทำไม อย่างไร
+- **ลำดับพจนานุกรม:** เติมตำแหน่งจากซ้ายไปขวา และทุกตำแหน่งลองค่า **0, 1, …, n−1 จากน้อยไปมาก** แบบแรกที่ได้จึงมีตัวแรกเล็กที่สุด และต่อไปเรื่อย ๆ
+- **การเช็กกฎทำได้เฉพาะจุด:** กฎ "a ก่อน b" จะผิดได้แค่ตอนที่เราวาง b ขณะที่ a **ยังไม่ถูกวาง** ดังนั้นตอนลองวาง v ที่ตำแหน่งปัจจุบัน ให้ข้ามถ้า `pred[v]` มีอยู่และยังไม่ถูกใช้ แค่นั้นเอง
+- เพราะแต่ละ b มี a **ได้อย่างมากตัวเดียว** (ค่า b ไม่ซ้ำ) อาร์เรย์เดียว `pred[b] = a` จึงเก็บกฎได้ทั้งหมด
+- **ทำไมตัดกิ่งแค่นี้พอ:** ทุกกิ่งที่เราข้ามนำไปสู่แบบที่ผิดเท่านั้น ถ้าไม่ตัดกิ่ง n = 20 มีใบ 20! ≈ 2.4·10¹⁸ ใบ ถ้าตัด งานเป็นสัดส่วนกับจำนวนคำตอบ (เมื่อกฎไม่เป็นวงวน ทุกการเรียงบางส่วนที่เราเก็บไว้เติมให้ครบได้เสมอ)
+- `used[]` + ยกเลิกหลังเรียกเวียนเกิด (`used[v] = false`) คือขั้น backtracking
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 2** (n = 3 กฎ 1 ก่อน 2 ดังนั้น `pred[2] = 1`):
+
+| pos | วางแล้ว | ลอง v | ตัดสิน |
+|---|---|---|---|
+| 0 | — | 0 | ได้ |
+| 1 | 0 | 1 | ได้ |
+| 2 | 0 1 | 2 | pred 1 ถูกใช้แล้ว → ได้ → **0 1 2** |
+| 1 | 0 | 2 | pred 1 **ยังไม่ถูกใช้ → ข้าม** |
+| 0 | — | 1 | ได้ |
+| 1 | 1 | 0 | ได้ → แล้ว 2 (pred ใช้แล้ว) → **1 0 2** |
+| 1 | 1 | 2 | ได้ → แล้ว 0 → **1 2 0** |
+| 0 | — | 2 | pred 1 **ยังไม่ถูกใช้ → ข้าม** (ตัด 2 _ _ ทั้งหมดในครั้งเดียว) |
+
+## 5. จุดที่มักพลาด
+- **สร้างทุกแบบแล้วค่อยกรองตอนจบ:** ผ่านแค่ชุดทดสอบเล็ก (PDF บอกไว้แล้ว)
+- **ใช้ `next_permutation` แล้วเช็กตอนจบ:** ปัญหาเดียวกัน 20! แบบ
+- **ลืมยกเลิก `used[v]`** หลังเรียกเวียนเกิด: กิ่งต่อ ๆ ไปจะคิดว่า v ยังถูกวางอยู่
+- **รูปแบบการพิมพ์:** PDF แสดงตัวเลขติดกัน (`012`) แต่ n ถึง 20 ตัวเลขอย่าง 10 กับ 1,0 จะกำกวม จึงพิมพ์คั่นด้วยช่องว่าง
+- **กฎที่ขัดกันเอง** (วงวน เช่น 0 ก่อน 1 และ 1 ก่อน 0): ไม่มีแบบไหนถูก การตัดกิ่งจะไม่พิมพ์อะไรเลยโดยอัตโนมัติ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11: **permutation ด้วยอาร์เรย์ `used[]`** แม่แบบ backtracking ที่พบบ่อยที่สุด บวก **การตัดกิ่งด้วยการเช็กบางส่วน** กฎ "a ก่อน b" ประกอบเป็นกราฟลำดับก่อนหลัง การเรียงที่ถูกทั้งหมดก็คือ **topological order** ทั้งหมดของกราฟนั้น (บทที่ 16) และโปรแกรมนี้แจกแจงทั้งหมดตามลำดับพจนานุกรม

@@ -1,0 +1,109 @@
+id: d63_q1a_multi_insert
+group: vector
+lesson: 03 · Vector internals
+stars: 1
+kind: multiple_add()
+tags: std::vector, resize, shift right
+title: Vector Multiple Add
+title_th: เพิ่มข้อมูลซ้ำหลายตัวในเวกเตอร์ (Multiple Add)
+blurb: Insert `count` copies of a value at a position — one resize, one shift, one fill.
+blurb_th: แทรกค่าเดิมซ้ำ count ตัวที่ตำแหน่งที่กำหนด — resize ครั้งเดียว เลื่อนครั้งเดียว เติมครั้งเดียว
+files: sol/d63_q1a_multi_insert/main.cpp
+tests: PDF example, insert at front / at end / into an empty vector, count = 0; 300 random cases against Python list slicing; n = 100 with count = 10⁶ runs in 0.06 s. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF, แทรกหน้าสุด/ท้ายสุด/ในเวกเตอร์ว่าง, count = 0; สุ่ม 300 ชุดเทียบกับการแทรกด้วย list ใน Python; n = 100 กับ count = 10⁶ ใช้ 0.06 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Write `multiple_add(vector<int> &v, int value, int position, int count)`: insert **count copies of value** at index **position**. Example: v = {10,20,30}, `multiple_add(v,-1,1,3)` → {10,**−1,−1,−1**,20,30}.
+
+- −1000 ≤ value ≤ 1000; **0 ≤ position ≤ v.size()** (both ends allowed); **0 ≤ count ≤ 1,000,000**; v starts with **0..100** elements.
+- Edit only the function; no `cin`/`cout` inside it (a person checks — breaking this scores 0).
+- Subtasks: 20% count ≤ 1, 30% count ≤ 100, 50% count ≤ 10⁶.
+
+## 2. What it really means
+Open a gap of length `count` at `position` and fill it. The real test is the last subtask: **count is huge, v is tiny**.
+
+```text
+before:   [10 | 20 | 30]                 n = 3, position = 1, count = 3
+resize:   [10 | 20 | 30 |  0 |  0 |  0]
+shift →:  [10 | 20 | 30 |  0 | 20 | 30]  tail (20,30) moved right by 3
+fill:     [10 | -1 | -1 | -1 | 20 | 30]
+```
+
+## 3. What, why, how
+- **Naive:** `v.insert(v.begin()+position, value)` count times. Each insert at the *same* position shifts everything after it — including the copies already inserted — so the k-th insert moves ~k elements: ≈ count²/2 = 5·10¹¹ moves → TLE.
+- **Right idea:** every old element after `position` should move **once**, by exactly `count` places; then write `value` into the gap once. Cost O(n + count).
+- **How:**
+  1. `n = v.size()`, `v.resize(n + count)` — grows once.
+  2. Shift `v[position .. n−1]` right by `count`, going **right to left**.
+  3. Fill `v[position .. position+count−1]` with `value`.
+- One line also works: `v.insert(v.begin() + position, count, value);` (the *fill* overload, also O(n + count)). The manual version shows what it does inside.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the example** (n = 3, position = 1, count = 3; after `resize(6)`: `10 20 30 0 0 0`):
+
+| step | action | v[0..5] |
+|---|---|---|
+| shift i=2 | v[5] = v[2] = 30 | 10 20 30 0 0 **30** |
+| shift i=1 | v[4] = v[1] = 20 | 10 20 30 0 **20** 30 |
+| i=0 < position | stop | |
+| fill i=1,2,3 | v[i] = −1 | 10 **−1 −1 −1** 20 30 |
+
+## 5. Traps
+- **Shifting left-to-right** overwrites elements before they move. With count = 1 on {10,20,30} at position 1: v[2] = v[1] first → 20 is copied twice and 30 is lost. Always shift **right to left** when opening a gap.
+- **Off-by-one in the fill:** `i <= position + count` writes `count + 1` slots — it overwrites the first shifted element, and when position = n it writes past the end. Check with count = 0: the loop must run zero times.
+- **Using `n` (old size) as the fill bound** (`i < n`) only works when count = n − position by coincidence.
+- **Inserting one by one** — correct but O(count²).
+
+## 6. Background
+Lesson 03: **shift the tail right by k, iterating right to left**, then fill. The same pattern appears in Insert Many, Range Insert and Stack Deep Push. Two habits: **batch the shift** (each element moves once by k, not k times by 1) and **grow the storage once**.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เขียน `multiple_add(vector<int> &v, int value, int position, int count)` ที่แทรก **value ซ้ำ count ตัว** ที่ index **position** ตัวอย่าง: v = {10,20,30} เรียก `multiple_add(v,-1,1,3)` → {10,**−1,−1,−1**,20,30}
+
+- −1000 ≤ value ≤ 1000; **0 ≤ position ≤ v.size()** (แทรกหน้าสุดหรือท้ายสุดได้); **0 ≤ count ≤ 1,000,000**; v เริ่มต้นมี **0..100** ตัว
+- แก้ได้เฉพาะในฟังก์ชัน ห้ามใช้ `cin`/`cout` ในนั้น (มีคนตรวจ ถ้าผิดได้ 0)
+- ชุดทดสอบ: 20% count ≤ 1, 30% count ≤ 100, 50% count ≤ 10⁶
+
+## 2. จริง ๆ แล้วถามอะไร
+เปิดช่องว่างยาว `count` ที่ `position` แล้วเติมค่าลงไป ตัวทดสอบจริงคือชุดสุดท้าย: **count ใหญ่มาก แต่ v เล็กนิดเดียว**
+
+```text
+before:   [10 | 20 | 30]                 n = 3, position = 1, count = 3
+resize:   [10 | 20 | 30 |  0 |  0 |  0]
+shift →:  [10 | 20 | 30 |  0 | 20 | 30]  tail (20,30) moved right by 3
+fill:     [10 | -1 | -1 | -1 | 20 | 30]
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** เรียก `v.insert(v.begin()+position, value)` count ครั้ง แต่ละครั้งที่แทรกที่ *ตำแหน่งเดิม* จะเลื่อนทุกตัวข้างหลัง รวมถึงตัวที่เพิ่งแทรกไปแล้วด้วย ครั้งที่ k จึงเลื่อนประมาณ k ตัว รวม ≈ count²/2 = 5·10¹¹ ครั้ง → TLE
+- **แนวคิดที่ถูก:** ข้อมูลเดิมแต่ละตัวที่อยู่หลัง `position` ควรถูกย้าย **ครั้งเดียว** ไปทางขวา `count` ช่องพอดี แล้วค่อยเขียน `value` ลงช่องว่างครั้งเดียว เวลา O(n + count)
+- **ขั้นตอน:**
+  1. `n = v.size()`, `v.resize(n + count)` — ขยายครั้งเดียว
+  2. เลื่อน `v[position .. n−1]` ไปทางขวา `count` ช่อง โดยไล่ **จากขวาไปซ้าย**
+  3. เติม `v[position .. position+count−1]` ด้วย `value`
+- เขียนบรรทัดเดียวก็ได้: `v.insert(v.begin() + position, count, value);` (overload แบบ fill ก็ O(n + count)) แต่แบบเขียนเองช่วยให้เห็นว่าข้างในทำอะไร
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (n = 3, position = 1, count = 3; หลัง `resize(6)`: `10 20 30 0 0 0`):
+
+| ขั้น | ทำอะไร | v[0..5] |
+|---|---|---|
+| เลื่อน i=2 | v[5] = v[2] = 30 | 10 20 30 0 0 **30** |
+| เลื่อน i=1 | v[4] = v[1] = 20 | 10 20 30 0 **20** 30 |
+| i=0 < position | หยุด | |
+| เติม i=1,2,3 | v[i] = −1 | 10 **−1 −1 −1** 20 30 |
+
+## 5. จุดที่มักพลาด
+- **เลื่อนจากซ้ายไปขวา** จะเขียนทับข้อมูลก่อนที่มันจะถูกย้าย เช่น count = 1 กับ {10,20,30} ที่ position 1: v[2] = v[1] ก่อน → 20 ถูกคัดลอกสองครั้ง และ 30 หายไป เวลาเปิดช่องว่างต้องเลื่อน **จากขวาไปซ้าย** เสมอ
+- **ขอบเขตการเติมเกินหนึ่ง:** `i <= position + count` เขียน `count + 1` ช่อง → ทับตัวแรกที่เพิ่งเลื่อนไป และเมื่อ position = n จะเขียนเลยท้ายอาร์เรย์ ทดสอบด้วย count = 0: ลูปต้องไม่ทำงานเลย
+- **ใช้ `n` (ขนาดเดิม) เป็นขอบเขตการเติม** (`i < n`) ถูกเฉพาะตอนบังเอิญ count = n − position
+- **แทรกทีละตัว** — ถูกแต่ O(count²)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 03: **เลื่อนส่วนท้ายไปขวา k ช่อง โดยไล่จากขวาไปซ้าย** แล้วเติม รูปแบบเดียวกันพบในข้อ Insert Many, Range Insert และ Stack Deep Push นิสัยที่ควรมี: **เลื่อนทีเดียว** (แต่ละตัวย้ายครั้งเดียว k ช่อง ไม่ใช่ k ครั้งครั้งละช่อง) และ **ขยายหน่วยความจำครั้งเดียว**

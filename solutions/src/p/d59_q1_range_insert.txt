@@ -1,0 +1,121 @@
+id: d59_q1_range_insert
+group: vector
+lesson: 03 · Vector internals
+stars: 2
+kind: student.h
+tags: CP::vector, iterators, ensureCapacity, shift right
+title: Range Insert
+title_th: แทรกข้อมูลเป็นช่วง (Range Insert)
+blurb: insert(position, first, last) — save the index before growing, shift the tail right by k, copy the range in.
+blurb_th: insert(position, first, last) — เก็บ index ก่อนขยาย เลื่อนส่วนท้ายไปขวา k ช่อง แล้วคัดลอกช่วงลงไป
+files: sol/d59_q1_range_insert/student.h
+tests: all 3 PDF samples; 300 random cases (empty v1, insert at front / end, empty range) against Python list slicing; ASan + UBSan clean (this catches the dangling-iterator bug).
+tests_th: ตัวอย่างใน PDF ทั้ง 3 ชุด; สุ่ม 300 ชุด (v1 ว่าง, แทรกหน้าสุด/ท้ายสุด, ช่วงว่าง) เทียบกับการ slice ใน Python; ASan + UBSan ไม่พบข้อผิดพลาด (ตัวนี้จับบั๊ก iterator ห้อยได้)
+==== en
+## 1. What the problem says
+`CP::vector` lacks the range form of `insert`. Add `void insert(iterator position, iterator first, iterator last)`: insert **all elements from first up to (not including) last** at `position`. first and last belong to **another** CP::vector; all iterators are valid and last is not before first.
+
+- Submit `student.h` only. `main` reads vector 1, vector 2 (each as `count x1 x2 ...`), then three numbers `position first last` as **indices**, calls `v1.insert(v1.begin()+position, v2.begin()+first, v2.begin()+last)` and prints `Result` and v1.
+- Example: v1 = 1 2 3 4 5, v2 = 10 20 30 40 50, `2 0 3` → `1 2 10 20 30 3 4 5`.
+
+## 2. What it really means
+Open a gap of k = last − first slots at index `pos`, then copy the source range into it.
+
+```text
+v1:   [1 | 2 | 3 | 4 | 5]          pos = 2,  range = v2[0..2] = 10 20 30, k = 3
+grow: [1 | 2 | 3 | 4 | 5 | . | . | .]
+shift:[1 | 2 | 3 | 4 | 5 | 3 | 4 | 5]   old v1[2..4] moved right by 3
+copy: [1 | 2 |10 |20 |30 | 3 | 4 | 5]
+```
+
+## 3. What, why, how
+- **Naive:** call single-element `insert` k times → each one shifts the tail → O(k·n).
+- **Better:** each old element after pos moves **once**, by k. Grow once with `ensureCapacity(mSize + k)`. Cost O(n + k).
+- **The hidden trap:** `position` is a raw pointer into `mData`. If `ensureCapacity` reallocates, the old array is deleted and `position` now points to freed memory. So **turn it into an index first**: `int pos = position - begin();`. (first/last are in the other vector, so they stay valid.)
+- **How:**
+  1. `pos = position − begin()`, `k = last − first`, `n = mSize`.
+  2. `ensureCapacity(mSize + k)`.
+  3. Shift `mData[pos .. n−1]` to `mData[pos+k .. n+k−1]`, **right to left**.
+  4. `mData[pos + j] = first[j]` for j = 0 .. k−1. Then `mSize += k`.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (pos = 2, k = 3, n = 5):
+
+| step | action | mData[0..7] |
+|---|---|---|
+| shift i=4 | mData[7] = 5 | 1 2 3 4 5 . . **5** |
+| shift i=3 | mData[6] = 4 | 1 2 3 4 5 . **4** 5 |
+| shift i=2 | mData[5] = 3 | 1 2 3 4 5 **3** 4 5 |
+| i=1 < pos | stop | |
+| copy j=0,1,2 | mData[2+j] = first[j] | 1 2 **10 20 30** 3 4 5 |
+
+## 5. Traps
+- **Using `position` after `ensureCapacity`** → use-after-free. Works "by luck" when there is spare capacity, crashes or prints garbage when there isn't. Save the index first.
+- **Shifting left to right** overwrites elements before they move.
+- **`mSize += k` before shifting:** then `n = mSize` is the new size and the shift starts in garbage. Read the old size first.
+- **Empty range (first == last):** k = 0, both loops do nothing — make sure nothing else assumes k ≥ 1.
+
+## 6. Background
+Lesson 03: **iterators of CP::vector are plain `T*`**, so `it − begin()` is an index and `first[j]` is `*(first + j)`. Any pointer into a vector is **invalidated by reallocation** — the same rule as `std::vector` (that's why `v.insert(v.begin(), v.begin(), v.end())` on the same vector needs care). Shift-right-then-fill is the pattern from Multiple Add and Insert Many.
+==== th
+## 1. โจทย์บอกอะไร
+`CP::vector` ยังไม่มี `insert` แบบช่วง ให้เพิ่ม `void insert(iterator position, iterator first, iterator last)` ที่แทรก **ข้อมูลทุกตัวตั้งแต่ first จนถึงตัวก่อน last** ลงที่ `position` โดย first และ last เป็น iterator ของ CP::vector **อีกตัวหนึ่ง** รับประกันว่า iterator ทุกตัวถูกต้อง และ last ไม่อยู่ก่อน first
+
+- ส่งแค่ `student.h` ส่วน `main` อ่าน vector 1, vector 2 (รูปแบบ `จำนวน x1 x2 ...`) แล้วอ่านเลข 3 ตัว `position first last` เป็น **index** แล้วเรียก `v1.insert(v1.begin()+position, v2.begin()+first, v2.begin()+last)` แล้วพิมพ์ `Result` กับ v1
+- ตัวอย่าง: v1 = 1 2 3 4 5, v2 = 10 20 30 40 50, `2 0 3` → `1 2 10 20 30 3 4 5`
+
+## 2. จริง ๆ แล้วถามอะไร
+เปิดช่องว่าง k = last − first ช่องที่ index `pos` แล้วคัดลอกช่วงต้นทางลงไป
+
+```text
+v1:   [1 | 2 | 3 | 4 | 5]          pos = 2,  range = v2[0..2] = 10 20 30, k = 3
+grow: [1 | 2 | 3 | 4 | 5 | . | . | .]
+shift:[1 | 2 | 3 | 4 | 5 | 3 | 4 | 5]   old v1[2..4] moved right by 3
+copy: [1 | 2 |10 |20 |30 | 3 | 4 | 5]
+```
+
+เหมือนแทรกหนังสือ 3 เล่มกลางชั้น: ดันหนังสือฝั่งขวาไปทีเดียว 3 ช่อง แล้ววางหนังสือใหม่ลงช่องว่าง
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** เรียก `insert` ทีละตัว k ครั้ง แต่ละครั้งเลื่อนส่วนท้าย → O(k·n)
+- **วิธีที่ดีกว่า:** ข้อมูลเดิมแต่ละตัวหลัง pos ย้าย **ครั้งเดียว** ไป k ช่อง ขยายครั้งเดียวด้วย `ensureCapacity(mSize + k)` เวลา O(n + k)
+- **กับดักที่ซ่อนอยู่:** `position` เป็นพอยน์เตอร์ดิบที่ชี้เข้าไปใน `mData` ถ้า `ensureCapacity` จองที่ใหม่ อาร์เรย์เก่าจะถูก delete และ `position` จะชี้ไปที่หน่วยความจำที่ถูกคืนแล้ว ดังนั้น **แปลงเป็น index ก่อน**: `int pos = position - begin();` (first/last อยู่ในอีก vector จึงยังใช้ได้)
+
+```text
+ก่อน ensureCapacity:  mData ──► [1|2|3|4|5]      position ──► ช่อง 2 ของอาร์เรย์นี้
+หลัง ensureCapacity:  mData ──► [1|2|3|4|5|.|.|.] (อาร์เรย์ใหม่)
+                      position ──► อาร์เรย์เก่าที่ถูก delete แล้ว  ✗
+                      pos = 2   ──► ยังใช้ได้กับอาร์เรย์ใหม่   ✓
+```
+
+- **ขั้นตอน:**
+  1. `pos = position − begin()`, `k = last − first`, `n = mSize`
+  2. `ensureCapacity(mSize + k)`
+  3. เลื่อน `mData[pos .. n−1]` ไปที่ `mData[pos+k .. n+k−1]` โดยไล่ **จากขวาไปซ้าย**
+  4. `mData[pos + j] = first[j]` สำหรับ j = 0 .. k−1 แล้ว `mSize += k`
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (pos = 2, k = 3, n = 5):
+
+| ขั้น | ทำอะไร | mData[0..7] |
+|---|---|---|
+| เลื่อน i=4 | mData[7] = 5 | 1 2 3 4 5 . . **5** |
+| เลื่อน i=3 | mData[6] = 4 | 1 2 3 4 5 . **4** 5 |
+| เลื่อน i=2 | mData[5] = 3 | 1 2 3 4 5 **3** 4 5 |
+| i=1 < pos | หยุด | |
+| คัดลอก j=0,1,2 | mData[2+j] = first[j] | 1 2 **10 20 30** 3 4 5 |
+
+## 5. จุดที่มักพลาด
+- **ใช้ `position` หลัง `ensureCapacity`** → ใช้หน่วยความจำที่คืนไปแล้ว บางทีผ่าน "เพราะโชคดี" ตอนที่ capacity ยังเหลือ แต่พังหรือพิมพ์ขยะตอนที่ไม่เหลือ ต้องเก็บ index ไว้ก่อน
+- **เลื่อนจากซ้ายไปขวา** จะเขียนทับข้อมูลก่อนที่มันจะถูกย้าย
+- **`mSize += k` ก่อนเลื่อน:** แล้ว `n = mSize` จะเป็นขนาดใหม่ การเลื่อนจะเริ่มจากช่องขยะ ต้องอ่านขนาดเดิมก่อน
+- **ช่วงว่าง (first == last):** k = 0 ลูปทั้งสองไม่ทำงาน ตรวจว่าไม่มีส่วนอื่นที่คิดว่า k ≥ 1
+
+## 6. ความรู้พื้นฐาน
+บทที่ 03: **iterator ของ CP::vector คือ `T*` ธรรมดา** ดังนั้น `it − begin()` คือ index และ `first[j]` คือ `*(first + j)` พอยน์เตอร์ใด ๆ ที่ชี้เข้าไปใน vector จะ **ใช้ไม่ได้หลังการจองที่ใหม่** — กฎเดียวกับ `std::vector` รูปแบบ "เลื่อนขวาแล้วเติม" เหมือนข้อ Multiple Add และ Insert Many

@@ -1,0 +1,110 @@
+id: d58_q2_custom
+group: heap
+lesson: 06 · priority_queue & comparators
+stars: 2
+kind: song.h
+tags: CP::priority_queue, functor comparator, multi-key
+title: Custom Order
+title_th: เรียงลำดับตามที่กำหนด (Custom Order)
+blurb: Two priority queues of songs with different multi-key orders — remember that the comparator says who has LOWER priority, so it's the reverse of a sort.
+blurb_th: priority queue ของเพลงสองตัวที่เรียงหลายคีย์ต่างกัน — จำไว้ว่า comparator บอกว่าใคร "สำคัญน้อยกว่า" จึงกลับด้านกับ sort
+files: sol/d58_q2_custom/song.h
+tests: the PDF sample; 300 random song lists (same artist, same count, ties on two keys) against Python sorted() with the two key orders. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF; สุ่มรายการเพลง 300 ชุด (ศิลปินซ้ำ, ยอดขายซ้ำ, เท่ากันสองคีย์) เทียบกับ sorted() ใน Python ตามลำดับคีย์ทั้งสองแบบ ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Class `Song` has artist, title, count. `main` pushes n songs into `pq1` and `pq2` (declared in song.h) and prints each queue by popping.
+
+- **pq1** must pop by **artist ascending**, then **title ascending**, then **count ascending**.
+- **pq2** must pop by **count descending**, then **artist ascending**, then **title ascending**.
+- (artist, title) pairs are unique. Edit only song.h: write comparators and change the declarations; pq1/pq2 must stay `CP::priority_queue`.
+
+## 2. What it really means
+`CP::priority_queue<T, Comp>` pops the element that **nobody beats**, where `Comp(a, b) == true` means **"a has lower priority than b"** (a comes out later). So to pop the *smallest* first, the comparator must say "a is lower priority when a is *bigger*" → use `>`.
+
+```text
+std::sort(v, cmp):        cmp(a,b) true → a goes FIRST
+priority_queue<T, cmp>:   cmp(a,b) true → a comes out LATER
+→ the same comparator gives OPPOSITE orders
+```
+
+## 3. What, why, how
+For each key in order: if the keys differ, decide; otherwise go to the next key.
+
+- pq1 (all ascending): `a.artist > b.artist`, then `a.title > b.title`, then `a.count > b.count`.
+- pq2: count **descending** → smaller count is lower priority: `a.count < b.count`; then `a.artist > b.artist`; then `a.title > b.title`.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Sample check for pq2** (count desc, then artist, then title):
+
+| song | count | position |
+|---|---|---|
+| TSquare Takarajima | 15 | 1st |
+| Queen Bohemian | 10 | 2nd (Queen < TSquare, Bohemian < Jazz) |
+| Queen Jazz | 10 | 3rd |
+| TSquare Omen | 10 | 4th |
+| Beatles Yesterday | 3 | 5th |
+
+## 5. Traps
+- **Writing the comparator like a sort comparator** (`a.artist < b.artist`) → pq1 comes out in reverse.
+- **Only the first key**: ties on artist must fall through to title, then count.
+- **`main` reads `title artist count` but calls `Song(title, artist, count)`** whose constructor is `(artist, title, count)` — so the first word ends up as `artist`. The printed output confirms it ("Artist: Queen Title: Jazz").
+- **Changing pq1/pq2 to `std::priority_queue`** or a vector + sort — forbidden.
+
+## 6. Background
+Lesson 06: comparator direction. `std::priority_queue` has the same convention as CP (default `less` → max-heap). Multi-key comparator template: `if (a.k1 != b.k1) return …; if (a.k2 != b.k2) return …; return …;`. See also Heap K-th (`mLess(b, a)` to sort by priority).
+==== th
+## 1. โจทย์บอกอะไร
+คลาส `Song` มี artist, title, count ส่วน `main` push เพลง n เพลงลง `pq1` และ `pq2` (ประกาศใน song.h) แล้วพิมพ์แต่ละคิวด้วยการ pop
+
+- **pq1** ต้อง pop ตาม **ศิลปินน้อยไปมาก** แล้ว **ชื่อเพลงน้อยไปมาก** แล้ว **ยอดขายน้อยไปมาก**
+- **pq2** ต้อง pop ตาม **ยอดขายมากไปน้อย** แล้ว **ศิลปินน้อยไปมาก** แล้ว **ชื่อเพลงน้อยไปมาก**
+- คู่ (ศิลปิน, ชื่อเพลง) ไม่ซ้ำกัน แก้ได้แค่ song.h: เขียน comparator และแก้การประกาศ แต่ pq1/pq2 ต้องเป็น `CP::priority_queue`
+
+## 2. จริง ๆ แล้วถามอะไร
+`CP::priority_queue<T, Comp>` จะ pop ตัวที่ **ไม่มีใครชนะ** โดย `Comp(a, b) == true` แปลว่า **"a สำคัญน้อยกว่า b"** (a ออกทีหลัง) ถ้าอยากให้ตัว *เล็กสุด* ออกก่อน comparator ต้องบอกว่า "a สำคัญน้อยกว่าเมื่อ a *ใหญ่กว่า*" → ใช้ `>`
+
+```text
+std::sort(v, cmp):        cmp(a,b) true → a goes FIRST
+priority_queue<T, cmp>:   cmp(a,b) true → a comes out LATER
+→ the same comparator gives OPPOSITE orders
+```
+
+## 3. อะไร ทำไม อย่างไร
+ทีละคีย์ตามลำดับ: ถ้าคีย์ต่างกันก็ตัดสินเลย ถ้าเท่ากันไปดูคีย์ถัดไป
+
+- pq1 (น้อยไปมากทั้งหมด): `a.artist > b.artist` แล้ว `a.title > b.title` แล้ว `a.count > b.count`
+- pq2: ยอดขาย **มากไปน้อย** → ยอดขายน้อยกว่าสำคัญน้อยกว่า: `a.count < b.count` แล้ว `a.artist > b.artist` แล้ว `a.title > b.title`
+
+```text
+comparator ของ pq2 ถามว่า "a ควรออกทีหลัง b ไหม?"
+  count ต่างกัน?   → a ออกทีหลังถ้า a.count น้อยกว่า
+  artist ต่างกัน?  → a ออกทีหลังถ้า a.artist มาทีหลังในพจนานุกรม
+  ไม่อย่างนั้น     → a ออกทีหลังถ้า a.title มาทีหลัง
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ตรวจตัวอย่างของ pq2** (ยอดขายมากไปน้อย แล้วศิลปิน แล้วชื่อเพลง):
+
+| เพลง | ยอดขาย | ลำดับ |
+|---|---|---|
+| TSquare Takarajima | 15 | 1 |
+| Queen Bohemian | 10 | 2 (Queen < TSquare, Bohemian < Jazz) |
+| Queen Jazz | 10 | 3 |
+| TSquare Omen | 10 | 4 |
+| Beatles Yesterday | 3 | 5 |
+
+## 5. จุดที่มักพลาด
+- **เขียน comparator แบบ sort** (`a.artist < b.artist`) → pq1 ออกมากลับด้าน
+- **ดูแค่คีย์แรก**: ศิลปินเท่ากันต้องไปดูชื่อเพลง แล้วยอดขาย
+- **`main` อ่าน `title artist count` แต่เรียก `Song(title, artist, count)`** ซึ่ง constructor คือ `(artist, title, count)` — คำแรกจึงกลายเป็น `artist` ผลที่พิมพ์ยืนยันว่าเป็นแบบนั้น ("Artist: Queen Title: Jazz")
+- **เปลี่ยน pq1/pq2 เป็น `std::priority_queue`** หรือ vector + sort — ห้าม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: ทิศทางของ comparator `std::priority_queue` ใช้ธรรมเนียมเดียวกับ CP (ค่าเริ่มต้น `less` → max-heap) แม่แบบ comparator หลายคีย์: `if (a.k1 != b.k1) return …; if (a.k2 != b.k2) return …; return …;` ดูข้อ Heap K-th ด้วย (`mLess(b, a)` เพื่อเรียงตามความสำคัญ)

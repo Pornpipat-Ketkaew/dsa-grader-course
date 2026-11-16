@@ -1,0 +1,103 @@
+id: da67_m2_list_zigzag
+group: list
+lesson: 05 · Linked list
+stars: 2
+kind: student.h
+tags: CP::list, interleave, no new nodes
+title: List Zigzag
+title_th: สลับรวมลิสต์ (List Zigzag)
+blurb: Weave the nodes of ls into *this — a1 b1 a2 b2 … — by re-linking, then hang whatever is left at the end; ls ends up empty.
+blurb_th: สอดโหนดของ ls เข้าไปใน *this — a1 b1 a2 b2 … — ด้วยการต่อพอยน์เตอร์ แล้วต่อส่วนที่เหลือท้ายสุด ls จะว่าง
+files: sol/da67_m2_list_zigzag/student.h
+tests: all 3 PDF samples; 300 random pairs (either list empty, either longer) checked forward, backward, by size, that ls is empty and reusable, and that the node addresses are exactly the original ones (no new nodes). ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF; สุ่ม 300 คู่ (ลิสต์ใดลิสต์หนึ่งว่าง หรือยาวกว่า) ตรวจเดินหน้า ถอยหลัง ขนาด ls ว่างและใช้ต่อได้ และที่อยู่ของโหนดเป็นของเดิมทุกตัว (ไม่สร้างโหนดใหม่) ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void zigzag(CP::list<T> &ls)`: merge the nodes of ls into the current list, **alternating** — first node of this, first node of ls, second of this, second of ls, … If one list runs out, the rest of the other follows. Afterwards ls is empty.
+
+- 1 2 3 + 4 5 6 → 1 4 2 5 3 6; 1 + 2..8 → 1 2 3 4 5 6 7 8; 1..8 + 65..69 → 1 65 2 66 3 67 4 68 5 69 6 7 8.
+- **No new nodes** (60% of tests forbid it).
+
+## 2. What it really means
+Two pointers, a (ours) and b (theirs). Each round, splice node b between a and a->next.
+
+```text
+this: H ⇄ 1 ⇄ 2 ⇄ 3 ⇄ H        ls: L ⇄ 4 ⇄ 5 ⇄ 6 ⇄ L
+round 1: a=1, b=4 → 1 ⇄ 4 ⇄ 2 ...
+round 2: a=2, b=5 → ... 2 ⇄ 5 ⇄ 3 ...
+round 3: a=3, b=6 → ... 3 ⇄ 6 ⇄ H
+```
+
+## 3. What, why, how
+- Loop while `a != mHeader && b != ls.mHeader`: save `nextA = a->next`, `nextB = b->next`; link b between a and nextA (4 writes); `a = nextA; b = nextB`.
+- If ls still has nodes (we ran out): hang the chain b .. ls's last after our last (4 writes).
+- If we still have nodes: they're already at the end — nothing to do.
+- `mSize += ls.mSize`; reset ls to an empty ring. O(N + M).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 3** (1..8 and 65..69):
+
+| round | a | b | list so far |
+|---|---|---|---|
+| 1 | 1 | 65 | 1 65 2 … |
+| 2 | 2 | 66 | 1 65 2 66 3 … |
+| 3–5 | 3, 4, 5 | 67, 68, 69 | … 5 69 6 7 8 |
+| stop | 6 | ls header | rest of ours already in place |
+
+## 5. Traps
+- **Not saving nextA/nextB before re-linking** — after `a->next = b`, a->next is no longer the old next.
+- **Forgetting the leftover chain of ls** (our list shorter).
+- **Forgetting to empty ls**: its header still points to nodes that now belong to us → double deletion when both lists are destroyed.
+- **Updating mSize inside the loop** but not for the leftover chain.
+
+## 6. Background
+Lesson 05: merging two linked lists node by node is the merge step of merge sort on lists, which is why merge sort is the natural sort for linked lists (O(1) extra memory).
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void zigzag(CP::list<T> &ls)`: รวมโหนดของ ls เข้ากับลิสต์ปัจจุบันแบบ **สลับกัน** — โหนดแรกของเรา, โหนดแรกของ ls, โหนดที่สองของเรา, โหนดที่สองของ ls, … ถ้าลิสต์ใดหมดก่อน ส่วนที่เหลือของอีกลิสต์ตามต่อ หลังเรียกแล้ว ls ว่าง
+
+- 1 2 3 + 4 5 6 → 1 4 2 5 3 6; 1 + 2..8 → 1 2 3 4 5 6 7 8; 1..8 + 65..69 → 1 65 2 66 3 67 4 68 5 69 6 7 8
+- **ห้ามสร้างโหนดใหม่** (60% ของชุดทดสอบห้าม)
+
+## 2. จริง ๆ แล้วถามอะไร
+ตัวชี้สองตัว a (ของเรา) และ b (ของเขา) แต่ละรอบเอาโหนด b ไปแทรกระหว่าง a กับ a->next
+
+```text
+this: H ⇄ 1 ⇄ 2 ⇄ 3 ⇄ H        ls: L ⇄ 4 ⇄ 5 ⇄ 6 ⇄ L
+round 1: a=1, b=4 → 1 ⇄ 4 ⇄ 2 ...
+round 2: a=2, b=5 → ... 2 ⇄ 5 ⇄ 3 ...
+round 3: a=3, b=6 → ... 3 ⇄ 6 ⇄ H
+```
+
+เหมือนสลับไพ่แบบ riffle: หยิบจากกองซ้ายหนึ่งใบ กองขวาหนึ่งใบ สลับกันไป
+
+## 3. อะไร ทำไม อย่างไร
+- วนขณะที่ `a != mHeader && b != ls.mHeader`: เก็บ `nextA = a->next`, `nextB = b->next`; ต่อ b ระหว่าง a กับ nextA (เขียน 4 ครั้ง); `a = nextA; b = nextB`
+- ถ้า ls ยังเหลือโหนด (ของเราหมดก่อน): ต่อสาย b .. ตัวสุดท้ายของ ls หลังตัวสุดท้ายของเรา (เขียน 4 ครั้ง)
+- ถ้าของเรายังเหลือ: อยู่ท้ายสุดอยู่แล้ว ไม่ต้องทำอะไร
+- `mSize += ls.mSize` แล้วรีเซ็ต ls เป็นวงว่าง O(N + M)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 3** (1..8 และ 65..69):
+
+| รอบ | a | b | ลิสต์ถึงตอนนี้ |
+|---|---|---|---|
+| 1 | 1 | 65 | 1 65 2 … |
+| 2 | 2 | 66 | 1 65 2 66 3 … |
+| 3–5 | 3, 4, 5 | 67, 68, 69 | … 5 69 6 7 8 |
+| หยุด | 6 | header ของ ls | ส่วนที่เหลือของเราอยู่ที่เดิมแล้ว |
+
+## 5. จุดที่มักพลาด
+- **ไม่เก็บ nextA/nextB ก่อนต่อใหม่** — หลัง `a->next = b` แล้ว a->next ไม่ใช่ตัวถัดไปเดิมอีกต่อไป
+- **ลืมสายที่เหลือของ ls** (กรณีลิสต์ของเราสั้นกว่า)
+- **ลืมทำให้ ls ว่าง**: header ของมันยังชี้ไปที่โหนดที่เป็นของเราแล้ว → ถูก delete ซ้ำสองครั้งตอนทำลายลิสต์ทั้งคู่
+- **แก้ mSize ในลูป** แต่ลืมสายที่เหลือ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 05: การรวมลิสต์สองลิสต์ทีละโหนดคือขั้น merge ของ merge sort บนลิสต์ ซึ่งเป็นเหตุผลที่ merge sort เป็นวิธีเรียงที่เหมาะกับลิสต์โยงที่สุด (ใช้หน่วยความจำเพิ่ม O(1))

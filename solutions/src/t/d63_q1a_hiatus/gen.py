@@ -1,0 +1,5 @@
+import random,sys; random.seed(int(sys.argv[1])); n=random.randint(2,8); m=random.randint(2,8)
+print(n,m); s=set()
+while len(s)<n: s.add((random.randint(1,4),random.randint(1,12)))
+for x in s: print(*x)
+for _ in range(m): print(random.randint(1,5),random.randint(1,12))

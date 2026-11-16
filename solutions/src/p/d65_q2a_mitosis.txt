@@ -1,0 +1,118 @@
+id: d65_q2a_mitosis
+group: stackqueue
+lesson: 04 · Stack
+stars: 3
+kind: student.h
+tags: CP::stack, expand once, shift right, duplicate block
+title: Stack Mitosis
+title_th: แบ่งตัวในสแตก (Stack Mitosis)
+blurb: Duplicate every element from a-th to b-th from the top, each copy right next to its original — grow once, move every element once, top-down.
+blurb_th: ทำสำเนาทุกตัวตั้งแต่ตัวที่ a ถึง b จาก top ให้ติดกับตัวเดิม — ขยายครั้งเดียว ย้ายแต่ละตัวครั้งเดียว ไล่จากบนลงล่าง
+files: sol/d65_q2a_mitosis/student.h
+tests: the PDF samples; 300 random stacks with up to 5 chained mitosis calls against a Python model (whole stack, a = 0, b = size−1). ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF; สุ่ม 300 ชุดที่เรียก mitosis ต่อกันได้ถึง 5 ครั้ง เทียบกับโมเดล Python (ทั้งสแตก, a = 0, b = size−1) ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+"The k-th from the top" = k elements below the top (top is 0-th). `mitosis(a, b)` makes a copy of every element from the a-th to the b-th from the top, and **each copy sits right next to its original**. 0 ≤ a ≤ b < mSize.
+
+- Example: [10,20,30,40,50] (top on the right), `mitosis(1,2)` → [10,20,**30,30,40,40**,50].
+- Remember to grow mData when needed — but **don't grow more than needed**.
+- `main` reads n t, the n values (bottom first), then t pairs a b, and prints bottom → top.
+
+## 2. What it really means
+In array terms the block is `mData[lo .. hi]` with `hi = top − a`, `lo = top − b` (top = mSize − 1). It grows by c = b − a + 1.
+
+```text
+index:  0   1   2   3   4          a = 1, b = 2 → hi = 3, lo = 2, c = 2
+       10  20  30  40  50
+                └─block─┘ └ above the block: moves up by c
+result: 10  20  30  30  40  40  50
+        ↑ below lo: stays
+```
+
+## 3. What, why, how
+Three regions, each handled once:
+
+1. **Below lo**: doesn't move.
+2. **Above hi** (indices hi+1 .. top): every element moves **up by c**.
+3. **The block**: element at i goes to `d = lo + 2·(i − lo)` and `d + 1`.
+
+Every destination is **≥ its source**, so go from the **top down** — then nothing is overwritten before it's copied. Grow once before moving: if newSize > mCap, `expand(max(newSize, 2·mCap))` (the same rule as ensureCapacity). Cost O(a + c) moves.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (mitosis(1,2) on 10 20 30 40 50: top = 4, hi = 3, lo = 2, c = 2):
+
+| step | i | writes | mData[0..6] |
+|---|---|---|---|
+| above | 4 | mData[6] = 50 | 10 20 30 40 50 . **50** |
+| block | 3 (d = 4) | mData[5] = mData[4] = 40 | 10 20 30 40 **40 40** 50 |
+| block | 2 (d = 2) | mData[3] = mData[2] = 30 | 10 20 **30 30** 40 40 50 |
+
+## 5. Traps
+- **Bottom-up order** overwrites elements not copied yet (e.g. writing slot 3 before reading old slot 3).
+- **Using `push` in a loop** for each copy: works but may reallocate many times and needs extra storage.
+- **Off-by-one in lo/hi:** the a-th from the top is `mData[mSize − 1 − a]`, not `mData[mSize − a]`.
+- **Growing every call by a fixed amount** or to exactly newSize repeatedly → many reallocations; double like ensureCapacity.
+
+## 6. Background
+Lesson 04 + Lesson 03: a stack is an array; any "k from the top" is `mSize − 1 − k`. The general rule for in-place moves: **if data moves right, iterate right to left** (and vice versa). Here two regions move right by different amounts, so one top-down pass handles both.
+==== th
+## 1. โจทย์บอกอะไร
+"ข้อมูลที่ k จากบน" = ถัดจาก top ลงไป k ตัว (top คือตัวที่ 0) `mitosis(a, b)` ทำสำเนาทุกตัวตั้งแต่ตัวที่ a ถึงตัวที่ b จากบน และ **สำเนาแต่ละตัวอยู่ติดกับตัวเดิม** รับประกัน 0 ≤ a ≤ b < mSize
+
+- ตัวอย่าง: [10,20,30,40,50] (top อยู่ขวา) `mitosis(1,2)` → [10,20,**30,30,40,40**,50]
+- อย่าลืมขยาย mData เมื่อจำเป็น — แต่ **อย่าขยายเกินจำเป็น**
+- `main` อ่าน n t, ค่า n ตัว (ตัวแรกอยู่ล่างสุด) แล้วอ่านคู่ a b อีก t คู่ แล้วพิมพ์จาก bottom → top
+
+## 2. จริง ๆ แล้วถามอะไร
+ในมุมอาร์เรย์ บล็อกคือ `mData[lo .. hi]` โดย `hi = top − a`, `lo = top − b` (top = mSize − 1) และสแตกโตขึ้น c = b − a + 1
+
+```text
+index:  0   1   2   3   4          a = 1, b = 2 → hi = 3, lo = 2, c = 2
+       10  20  30  40  50
+                └─block─┘ └ above the block: moves up by c
+result: 10  20  30  30  40  40  50
+        ↑ below lo: stays
+```
+
+เหมือนเซลล์แบ่งตัว: แต่ละตัวในบล็อกแบ่งเป็นสองตัวติดกัน ส่วนที่อยู่ข้างบนต้องถอยขึ้นไปให้ที่
+
+## 3. อะไร ทำไม อย่างไร
+แบ่งเป็นสามส่วน แต่ละส่วนจัดการครั้งเดียว:
+
+1. **ใต้ lo**: ไม่ขยับ
+2. **เหนือ hi** (index hi+1 .. top): ทุกตัว **ขึ้นไป c ช่อง**
+3. **บล็อก**: ตัวที่ index i ไปอยู่ที่ `d = lo + 2·(i − lo)` และ `d + 1`
+
+ปลายทางทุกตัว **≥ ต้นทาง** จึงไล่ **จากบนลงล่าง** — จะไม่มีตัวไหนถูกทับก่อนถูกคัดลอก ขยายครั้งเดียวก่อนย้าย: ถ้า newSize > mCap ให้ `expand(max(newSize, 2·mCap))` (กฎเดียวกับ ensureCapacity) ย้ายข้อมูล O(a + c) ครั้ง
+
+```text
+ไล่จากบนลงล่าง (i ลดลง):
+i=4 (50)  → ช่อง 6
+i=3 (40)  → ช่อง 4 และ 5
+i=2 (30)  → ช่อง 2 และ 3     ← ช่อง 3 ถูกเขียนหลังจากอ่าน 40 ไปแล้ว ✓
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (mitosis(1,2) บน 10 20 30 40 50: top = 4, hi = 3, lo = 2, c = 2):
+
+| ขั้น | i | เขียน | mData[0..6] |
+|---|---|---|---|
+| เหนือบล็อก | 4 | mData[6] = 50 | 10 20 30 40 50 . **50** |
+| บล็อก | 3 (d = 4) | mData[5] = mData[4] = 40 | 10 20 30 40 **40 40** 50 |
+| บล็อก | 2 (d = 2) | mData[3] = mData[2] = 30 | 10 20 **30 30** 40 40 50 |
+
+## 5. จุดที่มักพลาด
+- **ไล่จากล่างขึ้นบน** จะเขียนทับตัวที่ยังไม่ได้คัดลอก (เช่น เขียนช่อง 3 ก่อนอ่านค่าเดิมของช่อง 3)
+- **ใช้ `push` ในลูป** ทีละสำเนา: ใช้ได้แต่อาจจองที่ใหม่หลายครั้งและต้องใช้ที่เก็บเพิ่ม
+- **lo/hi เกินหนึ่ง:** ตัวที่ a จากบนคือ `mData[mSize − 1 − a]` ไม่ใช่ `mData[mSize − a]`
+- **ขยายทีละนิดทุกครั้ง** หรือขยายเป็น newSize พอดีซ้ำ ๆ → จองใหม่หลายรอบ ให้เพิ่มเท่าตัวแบบ ensureCapacity
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04 + บทที่ 03: สแตกคืออาร์เรย์ "ตัวที่ k จากบน" คือ `mSize − 1 − k` กฎทั่วไปของการย้ายในที่เดิม: **ถ้าข้อมูลย้ายไปขวา ให้ไล่จากขวาไปซ้าย** (และกลับกัน) ข้อนี้มีสองส่วนที่ย้ายไปขวาคนละระยะ จึงไล่จากบนลงล่างรอบเดียวได้ทั้งสองส่วน

@@ -1,0 +1,109 @@
+id: d58_q3_list_replace
+group: list
+lesson: 05 · Linked list
+stars: 2
+kind: replace.h
+tags: CP::list, insert / erase, safe iteration
+title: List Replace
+title_th: แทนที่ข้อมูลในลิสต์ (List Replace)
+blurb: Replace every x in the list with a copy of all of y — remember the next ORIGINAL node before changing anything, so the inserted copies are never re-scanned.
+blurb_th: แทนทุก x ในลิสต์ด้วยสำเนาของ y ทั้งหมด — จำโหนด "เดิม" ตัวถัดไปไว้ก่อนแก้อะไร เพื่อไม่ให้กลับไปตรวจสำเนาที่เพิ่งแทรก
+files: sol/d58_q3_list_replace/replace.h
+tests: the starter main prints "Right"; 300 random lists (x at the front / end / everywhere, y empty, y containing x) checked forward, backward and by size against Python; also `l.replace(x, l)`. ASan + UBSan clean (no leaks, no use-after-free).
+tests_th: main เริ่มต้นพิมพ์ "Right"; สุ่ม 300 ลิสต์ (x อยู่หน้า/ท้าย/ทุกที่, y ว่าง, y มี x อยู่ด้วย) ตรวจทั้งเดินหน้า เดินถอยหลัง และขนาด เทียบกับ Python; รวมกรณี `l.replace(x, l)` ไม่พบข้อผิดพลาดจาก ASan + UBSan (ไม่ leak ไม่ใช้หน่วยความจำที่คืนแล้ว)
+==== en
+## 1. What the problem says
+Add `replace(const T& x, list<T>& y)` to CP::list (a **circular doubly linked list with a header**): every element equal to x is replaced by **all elements of y**, in order. l = {9,2,2,4,2,7}, x = 2, y = {3,2,1} → {9,**3,2,1**,**3,2,1**,4,**3,2,1**,7}.
+
+- Write the code in `replace.h`, which is `#include`d **inside** the class.
+- No STL and no other CP classes — only CP::list.
+
+## 2. What it really means
+Walk the original nodes once. At each node equal to x: insert copies of y **before** it, then erase it.
+
+```text
+header ⇄ 9 ⇄ [2] ⇄ 2 ⇄ 4 ⇄ 2 ⇄ 7 ⇄ header        p = the first 2
+insert y before p:   9 ⇄ 3 ⇄ 2 ⇄ 1 ⇄ [2] ⇄ 2 ⇄ ...
+erase p:             9 ⇄ 3 ⇄ 2 ⇄ 1 ⇄ 2 ⇄ ...
+continue at the NEXT ORIGINAL node (the second 2), not at the inserted "2"
+```
+
+## 3. What, why, how
+- Save `nextOld = p->next` **before** touching p — after `erase(p)` the node is deleted and `p->next` is garbage.
+- Inserting before p never changes `nextOld`, so the copies of y are skipped automatically. This matters because y may contain x itself (y = {3,**2**,1}): re-scanning would loop forever.
+- `insert(iterator(p), v)` and `erase(iterator(p))` are the list's own members, so mSize stays correct.
+- Cost O(n + (#x)·|y|).
+- Edge case `l.replace(x, l)`: y is the list being modified — copy it first.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** (l = 9 2 2 4 2 7, y = 3 2 1):
+
+| p | p->data == 2? | action | list after |
+|---|---|---|---|
+| 9 | no | — | 9 2 2 4 2 7 |
+| 2 (1st) | yes | insert 3 2 1, erase | 9 3 2 1 2 4 2 7 |
+| 2 (2nd) | yes | insert, erase | 9 3 2 1 3 2 1 4 2 7 |
+| 4 | no | — | |
+| 2 (3rd) | yes | insert, erase | 9 3 2 1 3 2 1 4 3 2 1 7 |
+| 7 | no | — | done |
+
+## 5. Traps
+- **`p = p->next` after erasing p** — use-after-free.
+- **Scanning with an iterator that also visits the inserted nodes** — with y containing x it never ends.
+- **Linking y's own nodes** into l instead of copies — y must stay intact (and its nodes would be in two lists).
+- **Forgetting mSize** when re-linking by hand; using insert/erase avoids this.
+
+## 6. Background
+Lesson 05: in a circular list with a header, `mHeader->next` is the first node, `mHeader->prev` the last, and "end" is the header itself — no NULL checks needed. Rule for modifying while iterating: **save the next pointer first**.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `replace(const T& x, list<T>& y)` ให้ CP::list (**ลิสต์สองทางแบบวงกลมที่มี header**): ทุกตัวที่เท่ากับ x ให้แทนด้วย **ข้อมูลทั้งหมดของ y** ตามลำดับ l = {9,2,2,4,2,7}, x = 2, y = {3,2,1} → {9,**3,2,1**,**3,2,1**,4,**3,2,1**,7}
+
+- เขียนโค้ดใน `replace.h` ซึ่งถูก `#include` **อยู่ในคลาส**
+- ห้ามใช้ STL และคลาส CP อื่น — ใช้ได้แค่ CP::list
+
+## 2. จริง ๆ แล้วถามอะไร
+เดินผ่านโหนดเดิมรอบเดียว ที่โหนดที่เท่ากับ x: แทรกสำเนาของ y **ก่อน** มัน แล้วลบมันทิ้ง
+
+```text
+header ⇄ 9 ⇄ [2] ⇄ 2 ⇄ 4 ⇄ 2 ⇄ 7 ⇄ header        p = the first 2
+insert y before p:   9 ⇄ 3 ⇄ 2 ⇄ 1 ⇄ [2] ⇄ 2 ⇄ ...
+erase p:             9 ⇄ 3 ⇄ 2 ⇄ 1 ⇄ 2 ⇄ ...
+continue at the NEXT ORIGINAL node (the second 2), not at the inserted "2"
+```
+
+เหมือนรถไฟ: ปลดตู้ที่ต้องเปลี่ยนออก แล้วต่อขบวนตู้ใหม่เข้าไปแทน แต่ต้องจดไว้ก่อนว่าตู้ถัดไปของขบวนเดิมคือคันไหน
+
+## 3. อะไร ทำไม อย่างไร
+- เก็บ `nextOld = p->next` **ก่อน** แตะ p — หลัง `erase(p)` โหนดถูก delete แล้ว `p->next` เป็นขยะ
+- การแทรกก่อน p ไม่เปลี่ยน `nextOld` สำเนาของ y จึงถูกข้ามโดยอัตโนมัติ สำคัญมากเพราะ y อาจมี x อยู่ด้วย (y = {3,**2**,1}): ถ้ากลับไปตรวจจะวนไม่จบ
+- `insert(iterator(p), v)` และ `erase(iterator(p))` เป็นฟังก์ชันของลิสต์เอง mSize จึงถูกต้องเสมอ
+- เวลา O(n + (จำนวน x)·|y|)
+- กรณีพิเศษ `l.replace(x, l)`: y คือลิสต์ที่กำลังแก้อยู่ — คัดลอกก่อน
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (l = 9 2 2 4 2 7, y = 3 2 1):
+
+| p | p->data == 2? | ทำอะไร | ลิสต์หลังทำ |
+|---|---|---|---|
+| 9 | ไม่ | — | 9 2 2 4 2 7 |
+| 2 (ตัวที่ 1) | ใช่ | แทรก 3 2 1, ลบ | 9 3 2 1 2 4 2 7 |
+| 2 (ตัวที่ 2) | ใช่ | แทรก, ลบ | 9 3 2 1 3 2 1 4 2 7 |
+| 4 | ไม่ | — | |
+| 2 (ตัวที่ 3) | ใช่ | แทรก, ลบ | 9 3 2 1 3 2 1 4 3 2 1 7 |
+| 7 | ไม่ | — | เสร็จ |
+
+## 5. จุดที่มักพลาด
+- **`p = p->next` หลังลบ p** — ใช้หน่วยความจำที่คืนไปแล้ว
+- **เดินด้วย iterator ที่ไปเจอโหนดที่เพิ่งแทรก** — ถ้า y มี x จะไม่มีวันจบ
+- **เอาโหนดของ y มาต่อตรง ๆ** แทนการคัดลอก — y ต้องอยู่ครบเหมือนเดิม (และโหนดจะอยู่สองลิสต์พร้อมกัน)
+- **ลืมแก้ mSize** ตอนต่อพอยน์เตอร์เอง การใช้ insert/erase ช่วยเลี่ยงปัญหานี้
+
+## 6. ความรู้พื้นฐาน
+บทที่ 05: ในลิสต์วงกลมที่มี header `mHeader->next` คือโหนดแรก `mHeader->prev` คือโหนดสุดท้าย และ "end" คือ header เอง — ไม่ต้องเช็ก NULL กฎการแก้ไขขณะเดินลิสต์: **เก็บพอยน์เตอร์ตัวถัดไปไว้ก่อนเสมอ**

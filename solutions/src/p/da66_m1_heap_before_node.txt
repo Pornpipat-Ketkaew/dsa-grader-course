@@ -1,0 +1,93 @@
+id: da66_m1_heap_before_node
+group: heap
+lesson: 06 · Binary heap (array layout)
+stars: 2
+kind: program
+tags: heap indices, subtree ranges, reasoning
+title: Heap Before Node
+title_th: ช่องที่อาจถูก pop ก่อน (Heap Before Node)
+blurb: Which slots of an n-node heap could hold a value popped before slot m? Everything except m and its subtree.
+blurb_th: ช่องไหนในฮีป n ช่องที่อาจเก็บค่าที่ถูก pop ก่อนช่อง m? ทุกช่องยกเว้น m และต้นไม้ย่อยของมัน
+files: sol/da66_m1_heap_before_node/main.cpp
+tests: all 4 PDF samples; 200 random (n, m) — for n ≤ 8 the brute force enumerates **every possible heap** of n distinct values and records which slots ever beat slot m; n = 500,000 in 0.03 s.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF; สุ่ม (n, m) 200 ชุด — ถ้า n ≤ 8 brute force จะไล่ **ฮีปทุกแบบที่เป็นไปได้** ของค่า n ตัว แล้วบันทึกว่าช่องไหนเคยชนะช่อง m; n = 500,000 ใช้ 0.03 วินาที
+==== en
+## 1. What the problem says
+A binary heap in a vector (root 0, children 2i+1, 2i+2). Given the size n (1..500,000) and a slot m, print **which slots could possibly hold a value that is "higher"** — popped before the value in slot m — in increasing order. First line: the count; second line: the slots (empty line if none).
+
+- m = 0 → nothing (the root is the top). n = 3, m = 1 → slots 0 and 2.
+
+## 2. What it really means
+"Could possibly" = in **some** valid heap. Which slots can never beat m?
+
+- **m's descendants**: the heap property forces every descendant ≤ m.
+- m itself.
+
+Every other slot — m's ancestors **and** all nodes in other branches — can be bigger in some heap.
+
+```text
+n = 6, m = 4:            0
+                      1     2
+                    3  [4]  5        subtree of 4 = {4} (children 9,10 ≥ n)
+answer: 0 1 2 3 5  (count 5)
+```
+
+## 3. What, why, how
+- Mark the subtree of m level by level (same as Heap Descendant: [lo, hi] → [2lo+1, 2hi+2]).
+- Print every unmarked index from 0 to n−1. O(n).
+- Why are cousins possible? Put the biggest values along the path to any slot outside m's subtree — the heap property never compares that slot with m.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Sample n = 100, m = 4:** subtree of 4 = {4}, {9,10}, {19..22}, {39..46}, {79..94} → 1+2+4+8+16 = 31 slots. Answer count 100 − 31 = **69**, and the listed slots skip exactly those ranges.
+
+## 5. Traps
+- **Answering only ancestors** (0, 1 for m = 4) — slots in other branches (2, 3, 5, …) can hold bigger values too.
+- **Answering "all slots with a smaller index"** — slot 5 (index > 4) is in the answer, slot 9 is not.
+- **Printing nothing on the second line**: when the count is 0, the second line must still exist (empty).
+
+## 6. Background
+Lesson 06: the heap property only orders **ancestor–descendant** pairs; nodes in different branches are unordered. So "certainly smaller" = descendant, "maybe bigger" = everything else.
+==== th
+## 1. โจทย์บอกอะไร
+ไบนารีฮีปใน vector (ราก 0, ลูก 2i+1, 2i+2) ให้ขนาด n (1..500,000) และช่อง m ให้พิมพ์ **ช่องที่ "มีโอกาส" เก็บค่าที่ "สูงกว่า"** — ถูก pop ก่อนค่าในช่อง m — เรียงจากน้อยไปมาก บรรทัดแรกคือจำนวน บรรทัดที่สองคือหมายเลขช่อง (ถ้าไม่มีให้เป็นบรรทัดว่าง)
+
+- m = 0 → ไม่มีเลย (รากคือ top) n = 3, m = 1 → ช่อง 0 และ 2
+
+## 2. จริง ๆ แล้วถามอะไร
+"มีโอกาส" = ใน **บางฮีป** ที่ถูกต้อง แล้วช่องไหนที่ไม่มีทางชนะ m?
+
+- **ลูกหลานของ m**: คุณสมบัติฮีปบังคับให้ลูกหลานทุกตัว ≤ m
+- m เอง
+
+ช่องอื่นทั้งหมด — บรรพบุรุษของ m **และ** ทุกโหนดในกิ่งอื่น — ใหญ่กว่าได้ในบางฮีป
+
+```text
+n = 6, m = 4:            0
+                      1     2
+                    3  [4]  5        subtree of 4 = {4} (children 9,10 ≥ n)
+answer: 0 1 2 3 5  (count 5)
+```
+
+เหมือนบริษัท: ลูกน้องใต้สายของคุณเงินเดือนไม่เกินคุณแน่นอน แต่หัวหน้าของคุณ และคนในแผนกอื่น อาจได้มากกว่าคุณก็ได้
+
+## 3. อะไร ทำไม อย่างไร
+- ทำเครื่องหมายต้นไม้ย่อยของ m ทีละชั้น (เหมือนข้อ Heap Descendant: [lo, hi] → [2lo+1, 2hi+2])
+- พิมพ์ทุก index ที่ไม่ถูกทำเครื่องหมายตั้งแต่ 0 ถึง n−1 เวลา O(n)
+- ทำไมญาติกิ่งอื่นเป็นไปได้? วางค่ามาก ๆ ไว้ตามเส้นทางไปยังช่องที่อยู่นอกต้นไม้ย่อยของ m — คุณสมบัติฮีปไม่เคยเทียบช่องนั้นกับ m เลย
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ตัวอย่าง n = 100, m = 4:** ต้นไม้ย่อยของ 4 = {4}, {9,10}, {19..22}, {39..46}, {79..94} → 1+2+4+8+16 = 31 ช่อง คำตอบคือ 100 − 31 = **69** ช่อง และรายการที่พิมพ์ข้ามช่วงเหล่านี้พอดี
+
+## 5. จุดที่มักพลาด
+- **ตอบแค่บรรพบุรุษ** (0, 1 สำหรับ m = 4) — ช่องในกิ่งอื่น (2, 3, 5, …) ก็ใหญ่กว่าได้
+- **ตอบ "ทุกช่องที่ index น้อยกว่า"** — ช่อง 5 (index > 4) อยู่ในคำตอบ แต่ช่อง 9 ไม่อยู่
+- **ไม่พิมพ์บรรทัดที่สอง**: ถ้าจำนวนเป็น 0 ยังต้องมีบรรทัดที่สอง (ว่าง)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: คุณสมบัติฮีปจัดลำดับเฉพาะคู่ **บรรพบุรุษ–ลูกหลาน** โหนดต่างกิ่งไม่มีลำดับต่อกัน ดังนั้น "เล็กกว่าแน่นอน" = ลูกหลาน "อาจใหญ่กว่า" = ที่เหลือทั้งหมด

@@ -1,0 +1,109 @@
+id: ds04_playlist
+group: list
+lesson: 05 · Linked list
+stars: 2
+kind: whole file (reorder only)
+tags: CP::list, unlink / relink, stable order
+title: Playlist Management
+title_th: จัดการเพลย์ลิสต์ (Playlist)
+blurb: Move the songs at the selected positions so they sit, in order, at position pos — find the target node first, then unlink each selected node and link it just before the target.
+blurb_th: ย้ายเพลงที่ตำแหน่งที่เลือกไปไว้ที่ตำแหน่ง pos ตามลำดับเดิม — หาโหนดเป้าหมายก่อน แล้วปลดแต่ละโหนดที่เลือกไปต่อก่อนเป้าหมาย
+files: sol/ds04_playlist/attachment.h
+tests: the PDF sample and all 4 examples in the text; 300 random playlists, selections and valid pos values against a Python model. The program's own `check()` verifies every prev/next link, and the list is printed both ways.
+tests_th: ตัวอย่างใน PDF และตัวอย่างทั้ง 4 ในเนื้อโจทย์; สุ่มเพลย์ลิสต์ การเลือก และ pos ที่ถูกต้อง 300 ชุดเทียบกับโมเดล Python; `check()` ของโปรแกรมตรวจลิงก์ prev/next ทุกตัว และพิมพ์ลิสต์ทั้งสองทิศ
+==== en
+## 1. What the problem says
+Write `void reorder(int pos, vector<int> selected)` for `CP::list<string>`: move the songs at the positions in `selected` to position `pos` (position x = x steps after the first). Examples on ⟨A,B,C,D⟩:
+
+- selected ⟨2⟩, pos 0 → ⟨C,A,B,D⟩; selected ⟨2⟩, pos 4 → ⟨A,B,D,C⟩; selected ⟨1,2⟩, pos 0 → ⟨B,C,A,D⟩.
+- ⟨A..E⟩, selected ⟨1,3⟩, pos 5 → ⟨A,C,E,B,D⟩.
+- selected is sorted; **pos < selected.front() or pos > selected.back()**. Only fill in `reorder`.
+
+## 2. What it really means
+"Position pos" refers to the **original** list: the moved songs go just **before the song originally at pos** (or at the end when pos = n). Because pos is outside the selected range, that song never moves.
+
+```text
+A B C D E      selected 1,3   pos 5 (= end)
+  ^   ^        target = header (end)
+A C E | B D    B and D are moved before the end, in order
+```
+
+## 3. What, why, how
+1. Walk pos steps to find `target` (the header if pos = n).
+2. Walk the list once with index i and a pointer j into selected. When `i == selected[j]`:
+   - unlink p: `p->prev->next = p->next; p->next->prev = p->prev;`
+   - link p before target: `p->prev = target->prev; p->next = target; target->prev->next = p; target->prev = p;`
+3. Save `p->next` before moving p. No node is created or deleted, so mSize doesn't change. O(n).
+- Moving in increasing i puts each moved song after the previously moved one → original order kept.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the sample** (aa bb cc dd ee, selected 2 4, pos 0 → target = aa):
+
+| i | node | selected? | list after |
+|---|---|---|---|
+| 0 | aa | no | aa bb cc dd ee |
+| 1 | bb | no | |
+| 2 | cc | yes → before aa | cc aa bb dd ee |
+| 3 | dd | no | |
+| 4 | ee | yes → before aa | cc ee aa bb dd |
+
+## 5. Traps
+- **Finding the target after moving** — positions have changed by then. Find it first.
+- **Inserting each moved node right after target** instead of before it (or always at the front) reverses their order.
+- **Losing p->next** after re-linking p — you'd continue from p's new neighbour.
+- **Creating new nodes** (push_back of copies) and deleting old ones: correct output but against the spirit (and slower).
+
+## 6. Background
+Lesson 05: "unlink + relink" = 6 pointer writes, O(1), independent of where the node goes. `std::list::splice(pos, other, it)` is the library version.
+==== th
+## 1. โจทย์บอกอะไร
+เขียน `void reorder(int pos, vector<int> selected)` ของ `CP::list<string>`: ย้ายเพลงที่ตำแหน่งใน `selected` ไปไว้ที่ตำแหน่ง `pos` (ตำแหน่ง x = ถัดจากตัวแรกไป x ครั้ง) ตัวอย่างบน ⟨A,B,C,D⟩:
+
+- selected ⟨2⟩, pos 0 → ⟨C,A,B,D⟩; selected ⟨2⟩, pos 4 → ⟨A,B,D,C⟩; selected ⟨1,2⟩, pos 0 → ⟨B,C,A,D⟩
+- ⟨A..E⟩, selected ⟨1,3⟩, pos 5 → ⟨A,C,E,B,D⟩
+- selected เรียงแล้ว และ **pos < selected.front() หรือ pos > selected.back()** เติมเฉพาะ `reorder`
+
+## 2. จริง ๆ แล้วถามอะไร
+"ตำแหน่ง pos" อ้างอิงลิสต์ **เดิม**: เพลงที่ย้ายไปอยู่ **ก่อนเพลงที่เดิมอยู่ตำแหน่ง pos** (หรือท้ายสุดถ้า pos = n) เนื่องจาก pos อยู่นอกช่วงที่เลือก เพลงนั้นจึงไม่ถูกย้ายแน่นอน
+
+```text
+A B C D E      selected 1,3   pos 5 (= end)
+  ^   ^        target = header (end)
+A C E | B D    B and D are moved before the end, in order
+```
+
+เหมือนจัดเพลย์ลิสต์ในแอป: ลากเพลงที่เลือกไปวางก่อนเพลงเป้าหมาย ทีละเพลงตามลำดับ
+
+## 3. อะไร ทำไม อย่างไร
+1. เดิน pos ก้าวเพื่อหา `target` (header ถ้า pos = n)
+2. เดินลิสต์รอบเดียวด้วย index i และตัวชี้ j ใน selected เมื่อ `i == selected[j]`:
+   - ปลด p: `p->prev->next = p->next; p->next->prev = p->prev;`
+   - ต่อ p ก่อน target: `p->prev = target->prev; p->next = target; target->prev->next = p; target->prev = p;`
+3. เก็บ `p->next` ไว้ก่อนย้าย p ไม่มีการสร้างหรือลบโหนด mSize จึงไม่เปลี่ยน O(n)
+- ย้ายตามลำดับ i ที่เพิ่มขึ้น แต่ละเพลงจะไปต่อหลังเพลงที่ย้ายก่อนหน้า → ลำดับเดิมคงอยู่
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (aa bb cc dd ee, selected 2 4, pos 0 → target = aa):
+
+| i | โหนด | ถูกเลือก? | ลิสต์หลังทำ |
+|---|---|---|---|
+| 0 | aa | ไม่ | aa bb cc dd ee |
+| 1 | bb | ไม่ | |
+| 2 | cc | ใช่ → ก่อน aa | cc aa bb dd ee |
+| 3 | dd | ไม่ | |
+| 4 | ee | ใช่ → ก่อน aa | cc ee aa bb dd |
+
+## 5. จุดที่มักพลาด
+- **หา target หลังจากย้ายไปแล้ว** — ตำแหน่งเปลี่ยนไปแล้ว ต้องหาก่อน
+- **แทรกแต่ละโหนดหลัง target** แทนที่จะก่อน (หรือแทรกหน้าสุดทุกครั้ง) ลำดับจะกลับด้าน
+- **ทำ p->next หาย** หลังต่อ p ใหม่ — จะไปเดินต่อจากเพื่อนบ้านใหม่ของ p
+- **สร้างโหนดใหม่** (push_back สำเนา) แล้วลบโหนดเก่า: ผลถูกแต่ผิดเจตนาของโจทย์ (และช้ากว่า)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 05: "ปลด + ต่อใหม่" = เขียนพอยน์เตอร์ 6 ครั้ง O(1) ไม่ว่าโหนดจะไปอยู่ที่ไหน `std::list::splice(pos, other, it)` คือเวอร์ชันในไลบรารี

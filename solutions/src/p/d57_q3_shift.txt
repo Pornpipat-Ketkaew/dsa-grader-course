@@ -1,0 +1,121 @@
+id: d57_q3_shift
+group: list
+lesson: 05 · Linked list
+stars: 2
+kind: shift.h
+tags: CP::list, move the header, modulo
+title: List Shift
+title_th: เลื่อนข้อมูลแบบวงในลิสต์ (Shift)
+blurb: Circular shift by k without insert/erase — the data never moves; the header is taken out of the ring and put back in front of the new first node.
+blurb_th: เลื่อนแบบวน k ช่องโดยไม่ใช้ insert/erase — ข้อมูลไม่ขยับ แค่ถอด header ออกจากวงแล้วใส่กลับหน้าโหนดแรกตัวใหม่
+files: sol/d57_q3_shift/shift.h
+tests: the PDF sample and every row of the PDF table (k = 1, 4, −2, 100 on 1 and 3 elements); 300 random lists with k between −10⁶ and 10⁶ against Python rotation; the starter's `check()` verifies all links. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF และทุกแถวในตาราง (k = 1, 4, −2, 100 กับ 1 และ 3 ตัว); สุ่ม 300 ลิสต์ k ระหว่าง −10⁶ ถึง 10⁶ เทียบกับการหมุนใน Python; `check()` ตรวจลิงก์ทั้งหมด ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void shift(int k)` to CP::list: circular shift **left by k** if k > 0, **right by |k|** if k < 0; data that falls off one end comes back at the other.
+
+| before | k | after |
+|---|---|---|
+| ⟨A,B,C,D,E⟩ | 1 | ⟨B,C,D,E,A⟩ |
+| ⟨A,B,C,D,E⟩ | 4 | ⟨E,A,B,C,D⟩ |
+| ⟨A,B,C,D,E⟩ | −2 | ⟨D,E,A,B,C⟩ |
+| ⟨A⟩ | 100 | ⟨A⟩ |
+| ⟨A,B,C⟩ | 100 | ⟨B,C,A⟩ |
+
+- **insert and erase are forbidden.** Hint: "do something with mHeader". −10⁶ ≤ k ≤ 10⁶.
+
+## 2. What it really means
+In a circular list the data already form a ring; the header only marks "where the list starts". Rotating = **moving the header** to another gap.
+
+```text
+ring:  H → A → B → C → D → E → H          shift(1)
+take H out:   A → B → C → D → E → A (closed ring of data)
+put H before B:   H → B → C → D → E → A → H
+```
+
+## 3. What, why, how
+1. Normalise: `s = ((k % n) + n) % n` (C++ `%` keeps the sign, so add n). s = 0 → nothing.
+2. Find newFirst = the node at position s (walk s steps), newLast = newFirst->prev.
+3. Remove H: `last->next = first; first->prev = last`.
+4. Insert H between newLast and newFirst (4 writes).
+- O(s) ≤ O(n) time, O(1) memory, 6 pointer writes, no node allocated.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the sample** (10 20 30 40, k = 3 → s = 3):
+
+| step | ring |
+|---|---|
+| start | H → 10 → 20 → 30 → 40 → H |
+| newFirst = 40, newLast = 30 | |
+| remove H | 10 → 20 → 30 → 40 → 10 |
+| insert H between 30 and 40 | H → 40 → 10 → 20 → 30 → H |
+
+Output: `40 10 20 30` and backwards `30 20 10 40`.
+
+## 5. Traps
+- **`k % n` with negative k** is negative in C++ (−2 % 5 = −2) → normalise.
+- **k much bigger than n** (100 on 3 elements) → walking k steps would pass the header many times; reduce first.
+- **n = 0** → division by zero in `k % n`. Return early.
+- **Moving the data** (copying values around) is O(n) and not what the hint asks; popping/pushing uses insert/erase — forbidden.
+
+## 6. Background
+Lesson 05: the header is a sentinel; "first" and "last" are just its neighbours. Any rotation of a circular list is O(1) once the new first node is known — the same reason `std::rotate` on a list is cheap with splice.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void shift(int k)` ให้ CP::list: เลื่อนแบบวน **ไปซ้าย k ช่อง** ถ้า k > 0, **ไปขวา |k| ช่อง** ถ้า k < 0 ข้อมูลที่หลุดปลายหนึ่งจะวนกลับมาอีกปลาย
+
+| ก่อน | k | หลัง |
+|---|---|---|
+| ⟨A,B,C,D,E⟩ | 1 | ⟨B,C,D,E,A⟩ |
+| ⟨A,B,C,D,E⟩ | 4 | ⟨E,A,B,C,D⟩ |
+| ⟨A,B,C,D,E⟩ | −2 | ⟨D,E,A,B,C⟩ |
+| ⟨A⟩ | 100 | ⟨A⟩ |
+| ⟨A,B,C⟩ | 100 | ⟨B,C,A⟩ |
+
+- **ห้ามใช้ insert และ erase** คำใบ้: "ทำอะไรบางอย่างกับ mHeader" −10⁶ ≤ k ≤ 10⁶
+
+## 2. จริง ๆ แล้วถามอะไร
+ในลิสต์วงกลม ข้อมูลเป็นวงอยู่แล้ว header แค่บอกว่า "ลิสต์เริ่มตรงไหน" การหมุน = **ย้าย header** ไปไว้ช่องอื่น
+
+```text
+ring:  H → A → B → C → D → E → H          shift(1)
+take H out:   A → B → C → D → E → A (closed ring of data)
+put H before B:   H → B → C → D → E → A → H
+```
+
+เหมือนโต๊ะกลมที่ทุกคนนั่งอยู่กับที่ แค่ย้ายป้าย "หัวโต๊ะ" ไปวางหน้าคนอื่น
+
+## 3. อะไร ทำไม อย่างไร
+1. ทำให้อยู่ในช่วง: `s = ((k % n) + n) % n` (`%` ของ C++ ได้ผลติดลบตาม k จึงต้องบวก n) ถ้า s = 0 ไม่ต้องทำอะไร
+2. หา newFirst = โหนดที่ตำแหน่ง s (เดิน s ก้าว) และ newLast = newFirst->prev
+3. ถอด H ออก: `last->next = first; first->prev = last`
+4. ใส่ H ระหว่าง newLast กับ newFirst (เขียน 4 ครั้ง)
+- เวลา O(s) ≤ O(n) หน่วยความจำ O(1) เขียนพอยน์เตอร์ 6 ครั้ง ไม่สร้างโหนดใหม่
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (10 20 30 40, k = 3 → s = 3):
+
+| ขั้น | วง |
+|---|---|
+| เริ่ม | H → 10 → 20 → 30 → 40 → H |
+| newFirst = 40, newLast = 30 | |
+| ถอด H | 10 → 20 → 30 → 40 → 10 |
+| ใส่ H ระหว่าง 30 กับ 40 | H → 40 → 10 → 20 → 30 → H |
+
+ผล: `40 10 20 30` และย้อนกลับ `30 20 10 40`
+
+## 5. จุดที่มักพลาด
+- **`k % n` เมื่อ k ติดลบ** ได้ผลติดลบใน C++ (−2 % 5 = −2) → ต้องปรับ
+- **k ใหญ่กว่า n มาก** (100 กับ 3 ตัว) → ถ้าเดิน k ก้าวจะผ่าน header หลายรอบ ต้องลดก่อน
+- **n = 0** → หารด้วยศูนย์ใน `k % n` ต้อง return ก่อน
+- **ย้ายข้อมูลจริง** (คัดลอกค่าไปมา) เป็น O(n) และไม่ตรงกับคำใบ้ ส่วน pop/push ใช้ insert/erase — ห้าม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 05: header คือ sentinel "ตัวแรก" และ "ตัวสุดท้าย" ก็แค่เพื่อนบ้านของมัน การหมุนลิสต์วงกลมใด ๆ เป็น O(1) เมื่อรู้โหนดแรกตัวใหม่แล้ว — เหตุผลเดียวกับที่ `std::rotate` บนลิสต์ทำได้ถูกด้วย splice

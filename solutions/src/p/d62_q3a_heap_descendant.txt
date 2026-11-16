@@ -1,0 +1,101 @@
+id: d62_q3a_heap_descendant
+group: heap
+lesson: 06 · Binary heap (array layout)
+stars: 2
+kind: program
+tags: heap indices, 2i+1 / 2i+2, level ranges
+title: Heap Descendant
+title_th: ลูกหลานในฮีป (Heap Descendant)
+blurb: List node a and all its descendants in an n-node array heap — each level of descendants is one contiguous range [lo, hi] → [2lo+1, 2hi+2].
+blurb_th: แสดงโหนด a และลูกหลานทั้งหมดในฮีปขนาด n — ลูกหลานแต่ละชั้นเป็นช่วงติดกัน [lo, hi] → [2lo+1, 2hi+2]
+files: sol/d62_q3a_heap_descendant/main.cpp
+tests: all 5 PDF samples (including n = 5478, a = 214 → 31 nodes); 300 random (n, a) against a brute force that walks every node up to its ancestors; n = 200,000, a = 0 in 0.01 s.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF (รวม n = 5478, a = 214 → 31 โหนด); สุ่ม (n, a) 300 ชุดเทียบกับ brute force ที่เดินจากทุกโหนดขึ้นไปหาบรรพบุรุษ; n = 200,000, a = 0 ใช้ 0.01 วินาที
+==== en
+## 1. What the problem says
+A binary heap stored in an array with the root at index 0. Node a is an **ancestor** of b if a is b's parent, or the parent of b's parent, and so on; then b is a **descendant** of a. Given n and a (0 ≤ a < n ≤ 200,000), print the count m of a and all its descendants, then their indices in increasing order.
+
+## 2. What it really means
+Children of i are 2i+1 and 2i+2. Going down one level from a contiguous range of nodes gives another contiguous range:
+
+```text
+n = 7, a = 2                     index layout
+level 0: [2, 2]                        0
+level 1: [5, 6]                     1     2
+level 2: [11, 14] → beyond n=7     3 4   5 6
+answer: 3 / 2 5 6
+```
+
+## 3. What, why, how
+- Start with `lo = hi = a`. While `lo < n`: output `lo .. min(hi, n−1)`, then `lo = 2·lo + 1`, `hi = 2·hi + 2`.
+- Each new range starts after the previous one ends, so the output is already sorted.
+- O(m) — only the answer is touched. (A brute force that checks every b by walking up is O(n log n), also fine for n = 2·10⁵, but this is cleaner.)
+- Use `long long` for lo/hi: hi doubles every level and can overshoot int before the loop stops.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace for n = 5478, a = 214:**
+
+| level | lo | hi | printed |
+|---|---|---|---|
+| 0 | 214 | 214 | 214 |
+| 1 | 429 | 430 | 429 430 |
+| 2 | 859 | 862 | 859 … 862 |
+| 3 | 1719 | 1726 | 1719 … 1726 |
+| 4 | 3439 | 3454 | 3439 … 3454 |
+| 5 | 6879 ≥ n | | stop → 1+2+4+8+16 = 31 |
+
+## 5. Traps
+- **Forgetting a itself** — the count includes a.
+- **Recursion with printing** visits nodes depth-first: 214, 429, 859, … — not sorted.
+- **Cutting the last level** at n−1 (sample `6 2` → only 5, not 6).
+
+## 6. Background
+Lesson 06: array heap arithmetic — parent (i−1)/2, children 2i+1 and 2i+2. The descendants at depth d below a form the range [2ᵈ(a+1)−1, 2ᵈ(a+2)−2]. The same level-range idea solves Heap Before Node.
+==== th
+## 1. โจทย์บอกอะไร
+ฮีปแบบไบนารีเก็บในอาร์เรย์โดยรากอยู่ index 0 โหนด a เป็น **บรรพบุรุษ** ของ b ถ้า a เป็นพ่อของ b หรือพ่อของพ่อของ b ไปเรื่อย ๆ แล้ว b เรียกว่า **ลูกหลาน** (descendant) ของ a ให้ n และ a (0 ≤ a < n ≤ 200,000) พิมพ์จำนวน m ของ a รวมลูกหลานทั้งหมด แล้วพิมพ์ index เรียงจากน้อยไปมาก
+
+## 2. จริง ๆ แล้วถามอะไร
+ลูกของ i คือ 2i+1 และ 2i+2 ถ้าลงไปหนึ่งชั้นจากช่วงโหนดที่ติดกัน ก็จะได้อีกช่วงที่ติดกัน:
+
+```text
+n = 7, a = 2                     index layout
+level 0: [2, 2]                        0
+level 1: [5, 6]                     1     2
+level 2: [11, 14] → beyond n=7     3 4   5 6
+answer: 3 / 2 5 6
+```
+
+เหมือนผังตระกูล: ลูกหลานรุ่นเดียวกันของ a นั่งติดกันเป็นแถวในอาร์เรย์เสมอ
+
+## 3. อะไร ทำไม อย่างไร
+- เริ่ม `lo = hi = a` ขณะที่ `lo < n`: พิมพ์ `lo .. min(hi, n−1)` แล้ว `lo = 2·lo + 1`, `hi = 2·hi + 2`
+- ช่วงใหม่เริ่มหลังช่วงเก่าจบเสมอ ผลลัพธ์จึงเรียงอยู่แล้ว
+- O(m) — แตะเฉพาะคำตอบ (brute force ที่เช็กทุก b โดยเดินขึ้นไปเป็น O(n log n) ก็ผ่านสำหรับ n = 2·10⁵ แต่วิธีนี้สะอาดกว่า)
+- ใช้ `long long` กับ lo/hi เพราะ hi เพิ่มเท่าตัวทุกชั้น อาจเกิน int ก่อนลูปหยุด
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ n = 5478, a = 214:**
+
+| ชั้น | lo | hi | พิมพ์ |
+|---|---|---|---|
+| 0 | 214 | 214 | 214 |
+| 1 | 429 | 430 | 429 430 |
+| 2 | 859 | 862 | 859 … 862 |
+| 3 | 1719 | 1726 | 1719 … 1726 |
+| 4 | 3439 | 3454 | 3439 … 3454 |
+| 5 | 6879 ≥ n | | หยุด → 1+2+4+8+16 = 31 |
+
+## 5. จุดที่มักพลาด
+- **ลืมนับ a เอง** — จำนวนรวม a ด้วย
+- **ใช้ recursion แล้วพิมพ์ทันที** จะได้ลำดับแบบลงลึกก่อน: 214, 429, 859, … — ไม่เรียง
+- **ตัดชั้นสุดท้าย** ที่ n−1 (ตัวอย่าง `6 2` → มีแค่ 5 ไม่มี 6)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: เลขคณิตของฮีปในอาร์เรย์ — พ่อ (i−1)/2, ลูก 2i+1 และ 2i+2 ลูกหลานที่ลึกลงไป d ชั้นใต้ a คือช่วง [2ᵈ(a+1)−1, 2ᵈ(a+2)−2] แนวคิดช่วงต่อชั้นนี้ใช้แก้ข้อ Heap Before Node ด้วย

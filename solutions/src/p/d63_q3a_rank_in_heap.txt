@@ -1,0 +1,110 @@
+id: d63_q3a_rank_in_heap
+group: heap
+lesson: 06 · Binary heap
+stars: 2
+kind: student.h
+tags: CP::priority_queue, const, heap property, pruned DFS
+title: Rank in Heap
+title_th: ลำดับของข้อมูลในฮีป (Rank in Heap)
+blurb: get_rank(pos) = how many pops until top() equals mData[pos] = how many elements are strictly more important. Count them by walking only the part of the heap that beats x.
+blurb_th: get_rank(pos) = ต้อง pop กี่ครั้งกว่า top() จะเท่ากับ mData[pos] = จำนวนตัวที่สำคัญกว่าอย่างเคร่งครัด นับโดยเดินเฉพาะส่วนของฮีปที่ชนะ x
+files: sol/d63_q3a_rank_in_heap/student.h
+tests: the PDF sample and the all-equal example; a self-check on 6,000 random heaps (many duplicates, less and greater) comparing every position against actually popping a copy. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF และตัวอย่างที่ค่าเท่ากันหมด; ตรวจตัวเองกับฮีปสุ่ม 6,000 ชุด (ค่าซ้ำเยอะ ทั้ง less และ greater) เทียบทุกตำแหน่งกับการ pop สำเนาจริง ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `size_t get_rank(size_t pos) const`: let x = mData[pos]; return **how many pop()s are needed until top() equals x**. Don't change the heap. 0 ≤ pos ≤ mSize−1.
+
+- mData = [50,40,30,20,10]: get_rank(0) = 0, get_rank(3) = 3 (pop 50, 40, 30 → top 20).
+- Only the **value** matters: with [1,1,1,1,1] every rank is 0.
+- `main`: n m, the n values (pushed), then m positions; prints get_rank for each.
+
+## 2. What it really means
+top() becomes equal to x as soon as every element **strictly more important** than x is gone. So the rank is a **count**: `#{ y : mLess(x, y) }`.
+
+```text
+push 1 2 3 4 5 → mData = 5 4 2 1 3
+pos:   0  1  2  3  4
+x:     5  4  2  1  3
+rank:  0  1  3  4  2     (how many values are bigger)
+```
+
+## 3. What, why, how
+- **Simple O(n):** scan all of mData and count `mLess(x, mData[i])`. Correct and usually enough.
+- **Better (used here):** by the heap property, if a node does not beat x, none of its descendants does. So the nodes that beat x form a connected piece at the top. Walk only that piece with a small stack of indices: **O(rank)** time.
+- Use `mLess`, not `<`, so it works with any comparator.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of get_rank(4)** — x = 3, mData = 5 4 2 1 3:
+
+| pop from stack | value | beats 3? | push children |
+|---|---|---|---|
+| start | | 5 > 3 | 0 |
+| 0 | 5 | count = 1 | 1 (4 > 3); 2 (2) no |
+| 1 | 4 | count = 2 | 3 (1) no; 4 (3) no — equal |
+| empty | | | **2** |
+
+## 5. Traps
+- **Counting `>=`** (or `!mLess(y, x)`) also counts equals and x itself → [1,1,1,1,1] would give 4, not 0.
+- **Actually popping** a copy works but costs O(n log n) per query.
+- **Returning `pos`** — slot index ≠ rank (the sample has pos 2 → rank 3).
+- **Using `<` instead of `mLess`** breaks min-heaps.
+
+## 6. Background
+Lesson 06: the heap property means "everything better than x" is an **upper set** containing the root — a pruned traversal finds it in time proportional to its size. The same pruning gives "list all elements > x in a heap" in O(answer).
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `size_t get_rank(size_t pos) const`: ให้ x = mData[pos] คืน **จำนวนครั้งที่ต้อง pop() จนกว่า top() จะเท่ากับ x** ห้ามเปลี่ยนฮีป 0 ≤ pos ≤ mSize−1
+
+- mData = [50,40,30,20,10]: get_rank(0) = 0, get_rank(3) = 3 (pop 50, 40, 30 → top เป็น 20)
+- สนใจแค่ **ค่า**: ถ้าเป็น [1,1,1,1,1] ทุกตำแหน่งได้ 0
+- `main`: n m, ค่า n ตัว (push), แล้วตำแหน่ง m ตัว พิมพ์ get_rank ของแต่ละตัว
+
+## 2. จริง ๆ แล้วถามอะไร
+top() จะเท่ากับ x ทันทีที่ทุกตัวที่ **สำคัญกว่า x อย่างเคร่งครัด** ถูก pop ออกหมด คำตอบจึงเป็น **การนับ**: `#{ y : mLess(x, y) }`
+
+```text
+push 1 2 3 4 5 → mData = 5 4 2 1 3
+pos:   0  1  2  3  4
+x:     5  4  2  1  3
+rank:  0  1  3  4  2     (how many values are bigger)
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **แบบง่าย O(n):** ไล่ mData ทั้งหมด นับ `mLess(x, mData[i])` ถูกและมักจะพอ
+- **แบบดีกว่า (ที่ใช้ในเฉลย):** ตามคุณสมบัติฮีป ถ้าโหนดหนึ่งไม่ชนะ x ลูกหลานของมันก็ไม่ชนะ x เช่นกัน ดังนั้นโหนดที่ชนะ x เป็นก้อนเดียวที่ติดอยู่ด้านบน เดินเฉพาะก้อนนั้นด้วยสแตกของ index: เวลา **O(rank)**
+- ใช้ `mLess` ไม่ใช่ `<` เพื่อให้ใช้ได้กับ comparator ใดก็ได้
+
+```text
+          5   ← ชนะ 3 ✓
+        /   \
+   ✓  4      2  ✗ (ไม่ชนะ → ไม่ต้องลงไปดูลูกของมัน)
+     / \
+    1   3   ✗ ✗
+นับได้ 2 ตัว → rank = 2
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ get_rank(4)** — x = 3, mData = 5 4 2 1 3:
+
+| หยิบจากสแตก | ค่า | ชนะ 3? | ใส่ลูก |
+|---|---|---|---|
+| เริ่ม | | 5 > 3 | 0 |
+| 0 | 5 | count = 1 | 1 (4 > 3); 2 (2) ไม่ |
+| 1 | 4 | count = 2 | 3 (1) ไม่; 4 (3) ไม่ — เท่ากัน |
+| ว่าง | | | **2** |
+
+## 5. จุดที่มักพลาด
+- **นับ `>=`** (หรือ `!mLess(y, x)`) จะนับตัวที่เท่ากันและ x เองด้วย → [1,1,1,1,1] จะได้ 4 แทนที่จะเป็น 0
+- **pop สำเนาจริง** ใช้ได้แต่ O(n log n) ต่อคำถาม
+- **คืน `pos`** — index ช่องไม่ใช่ลำดับ (ตัวอย่าง pos 2 → rank 3)
+- **ใช้ `<` แทน `mLess`** ผิดกับ min-heap
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: คุณสมบัติฮีปทำให้ "ทุกตัวที่ดีกว่า x" เป็น **เซตบน** ที่มีรากอยู่ การเดินแบบตัดกิ่งจึงหาได้ในเวลาเท่ากับขนาดของมัน เทคนิคเดียวกันใช้ "แสดงทุกค่าที่ > x ในฮีป" ได้ใน O(คำตอบ)

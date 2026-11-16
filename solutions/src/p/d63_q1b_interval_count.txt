@@ -1,0 +1,135 @@
+id: d63_q1b_interval_count
+group: search
+lesson: 08 · Binary search & prefix sums
+stars: 1
+kind: program
+tags: sort, lower_bound, upper_bound
+title: Interval Count
+title_th: นับจำนวนในช่วง (Interval Count)
+blurb: How many of n numbers lie in [p−k, p+k]? Sort once, two binary searches per query.
+blurb_th: มีตัวเลขกี่ตัวอยู่ในช่วง [p−k, p+k]? sort ครั้งเดียว แล้วใช้ binary search สองครั้งต่อคำถาม
+files: sol/d63_q1b_interval_count/main.cpp
+tests: all 3 samples from the PDF; 300 random tests against an O(n·m) brute force; n = m = 200,000 runs in ≈0.1 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF; ทดสอบสุ่ม 300 ชุดเทียบกับวิธี brute force O(n·m); n = m = 200,000 ใช้เวลาประมาณ 0.1 วินาที
+==== en
+## 1. What the problem says
+`[a,b]` means every integer from a to b, both ends included. You get **n distinct integers** and **m questions**. Each question gives a number **p**; answer how many of the n integers lie in **[p−k, p+k]** (k is the same for every question).
+
+- Line 1: `n m k` with 1 ≤ n, m ≤ 200,000 and 0 ≤ k ≤ 10⁹.
+- Line 2: the n integers (0..10⁹, all different). Line 3: the m values p (0..10⁹).
+- Output: one line with the m answers in order. Use fast I/O.
+
+## 2. What it really means
+"Count array values inside a range", asked 200,000 times. Sample 1 (k = 1, array `1 3 5 9 10`):
+
+| p | interval | values inside | answer |
+|---|---|---|---|
+| 1 | [0, 2] | 1 | 1 |
+| 2 | [1, 3] | 1, 3 | 2 |
+| 3 | [2, 4] | 3 | 1 |
+| 7 | [6, 8] | — | 0 |
+| 20 | [19, 21] | — | 0 |
+
+## 3. What, why, how
+- **Naive:** scan all n values for every question → n·m = 4·10¹⁰ steps. Only the small subtasks pass.
+- **Key observation:** once the array is **sorted**, the values inside [lo, hi] form **one contiguous block**. We only need the two edges of that block, and binary search finds each edge in O(log n).
+- `L = lower_bound(lo)` = first index whose value is **≥ lo**; `R = upper_bound(hi)` = first index whose value is **> hi**. The block is `a[L .. R−1]`, so the count is **R − L**.
+
+```text
+sorted a:   index  0   1   2   3   4
+            value  1   3   5   9  10
+query p=2, k=1 → [1, 3]
+            lower_bound(1) → L = 0 ──┐
+            upper_bound(3) → R = 2 ──┤   block a[0..1] = {1, 3}
+                                     └─  answer R − L = 2
+```
+
+Total cost O(n log n + m log n).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 3** (k = 0 so the interval is [p, p]; sorted array index 0→2, 1→4, 2→8):
+
+| p | lo, hi | L = first ≥ lo | R = first > hi | R − L |
+|---|---|---|---|---|
+| 1 | 1, 1 | 0 (value 2) | 0 (value 2) | 0 |
+| 2 | 2, 2 | 0 (value 2) | 1 (value 4) | 1 |
+| 3 | 3, 3 | 1 (value 4) | 1 | 0 |
+| 4 | 4, 4 | 1 (value 4) | 2 (value 8) | 1 |
+| 5 | 5, 5 | 2 (value 8) | 2 | 0 |
+
+## 5. Traps
+- **Overflow:** p + k can reach 2·10⁹ > 2³¹−1. Keep lo/hi in `long long`.
+- **Unsorted input:** sample 2 is not sorted — always `sort` first.
+- **Output format:** the ternary inside a `cout` chain must be parenthesised: `cout << cnt << (q < m-1 ? " " : "");`. Without parentheses `<<` binds first and the program prints `1`/`0` instead of spaces.
+- **Edge cases are free:** an empty block gives L = R → 0; lo < 0 gives L = 0; hi above everything gives R = n.
+
+## 6. Background
+Lesson 08 pattern **“count in a range = upper_bound − lower_bound”**. Memorise:
+- `lower_bound(x)` → first element **≥ x**; `upper_bound(x)` → first element **> x**.
+- `lower_bound(x) − 1` → last element **< x**; `upper_bound(x) − 1` → last element **≤ x**.
+
+The same idea counts occurrences of x (lo = hi = x) and answers predecessor questions (see Hiatus).
+==== th
+## 1. โจทย์บอกอะไร
+`[a,b]` คือจำนวนเต็มทุกตัวตั้งแต่ a ถึง b (รวมปลายทั้งสองข้าง) เรามี **จำนวนเต็ม n ตัวที่ไม่ซ้ำกัน** และ **คำถาม m ข้อ** แต่ละคำถามให้เลข **p** มา ให้ตอบว่ามีจำนวนในรายการกี่ตัวที่อยู่ในช่วง **[p−k, p+k]** (k เท่ากันทุกคำถาม)
+
+- บรรทัดแรก: `n m k` โดย 1 ≤ n, m ≤ 200,000 และ 0 ≤ k ≤ 10⁹
+- บรรทัดที่สอง: จำนวนเต็ม n ตัว (0..10⁹ ไม่ซ้ำกัน) บรรทัดที่สาม: ค่า p ทั้ง m ค่า (0..10⁹)
+- ผลลัพธ์: บรรทัดเดียว มีคำตอบ m ตัวตามลำดับคำถาม ต้องใช้ fast I/O
+
+## 2. จริง ๆ แล้วถามอะไร
+"นับว่ามีค่าในอาร์เรย์กี่ตัวที่อยู่ในช่วงหนึ่ง" ถามซ้ำ 200,000 ครั้ง ตัวอย่างที่ 1 (k = 1, อาร์เรย์ `1 3 5 9 10`):
+
+| p | ช่วง | ค่าที่อยู่ในช่วง | คำตอบ |
+|---|---|---|---|
+| 1 | [0, 2] | 1 | 1 |
+| 2 | [1, 3] | 1, 3 | 2 |
+| 3 | [2, 4] | 3 | 1 |
+| 7 | [6, 8] | — | 0 |
+| 20 | [19, 21] | — | 0 |
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** ไล่ดูทั้ง n ตัวทุกคำถาม → n·m = 4·10¹⁰ ขั้น ช้าเกินไป ผ่านแค่ชุดทดสอบเล็ก
+- **ข้อสังเกตสำคัญ:** ถ้า **sort** อาร์เรย์แล้ว ค่าที่อยู่ใน [lo, hi] จะเป็น **ก้อนเดียวที่ติดกัน** เราแค่หา "ขอบซ้าย" และ "ขอบขวา" ของก้อนนั้น ซึ่ง binary search หาแต่ละขอบได้ใน O(log n)
+- `L = lower_bound(lo)` = ตำแหน่งแรกที่ค่า **≥ lo**; `R = upper_bound(hi)` = ตำแหน่งแรกที่ค่า **> hi** ก้อนคือ `a[L .. R−1]` ดังนั้นคำตอบคือ **R − L**
+
+```text
+อาร์เรย์ที่ sort แล้ว: index  0   1   2   3   4
+                     value  1   3   5   9  10
+คำถาม p=2, k=1 → [1, 3]
+            lower_bound(1) → L = 0 ──┐
+            upper_bound(3) → R = 2 ──┤   ก้อน a[0..1] = {1, 3}
+                                     └─  คำตอบ R − L = 2
+```
+
+เวลารวม O(n log n + m log n)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 3** (k = 0 ช่วงจึงเป็น [p, p]; อาร์เรย์ที่ sort แล้ว index 0→2, 1→4, 2→8):
+
+| p | lo, hi | L = ตัวแรกที่ ≥ lo | R = ตัวแรกที่ > hi | R − L |
+|---|---|---|---|---|
+| 1 | 1, 1 | 0 (ค่า 2) | 0 (ค่า 2) | 0 |
+| 2 | 2, 2 | 0 (ค่า 2) | 1 (ค่า 4) | 1 |
+| 3 | 3, 3 | 1 (ค่า 4) | 1 | 0 |
+| 4 | 4, 4 | 1 (ค่า 4) | 2 (ค่า 8) | 1 |
+| 5 | 5, 5 | 2 (ค่า 8) | 2 | 0 |
+
+## 5. จุดที่มักพลาด
+- **Overflow:** p + k อาจถึง 2·10⁹ ซึ่งเกิน `int` (2³¹−1) ต้องเก็บ lo/hi เป็น `long long`
+- **ข้อมูลไม่ได้เรียงมา:** ตัวอย่างที่ 2 ไม่ได้ sort มา ต้อง `sort` ก่อนเสมอ
+- **รูปแบบผลลัพธ์:** ถ้าใช้ `?:` ใน `cout` ต้องใส่วงเล็บ: `cout << cnt << (q < m-1 ? " " : "");` ถ้าไม่ใส่ `<<` จะทำก่อน โปรแกรมจะพิมพ์ `1`/`0` แทนช่องว่าง
+- **กรณีขอบได้มาฟรี:** ไม่มีค่าในช่วง → L = R ได้ 0; lo < 0 → L = 0; hi มากกว่าทุกค่า → R = n
+
+## 6. ความรู้พื้นฐาน
+บทที่ 08 รูปแบบ **"นับในช่วง = upper_bound − lower_bound"** จำไว้ว่า:
+- `lower_bound(x)` → ตัวแรกที่ **≥ x**; `upper_bound(x)` → ตัวแรกที่ **> x**
+- `lower_bound(x) − 1` → ตัวสุดท้ายที่ **< x**; `upper_bound(x) − 1` → ตัวสุดท้ายที่ **≤ x**
+
+แนวคิดเดียวกันใช้นับจำนวนครั้งที่ x ปรากฏ (lo = hi = x) และตอบคำถามหา "ตัวก่อนหน้า" ได้ (ดูข้อ Hiatus)

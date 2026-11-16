@@ -1,0 +1,107 @@
+id: d64_q3a_heap_kth
+group: heap
+lesson: 06 · Binary heap
+stars: 2
+kind: student.h
+tags: CP::priority_queue, const, top levels, lambda [this]
+title: Heap K-th
+title_th: ค่าที่จะถูก pop เป็นลำดับที่ k (Heap K-th)
+blurb: get_kth(k) for k ≤ 3 without changing the heap — the k-th best is always within the first k levels, so sort at most 7 candidates.
+blurb_th: get_kth(k) สำหรับ k ≤ 3 โดยไม่แก้ฮีป — ตัวที่ดีเป็นอันดับ k อยู่ใน k ชั้นแรกเสมอ จึง sort แค่ไม่เกิน 7 ตัว
+files: sol/d64_q3a_heap_kth/student.h
+tests: hand examples for less and greater; 300 random heaps of int / string / greater<int> (with duplicates) against Python sorting; the starter's random mode (10⁵ items, 10⁶ rounds × 3 calls) in 0.44 s.
+tests_th: ตัวอย่างที่คิดเองทั้ง less และ greater; สุ่มฮีป 300 ชุดของ int / string / greater<int> (มีค่าซ้ำ) เทียบกับการ sort ใน Python; โหมดสุ่มของ main (10⁵ ตัว, 10⁶ รอบ × 3 ครั้ง) ใช้ 0.44 วินาที
+==== en
+## 1. What the problem says
+Add `T get_kth(size_t k) const` to CP::priority_queue: return the value that **would come out on the k-th pop** (k = 1 → top()). The order is the heap's comparator.
+
+- **1 ≤ k ≤ 3**, and k ≤ mSize. The function is `const`: it must not change the heap.
+- The grader calls it up to 10⁶ times (random mode), so it must be fast.
+
+## 2. What it really means
+In a heap every parent beats its children. The 2nd best must be a **child of the root**; the 3rd best is a child of the root or a child of the 2nd best. So the top 3 are always inside the **first 3 levels** — indices 0..6.
+
+```text
+level 0:            [0]
+level 1:        [1]     [2]
+level 2:      [3] [4] [5] [6]
+k-th best (k ≤ 3) is always one of these 7 slots
+```
+
+## 3. What, why, how
+- Copy `mData[0 .. min(mSize,7)−1]` into a small vector (we can't touch mData — const).
+- Sort it from **highest to lowest priority** using the heap's own comparator: "a first" ⇔ `mLess(b, a)`.
+- Return `cand[k−1]`. Cost: sorting ≤ 7 items → O(1) per call.
+- The lambda needs `[this]` because `mLess` is a member of the object.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Example** — push 5 1 9 3 7 2 8 into a max-heap. mData = 9 7 8 1 3 2 5.
+
+| step | values |
+|---|---|
+| first 7 slots | 9 7 8 1 3 2 5 |
+| sort by priority | 9 8 7 5 3 2 1 |
+| k = 1, 2, 3 | 9, 8, 7 |
+
+With `greater<int>` (min-heap) the same code returns 1, 2, 3.
+
+## 5. Traps
+- **Looping to a fixed `i < 7`** — reads garbage when mSize < 7. Use `limit = min(mSize, 7)`.
+- **Assuming mData[1] is the 2nd best** — the 2nd best is the better of mData[1] and mData[2]; and the 3rd best can be at level 2.
+- **Sorting with `<`** ignores the comparator; fails for `greater<int>` and for custom types.
+- **Copying the whole heap and popping** — correct but O(n) per call → TLE with 10⁶ calls.
+- **Sorting mData itself** — breaks `const` (won't compile) and the heap.
+
+## 6. Background
+Lesson 06: heap = complete binary tree in an array, children of i at 2i+1, 2i+2. **The k-th best lies within depth k−1** — useful for small k. Lambdas: `[this]` captures the object so the body can call `mLess`.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `T get_kth(size_t k) const` ให้ CP::priority_queue: คืนค่าที่ **จะออกมาตอน pop ครั้งที่ k** (k = 1 → top()) ลำดับใช้ comparator ของฮีป
+
+- **1 ≤ k ≤ 3** และ k ≤ mSize ฟังก์ชันเป็น `const`: ห้ามเปลี่ยนฮีป
+- grader เรียกได้ถึง 10⁶ ครั้ง (โหมดสุ่ม) จึงต้องเร็ว
+
+## 2. จริง ๆ แล้วถามอะไร
+ในฮีป พ่อชนะลูกเสมอ ตัวที่ดีอันดับ 2 ต้องเป็น **ลูกของราก** ตัวที่ดีอันดับ 3 เป็นลูกของราก หรือลูกของอันดับ 2 ดังนั้น 3 อันดับแรกอยู่ใน **3 ชั้นแรก** เสมอ — index 0..6
+
+```text
+level 0:            [0]
+level 1:        [1]     [2]
+level 2:      [3] [4] [5] [6]
+k-th best (k ≤ 3) is always one of these 7 slots
+```
+
+เหมือนการแข่งขันแบบแพ้คัดออก: ผู้ชนะอันดับ 2 ต้องเคยแพ้แชมป์โดยตรงเท่านั้น จึงไม่ต้องไปหาที่ชั้นล่าง ๆ
+
+## 3. อะไร ทำไม อย่างไร
+- คัดลอก `mData[0 .. min(mSize,7)−1]` ลง vector เล็ก ๆ (แตะ mData ไม่ได้ — const)
+- sort จาก **ความสำคัญมากไปน้อย** ด้วย comparator ของฮีปเอง: "a มาก่อน" ⇔ `mLess(b, a)`
+- คืน `cand[k−1]` เวลา: sort ไม่เกิน 7 ตัว → O(1) ต่อครั้ง
+- lambda ต้องใช้ `[this]` เพราะ `mLess` เป็นสมาชิกของออบเจกต์
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ตัวอย่าง** — push 5 1 9 3 7 2 8 ลง max-heap ได้ mData = 9 7 8 1 3 2 5
+
+| ขั้น | ค่า |
+|---|---|
+| 7 ช่องแรก | 9 7 8 1 3 2 5 |
+| sort ตามความสำคัญ | 9 8 7 5 3 2 1 |
+| k = 1, 2, 3 | 9, 8, 7 |
+
+ถ้าใช้ `greater<int>` (min-heap) โค้ดเดียวกันคืน 1, 2, 3
+
+## 5. จุดที่มักพลาด
+- **ลูปถึง `i < 7` ตายตัว** — อ่านขยะเมื่อ mSize < 7 ต้องใช้ `limit = min(mSize, 7)`
+- **คิดว่า mData[1] คืออันดับ 2** — อันดับ 2 คือตัวที่ดีกว่าระหว่าง mData[1] กับ mData[2] และอันดับ 3 อาจอยู่ชั้นที่ 2
+- **sort ด้วย `<`** ไม่สนใจ comparator → ผิดกับ `greater<int>` และชนิดข้อมูลที่กำหนดเอง
+- **คัดลอกทั้งฮีปแล้ว pop** — ถูกแต่ O(n) ต่อครั้ง → TLE เมื่อเรียก 10⁶ ครั้ง
+- **sort mData ตรง ๆ** — ผิด `const` (คอมไพล์ไม่ผ่าน) และทำฮีปพัง
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: ฮีป = ต้นไม้ไบนารีสมบูรณ์ในอาร์เรย์ ลูกของ i อยู่ที่ 2i+1, 2i+2 **ตัวที่ดีอันดับ k อยู่ลึกไม่เกิน k−1** — มีประโยชน์เมื่อ k เล็ก ส่วน lambda: `[this]` จับออบเจกต์ไว้เพื่อให้ข้างในเรียก `mLess` ได้

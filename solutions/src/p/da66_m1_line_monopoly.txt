@@ -1,0 +1,111 @@
+id: da66_m1_line_monopoly
+group: algo
+lesson: 10 · Intervals (online union)
+stars: 2
+kind: program
+tags: interval union, std::map, touching intervals, amortized
+title: Line Monopoly
+title_th: เกมเศรษฐีแบบเส้นตรง (Line Monopoly)
+blurb: Buy ranges of cells one at a time and report how many separate blocks you own. Keep merged blocks in a map so the answer is just its size.
+blurb_th: ซื้อช่วงของช่องทีละครั้ง แล้วรายงานว่าเป็นเจ้าของกี่ก้อนแยกกัน เก็บก้อนที่รวมแล้วใน map คำตอบก็คือขนาดของ map
+files: sol/da66_m1_line_monopoly/main.cpp
+tests: all 5 PDF samples plus a 1..10⁹ purchase; 400 random operation lists against a Python brute force that stores every owned cell in a set and counts block starts; n = 200,000 operations with coordinates up to 10⁹ and a query after every purchase in 0.07 s.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF และการซื้อ 1..10⁹; สุ่มลำดับคำสั่ง 400 ชุดเทียบกับ brute force ใน Python ที่เก็บทุกช่องที่ซื้อใน set แล้วนับจุดเริ่มก้อน; 200,000 คำสั่ง พิกัดถึง 10⁹ และถามหลังซื้อทุกครั้ง ใช้ 0.07 วินาที
+==== en
+## 1. What the problem says
+A board has cells numbered 1 to 10⁹. A player buys cells many times; each purchase buys **every cell from a[i] to b[i]** (cells already owned stay owned). At any moment the owned cells can be described as sorted, **minimal** list of ranges [l₁,r₁] [l₂,r₂] … where touching ranges are merged ([2,4] [5,10] must be written [2,10]).
+
+- Input: n (1 ≤ n ≤ 200,000) operations. `1 a b` = buy a..b (1 ≤ a ≤ b ≤ 10⁹). `2` = query.
+- Output: for each query, only **the number of ranges** in that minimal list.
+- Example from the PDF: buy 10–20, buy 4–7 → [4,7] [10,20] → 2. Then buy 5–11 → [4,20] → 1.
+- Subtasks: 60% have a single query at the end (n ≤ 5, 500, 5,000); 40% have many queries, so the count must be available quickly after every purchase.
+
+## 2. What it really means
+Maintain the **union of integer intervals online** and its number of connected blocks. Two blocks join when they overlap **or touch** (r + 1 = l, because cells are integers). Sample 5:
+
+```text
+buy 5-10, 15-20, 25-30, 35-40     ■■■■■■ ····· ■■■■■■ ····· ■■■■■■ ····· ■■■■■■   → 4
+buy 7-37                          ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ (5..40)    → 1
+buy 2-3                           ■■ · ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■         → 2
+                                  2-3  5..40   (cell 4 is free, so they don't touch)
+```
+
+## 3. What, why, how
+- Coordinates up to 10⁹: no array over cells. Store the **blocks** instead: `map<int,int> owned` from start to end, with the invariant "disjoint, sorted, not touching". Then the answer to every query is `owned.size()`, O(1).
+- **Buying [a, b]:**
+  1. Find the first block that could merge: `upper_bound(a)` gives the first block starting after a; the block before it merges too if its end ≥ a − 1.
+  2. While the current block starts at ≤ b + 1, it overlaps or touches: extend [a, b] to cover it and erase it.
+  3. Insert the merged [a, b].
+- **Cost:** each purchase inserts one block and every block is erased at most once, so the total over all purchases is O(n log n) (amortized: a single purchase may erase many blocks, but those blocks were each paid for when inserted).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 2** (buy 10–20, 4–7, 5–11, then query):
+
+| operation | first candidate | blocks swallowed | new block | owned after | size |
+|---|---|---|---|---|---|
+| buy 10 20 | none | — | [10,20] | {10:20} | 1 |
+| buy 4 7 | upper_bound(4) = 10:20; 10 > 7+1 → none | — | [4,7] | {4:7, 10:20} | 2 |
+| buy 5 11 | upper_bound(5) = 10:20; prev 4:7 has 7 ≥ 4 → start at 4:7 | 4:7 (4 ≤ 12), 10:20 (10 ≤ 12) | [4,20] | {4:20} | 1 |
+| query | | | | | **1** |
+
+## 5. Traps
+- **Forgetting touching blocks:** [3,4] and [5,6] are one block. Compare with `b + 1` and `a − 1`, not `b` and `a`.
+- **Only checking blocks that start inside [a, b]:** a block that starts **before** a may still reach into it (the 4:7 case above). That's why we step back one block.
+- **Recounting on every query** (sort everything, merge, count): O(n log n) per query, too slow for the 40% with many queries.
+- **A boolean array over 10⁹ cells:** too much memory.
+- **Erasing while iterating:** use `it = owned.erase(it)`; incrementing an erased iterator is undefined behaviour.
+
+## 6. Background
+Lesson 10, section 2.3: **online interval union** with an ordered map. Offline (one query at the end) you can instead sort all intervals by start and merge in one sweep. The "each element is inserted once and erased at most once" argument is the standard **amortized analysis** (Lesson 01, section 2.4), the same as in monotonic stacks.
+==== th
+## 1. โจทย์บอกอะไร
+กระดานมีช่องหมายเลข 1 ถึง 10⁹ ผู้เล่นซื้อที่ดินหลายครั้ง แต่ละครั้งซื้อ **ทุกช่องตั้งแต่ a[i] ถึง b[i]** (ช่องที่ซื้อไปแล้วก็ยังเป็นของเขา) ณ เวลาใดก็ตาม ช่องที่ซื้อแล้วเขียนเป็นรายการช่วงที่เรียงและ **น้อยที่สุด** [l₁,r₁] [l₂,r₂] … ได้ โดยช่วงที่ติดกันต้องรวมกัน ([2,4] [5,10] ต้องเขียนเป็น [2,10])
+
+- ข้อมูลนำเข้า: คำสั่ง n คำสั่ง (1 ≤ n ≤ 200,000) `1 a b` = ซื้อ a..b (1 ≤ a ≤ b ≤ 10⁹) `2` = ถาม
+- ผลลัพธ์: ทุกคำถาม พิมพ์แค่ **จำนวนช่วง** ในรายการที่น้อยที่สุดนั้น
+- ตัวอย่างใน PDF: ซื้อ 10–20, ซื้อ 4–7 → [4,7] [10,20] → 2 แล้วซื้อ 5–11 → [4,20] → 1
+- ชุดทดสอบ: 60% ถามครั้งเดียวตอนท้าย (n ≤ 5, 500, 5,000); 40% ถามหลายครั้ง จึงต้องรู้จำนวนได้เร็วหลังซื้อทุกครั้ง
+
+## 2. จริง ๆ แล้วถามอะไร
+ดูแล **ยูเนียนของช่วงจำนวนเต็มแบบออนไลน์** และนับจำนวนก้อนที่ต่อกัน สองก้อนรวมกันเมื่อซ้อนกัน **หรือติดกัน** (r + 1 = l เพราะช่องเป็นจำนวนเต็ม) เหมือนที่ดินแปลงติดกันถือเป็นผืนเดียว ตัวอย่างที่ 5:
+
+```text
+buy 5-10, 15-20, 25-30, 35-40     ■■■■■■ ····· ■■■■■■ ····· ■■■■■■ ····· ■■■■■■   → 4
+buy 7-37                          ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ (5..40)    → 1
+buy 2-3                           ■■ · ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■         → 2
+                                  2-3  5..40   (cell 4 is free, so they don't touch)
+```
+
+## 3. อะไร ทำไม อย่างไร
+- พิกัดถึง 10⁹: ทำอาร์เรย์ของทุกช่องไม่ได้ ให้เก็บ **ก้อน** แทน: `map<int,int> owned` จากจุดเริ่มไปจุดจบ โดยรักษาเงื่อนไข "ไม่ซ้อน เรียงแล้ว ไม่ติดกัน" เสมอ คำตอบของทุกคำถามคือ `owned.size()` ใน O(1)
+- **การซื้อ [a, b]:**
+  1. หาก้อนแรกที่อาจต้องรวม: `upper_bound(a)` ให้ก้อนแรกที่เริ่มหลัง a ส่วนก้อนก่อนหน้านั้นก็ต้องรวมด้วยถ้าจุดจบ ≥ a − 1
+  2. ตราบใดที่ก้อนปัจจุบันเริ่มที่ ≤ b + 1 มันซ้อนหรือติดกัน: ขยาย [a, b] ให้คลุมมัน แล้วลบมันทิ้ง
+  3. ใส่ [a, b] ที่รวมแล้ว
+- **เวลา:** การซื้อแต่ละครั้งใส่หนึ่งก้อน และแต่ละก้อนถูกลบได้ไม่เกินหนึ่งครั้ง รวมทุกการซื้อจึงเป็น O(n log n) (แบบ amortized: การซื้อครั้งเดียวอาจลบหลายก้อน แต่แต่ละก้อนถูก "จ่ายล่วงหน้า" ไว้ตอนใส่แล้ว)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 2** (ซื้อ 10–20, 4–7, 5–11 แล้วถาม):
+
+| คำสั่ง | ก้อนแรกที่ต้องดู | ก้อนที่ถูกรวม | ก้อนใหม่ | owned หลังทำ | size |
+|---|---|---|---|---|---|
+| ซื้อ 10 20 | ไม่มี | — | [10,20] | {10:20} | 1 |
+| ซื้อ 4 7 | upper_bound(4) = 10:20; 10 > 7+1 → ไม่รวม | — | [4,7] | {4:7, 10:20} | 2 |
+| ซื้อ 5 11 | upper_bound(5) = 10:20; ก้อนก่อนหน้า 4:7 มี 7 ≥ 4 → เริ่มที่ 4:7 | 4:7 (4 ≤ 12), 10:20 (10 ≤ 12) | [4,20] | {4:20} | 1 |
+| ถาม | | | | | **1** |
+
+## 5. จุดที่มักพลาด
+- **ลืมก้อนที่ติดกัน:** [3,4] กับ [5,6] คือก้อนเดียว ต้องเทียบกับ `b + 1` และ `a − 1` ไม่ใช่ `b` และ `a`
+- **ดูแค่ก้อนที่เริ่มอยู่ใน [a, b]:** ก้อนที่เริ่ม **ก่อน** a อาจยื่นเข้ามา (กรณี 4:7 ข้างบน) จึงต้องถอยไปดูหนึ่งก้อน
+- **นับใหม่ทุกครั้งที่ถาม** (sort ทั้งหมด รวม แล้วนับ): O(n log n) ต่อคำถาม ช้าเกินไปสำหรับ 40% ที่ถามหลายครั้ง
+- **อาร์เรย์ boolean 10⁹ ช่อง:** หน่วยความจำไม่พอ
+- **ลบระหว่างวนลูป:** ใช้ `it = owned.erase(it)` การ ++ iterator ที่ถูกลบไปแล้วเป็น undefined behaviour
+
+## 6. ความรู้พื้นฐาน
+บทที่ 10 หัวข้อ 2.3: **ยูเนียนของช่วงแบบออนไลน์** ด้วย map ที่เรียงลำดับ ถ้าเป็นแบบออฟไลน์ (ถามครั้งเดียวตอนท้าย) ก็ sort ทุกช่วงตามจุดเริ่มแล้วรวมในการกวาดรอบเดียวได้ เหตุผล "แต่ละตัวถูกใส่ครั้งเดียวและถูกลบไม่เกินครั้งเดียว" คือ **การวิเคราะห์แบบ amortized** มาตรฐาน (บทที่ 01 หัวข้อ 2.4) แบบเดียวกับ monotonic stack

@@ -1,0 +1,129 @@
+id: da66_m1_tree_leaves_depth
+group: tree
+lesson: 07 · Trees & BST
+stars: 1
+kind: sum_leaves_depth()
+tags: recursion, pass depth down, long long
+title: Tree Leaves Depth
+title_th: ผลรวมความลึกของใบ (Tree Leaves Depth)
+blurb: Add up the depth of every leaf. Pass the depth DOWN as a parameter, return the sum UP.
+blurb_th: รวมความลึกของใบทุกใบ ส่งความลึก "ลง" ไปเป็นพารามิเตอร์ แล้วส่งผลรวม "ขึ้น" กลับมา
+files: sol/da66_m1_tree_leaves_depth/student.h
+tests: the PDF sample; empty tree, one node, 3-node chain; 300 random trees against a Python BST; 500,000 random keys in 0.41 s (including building the tree); a 30,000-node chain (deep recursion) gives the right answer. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF; ต้นไม้ว่าง, หนึ่งโหนด, เส้นตรง 3 โหนด; สุ่ม 300 ต้นเทียบกับ BST ใน Python; 500,000 key สุ่มใช้ 0.41 วินาที (รวมเวลาสร้างต้นไม้); ต้นไม้เส้นตรง 30,000 โหนด (เวียนเกิดลึก) ได้คำตอบถูก ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `long long CP::map_bst::sum_leaves_depth()`: return the **sum of the depths of all leaves**. The depth of a node is the length of the path from the root to it (the root has depth 0). In the PDF's picture the leaves 1, 3 and 5 have depths 2, 2 and 1, so the answer is **5**.
+
+- A helper `long long my_recur(node* n, size_t aux)` is provided for recursion; use it however you like.
+- Edit only `student.h`, no I/O there. The grader's `main` differs but tests the same way.
+- `main` reads N and N keys, inserts them (`m[x] = 0`), prints `sum_leaves_depth()`.
+- Subtasks: 15% n ≤ 3, 15% n ≤ 7, 20% n ≤ 50,000, 50% n ≤ 500,000. Limit 1 s.
+
+## 2. What it really means
+Sample: keys 4 2 5 1 3.
+
+```text
+              4        depth 0
+            /   \
+           2     5     depth 1     ← 5 is a leaf: +1
+          / \
+         1   3         depth 2     ← 1 and 3 are leaves: +2 +2
+                                     total = 5
+```
+
+A node doesn't know its own depth; only the path from the root tells you. So the depth must be **carried down** while we recurse.
+
+## 3. What, why, how
+- `my_recur(n, aux)` where **aux = depth of n**:
+  1. `n == NULL` → 0.
+  2. `n` is a leaf → return `aux` (its depth is its whole contribution).
+  3. otherwise → `my_recur(n->left, aux + 1) + my_recur(n->right, aux + 1)`. Children are one level deeper.
+- `sum_leaves_depth()` = `my_recur(mRoot, 0)`.
+- Information flows **both ways**: depth goes **down** through the parameter, the sum comes **up** through the return value.
+- **Cost:** each node once → O(n).
+- **Why `long long`:** a tree with 500,000 nodes can have about 250,000 leaves at depth around 18 (balanced), but a badly shaped tree can have leaves much deeper; the sum can exceed what `int` holds in skewed shapes, and the signature asks for `long long` anyway.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the sample** (`mr` = my_recur):
+
+| call | n | aux | case | returns |
+|---|---|---|---|---|
+| mr(4, 0) | 4 | 0 | two children | mr(2,1) + mr(5,1) |
+| mr(2, 1) | 2 | 1 | two children | mr(1,2) + mr(3,2) |
+| mr(1, 2) | 1 | 2 | leaf | **2** |
+| mr(3, 2) | 3 | 2 | leaf | **2** |
+| back in mr(2,1) | | | | 2 + 2 = **4** |
+| mr(5, 1) | 5 | 1 | leaf | **1** |
+| back in mr(4,0) | | | | 4 + 1 = **5** |
+
+## 5. Traps
+- **Computing depth by walking up `parent` for every leaf:** correct, but O(n·h); on a tall tree that can be far too slow.
+- **Calling a separate `height()` or `depth()` function inside the recursion:** same O(n·h) or worse problem. Pass the depth along instead.
+- **Starting the root at depth 1:** the problem counts edges, so the root is 0. The sample would give 8 instead of 5.
+- **Counting non-leaf nodes:** only nodes with **no** children add their depth.
+- **Deep recursion:** the depth of the recursion equals the height of the tree. For the random-looking data this grader uses it is small. Sorted input of 500,000 keys would already make the *insertion* in `main` O(n²), so such input can't be in the tests.
+
+## 6. Background
+Lesson 07, section 4.1: **passing information down (depth) vs returning information up (height)**. Depth is a property you inherit from your parent (top-down); height and size are computed from your children (bottom-up). Many tree problems need both directions in one recursion, e.g. Furthest Distance and BST Parity Score.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `long long CP::map_bst::sum_leaves_depth()` คืน **ผลรวมความลึกของใบทุกใบ** ความลึกของโหนดคือความยาวของเส้นทางจากรากถึงโหนดนั้น (รากลึก 0) ในรูปของ PDF ใบ 1, 3 และ 5 ลึก 2, 2 และ 1 คำตอบจึงเป็น **5**
+
+- มีฟังก์ชันช่วย `long long my_recur(node* n, size_t aux)` ให้ใช้เขียนแบบเวียนเกิด จะใช้ทำอะไรก็ได้
+- แก้ได้เฉพาะ `student.h` ห้ามอ่าน/พิมพ์ข้อมูลในนั้น `main` ใน grader ต่างออกไปแต่ทดสอบแบบเดียวกัน
+- `main` อ่าน N และ key N ตัว ใส่ลงต้นไม้ (`m[x] = 0`) แล้วพิมพ์ `sum_leaves_depth()`
+- ชุดทดสอบ: 15% n ≤ 3, 15% n ≤ 7, 20% n ≤ 50,000, 50% n ≤ 500,000 เวลา 1 วินาที
+
+## 2. จริง ๆ แล้วถามอะไร
+ตัวอย่าง: key 4 2 5 1 3
+
+```text
+              4        depth 0
+            /   \
+           2     5     depth 1     ← 5 is a leaf: +1
+          / \
+         1   3         depth 2     ← 1 and 3 are leaves: +2 +2
+                                     total = 5
+```
+
+โหนดไม่รู้ความลึกของตัวเอง ต้องดูจากเส้นทางจากรากเท่านั้น ความลึกจึงต้อง **ถูกส่งลงไป** ระหว่างเวียนเกิด (เหมือนเดินลงบันไดแล้วนับชั้นไปเรื่อย ๆ พอถึงห้องปลายทางก็รู้ว่าอยู่ชั้นไหน)
+
+## 3. อะไร ทำไม อย่างไร
+- `my_recur(n, aux)` โดย **aux = ความลึกของ n**:
+  1. `n == NULL` → 0
+  2. `n` เป็นใบ → คืน `aux` (ความลึกของมันคือสิ่งที่มันเพิ่มให้ผลรวม)
+  3. นอกนั้น → `my_recur(n->left, aux + 1) + my_recur(n->right, aux + 1)` ลูกอยู่ลึกกว่าหนึ่งชั้น
+- `sum_leaves_depth()` = `my_recur(mRoot, 0)`
+- ข้อมูลไหล **สองทิศ**: ความลึกไหล **ลง** ผ่านพารามิเตอร์ ผลรวมไหล **ขึ้น** ผ่านค่าที่คืน
+- **เวลา:** แต่ละโหนดครั้งเดียว → O(n)
+- **ทำไม `long long`:** ต้นไม้ 500,000 โหนดที่ไม่สมดุลอาจมีใบที่ลึกมาก ผลรวมอาจเกิน `int` และฟังก์ชันก็กำหนดให้คืน `long long` อยู่แล้ว
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (`mr` = my_recur):
+
+| การเรียก | n | aux | กรณี | คืนค่า |
+|---|---|---|---|---|
+| mr(4, 0) | 4 | 0 | มีลูกสองตัว | mr(2,1) + mr(5,1) |
+| mr(2, 1) | 2 | 1 | มีลูกสองตัว | mr(1,2) + mr(3,2) |
+| mr(1, 2) | 1 | 2 | ใบ | **2** |
+| mr(3, 2) | 3 | 2 | ใบ | **2** |
+| กลับมาที่ mr(2,1) | | | | 2 + 2 = **4** |
+| mr(5, 1) | 5 | 1 | ใบ | **1** |
+| กลับมาที่ mr(4,0) | | | | 4 + 1 = **5** |
+
+## 5. จุดที่มักพลาด
+- **หาความลึกโดยเดินตาม `parent` ขึ้นไปจากทุกใบ:** ถูก แต่ O(n·h) ต้นไม้สูง ๆ จะช้าเกินไป
+- **เรียกฟังก์ชัน `height()` หรือ `depth()` แยกในการเวียนเกิด:** ปัญหา O(n·h) แบบเดียวกันหรือแย่กว่า ส่งความลึกติดไปด้วยแทน
+- **ให้รากลึก 1:** โจทย์นับจำนวนเส้นเชื่อม รากจึงลึก 0 ถ้านับผิดตัวอย่างจะได้ 8 แทน 5
+- **นับโหนดที่ไม่ใช่ใบ:** เฉพาะโหนดที่ **ไม่มี** ลูกเท่านั้นที่บวกความลึกของตัวเอง
+- **เวียนเกิดลึก:** ความลึกของการเวียนเกิดเท่ากับความสูงของต้นไม้ ข้อมูลแบบสุ่มของ grader ทำให้ต่ำ ถ้าเป็นข้อมูลเรียง 500,000 ตัว แค่การ *ใส่* ใน `main` ก็เป็น O(n²) แล้ว ข้อมูลแบบนั้นจึงไม่น่าจะอยู่ในชุดทดสอบ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07 หัวข้อ 4.1: **ส่งข้อมูลลง (ความลึก) กับ ส่งข้อมูลขึ้น (ความสูง)** ความลึกเป็นสิ่งที่ได้รับมาจากพ่อ (บนลงล่าง) ส่วนความสูงและขนาดคำนวณจากลูก (ล่างขึ้นบน) โจทย์ต้นไม้หลายข้อต้องใช้ทั้งสองทิศในการเวียนเกิดเดียว เช่น Furthest Distance และ BST Parity Score

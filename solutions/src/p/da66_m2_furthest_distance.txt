@@ -1,0 +1,141 @@
+id: da66_m2_furthest_distance
+group: tree
+lesson: 07 · Trees & BST
+stars: 2
+kind: furthest_distance()
+tags: tree diameter, height, aux by reference
+title: Furthest Distance
+title_th: ระยะห่างมากสุด (Furthest Distance)
+blurb: The tree's diameter: one post-order pass returns each subtree's height and records left + right as a candidate answer.
+blurb_th: เส้นผ่านศูนย์กลางของต้นไม้: เดิน post-order รอบเดียว คืนความสูงของแต่ละต้นย่อย และบันทึก ซ้าย + ขวา เป็นคำตอบที่เป็นไปได้
+files: sol/da66_m2_furthest_distance/student.h
+tests: all 5 PDF samples (including n = 1 → 0 and n = 0 → −1); 300 random trees against a brute force that runs BFS from every node; 1,000,000 random keys in 1.1 s, most of it building the tree. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF (รวม n = 1 → 0 และ n = 0 → −1); สุ่ม 300 ต้นเทียบกับ brute force ที่ทำ BFS จากทุกโหนด; 1,000,000 key สุ่มใช้ 1.1 วินาที ส่วนใหญ่เป็นเวลาสร้างต้นไม้ ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `int furthest_distance()` to `CP::map_bst`: return the **largest distance between any two nodes**, where the distance from a to b is the **number of edges** on the path between them. An empty tree returns **−1**; a one-node tree returns **0**.
+
+- A helper `int my_recur(node* n, int &aux)` is provided; use it as you like.
+- Edit only `student.h`, no I/O. The grader's `main` differs.
+- `main` reads n and n keys, inserts them, prints the answer.
+- Subtasks: 10% n ≤ 3; 15% only the root may have two children; 20% at most one node has two children; 55% no other condition.
+
+## 2. What it really means
+This is the **diameter** of the tree. The path may go **up and then down**: it doesn't have to start at the root. Sample 2 (keys −1 7 −10 −2 −8 4 1 0 −4 −3):
+
+```text
+                 -1
+              /      \
+          -10          7
+             \        /
+             -2      4
+             /      /
+           -8      1
+             \    /
+             -4  0
+               \
+               -3
+
+longest path: -3 → -4 → -8 → -2 → -10 → -1 → 7 → 4 → 1 → 0  = 9 edges
+```
+
+Here the best path passes through the root, but in general the highest point of the best path can be any node.
+
+## 3. What, why, how
+- Every path has one **highest node** (the place where it stops going up and starts going down). If the highest node is `n`, the longest such path goes down the deepest route on the left and the deepest route on the right.
+- Let `L` = number of nodes on the longest downward path in `n->left` (0 if empty), `R` the same on the right. The longest path with top `n` has **L + R edges**: L edges down-left (from n to the bottom of the left side), R edges down-right.
+- So one post-order pass does everything:
+  - `my_recur(n, aux)` returns `1 + max(L, R)` (nodes on the longest downward path from n);
+  - on the way, `aux = max(aux, L + R)`.
+- `aux` is passed **by reference**, so every call updates the same "best so far".
+- `furthest_distance()`: return −1 if empty; otherwise start `best = 0`, call `my_recur(mRoot, best)`, return `best`.
+- **Cost:** each node once → O(n).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (keys −6 10: root −6 with right child 10):
+
+| call | L | R | L + R | aux after | returns |
+|---|---|---|---|---|---|
+| mr(10) | 0 | 0 | 0 | 0 | 1 |
+| mr(−6) | 0 (no left) | 1 | **1** | 1 | 2 |
+
+Answer 1.
+
+**Sample 2 at the root:** the left side (−10 → −2 → −8 → −4 → −3) returns L = 5, the right side (7 → 4 → 1 → 0) returns R = 4, so L + R = **9**. No other node gives more (each of them has at most one child here, so its L + R is just its own height).
+
+## 5. Traps
+- **Answering with the height only** (or "height of left + height of right of the root"): the best path doesn't have to pass through the root. Example: a root with one long left subtree that itself branches into two deep chains.
+- **Mixing up nodes and edges:** decide one convention and stick to it. Here `my_recur` counts **nodes**, and then L + R happens to be exactly the number of **edges** of the path through n.
+- **Computing heights separately for every node** (call `height(n->left)` inside the recursion): O(n²) on a chain. Compute the height once, bottom-up, and return it.
+- **Special cases:** empty → −1 (must be checked; `best` starts at 0, which is right for one node).
+- **Passing `aux` by value:** the updates are lost. The signature already uses `int &aux`.
+
+## 6. Background
+Lesson 07, section 4.1: **return one thing up, record another on the side**. The function returns the value its parent needs (the height) while a reference parameter keeps the global answer (the diameter). The same trick solves "maximum path sum" and "longest path with equal values". In general graphs, the diameter of a tree can also be found with **two BFS** (BFS from any node to the farthest one, then BFS again from there), Lesson 16.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `int furthest_distance()` ในคลาส `CP::map_bst` คืน **ระยะห่างมากที่สุดระหว่างสองโหนดใด ๆ** ระยะจาก a ไป b คือ **จำนวนเส้นเชื่อม** ที่ต้องเดินผ่าน ต้นไม้ว่างให้คืน **−1** ต้นไม้ที่มีโหนดเดียวให้คืน **0**
+
+- มีฟังก์ชันช่วย `int my_recur(node* n, int &aux)` ให้ใช้ได้ตามต้องการ
+- แก้ได้เฉพาะ `student.h` ห้ามอ่าน/พิมพ์ข้อมูล `main` ใน grader ต่างออกไป
+- `main` อ่าน n และ key n ตัว ใส่ลงต้นไม้ แล้วพิมพ์คำตอบ
+- ชุดทดสอบ: 10% n ≤ 3; 15% เฉพาะรากที่อาจมีลูกสองตัว; 20% มีโหนดที่มีลูกสองตัวได้อย่างมากหนึ่งโหนด; 55% ไม่มีเงื่อนไขอื่น
+
+## 2. จริง ๆ แล้วถามอะไร
+นี่คือ **เส้นผ่านศูนย์กลาง (diameter)** ของต้นไม้ เส้นทางอาจ **ขึ้นแล้วลง** ไม่จำเป็นต้องเริ่มที่ราก ตัวอย่างที่ 2 (key −1 7 −10 −2 −8 4 1 0 −4 −3):
+
+```text
+                 -1
+              /      \
+          -10          7
+             \        /
+             -2      4
+             /      /
+           -8      1
+             \    /
+             -4  0
+               \
+               -3
+
+longest path: -3 → -4 → -8 → -2 → -10 → -1 → 7 → 4 → 1 → 0  = 9 edges
+```
+
+ตัวอย่างนี้เส้นทางที่ดีที่สุดผ่านราก แต่โดยทั่วไป จุดสูงสุดของเส้นทางที่ดีที่สุดเป็นโหนดไหนก็ได้ (นึกภาพเชือกที่ขึงระหว่างใบสองใบที่ห่างกันที่สุด จุดสูงสุดของเชือกอาจอยู่กลางต้นก็ได้)
+
+## 3. อะไร ทำไม อย่างไร
+- ทุกเส้นทางมี **โหนดสูงสุด** หนึ่งโหนด (จุดที่เลิกขึ้นแล้วเริ่มลง) ถ้าโหนดสูงสุดคือ `n` เส้นทางที่ยาวที่สุดแบบนั้นคือลงไปตามทางที่ลึกที่สุดฝั่งซ้าย และทางที่ลึกที่สุดฝั่งขวา
+- ให้ `L` = จำนวนโหนดบนเส้นทางลงที่ยาวที่สุดใน `n->left` (0 ถ้าว่าง) และ `R` แบบเดียวกันฝั่งขวา เส้นทางที่ยาวที่สุดที่มี `n` เป็นจุดสูงสุดยาว **L + R เส้นเชื่อม**: ลงซ้าย L เส้น (จาก n ถึงก้นฝั่งซ้าย) ลงขวา R เส้น
+- เดิน post-order รอบเดียวทำได้ทุกอย่าง:
+  - `my_recur(n, aux)` คืน `1 + max(L, R)` (จำนวนโหนดบนเส้นทางลงที่ยาวที่สุดจาก n)
+  - ระหว่างทาง `aux = max(aux, L + R)`
+- `aux` ส่งแบบ **อ้างอิง (reference)** ทุกการเรียกจึงแก้ "ค่าที่ดีที่สุดจนถึงตอนนี้" ตัวเดียวกัน
+- `furthest_distance()`: ถ้าว่างคืน −1 ไม่งั้นเริ่ม `best = 0` เรียก `my_recur(mRoot, best)` แล้วคืน `best`
+- **เวลา:** แต่ละโหนดครั้งเดียว → O(n)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (key −6 10: ราก −6 มีลูกขวา 10):
+
+| การเรียก | L | R | L + R | aux หลังเรียก | คืนค่า |
+|---|---|---|---|---|---|
+| mr(10) | 0 | 0 | 0 | 0 | 1 |
+| mr(−6) | 0 (ไม่มีลูกซ้าย) | 1 | **1** | 1 | 2 |
+
+คำตอบ 1
+
+**ตัวอย่างที่ 2 ที่ราก:** ฝั่งซ้าย (−10 → −2 → −8 → −4 → −3) คืน L = 5 ฝั่งขวา (7 → 4 → 1 → 0) คืน R = 4 ได้ L + R = **9** ไม่มีโหนดอื่นให้ค่ามากกว่านี้ (โหนดอื่นในต้นนี้มีลูกอย่างมากหนึ่งตัว L + R ของมันจึงเท่ากับความสูงของตัวเอง)
+
+## 5. จุดที่มักพลาด
+- **ตอบแค่ความสูง** (หรือ "ความสูงซ้าย + ความสูงขวาของราก"): เส้นทางที่ดีที่สุดไม่จำเป็นต้องผ่านราก เช่น รากที่มีต้นย่อยซ้ายยาว ๆ แล้วต้นย่อยนั้นแตกเป็นสองสายที่ลึกมาก
+- **สับสนระหว่างนับโหนดกับนับเส้นเชื่อม:** เลือกแบบเดียวแล้วใช้ตลอด ในที่นี้ `my_recur` นับ **โหนด** แล้ว L + R จะเท่ากับจำนวน **เส้นเชื่อม** ของเส้นทางที่ผ่าน n พอดี
+- **คำนวณความสูงแยกทุกโหนด** (เรียก `height(n->left)` ในการเวียนเกิด): O(n²) กับต้นไม้เส้นตรง ให้คำนวณความสูงครั้งเดียวจากล่างขึ้นบนแล้วคืนค่าขึ้นไป
+- **กรณีพิเศษ:** ว่าง → −1 (ต้องเช็ก เพราะ `best` เริ่มที่ 0 ซึ่งถูกสำหรับโหนดเดียว)
+- **ส่ง `aux` แบบ by value:** การแก้ค่าจะหายหมด ฟังก์ชันที่ให้มาใช้ `int &aux` อยู่แล้ว
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07 หัวข้อ 4.1: **คืนค่าหนึ่งขึ้นไป บันทึกอีกค่าไว้ข้างทาง** ฟังก์ชันคืนค่าที่พ่อต้องใช้ (ความสูง) ส่วนพารามิเตอร์แบบอ้างอิงเก็บคำตอบรวม (เส้นผ่านศูนย์กลาง) เทคนิคเดียวกันใช้แก้ "ผลรวมเส้นทางมากสุด" และ "เส้นทางยาวสุดที่ค่าเท่ากัน" ในกราฟทั่วไป เส้นผ่านศูนย์กลางของต้นไม้หาได้ด้วย **BFS สองรอบ** (BFS จากโหนดใดก็ได้ไปหาตัวที่ไกลที่สุด แล้ว BFS อีกรอบจากตัวนั้น) ดูบทที่ 16

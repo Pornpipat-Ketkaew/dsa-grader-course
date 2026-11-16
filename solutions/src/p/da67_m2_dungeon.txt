@@ -1,0 +1,117 @@
+id: da67_m2_dungeon
+group: algo
+lesson: 13 · Greedy
+stars: 2
+kind: program
+tags: greedy, cheapest first, sort per type, pointer per bucket
+title: Welcome to the Dungeon
+title_th: ยินดีต้อนรับสู่ดันเจียน (Welcome to the Dungeon)
+blurb: Beat bosses in order; each needs certain item types and every item comes from a dungeon that costs power. Always take the cheapest unused dungeon of the needed type.
+blurb_th: ปราบจอมมารตามลำดับ แต่ละตนต้องใช้ไอเท็มบางชนิด และไอเท็มแต่ละชิ้นมาจากดันเจียนที่ใช้พลัง ให้เลือกดันเจียนที่ถูกที่สุดที่ยังไม่ได้ใช้ของชนิดนั้นเสมอ
+files: sol/da67_m2_dungeon/main.cpp
+tests: all 4 PDF samples plus bosses that need nothing; 400 small random cases against an exhaustive search that tries every assignment of dungeons to items (it confirms that the greedy choice is optimal); N = D = 100,000 with 100 items per boss (10⁷ numbers of input) in 0.38 s.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF และจอมมารที่ไม่ต้องใช้ไอเท็ม; สุ่มกรณีเล็ก 400 ชุดเทียบกับการค้นหาแบบทุกทางที่ลองจับคู่ดันเจียนกับไอเท็มทุกแบบ (ยืนยันว่าการเลือกแบบ greedy ดีที่สุด); N = D = 100,000 และจอมมารแต่ละตนใช้ 100 ไอเท็ม (ข้อมูลนำเข้า 10⁷ ตัวเลข) ใช้ 0.38 วินาที
+==== en
+## 1. What the problem says
+You must defeat **N bosses in order**. Boss i needs a set of item types. There are **D dungeons**; dungeon j costs **t** power to explore and gives one item of type **z** (several dungeons may give the same type; each dungeon can be explored once). You start with power **T**. An item **disappears after it is used on one boss**, so if a later boss needs the same type again you must explore **another** unexplored dungeon of that type. To defeat a boss, your remaining power after collecting its items must be **≥ 0** and you must have all its item types.
+
+How many bosses can you defeat at most?
+
+- Input: `N D T Z` (1 ≤ N, D ≤ 10⁵, 0 ≤ T ≤ 10⁹, 1 ≤ Z ≤ 1000 item types); D lines `t z` (0 ≤ t ≤ T, 0 ≤ z < Z); N lines `q` followed by q item types (0 ≤ q ≤ 100).
+- Output: one integer. Use fast I/O.
+- Subtasks: 5% N = 1 and q = 1; 10% N ≤ 10, q = 1, no type reused; 15% N, D < 100; 20% N, D < 1000; 50% no limit.
+
+## 2. What it really means
+Bosses come in a fixed order, so the answer is the **longest prefix** of bosses we can afford. Each "need" of type z uses up one dungeon of type z. Sample 4 (T = 100):
+
+```text
+dungeons by type:   type 0: cost 1, cost 40     type 9: cost 4    type 5: cost 13    type 1: cost 2
+boss 1 needs 0, 9, 5  → take 1 + 4 + 13 = 18    power 100 → 82
+boss 2 needs 0        → the cost-1 dungeon is used; next type-0 costs 40   power 82 → 42
+boss 3 needs 1        → cost 2                   power 42 → 40          → 3 bosses
+```
+
+In sample 3 the second type-0 dungeon costs 95 instead of 40: 82 − 95 < 0, so only 1 boss.
+
+## 3. What, why, how
+- **Greedy choice:** every time a type-z item is needed, explore the **cheapest unexplored** dungeon of type z.
+- **Why it's optimal:** the bosses that need type z will, all together up to boss i, use some number k of type-z dungeons. Any choice of k dungeons costs at least the sum of the k cheapest, and the greedy picks exactly those k cheapest. So at every boss the greedy has spent the **minimum possible** total, and if any strategy can afford the first i bosses, the greedy can too. (The exhaustive search in the tests agrees on 400 random cases.)
+- **How:** put the costs in one bucket per type, sort each bucket once, and keep a pointer `nextUnused[z]` to the cheapest unused one. Walk the bosses in order, subtract costs, and stop at the first boss where a type has no dungeon left or the power goes below 0.
+- **Cost:** O(D log D) for sorting + O(total q) for the bosses (up to 10⁷ numbers, so fast input matters).
+- Use `long long` for power to stay safe with many subtractions.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 3** (T = 100; buckets after sorting: type 0 → [1, 95], type 9 → [4], type 5 → [13], type 1 → [2]):
+
+| boss | needs | dungeons taken | power after | result |
+|---|---|---|---|---|
+| 1 | 0, 9, 5 | 1, 4, 13 | 82 | defeated (1) |
+| 2 | 0 | 95 | **−13** | power < 0 → stop |
+| 3 | 1 | — | — | not reached |
+
+Answer **1**.
+
+## 5. Traps
+- **Taking the next dungeon in input order** instead of the cheapest: sample-like data where the cheap dungeon is listed later breaks it.
+- **Forgetting that items vanish:** reusing the type-0 item for boss 2 in sample 3 would give 3 instead of 1.
+- **Skipping a boss you can't afford and continuing:** bosses must be defeated in order; the first failure ends the run.
+- **Stopping the input reading early:** fine here because nothing is printed until the end, but if you `break` out of reading, make sure you don't mix the remaining numbers into later logic. Reading the whole line (as the solution does) is the safe habit.
+- **A boss with q = 0** is free and counts as defeated.
+
+## 6. Background
+Lesson 13: a **greedy exchange argument**. If an optimal plan uses a more expensive dungeon of type z while a cheaper one of the same type stays unused, swapping them never hurts, so some optimal plan is the greedy one. "Sort each bucket + pointer" is the static form of "min-heap per type"; both give the next cheapest in O(1) / O(log n).
+==== th
+## 1. โจทย์บอกอะไร
+คุณต้องปราบ **จอมมาร N ตนตามลำดับ** จอมมารตนที่ i ต้องใช้ไอเท็มชุดหนึ่ง มี **ดันเจียน D แห่ง** แห่งที่ j ใช้พลัง **t** ในการสำรวจและให้ไอเท็มชนิด **z** หนึ่งชิ้น (หลายแห่งอาจให้ชนิดเดียวกัน แต่ละแห่งสำรวจได้ครั้งเดียว) เริ่มต้นมีพลัง **T** ไอเท็ม **สลายไปหลังใช้ปราบจอมมารหนึ่งตน** ถ้าจอมมารตนต่อไปต้องใช้ชนิดเดิมอีก ต้องไปสำรวจดันเจียน **แห่งอื่น** ที่ยังไม่เคยสำรวจ การปราบจอมมารได้ พลังที่เหลือหลังรวบรวมไอเท็มต้อง **≥ 0** และต้องมีไอเท็มครบทุกชนิด
+
+ปราบได้มากที่สุดกี่ตน?
+
+- ข้อมูลนำเข้า: `N D T Z` (1 ≤ N, D ≤ 10⁵, 0 ≤ T ≤ 10⁹, 1 ≤ Z ≤ 1000 ชนิดไอเท็ม); D บรรทัด `t z` (0 ≤ t ≤ T, 0 ≤ z < Z); N บรรทัด `q` ตามด้วยชนิดไอเท็ม q ตัว (0 ≤ q ≤ 100)
+- ผลลัพธ์: จำนวนเต็มหนึ่งตัว ต้องใช้ fast I/O
+- ชุดทดสอบ: 5% N = 1 และ q = 1; 10% N ≤ 10, q = 1 และไม่มีชนิดซ้ำ; 15% N, D < 100; 20% N, D < 1000; 50% ไม่มีข้อจำกัด
+
+## 2. จริง ๆ แล้วถามอะไร
+ลำดับจอมมารตายตัว คำตอบจึงเป็น **ส่วนต้นที่ยาวที่สุด** ที่เราจ่ายไหว แต่ละครั้งที่ต้องใช้ชนิด z จะใช้ดันเจียนชนิด z ไปหนึ่งแห่ง (เหมือนซื้อของจากหลายร้าน แต่ละร้านขายได้ชิ้นเดียว ก็ต้องซื้อร้านถูกสุดก่อน) ตัวอย่างที่ 4 (T = 100):
+
+```text
+dungeons by type:   type 0: cost 1, cost 40     type 9: cost 4    type 5: cost 13    type 1: cost 2
+boss 1 needs 0, 9, 5  → take 1 + 4 + 13 = 18    power 100 → 82
+boss 2 needs 0        → the cost-1 dungeon is used; next type-0 costs 40   power 82 → 42
+boss 3 needs 1        → cost 2                   power 42 → 40          → 3 bosses
+```
+
+ในตัวอย่างที่ 3 ดันเจียนชนิด 0 แห่งที่สองใช้ 95 แทน 40: 82 − 95 < 0 จึงปราบได้แค่ 1 ตน
+
+## 3. อะไร ทำไม อย่างไร
+- **การเลือกแบบ greedy:** ทุกครั้งที่ต้องใช้ไอเท็มชนิด z ให้สำรวจดันเจียนชนิด z **ที่ถูกที่สุดที่ยังไม่ได้สำรวจ**
+- **ทำไมดีที่สุด:** จอมมารที่ต้องใช้ชนิด z ทั้งหมดจนถึงตนที่ i จะใช้ดันเจียนชนิด z ไป k แห่ง ไม่ว่าเลือก k แห่งไหน ค่าใช้จ่ายรวมต้องไม่น้อยกว่าผลรวมของ k แห่งที่ถูกที่สุด และ greedy เลือก k แห่งที่ถูกที่สุดนั้นพอดี ดังนั้นที่จอมมารทุกตน greedy ใช้พลังรวม **น้อยที่สุดเท่าที่เป็นไปได้** ถ้ามีวิธีใดจ่ายไหวสำหรับ i ตนแรก greedy ก็จ่ายไหวเช่นกัน (การค้นหาแบบทุกทางในชุดทดสอบให้ผลตรงกันทั้ง 400 กรณี)
+- **วิธีทำ:** ใส่ค่าใช้จ่ายลงถังตามชนิด sort แต่ละถังครั้งเดียว และเก็บตัวชี้ `nextUnused[z]` ไปยังตัวที่ถูกที่สุดที่ยังไม่ใช้ ไล่จอมมารตามลำดับ ลบพลัง และหยุดที่จอมมารตนแรกที่ไม่มีดันเจียนเหลือสำหรับชนิดที่ต้องการ หรือพลังติดลบ
+- **เวลา:** O(D log D) สำหรับ sort + O(ผลรวม q) สำหรับจอมมาร (อ่านตัวเลขถึง 10⁷ ตัว fast input จึงสำคัญ)
+- ใช้ `long long` เก็บพลังเพื่อความปลอดภัย
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 3** (T = 100; ถังหลัง sort: ชนิด 0 → [1, 95], ชนิด 9 → [4], ชนิด 5 → [13], ชนิด 1 → [2]):
+
+| จอมมาร | ต้องใช้ | ดันเจียนที่ใช้ | พลังหลังเก็บ | ผล |
+|---|---|---|---|---|
+| 1 | 0, 9, 5 | 1, 4, 13 | 82 | ปราบได้ (1) |
+| 2 | 0 | 95 | **−13** | พลัง < 0 → หยุด |
+| 3 | 1 | — | — | ไปไม่ถึง |
+
+คำตอบ **1**
+
+## 5. จุดที่มักพลาด
+- **เลือกดันเจียนตามลำดับที่ให้มา** แทนที่จะเลือกตัวที่ถูกที่สุด: ถ้าดันเจียนถูก ๆ อยู่ท้ายรายการจะผิด
+- **ลืมว่าไอเท็มสลาย:** ถ้าใช้ไอเท็มชนิด 0 ซ้ำกับจอมมารตนที่ 2 ในตัวอย่างที่ 3 จะได้ 3 แทน 1
+- **ข้ามจอมมารที่จ่ายไม่ไหวแล้วไปตนต่อไป:** ต้องปราบตามลำดับ ล้มเหลวครั้งแรกคือจบ
+- **หยุดอ่านข้อมูลกลางคัน:** ข้อนี้ไม่เป็นไรเพราะพิมพ์ตอนจบ แต่ถ้า `break` ออกจากการอ่าน ระวังอย่าให้ตัวเลขที่เหลือไปปนกับตรรกะส่วนอื่น อ่านให้ครบทั้งบรรทัด (อย่างที่เฉลยทำ) เป็นนิสัยที่ปลอดภัย
+- **จอมมารที่ q = 0** ไม่ต้องใช้อะไร นับว่าปราบได้
+
+## 6. ความรู้พื้นฐาน
+บทที่ 13: **เหตุผลแบบสลับ (exchange argument) ของ greedy** ถ้าแผนที่ดีที่สุดใช้ดันเจียนชนิด z ที่แพงกว่า ขณะที่ตัวที่ถูกกว่าชนิดเดียวกันยังไม่ถูกใช้ การสลับกันไม่มีทางแย่ลง ดังนั้นต้องมีแผนที่ดีที่สุดที่เป็นแบบ greedy "sort แต่ละถัง + ตัวชี้" คือรูปแบบคงที่ของ "min-heap ต่อชนิด" ทั้งสองให้ตัวถูกที่สุดถัดไปใน O(1) / O(log n)

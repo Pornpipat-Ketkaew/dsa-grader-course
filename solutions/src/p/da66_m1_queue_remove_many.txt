@@ -1,0 +1,119 @@
+id: da66_m1_queue_remove_many
+group: stackqueue
+lesson: 04 · Queue (circular array)
+stars: 2
+kind: student.h
+tags: CP::queue, mark array, compaction, circular index
+title: Queue Remove Many
+title_th: ลบข้อมูลหลายตำแหน่งจากคิว (Queue Remove Many)
+blurb: Delete the elements at the given (unsorted) positions in O(n) — mark them, then compact the circular buffer with read/write positions.
+blurb_th: ลบข้อมูลตามตำแหน่งที่ให้ (ไม่เรียง) ใน O(n) — ทำเครื่องหมายไว้ แล้วบีบอัดบัฟเฟอร์วงกลมด้วยตำแหน่งอ่าน/เขียน
+files: sol/da66_m1_queue_remove_many/student.h
+tests: the PDF sample and an unsorted pos example; 300 random cases through a harness that makes the data wrap around (and pushes/pops afterwards to check the queue is still consistent) against Python; N = 500,000, K = 250,000 in 0.20 s.
+tests_th: ตัวอย่างใน PDF และตัวอย่างที่ pos ไม่เรียง; สุ่ม 300 ชุดผ่านโปรแกรมทดสอบที่ทำให้ข้อมูลวนรอบ (และ push/pop ต่อเพื่อเช็กว่าคิวยังถูกต้อง) เทียบกับ Python; N = 500,000, K = 250,000 ใช้ 0.20 วินาที
+==== en
+## 1. What the problem says
+Add `void remove_many(std::vector<size_t> pos)` to CP::queue: delete every element whose position (counted from the front, 0-based) is in pos. [A,B,C,D,E] with pos = [0,2,3] → [B,E].
+
+- Every pos[i] is in 0..mSize−1 and they are all different — but **not necessarily sorted** (only 10% of tests promise sorted).
+- 1 ≤ K ≤ N ≤ 500,000. Several subtasks say "mFront + mSize < mCap", i.e. no wrap; the rest do wrap.
+- `main` reads N K, the N values, the K positions, calls remove_many and prints "Size n: …".
+
+## 2. What it really means
+Erase Many on a vector, but (1) pos is unsorted and (2) the array is circular.
+
+```text
+positions: 0 1 2 3 4 5 6 7 8 9      pos = 2 4 6 7 9
+values:    1 2 3 4 5 6 7 8 9 10
+delete?        x   x   x x   x
+result:    1 2 4 6 9                "Size 5: 1 2 4 6 9"
+```
+
+## 3. What, why, how
+- **Naive:** remove each position by shifting → O(N·K) = 10¹¹.
+- **Sorting pos** would allow the merge pointer of Erase Many (O(K log K)). Simpler: a **`vector<bool> del(N)`** marks positions in O(K).
+- **Compaction:** read position i = 0..N−1, write position w. If not deleted, copy slot `(mFront+i)%mCap` → slot `(mFront+w)%mCap`, w++. Finally `mSize = w`. mFront stays.
+- O(N + K) time, O(N) bits extra.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the sample** (mFront = 0 here; the same logic works when the slots wrap):
+
+| i | value | del[i] | action | w after |
+|---|---|---|---|---|
+| 0 | 1 | no | pos 0 ← 1 | 1 |
+| 1 | 2 | no | pos 1 ← 2 | 2 |
+| 2 | 3 | yes | skip | 2 |
+| 3 | 4 | no | pos 2 ← 4 | 3 |
+| 4 | 5 | yes | skip | 3 |
+| 5 | 6 | no | pos 3 ← 6 | 4 |
+| 6, 7 | 7, 8 | yes | skip | 4 |
+| 8 | 9 | no | pos 4 ← 9 | 5 |
+| 9 | 10 | yes | skip | 5 |
+
+## 5. Traps
+- **Assuming pos is sorted** — a merge pointer `pos[j] == i` silently skips positions that come out of order.
+- **Removing one by one from the front of pos** — positions shift after each removal.
+- **Writing `mData[w] = mData[i]`** without mFront/mCap — passes only the no-wrap subtasks.
+- **Changing mFront** while compacting toward the front; it isn't needed.
+
+## 6. Background
+Lesson 04 + Erase Many: **mark, then compact** is the universal "delete many" pattern. A bool array turns "is i in this unsorted list?" into O(1) after O(K) preprocessing.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void remove_many(std::vector<size_t> pos)` ให้ CP::queue: ลบทุกตัวที่ตำแหน่ง (นับจากหัวคิว เริ่ม 0) อยู่ใน pos [A,B,C,D,E] กับ pos = [0,2,3] → [B,E]
+
+- ทุก pos[i] อยู่ใน 0..mSize−1 และไม่ซ้ำกัน — แต่ **ไม่จำเป็นต้องเรียง** (มีแค่ 10% ที่รับประกันว่าเรียง)
+- 1 ≤ K ≤ N ≤ 500,000 ชุดย่อยบางชุดบอกว่า "mFront + mSize < mCap" คือไม่วนรอบ ที่เหลือวนรอบ
+- `main` อ่าน N K, ข้อมูล N ตัว, ตำแหน่ง K ตัว เรียก remove_many แล้วพิมพ์ "Size n: …"
+
+## 2. จริง ๆ แล้วถามอะไร
+คือข้อ Erase Many ของ vector แต่ (1) pos ไม่เรียง และ (2) อาร์เรย์เป็นวงกลม
+
+```text
+positions: 0 1 2 3 4 5 6 7 8 9      pos = 2 4 6 7 9
+values:    1 2 3 4 5 6 7 8 9 10
+delete?        x   x   x x   x
+result:    1 2 4 6 9                "Size 5: 1 2 4 6 9"
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** ลบทีละตำแหน่งด้วยการเลื่อน → O(N·K) = 10¹¹
+- **sort pos** แล้วใช้ตัวชี้แบบ merge เหมือน Erase Many ได้ (O(K log K)) แต่ที่ง่ายกว่าคือ **`vector<bool> del(N)`** ทำเครื่องหมายตำแหน่งใน O(K)
+- **บีบอัด:** อ่านตำแหน่ง i = 0..N−1 เขียนตำแหน่ง w ถ้าไม่ถูกลบ คัดลอกช่อง `(mFront+i)%mCap` → ช่อง `(mFront+w)%mCap` แล้ว w++ สุดท้าย `mSize = w` ส่วน mFront เท่าเดิม
+- เวลา O(N + K) ใช้บิตเพิ่ม O(N)
+
+```text
+del:  [F F T F T F T T F T]      (T = ลบ)
+i อ่านทุกตัว, w เขียนเฉพาะตัวที่เก็บ:
+1 2 _ 4 _ 6 _ _ 9 _   →   1 2 4 6 9
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (ที่นี่ mFront = 0; ตรรกะเดียวกันใช้ได้เมื่อช่องวนรอบ):
+
+| i | ค่า | del[i] | ทำอะไร | w หลังทำ |
+|---|---|---|---|---|
+| 0 | 1 | ไม่ | pos 0 ← 1 | 1 |
+| 1 | 2 | ไม่ | pos 1 ← 2 | 2 |
+| 2 | 3 | ลบ | ข้าม | 2 |
+| 3 | 4 | ไม่ | pos 2 ← 4 | 3 |
+| 4 | 5 | ลบ | ข้าม | 3 |
+| 5 | 6 | ไม่ | pos 3 ← 6 | 4 |
+| 6, 7 | 7, 8 | ลบ | ข้าม | 4 |
+| 8 | 9 | ไม่ | pos 4 ← 9 | 5 |
+| 9 | 10 | ลบ | ข้าม | 5 |
+
+## 5. จุดที่มักพลาด
+- **คิดว่า pos เรียงแล้ว** — ตัวชี้แบบ `pos[j] == i` จะข้ามตำแหน่งที่มาไม่ตามลำดับไปเงียบ ๆ
+- **ลบทีละตำแหน่งตามลำดับใน pos** — ตำแหน่งจะคลาดหลังลบแต่ละครั้ง
+- **เขียน `mData[w] = mData[i]`** โดยไม่มี mFront/mCap — ผ่านเฉพาะชุดที่ไม่วนรอบ
+- **ไปแก้ mFront** ระหว่างบีบอัด ไม่จำเป็นเลย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04 + ข้อ Erase Many: **ทำเครื่องหมาย แล้วบีบอัด** คือรูปแบบสากลของ "ลบหลายตัว" อาร์เรย์ boolean ทำให้คำถาม "i อยู่ในลิสต์ที่ไม่เรียงนี้ไหม?" ตอบได้ใน O(1) หลังเตรียม O(K)

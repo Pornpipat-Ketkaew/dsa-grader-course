@@ -1,0 +1,103 @@
+id: d63_q2b_vector_compress
+group: vector
+lesson: 03 · Vector internals
+stars: 1
+kind: student.h
+tags: CP::vector, new / delete, mCap
+title: Vector Compress
+title_th: บีบเวกเตอร์ให้พอดี (Vector Compress)
+blurb: Shrink mData so that mCap == mSize — allocate exactly, copy, free the old array.
+blurb_th: ลดขนาด mData ให้ mCap == mSize — จองพอดี คัดลอก แล้วคืนอาร์เรย์เก่า
+files: sol/d63_q2b_vector_compress/student.h
+tests: PDF-style example, n = 0, and 200 random sizes (0..40, so the old capacity is 1, 2, 4, …, 64) against the expected mSize/mCap/data; ASan reports no leak and no bad access.
+tests_th: ตัวอย่างแบบใน PDF, n = 0 และสุ่มขนาด 200 ชุด (0..40 ทำให้ capacity เดิมเป็น 1, 2, 4, …, 64) เทียบ mSize/mCap/ข้อมูลที่ควรได้; ASan ไม่พบ memory leak หรือการเข้าถึงผิดที่
+==== en
+## 1. What the problem says
+`mData` may have **more slots than elements**. Write `void compress()` that makes `mData` a dynamic array of size **exactly mSize**, with the same data in the same order. You may need to allocate a new `mData` and change `mCap` (and maybe `mSize`).
+
+- **Do not** use CP::vector's `operator=` or copy constructor inside `compress`. You may touch `mData`, `mCap`, `mSize` directly.
+- `main` pushes n numbers, calls `compress()`, and prints `mSize`, `mCap` and the data.
+
+## 2. What it really means
+After `push_back` the capacity doubles, so it is usually bigger than needed:
+
+```text
+before:  mData ──► [ 1 | 2 | 3 | 4 | 5 | ? | ? | ? ]   mSize 5, mCap 8
+after:   mData ──► [ 1 | 2 | 3 | 4 | 5 ]               mSize 5, mCap 5
+         (old 8-slot array is deleted)
+```
+
+## 3. What, why, how
+- An array **cannot shrink in place** — `new[]` gives a fixed size. So: allocate a new array of size mSize, copy the elements, `delete[]` the old one, point `mData` at the new one, set `mCap = mSize`.
+- `mSize` does **not** change: we keep every element.
+- If `mCap == mSize` already, return early (saves a copy).
+- Cost O(mSize) time, and the memory freed is `mCap − mSize` slots.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** (input `5` / `1 2 3 4 5`): push_back grows the capacity 1 → 2 → 4 → 8.
+
+| step | mData | mSize | mCap |
+|---|---|---|---|
+| before | old: 1 2 3 4 5 ? ? ? | 5 | 8 |
+| `arr = new int[5]()` | arr: 0 0 0 0 0 | 5 | 8 |
+| copy i = 0..4 | arr: 1 2 3 4 5 | 5 | 8 |
+| `delete[] mData; mData = arr; mCap = mSize` | 1 2 3 4 5 | 5 | **5** |
+
+## 5. Traps
+- **Forgetting `delete[] mData`** → memory leak (the grader won't see it, a reviewer will).
+- **`delete` instead of `delete[]`** for an array → undefined behaviour.
+- **Deleting before copying** → you copy from freed memory.
+- **Changing `mSize`**: it must stay the same.
+- **Using `*this = ...` or a copy constructor** is forbidden by the problem.
+
+## 6. Background
+Lesson 03: CP::vector = **mData (heap array) + mSize (used) + mCap (allocated)**. Growth doubles mCap so `push_back` is amortised O(1); the price is up to 50% wasted space. `compress` is `std::vector::shrink_to_fit`. The allocate–copy–delete–swap-pointer dance is exactly what `expand` does, just with a smaller size.
+==== th
+## 1. โจทย์บอกอะไร
+`mData` อาจมี **ช่องมากกว่าจำนวนข้อมูล** ให้เขียน `void compress()` ที่ทำให้ `mData` เป็นอาร์เรย์ขนาด **เท่ากับ mSize พอดี** และข้อมูลเหมือนเดิมทุกตัวตามลำดับเดิม อาจต้องจอง `mData` ใหม่และแก้ `mCap` (และอาจ `mSize`)
+
+- **ห้าม** ใช้ `operator=` หรือ copy constructor ของ CP::vector ใน `compress` แต่แก้ `mData`, `mCap`, `mSize` ได้โดยตรง
+- `main` push_back n ตัว เรียก `compress()` แล้วพิมพ์ `mSize`, `mCap` และข้อมูล
+
+## 2. จริง ๆ แล้วถามอะไร
+หลัง `push_back` capacity จะเพิ่มทีละเท่าตัว จึงมักใหญ่เกินกว่าที่ใช้:
+
+```text
+before:  mData ──► [ 1 | 2 | 3 | 4 | 5 | ? | ? | ? ]   mSize 5, mCap 8
+after:   mData ──► [ 1 | 2 | 3 | 4 | 5 ]               mSize 5, mCap 5
+         (old 8-slot array is deleted)
+```
+
+เปรียบเหมือนย้ายของจากกล่องใหญ่ 8 ช่อง ไปใส่กล่องใหม่ 5 ช่องที่พอดี แล้วทิ้งกล่องเก่า
+
+## 3. อะไร ทำไม อย่างไร
+- อาร์เรย์ **หดในที่เดิมไม่ได้** — `new[]` ได้ขนาดตายตัว จึงต้อง: จองอาร์เรย์ใหม่ขนาด mSize, คัดลอกข้อมูล, `delete[]` อาร์เรย์เก่า, ให้ `mData` ชี้อาร์เรย์ใหม่, ตั้ง `mCap = mSize`
+- `mSize` **ไม่เปลี่ยน** เพราะเราเก็บข้อมูลทุกตัว
+- ถ้า `mCap == mSize` อยู่แล้วก็ return เลย (ไม่ต้องคัดลอก)
+- เวลา O(mSize) และคืนหน่วยความจำได้ `mCap − mSize` ช่อง
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (ข้อมูล `5` / `1 2 3 4 5`): push_back ทำให้ capacity โต 1 → 2 → 4 → 8
+
+| ขั้น | mData | mSize | mCap |
+|---|---|---|---|
+| ก่อน | เก่า: 1 2 3 4 5 ? ? ? | 5 | 8 |
+| `arr = new int[5]()` | arr: 0 0 0 0 0 | 5 | 8 |
+| คัดลอก i = 0..4 | arr: 1 2 3 4 5 | 5 | 8 |
+| `delete[] mData; mData = arr; mCap = mSize` | 1 2 3 4 5 | 5 | **5** |
+
+## 5. จุดที่มักพลาด
+- **ลืม `delete[] mData`** → memory leak (grader ไม่เห็น แต่คนตรวจเห็น)
+- **ใช้ `delete` แทน `delete[]`** กับอาร์เรย์ → undefined behaviour
+- **delete ก่อนคัดลอก** → คัดลอกจากหน่วยความจำที่คืนไปแล้ว
+- **เปลี่ยน `mSize`**: ต้องเท่าเดิม
+- **ใช้ `*this = ...` หรือ copy constructor** โจทย์ห้าม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 03: CP::vector = **mData (อาร์เรย์บน heap) + mSize (ใช้อยู่) + mCap (จองไว้)** การขยายแบบเพิ่มเท่าตัวทำให้ `push_back` เฉลี่ย O(1) แต่แลกกับพื้นที่ที่อาจเปล่าถึง 50% `compress` ก็คือ `std::vector::shrink_to_fit` ขั้นตอน จอง–คัดลอก–ลบ–ย้ายพอยน์เตอร์ เหมือนที่ `expand` ทำ แค่ขนาดเล็กลง

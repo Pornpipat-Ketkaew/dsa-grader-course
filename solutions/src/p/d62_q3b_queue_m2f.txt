@@ -1,0 +1,95 @@
+id: d62_q3b_queue_m2f
+group: stackqueue
+lesson: 04 · Queue (circular array)
+stars: 2
+kind: student.h
+tags: CP::queue, circular index, shift right
+title: Queue Move To Front
+title_th: ลัดคิว (Queue Move To Front)
+blurb: The element at pos jumps to the front — save it, shift positions 0..pos−1 back by one (right to left), put it at mFront.
+blurb_th: ตัวที่ตำแหน่ง pos ลัดคิวไปหัวคิว — เก็บไว้ เลื่อนตำแหน่ง 0..pos−1 ไปข้างหลังหนึ่งช่อง (ขวาไปซ้าย) แล้ววางที่ mFront
+files: sol/d62_q3b_queue_m2f/student.h
+tests: the PDF script; 300 random u / o / m / p scripts (wrapped data, pos = 0, pos = last) against a Python list model. ASan + UBSan clean.
+tests_th: ชุดคำสั่งใน PDF; สุ่มชุดคำสั่ง u / o / m / p 300 ชุด (ข้อมูลวนรอบ, pos = 0, pos = ตัวสุดท้าย) เทียบกับโมเดล list ใน Python ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `move_to_front(size_t pos)` to CP::queue: the element at position pos "cuts the line" to the front; the others keep their order. <10,20,30,40,50,60>, `move_to_front(3)` → <**40**,10,20,30,50,60>.
+
+- Commands: `u x`, `o`, `m pos`, `p` ("Size n: …"), `q`. Sample: after pushes 1..4 and a pop, `m 1` → `3 2 4`, then `m 2` → `4 3 2`.
+
+## 2. What it really means
+The mirror image of Move To Back: the part **in front of** pos moves **one step back**.
+
+```text
+logical:   10 20 30 [40] 50 60
+x = 40
+shift:     _  10 20 30   50 60     positions 0..2 move to 1..3
+put x:     40 10 20 30   50 60
+```
+
+## 3. What, why, how
+- Save x = position pos.
+- For i = pos down to 1: position i ← position i−1 (**right to left**, because data moves right).
+- Position 0 (physical slot mFront) ← x. O(pos).
+- Every logical index goes through `(mFront + i) % mCap`.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the sample** — queue 2 3 4 (mFront = 1):
+
+| call | x | shifts (right to left) | result |
+|---|---|---|---|
+| m 1 | 3 | pos1 ← 2 | **3** 2 4 |
+| m 2 | 4 | pos2 ← 2, pos1 ← 3 | **4** 3 2 |
+
+## 5. Traps
+- **Left-to-right shift** copies position 0 into every slot up to pos.
+- **Forgetting the circular index** (works only while mFront = 0).
+- A cute alternative: decrement mFront (`(mFront + mCap − 1) % mCap`) and shift the part *before* pos left — same O(pos), more chances for mistakes.
+
+## 6. Background
+Lesson 04: circular queue indexing; Lesson 03: direction rule for in-place shifts — **moving right → loop right to left**. Pairs with Move To Back.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `move_to_front(size_t pos)` ให้ CP::queue: ตัวที่ตำแหน่ง pos "ลัดคิว" ไปอยู่หัวคิว ตัวอื่นลำดับเหมือนเดิม <10,20,30,40,50,60> เรียก `move_to_front(3)` → <**40**,10,20,30,50,60>
+
+- คำสั่ง: `u x`, `o`, `m pos`, `p` ("Size n: …"), `q` ตัวอย่าง: push 1..4 แล้ว pop, `m 1` → `3 2 4` แล้ว `m 2` → `4 3 2`
+
+## 2. จริง ๆ แล้วถามอะไร
+กลับด้านกับข้อ Move To Back: ส่วนที่อยู่ **ข้างหน้า** pos ถอย **ไปข้างหลังหนึ่งช่อง**
+
+```text
+logical:   10 20 30 [40] 50 60
+x = 40
+shift:     _  10 20 30   50 60     positions 0..2 move to 1..3
+put x:     40 10 20 30   50 60
+```
+
+เหมือนคนแซงคิว: คนที่ยืนข้างหน้าเขาต้องถอยหลังคนละหนึ่งก้าว คนข้างหลังเขาไม่ต้องขยับ
+
+## 3. อะไร ทำไม อย่างไร
+- เก็บ x = ตำแหน่ง pos
+- i = pos ลงไปถึง 1: ตำแหน่ง i ← ตำแหน่ง i−1 (**ขวาไปซ้าย** เพราะข้อมูลย้ายไปขวา)
+- ตำแหน่ง 0 (ช่องจริง mFront) ← x เวลา O(pos)
+- ทุก index ต้องผ่าน `(mFront + i) % mCap`
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** — คิว 2 3 4 (mFront = 1):
+
+| คำสั่ง | x | การเลื่อน (ขวาไปซ้าย) | ผล |
+|---|---|---|---|
+| m 1 | 3 | pos1 ← 2 | **3** 2 4 |
+| m 2 | 4 | pos2 ← 2, pos1 ← 3 | **4** 3 2 |
+
+## 5. จุดที่มักพลาด
+- **เลื่อนจากซ้ายไปขวา** จะคัดลอกตำแหน่ง 0 ไปทุกช่องจนถึง pos
+- **ลืม index วงกลม** (ถูกแค่ตอน mFront = 0)
+- อีกวิธีที่น่ารัก: ลด mFront (`(mFront + mCap − 1) % mCap`) แล้วเลื่อนส่วน *ก่อน* pos ไปซ้าย — O(pos) เหมือนกัน แต่พลาดง่ายกว่า
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04: การใช้ index ของคิววงกลม; บทที่ 03: กฎทิศทางของการเลื่อนในที่เดิม — **ย้ายไปขวา → ไล่จากขวาไปซ้าย** คู่กับข้อ Move To Back

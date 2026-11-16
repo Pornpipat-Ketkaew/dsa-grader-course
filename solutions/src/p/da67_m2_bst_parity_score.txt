@@ -1,0 +1,147 @@
+id: da67_m2_bst_parity_score
+group: tree
+lesson: 07 · Trees & BST
+stars: 1
+kind: parity_score()
+tags: recursion, depth limit, pruning, absolute value
+title: BST Parity Score
+title_th: คะแนนคู่คี่ใน BST (BST Parity Score)
+blurb: |#odd − #even| over nodes no deeper than d. Count down the allowed depth and stop when it goes negative.
+blurb_th: |จำนวนคี่ − จำนวนคู่| ของโหนดที่ลึกไม่เกิน d นับถอยหลังความลึกที่ยังเหลือ แล้วหยุดเมื่อติดลบ
+files: sol/da67_m2_bst_parity_score/student.h
+tests: all 3 PDF samples plus the PDF's worked examples (d = 2 → 1, d = 4 → 2); 300 random trees (some with left children only) and depths against a Python BST; 500,000 random keys in 0.43 s, most of it building the tree. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และตัวอย่างอธิบายใน PDF (d = 2 → 1, d = 4 → 2); สุ่ม 300 ต้น (บางต้นมีแต่ลูกซ้าย) และความลึกต่าง ๆ เทียบกับ BST ใน Python; 500,000 key สุ่มใช้ 0.43 วินาที ส่วนใหญ่เป็นเวลาสร้างต้นไม้ ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `int CP::map_bst::parity_score(int d)`: return the **difference between the number of nodes with an odd key and the number with an even key**, counting only nodes whose **depth ≤ d** (the root has depth 0). For the PDF's tree: `parity_score(2)` = 1, `parity_score(3)` = 3, `parity_score(4)` = 2. All keys are ints ≥ 0.
+
+- A helper `void parity_score_helper(node *current_node, int depth, int &parity_score)` is provided (optional).
+- Edit only `student.h`, no I/O. The grader's `main` differs.
+- Input: `N d` (1 ≤ N ≤ 500,000, 0 ≤ d ≤ depth of the tree), then N keys inserted in order.
+- Subtasks: 10% d = 1; 10% N = 2; 20% every node has only a left child; 25% d = the depth of the deepest node; 35% no other condition.
+
+## 2. What it really means
+The samples show the "difference" is the **absolute value**: with d = 0 only the root 12 counts, which is even, and the expected output is 1, not −1. Sample 1 tree (keys 12 7 18 1 15 3 17 2 5 16):
+
+```text
+depth 0:              12(E)
+                    /       \
+depth 1:         7(O)        18(E)
+                 /           /
+depth 2:      1(O)       15(O)
+                 \           \
+depth 3:         3(O)        17(O)
+                /   \         /
+depth 4:     2(E)  5(O)    16(E)
+```
+
+| d | odd keys counted | even keys counted | \|odd − even\| |
+|---|---|---|---|
+| 0 | — | 12 | 1 |
+| 2 | 7, 1, 15 | 12, 18 | 1 |
+| 3 | 7, 1, 15, 3, 17 | 12, 18 | **3** |
+| 4 | + 5 → 6 odd | + 2, 16 → 4 even | 2 |
+
+## 3. What, why, how
+- Walk the tree from the root, keep one running total `score` = (#odd) − (#even): **+1 for an odd key, −1 for an even key**. At the end return `|score|`.
+- **Depth limit:** the helper's signature has a `depth` but no `d`. Use `depth` as **"levels still allowed"**: start with `d` at the root, pass `depth − 1` to the children, and stop as soon as it is negative. That node and **its whole subtree** are deeper than d, so we never visit them (pruning).
+- `score` is a reference, so every call adds to the same counter.
+- **Cost:** only nodes with depth ≤ d are visited (plus one NULL/too-deep check per child) → O(nodes within depth d) ≤ O(N).
+- `key % 2 == 1` is safe because keys are ≥ 0 (for negative numbers in C++, `-3 % 2 == -1`, see Traps).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1, d = 3** (`h(node, left)`; `left` = levels still allowed):
+
+| call | key | left | parity | score after |
+|---|---|---|---|---|
+| h(12, 3) | 12 | 3 | even | −1 |
+| h(7, 2) | 7 | 2 | odd | 0 |
+| h(1, 1) | 1 | 1 | odd | 1 |
+| h(3, 0) | 3 | 0 | odd | 2 |
+| h(2, −1), h(5, −1) | | −1 | too deep → return | 2 |
+| h(18, 2) | 18 | 2 | even | 1 |
+| h(15, 1) | 15 | 1 | odd | 2 |
+| h(17, 0) | 17 | 0 | odd | 3 |
+| h(16, −1) | | −1 | too deep → return | 3 |
+
+`|3|` = **3**.
+
+## 5. Traps
+- **Returning odd − even without the absolute value:** sample 2 (d = 0) would print −1.
+- **Off-by-one in depth:** the root is depth 0 and nodes **at** depth d are included. With the count-down version: visit while `depth ≥ 0`.
+- **Not pruning:** visiting the whole tree and checking each node's depth is still O(N) and correct, so it passes here; pruning just saves work when d is small.
+- **`key % 2 == 1` with negative keys:** in C++ `-3 % 2` is `-1`, so negative odd numbers would be counted as even. Keys are ≥ 0 here; in general use `key % 2 != 0`.
+- **Adding a member to store d:** `map_bst.h` can't be changed. Counting down avoids the need.
+
+## 6. Background
+Lesson 07, section 4.1: **passing information down**. Here the information passed down is a *budget* (levels left) instead of the depth itself: both work, and a budget that reaches zero gives a natural stopping rule (**pruning**: skip a whole subtree when you know nothing in it can count). Compare Tree Leaves Depth (depth passed down, sum returned up) and Rank in Heap (prune subtrees whose root already fails).
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `int CP::map_bst::parity_score(int d)` คืน **ผลต่างระหว่างจำนวนโหนดที่ key เป็นเลขคี่ กับจำนวนโหนดที่ key เป็นเลขคู่** โดยนับเฉพาะโหนดที่ **ลึกไม่เกิน d** (รากลึก 0) สำหรับต้นไม้ในรูปของ PDF: `parity_score(2)` = 1, `parity_score(3)` = 3, `parity_score(4)` = 2 key ทุกตัวเป็น int ที่ ≥ 0
+
+- มีฟังก์ชันช่วย `void parity_score_helper(node *current_node, int depth, int &parity_score)` ให้ใช้ (ไม่บังคับ)
+- แก้ได้เฉพาะ `student.h` ห้ามอ่าน/พิมพ์ข้อมูล `main` ใน grader ต่างออกไป
+- ข้อมูลนำเข้า: `N d` (1 ≤ N ≤ 500,000, 0 ≤ d ≤ ความลึกของต้นไม้) แล้วตามด้วย key N ตัวที่ใส่ตามลำดับ
+- ชุดทดสอบ: 10% d = 1; 10% N = 2; 20% ทุกโหนดมีแต่ลูกซ้าย; 25% d = ความลึกของโหนดที่ลึกที่สุด; 35% ไม่มีเงื่อนไขอื่น
+
+## 2. จริง ๆ แล้วถามอะไร
+จากตัวอย่าง "ผลต่าง" คือ **ค่าสัมบูรณ์**: ตอน d = 0 นับแค่ราก 12 ซึ่งเป็นเลขคู่ คำตอบที่ถูกคือ 1 ไม่ใช่ −1 ต้นไม้ของตัวอย่างที่ 1 (key 12 7 18 1 15 3 17 2 5 16):
+
+```text
+depth 0:              12(E)
+                    /       \
+depth 1:         7(O)        18(E)
+                 /           /
+depth 2:      1(O)       15(O)
+                 \           \
+depth 3:         3(O)        17(O)
+                /   \         /
+depth 4:     2(E)  5(O)    16(E)
+```
+
+| d | คี่ที่นับ | คู่ที่นับ | \|คี่ − คู่\| |
+|---|---|---|---|
+| 0 | — | 12 | 1 |
+| 2 | 7, 1, 15 | 12, 18 | 1 |
+| 3 | 7, 1, 15, 3, 17 | 12, 18 | **3** |
+| 4 | + 5 → คี่ 6 ตัว | + 2, 16 → คู่ 4 ตัว | 2 |
+
+## 3. อะไร ทำไม อย่างไร
+- เดินจากรากลงไป เก็บตัวนับตัวเดียว `score` = (จำนวนคี่) − (จำนวนคู่): **เจอคี่ +1 เจอคู่ −1** ตอนจบคืน `|score|` (เหมือนนับคะแนนสองทีมด้วยกระดานเดียว ทีมคี่ได้แต้มบวก ทีมคู่ได้แต้มลบ)
+- **จำกัดความลึก:** ฟังก์ชันช่วยมี `depth` แต่ไม่มี `d` ให้ใช้ `depth` เป็น **"จำนวนชั้นที่ยังลงได้อีก"**: เริ่มที่ราก = `d` ส่ง `depth − 1` ให้ลูก แล้วหยุดทันทีที่ติดลบ โหนดนั้นและ **ต้นย่อยทั้งหมดของมัน** ลึกเกิน d เราจึงไม่ต้องเข้าไปเลย (การตัดกิ่ง pruning)
+- `score` ส่งแบบอ้างอิง ทุกการเรียกจึงบวกลงตัวนับเดียวกัน
+- **เวลา:** เยี่ยมเฉพาะโหนดที่ลึก ≤ d (บวกเช็ก NULL/ลึกเกินอีกครั้งต่อลูก) → O(จำนวนโหนดที่ลึกไม่เกิน d) ≤ O(N)
+- `key % 2 == 1` ใช้ได้เพราะ key ≥ 0 (สำหรับเลขลบใน C++ `-3 % 2 == -1` ดูจุดที่มักพลาด)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1, d = 3** (`h(โหนด, เหลือ)`; `เหลือ` = จำนวนชั้นที่ยังลงได้):
+
+| การเรียก | key | เหลือ | คู่/คี่ | score หลังเรียก |
+|---|---|---|---|---|
+| h(12, 3) | 12 | 3 | คู่ | −1 |
+| h(7, 2) | 7 | 2 | คี่ | 0 |
+| h(1, 1) | 1 | 1 | คี่ | 1 |
+| h(3, 0) | 3 | 0 | คี่ | 2 |
+| h(2, −1), h(5, −1) | | −1 | ลึกเกิน → กลับ | 2 |
+| h(18, 2) | 18 | 2 | คู่ | 1 |
+| h(15, 1) | 15 | 1 | คี่ | 2 |
+| h(17, 0) | 17 | 0 | คี่ | 3 |
+| h(16, −1) | | −1 | ลึกเกิน → กลับ | 3 |
+
+`|3|` = **3**
+
+## 5. จุดที่มักพลาด
+- **คืน คี่ − คู่ โดยไม่ใส่ค่าสัมบูรณ์:** ตัวอย่างที่ 2 (d = 0) จะพิมพ์ −1
+- **ความลึกคลาดไปหนึ่ง:** รากลึก 0 และโหนดที่ลึก **เท่ากับ** d ต้องนับด้วย แบบนับถอยหลัง: เยี่ยมขณะที่ `depth ≥ 0`
+- **ไม่ตัดกิ่ง:** เดินทั้งต้นแล้วเช็กความลึกทีละโหนดก็ยัง O(N) และถูก ผ่านได้ในข้อนี้ การตัดกิ่งแค่ช่วยประหยัดงานตอน d เล็ก
+- **`key % 2 == 1` กับ key ติดลบ:** ใน C++ `-3 % 2` ได้ `-1` เลขคี่ติดลบจะถูกนับเป็นคู่ ข้อนี้ key ≥ 0 แต่ทั่วไปควรใช้ `key % 2 != 0`
+- **เพิ่มตัวแปรสมาชิกไว้เก็บ d:** แก้ `map_bst.h` ไม่ได้ การนับถอยหลังทำให้ไม่ต้องเก็บ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07 หัวข้อ 4.1: **ส่งข้อมูลลงไป** ข้อนี้สิ่งที่ส่งลงไปคือ *งบ* (จำนวนชั้นที่เหลือ) แทนความลึกโดยตรง ใช้ได้ทั้งสองแบบ และงบที่หมดก็เป็นกฎการหยุดโดยธรรมชาติ (**การตัดกิ่ง**: ข้ามต้นย่อยทั้งต้นเมื่อรู้ว่าไม่มีอะไรข้างในที่นับได้) เทียบกับข้อ Tree Leaves Depth (ส่งความลึกลง ส่งผลรวมขึ้น) และข้อ Rank in Heap (ตัดต้นย่อยที่รากไม่ผ่านเงื่อนไขแล้ว)

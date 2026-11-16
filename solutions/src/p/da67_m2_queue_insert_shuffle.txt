@@ -1,0 +1,109 @@
+id: da67_m2_queue_insert_shuffle
+group: stackqueue
+lesson: 04 · Queue (circular array)
+stars: 2
+kind: student.h
+tags: CP::queue, merge into new array, mFront = 0
+title: Queue Insert Shuffle
+title_th: แทรกสลับในคิว (Queue Insert Shuffle)
+blurb: From position pos on, interleave new items with the old elements (item, old, item, old…), leftovers go to the back — build the result in a fresh array.
+blurb_th: ตั้งแต่ตำแหน่ง pos สลับใส่ข้อมูลใหม่กับข้อมูลเดิม (ใหม่ เดิม ใหม่ เดิม…) ที่เหลือต่อท้าย — สร้างผลลัพธ์ในอาร์เรย์ใหม่
+files: sol/da67_m2_queue_insert_shuffle/student.h
+tests: all 3 PDF samples; 300 random cases (pos = 0, pos = N, more items than old elements and vice versa, wrapped data, push/pop afterwards) against Python; N = M = 500,000 in 0.11 s. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF; สุ่ม 300 ชุด (pos = 0, pos = N, ข้อมูลใหม่มากกว่าหรือน้อยกว่าของเดิม, ข้อมูลวนรอบ, push/pop ต่อ) เทียบกับ Python; N = M = 500,000 ใช้ 0.11 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void insert_shuffle(std::vector<T> items, size_t pos)`: starting at position pos, insert the items **alternating** with the old elements. If the old elements run out, the remaining items go to the back.
+
+- [1,3,5,7,9], items [10,20,30,40], pos 2 → [1,3,**10**,5,**20**,7,**30**,9,**40**].
+- 1 ≤ N, M ≤ 500,000; 0 ≤ pos ≤ N. Some tests make the new size exceed mCap.
+
+## 2. What it really means
+Old positions 0..pos−1 stay. From there it's a **zipper**: new, old, new, old, … then whatever is left.
+
+```text
+old:   1 3 | 5 7 9          pos = 2
+new:         10 20 30 40
+out:   1 3 10 5 20 7 30 9 40
+             ↑n ↑o ↑n ↑o ↑n ↑o ↑n (old ran out → rest of new)
+
+pos = 0, old 10..50, new 5 4 3 2 1 → 5 10 4 20 3 30 2 40 1 50
+pos = N → plain append
+```
+
+## 3. What, why, how
+- In place, every old element after pos moves by a different amount — messy with a circular array. Easiest correct way: **build a new array** of capacity ≥ N + M and write the result left to right with three pointers (old i, items j, out k). Then replace mData, set `mFront = 0`, `mSize = N + M`.
+- Capacity: keep mCap if big enough, otherwise grow like ensureCapacity (`max(N+M, 2·mCap)`).
+- O(N + M) time.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1:**
+
+| phase | i (old) | j (item) | arr so far |
+|---|---|---|---|
+| copy 0..pos−1 | 0, 1 | — | 1 3 |
+| zipper | 2 | 0 | 1 3 **10** 5 |
+| zipper | 3 | 1 | … **20** 7 |
+| zipper | 4 | 2 | … **30** 9 |
+| leftovers | 5 = n | 3 | … **40** |
+
+## 5. Traps
+- **Inserting items one at a time** (shifting the tail each time) → O(N·M), TLE.
+- **Reading old elements as `mData[i]`** instead of `mData[(mFront+i)%mCap]`.
+- **Forgetting `mFront = 0`** after switching to the new array, or forgetting to `delete[]` the old one.
+- **Order inside the zipper:** the new item comes **first** (sample 2 starts with 5, then 10).
+
+## 6. Background
+Lesson 04 + the merge pattern from Insert Many: when an in-place rearrangement gets complicated, **write the answer into a fresh buffer** in one pass — O(n) time, O(n) memory, and much less to go wrong.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void insert_shuffle(std::vector<T> items, size_t pos)`: เริ่มที่ตำแหน่ง pos แทรก items **สลับ** กับข้อมูลเดิม ถ้าข้อมูลเดิมหมดก่อน items ที่เหลือต่อท้ายคิว
+
+- [1,3,5,7,9], items [10,20,30,40], pos 2 → [1,3,**10**,5,**20**,7,**30**,9,**40**]
+- 1 ≤ N, M ≤ 500,000; 0 ≤ pos ≤ N บางชุดทำให้ขนาดใหม่เกิน mCap
+
+## 2. จริง ๆ แล้วถามอะไร
+ตำแหน่งเดิม 0..pos−1 อยู่ที่เดิม จากนั้นเป็น **ซิป**: ใหม่ เดิม ใหม่ เดิม … แล้วต่อด้วยที่เหลือ
+
+```text
+old:   1 3 | 5 7 9          pos = 2
+new:         10 20 30 40
+out:   1 3 10 5 20 7 30 9 40
+             ↑n ↑o ↑n ↑o ↑n ↑o ↑n (old ran out → rest of new)
+
+pos = 0, old 10..50, new 5 4 3 2 1 → 5 10 4 20 3 30 2 40 1 50
+pos = N → plain append
+```
+
+เหมือนรูดซิป: ฟันซ้ายหนึ่งซี่ ฟันขวาหนึ่งซี่ สลับกันไป ถ้าข้างไหนหมดก่อน อีกข้างก็ต่อท้ายไปเลย
+
+## 3. อะไร ทำไม อย่างไร
+- ถ้าทำในที่เดิม ข้อมูลเดิมหลัง pos แต่ละตัวย้ายไม่เท่ากัน — ยุ่งมากกับอาร์เรย์วงกลม วิธีที่ง่ายและถูกคือ **สร้างอาร์เรย์ใหม่** ขนาด ≥ N + M แล้วเขียนผลจากซ้ายไปขวาด้วยตัวชี้สามตัว (เดิม i, items j, ผลลัพธ์ k) แล้วแทน mData ตั้ง `mFront = 0`, `mSize = N + M`
+- ความจุ: ถ้า mCap พอก็ใช้เท่าเดิม ไม่พอก็ขยายแบบ ensureCapacity (`max(N+M, 2·mCap)`)
+- เวลา O(N + M)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1:**
+
+| ช่วง | i (เดิม) | j (ใหม่) | arr ถึงตอนนี้ |
+|---|---|---|---|
+| คัดลอก 0..pos−1 | 0, 1 | — | 1 3 |
+| ซิป | 2 | 0 | 1 3 **10** 5 |
+| ซิป | 3 | 1 | … **20** 7 |
+| ซิป | 4 | 2 | … **30** 9 |
+| ที่เหลือ | 5 = n | 3 | … **40** |
+
+## 5. จุดที่มักพลาด
+- **แทรกทีละตัว** (เลื่อนส่วนท้ายทุกครั้ง) → O(N·M) TLE
+- **อ่านข้อมูลเดิมด้วย `mData[i]`** แทน `mData[(mFront+i)%mCap]`
+- **ลืม `mFront = 0`** หลังเปลี่ยนไปใช้อาร์เรย์ใหม่ หรือลืม `delete[]` อาร์เรย์เก่า
+- **ลำดับในซิป:** ข้อมูลใหม่มา **ก่อน** (ตัวอย่างที่ 2 เริ่มด้วย 5 แล้วค่อย 10)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04 + รูปแบบ merge จากข้อ Insert Many: เมื่อการจัดเรียงในที่เดิมซับซ้อน ให้ **เขียนคำตอบลงบัฟเฟอร์ใหม่** ในรอบเดียว — เวลา O(n) หน่วยความจำ O(n) และพลาดได้น้อยกว่ามาก

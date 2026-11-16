@@ -1,0 +1,117 @@
+id: d65_q1c_ice_cream
+group: search
+lesson: 08 · Prefix sums + binary search
+stars: 3
+kind: program
+tags: prefix sum, lower_bound, offline reasoning
+title: Saving for Ice Cream
+title_th: เก็บเงินซื้อไอศกรีม (Saving for Ice Cream)
+blurb: Build S[d] = savings by day d once; each question becomes one lower_bound — either on P or on P + S[X] after the scam.
+blurb_th: สร้าง S[d] = เงินสะสมถึงวัน d ครั้งเดียว แต่ละคำถามเหลือ lower_bound ครั้งเดียว — หา P หรือ P + S[X] หลังโดนหลอก
+files: sol/d65_q1c_ice_cream/main.cpp
+tests: all 3 PDF samples; 300 random cases against a day-by-day simulation; n = 40,000, m = 100,000 in 0.05 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF; สุ่ม 300 ชุดเทียบกับการจำลองทีละวัน; n = 40,000, m = 100,000 ใช้ 0.05 วินาที
+==== en
+## 1. What the problem says
+Dae saves money every day starting on day 0 at `start` baht/day. On some days a he changes his mind: "from today on I save s baht/day". On day X a scam takes **all** his money (including that day's saving) and he starts again from 0 the next day. If he has enough on a day — even day X — he buys first.
+
+- For each question (P, X) print the **first day** his money reaches P. Questions are independent.
+- 0 ≤ n ≤ 40,000; 1 ≤ m ≤ 100,000; rates 1..1,000; a, X ≤ 100,000; the answer is never above 100,000. One line of answers.
+
+## 2. What it really means
+Money without the scam is a running total S[d]. The scam just subtracts S[X] from everything after day X.
+
+```text
+rate 3, change day 4 → 2, day 6 → 5
+day:    0  1  2  3  4  5  6  7  8
+saved:  3  3  3  3  2  2  5  5  5
+S[d]:   3  6  9 12 14 16 21 26 31
+
+P = 13, X = 3: S[3] = 12 < 13 → scammed, restart.
+   after day 3 money = S[d] − 12;  need S[d] ≥ 25  → day 7 (26 − 12 = 14 ≥ 13)
+```
+
+## 3. What, why, how
+- **Simulating each question** day by day costs up to 10⁵ per question → 10¹⁰. Too slow.
+- **Prefix sums:** build `S[0..100000]` once (O(10⁵)). Every rate ≥ 1, so S is **strictly increasing** → binary search works.
+- **Per question:**
+  - If `S[X] ≥ P`: he reaches P on or before day X → answer = first d with `S[d] ≥ P`.
+  - Else: all money is lost on day X; money on day d > X is `S[d] − S[X]` → answer = first d with `S[d] ≥ P + S[X]`.
+- Each is one `lower_bound` → O(log 10⁵) per question.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 2** (S = 3 6 9 12 14 16 21 26 31 …, all questions have X = 3 or more):
+
+| P | X | S[X] | S[X] ≥ P? | search for | answer |
+|---|---|---|---|---|---|
+| 11 | 3 | 12 | yes | first S ≥ 11 | 3 |
+| 12 | 3 | 12 | yes (exactly — buys before the scam) | first S ≥ 12 | 3 |
+| 13 | 3 | 12 | no | first S ≥ 25 | 7 |
+| 200 | 4 | 14 | no | first S ≥ 214 | 45 |
+| 200 | 5 | 16 | no | first S ≥ 216 | 45 |
+
+## 5. Traps
+- **Declaring `rate` inside the loop** resets it every day, so a change only lasts one day. It must live **outside** the loop.
+- **Reading `S[d − 1]` at d = 0** → `S[−1]`, out of bounds. Handle day 0 separately.
+- **Skipping the saving on a change day:** the new rate applies **that same day** — first update the rate, then add it.
+- **`S[X] ≥ P` vs `>`:** equal means he buys before the scam (sample: P = 12, X = 3 → 3).
+- **Overflow:** S can reach 10⁵ · 1000 = 10⁸, plus P up to 2³⁰ ≈ 1.07·10⁹ → fits in `int` but barely; `long long` is safe.
+
+## 6. Background
+Lesson 08: **prefix sum + binary search on a monotone array**. "Reset to zero at X" becomes "subtract S[X]" — prefix sums turn range totals into one subtraction. Because S is strictly increasing, `lower_bound` finds the first day reaching any target.
+==== th
+## 1. โจทย์บอกอะไร
+นายแด้เก็บเงินทุกวันเริ่มวันที่ 0 วันละ `start` บาท ในบางวัน a เขาเปลี่ยนใจ "ตั้งแต่วันนี้เก็บวันละ s บาท" ในวันที่ X มีแก๊ง call center หลอกเอาเงิน **ทั้งหมด** (รวมของวันนั้น) แล้วเขาเริ่มเก็บใหม่จาก 0 ในวันถัดไป ถ้าวันไหนเงินพอ — แม้จะเป็นวัน X — เขาจะซื้อก่อนโดนหลอก
+
+- แต่ละคำถาม (P, X) ให้พิมพ์ **วันแรก** ที่มีเงินถึง P แต่ละคำถามแยกกัน
+- 0 ≤ n ≤ 40,000; 1 ≤ m ≤ 100,000; อัตรา 1..1,000; a, X ≤ 100,000; คำตอบไม่เกิน 100,000 พิมพ์คำตอบในบรรทัดเดียว
+
+## 2. จริง ๆ แล้วถามอะไร
+เงินถ้าไม่โดนหลอกคือผลรวมสะสม S[d] การโดนหลอกเท่ากับ "ลบ S[X] ออก" จากทุกวันหลังวัน X
+
+```text
+rate 3, change day 4 → 2, day 6 → 5
+day:    0  1  2  3  4  5  6  7  8
+saved:  3  3  3  3  2  2  5  5  5
+S[d]:   3  6  9 12 14 16 21 26 31
+
+P = 13, X = 3: S[3] = 12 < 13 → scammed, restart.
+   after day 3 money = S[d] − 12;  need S[d] ≥ 25  → day 7 (26 − 12 = 14 ≥ 13)
+```
+
+เหมือนกระปุกออมสินที่มีตัวเลขบอกยอดสะสมตั้งแต่วันแรก ถ้าโดนขโมยวัน X เงินจริงหลังจากนั้นคือ "ยอดสะสม − ยอดสะสมวัน X"
+
+## 3. อะไร ทำไม อย่างไร
+- **จำลองทีละวันทุกคำถาม** อาจถึง 10⁵ วันต่อคำถาม → 10¹⁰ ช้าเกินไป
+- **Prefix sum:** สร้าง `S[0..100000]` ครั้งเดียว (O(10⁵)) อัตราทุกค่า ≥ 1 ดังนั้น S **เพิ่มขึ้นเรื่อย ๆ อย่างเคร่งครัด** → ใช้ binary search ได้
+- **แต่ละคำถาม:**
+  - ถ้า `S[X] ≥ P`: ถึง P ภายในวัน X → คำตอบ = d แรกที่ `S[d] ≥ P`
+  - ไม่อย่างนั้น: เงินหายหมดในวัน X เงินในวัน d > X คือ `S[d] − S[X]` → คำตอบ = d แรกที่ `S[d] ≥ P + S[X]`
+- แต่ละกรณีคือ `lower_bound` ครั้งเดียว → O(log 10⁵) ต่อคำถาม
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 2** (S = 3 6 9 12 14 16 21 26 31 …):
+
+| P | X | S[X] | S[X] ≥ P? | หาอะไร | คำตอบ |
+|---|---|---|---|---|---|
+| 11 | 3 | 12 | ใช่ | S แรกที่ ≥ 11 | 3 |
+| 12 | 3 | 12 | ใช่ (พอดี — ซื้อก่อนโดนหลอก) | S แรกที่ ≥ 12 | 3 |
+| 13 | 3 | 12 | ไม่ | S แรกที่ ≥ 25 | 7 |
+| 200 | 4 | 14 | ไม่ | S แรกที่ ≥ 214 | 45 |
+| 200 | 5 | 16 | ไม่ | S แรกที่ ≥ 216 | 45 |
+
+## 5. จุดที่มักพลาด
+- **ประกาศ `rate` ในลูป** ทำให้รีเซ็ตทุกวัน การเปลี่ยนใจจะมีผลแค่วันเดียว ต้องประกาศ **นอก** ลูป
+- **อ่าน `S[d − 1]` ตอน d = 0** → `S[−1]` เลยขอบ ต้องจัดการวันที่ 0 แยก
+- **ข้ามการเก็บเงินในวันที่เปลี่ยนใจ:** อัตราใหม่ใช้ **วันนั้นเลย** — อัปเดตอัตราก่อน แล้วค่อยบวก
+- **`S[X] ≥ P` กับ `>`:** เท่ากันแปลว่าซื้อทันก่อนโดนหลอก (ตัวอย่าง: P = 12, X = 3 → 3)
+- **Overflow:** S ได้ถึง 10⁵ · 1000 = 10⁸ บวก P ได้ถึง 2³⁰ ≈ 1.07·10⁹ → ยังพอ `int` แต่เฉียด `long long` ปลอดภัยกว่า
+
+## 6. ความรู้พื้นฐาน
+บทที่ 08: **prefix sum + binary search บนอาร์เรย์ที่เพิ่มขึ้นเรื่อย ๆ** "รีเซ็ตเป็นศูนย์ที่วัน X" กลายเป็น "ลบ S[X]" — prefix sum เปลี่ยนผลรวมช่วงให้เป็นการลบครั้งเดียว และเพราะ S เพิ่มขึ้นอย่างเคร่งครัด `lower_bound` จึงหาวันแรกที่ถึงเป้าได้ทันที

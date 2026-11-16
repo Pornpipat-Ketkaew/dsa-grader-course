@@ -1,0 +1,99 @@
+id: ex00e3
+group: search
+lesson: 01 · Warm-up (arrays & counting)
+stars: 1
+kind: program
+tags: counting array, permutation check
+title: Check Mapping
+title_th: ตรวจว่าเป็นการเรียงสับเปลี่ยน (Check Mapping)
+blurb: Is d₁..dₙ a permutation of 1..n? Every value must be in 1..n and appear once — a boolean "seen" array.
+blurb_th: d₁..dₙ เป็นการเรียงสับเปลี่ยนของ 1..n ไหม? ทุกค่าต้องอยู่ใน 1..n และไม่ซ้ำ — ใช้อาร์เรย์ "เคยเห็น"
+files: sol/ex00e3/main.cpp
+tests: all 3 PDF samples and n = 1; 300 random sequences (permutations, one changed value, values ±2·10⁹) against "sorted(d) == [1..n]". ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และ n = 1; สุ่ม 300 ชุด (เรียงสับเปลี่ยน, เปลี่ยนค่าหนึ่งตัว, ค่า ±2·10⁹) เทียบกับ "sorted(d) == [1..n]" ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+f maps A = {1..N} into B, described by d₁..dₙ with f(i) = dᵢ. Print YES if f is a **permutation**: 1-1 (no two i give the same value), onto, and B = A. Otherwise NO.
+
+- 1 ≤ N ≤ 100,000; −2·10⁹ ≤ dᵢ ≤ 2·10⁹. One test per input.
+
+## 2. What it really means
+"The n numbers are exactly 1, 2, …, n in some order." Two ways to fail:
+
+```text
+4 1 3 2        → every value in 1..4, no repeat           → YES
+-1 -2 3 0 ...  → -1 is not in 1..7                         → NO
+5 4 3 1 3      → 3 appears twice (so 2 is missing)         → NO
+```
+
+## 3. What, why, how
+- **Pigeonhole:** n values, all inside 1..n, no repeats → they must cover all of 1..n. So "onto" comes for free; you only check **range** and **no duplicates**.
+- Keep `seen[1..n]`. For each d: if d < 1 or d > n → NO; if `seen[d]` → NO; else mark it. O(n).
+- Alternative: sort and check `a[i] == i+1` — O(n log n), also fine.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 3** (n = 5):
+
+| i | d | in 1..5? | seen[d] before | action |
+|---|---|---|---|---|
+| 1 | 5 | ✓ | no | mark 5 |
+| 2 | 4 | ✓ | no | mark 4 |
+| 3 | 3 | ✓ | no | mark 3 |
+| 4 | 1 | ✓ | no | mark 1 |
+| 5 | 3 | ✓ | **yes** | NO, stop |
+
+## 5. Traps
+- **Checking only duplicates:** `-1 -2 3 0 2 3 4` has a duplicate too, but `1 2 7` (n = 3) has none and is still NO — the range check matters.
+- **`seen[d]` with d out of range** → out-of-bounds write. Check the range **first**.
+- **`int` for d** works here (2·10⁹ < 2³¹−1 ≈ 2.147·10⁹) but it is close; `long long` is safer.
+- **Summing values** (sum = n(n+1)/2) is not enough: 1 1 4 has the same sum as 1 2 3.
+
+## 6. Background
+Lesson 01: a **counting / boolean array** indexed by value is the fastest membership test when values are small. Pigeonhole principle: an injective map from a finite set to itself is also onto.
+==== th
+## 1. โจทย์บอกอะไร
+f เป็นฟังก์ชันจาก A = {1..N} ไป B กำหนดด้วย d₁..dₙ โดย f(i) = dᵢ ให้พิมพ์ YES ถ้า f เป็น **การเรียงสับเปลี่ยน** (permutation): หนึ่งต่อหนึ่ง (ไม่มี i สองตัวให้ค่าเดียวกัน), ทั่วถึง และ B = A ไม่อย่างนั้นพิมพ์ NO
+
+- 1 ≤ N ≤ 100,000; −2·10⁹ ≤ dᵢ ≤ 2·10⁹ ข้อมูลนำเข้าหนึ่งชุดต่อการรัน
+
+## 2. จริง ๆ แล้วถามอะไร
+"ตัวเลข n ตัวนี้คือ 1, 2, …, n ครบทุกตัว เรียงแบบไหนก็ได้" พลาดได้สองแบบ:
+
+```text
+4 1 3 2        → every value in 1..4, no repeat           → YES
+-1 -2 3 0 ...  → -1 is not in 1..7                         → NO
+5 4 3 1 3      → 3 appears twice (so 2 is missing)         → NO
+```
+
+เหมือนมีเก้าอี้ n ตัวเบอร์ 1..n และคน n คน แต่ละคนถือบัตรเบอร์เก้าอี้ ถ้าทุกบัตรอยู่ใน 1..n และไม่มีใครได้เบอร์ซ้ำ ทุกเก้าอี้จะมีคนนั่งพอดี
+
+## 3. อะไร ทำไม อย่างไร
+- **หลักรังนกพิราบ:** ค่า n ตัว อยู่ใน 1..n ทั้งหมด และไม่ซ้ำ → ต้องครอบคลุม 1..n ครบ ดังนั้น "ทั่วถึง" ได้มาฟรี เช็กแค่ **อยู่ในช่วง** และ **ไม่ซ้ำ**
+- ใช้ `seen[1..n]` สำหรับแต่ละ d: ถ้า d < 1 หรือ d > n → NO; ถ้า `seen[d]` เป็นจริงแล้ว → NO; ไม่อย่างนั้นทำเครื่องหมาย เวลา O(n)
+- อีกวิธี: sort แล้วเช็ก `a[i] == i+1` — O(n log n) ก็ผ่าน
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 3** (n = 5):
+
+| i | d | อยู่ใน 1..5? | seen[d] ก่อนหน้า | ทำอะไร |
+|---|---|---|---|---|
+| 1 | 5 | ✓ | ไม่ | ทำเครื่องหมาย 5 |
+| 2 | 4 | ✓ | ไม่ | ทำเครื่องหมาย 4 |
+| 3 | 3 | ✓ | ไม่ | ทำเครื่องหมาย 3 |
+| 4 | 1 | ✓ | ไม่ | ทำเครื่องหมาย 1 |
+| 5 | 3 | ✓ | **ใช่** | NO แล้วหยุด |
+
+## 5. จุดที่มักพลาด
+- **เช็กแค่ตัวซ้ำ:** `1 2 7` (n = 3) ไม่มีตัวซ้ำแต่ยังเป็น NO — ต้องเช็กช่วงด้วย
+- **`seen[d]` ตอน d อยู่นอกช่วง** → เขียนเลยขอบอาร์เรย์ ต้องเช็กช่วง **ก่อน**
+- **ใช้ `int` เก็บ d** ใช้ได้ (2·10⁹ < 2³¹−1 ≈ 2.147·10⁹) แต่เฉียดมาก `long long` ปลอดภัยกว่า
+- **เช็กผลรวม** (= n(n+1)/2) ไม่พอ: 1 1 4 มีผลรวมเท่ากับ 1 2 3
+
+## 6. ความรู้พื้นฐาน
+บทที่ 01: **อาร์เรย์นับ/อาร์เรย์ boolean** ที่ใช้ค่าเป็น index เป็นวิธีเช็กสมาชิกที่เร็วที่สุดเมื่อค่าไม่ใหญ่ หลักรังนกพิราบ: ฟังก์ชันหนึ่งต่อหนึ่งจากเซตจำกัดไปหาตัวเอง ย่อมทั่วถึงด้วย

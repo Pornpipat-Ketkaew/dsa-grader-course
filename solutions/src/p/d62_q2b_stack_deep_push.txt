@@ -1,0 +1,101 @@
+id: d62_q2b_stack_deep_push
+group: stackqueue
+lesson: 04 · Stack
+stars: 1
+kind: student.h
+tags: CP::stack, top = mData[mSize-1], shift right
+title: Stack Deep Push
+title_th: ดันข้อมูลลงลึกในสแตก (Stack Deep Push)
+blurb: Push a value pos slots below the top — convert "below the top" into an array index, then shift and insert.
+blurb_th: push ค่าลงไปลึก pos ช่องจาก top — แปลง "ใต้ top" เป็น index ในอาร์เรย์ แล้วเลื่อนและแทรก
+files: sol/d62_q2b_stack_deep_push/student.h
+tests: the PDF command script; 300 random u / o / d / p scripts (pos from 0 to size) against a Python list model. ASan + UBSan clean.
+tests_th: ชุดคำสั่งใน PDF; สุ่มชุดคำสั่ง u / o / d / p 300 ชุด (pos ตั้งแต่ 0 ถึง size) เทียบกับโมเดล list ใน Python ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void deep_push(size_t pos, T value)` to CP::stack: push value so that it ends up **pos places below the top**. `deep_push(0, v)` is a normal push; on {10,20,30} (top on the right) `deep_push(3, v)` gives {v,10,20,30}. pos ≤ size().
+
+- `main` commands: `u x` push, `o` pop, `d pos v` deep_push, `p` print bottom → top, `q` quit.
+
+## 2. What it really means
+CP::stack stores bottom → top in `mData[0 .. mSize−1]`; the **top is the last slot**. "pos below the top" is array index **idx = mSize − pos**.
+
+```text
+mData:  [ 1 | 2 | 3 | 4 ]        mSize = 4
+index:    0   1   2   3 ← top
+pos:      4   3   2   1   0 (= above the top)
+d 0 10 → idx 4 → [1 2 3 4 10]
+d 5 11 → idx 0 → [11 1 2 3 4 10]
+```
+
+## 3. What, why, how
+- It's "insert at index idx" in a vector: make room for one, shift `mData[idx .. n−1]` right by 1 (**right to left**), write the value, `mSize++`.
+- `ensureCapacity(mSize + 1)` may reallocate — we use indices, not pointers, so that's safe.
+- Cost O(pos): only the pos elements above idx move.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of `d 5 11`** on [1 2 3 4 10] (n = 5, idx = 0):
+
+| i | action | mData |
+|---|---|---|
+| 4 | mData[5] = 10 | 1 2 3 4 10 **10** |
+| 3 | mData[4] = 4 | 1 2 3 4 **4** 10 |
+| 2, 1, 0 | shift | 1 **1 2 3** 4 10 |
+| — | mData[0] = 11 | **11** 1 2 3 4 10 |
+
+## 5. Traps
+- **Counting from the bottom:** idx = pos is wrong; pos is measured from the **top**.
+- **idx = mSize − pos − 1** puts the value one slot too low (deep_push(0) would land under the top instead of on it).
+- **Shifting left to right** duplicates one element and loses the rest.
+- **Forgetting `ensureCapacity`** writes past the array when it is full.
+
+## 6. Background
+Lesson 04: a CP::stack is a vector where only the end is used. Any "k-th from the top" is `mData[mSize − 1 − k]`. Deep push = vector insert at `mSize − pos` (see Multiple Add for the shift pattern, Mitosis for a harder version).
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void deep_push(size_t pos, T value)` ให้ CP::stack: push value ให้ไปอยู่ **ลึกลงไปจาก top pos ช่อง** `deep_push(0, v)` คือ push ปกติ; ถ้า stack เป็น {10,20,30} (top อยู่ขวา) `deep_push(3, v)` จะได้ {v,10,20,30} รับประกันว่า pos ≤ size()
+
+- คำสั่งใน `main`: `u x` push, `o` pop, `d pos v` deep_push, `p` พิมพ์จาก bottom → top, `q` จบ
+
+## 2. จริง ๆ แล้วถามอะไร
+CP::stack เก็บข้อมูลจาก bottom → top ใน `mData[0 .. mSize−1]` **top คือช่องสุดท้าย** ดังนั้น "ลึกจาก top pos ช่อง" คือ index **idx = mSize − pos**
+
+```text
+mData:  [ 1 | 2 | 3 | 4 ]        mSize = 4
+index:    0   1   2   3 ← top
+pos:      4   3   2   1   0 (= above the top)
+d 0 10 → idx 4 → [1 2 3 4 10]
+d 5 11 → idx 0 → [11 1 2 3 4 10]
+```
+
+นึกภาพกองจาน: deep_push(2, v) คือยกจาน 2 ใบบนสุดขึ้น วางจาน v ลงไป แล้ววางสองใบกลับ
+
+## 3. อะไร ทำไม อย่างไร
+- นี่คือ "แทรกที่ index idx" ของ vector: เพิ่มที่หนึ่งช่อง, เลื่อน `mData[idx .. n−1]` ไปขวา 1 ช่อง (**จากขวาไปซ้าย**), เขียนค่า, `mSize++`
+- `ensureCapacity(mSize + 1)` อาจจองที่ใหม่ แต่เราใช้ index ไม่ใช่พอยน์เตอร์ จึงปลอดภัย
+- เวลา O(pos): ขยับแค่ pos ตัวที่อยู่เหนือ idx
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ `d 5 11`** บน [1 2 3 4 10] (n = 5, idx = 0):
+
+| i | ทำอะไร | mData |
+|---|---|---|
+| 4 | mData[5] = 10 | 1 2 3 4 10 **10** |
+| 3 | mData[4] = 4 | 1 2 3 4 **4** 10 |
+| 2, 1, 0 | เลื่อน | 1 **1 2 3** 4 10 |
+| — | mData[0] = 11 | **11** 1 2 3 4 10 |
+
+## 5. จุดที่มักพลาด
+- **นับจาก bottom:** idx = pos ผิด pos นับจาก **top**
+- **idx = mSize − pos − 1** ทำให้ค่าต่ำไปหนึ่งช่อง (deep_push(0) จะไปอยู่ใต้ top แทนที่จะอยู่บน top)
+- **เลื่อนจากซ้ายไปขวา** ทำให้ข้อมูลตัวหนึ่งซ้ำและที่เหลือหาย
+- **ลืม `ensureCapacity`** จะเขียนเลยอาร์เรย์ตอนเต็ม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04: CP::stack คือ vector ที่ใช้แค่ปลายด้านเดียว "ตัวที่ k จาก top" คือ `mData[mSize − 1 − k]` เสมอ deep push = แทรกใน vector ที่ `mSize − pos` (รูปแบบการเลื่อนดูข้อ Multiple Add ส่วนเวอร์ชันยากกว่าดูข้อ Mitosis)

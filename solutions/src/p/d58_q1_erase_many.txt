@@ -1,0 +1,127 @@
+id: d58_q1_erase_many
+group: vector
+lesson: 03 · Vector internals
+stars: 2
+kind: student.h
+tags: CP::vector, compaction, read/write pointers
+title: Erase Many from Vector
+title_th: ลบข้อมูลหลายตัวจากเวกเตอร์ (Erase Many)
+blurb: Delete every index listed in a sorted pos vector in one left-to-right pass with a read index and a write index.
+blurb_th: ลบทุกตำแหน่งที่อยู่ใน pos (เรียงแล้ว) ด้วยการไล่ครั้งเดียวจากซ้ายไปขวา ใช้ index อ่านกับ index เขียน
+files: sol/d58_q1_erase_many/student.h
+tests: the PDF example; 300 random command scripts (a / e / p) compared with a Python model; a 10⁶-element vector with 5·10⁵ deletions runs in 0.22 s. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF; สุ่มชุดคำสั่ง (a / e / p) 300 ชุดเทียบกับโมเดลใน Python; เวกเตอร์ 10⁶ ตัว ลบ 5·10⁵ ตำแหน่ง ใช้ 0.22 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+`CP::vector` only has `erase(iterator it)`. Add `erase_many(pos)` that deletes **every element whose index is in pos**. Example: v = ⟨A,B,C,D,E,F,G,H⟩, pos = ⟨0,3,4⟩ → ⟨B,C,F,G,H⟩.
+
+- pos is **sorted ascending**, and every value is in 0 .. v.size()−1.
+- Erasing from a vector costs time that depends on the position; the last 2 test files are very large, so the method must be fast.
+- Submit only `student.h`. `main` reads commands: `a n x1..xn` (push back), `e n p1..pn` (erase_many), `p` (print), `q` (quit).
+- The PDF says the function "returns how many were deleted", but the starter declares it `void` and `main` ignores it — keep the starter's signature.
+
+## 2. What it really means
+Keep every element whose index is **not** in pos, packed to the front, in the same order. Indices in pos refer to the **original** positions, before anything moves.
+
+```text
+index:  0   1   2   3   4   5   6   7
+v:    [ A | B | C | D | E | F | G | H ]      pos = 0 3 4
+        x           x   x                    x = delete
+after:[ B | C | F | G | H ]                  mSize 8 → 5
+```
+
+## 3. What, why, how
+- **Naive:** call `erase` for each position. Each erase shifts the whole tail left by one, so m deletions cost O(n·m) — about 10¹¹ on the big tests. It also has a second trap: after deleting index 0, the old index 3 is now at 2, so the positions drift (deleting **from the back** avoids the drift but not the slowness).
+- **Right idea — compaction:** walk the old array once with a **read index i** and a **write index w**. If i is to be deleted, skip it. Otherwise copy `mData[i]` to `mData[w]` and `w++`. At the end `mSize = w`.
+- **Why it's safe:** w never passes i (w ≤ i), so we only overwrite slots we have already read.
+- **How do we know whether i is deleted?** pos is sorted, so keep a pointer **j** into pos. When `pos[j] == i`, element i dies and `j++`. Both i and j only move forward → **O(n + m)** total.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** — v = 0 1 2 3 4 5 6 7 8 9 after `e 1 1` became `0 2 3 4 5 6 7 8 9`; now `e 5 0 2 3 4 6`:
+
+| i | mData[i] | pos[j] | action | w after | kept so far |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | delete, j→1 | 0 | |
+| 1 | 2 | 2 | keep → mData[0] | 1 | 2 |
+| 2 | 3 | 2 | delete, j→2 | 1 | 2 |
+| 3 | 4 | 3 | delete, j→3 | 1 | 2 |
+| 4 | 5 | 4 | delete, j→4 | 1 | 2 |
+| 5 | 6 | 6 | keep → mData[1] | 2 | 2 6 |
+| 6 | 7 | 6 | delete, j→5 | 2 | 2 6 |
+| 7 | 8 | — | keep → mData[2] | 3 | 2 6 8 |
+| 8 | 9 | — | keep → mData[3] | 4 | 2 6 8 9 |
+
+`mSize = 4` → prints `2 6 8 9`, as in the PDF.
+
+## 5. Traps
+- **`mSize = w` inside the loop.** The loop condition reads the old size, but if you shrink mSize while walking, later code that checks `mSize` (or the loop bound, if it is `i < mSize`) stops early and drops the tail. Save `n = mSize` before the loop and set `mSize = w` **once, after** it.
+- **Erasing front-to-back with `erase`:** the indices in pos shift after each erase, so you delete the wrong elements. If you must use `erase`, go from the **last** position to the first — correct, but still O(n·m).
+- **`j < m` check first:** `pos[j]` with j == m reads past the end of pos. Write `j < m && pos[j] == i`.
+- **Duplicates in pos:** not promised away by the PDF wording. The inner `while` skips them so one index is never "deleted twice".
+
+## 6. Background
+Lesson 03: **two-index compaction** (read i, write w ≤ i) is the standard way to delete many items from an array in one pass. It is the same pattern as `std::remove_if` and as V Uniq (remove duplicates). Paired with the **merge-style pointer j** over a sorted list, it turns an O(n·m) job into O(n + m).
+==== th
+## 1. โจทย์บอกอะไร
+`CP::vector` มีแค่ `erase(iterator it)` ที่ลบได้ทีละตัว ให้เพิ่ม `erase_many(pos)` ที่ลบ **ทุกตัวที่ index อยู่ใน pos** ตัวอย่าง: v = ⟨A,B,C,D,E,F,G,H⟩, pos = ⟨0,3,4⟩ → ⟨B,C,F,G,H⟩
+
+- pos **เรียงจากน้อยไปมาก** และทุกค่าอยู่ในช่วง 0 .. v.size()−1
+- การลบใน vector ใช้เวลาขึ้นกับตำแหน่งที่ลบ ชุดทดสอบ 2 ชุดสุดท้ายใหญ่มาก ต้องใช้วิธีที่เร็ว
+- ส่งแค่ `student.h` ส่วน `main` อ่านคำสั่ง: `a n x1..xn` (เพิ่มท้าย), `e n p1..pn` (เรียก erase_many), `p` (พิมพ์), `q` (จบ)
+- PDF บอกว่าฟังก์ชัน "คืนจำนวนที่ลบไป" แต่ไฟล์เริ่มต้นประกาศเป็น `void` และ `main` ไม่ได้ใช้ค่านั้น ให้ใช้ signature ตามไฟล์เริ่มต้น
+
+## 2. จริง ๆ แล้วถามอะไร
+เก็บทุกตัวที่ index **ไม่อยู่** ใน pos ไว้ อัดชิดซ้ายโดยลำดับเหมือนเดิม index ใน pos หมายถึง **ตำแหน่งเดิม** ก่อนจะมีอะไรขยับ
+
+```text
+index:  0   1   2   3   4   5   6   7
+v:    [ A | B | C | D | E | F | G | H ]      pos = 0 3 4
+        x           x   x                    x = ลบ
+after:[ B | C | F | G | H ]                  mSize 8 → 5
+```
+
+นึกภาพแถวคนต่อคิว 8 คน มีคนออกจากแถว 3 คน คนที่เหลือเดินขยับมาข้างหน้าให้ชิดกัน โดยไม่สลับลำดับกัน
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** เรียก `erase` ทีละตำแหน่ง แต่ละครั้งต้องเลื่อนส่วนท้ายทั้งหมดไปซ้ายหนึ่งช่อง ลบ m ครั้งจึงเป็น O(n·m) ประมาณ 10¹¹ ในชุดใหญ่ แถมมีกับดักอีกอย่าง: พอลบ index 0 ไปแล้ว ตัวที่เคยอยู่ index 3 จะเลื่อนมาอยู่ 2 ตำแหน่งจึงคลาด (ลบ **จากหลังมาหน้า** แก้เรื่องคลาดได้ แต่ยังช้าอยู่ดี)
+- **แนวคิดที่ถูก — การบีบอัด (compaction):** ไล่อาร์เรย์เดิมครั้งเดียว ใช้ **index อ่าน i** กับ **index เขียน w** ถ้า i ต้องลบก็ข้ามไป ถ้าเก็บก็คัดลอก `mData[i]` ไปที่ `mData[w]` แล้ว `w++` จบแล้ว `mSize = w`
+- **ทำไมปลอดภัย:** w ไม่เคยแซง i (w ≤ i) เราจึงเขียนทับเฉพาะช่องที่อ่านไปแล้วเท่านั้น
+- **รู้ได้อย่างไรว่า i ต้องลบ?** pos เรียงแล้ว จึงใช้ตัวชี้ **j** ใน pos เมื่อ `pos[j] == i` แปลว่าตัว i ต้องลบ แล้ว `j++` ทั้ง i และ j เดินไปข้างหน้าอย่างเดียว → รวม **O(n + m)**
+
+```text
+i (อ่าน) วิ่งนำหน้า, w (เขียน) ตามหลัง
+        w           i
+[ 2 | 2 | 3 | 4 | 5 | 6 | ... ]   คัดลอก mData[i] → mData[w] เฉพาะตัวที่เก็บ
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** — v = 0 1 2 3 4 5 6 7 8 9 หลัง `e 1 1` กลายเป็น `0 2 3 4 5 6 7 8 9` จากนั้น `e 5 0 2 3 4 6`:
+
+| i | mData[i] | pos[j] | ทำอะไร | w หลังทำ | ที่เก็บไว้แล้ว |
+|---|---|---|---|---|---|
+| 0 | 0 | 0 | ลบ, j→1 | 0 | |
+| 1 | 2 | 2 | เก็บ → mData[0] | 1 | 2 |
+| 2 | 3 | 2 | ลบ, j→2 | 1 | 2 |
+| 3 | 4 | 3 | ลบ, j→3 | 1 | 2 |
+| 4 | 5 | 4 | ลบ, j→4 | 1 | 2 |
+| 5 | 6 | 6 | เก็บ → mData[1] | 2 | 2 6 |
+| 6 | 7 | 6 | ลบ, j→5 | 2 | 2 6 |
+| 7 | 8 | — | เก็บ → mData[2] | 3 | 2 6 8 |
+| 8 | 9 | — | เก็บ → mData[3] | 4 | 2 6 8 9 |
+
+`mSize = 4` → พิมพ์ `2 6 8 9` ตรงกับ PDF
+
+## 5. จุดที่มักพลาด
+- **ใส่ `mSize = w` ไว้ในลูป** ถ้าลด mSize ระหว่างที่ยังไล่อยู่ โค้ดที่ใช้ `mSize` (หรือเงื่อนไขลูป ถ้าเขียน `i < mSize`) จะหยุดเร็วเกินและทิ้งส่วนท้าย ให้เก็บ `n = mSize` ไว้ก่อนลูป แล้วตั้ง `mSize = w` **ครั้งเดียวหลังลูป**
+- **ลบจากหน้าไปหลังด้วย `erase`:** index ใน pos จะคลาดหลังการลบแต่ละครั้ง → ลบผิดตัว ถ้าจำเป็นต้องใช้ `erase` ให้ไล่จากตำแหน่ง **สุดท้าย** มาหน้า (ถูก แต่ยัง O(n·m))
+- **เช็ก `j < m` ก่อน:** `pos[j]` ตอน j == m คืออ่านเลยท้าย pos ต้องเขียน `j < m && pos[j] == i`
+- **pos มีค่าซ้ำ:** โจทย์ไม่ได้รับประกันชัดเจน `while` ด้านในข้ามค่าซ้ำให้ จึงไม่มีการ "ลบซ้ำสองครั้ง"
+
+## 6. ความรู้พื้นฐาน
+บทที่ 03: **การบีบอัดด้วยสอง index** (อ่าน i, เขียน w ≤ i) เป็นวิธีมาตรฐานในการลบหลายตัวจากอาร์เรย์ในรอบเดียว เหมือน `std::remove_if` และข้อ V Uniq (ลบตัวซ้ำ) เมื่อใช้คู่กับ **ตัวชี้ j แบบ merge** บนลิสต์ที่เรียงแล้ว งาน O(n·m) จะกลายเป็น O(n + m)

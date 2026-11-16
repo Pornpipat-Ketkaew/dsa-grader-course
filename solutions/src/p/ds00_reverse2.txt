@@ -1,0 +1,103 @@
+id: ds00_reverse2
+group: vector
+lesson: 02 · STL (vector & iterators)
+stars: 1
+kind: reverse() only
+tags: iterators, two pointers, in-place
+title: Reverse Vector 2
+title_th: กลับลำดับเวกเตอร์ 2 (Reverse Vector 2)
+blurb: Reverse the half-open range [a, b) of a vector in place with two iterators.
+blurb_th: กลับลำดับช่วงครึ่งเปิด [a, b) ของเวกเตอร์ในที่เดิมด้วย iterator สองตัว
+files: sol/ds00_reverse2/main.cpp
+tests: the PDF example plus edge cases (length 1, whole vector); 300 random vectors/ranges compared with Python slicing; built with AddressSanitizer + UBSan, no errors.
+tests_th: ตัวอย่างใน PDF และกรณีขอบ (ยาว 1, ทั้งเวกเตอร์); สุ่ม 300 ชุดเทียบกับการ slice ใน Python; คอมไพล์ด้วย AddressSanitizer + UBSan ไม่พบข้อผิดพลาด
+==== en
+## 1. What the problem says
+Write `reverse(v, a, b)`: reverse the elements **from the one pointed to by iterator a up to the one just before iterator b**. Example: v = ⟨10,20,30,40,50,60⟩, `reverse(v, v.begin()+1, v.begin()+5)` → ⟨10,**50,40,30,20**,60⟩.
+
+- a and b always point somewhere between `v.begin()` and `v.end()`.
+- Write code **only inside `reverse`**. **No extra `#include`**, and **`std::reverse` is forbidden** (a person reads the code).
+- `main` reads n, the n values, then two indices a, b and calls `reverse(v, v.begin()+a, v.begin()+b+1)`, so the input range is inclusive [a, b].
+
+## 2. What it really means
+Reverse a **half-open range [a, b)** in place. "Half-open" = a is included, b is **not**. That's the STL convention: `[begin(), end())` is the whole vector.
+
+```text
+index:   0    1    2    3    4    5
+v:     [10 | 20 | 30 | 40 | 50 | 60]
+              ^                   ^
+              a                   b   (b is NOT reversed)
+range [a,b) = 20 30 40 50  →  50 40 30 20
+```
+
+## 3. What, why, how
+- **Two pointers walking toward each other:** `left = a`, `right = b − 1` (the last element *inside* the range). Swap `*left` and `*right`, then `left++`, `right--`. Stop when `left >= right`.
+- **Why it works:** each swap puts two elements into their final mirrored positions. After ⌊len/2⌋ swaps every pair is done; with odd length the middle element is already in place.
+- **Why `b − 1`:** b is one past the end of the range. Swapping with `*b` would pull in an element that must not move — or read `v.end()`, which is not an element at all.
+- **Cost:** ⌊len/2⌋ swaps → O(len), no extra memory.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the example** (`reverse(v, begin()+1, begin()+5)`):
+
+| round | left → value | right → value | after swap |
+|---|---|---|---|
+| 1 | index 1 → 20 | index 4 → 50 | 10 **50** 30 40 **20** 60 |
+| 2 | index 2 → 30 | index 3 → 40 | 10 50 **40 30** 20 60 |
+| 3 | index 3 | index 2 | left > right → stop |
+
+## 5. Traps
+- **Using `b` instead of `b − 1`** as the right end → you swap one element too many (or dereference `end()`).
+- **Empty range (a == b):** `b − 1` would point before `a` (and before `begin()` if a is the start). The guard `if (a == b) return;` makes the function safe for any caller, even though this `main` never passes an empty range.
+- **Loop condition `left != right`** fails for even lengths: the pointers cross without ever being equal → runs off the range. Use `left < right` (iterators of a vector can be compared with `<`).
+- **`std::swap` / `std::reverse`:** not allowed here. Swap by hand with a temporary.
+
+## 6. Background
+Lesson 02 (STL): **iterators** and **half-open ranges** — `end()` is one past the last element, `b − a` is the length, `a == b` means empty. The two-pointer in-place reverse comes back in Queue Reverse (with circular indices) and in many array problems.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เขียน `reverse(v, a, b)` ที่กลับลำดับข้อมูล **ตั้งแต่ตัวที่ iterator a ชี้ ไปจนถึงตัว "ก่อน" ตัวที่ iterator b ชี้** ตัวอย่าง: v = ⟨10,20,30,40,50,60⟩ เรียก `reverse(v, v.begin()+1, v.begin()+5)` → ⟨10,**50,40,30,20**,60⟩
+
+- รับประกันว่า a และ b ชี้อยู่ระหว่าง `v.begin()` ถึง `v.end()` เสมอ
+- เขียนโค้ด **เฉพาะในฟังก์ชัน `reverse`** **ห้าม `#include` เพิ่ม** และ **ห้ามใช้ `std::reverse`** (มีคนอ่านโค้ด)
+- `main` อ่าน n, ข้อมูล n ตัว แล้วอ่าน index a, b และเรียก `reverse(v, v.begin()+a, v.begin()+b+1)` แปลว่าช่วงในข้อมูลนำเข้าคือ [a, b] แบบรวมปลาย
+
+## 2. จริง ๆ แล้วถามอะไร
+กลับลำดับ **ช่วงครึ่งเปิด [a, b)** ในที่เดิม "ครึ่งเปิด" คือรวม a แต่ **ไม่รวม** b ซึ่งเป็นธรรมเนียมของ STL: `[begin(), end())` คือทั้งเวกเตอร์
+
+```text
+index:   0    1    2    3    4    5
+v:     [10 | 20 | 30 | 40 | 50 | 60]
+              ^                   ^
+              a                   b   (b is NOT reversed)
+range [a,b) = 20 30 40 50  →  50 40 30 20
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **พอยน์เตอร์สองตัวเดินเข้าหากัน:** `left = a`, `right = b − 1` (ตัวสุดท้ายที่ *อยู่ใน* ช่วง) สลับ `*left` กับ `*right` แล้ว `left++`, `right--` หยุดเมื่อ `left >= right`
+- **ทำไมถูก:** การสลับแต่ละครั้งวางสองตัวลงตำแหน่งสุดท้ายแบบกระจกเงา หลังสลับ ⌊ความยาว/2⌋ ครั้งทุกคู่ก็เสร็จ ถ้าความยาวเป็นเลขคี่ ตัวกลางอยู่ถูกที่อยู่แล้ว
+- **ทำไมต้อง `b − 1`:** b คือ "เลยปลายช่วงไปหนึ่งช่อง" ถ้าสลับกับ `*b` จะดึงตัวที่ไม่ควรขยับเข้ามา หรืออ่าน `v.end()` ซึ่งไม่ใช่ข้อมูลจริง
+- **เวลา:** สลับ ⌊ความยาว/2⌋ ครั้ง → O(ความยาว) ไม่ใช้หน่วยความจำเพิ่ม
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (`reverse(v, begin()+1, begin()+5)`):
+
+| รอบ | left → ค่า | right → ค่า | หลังสลับ |
+|---|---|---|---|
+| 1 | index 1 → 20 | index 4 → 50 | 10 **50** 30 40 **20** 60 |
+| 2 | index 2 → 30 | index 3 → 40 | 10 50 **40 30** 20 60 |
+| 3 | index 3 | index 2 | left > right → หยุด |
+
+## 5. จุดที่มักพลาด
+- **ใช้ `b` แทน `b − 1`** เป็นปลายขวา → สลับเกินไปหนึ่งตัว (หรือไปอ่าน `end()`)
+- **ช่วงว่าง (a == b):** `b − 1` จะชี้ก่อน `a` (และก่อน `begin()` ถ้า a เป็นตัวแรก) บรรทัด `if (a == b) return;` ทำให้ฟังก์ชันปลอดภัยทุกกรณี แม้ `main` นี้จะไม่ส่งช่วงว่างมาก็ตาม
+- **เงื่อนไข `left != right`** ผิดเมื่อความยาวเป็นเลขคู่: พอยน์เตอร์จะสวนกันโดยไม่เคยเท่ากัน → วิ่งเลยช่วง ต้องใช้ `left < right` (iterator ของ vector เปรียบเทียบด้วย `<` ได้)
+- **`std::swap` / `std::reverse`:** ข้อนี้ห้ามใช้ ให้สลับเองด้วยตัวแปรชั่วคราว
+
+## 6. ความรู้พื้นฐาน
+บทที่ 02 (STL): **iterator** และ **ช่วงครึ่งเปิด** — `end()` คือเลยตัวสุดท้ายไปหนึ่งช่อง, `b − a` คือความยาว, `a == b` คือช่วงว่าง การกลับลำดับในที่เดิมด้วยพอยน์เตอร์สองตัวจะพบอีกในข้อ Queue Reverse (ใช้ index แบบวงกลม) และโจทย์อาร์เรย์อีกหลายข้อ

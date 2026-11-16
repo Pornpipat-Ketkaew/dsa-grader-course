@@ -1,0 +1,119 @@
+id: d65_q3b_queue_total_reverse
+group: stackqueue
+lesson: 04 · Queue (circular array)
+stars: 3
+kind: student.h
+tags: CP::queue, O(1) reverse, direction flag
+title: Queue Total Reverse
+title_th: กลับลำดับคิวทั้งคิว (Queue Total Reverse)
+blurb: reverse() may be called 10⁶ times on 10⁶ elements — don't move data, flip a direction flag (aux) and make push/pop/front/back obey it.
+blurb_th: reverse() อาจถูกเรียก 10⁶ ครั้งกับข้อมูล 10⁶ ตัว — อย่าย้ายข้อมูล ให้สลับธง aux แล้วให้ push/pop/front/back ทำตามทิศนั้น
+files: sol/d65_q3b_queue_total_reverse/student.h
+tests: the PDF sample through the starter main; 300 random scripts mixing push / pop / reverse / front / back (with growth and wrap-around) against a Python list; 10⁶ pushes + 5·10⁵ reverse/pop pairs in 0.55 s. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF ผ่าน main เริ่มต้น; สุ่ม 300 ชุดที่ผสม push / pop / reverse / front / back (มีการขยายและการวนรอบ) เทียบกับ list ใน Python; push 10⁶ ครั้ง + reverse/pop 5·10⁵ คู่ ใช้ 0.55 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `CP::queue<T>::reverse()` that reverses the whole queue: if front() gave 10 then 20, after reverse it gives 50 then 40.
+
+- The class has an extra `int aux` (0 in the constructor) you may use freely.
+- push, pop, front, back already work; you **may rewrite them** in student.h.
+- reverse may be called up to **1,000,000 times**; size up to 10⁶; T may not be int.
+
+## 2. What it really means
+Reversing by moving data costs O(n) per call → 10¹² in the worst case. Instead, **remember which end is the front**:
+
+```text
+physical:  mData[mFront] ... mData[(mFront+mSize-1)%mCap]
+aux = 0:   front ────────────────────────────► back
+aux = 1:   back  ◄──────────────────────────── front
+reverse(): aux = 1 - aux      (O(1), nothing moves)
+```
+
+## 3. What, why, how
+With aux = 1 the logical front is the **physical last** slot. Each operation picks its end:
+
+| op | aux = 0 | aux = 1 |
+|---|---|---|
+| front | mData[mFront] | mData[(mFront + mSize − 1) % mCap] |
+| back | physical last | mData[mFront] |
+| push | write after the physical last | **mFront−1** (wrapping), write there |
+| pop | mFront++ | just mSize−− (drop physical last) |
+
+`expand` copies in physical order and resets mFront = 0, which is correct for both modes. Every operation stays O(1) (amortised for push).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace:** push 1 2 3 (mCap 4, mFront 0) → reverse → push 9 → front/pop.
+
+| op | aux | mFront | physical slots 0..3 | logical queue |
+|---|---|---|---|---|
+| push 1,2,3 | 0 | 0 | 1 2 3 . | 1 2 3 |
+| reverse | 1 | 0 | 1 2 3 . | 3 2 1 |
+| push 9 | 1 | 3 | 1 2 3 **9** | 3 2 1 9 |
+| front | 1 | 3 | | physical last = slot (3+4−1)%4 = 2 → **3** |
+| pop | 1 | 3 | mSize 4 → 3 | 2 1 9 |
+
+## 5. Traps
+- **Swapping elements in reverse()** — O(n) per call, TLE on the 50% subtask.
+- **`mFront − 1` with size_t** underflows when mFront = 0; use `(mFront + mCap − 1) % mCap`.
+- **Forgetting ensureCapacity before the reversed push** — with a full array, mFront−1 is the physical last element and you'd overwrite it.
+- **Rewriting only front/pop**: back and push must also respect aux.
+
+## 6. Background
+Lesson 04: a circular buffer can be read in **either direction**. The trick "store a flag instead of doing the work" is called **lazy reversal** — the same idea as a `std::deque` with a direction bit, or lazy flags in segment trees.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `CP::queue<T>::reverse()` ที่กลับลำดับทั้งคิว: ถ้าเดิม front() ได้ 10 แล้ว 20 หลัง reverse จะได้ 50 แล้ว 40
+
+- คลาสมีตัวแปร `int aux` เพิ่มมา (constructor ตั้งเป็น 0) ใช้ได้ตามใจ
+- push, pop, front, back มีโค้ดที่ทำงานได้แล้ว **เขียนใหม่ได้** ใน student.h
+- reverse อาจถูกเรียกถึง **1,000,000 ครั้ง** ขนาดคิวถึง 10⁶ และ T อาจไม่ใช่ int
+
+## 2. จริง ๆ แล้วถามอะไร
+ถ้ากลับลำดับโดยย้ายข้อมูลจริงจะเป็น O(n) ต่อครั้ง → แย่สุด 10¹² แทนที่จะย้าย ให้ **จำว่าหัวคิวอยู่ปลายไหน**:
+
+```text
+physical:  mData[mFront] ... mData[(mFront+mSize-1)%mCap]
+aux = 0:   front ────────────────────────────► back
+aux = 1:   back  ◄──────────────────────────── front
+reverse(): aux = 1 - aux      (O(1), nothing moves)
+```
+
+เหมือนแถวคนที่ทุกคนหันหลังกลับพร้อมกัน: ไม่มีใครเดินสลับที่ แค่ "หัวแถว" เปลี่ยนไปอยู่อีกฝั่ง
+
+## 3. อะไร ทำไม อย่างไร
+ตอน aux = 1 หัวคิวคือ **ช่องจริงตัวสุดท้าย** แต่ละคำสั่งเลือกปลายของตัวเอง:
+
+| คำสั่ง | aux = 0 | aux = 1 |
+|---|---|---|
+| front | mData[mFront] | mData[(mFront + mSize − 1) % mCap] |
+| back | ช่องจริงตัวสุดท้าย | mData[mFront] |
+| push | เขียนต่อจากช่องจริงตัวสุดท้าย | **mFront−1** (วนรอบ) แล้วเขียนที่นั่น |
+| pop | mFront++ | แค่ mSize−− (ทิ้งช่องจริงตัวสุดท้าย) |
+
+`expand` คัดลอกตามลำดับช่องจริงแล้วตั้ง mFront = 0 ซึ่งถูกทั้งสองโหมด ทุกคำสั่งยังเป็น O(1) (push เป็น O(1) เฉลี่ย)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง:** push 1 2 3 (mCap 4, mFront 0) → reverse → push 9 → front/pop
+
+| คำสั่ง | aux | mFront | ช่องจริง 0..3 | คิวตามความหมาย |
+|---|---|---|---|---|
+| push 1,2,3 | 0 | 0 | 1 2 3 . | 1 2 3 |
+| reverse | 1 | 0 | 1 2 3 . | 3 2 1 |
+| push 9 | 1 | 3 | 1 2 3 **9** | 3 2 1 9 |
+| front | 1 | 3 | | ช่องจริงตัวสุดท้าย = (3+4−1)%4 = 2 → **3** |
+| pop | 1 | 3 | mSize 4 → 3 | 2 1 9 |
+
+## 5. จุดที่มักพลาด
+- **สลับข้อมูลจริงใน reverse()** — O(n) ต่อครั้ง TLE ในชุด 50%
+- **`mFront − 1` กับ size_t** จะติดลบวนเป็นเลขมหาศาลตอน mFront = 0 ใช้ `(mFront + mCap − 1) % mCap`
+- **ลืม ensureCapacity ก่อน push แบบกลับทิศ** — ถ้าอาร์เรย์เต็ม ช่อง mFront−1 คือข้อมูลตัวสุดท้าย จะถูกเขียนทับ
+- **แก้แค่ front/pop**: back และ push ต้องทำตาม aux ด้วย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04: บัฟเฟอร์วงกลมอ่านได้ **ทั้งสองทิศ** เทคนิค "เก็บธงไว้แทนการทำงานจริง" เรียกว่า **lazy reversal** — แนวคิดเดียวกับ deque ที่มีบิตบอกทิศ หรือ lazy flag ใน segment tree

@@ -1,0 +1,104 @@
+id: d63_q3a_queue_m2b
+group: stackqueue
+lesson: 04 · Queue (circular array)
+stars: 2
+kind: student.h
+tags: CP::queue, circular index, shift left
+title: Queue Move To Back
+title_th: ย้ายไปท้ายคิว (Queue Move To Back)
+blurb: Move the element at position pos to the back — save it, shift the ones behind it forward by one, put it last. All indices go through (mFront + i) % mCap.
+blurb_th: ย้ายตัวที่ตำแหน่ง pos ไปท้ายคิว — เก็บไว้ก่อน เลื่อนตัวข้างหลังมาข้างหน้าหนึ่งช่อง แล้ววางไว้ท้ายสุด ทุก index ผ่าน (mFront + i) % mCap
+files: sol/d63_q3a_queue_m2b/student.h
+tests: the PDF script; 300 random u / o / m / p scripts (pops make the data wrap around the array) against a Python list model. ASan + UBSan clean.
+tests_th: ชุดคำสั่งใน PDF; สุ่มชุดคำสั่ง u / o / m / p 300 ชุด (การ pop ทำให้ข้อมูลวนรอบอาร์เรย์) เทียบกับโมเดล list ใน Python ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `move_to_back(size_t pos)` to CP::queue: the element at position pos (front = 0, back = size()−1) moves to the **back**; the others keep their order. <10,20,30,40,50,60>, `move_to_back(3)` → <10,20,30,50,60,**40**>.
+
+- Commands: `u x` push, `o` pop, `m pos`, `p` print ("Size n: …"), `q`.
+- For full marks it should take O(n − pos).
+
+## 2. What it really means
+Logical position i lives at **physical slot (mFront + i) % mCap** — the array is circular, so after some pops the queue may wrap past the end of mData.
+
+```text
+logical:   10 20 30 [40] 50 60
+step 1: x = 40
+step 2: 50 → pos 3, 60 → pos 4      (shift the tail LEFT by one)
+step 3: x → pos 5
+result:    10 20 30 50 60 40
+```
+
+## 3. What, why, how
+- Save `x` = element at pos.
+- For i = pos .. n−2: position i ← position i+1 (**left to right**, because data moves left).
+- Position n−1 ← x. mSize and mFront don't change.
+- Only n − pos − 1 elements move → O(n − pos).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of the sample** — after `u 1..4`, `o`: queue = 2 3 4 (mFront = 1, mCap = 4).
+
+| call | x | shifts | result |
+|---|---|---|---|
+| m 0 | 2 | pos0 ← 3, pos1 ← 4 | 3 4 **2** |
+| m 1 | 4 | pos1 ← 2 | 3 2 **4** |
+
+## 5. Traps
+- **Using `mData[i]` instead of `mData[(mFront + i) % mCap]`** — works only while mFront = 0 (the starter main), fails in the grader.
+- **`(mFront + i) % mSize`** — the wrap is at the array size **mCap**, not the number of elements.
+- **Shifting right to left** here overwrites the next element before it's read.
+
+## 6. Background
+Lesson 04: CP::queue is a **circular array** — `mFront` is the physical slot of the front; logical i ↔ physical `(mFront + i) % mCap`. Pop is O(1) because it only moves mFront. Compare with Move To Front (shift the other part right).
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `move_to_back(size_t pos)` ให้ CP::queue: ตัวที่ตำแหน่ง pos (หัวคิว = 0, ท้ายคิว = size()−1) ย้ายไป **ท้ายคิว** ตัวอื่นลำดับเหมือนเดิม <10,20,30,40,50,60> เรียก `move_to_back(3)` → <10,20,30,50,60,**40**>
+
+- คำสั่ง: `u x` push, `o` pop, `m pos`, `p` พิมพ์ ("Size n: …"), `q`
+- ถ้าจะได้เต็มควรใช้เวลา O(n − pos)
+
+## 2. จริง ๆ แล้วถามอะไร
+ตำแหน่ง i ในคิวอยู่ที่ **ช่องจริง (mFront + i) % mCap** — อาร์เรย์เป็นวงกลม หลัง pop ไปบ้าง ข้อมูลอาจวนเลยท้าย mData กลับมาต้นอาร์เรย์
+
+```text
+logical:   10 20 30 [40] 50 60
+step 1: x = 40
+step 2: 50 → pos 3, 60 → pos 4      (shift the tail LEFT by one)
+step 3: x → pos 5
+result:    10 20 30 50 60 40
+```
+
+```text
+อาร์เรย์วงกลม mCap = 4, mFront = 1:
+ช่องจริง:  [ 0 | 1 | 2 | 3 ]
+            ^    ^ หัวคิว (ตำแหน่ง 0)
+            └ ตำแหน่ง 3 วนกลับมาอยู่ช่อง 0 = (1 + 3) % 4
+```
+
+## 3. อะไร ทำไม อย่างไร
+- เก็บ `x` = ตัวที่ตำแหน่ง pos
+- i = pos .. n−2: ตำแหน่ง i ← ตำแหน่ง i+1 (**ซ้ายไปขวา** เพราะข้อมูลย้ายไปซ้าย)
+- ตำแหน่ง n−1 ← x ส่วน mSize และ mFront ไม่เปลี่ยน
+- ย้ายแค่ n − pos − 1 ตัว → O(n − pos)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** — หลัง `u 1..4`, `o`: คิว = 2 3 4 (mFront = 1, mCap = 4)
+
+| คำสั่ง | x | การเลื่อน | ผล |
+|---|---|---|---|
+| m 0 | 2 | pos0 ← 3, pos1 ← 4 | 3 4 **2** |
+| m 1 | 4 | pos1 ← 2 | 3 2 **4** |
+
+## 5. จุดที่มักพลาด
+- **ใช้ `mData[i]` แทน `mData[(mFront + i) % mCap]`** — ถูกแค่ตอน mFront = 0 (main เริ่มต้น) แต่ผิดใน grader
+- **`(mFront + i) % mSize`** — การวนรอบเกิดที่ขนาดอาร์เรย์ **mCap** ไม่ใช่จำนวนข้อมูล
+- **เลื่อนจากขวาไปซ้าย** ในข้อนี้จะทับตัวถัดไปก่อนที่จะอ่าน
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04: CP::queue คือ **อาร์เรย์วงกลม** — `mFront` คือช่องจริงของหัวคิว ตำแหน่ง i ↔ ช่องจริง `(mFront + i) % mCap` pop เป็น O(1) เพราะแค่ขยับ mFront เทียบกับข้อ Move To Front (เลื่อนอีกส่วนไปทางขวา)

@@ -1,0 +1,167 @@
+id: d59_q3_bst_split
+group: tree
+lesson: 07 · Trees & BST
+stars: 3
+kind: split()
+tags: BST split, O(h), pointer surgery, parent pointers
+title: Binary Search Tree Split
+title_th: แยก Binary Search Tree (BST Split)
+blurb: Move every key ≥ val into a new tree in O(h): walk one root-to-leaf path and re-hang whole subtrees, never creating or deleting a node.
+blurb_th: ย้ายทุก key ที่ ≥ val ไปต้นไม้ใหม่ใน O(h): เดินเส้นทางเดียวจากรากลงไป แล้วย้ายทั้งต้นไม้ย่อยไปแขวนใหม่ โดยไม่สร้างหรือลบโหนดเลย
+files: sol/d59_q3_bst_split/student.h
+tests: the given main.cpp prints OK (and no "parent of" warnings); both PDF examples (split at 25 and at 40); empty tree; 300 random trees and split values where the exact shapes of both results match a textbook recursive split in Python, plus checks that both roots have parent NULL, checkParent() holds, an iterator walk of each tree is sorted and on the right side of val, and the set of node addresses is exactly the original one (no node created or deleted); 200,000 splits on a 200,000-key tree in 0.17 s. ASan + UBSan clean.
+tests_th: main.cpp ที่ให้มาพิมพ์ OK (และไม่มีคำเตือน "parent of"); ตัวอย่างทั้งสองใน PDF (แยกที่ 25 และ 40); ต้นไม้ว่าง; สุ่ม 300 ต้นพร้อมค่าที่ใช้แยก รูปร่างของผลทั้งสองต้นตรงกับการแยกแบบเวียนเกิดตามตำราใน Python ทุกโหนด และเช็กว่ารากทั้งสองมี parent เป็น NULL, checkParent() ผ่าน, เดิน iterator แล้วเรียงและอยู่ฝั่งที่ถูกของ val, และเซตของที่อยู่โหนดเท่ากับของเดิมพอดี (ไม่สร้าง/ไม่ลบโหนด); แยก 200,000 ครั้งบนต้นไม้ 200,000 key ใช้ 0.17 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `CP::map_bst<KeyT,MappedT,CompareT> split(KeyT val)` to `CP::map_bst`: **take out every entry whose key is ≥ val** and return them as a new `map_bst`. The calling tree keeps only the keys < val.
+
+- Example: a = {10:a, 20:b, 30:c, 40:d, 50:e, 60:f}. `a.split(25)` leaves a = {10, 20} and returns {30, 40, 50, 60}. `a.split(40)` leaves a = {10, 20, 30} and returns {40, 50, 60}.
+- Setting `size` correctly is **not required** (the grader doesn't check it).
+- Hint from the PDF: copying everything into new trees only passes half of the tests. Full marks need **O(h)** (h = height) and **no node may be created or deleted**. Be careful with the **three pointers left, right and parent**.
+- Edit only `student.h`. The grader uses a different `main`.
+
+## 2. What it really means
+Cut the tree along **one path** from the root. Each node on that path is either < val or ≥ val, and that decides where it **and one whole subtree** go:
+
+```text
+original (main.cpp's tree), val = 70:
+
+              30                      path followed: 30 → 70 → 40 → 50 → 60
+            /    \
+          20      70                  30 < 70: 30 and its LEFT subtree (20,10) are all < 70 → "less"
+         /       /   \                70 ≥ 70: 70 and its RIGHT subtree (80,90,100) are ≥ 70 → "ge"
+       10      40     80              40 < 70 → "less",  50 < 70 → "less",  60 < 70 → "less"
+                 \      \
+                 50      90
+                   \       \
+                   60      100
+
+result:    this tree (< 70)           returned tree (≥ 70)
+              30                          70
+            /    \                          \
+          20      40                         80
+         /          \                          \
+       10            50                         90
+                       \                          \
+                       60                         100
+```
+
+Only the nodes **on the path** (30, 70, 40, 50, 60) get new links. Every subtree hanging off the path moves as a block.
+
+## 3. What, why, how
+- **Key fact:** if `cur < val`, everything in `cur->left` is also < val (BST order), so `cur` together with its left subtree belongs to "less" without looking inside. Only `cur->right` can contain both kinds, so we continue **right**. Symmetrically, if `cur ≥ val` we keep cur + its right subtree in "ge" and continue **left**.
+- **Building the two trees as we go:** keep the last node added to each side.
+  - A new "less" node is always larger than the previous "less" nodes, so it hangs on `lessLast->right`.
+  - A new "ge" node is always smaller than the previous "ge" nodes, so it hangs on `geLast->left`.
+  - The first node of a side becomes that side's root.
+  - Each time, also set `cur->parent` to its new parent (or NULL for a root).
+- **Closing the hooks:** when the walk ends, `lessLast->right` and `geLast->left` still point at a subtree that went to the other side (or at NULL). Set both to NULL.
+- **Finish:** `mRoot = lessRoot`, `result.mRoot = geRoot`, return `result`.
+- **Cost:** one step down per loop iteration → O(h). No `new`, no `delete`.
+- **Why not count sizes:** knowing how many nodes moved means visiting them, O(n). The problem waives the size, so we keep O(h). (If you ever need sizes, store a subtree size in every node.)
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of main.cpp's split at 70:**
+
+| cur | cur < 70? | action | less side | ge side | next |
+|---|---|---|---|---|---|
+| 30 | yes | lessRoot = 30, parent NULL | 30 (with 20,10) | — | 30->right = 70 |
+| 70 | no | geRoot = 70, parent NULL | 30 | 70 (with 80,90,100) | 70->left = 40 |
+| 40 | yes | 30->right = 40, 40->parent = 30 | 30 → 40 | 70 | 40->right = 50 |
+| 50 | yes | 40->right = 50 (already), parent 40 | … → 50 | 70 | 50->right = 60 |
+| 60 | yes | 50->right = 60 (already), parent 50 | … → 60 | 70 | 60->right = NULL |
+| NULL | | stop; 60->right = NULL, **70->left = NULL** (it still pointed at 40) | | | |
+
+The last line is the important one: without it the "ge" tree would still contain 40, 50 and 60.
+
+**PDF example `split(25)`** on 10..60 inserted in order (a chain going right): cur 10 → less root; 20 → less (10->right=20); 30 → ge root; 30->left is NULL → stop. Less = 10→20, ge = 30→40→50→60.
+
+## 5. Traps
+- **Forgetting to close the hooks** (`geLast->left = NULL`, `lessLast->right = NULL`): the two trees share nodes, keys appear on both sides, and the destructors delete those nodes twice.
+- **Forgetting `parent`:** the trees print fine, but iterators use `parent` to move up. A root whose parent is not NULL makes `end()` unreachable; a stale parent sends `++` into the other tree. The given `print` writes `parent of …` when it finds one.
+- **Wrong direction:** after a "<" node continue **right**, after a "≥" node continue **left**. Getting this backwards still produces sorted trees on small tests but loses nodes.
+- **`<` vs `≤`:** keys **equal** to val go to the returned tree. Use `mLess(key, val)` to decide "less"; everything else is "ge".
+- **Copying / inserting into new trees:** correct, but O(n log n) and it creates nodes, which the full-score tests forbid.
+
+## 6. Background
+Lesson 07, section 5.3: **split by key** is the core operation of treaps and splay-based data structures, and the reverse of **join** (attach a tree whose keys are all larger as the right subtree of the max). The walk-one-path idea is the same as in `find`, `lower_bound` and LCA in a BST: comparing with the current node tells you which half can be ignored. Compare with Subtree Extract, where the cut is just below the root.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `CP::map_bst<KeyT,MappedT,CompareT> split(KeyT val)` ในคลาส `CP::map_bst`: **ดึงข้อมูลทุกตัวที่ key ≥ val ออกมา** แล้วคืนเป็น `map_bst` ต้นใหม่ ต้นไม้ที่เรียกจะเหลือแค่ key ที่ < val
+
+- ตัวอย่าง: a = {10:a, 20:b, 30:c, 40:d, 50:e, 60:f} เรียก `a.split(25)` ทำให้ a = {10, 20} และคืน {30, 40, 50, 60} เรียก `a.split(40)` ทำให้ a = {10, 20, 30} และคืน {40, 50, 60}
+- **ไม่จำเป็น** ต้องตั้ง `size` ให้ถูก (grader ไม่ตรวจ)
+- คำแนะนำใน PDF: วิธีคัดลอกทุกตัวไปสร้างต้นใหม่ผ่านแค่ครึ่งเดียว จะได้เต็มต้องใช้เวลา **O(h)** (h = ความสูง) และ **ห้ามสร้างหรือลบโหนดใด ๆ** ระวัง **พอยน์เตอร์สามตัว left, right และ parent**
+- แก้ได้เฉพาะ `student.h` grader ใช้ `main` ต่างจากที่ให้มา
+
+## 2. จริง ๆ แล้วถามอะไร
+ตัดต้นไม้ตาม **เส้นทางเดียว** จากรากลงไป แต่ละโหนดบนเส้นทางนั้นจะ < val หรือ ≥ val และนั่นตัดสินว่าโหนดนั้น **พร้อมกับต้นไม้ย่อยหนึ่งข้างทั้งก้อน** ไปอยู่ฝั่งไหน (เหมือนผ่าต้นไม้ด้วยมีดเล่มเดียวจากยอดลงล่าง กิ่งที่อยู่ข้างไหนของรอยผ่าก็ไปฝั่งนั้นทั้งกิ่ง)
+
+```text
+original (main.cpp's tree), val = 70:
+
+              30                      path followed: 30 → 70 → 40 → 50 → 60
+            /    \
+          20      70                  30 < 70: 30 and its LEFT subtree (20,10) are all < 70 → "less"
+         /       /   \                70 ≥ 70: 70 and its RIGHT subtree (80,90,100) are ≥ 70 → "ge"
+       10      40     80              40 < 70 → "less",  50 < 70 → "less",  60 < 70 → "less"
+                 \      \
+                 50      90
+                   \       \
+                   60      100
+
+result:    this tree (< 70)           returned tree (≥ 70)
+              30                          70
+            /    \                          \
+          20      40                         80
+         /          \                          \
+       10            50                         90
+                       \                          \
+                       60                         100
+```
+
+มีแค่โหนด **บนเส้นทาง** (30, 70, 40, 50, 60) ที่ได้ลิงก์ใหม่ ต้นไม้ย่อยที่ห้อยออกจากเส้นทางย้ายไปทั้งก้อน
+
+## 3. อะไร ทำไม อย่างไร
+- **ข้อเท็จจริงสำคัญ:** ถ้า `cur < val` ทุกตัวใน `cur->left` ก็ < val ด้วย (ตามกฎ BST) ดังนั้น `cur` พร้อมต้นย่อยซ้ายไปอยู่ฝั่ง "less" ได้เลยโดยไม่ต้องดูข้างใน มีแค่ `cur->right` ที่อาจมีทั้งสองแบบปนกัน จึงเดินต่อไป **ทางขวา** กลับกัน ถ้า `cur ≥ val` เก็บ cur + ต้นย่อยขวาไว้ฝั่ง "ge" แล้วเดินต่อ **ทางซ้าย**
+- **สร้างต้นไม้สองต้นไประหว่างเดิน:** จำโหนดล่าสุดที่เพิ่มเข้าแต่ละฝั่ง
+  - โหนด "less" ตัวใหม่มีค่ามากกว่าโหนด "less" ก่อนหน้าทุกตัวเสมอ จึงแขวนที่ `lessLast->right`
+  - โหนด "ge" ตัวใหม่มีค่าน้อยกว่าโหนด "ge" ก่อนหน้าทุกตัวเสมอ จึงแขวนที่ `geLast->left`
+  - โหนดแรกของแต่ละฝั่งเป็นรากของฝั่งนั้น
+  - ทุกครั้งต้องตั้ง `cur->parent` เป็นพ่อใหม่ด้วย (หรือ NULL ถ้าเป็นราก)
+- **ปิดตะขอ:** เมื่อเดินจบ `lessLast->right` และ `geLast->left` ยังชี้ไปยังต้นย่อยที่ไปอยู่อีกฝั่งแล้ว (หรือ NULL) ต้องตั้งทั้งคู่เป็น NULL
+- **จบ:** `mRoot = lessRoot`, `result.mRoot = geRoot` แล้วคืน `result`
+- **เวลา:** ลงไปหนึ่งชั้นต่อรอบ → O(h) ไม่มี `new` ไม่มี `delete`
+- **ทำไมไม่นับขนาด:** การรู้ว่าย้ายไปกี่โหนดต้องเยี่ยมทุกโหนด = O(n) โจทย์ยกเว้นเรื่องขนาดให้ เราจึงรักษา O(h) ไว้ (ถ้าต้องการขนาดจริง ต้องเก็บขนาดต้นย่อยไว้ในทุกโหนด)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่การแยกที่ 70 ของ main.cpp:**
+
+| cur | cur < 70? | ทำอะไร | ฝั่ง less | ฝั่ง ge | ถัดไป |
+|---|---|---|---|---|---|
+| 30 | ใช่ | lessRoot = 30, parent NULL | 30 (พร้อม 20,10) | — | 30->right = 70 |
+| 70 | ไม่ | geRoot = 70, parent NULL | 30 | 70 (พร้อม 80,90,100) | 70->left = 40 |
+| 40 | ใช่ | 30->right = 40, 40->parent = 30 | 30 → 40 | 70 | 40->right = 50 |
+| 50 | ใช่ | 40->right = 50 (เดิมอยู่แล้ว), parent 40 | … → 50 | 70 | 50->right = 60 |
+| 60 | ใช่ | 50->right = 60 (เดิมอยู่แล้ว), parent 50 | … → 60 | 70 | 60->right = NULL |
+| NULL | | หยุด; 60->right = NULL, **70->left = NULL** (ยังชี้ไปที่ 40 อยู่) | | | |
+
+บรรทัดสุดท้ายสำคัญที่สุด: ถ้าไม่ทำ ต้น "ge" จะยังมี 40, 50 และ 60 อยู่
+
+**ตัวอย่างใน PDF `split(25)`** กับ 10..60 ที่ใส่ตามลำดับ (ต้นไม้เส้นตรงไปทางขวา): cur 10 → เป็นราก less; 20 → less (10->right=20); 30 → เป็นราก ge; 30->left เป็น NULL → หยุด ได้ less = 10→20, ge = 30→40→50→60
+
+## 5. จุดที่มักพลาด
+- **ลืมปิดตะขอ** (`geLast->left = NULL`, `lessLast->right = NULL`): สองต้นใช้โหนดร่วมกัน key โผล่ทั้งสองฝั่ง และ destructor จะ delete โหนดเหล่านั้นซ้ำสองครั้ง
+- **ลืม `parent`:** พิมพ์ออกมาดูถูก แต่ iterator ใช้ `parent` เดินขึ้น รากที่ parent ไม่ใช่ NULL ทำให้ไปไม่ถึง `end()` และ parent เก่าทำให้ `++` หลุดเข้าไปอีกต้น ฟังก์ชัน `print` ที่ให้มาจะพิมพ์ `parent of …` เมื่อเจอ
+- **เดินผิดทาง:** หลังโหนด "<" ต้องไป **ขวา** หลังโหนด "≥" ต้องไป **ซ้าย** ถ้าสลับ ทดสอบเล็ก ๆ อาจยังได้ต้นไม้ที่เรียงถูก แต่โหนดหาย
+- **`<` กับ `≤`:** key ที่ **เท่ากับ** val ต้องไปอยู่ต้นที่คืน ใช้ `mLess(key, val)` ตัดสินว่า "less" ที่เหลือเป็น "ge" ทั้งหมด
+- **คัดลอก / insert ลงต้นใหม่:** ถูก แต่ O(n log n) และสร้างโหนดใหม่ ซึ่งชุดทดสอบเต็มห้าม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07 หัวข้อ 5.3: **การแยกตาม key** เป็นการดำเนินการหลักของ treap และโครงสร้างที่ใช้ splay และเป็นการกลับด้านของ **join** (เอาต้นที่ key มากกว่าทั้งหมดไปแขวนเป็นต้นย่อยขวาของตัวมากสุด) แนวคิด "เดินเส้นทางเดียว" เหมือน `find`, `lower_bound` และ LCA ใน BST: เทียบกับโหนดปัจจุบันแล้วรู้ว่าทิ้งครึ่งไหนได้ เทียบกับข้อ Subtree Extract ซึ่งตัดแค่ใต้ราก

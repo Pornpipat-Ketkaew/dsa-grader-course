@@ -1,0 +1,141 @@
+id: d58_q3_unary
+group: tree
+lesson: 07 · Trees & BST
+stars: 1
+kind: count_unary() const
+tags: recursion, const member, XOR of two flags
+title: Count Unary Node
+title_th: นับปม unary (Count Unary Node)
+blurb: Count nodes with exactly one child. Same recursion as Leaves Count, with a different test at each node.
+blurb_th: นับโหนดที่มีลูกตัวเดียวพอดี ใช้การเวียนเกิดแบบเดียวกับข้อนับใบ แค่เปลี่ยนเงื่อนไขที่แต่ละโหนด
+files: sol/d58_q3_unary/student.h
+tests: both PDF samples plus repeated keys; 300 random insert sequences against a Python BST; 5,000 increasing keys (a chain, count after every insert = 12.5 million node visits) in 0.10 s. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้งสองใน PDF และค่าซ้ำ; สุ่มลำดับการใส่ 300 ชุดเทียบกับ BST ใน Python; 5,000 ค่าเรียงจากน้อยไปมาก (ต้นไม้เป็นเส้นตรง นับหลังใส่ทุกครั้ง = เยี่ยมโหนด 12.5 ล้านครั้ง) ใช้ 0.10 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Write `size_t count_unary() const` for `CP::map_bst`: count the **unary nodes**, nodes that have **exactly one child**. In the PDF's picture (root 5; 3 with left child 1; 1 with right child 2; 9 with left child 7; 7 with children 6 and 8) there are 3 unary nodes: **3, 1 and 9**. An empty tree gives 0.
+
+- The function is `const`, so it **must not change the tree**.
+- Edit only `student.h`. A `size_t process(node* ptr) const` skeleton is provided for the recursion; you can't add other member functions because `map_bst.h` can't be changed.
+- `main` reads n keys; after each `m[a] = a` it prints `Size = <size> unary_count = <count>`. At most 5,000 keys.
+
+## 2. What it really means
+Look at each node's two child pointers:
+
+| left | right | kind | counted? |
+|---|---|---|---|
+| NULL | NULL | leaf | no |
+| set | NULL | unary | **yes** |
+| NULL | set | unary | **yes** |
+| set | set | full (two children) | no |
+
+"Exactly one" means the two answers to "is there a left child?" and "is there a right child?" are **different**.
+
+```text
+        5              unary: 3 (only left), 1 (only right), 9 (only left)
+       / \             leaf:  2, 6, 8
+      3   9            two children: 5, 7
+     /   /
+    1   7
+     \ / \
+     2 6  8
+```
+
+## 3. What, why, how
+- Same skeleton as Leaves Count: `process(ptr)` = how many unary nodes in the subtree rooted at `ptr`.
+  1. `ptr == NULL` → 0.
+  2. `me` = 1 if `(ptr->left != NULL) != (ptr->right != NULL)`, else 0.
+  3. return `me + process(ptr->left) + process(ptr->right)`.
+- Unlike Leaves Count we **always** recurse into both sides, because a unary node can have unary nodes below it (a chain is all unary except the last node).
+- `count_unary()` returns `process(mRoot)`.
+- **Cost:** O(n) per call. `main` calls it after every insert, so O(n²) overall, which is fine for n ≤ 5,000 (measured 0.10 s on the worst chain).
+- `const`: inside a const member function `mRoot` is `node* const`. We only read through it, so no problem; `process` must also be `const` (it is declared that way).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (keys 1 2 3 4 5 make a chain going right):
+
+| after inserting | tree | unary nodes | output |
+|---|---|---|---|
+| 1 | 1 | none (1 is a leaf) | Size = 1 unary_count = 0 |
+| 2 | 1→2 | 1 | Size = 2 unary_count = 1 |
+| 3 | 1→2→3 | 1, 2 | Size = 3 unary_count = 2 |
+| 4 | 1→2→3→4 | 1, 2, 3 | Size = 4 unary_count = 3 |
+| 5 | 1→2→3→4→5 | 1, 2, 3, 4 | Size = 5 unary_count = 4 |
+
+**Sample 2, step 5** (keys 5 3 1 2 9): 5 now has two children (3 and 9) and stops being unary, so the count drops from 3 (5, 3, 1) to 2 (3, 1). Step 8 adds 8 under 7, so 7 becomes full and the count drops from 4 to 3.
+
+## 5. Traps
+- **Stopping at a unary node** (returning 1 without recursing): misses unary nodes below it. Sample 1 would print 1 instead of 4.
+- **Using `||`** (`left == NULL || right == NULL`) counts leaves too.
+- **Missing `const`** on `process`: the declaration in `map_bst.h` has it, and a const function can only call const functions, so it won't compile without it.
+- **Trying to add a new helper member function:** you can't change `map_bst.h`, so use the provided `process` as the helper.
+
+## 6. Background
+Lesson 07, section 4: **the recursive template for trees**. Size, leaves, unary nodes and full nodes are all "count nodes with property P"; only the line that computes `me` changes. Useful check: in any binary tree, **leaves = full nodes + 1** (when non-empty), and unary nodes don't affect that balance.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เขียน `size_t count_unary() const` ในคลาส `CP::map_bst` นับ **ปม unary** คือปมที่มี **ลูกเพียงตัวเดียว** ในรูปของ PDF (ราก 5; 3 มีลูกซ้าย 1; 1 มีลูกขวา 2; 9 มีลูกซ้าย 7; 7 มีลูก 6 และ 8) มีปม unary 3 ปม: **3, 1 และ 9** ถ้าต้นไม้ว่างให้คืน 0
+
+- ฟังก์ชันประกาศเป็น `const` จึง **ห้ามแก้ไขต้นไม้**
+- แก้ได้เฉพาะ `student.h` มีโครง `size_t process(node* ptr) const` ไว้ให้ใช้เขียนแบบเวียนเกิด เพิ่มฟังก์ชันสมาชิกอื่นไม่ได้เพราะแก้ `map_bst.h` ไม่ได้
+- `main` อ่าน n ค่า หลัง `m[a] = a` แต่ละครั้งจะพิมพ์ `Size = <ขนาด> unary_count = <จำนวน>` ข้อมูลไม่เกิน 5,000 ตัว
+
+## 2. จริง ๆ แล้วถามอะไร
+ดูพอยน์เตอร์ลูกสองตัวของแต่ละโหนด:
+
+| left | right | ชนิด | นับไหม |
+|---|---|---|---|
+| NULL | NULL | ใบ | ไม่นับ |
+| มี | NULL | unary | **นับ** |
+| NULL | มี | unary | **นับ** |
+| มี | มี | มีลูกสองตัว | ไม่นับ |
+
+"ลูกตัวเดียวพอดี" แปลว่าคำตอบของ "มีลูกซ้ายไหม?" และ "มีลูกขวาไหม?" **ต่างกัน** (คนหนึ่งตอบใช่ อีกคนตอบไม่)
+
+```text
+        5              unary: 3 (only left), 1 (only right), 9 (only left)
+       / \             leaf:  2, 6, 8
+      3   9            two children: 5, 7
+     /   /
+    1   7
+     \ / \
+     2 6  8
+```
+
+## 3. อะไร ทำไม อย่างไร
+- โครงเดียวกับข้อนับใบ: `process(ptr)` = จำนวนปม unary ในต้นไม้ย่อยที่มี `ptr` เป็นราก
+  1. `ptr == NULL` → 0
+  2. `me` = 1 ถ้า `(ptr->left != NULL) != (ptr->right != NULL)` ไม่งั้นเป็น 0
+  3. คืน `me + process(ptr->left) + process(ptr->right)`
+- ต่างจากข้อนับใบตรงที่เราต้องเวียนเกิดลงไป **ทั้งสองข้างเสมอ** เพราะใต้ปม unary ก็มีปม unary ได้อีก (ต้นไม้เส้นตรงเป็น unary ทุกโหนดยกเว้นโหนดสุดท้าย)
+- `count_unary()` คืน `process(mRoot)`
+- **เวลา:** O(n) ต่อการเรียกหนึ่งครั้ง `main` เรียกหลังใส่ทุกครั้ง รวมเป็น O(n²) ซึ่งพอสำหรับ n ≤ 5,000 (วัดได้ 0.10 วินาทีกับต้นไม้เส้นตรงที่แย่ที่สุด)
+- `const`: ในฟังก์ชันสมาชิกแบบ const ตัว `mRoot` เป็น `node* const` เราแค่อ่านผ่านมันจึงไม่มีปัญหา และ `process` ต้องเป็น `const` ด้วย (ประกาศไว้แบบนั้นแล้ว)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (ใส่ 1 2 3 4 5 ได้ต้นไม้เส้นตรงไปทางขวา):
+
+| หลังใส่ | ต้นไม้ | ปม unary | ผลลัพธ์ |
+|---|---|---|---|
+| 1 | 1 | ไม่มี (1 เป็นใบ) | Size = 1 unary_count = 0 |
+| 2 | 1→2 | 1 | Size = 2 unary_count = 1 |
+| 3 | 1→2→3 | 1, 2 | Size = 3 unary_count = 2 |
+| 4 | 1→2→3→4 | 1, 2, 3 | Size = 4 unary_count = 3 |
+| 5 | 1→2→3→4→5 | 1, 2, 3, 4 | Size = 5 unary_count = 4 |
+
+**ตัวอย่างที่ 2 ขั้นที่ 5** (ใส่ 5 3 1 2 9): ตอนนี้ 5 มีลูกสองตัว (3 และ 9) จึงไม่ใช่ unary แล้ว จำนวนลดจาก 3 (5, 3, 1) เหลือ 2 (3, 1) ขั้นที่ 8 ใส่ 8 ใต้ 7 ทำให้ 7 มีลูกครบสองตัว จำนวนลดจาก 4 เหลือ 3
+
+## 5. จุดที่มักพลาด
+- **หยุดที่ปม unary** (คืน 1 โดยไม่เวียนเกิดต่อ): พลาดปม unary ที่อยู่ข้างล่าง ตัวอย่างที่ 1 จะพิมพ์ 1 แทน 4
+- **ใช้ `||`** (`left == NULL || right == NULL`) จะนับใบไปด้วย
+- **ลืม `const`** ที่ `process`: การประกาศใน `map_bst.h` มี const และฟังก์ชัน const เรียกได้เฉพาะฟังก์ชัน const จึงคอมไพล์ไม่ผ่าน
+- **พยายามเพิ่มฟังก์ชันสมาชิกใหม่:** แก้ `map_bst.h` ไม่ได้ ให้ใช้ `process` ที่เตรียมไว้เป็นฟังก์ชันช่วย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07 หัวข้อ 4: **แม่แบบการเวียนเกิดบนต้นไม้** ขนาด จำนวนใบ ปม unary และปมที่มีลูกสองตัว ล้วนเป็น "นับโหนดที่มีคุณสมบัติ P" เปลี่ยนแค่บรรทัดที่คำนวณ `me` ข้อเท็จจริงที่ใช้ตรวจคำตอบได้: ในต้นไม้ทวิภาคที่ไม่ว่าง **จำนวนใบ = จำนวนปมที่มีลูกสองตัว + 1** เสมอ และปม unary ไม่มีผลต่อสมการนี้

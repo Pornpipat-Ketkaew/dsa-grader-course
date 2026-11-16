@@ -1,0 +1,149 @@
+id: a66_q2a_insertion_count
+group: algo
+lesson: 09 · Sorting (insertion sort & inversions)
+stars: 2
+kind: program
+tags: insertion sort, inversions, Fenwick tree (BIT)
+title: Insertion Sort Count
+title_th: นับการเลื่อนใน Insertion Sort (Insertion Sort Count)
+blurb: How often does line 07 move value k? Exactly once per larger element to its left; count those for every value with a Fenwick tree.
+blurb_th: บรรทัด 07 เลื่อนค่า k กี่ครั้ง? เท่ากับจำนวนตัวที่มากกว่าและอยู่ทางซ้ายของมันพอดี นับให้ทุกค่าด้วย Fenwick tree
+files: sol/a66_q2a_insertion_count/main.cpp
+tests: all 4 PDF samples plus a reordered query; 300 random arrays (some sorted or reversed) against a Python brute force that literally runs the PDF's insertion sort and counts line 07 per value; n = 200,000 with m = 1,000 in 0.02 s; a fully reversed array gives n − 1 for value 1.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF และคำถามที่สลับลำดับ; สุ่ม 300 อาร์เรย์ (บางชุดเรียงแล้วหรือกลับด้าน) เทียบกับ brute force ใน Python ที่รัน insertion sort ของ PDF จริง ๆ แล้วนับบรรทัด 07 แยกตามค่า; n = 200,000 กับ m = 1,000 ใช้ 0.02 วินาที; อาร์เรย์กลับด้านทั้งหมดได้ n − 1 สำหรับค่า 1
+==== en
+## 1. What the problem says
+The PDF's insertion sort processes `pos` from n−2 down to 0. Each round takes `tmp = A[pos]` and slides it right into the sorted part `A[pos+1 .. n−1]`; **line 07** (`A[i-1] = A[i]`) shifts a smaller element one step left to make room.
+
+```text
+03: for (int pos = A.size()-2; pos >= 0; pos--) {
+04:   T tmp = A[pos];
+05:   size_t i = pos+1;
+06:   while (i < A.size() && A[i] < tmp) {
+07:     A[i-1] = A[i];
+08:     i++;
+09:   }
+10:   A[i-1] = tmp;
+11: }
+```
+
+For a given value **k**, how many times does line 07 run **with A[i] == k**? Answer for m values of k.
+
+- Input: `n m` (2 ≤ n ≤ 200,000; 1 ≤ m ≤ 1,000), the n distinct values A[0..n−1] (each 1..n), then the m values k (each present in A).
+- Output: m lines, the count for each k in input order.
+- PDF example: A = [30,40,60,20,10,50]: k = 20 is shifted 3 times, k = 60 never.
+
+## 2. What it really means
+Watch value 20 in the PDF example. Its original index is 3. Every element **left of it** is inserted later (pos goes right to left), and the insert of `tmp` slides past every **smaller** element of the sorted part:
+
+```text
+round pos=2: tmp = 60 > 20 → 20 shifts left   (1)
+round pos=1: tmp = 40 > 20 → 20 shifts left   (2)
+round pos=0: tmp = 30 > 20 → 20 shifts left   (3)
+elements right of 20 (10, 50) were inserted BEFORE 20 entered the sorted part → no effect
+```
+
+So **shifts(k) = how many elements before k (smaller index) are larger than k**: the number of inversions in which k is the right-hand element.
+
+## 3. What, why, how
+- **Why exactly once per larger element on the left:** when x (left of k) is inserted, k is already inside the sorted suffix. The while loop moves x past **every** element smaller than x in that suffix, so k moves once iff k < x. Elements right of k are inserted before k joins the suffix, so they never move k.
+- **Simple solution:** for each query, find k's index and count larger elements before it: O(n) per query, O(n·m) = 2·10⁸ in the worst case. That's borderline for 1 s.
+- **Better:** compute the answer for **every value** in one left-to-right scan with a **Fenwick tree** over values 1..n:
+  - before adding A[i], `prefix(A[i])` = how many already-seen values are ≤ A[i];
+  - all i seen values are to the left, so `i − prefix(A[i])` = how many are **larger**.
+  - Total O(n log n), then each query is O(1).
+- Values are already distinct and in 1..n, so no coordinate compression is needed.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (A = 3 4 6 2 1 5):
+
+| i | A[i] | seen before | prefix(A[i]) = seen ≤ A[i] | i − prefix = larger before |
+|---|---|---|---|---|
+| 0 | 3 | — | 0 | 0 |
+| 1 | 4 | 3 | 1 | 0 |
+| 2 | 6 | 3 4 | 2 | **0** |
+| 3 | 2 | 3 4 6 | 0 | **3** |
+| 4 | 1 | 3 4 6 2 | 0 | 4 |
+| 5 | 5 | 3 4 6 2 1 | 4 | 1 |
+
+Queries 6 and 2 → **0** and **3**.
+
+## 5. Traps
+- **Simulating the sort:** the number of shifts is the inversion count, up to n²/2 = 2·10¹⁰ for a reversed array. Too slow.
+- **Counting larger elements to the RIGHT:** that's the wrong direction (it gives how far k itself travels when it is inserted, not how often it is shifted). Check with the example: right of 20 there are 10 and 50, giving 1, not 3.
+- **Off-by-one in the BIT:** use 1-based indices; `prefix` must be read **before** adding A[i] (otherwise A[i] counts itself).
+- **Fast I/O** for 200,000 numbers.
+
+## 6. Background
+Lesson 09, section 2.1: the work of insertion sort equals the number of **inversions**; this problem splits that total per element. The Fenwick tree (prefix counts with point updates in O(log n)) is the standard tool for "how many earlier elements are bigger/smaller", and merge sort can count the same inversions in O(n log n).
+==== th
+## 1. โจทย์บอกอะไร
+insertion sort ใน PDF ไล่ `pos` จาก n−2 ลงมาถึง 0 แต่ละรอบหยิบ `tmp = A[pos]` แล้วเลื่อนมันไปทางขวาเข้าไปในส่วนที่เรียงแล้ว `A[pos+1 .. n−1]` โดย **บรรทัด 07** (`A[i-1] = A[i]`) เลื่อนตัวที่เล็กกว่าไปทางซ้ายหนึ่งช่องเพื่อเปิดที่ให้
+
+```text
+03: for (int pos = A.size()-2; pos >= 0; pos--) {
+04:   T tmp = A[pos];
+05:   size_t i = pos+1;
+06:   while (i < A.size() && A[i] < tmp) {
+07:     A[i-1] = A[i];
+08:     i++;
+09:   }
+10:   A[i-1] = tmp;
+11: }
+```
+
+สำหรับค่า **k** ที่กำหนด บรรทัด 07 ทำงาน **โดยที่ A[i] == k** กี่ครั้ง? ให้ตอบสำหรับ k จำนวน m ค่า
+
+- ข้อมูลนำเข้า: `n m` (2 ≤ n ≤ 200,000; 1 ≤ m ≤ 1,000), ค่า A[0..n−1] n ตัวที่ไม่ซ้ำกัน (แต่ละตัวอยู่ใน 1..n) แล้วค่า k จำนวน m ตัว (มีอยู่ใน A แน่นอน)
+- ผลลัพธ์: m บรรทัด จำนวนครั้งของแต่ละ k ตามลำดับที่รับเข้ามา
+- ตัวอย่างใน PDF: A = [30,40,60,20,10,50]: k = 20 ถูกเลื่อน 3 ครั้ง, k = 60 ไม่ถูกเลื่อนเลย
+
+## 2. จริง ๆ แล้วถามอะไร
+ดูค่า 20 ในตัวอย่าง PDF index เดิมของมันคือ 3 ตัวที่อยู่ **ทางซ้ายของมัน** ทุกตัวจะถูกแทรกทีหลัง (pos ไล่จากขวาไปซ้าย) และการแทรก `tmp` จะเลื่อนผ่านทุกตัวที่ **เล็กกว่า** ในส่วนที่เรียงแล้ว (เหมือนคนตัวสูงเดินแทรกแถวจากด้านหน้า คนที่เตี้ยกว่าต้องขยับหลบทีละคน):
+
+```text
+round pos=2: tmp = 60 > 20 → 20 shifts left   (1)
+round pos=1: tmp = 40 > 20 → 20 shifts left   (2)
+round pos=0: tmp = 30 > 20 → 20 shifts left   (3)
+elements right of 20 (10, 50) were inserted BEFORE 20 entered the sorted part → no effect
+```
+
+ดังนั้น **shifts(k) = จำนวนตัวที่อยู่ก่อน k (index น้อยกว่า) และมีค่ามากกว่า k** ก็คือจำนวน inversion ที่ k เป็นตัวด้านขวา
+
+## 3. อะไร ทำไม อย่างไร
+- **ทำไมเลื่อนครั้งเดียวต่อตัวที่มากกว่าทางซ้ายพอดี:** ตอนแทรก x (ที่อยู่ซ้ายของ k) k อยู่ในส่วนที่เรียงแล้ว ลูป while ย้าย x ผ่าน **ทุกตัว** ที่เล็กกว่า x ในส่วนนั้น k จึงถูกเลื่อนหนึ่งครั้งก็ต่อเมื่อ k < x ส่วนตัวที่อยู่ขวาของ k ถูกแทรกก่อนที่ k จะเข้าส่วนที่เรียงแล้ว จึงไม่เคยเลื่อน k
+- **วิธีง่าย:** ทุกคำถาม หาตำแหน่งของ k แล้วนับตัวที่มากกว่าก่อนหน้ามัน O(n) ต่อคำถาม รวม O(n·m) = 2·10⁸ ในกรณีแย่สุด ก้ำกึ่งกับ 1 วินาที
+- **ดีกว่า:** คำนวณคำตอบให้ **ทุกค่า** ในรอบเดียวจากซ้ายไปขวาด้วย **Fenwick tree** บนค่า 1..n:
+  - ก่อนเพิ่ม A[i] `prefix(A[i])` = จำนวนค่าที่เห็นมาแล้วที่ ≤ A[i]
+  - ค่าที่เห็นแล้วทั้ง i ตัวอยู่ทางซ้ายทั้งหมด ดังนั้น `i − prefix(A[i])` = จำนวนที่ **มากกว่า**
+  - รวม O(n log n) แล้วแต่ละคำถามเป็น O(1)
+- ค่าไม่ซ้ำและอยู่ใน 1..n อยู่แล้ว ไม่ต้องบีบพิกัด (coordinate compression)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (A = 3 4 6 2 1 5):
+
+| i | A[i] | เห็นมาแล้ว | prefix(A[i]) = เห็นแล้วที่ ≤ A[i] | i − prefix = มากกว่าที่อยู่ก่อน |
+|---|---|---|---|---|
+| 0 | 3 | — | 0 | 0 |
+| 1 | 4 | 3 | 1 | 0 |
+| 2 | 6 | 3 4 | 2 | **0** |
+| 3 | 2 | 3 4 6 | 0 | **3** |
+| 4 | 1 | 3 4 6 2 | 0 | 4 |
+| 5 | 5 | 3 4 6 2 1 | 4 | 1 |
+
+คำถาม 6 และ 2 → **0** และ **3**
+
+## 5. จุดที่มักพลาด
+- **จำลองการ sort จริง:** จำนวนการเลื่อนคือจำนวน inversion สูงถึง n²/2 = 2·10¹⁰ สำหรับอาร์เรย์กลับด้าน ช้าเกินไป
+- **นับตัวที่มากกว่าทาง "ขวา":** ผิดทิศ ลองกับตัวอย่าง: ขวาของ 20 มี 10 และ 50 ได้ 1 ไม่ใช่ 3
+- **index ของ BIT คลาดหนึ่ง:** ใช้ index เริ่มที่ 1 และต้องอ่าน `prefix` **ก่อน** เพิ่ม A[i] (ไม่งั้น A[i] จะนับตัวเอง)
+- **Fast I/O** สำหรับตัวเลข 200,000 ตัว
+
+## 6. ความรู้พื้นฐาน
+บทที่ 09 หัวข้อ 2.1: งานของ insertion sort เท่ากับจำนวน **inversion** ข้อนี้แยกจำนวนรวมนั้นออกเป็นของแต่ละตัว Fenwick tree (นับแบบ prefix และอัปเดตทีละจุดใน O(log n)) เป็นเครื่องมือมาตรฐานสำหรับ "มีตัวก่อนหน้าที่มากกว่า/น้อยกว่ากี่ตัว" และ merge sort ก็นับ inversion เดียวกันได้ใน O(n log n)

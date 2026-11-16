@@ -1,0 +1,99 @@
+id: d64_q3b_queue_reverse
+group: stackqueue
+lesson: 04 · Queue (circular array)
+stars: 1
+kind: student.h
+tags: CP::queue, two pointers, circular index
+title: Queue Reverse
+title_th: กลับลำดับช่วงในคิว (Queue Reverse)
+blurb: Reverse positions a..b of a circular queue — the usual two-pointer swap, but every position goes through (mFront + i) % mCap.
+blurb_th: กลับลำดับตำแหน่ง a..b ในคิววงกลม — สลับด้วยพอยน์เตอร์สองตัวตามปกติ แต่ทุกตำแหน่งต้องผ่าน (mFront + i) % mCap
+files: sol/d64_q3b_queue_reverse/student.h
+tests: the PDF example via the starter main; a harness that pushes and pops dummies first so mFront ≠ 0 and data wraps; 300 random cases against Python slicing. ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF ผ่าน main เริ่มต้น; โปรแกรมทดสอบที่ push/pop ข้อมูลหลอกก่อนเพื่อให้ mFront ≠ 0 และข้อมูลวนรอบ; สุ่ม 300 ชุดเทียบกับการ slice ใน Python ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void reverse(int a, int b)` to CP::queue: reverse the elements at positions a..b (position x = the front after x pops). {A,B,C,D,E,F,G,H,I}, `reverse(1,4)` → {A,**E,D,C,B**,F,G,H,I}. 0 ≤ a ≤ b ≤ size−1.
+
+- Warning in the PDF: the starter main always has mFront = 0; **in the grader mFront can be anything**.
+
+## 2. What it really means
+Two-pointer reverse (like Reverse Vector 2) on logical positions, then map to slots:
+
+```text
+positions:  0  1  2  3  4  5          reverse(1,4)
+            A [B  C  D  E] F
+             left→      ←right
+swap 1↔4, 2↔3 → A E D C B F
+slot of position i = (mFront + i) % mCap
+```
+
+## 3. What, why, how
+- left = a, right = b; while left < right: swap slots `(mFront+left)%mCap` and `(mFront+right)%mCap`, then left++, right−−.
+- ⌊(b−a+1)/2⌋ swaps → O(b − a).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace with wrap-around** (mCap = 8, mFront = 6; queue A B C D E F occupies slots 6 7 0 1 2 3), reverse(1,4):
+
+| left | right | slots | after swap |
+|---|---|---|---|
+| 1 | 4 | 7 ↔ 2 | A **E** C D **B** F |
+| 2 | 3 | 0 ↔ 1 | A E **D C** B F |
+| 3 | 2 | — | stop |
+
+## 5. Traps
+- **`mData[a]` / `mData[b]` without mFront** — passes the starter main, fails the grader.
+- **Converting a, b to slots first and then walking slots** (`pl++`, `pr--`): the slots wrap, so `pl < pr` is meaningless. Walk **positions**, convert each time.
+- **`left != right`** fails for even lengths.
+
+## 6. Background
+Lesson 04 circular indexing + Lesson 02 two-pointer reverse. Rule: **do the logic in logical positions, convert to physical slots only when touching mData.**
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void reverse(int a, int b)` ให้ CP::queue: กลับลำดับข้อมูลที่ตำแหน่ง a..b (ตำแหน่ง x = ตัวที่จะอยู่หัวคิวหลัง pop x ครั้ง) {A,B,C,D,E,F,G,H,I} เรียก `reverse(1,4)` → {A,**E,D,C,B**,F,G,H,I} รับประกัน 0 ≤ a ≤ b ≤ size−1
+
+- PDF เตือน: main เริ่มต้นมี mFront = 0 เสมอ **แต่ใน grader mFront เป็นค่าอื่นได้**
+
+## 2. จริง ๆ แล้วถามอะไร
+กลับลำดับด้วยพอยน์เตอร์สองตัว (เหมือนข้อ Reverse Vector 2) บนตำแหน่งตามความหมาย แล้วแปลงเป็นช่องจริง:
+
+```text
+positions:  0  1  2  3  4  5          reverse(1,4)
+            A [B  C  D  E] F
+             left→      ←right
+swap 1↔4, 2↔3 → A E D C B F
+slot of position i = (mFront + i) % mCap
+```
+
+## 3. อะไร ทำไม อย่างไร
+- left = a, right = b; ขณะที่ left < right: สลับช่อง `(mFront+left)%mCap` กับ `(mFront+right)%mCap` แล้ว left++, right−−
+- สลับ ⌊(b−a+1)/2⌋ ครั้ง → O(b − a)
+
+```text
+ช่องจริง:  0  1  2  3  4  5  6  7      mFront = 6
+ข้อมูล:    C  D  E  F  .  .  A  B
+ตำแหน่ง:   2  3  4  5        0  1      ← ตำแหน่ง 2 วนมาอยู่ช่อง 0
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่วนรอบ** (mCap = 8, mFront = 6; คิว A B C D E F อยู่ช่อง 6 7 0 1 2 3) reverse(1,4):
+
+| left | right | ช่อง | หลังสลับ |
+|---|---|---|---|
+| 1 | 4 | 7 ↔ 2 | A **E** C D **B** F |
+| 2 | 3 | 0 ↔ 1 | A E **D C** B F |
+| 3 | 2 | — | หยุด |
+
+## 5. จุดที่มักพลาด
+- **ใช้ `mData[a]` / `mData[b]` โดยไม่มี mFront** — ผ่าน main เริ่มต้นแต่ผิดใน grader
+- **แปลง a, b เป็นช่องจริงก่อนแล้วเดินบนช่องจริง** (`pl++`, `pr--`): ช่องวนรอบ ทำให้ `pl < pr` ไม่มีความหมาย ให้เดินบน **ตำแหน่ง** แล้วแปลงทุกครั้ง
+- **`left != right`** ผิดเมื่อความยาวเป็นเลขคู่
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04 index วงกลม + บทที่ 02 กลับลำดับด้วยพอยน์เตอร์สองตัว กฎ: **คิดด้วยตำแหน่งตามความหมาย แปลงเป็นช่องจริงเฉพาะตอนแตะ mData**

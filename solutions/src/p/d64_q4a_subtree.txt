@@ -1,0 +1,183 @@
+id: d64_q4a_subtree
+group: tree
+lesson: 07 · Trees & BST
+stars: 2
+kind: subtree() + process()
+tags: pointer surgery, parent pointers, mSize, O(moved nodes)
+title: Subtree Extract
+title_th: แยกต้นไม้ย่อย (Subtree Extract)
+blurb: Hand the root's left and right subtrees over to two other trees without copying a node, then fix parents and sizes.
+blurb_th: ย้ายต้นไม้ย่อยซ้ายและขวาของรากไปให้ต้นไม้อีกสองต้นโดยไม่คัดลอกโหนด แล้วแก้ parent กับขนาดให้ถูก
+files: sol/d64_q4a_subtree/student.h
+tests: the PDF has no sample, so: a hand-made 5-node example, an empty tree, a right-only chain; 300 random trees whose printed output matches a Python BST model exactly; a harness that pre-fills left/right with junk, then checks checkParent() on all three trees, the sizes, that an empty tree leaves left/right untouched, and that the moved trees still accept insert/erase; 200,000 nodes in 0.27 s. ASan finds no leaks or double frees.
+tests_th: PDF ไม่มีตัวอย่าง จึงทดสอบด้วย: ตัวอย่างที่ทำเอง 5 โหนด, ต้นไม้ว่าง, ต้นไม้ที่มีแต่ลูกขวา; สุ่ม 300 ต้นที่ผลการพิมพ์ตรงกับโมเดล BST ใน Python ทุกตัวอักษร; ตัวทดสอบที่ใส่ข้อมูลขยะใน left/right ก่อน แล้วเช็ก checkParent() ทั้งสามต้น ขนาด, กรณีต้นไม้ว่างต้องไม่แตะ left/right และต้นที่ถูกย้ายยัง insert/erase ได้; 200,000 โหนดใช้ 0.27 วินาที ASan ไม่พบหน่วยความจำรั่วหรือการ delete ซ้ำ
+==== en
+## 1. What the problem says
+Add `pair<KeyT,MappedT> subtree(map_bst &left, map_bst &right)` to `CP::map_bst`.
+- If the tree is **empty**: do nothing at all and return `pair<KeyT,MappedT>()`.
+- Otherwise:
+  - move the root's **left subtree** into `left` (anything `left` held before must be deleted) and set `left`'s `mSize` correctly;
+  - move the root's **right subtree** into `right` the same way;
+  - **return the root's data**; afterwards the tree contains **only the root**.
+- The moved subtrees must keep their **exact shape and data**.
+- Full marks need **O(left.size() + right.size())**. Watch `left`, `right` and `parent` pointers.
+- A spare `size_t process(node* n)` is provided for any helper you want. Edit only `student.h`; no I/O.
+- Subtasks: 20% tree size ≤ 3, 30% left and right subtrees have equal size, 50% no extra condition.
+
+## 2. What it really means
+Cut the two edges under the root and give each piece its own tree object. No node is created or copied; only pointers change.
+
+```text
+before:            m                          after:   m          left          right
+                  50                                   50          30            70
+                /    \                                         /    \
+              30      70          ──►                         20    40
+             /  \
+           20    40
+   m.size = 5                                  size 1     size 3        size 1
+```
+
+Pointer changes (5 writes + 2 sizes + 1 size):
+
+```text
+left.mRoot  = root->left   (30)        30->parent = NULL
+right.mRoot = root->right  (70)        70->parent = NULL
+root->left  = root->right = NULL       mSize = 1
+left.mSize  = count(30's subtree) = 3  right.mSize = count(70's subtree) = 1
+```
+
+## 3. What, why, how
+- **Why not insert node by node into left/right?** Inserting the keys again costs O(k log k) or worse, and inserting in a different order would change the shape. Re-pointing keeps the shape for free.
+- **What must be fixed after moving a subtree:**
+  1. the new owner's `mRoot` points to it;
+  2. its root's `parent` becomes `NULL`. `map_bst` uses `parent` to walk up (iterators, erase), so a stale parent pointing into `m` breaks `left` later;
+  3. the old parent (our root) forgets it: `mRoot->left = mRoot->right = NULL`;
+  4. sizes: `mSize = 1` for us; the moved trees need a count.
+- **Counting the size:** we don't know how the m.size()−1 other nodes are split between the two sides, so count one side with a recursive `process(n)` = `1 + process(left) + process(right)`. That is O(left.size() + right.size()), exactly what the problem asks for. (Counting only one side and computing the other as `mSize − 1 − that` is also valid and slightly faster.)
+- **Clear first:** `left.clear()` / `right.clear()` delete their old nodes. Do it **after** the empty check, because an empty `m` must not touch them.
+- Order matters: save `mRoot->left` / `mRoot->right` before setting them to NULL.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace on the example** (keys 50 30 70 20 40, so m[50]=0, m[30]=1, m[70]=2, m[20]=3, m[40]=4):
+
+| step | action | effect |
+|---|---|---|
+| 1 | mRoot ≠ NULL | continue |
+| 2 | left.clear(), right.clear() | old contents deleted |
+| 3 | L = 30, R = 70 | remember the children |
+| 4 | left.mRoot = 30, right.mRoot = 70 | trees take ownership |
+| 5 | 30->parent = NULL, 70->parent = NULL | they are roots now |
+| 6 | process(30) = 1 + process(20) + process(40) = 1+1+1 = 3; process(70) = 1 | left.mSize = 3, right.mSize = 1 |
+| 7 | 50->left = 50->right = NULL, mSize = 1 | m holds only 50 |
+| 8 | return (50, 0) | prints `return: 50:0` |
+
+Printed by `main` (print shows the right subtree in `( )`, the left in `[ ]`):
+
+```text
+return: 50:0
+main tree:   ======== size = 1 =========
+()50:0[]
+left tree:   ======== size = 3 =========
+(()40:4[])30:1[()20:3[]]
+right tree:  ======== size = 1 =========
+()70:2[]
+```
+
+## 5. Traps
+- **Forgetting `parent = NULL`** on the moved roots: printing still looks right, but `checkParent()`, iterator `--`/`++` past the root, or erase in `left` later follow the stale pointer back into `m`.
+- **Not clearing left/right:** their old nodes leak (and their old `mSize` is wrong if you only add).
+- **Clearing for an empty tree:** the spec says "do nothing", so check `mRoot == NULL` first.
+- **Leaving `mRoot->left/right` set:** `m` and `left` would share nodes, and both destructors would delete them (double free, which ASan reports).
+- **Setting sizes by guessing** (e.g. `(mSize-1)/2`): only correct in the 30% subtask with equal sides.
+- **Copying with `operator=` or re-inserting:** shape could change and it is slower.
+
+## 6. Background
+Lesson 07, section 5.4: **moving subtrees between trees** is pure pointer surgery: whenever a node gets a new parent, write **both** directions (parent→child and child→parent) and fix every owner's `mRoot`/`mSize`. The same checklist is used in BST Split, which re-links nodes along a path, and in List Merge / Split List for linked lists.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `pair<KeyT,MappedT> subtree(map_bst &left, map_bst &right)` ในคลาส `CP::map_bst`
+- ถ้าต้นไม้ **ว่าง**: ไม่ต้องทำอะไรเลย แล้วคืน `pair<KeyT,MappedT>()`
+- ถ้าไม่ว่าง:
+  - ย้าย **ต้นไม้ย่อยซ้าย** ของรากไปไว้ใน `left` (ข้อมูลเดิมใน `left` ต้องถูกลบทิ้ง) และตั้ง `mSize` ของ `left` ให้ถูก
+  - ย้าย **ต้นไม้ย่อยขวา** ของรากไปไว้ใน `right` แบบเดียวกัน
+  - **คืนข้อมูลในปมราก** หลังเรียกเสร็จ ต้นไม้นี้ต้องเหลือ **แค่ปมราก**
+- ต้นไม้ย่อยที่ถูกย้ายต้อง **รูปร่างและข้อมูลเหมือนเดิมทุกประการ**
+- ถ้าจะได้เต็มต้องเป็น **O(left.size() + right.size())** ระวังพอยน์เตอร์ `left`, `right` และ `parent`
+- มีโครง `size_t process(node* n)` ให้ใช้ทำอะไรก็ได้ แก้ได้เฉพาะ `student.h` ห้ามอ่าน/พิมพ์ข้อมูล
+- ชุดทดสอบ: 20% ต้นไม้ขนาด ≤ 3, 30% ต้นย่อยซ้ายและขวามีขนาดเท่ากัน, 50% ไม่มีเงื่อนไขอื่น
+
+## 2. จริง ๆ แล้วถามอะไร
+ตัดกิ่งสองกิ่งที่อยู่ใต้ราก แล้วยกแต่ละกิ่งให้ต้นไม้อีกต้นเป็นเจ้าของ ไม่มีการสร้างหรือคัดลอกโหนด เปลี่ยนแค่พอยน์เตอร์ (เหมือนตัดกิ่งไม้ไปปักชำ ตัวกิ่งยังเหมือนเดิมทุกใบ)
+
+```text
+before:            m                          after:   m          left          right
+                  50                                   50          30            70
+                /    \                                         /    \
+              30      70          ──►                         20    40
+             /  \
+           20    40
+   m.size = 5                                  size 1     size 3        size 1
+```
+
+พอยน์เตอร์ที่ต้องเปลี่ยน:
+
+```text
+left.mRoot  = root->left   (30)        30->parent = NULL
+right.mRoot = root->right  (70)        70->parent = NULL
+root->left  = root->right = NULL       mSize = 1
+left.mSize  = count(30's subtree) = 3  right.mSize = count(70's subtree) = 1
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **ทำไมไม่ insert ทีละโหนดลง left/right?** ใส่ key ใหม่ทั้งหมดใช้ O(k log k) หรือแย่กว่า และถ้าใส่คนละลำดับรูปร่างจะเปลี่ยน การย้ายพอยน์เตอร์ได้รูปร่างเดิมฟรี
+- **สิ่งที่ต้องแก้หลังย้ายต้นไม้ย่อย:**
+  1. `mRoot` ของเจ้าของใหม่ชี้ไปที่มัน
+  2. `parent` ของรากต้นย่อยต้องเป็น `NULL` เพราะ `map_bst` ใช้ `parent` เดินขึ้น (iterator, erase) ถ้ายังชี้กลับไปที่ `m` จะทำให้ `left` พังทีหลัง
+  3. พ่อเดิม (รากของเรา) ต้องลืมมัน: `mRoot->left = mRoot->right = NULL`
+  4. ขนาด: ของเรา `mSize = 1` ส่วนต้นที่ถูกย้ายต้องนับ
+- **การนับขนาด:** เราไม่รู้ว่าโหนดอีก m.size()−1 ตัวแบ่งไปซ้ายขวาอย่างไร จึงนับด้วย `process(n)` แบบเวียนเกิด = `1 + process(left) + process(right)` ใช้เวลา O(left.size() + right.size()) ตรงตามที่โจทย์ต้องการ (นับข้างเดียวแล้วคิดอีกข้างเป็น `mSize − 1 − ข้างนั้น` ก็ถูกและเร็วกว่านิดหน่อย)
+- **ล้างก่อน:** `left.clear()` / `right.clear()` ลบโหนดเก่า แต่ต้องทำ **หลัง** เช็กว่าต้นไม้ว่าง เพราะถ้า `m` ว่างห้ามแตะสองต้นนั้น
+- ลำดับสำคัญ: เก็บ `mRoot->left` / `mRoot->right` ไว้ก่อน แล้วค่อยตั้งเป็น NULL
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่าง** (key 50 30 70 20 40 จึงได้ m[50]=0, m[30]=1, m[70]=2, m[20]=3, m[40]=4):
+
+| ขั้น | ทำอะไร | ผล |
+|---|---|---|
+| 1 | mRoot ≠ NULL | ทำต่อ |
+| 2 | left.clear(), right.clear() | ลบข้อมูลเก่า |
+| 3 | L = 30, R = 70 | จำลูกทั้งสองไว้ |
+| 4 | left.mRoot = 30, right.mRoot = 70 | ต้นใหม่รับเป็นเจ้าของ |
+| 5 | 30->parent = NULL, 70->parent = NULL | กลายเป็นราก |
+| 6 | process(30) = 1 + process(20) + process(40) = 1+1+1 = 3; process(70) = 1 | left.mSize = 3, right.mSize = 1 |
+| 7 | 50->left = 50->right = NULL, mSize = 1 | m เหลือแค่ 50 |
+| 8 | คืน (50, 0) | พิมพ์ `return: 50:0` |
+
+ผลที่ `main` พิมพ์ (print แสดงต้นย่อยขวาใน `( )` ต้นย่อยซ้ายใน `[ ]`):
+
+```text
+return: 50:0
+main tree:   ======== size = 1 =========
+()50:0[]
+left tree:   ======== size = 3 =========
+(()40:4[])30:1[()20:3[]]
+right tree:  ======== size = 1 =========
+()70:2[]
+```
+
+## 5. จุดที่มักพลาด
+- **ลืม `parent = NULL`** ที่รากต้นที่ถูกย้าย: พิมพ์ออกมาดูเหมือนถูก แต่ `checkParent()`, การ `--`/`++` ของ iterator ที่เดินผ่านราก หรือ erase ใน `left` ทีหลัง จะเดินตามพอยน์เตอร์เก่ากลับเข้าไปใน `m`
+- **ไม่ล้าง left/right:** โหนดเก่ารั่ว (และ `mSize` เก่าผิดถ้าแค่บวกเพิ่ม)
+- **ล้างทั้งที่ต้นไม้ว่าง:** โจทย์บอกว่า "ไม่ต้องทำอะไร" ต้องเช็ก `mRoot == NULL` ก่อน
+- **ไม่ตั้ง `mRoot->left/right` เป็น NULL:** `m` กับ `left` จะใช้โหนดร่วมกัน แล้ว destructor ทั้งสองจะ delete ซ้ำ (double free ซึ่ง ASan จับได้)
+- **เดาขนาด** (เช่น `(mSize-1)/2`): ถูกแค่ชุดทดสอบ 30% ที่สองข้างเท่ากัน
+- **คัดลอกด้วย `operator=` หรือ insert ใหม่:** รูปร่างอาจเปลี่ยนและช้ากว่า
+
+## 6. ความรู้พื้นฐาน
+บทที่ 07 หัวข้อ 5.4: **การย้ายต้นไม้ย่อยระหว่างต้นไม้** คือการผ่าตัดพอยน์เตอร์ล้วน ๆ ทุกครั้งที่โหนดได้พ่อใหม่ ต้องเขียน **ทั้งสองทิศ** (พ่อ→ลูก และ ลูก→พ่อ) และแก้ `mRoot`/`mSize` ของเจ้าของทุกต้น เช็กลิสต์เดียวกันใช้ในข้อ BST Split ที่ต่อโหนดใหม่ตามเส้นทาง และในข้อ List Merge / Split List ของลิงก์ลิสต์

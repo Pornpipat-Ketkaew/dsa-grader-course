@@ -1,0 +1,110 @@
+id: d61_q1_ordered_set
+group: search
+lesson: 02 · STL (set)
+stars: 1
+kind: student.h
+tags: std::set, templates, order-preserving
+title: Union, Intersection of Ordered Set
+title_th: ยูเนียนและอินเตอร์เซกชันของเซตแบบมีลำดับ (Ordered Set)
+blurb: Union keeps A's order then B's leftovers; Intersect keeps A's order — a std::set gives O(log n) membership tests.
+blurb_th: Union เก็บลำดับของ A แล้วต่อด้วยตัวที่เหลือของ B; Intersect เก็บลำดับของ A — ใช้ std::set เช็กสมาชิกใน O(log n)
+files: sol/d61_q1_ordered_set/student.h
+tests: the starter main (expected `4 6 9 0 7 3 2 5` / `9 1 6`); 300 random pairs of sets (including empty ones) through a reading harness against a Python model; also instantiated with `string`. ASan + UBSan clean.
+tests_th: main เริ่มต้น (ผลที่ควรได้ `4 6 9 0 7 3 2 5` / `9 1 6`); สุ่มเซต 300 คู่ (รวมเซตว่าง) ผ่านโปรแกรมทดสอบเทียบกับโมเดล Python; ทดสอบกับ `string` ด้วย ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+An **ordered set** is a list with no repeats where order matters (stored in `std::vector`). Write:
+
+- `Union(A,B)`: everything in A or B, and **A's items come before items only in B**. `Union(<4,6,9,0,7>, <0,3,2,4,5>) = <4,6,9,0,7,3,2,5>`.
+- `Intersect(A,B)`: items in both, **in A's order**. `Intersect(<3,9,0,1,6>, <4,6,9,1,7>) = <9,1,6>`.
+- A and B have ≤ 100,000 items; 5 s limit. Each test checks only one function. You may add includes/helpers in `student.h`.
+
+## 2. What it really means
+Both are "walk one list in order, and ask **is x in the other list?**". That question must be fast.
+
+```text
+A = 4 6 9 0 7      B = 0 3 2 4 5
+Union:     4 6 9 0 7 | 3 2 5      (B's items that A lacks, in B's order)
+Intersect of <3,9,0,1,6> and <4,6,9,1,7>:  9 1 6   (A's order)
+```
+
+## 3. What, why, how
+- **Naive:** for each x, scan the other vector → O(|A|·|B|) = 10¹⁰. Too slow even with 5 s.
+- **Right idea:** put the other list into a `std::set<T>` (O(n log n)), then each membership test is O(log n). Total O((|A| + |B|) log n).
+- **Don't sort the answer** — the order is part of the answer. The set is only a lookup table.
+- Works for any T with `<` (it's a template).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of Union** (inA = {0,4,6,7,9}):
+
+| i | B[i] | in A? | v after |
+|---|---|---|---|
+| — | start | | 4 6 9 0 7 |
+| 0 | 0 | yes | skip |
+| 1 | 3 | no | 4 6 9 0 7 **3** |
+| 2 | 2 | no | … 3 **2** |
+| 3 | 4 | yes | skip |
+| 4 | 5 | no | … 3 2 **5** |
+
+## 5. Traps
+- **Using `set_union` / `set_intersection`**: they need *sorted* input and produce sorted output — wrong order.
+- **Returning a `set`** instead of a `vector` loses the order.
+- **Intersect in B's order**: the spec says A's order (`Intersect(A,B) ≠ Intersect(B,A)` in general).
+- **O(n·m) with `std::find`** passes small tests only.
+
+## 6. Background
+Lesson 02 (STL): **set = fast membership**. Pattern: "keep the order from a vector, answer 'have I seen it?' from a set". Same idea as Vector Unique.
+==== th
+## 1. โจทย์บอกอะไร
+**เซตแบบมีลำดับ** คือรายการที่ไม่มีตัวซ้ำและลำดับมีความหมาย (เก็บใน `std::vector`) ให้เขียน:
+
+- `Union(A,B)`: ทุกตัวที่อยู่ใน A หรือ B โดย **ตัวของ A มาก่อนตัวที่มีแค่ใน B** `Union(<4,6,9,0,7>, <0,3,2,4,5>) = <4,6,9,0,7,3,2,5>`
+- `Intersect(A,B)`: ตัวที่อยู่ทั้งสองเซต **ตามลำดับของ A** `Intersect(<3,9,0,1,6>, <4,6,9,1,7>) = <9,1,6>`
+- A และ B มีไม่เกิน 100,000 ตัว เวลา 5 วินาที แต่ละชุดทดสอบตรวจแค่ฟังก์ชันเดียว เพิ่ม include/ฟังก์ชันช่วยใน `student.h` ได้
+
+## 2. จริง ๆ แล้วถามอะไร
+ทั้งสองฟังก์ชันคือ "ไล่ลิสต์หนึ่งตามลำดับ แล้วถามว่า **x อยู่ในอีกลิสต์ไหม?**" คำถามนี้ต้องตอบเร็ว
+
+```text
+A = 4 6 9 0 7      B = 0 3 2 4 5
+Union:     4 6 9 0 7 | 3 2 5      (B's items that A lacks, in B's order)
+Intersect of <3,9,0,1,6> and <4,6,9,1,7>:  9 1 6   (A's order)
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** แต่ละ x ไล่หาในอีก vector → O(|A|·|B|) = 10¹⁰ ช้าเกินแม้ให้ 5 วินาที
+- **แนวคิดที่ถูก:** ใส่อีกลิสต์ลง `std::set<T>` (O(n log n)) แล้วเช็กสมาชิกแต่ละครั้ง O(log n) รวม O((|A| + |B|) log n)
+- **อย่า sort คำตอบ** — ลำดับเป็นส่วนหนึ่งของคำตอบ set เป็นแค่ตารางสำหรับค้น
+- ใช้ได้กับ T ใดก็ได้ที่มี `<` (เป็น template)
+
+```text
+vector A (เก็บลำดับ)      set inA (ค้นเร็ว)
+[4][6][9][0][7]     →     {0, 4, 6, 7, 9}  ← เรียงในตัว ใช้ถาม "มีไหม?"
+```
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ Union** (inA = {0,4,6,7,9}):
+
+| i | B[i] | อยู่ใน A? | v หลังทำ |
+|---|---|---|---|
+| — | เริ่ม | | 4 6 9 0 7 |
+| 0 | 0 | ใช่ | ข้าม |
+| 1 | 3 | ไม่ | 4 6 9 0 7 **3** |
+| 2 | 2 | ไม่ | … 3 **2** |
+| 3 | 4 | ใช่ | ข้าม |
+| 4 | 5 | ไม่ | … 3 2 **5** |
+
+## 5. จุดที่มักพลาด
+- **ใช้ `set_union` / `set_intersection`**: ต้องการข้อมูลที่ *เรียงแล้ว* และให้ผลที่เรียงแล้ว — ลำดับผิด
+- **คืน `set`** แทน `vector` ทำให้ลำดับหาย
+- **Intersect ตามลำดับของ B**: โจทย์บอกให้ใช้ลำดับของ A (`Intersect(A,B) ≠ Intersect(B,A)` โดยทั่วไป)
+- **O(n·m) ด้วย `std::find`** ผ่านแค่ชุดเล็ก
+
+## 6. ความรู้พื้นฐาน
+บทที่ 02 (STL): **set = เช็กสมาชิกเร็ว** รูปแบบ: "เก็บลำดับจาก vector ตอบว่า 'เคยเห็นไหม' จาก set" แนวคิดเดียวกับข้อ Vector Unique

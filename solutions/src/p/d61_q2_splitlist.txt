@@ -1,0 +1,109 @@
+id: d61_q2_splitlist
+group: list
+lesson: 05 · Linked list
+stars: 2
+kind: student.h
+tags: CP::list, pointer surgery, no new nodes
+title: Split List
+title_th: แบ่งลิสต์ (Split List)
+blurb: Move the first half of *this to the end of list1 and the second half to the end of list2 — only by re-linking the existing nodes.
+blurb_th: ย้ายครึ่งแรกของ *this ไปต่อท้าย list1 และครึ่งหลังไปต่อท้าย list2 — ด้วยการต่อพอยน์เตอร์ของโหนดเดิมเท่านั้น
+files: sol/d61_q2_splitlist/student.h
+tests: the PDF example; 300 random triples of lists (empty *this, size 1, odd / even, empty targets) checked forward, backward and by size; the harness also checks that the node addresses before and after are exactly the same (no node created or destroyed). ASan + UBSan clean.
+tests_th: ตัวอย่างใน PDF; สุ่มลิสต์สามตัว 300 ชุด (*this ว่าง, ขนาด 1, คี่ / คู่, ลิสต์ปลายทางว่าง) ตรวจทั้งเดินหน้า ถอยหลัง และขนาด; โปรแกรมทดสอบยังเช็กว่าที่อยู่ของโหนดก่อนและหลังเหมือนกันทุกตัว (ไม่มีการสร้างหรือลบโหนด) ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void splitList(list<T>& list1, list<T>& list2)`: move the **first half** of *this to the end of list1 and the **second half** to the end of list2. If the size is odd, **list1 gets the extra one**. Afterwards *this is empty.
+
+- x = ⟨1,7,9,10,2,6,3⟩, a = ⟨1,2⟩, b = ⟨3,4,5⟩ → a = ⟨1,2,1,7,9,10⟩, b = ⟨3,4,5,2,6,3⟩, x = ⟨⟩.
+- **No new nodes**, directly or indirectly (no new, insert, push_back, no new list) → score 0. Only pointer changes. ≤ 100,000 elements.
+
+## 2. What it really means
+Cut the ring of *this into two chains and splice each chain onto the end of another ring.
+
+```text
+this:  H ⇄ 1 ⇄ 7 ⇄ 9 ⇄ 10 ⇄ 2 ⇄ 6 ⇄ 3 ⇄ H        n = 7, k = 4
+            firstA        lastA  firstB     lastB
+list1: H1 ⇄ 1 ⇄ 2 ⇄ H1   →   H1 ⇄ 1 ⇄ 2 ⇄ [1 ⇄ 7 ⇄ 9 ⇄ 10] ⇄ H1
+list2: H2 ⇄ 3 ⇄ 4 ⇄ 5 ⇄ H2 → H2 ⇄ 3 ⇄ 4 ⇄ 5 ⇄ [2 ⇄ 6 ⇄ 3] ⇄ H2
+this:  H ⇄ H (empty)
+```
+
+## 3. What, why, how
+1. k = ⌈n/2⌉ = (n+1)/2. Walk k−1 steps from the first node to get lastA; firstB = lastA->next; lastB = mHeader->prev.
+2. Splicing a chain [f..l] after the last node t of a list with header H takes **4 pointer writes**: `t->next = f; f->prev = t; l->next = H; H->prev = l;` plus updating mSize.
+3. Do it for list1 (always) and list2 (only if n − k > 0).
+4. Reset *this: `mHeader->next = mHeader->prev = mHeader; mSize = 0`.
+- O(n) for finding the middle; the moves themselves are O(1).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Pointer writes for list1 in the example** (t = node "2" of list1):
+
+| write | meaning |
+|---|---|
+| t->next = firstA (1) | list1's old last now points to the moved chain |
+| firstA->prev = t | the chain points back |
+| lastA (10)->next = H1 | the chain ends at list1's header |
+| H1->prev = lastA | list1's new last is 10 |
+
+## 5. Traps
+- **Using push_back / insert** — creates nodes, scores 0.
+- **Odd sizes:** k = n/2 gives the extra element to list2 — wrong; use (n+1)/2.
+- **n = 1:** the second half is empty; firstB is the header itself — don't splice it.
+- **Forgetting mSize** of list1, list2 and *this.
+- **Leaving the header of `*this` pointing to moved nodes** → printing *this walks into list1.
+
+## 6. Background
+Lesson 05: the strength of linked lists is **O(1) splicing** — moving a whole chain costs a constant number of pointer writes, whatever its length. `std::list::splice` does exactly this.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void splitList(list<T>& list1, list<T>& list2)`: ย้าย **ครึ่งแรก** ของ *this ไปต่อท้าย list1 และ **ครึ่งหลัง** ไปต่อท้าย list2 ถ้าจำนวนเป็นคี่ **list1 ได้มากกว่าหนึ่งตัว** หลังทำแล้ว *this ว่าง
+
+- x = ⟨1,7,9,10,2,6,3⟩, a = ⟨1,2⟩, b = ⟨3,4,5⟩ → a = ⟨1,2,1,7,9,10⟩, b = ⟨3,4,5,2,6,3⟩, x = ⟨⟩
+- **ห้ามสร้างโหนดใหม่** ทั้งทางตรงและทางอ้อม (ห้าม new, insert, push_back, ห้ามสร้าง list ใหม่) → ได้ 0 ทำได้แค่แก้พอยน์เตอร์ ข้อมูลไม่เกิน 100,000 ตัว
+
+## 2. จริง ๆ แล้วถามอะไร
+ตัดวงของ *this เป็นสองสาย แล้วเอาแต่ละสายไปต่อท้ายวงของอีกลิสต์
+
+```text
+this:  H ⇄ 1 ⇄ 7 ⇄ 9 ⇄ 10 ⇄ 2 ⇄ 6 ⇄ 3 ⇄ H        n = 7, k = 4
+            firstA        lastA  firstB     lastB
+list1: H1 ⇄ 1 ⇄ 2 ⇄ H1   →   H1 ⇄ 1 ⇄ 2 ⇄ [1 ⇄ 7 ⇄ 9 ⇄ 10] ⇄ H1
+list2: H2 ⇄ 3 ⇄ 4 ⇄ 5 ⇄ H2 → H2 ⇄ 3 ⇄ 4 ⇄ 5 ⇄ [2 ⇄ 6 ⇄ 3] ⇄ H2
+this:  H ⇄ H (empty)
+```
+
+เหมือนตัดสร้อยลูกปัดเป็นสองท่อน แล้วเอาแต่ละท่อนไปต่อปลายสร้อยอีกเส้น ไม่มีลูกปัดใหม่เกิดขึ้นเลย
+
+## 3. อะไร ทำไม อย่างไร
+1. k = ⌈n/2⌉ = (n+1)/2 เดิน k−1 ก้าวจากโหนดแรกได้ lastA; firstB = lastA->next; lastB = mHeader->prev
+2. การต่อสาย [f..l] หลังโหนดสุดท้าย t ของลิสต์ที่มี header H ใช้ **เขียนพอยน์เตอร์ 4 ครั้ง**: `t->next = f; f->prev = t; l->next = H; H->prev = l;` แล้วแก้ mSize
+3. ทำกับ list1 (เสมอ) และ list2 (เฉพาะเมื่อ n − k > 0)
+4. รีเซ็ต *this: `mHeader->next = mHeader->prev = mHeader; mSize = 0`
+- O(n) สำหรับหาจุดกึ่งกลาง ส่วนการย้ายเป็น O(1)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**การเขียนพอยน์เตอร์ของ list1 ในตัวอย่าง** (t = โหนด "2" ของ list1):
+
+| เขียน | ความหมาย |
+|---|---|
+| t->next = firstA (1) | ตัวสุดท้ายเดิมของ list1 ชี้ไปที่สายที่ย้ายมา |
+| firstA->prev = t | สายชี้ย้อนกลับ |
+| lastA (10)->next = H1 | สายจบที่ header ของ list1 |
+| H1->prev = lastA | ตัวสุดท้ายใหม่ของ list1 คือ 10 |
+
+## 5. จุดที่มักพลาด
+- **ใช้ push_back / insert** — สร้างโหนด ได้ 0
+- **จำนวนคี่:** k = n/2 ทำให้ list2 ได้ตัวเกิน — ผิด ต้องใช้ (n+1)/2
+- **n = 1:** ครึ่งหลังว่าง firstB คือ header เอง — อย่าเอาไปต่อ
+- **ลืมแก้ mSize** ของ list1, list2 และ *this
+- **ปล่อยให้ header ของ *this ยังชี้ไปที่โหนดที่ย้ายแล้ว** → พิมพ์ *this จะเดินเข้าไปใน list1
+
+## 6. ความรู้พื้นฐาน
+บทที่ 05: จุดเด่นของลิสต์โยงคือ **ต่อ/ตัดได้ใน O(1)** — ย้ายทั้งสายใช้การเขียนพอยน์เตอร์จำนวนคงที่ ไม่ว่าสายจะยาวแค่ไหน `std::list::splice` ทำแบบนี้พอดี

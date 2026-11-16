@@ -1,0 +1,125 @@
+id: da66_f1_map_walk
+group: algo
+lesson: 11 · Recursion & backtracking
+stars: 2
+kind: program
+tags: grid DFS, backtracking, visited, alphabetical order, 32 MB
+title: Map Walk
+title_th: เดินบนแผนที่ (Map Walk)
+blurb: List every command string (A right, B down, C up) that walks from the top-left to the bottom-right without revisiting cells. Depth-first search trying A, B, C in that order.
+blurb_th: แจกแจงทุกลำดับคำสั่ง (A ขวา, B ลง, C ขึ้น) ที่เดินจากมุมซ้ายบนไปมุมขวาล่างโดยไม่กลับไปช่องเดิม ใช้ DFS ลอง A, B, C ตามลำดับ
+files: sol/da66_f1_map_walk/main.cpp
+tests: all 5 PDF samples plus a 1×1 map; 300 random maps up to 3×3 / 2×4 / 1×5 with random walls, compared with a brute force that simulates every string over {A,B,C} up to length R·C−1 and sorts the valid ones; a 10×10 map with 25% walls (5,508 paths) in 0.005 s. On an empty R×R map the answer count is R^(R−1) (checked for 6×6 and 7×7). Memory stays constant: answers go through a 64 KB buffer.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF และแผนที่ 1×1; สุ่ม 300 แผนที่ขนาดถึง 3×3 / 2×4 / 1×5 พร้อมช่องห้ามเข้าสุ่ม เทียบกับ brute force ที่จำลองทุกสตริงจาก {A,B,C} ยาวถึง R·C−1 แล้วเรียงเฉพาะแบบที่ถูก; แผนที่ 10×10 ที่มีช่องห้ามเข้า 25% (5,508 เส้นทาง) ใช้ 0.005 วินาที บนแผนที่ว่าง R×R จำนวนคำตอบคือ R^(R−1) (เช็กแล้วกับ 6×6 และ 7×7) หน่วยความจำคงที่ เพราะคำตอบผ่านบัฟเฟอร์ 64 KB
+==== en
+## 1. What the problem says
+A map has R rows and C columns (1 ≤ R, C ≤ 10); cell (r, c) is row r from the top, column c from the left. A character starts at **(1,1)** and wants to reach **(R,C)**. Commands:
+- **A** = move right to (r, c+1); **B** = move down to (r+1, c); **C** = move up to (r−1, c).
+
+Rules: never leave the map; **never enter a cell visited before**; never enter a **no-entry** cell (marked 1 in the input); the game **ends immediately** when (R,C) is reached.
+
+Print **every** different command string that reaches (R,C), one per line, **in alphabetical order**, then a line `DONE`. Memory limit **32 MB**. Subtasks: 10% R, C ≤ 2 without walls; 10% R, C ≤ 3 without walls; 15% R, C ≤ 3; 25% no answer contains C; 40% nothing else.
+
+## 2. What it really means
+Enumerate all **simple paths** from the top-left to the bottom-right using only right / down / up steps. Sample 2 (2 × 3, no walls):
+
+```text
+  (1,1) (1,2) (1,3)          AAB    → → ↓
+  (2,1) (2,2) (2,3)          ABA    → ↓ →
+                             BAA    ↓ → →
+                             BACAB  ↓ → ↑ → ↓
+```
+
+Since there is no "left" move, the path crosses each column once: in each column it goes up or down for a while, then steps right.
+
+## 3. What, why, how
+- **DFS with backtracking:** `walk(r, c, len)` stands on (r,c) with `len` commands so far. If (r,c) is the goal, output the path and **return** (the game ends). Otherwise try the 3 moves; for each legal one, mark the new cell visited, write the letter, recurse, then **unmark** (so other paths may use the cell).
+- **Alphabetical order for free:** try moves in the order **A, B, C**. Two different answers first differ at some step, and at that step DFS explored the smaller letter first. No answer is a prefix of another (the game stops at the goal), so this is exactly alphabetical order.
+- **Why `visited` must be undone:** a cell used by one path may be needed by another path later (BAA and BACAB both use (2,2)).
+- **Memory 32 MB:** the number of answers can be huge (on an empty R×R map it is R^(R−1): every column except the last can be left from any row). Never store all answers; print each one when found. A small buffer keeps it fast.
+- **Cost:** proportional to the number of explored partial paths; the tests keep the output printable.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 2** (2 × 3; visited cells shown as the path):
+
+| path so far | at | try A | try B | try C |
+|---|---|---|---|---|
+| (empty) | (1,1) | → (1,2) | → (2,1) | outside |
+| A | (1,2) | → (1,3) | → (2,2) | outside |
+| AA | (1,3) | outside | → (2,3) goal: **AAB** | outside |
+| AB | (2,2) | → (2,3) goal: **ABA** | outside | (1,2) visited |
+| B | (2,1) | → (2,2) | outside | (1,1) visited |
+| BA | (2,2) | → (2,3) goal: **BAA** | outside | → (1,2) |
+| BAC | (1,2) | → (1,3) | (2,2) visited | outside |
+| BACA | (1,3) | outside | → (2,3) goal: **BACAB** | outside |
+
+Then `DONE`.
+
+## 5. Traps
+- **Continuing after reaching the goal:** the rule says the game ends. Without the early `return`, a path that reaches (R,C) from the left could go on upward (C) and then never get back, which wastes time, or, with other move sets, produce extra answers. Stop at the goal.
+- **Forgetting to unmark `visited`:** later paths miss cells and answers disappear.
+- **Collecting all answers in a vector and sorting:** memory explodes on big outputs (32 MB) and it's unnecessary because DFS order is already alphabetical.
+- **Forgetting `DONE`**, also when there is no path (sample 3).
+- **1 × 1 map:** start = goal, so there is one answer, the empty command string, printed as an empty line before `DONE`.
+
+## 6. Background
+Lesson 11: **backtracking on a grid** (mark, recurse, unmark) and **output in a required order by ordering the choices**. With only right/down moves (the 25% subtask), the count could be found with DP; with the up move and no revisits, enumeration by DFS is the natural tool. For "shortest path" instead of "all paths", BFS is the right tool (Lesson 16, see Dungeon).
+==== th
+## 1. โจทย์บอกอะไร
+แผนที่มี R แถว C คอลัมน์ (1 ≤ R, C ≤ 10) ช่อง (r, c) คือแถวที่ r นับจากบน คอลัมน์ที่ c นับจากซ้าย ตัวละครเริ่มที่ **(1,1)** และต้องการไป **(R,C)** คำสั่ง:
+- **A** = เดินไปขวา (r, c+1); **B** = เดินลง (r+1, c); **C** = เดินขึ้น (r−1, c)
+
+กฎ: ห้ามเดินออกนอกแผนที่; **ห้ามเข้าช่องที่เคยไปแล้ว**; ห้ามเข้า **ช่องห้ามเข้า** (ค่า 1 ในข้อมูลนำเข้า); เมื่อถึง (R,C) **เกมจบทันที**
+
+พิมพ์ลำดับคำสั่ง **ทุกแบบ** ที่ไปถึง (R,C) บรรทัดละแบบ **เรียงตามตัวอักษร** แล้วปิดท้ายด้วยบรรทัด `DONE` หน่วยความจำจำกัด **32 MB** ชุดทดสอบ: 10% R, C ≤ 2 ไม่มีช่องห้ามเข้า; 10% R, C ≤ 3 ไม่มีช่องห้ามเข้า; 15% R, C ≤ 3; 25% ไม่มีคำตอบที่มีคำสั่ง C; 40% ไม่มีเงื่อนไขอื่น
+
+## 2. จริง ๆ แล้วถามอะไร
+แจกแจง **เส้นทางที่ไม่ซ้ำช่อง** ทั้งหมดจากมุมซ้ายบนไปมุมขวาล่าง โดยใช้แค่ ขวา / ลง / ขึ้น ตัวอย่างที่ 2 (2 × 3 ไม่มีช่องห้ามเข้า):
+
+```text
+  (1,1) (1,2) (1,3)          AAB    → → ↓
+  (2,1) (2,2) (2,3)          ABA    → ↓ →
+                             BAA    ↓ → →
+                             BACAB  ↓ → ↑ → ↓
+```
+
+เพราะไม่มีคำสั่ง "ซ้าย" เส้นทางจึงผ่านแต่ละคอลัมน์ครั้งเดียว: ในแต่ละคอลัมน์จะขึ้นหรือลงไปช่วงหนึ่ง แล้วก้าวไปทางขวา (เหมือนเดินในเขาวงกตที่ประตูหมุนให้เดินไปทางขวาได้อย่างเดียว)
+
+## 3. อะไร ทำไม อย่างไร
+- **DFS แบบ backtracking:** `walk(r, c, len)` ยืนอยู่ที่ (r,c) มีคำสั่งแล้ว `len` ตัว ถ้า (r,c) คือเป้าหมาย พิมพ์เส้นทางแล้ว **return** (เกมจบ) ไม่งั้นลอง 3 ทาง ทางที่ถูกกฎ: ทำเครื่องหมายช่องใหม่ว่าไปแล้ว เขียนตัวอักษร เรียกเวียนเกิด แล้ว **ลบเครื่องหมายออก** (ให้เส้นทางอื่นใช้ช่องนั้นได้)
+- **เรียงตามตัวอักษรได้ฟรี:** ลองตามลำดับ **A, B, C** คำตอบสองแบบที่ต่างกันจะต่างกันครั้งแรกที่ขั้นหนึ่ง และที่ขั้นนั้น DFS สำรวจตัวอักษรที่น้อยกว่าก่อน ไม่มีคำตอบไหนเป็นส่วนต้นของอีกคำตอบ (เกมหยุดที่เป้าหมาย) จึงได้ลำดับตัวอักษรพอดี
+- **ทำไมต้องลบเครื่องหมาย `visited`:** ช่องที่เส้นทางหนึ่งใช้ อาจจำเป็นสำหรับเส้นทางอื่นในภายหลัง (BAA และ BACAB ใช้ (2,2) ทั้งคู่)
+- **หน่วยความจำ 32 MB:** จำนวนคำตอบอาจมหาศาล (บนแผนที่ว่าง R×R มี R^(R−1) แบบ: ทุกคอลัมน์ยกเว้นคอลัมน์สุดท้ายออกได้จากทุกแถว) ห้ามเก็บคำตอบทั้งหมด ให้พิมพ์ทันทีที่เจอ บัฟเฟอร์เล็ก ๆ ช่วยให้เร็ว
+- **เวลา:** แปรผันตามจำนวนเส้นทางบางส่วนที่สำรวจ ชุดทดสอบออกแบบให้ผลลัพธ์พิมพ์ได้ทัน
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 2** (2 × 3):
+
+| เส้นทางตอนนี้ | อยู่ที่ | ลอง A | ลอง B | ลอง C |
+|---|---|---|---|---|
+| (ว่าง) | (1,1) | → (1,2) | → (2,1) | นอกแผนที่ |
+| A | (1,2) | → (1,3) | → (2,2) | นอกแผนที่ |
+| AA | (1,3) | นอกแผนที่ | → (2,3) ถึงเป้า: **AAB** | นอกแผนที่ |
+| AB | (2,2) | → (2,3) ถึงเป้า: **ABA** | นอกแผนที่ | (1,2) ไปแล้ว |
+| B | (2,1) | → (2,2) | นอกแผนที่ | (1,1) ไปแล้ว |
+| BA | (2,2) | → (2,3) ถึงเป้า: **BAA** | นอกแผนที่ | → (1,2) |
+| BAC | (1,2) | → (1,3) | (2,2) ไปแล้ว | นอกแผนที่ |
+| BACA | (1,3) | นอกแผนที่ | → (2,3) ถึงเป้า: **BACAB** | นอกแผนที่ |
+
+แล้วพิมพ์ `DONE`
+
+## 5. จุดที่มักพลาด
+- **เดินต่อหลังถึงเป้าหมาย:** กฎบอกว่าเกมจบ ถ้าไม่ `return` ทันที เส้นทางอาจผ่านเป้าหมายแล้วไปต่อ ทำให้ได้คำตอบเกิน
+- **ลืมลบเครื่องหมาย `visited`:** เส้นทางต่อ ๆ ไปจะใช้ช่องไม่ได้ คำตอบหาย
+- **เก็บคำตอบทั้งหมดใน vector แล้ว sort:** หน่วยความจำระเบิดเมื่อผลลัพธ์เยอะ (32 MB) และไม่จำเป็นเพราะลำดับของ DFS เรียงตามตัวอักษรอยู่แล้ว
+- **ลืม `DONE`** รวมถึงตอนที่ไม่มีเส้นทางเลย (ตัวอย่างที่ 3)
+- **แผนที่ 1 × 1:** จุดเริ่ม = เป้าหมาย มีคำตอบเดียวคือลำดับคำสั่งว่าง พิมพ์เป็นบรรทัดว่างก่อน `DONE`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11: **backtracking บนตาราง** (ทำเครื่องหมาย เวียนเกิด ลบเครื่องหมาย) และ **ได้ผลลัพธ์ตามลำดับที่ต้องการโดยเรียงทางเลือกให้ถูก** ถ้ามีแค่ขวา/ลง (ชุดทดสอบ 25%) การนับจำนวนใช้ DP ได้ แต่เมื่อมีการเดินขึ้นและห้ามซ้ำช่อง การแจกแจงด้วย DFS คือเครื่องมือที่เหมาะ ถ้าถาม "เส้นทางสั้นที่สุด" แทน "ทุกเส้นทาง" ให้ใช้ BFS (บทที่ 16 ดูข้อ Dungeon)
