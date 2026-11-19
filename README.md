@@ -10,7 +10,7 @@ A self-study course for learning data structures and algorithms in C++, built ar
 | [`course/problem-map.md`](course/problem-map.md) | Every grader problem mapped to its lesson, difficulty and key idea. |
 | [`course/problem-solving-method.md`](course/problem-solving-method.md) | A step-by-step method for attacking a new problem. |
 | [`visualizer/memory-lab.html`](visualizer/memory-lab.html) | **C++ Memory Lab**: an interactive, bilingual (EN/TH) visualizer of stack frames, heap blocks and pointers for 43 scenarios, from variables to Dijkstra. |
-| [`solutions/grader-solutions.html`](solutions/grader-solutions.html) | **Grader Solutions Book**: 55 grader problems, each with the statement in plain words, the key idea, complete tested code, a step-by-step trace, common traps and the matching lesson. Bilingual (EN/TH), one self-contained file. |
+| [`solutions/grader-solutions.html`](solutions/grader-solutions.html) | **Grader Solutions Book**: 57 grader problems, each with the statement in plain words, the key idea, complete tested code, a step-by-step trace, common traps and the matching lesson. Bilingual (EN/TH), one self-contained file. |
 | `solutions/src/` | Source of the book: `p/` page texts, `sol/` the exact solutions shown, `t/` their test scripts (samples + random brute-force checks). Rebuild with `python3 build.py`. |
 | `visualizer/src/memlab-source.tgz` | Source for the Memory Lab (build with `python build.py`). |
 

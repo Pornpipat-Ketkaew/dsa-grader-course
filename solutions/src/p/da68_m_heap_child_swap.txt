@@ -1,0 +1,123 @@
+id: da68_m_heap_child_swap
+group: heap
+lesson: 06 · Binary heap
+stars: 2
+kind: student.h
+tags: CP::priority_queue, subtree = one block per level, std::swap
+title: Heap Child Swap
+title_th: สลับลูกในฮีป (Heap Child Swap)
+blurb: In a full tree, each level of the left and right subtrees is one contiguous block, side by side — swap the two blocks level by level.
+blurb_th: ในต้นไม้เต็ม subtree ซ้ายและขวาแต่ละชั้นเป็นบล็อกติดกันในอาร์เรย์ วางชิดกัน — สลับสองบล็อกทีละชั้น
+files: sol/da68_m_heap_child_swap/student.h
+tests: both PDF samples and N = 1; 300 random test files (1–4 heaps each, N up to 127, duplicate values, any k) against a Python model that simulates push and swaps a nested tree; 20 heaps of 65535 with k = 0 in 0.51 s.
+tests_th: ตัวอย่างทั้ง 2 ชุดใน PDF และ N = 1; สุ่มไฟล์ทดสอบ 300 ชุด (ชุดละ 1–4 ฮีป, N ถึง 127, มีค่าซ้ำ, k ใดก็ได้) เทียบกับโมเดล Python ที่จำลอง push และสลับต้นไม้จริง; ฮีปขนาด 65535 จำนวน 20 ชุดที่ k = 0 ใช้ 0.51 วินาที
+==== en
+## 1. What the problem says
+Add `void child_swap(size_t k)` to CP::priority_queue. It swaps the **whole left subtree and whole right subtree** of the node at index k — not only the two children, but everything below them too.
+
+- The heap is always a **full** binary tree: N = 2ᵃ − 1 (at most 65535), so both subtrees have exactly the same shape.
+- `main` prints mData before and after the call.
+- Example: `[10, 8, 6, 7, 3, 4, 5]`, `child_swap(0)` → `[10, 6, 8, 4, 5, 7, 3]`; `child_swap(2)` → `[10, 8, 6, 7, 3, 5, 4]`.
+
+## 2. What it really means
+A swap like this keeps the heap valid (every parent is still above the same children), it just mirrors where things sit. The question is: **which array positions belong to each subtree?**
+
+```text
+index:              [0]
+                /         \
+            [1]             [2]            ← depth 1 below 0:  L = [1]        R = [2]
+           /   \           /   \
+        [3]    [4]      [5]    [6]         ← depth 2 below 0:  L = [3..4]     R = [5..6]
+        / \    / \      / \    / \
+      [7] [8] [9][10] [11][12][13][14]     ← depth 3 below 0:  L = [7..10]    R = [11..14]
+```
+
+On every level, the left subtree's nodes are **one contiguous block**, and the right subtree's block starts **immediately after** it, with the same width. So swapping the subtrees = on every level, swap block `[l, l+w)` with block `[l+w, l+2w)`.
+
+## 3. What, why, how
+- Start one level below k: `l = 2k+1`, `w = 1`.
+- On each level: for j = l … l+w−1, `swap(mData[j], mData[j+w])`.
+- Go down: the children of block `[l, …)` start at `2l+1`, and the width doubles: `w = 2w`.
+- Stop when `l ≥ mSize` (k was a leaf, or we passed the bottom level).
+- **Why it's correct:** position j in the left block and position j+w in the right block are the **same place** in the two mirror-image subtrees, so swapping them pair by pair on every level moves each whole subtree with its shape intact.
+- **Cost:** O(size of the subtree) ≤ O(N); no extra array needed.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** — mData = `10 8 6 7 3 4 5`, `child_swap(0)`.
+
+| level | l | w | pairs swapped (j ↔ j+w) | mData after |
+|---|---|---|---|---|
+| 1 | 1 | 1 | 1 ↔ 2 (8 ↔ 6) | 10 6 8 7 3 4 5 |
+| 2 | 3 | 2 | 3 ↔ 5 (7 ↔ 4), 4 ↔ 6 (3 ↔ 5) | 10 6 8 4 5 7 3 |
+| 3 | 7 | 4 | 7 ≥ 7 → stop | **10 6 8 4 5 7 3** ✓ |
+
+`child_swap(2)`: l = 5, w = 1 → swap 5 ↔ 6 (4 ↔ 5) → `10 8 6 7 3 5 4` ✓. Next l = 11 ≥ 7 → stop.
+
+## 5. Traps
+- **Swapping only the two children** (`swap(mData[2k+1], mData[2k+2])`) — the grandchildren stay where they were and end up under the wrong parent; the heap can break.
+- **Swapping only `l` and `r = l+1` on every level** (i.e. following one path down) — misses the rest of each block.
+- **Recursion that swaps "left child of left" with "left child of right" and then recurses into both** — easy to swap the same pair twice and undo the work. The block-by-level loop has no such risk.
+- **Using `int` with `2*l+1` near 65535** — fine here, but `size_t` matches mSize and never overflows for this N.
+- **k is a leaf** — `2k+1 ≥ mSize` already, so the loop simply doesn't run. No special case needed.
+
+## 6. Background
+Lesson 06: array heap, children of i at 2i+1 and 2i+2. The fact used here: **the descendants of a node at one depth form a contiguous range** — the same idea as [Heap Descendant](#d62_q3a_heap_descendant) (lo → 2lo+1, hi → 2hi+2). In a full tree, the left and right halves of that range are the two subtrees. See also [Ordered Heap Reconstruction](#da68_m2_ordered_heap_reconstruction), which decides **where** such swaps are needed.
+==== th
+## 1. โจทย์บอกอะไร
+เพิ่ม `void child_swap(size_t k)` ให้ CP::priority_queue ให้สลับ **subtree ซ้ายทั้งต้นกับ subtree ขวาทั้งต้น** ของปมที่ index k — ไม่ใช่แค่ลูกสองตัว แต่รวมทุกอย่างที่อยู่ข้างใต้ด้วย
+
+- ฮีปเป็นต้นไม้ไบนารี **เต็ม** เสมอ: N = 2ᵃ − 1 (ไม่เกิน 65535) ดังนั้น subtree สองข้างมีรูปร่างเหมือนกันเป๊ะ
+- `main` พิมพ์ mData ก่อนและหลังเรียกฟังก์ชัน
+- ตัวอย่าง: `[10, 8, 6, 7, 3, 4, 5]`, `child_swap(0)` → `[10, 6, 8, 4, 5, 7, 3]`; `child_swap(2)` → `[10, 8, 6, 7, 3, 5, 4]`
+
+## 2. จริง ๆ แล้วถามอะไร
+การสลับแบบนี้ไม่ทำให้ฮีปเสีย (พ่อยังอยู่เหนือลูกชุดเดิม) แค่กลับซ้ายขวาเหมือนส่องกระจก คำถามคือ **ตำแหน่งไหนในอาร์เรย์เป็นของ subtree ไหน?**
+
+```text
+index:              [0]
+                /         \
+            [1]             [2]            ← depth 1 below 0:  L = [1]        R = [2]
+           /   \           /   \
+        [3]    [4]      [5]    [6]         ← depth 2 below 0:  L = [3..4]     R = [5..6]
+        / \    / \      / \    / \
+      [7] [8] [9][10] [11][12][13][14]     ← depth 3 below 0:  L = [7..10]    R = [11..14]
+```
+
+ในทุกชั้น ปมของ subtree ซ้ายเป็น **บล็อกติดกันหนึ่งบล็อก** และบล็อกของ subtree ขวาเริ่ม **ต่อจากมันทันที** กว้างเท่ากัน ดังนั้นการสลับ subtree = ในทุกชั้น สลับบล็อก `[l, l+w)` กับบล็อก `[l+w, l+2w)`
+
+นึกภาพตึกสองหลังที่สร้างเหมือนกันทุกชั้น ถ้าจะสลับคนทั้งตึก ก็แค่สลับคนห้องเดียวกันของชั้นเดียวกันทีละคู่ ไล่จากชั้นบนลงชั้นล่าง
+
+## 3. อะไร ทำไม อย่างไร
+- เริ่มที่ชั้นใต้ k หนึ่งชั้น: `l = 2k+1`, `w = 1`
+- ในแต่ละชั้น: j = l … l+w−1 ทำ `swap(mData[j], mData[j+w])`
+- ลงชั้นถัดไป: ลูกของบล็อกที่เริ่มที่ `l` เริ่มที่ `2l+1` และความกว้างเพิ่มเป็นสองเท่า `w = 2w`
+- หยุดเมื่อ `l ≥ mSize` (k เป็นใบ หรือเลยชั้นล่างสุดแล้ว)
+- **ทำไมถูก:** ตำแหน่ง j ในบล็อกซ้าย กับตำแหน่ง j+w ในบล็อกขวา คือ **ที่เดียวกัน** ใน subtree สองข้างที่เป็นภาพสะท้อนกัน การสลับทีละคู่ทุกชั้นจึงย้าย subtree ทั้งต้นไปโดยรูปร่างไม่เสีย
+- **เวลา:** O(ขนาดของ subtree) ≤ O(N) ไม่ต้องใช้อาร์เรย์เพิ่ม
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** — mData = `10 8 6 7 3 4 5`, `child_swap(0)`
+
+| ชั้น | l | w | คู่ที่สลับ (j ↔ j+w) | mData หลังสลับ |
+|---|---|---|---|---|
+| 1 | 1 | 1 | 1 ↔ 2 (8 ↔ 6) | 10 6 8 7 3 4 5 |
+| 2 | 3 | 2 | 3 ↔ 5 (7 ↔ 4), 4 ↔ 6 (3 ↔ 5) | 10 6 8 4 5 7 3 |
+| 3 | 7 | 4 | 7 ≥ 7 → หยุด | **10 6 8 4 5 7 3** ✓ |
+
+`child_swap(2)`: l = 5, w = 1 → สลับ 5 ↔ 6 (4 ↔ 5) → `10 8 6 7 3 5 4` ✓ ต่อไป l = 11 ≥ 7 → หยุด
+
+## 5. จุดที่มักพลาด
+- **สลับแค่ลูกสองตัว** (`swap(mData[2k+1], mData[2k+2])`) — หลานยังอยู่ที่เดิม เลยไปอยู่ใต้พ่อผิดตัว ฮีปอาจพัง
+- **สลับแค่ `l` กับ `r = l+1` ทุกชั้น** (เดินตามเส้นทางเดียวลงไป) — พลาดปมที่เหลือในบล็อก
+- **เขียน recursion ที่สลับ "ลูกซ้ายของซ้าย" กับ "ลูกซ้ายของขวา" แล้วเรียกลงไปทั้งสองข้าง** — ง่ายที่จะสลับคู่เดิมซ้ำสองครั้งจนกลับที่เดิม ลูปทีละชั้นแบบบล็อกไม่มีปัญหานี้
+- **ใช้ `int` กับ `2*l+1` ใกล้ 65535** — ข้อนี้ยังไม่ล้น แต่ `size_t` ตรงกับชนิดของ mSize และไม่ล้นแน่นอนสำหรับ N นี้
+- **k เป็นใบ** — `2k+1 ≥ mSize` อยู่แล้ว ลูปเลยไม่ทำงาน ไม่ต้องเขียนกรณีพิเศษ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: ฮีปในอาร์เรย์ ลูกของ i อยู่ที่ 2i+1 และ 2i+2 ข้อเท็จจริงที่ใช้: **ลูกหลานของปมหนึ่งที่ความลึกเดียวกันเป็นช่วงติดกัน** — แนวคิดเดียวกับ [Heap Descendant](#d62_q3a_heap_descendant) (lo → 2lo+1, hi → 2hi+2) ในต้นไม้เต็ม ครึ่งซ้ายและครึ่งขวาของช่วงนั้นก็คือ subtree สองข้าง ดูเพิ่มที่ [Ordered Heap Reconstruction](#da68_m2_ordered_heap_reconstruction) ที่ตัดสินว่าต้องสลับที่ **ปมไหน**
