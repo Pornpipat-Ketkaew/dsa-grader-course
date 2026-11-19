@@ -21,6 +21,8 @@ GROUPS = [
      "recursion on nodes, map_bst with parent pointers", "การเวียนเกิดบนโหนด map_bst ที่มีพอยน์เตอร์ parent"),
     ("algo", "Recursion, graphs & algorithms", "การเวียนเกิด กราฟ และอัลกอริทึม",
      "backtracking, BFS, greedy, simulation", "backtracking, BFS, greedy, การจำลอง"),
+    ("s68", "Structure 68 (midterm mock exam)", "Structure 68 (ข้อสอบจำลองกลางภาค)",
+     "the four problems of the 69_DS mock exam: BST, simulation, circular queue, segment list", "โจทย์ 4 ข้อของข้อสอบจำลอง 69_DS: BST, การจำลอง, คิววงกลม, ลิสต์แบบ segment"),
 ]
 
 ORDER = """ds00_reverse2 d63_q1a_multi_insert d63_q1b_interval_count d62_q1b_grandfather ex00e3 d63_q2a_pair_gte
@@ -32,7 +34,8 @@ d57_q3_shift d64_q4a_list_merge d60_q3_same_tree d63_q4a_leaves_count d64_q4a_su
 a64_q1_permu_before ex00e4 ex00e5 a66_q1a_day_cover da66_f1_map_walk a66_q2a_insertion_count a65_q2a_huge_array
 da66_m1_queue_remove_many da66_m1_heap_before_node da66_m1_tree_leaves_depth da66_m1_line_monopoly da66_m2_change_data
 da66_m2_furthest_distance da67_m2_dungeon da67_m2_queue_insert_shuffle da67_m2_list_zigzag da67_m2_bst_parity_score
-da68_m2_ordered_heap_reconstruction da68_m_heap_child_swap""".split()
+da68_m2_ordered_heap_reconstruction da68_m_heap_child_swap
+69_DS1 69_DS2 69_DS3 69_DS4""".split()
 
 
 def parse(path):

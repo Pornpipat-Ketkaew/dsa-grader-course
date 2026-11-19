@@ -1,0 +1,137 @@
+id: 69_DS2
+group: s68
+lesson: 02 · STL (map + vector) · simulation
+stars: 2
+kind: program
+tags: map<int, vector<Room>>, simulation, running totals
+title: The Grand Hotel
+title_th: โรงแรมแกรนด์ (The Grand Hotel)
+blurb: Simulate check-in, extend, check-out, merge and split of hotel rooms per group, and report room and guest totals. A map from group to its vector of rooms does it.
+blurb_th: จำลองการเช็กอิน เพิ่มคน เช็กเอาต์ รวมห้อง และแยกห้องของแต่ละกลุ่ม แล้วรายงานจำนวนห้องและจำนวนแขก ใช้ map จากกลุ่มไปยัง vector ของห้อง
+files: sol/69_DS2/main.cpp
+tests: all 3 PDF samples, the PDF's Split example (2,2) (6,5) (4,3) → 6 rooms, Extend on an unknown group, and n = 0; 400 random event lists (all six events, repeated and unknown groups) against an independent Python simulation; 30 groups × 100,000 guests with splits and merges in 0.09 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF, ตัวอย่างการแยกห้องใน PDF (2,2) (6,5) (4,3) → 6 ห้อง, Extend กับกลุ่มที่ไม่มีอยู่ และ n = 0; สุ่มลำดับเหตุการณ์ 400 ชุด (ครบทั้งหกแบบ มีกลุ่มซ้ำและกลุ่มที่ไม่มีอยู่) เทียบกับการจำลองใน Python ที่เขียนแยกกัน; 30 กลุ่ม × แขก 100,000 คน พร้อมแยกและรวมห้อง ใช้ 0.09 วินาที
+==== en
+## 1. What the problem says
+A hotel keeps rooms per **group ID g**. Each room has a **size** (capacity, always even) and **guests** (people inside). A group's rooms are kept **in creation order**, newest last. Process n events (0 ≤ n ≤ 100) in order:
+
+| event | meaning |
+|---|---|
+| `I k s g` | **Check in**: create rooms of size s for k people, filling each room before opening the next. `I 5 2 123` → rooms with 2, 2, 1 guests. |
+| `O g` | **Check out**: group g leaves; delete all its rooms. |
+| `E k s g` | **Extend**: add k people to group g, filling the group's existing rooms **oldest first**; if people remain, create new rooms of size s as in Check In. |
+| `M g` | **Merge**: all rooms of g become one room; sizes add up and guests add up. |
+| `S g` | **Split**: every room of g with at least 2 guests becomes two rooms of the **same size**, guests split as evenly as possible, the first new room taking the extra one (5 → 3 and 2). A room with 1 guest is not split. |
+| `D` | **Day end**: report "number of rooms, number of guests" in the whole hotel. |
+
+If g does not exist, skip the event, **except Extend**, which then works like Check In. Print all D reports, in order, after the events.
+
+Subtasks: 20% only I, E, O, D; 20% everything except M; 20% everything except S; 40% no condition.
+
+## 2. What it really means
+A pure **simulation**. The only design choice is the data structure: we need "rooms of group g, in order", and fast lookup by g, which is `map<long long, vector<Room>>`. Sample 2:
+
+```text
+I 5 2 101   101: (2,2) (2,2) (2,1)                      D → 3 rooms, 5 guests
+I 4 2 202   202: (2,2) (2,2)                            D → 5 rooms, 9 guests
+M 101       101: (6,5)                                  D → 3 rooms, 9 guests
+S 202       202: (2,1) (2,1) (2,1) (2,1)                D → 5 rooms, 9 guests
+```
+
+## 3. What, why, how
+- **Running totals.** Keep `totalRooms` and `totalGuests` and update them in every event, so `D` is O(1).
+- **Check In** (`addNewRooms`): while k > 0, open a room with min(k, s) guests.
+- **Extend:** walk the group's rooms from index 0, put min(k, free space) into each, then call `addNewRooms` with what is left. `groups[g]` creates an empty group if g is new, which makes Extend act like Check In automatically.
+- **Check Out:** subtract the group's rooms and guests, erase the group.
+- **Merge:** sum sizes and guests into one room, replace the vector; rooms drop by (count − 1).
+- **Split:** build a new vector; for each room with guests ≥ 2 push (size, ⌈g/2⌉) and (size, ⌊g/2⌋), otherwise push it unchanged.
+- **Output** is collected in a string and printed at the end.
+- **Size of the data:** every room holds at least 1 guest, so the number of rooms never exceeds the number of guests. Each event costs O(rooms of that group).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1:**
+
+| event | group 123 rooms (size, guests) | totalRooms | totalGuests | output |
+|---|---|---|---|---|
+| I 5 2 123 | (2,2) (2,2) (2,1) | 3 | 5 | |
+| D | | | | 3 5 |
+| E 2 2 123 | third room gets 1 → (2,2); 1 left → new (2,1) | 4 | 7 | |
+| D | | | | 4 7 |
+| O 123 | — | 0 | 0 | |
+| D | | | | 0 0 |
+
+## 5. Traps
+- **Extend fills the newest room only:** the statement says oldest first. After a Merge such as (6,5), the free seat is in that room.
+- **Extend on an unknown group** must create rooms (it's the one exception to "skip unknown groups").
+- **Split order:** the two halves stay where the old room was ((2→1,1) | (5→3,2) | (3→2,1)); this matters for a later Extend.
+- **Split of a 1-guest room:** no split, otherwise you'd create an empty room.
+- **Merge of an unknown group** or **D before anything** must not crash; D prints `0 0`.
+- **Recounting all groups at every D** is also fine for n ≤ 100, but running totals are simpler to get right with large k.
+
+## 6. Background
+Lesson 02 (STL): **map for lookup by key + vector for ordered items** is the standard shape of simulation problems. Keeping **aggregates updated incrementally** (here: total rooms and guests) instead of recomputing is the habit that makes such programs fast.
+==== th
+## 1. โจทย์บอกอะไร
+โรงแรมเก็บห้องพักแยกตาม **Group ID g** แต่ละห้องมี **size** (ความจุ เป็นเลขคู่เสมอ) และ **guests** (จำนวนคนที่พักอยู่) ห้องของแต่ละกลุ่มเรียง **ตามเวลาที่สร้าง** ห้องล่าสุดอยู่ท้ายสุด ประมวลผลเหตุการณ์ n ครั้ง (0 ≤ n ≤ 100) ตามลำดับ:
+
+| เหตุการณ์ | ความหมาย |
+|---|---|
+| `I k s g` | **Check In**: สร้างห้องขนาด s ให้คน k คน เติมให้เต็มทีละห้องก่อนเปิดห้องใหม่ `I 5 2 123` → ห้องที่มีแขก 2, 2, 1 |
+| `O g` | **Check Out**: กลุ่ม g ออกทั้งหมด ลบห้องทั้งหมดของกลุ่ม |
+| `E k s g` | **Extend**: เพิ่มคน k คนให้กลุ่ม g เติมห้องที่มีอยู่ **ห้องเก่าสุดก่อน** ถ้ายังเหลือคน สร้างห้องใหม่ขนาด s แบบ Check In |
+| `M g` | **Merge**: รวมทุกห้องของ g เป็นห้องเดียว ขนาดรวมกัน แขกรวมกัน |
+| `S g` | **Split**: ทุกห้องของ g ที่มีแขกอย่างน้อย 2 คน แยกเป็นสองห้อง **ขนาดเท่าห้องเดิม** แบ่งแขกให้ใกล้เคียงที่สุด ห้องแรกได้มากกว่าหนึ่งคนถ้าเป็นเลขคี่ (5 → 3 และ 2) ห้องที่มีแขก 1 คนไม่ต้องแยก |
+| `D` | **Day End**: รายงาน "จำนวนห้อง จำนวนแขก" ของทั้งโรงแรม |
+
+ถ้าไม่มีกลุ่ม g ให้ข้าม **ยกเว้น Extend** ที่ทำแบบ Check In พิมพ์ผลของ D ทั้งหมดตามลำดับ หลังประมวลผลเหตุการณ์ครบแล้ว
+
+ชุดทดสอบ: 20% มีแค่ I, E, O, D; 20% ทุกอย่างยกเว้น M; 20% ทุกอย่างยกเว้น S; 40% ไม่มีเงื่อนไข
+
+## 2. จริง ๆ แล้วถามอะไร
+เป็นโจทย์ **การจำลอง (simulation)** ล้วน ๆ สิ่งที่ต้องเลือกคือโครงสร้างข้อมูล: เราต้องการ "ห้องของกลุ่ม g ตามลำดับ" และหากลุ่มได้เร็ว ก็คือ `map<long long, vector<Room>>` (เหมือนสมุดทะเบียนที่แบ่งหน้าตามกลุ่ม แต่ละหน้าเขียนห้องเรียงตามเวลา) ตัวอย่างที่ 2:
+
+```text
+I 5 2 101   101: (2,2) (2,2) (2,1)                      D → 3 rooms, 5 guests
+I 4 2 202   202: (2,2) (2,2)                            D → 5 rooms, 9 guests
+M 101       101: (6,5)                                  D → 3 rooms, 9 guests
+S 202       202: (2,1) (2,1) (2,1) (2,1)                D → 5 rooms, 9 guests
+```
+
+## 3. อะไร ทำไม อย่างไร
+- **ยอดรวมแบบสะสม** เก็บ `totalRooms` และ `totalGuests` แล้วแก้ทุกเหตุการณ์ `D` จึงเป็น O(1)
+- **Check In** (`addNewRooms`): ขณะที่ k > 0 เปิดห้องที่มีแขก min(k, s) คน
+- **Extend:** ไล่ห้องของกลุ่มจาก index 0 ใส่ min(k, ที่ว่าง) ลงแต่ละห้อง แล้วเรียก `addNewRooms` กับคนที่เหลือ `groups[g]` จะสร้างกลุ่มว่างให้ถ้ายังไม่มี Extend จึงทำงานแบบ Check In เองโดยอัตโนมัติ
+- **Check Out:** ลบจำนวนห้องและแขกของกลุ่มออกจากยอดรวม แล้วลบกลุ่ม
+- **Merge:** รวมขนาดและแขกเป็นห้องเดียว แทนที่ vector เดิม จำนวนห้องลดลง (จำนวนเดิม − 1)
+- **Split:** สร้าง vector ใหม่ ห้องที่แขก ≥ 2 ให้ push (size, ⌈g/2⌉) และ (size, ⌊g/2⌋) นอกนั้น push ห้องเดิม
+- **ผลลัพธ์** เก็บใน string แล้วพิมพ์ตอนจบ
+- **ขนาดข้อมูล:** ทุกห้องมีแขกอย่างน้อย 1 คน จำนวนห้องจึงไม่เกินจำนวนแขก แต่ละเหตุการณ์ใช้เวลา O(จำนวนห้องของกลุ่มนั้น)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1:**
+
+| เหตุการณ์ | ห้องของกลุ่ม 123 (size, guests) | totalRooms | totalGuests | ผลลัพธ์ |
+|---|---|---|---|---|
+| I 5 2 123 | (2,2) (2,2) (2,1) | 3 | 5 | |
+| D | | | | 3 5 |
+| E 2 2 123 | ห้องที่สามรับ 1 → (2,2); เหลือ 1 → ห้องใหม่ (2,1) | 4 | 7 | |
+| D | | | | 4 7 |
+| O 123 | — | 0 | 0 | |
+| D | | | | 0 0 |
+
+## 5. จุดที่มักพลาด
+- **Extend เติมแค่ห้องล่าสุด:** โจทย์บอกให้เติมห้องเก่าสุดก่อน หลัง Merge เช่น (6,5) ที่ว่างอยู่ในห้องนั้น
+- **Extend กับกลุ่มที่ไม่มีอยู่** ต้องสร้างห้อง (เป็นข้อยกเว้นเดียวของ "ข้ามกลุ่มที่ไม่มี")
+- **ลำดับหลัง Split:** สองห้องใหม่อยู่ตรงตำแหน่งห้องเดิม ((2→1,1) | (5→3,2) | (3→2,1)) ซึ่งมีผลกับ Extend ครั้งต่อไป
+- **Split ห้องที่มีแขกคนเดียว:** ไม่แยก ไม่งั้นจะได้ห้องว่าง
+- **Merge กลุ่มที่ไม่มี** หรือ **D ก่อนมีอะไรเลย** ต้องไม่พัง D พิมพ์ `0 0`
+- **นับใหม่ทุกกลุ่มทุกครั้งที่ D** ก็ใช้ได้สำหรับ n ≤ 100 แต่ยอดสะสมทำให้ถูกได้ง่ายกว่าเมื่อ k ใหญ่
+
+## 6. ความรู้พื้นฐาน
+บทที่ 02 (STL): **map สำหรับหาตาม key + vector สำหรับของที่มีลำดับ** คือรูปแบบมาตรฐานของโจทย์จำลอง การ **อัปเดตค่ารวมแบบสะสม** (ที่นี่คือจำนวนห้องและแขกทั้งหมด) แทนการคำนวณใหม่ คือนิสัยที่ทำให้โปรแกรมแบบนี้เร็ว

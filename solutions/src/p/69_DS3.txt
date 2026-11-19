@@ -1,0 +1,141 @@
+id: 69_DS3
+group: s68
+lesson: 04 · Queue (circular array)
+stars: 3
+kind: fusion()
+tags: CP::queue, circular index (mFront+i)%mCap, compact in place, O(m)
+title: Queue Advanced Fusion
+title_th: หลอมรวมคิว (Queue Advanced Fusion)
+blurb: Line up the backs of two queues, add matching elements, drop pairs that sum to 0, keep unmatched ones. Done in place in O(size of other), without touching other's mData.
+blurb_th: จับท้ายของสองคิวให้ตรงกัน บวกตัวที่ตรงกัน ทิ้งคู่ที่บวกได้ 0 และเก็บตัวที่ไม่มีคู่ไว้ ทำในที่เดิมด้วยเวลา O(ขนาดของ other) โดยไม่แตะ mData ของ other
+files: sol/69_DS3/student.h
+tests: all 3 PDF samples plus fusing two empty queues; 400 random command lists (push, pop, fusion A←B, B←A, A←A) against a Python model; a harness of 20,000 fusions on wrapped-around queues checking that other ends empty, other.mData keeps its address, and this->mData moves only when capacity grows; A = 500,000 elements with 50,000 "push into B, fuse B into A" in 0.04 s. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และการหลอมคิวว่างสองคิว; สุ่มลำดับคำสั่ง 400 ชุด (push, pop, fusion A←B, B←A, A←A) เทียบกับแบบจำลองใน Python; harness 20,000 ครั้งกับคิวที่วนรอบอาร์เรย์ ตรวจว่า other ว่างหลังทำ, mData ของ other อยู่ที่เดิม และ mData ของ this ย้ายเฉพาะตอนขยายความจุ; A มี 500,000 ตัว กับคำสั่ง "push เข้า B แล้วหลอม B เข้า A" 50,000 รอบ ใช้ 0.04 วินาที ผ่าน ASan + UBSan
+==== en
+## 1. What the problem says
+Add `void CP::queue<T>::fusion(CP::queue<T>& other)` which merges `other` into `this`:
+
+1. Line up the **backs** of the two queues and add the elements at matching positions.
+2. If a pair adds up to **0**, both disappear.
+3. An element with no partner stays where it is (after lining up) and is **kept even if it is 0**.
+
+Afterwards `other` is empty, unless `other` and `this` are the same queue (then every element is added to itself and the queue is not cleared). The addresses of `this`, `other` and both `mData` must not change; `this->mData` may change only when its capacity grows.
+
+Example: A = {1,2,3,4}, B = {5,0,6,−2,8,−9} (front on the left). `A.fusion(B)` gives A = {5, 0, 1+6, (2−2 = 0, gone), 3+8, 4−9} = {5,0,7,11,−5}.
+
+Limits: a, b ≤ 5·10⁵, at most 10⁵ commands, any queue ≤ 10⁶ elements. Tests: 5% other empty, 10% this == other, 20% equal lengths, 65% anything.
+
+## 2. What it really means
+Picture both queues right-aligned:
+
+```text
+A:        1  2  3  4
+B:  5  0  6 -2  8 -9
+    ^^^^ only B: copied as they are
+          ^^^^^^^^^^ pairs: 7  0  11 -5   (the 0 is dropped)
+```
+
+The result has length max(n, m) minus the dropped pairs. The queue is a **circular array**: element i (0 = front) lives at `mData[(mFront + i) % mCap]`. The trap is speed: with A huge and B tiny (the timing test pushes one element into B and fuses 50,000 times into a 500,000-element A), anything that walks all of A each time is 2.5·10¹⁰ steps. We need **O(m)** per call, where m = other's size.
+
+## 3. What, why, how
+Let n = this size, m = other size.
+
+- **Case m ≤ n** (other is shorter): only the last m elements of this change. Elements 0 … n−m−1 stay untouched. Walk j = 0 … m−1 over the pairs (this index i = n−m+j, other index j), compute v = x + y, and **compact**: write v at position w (starting w = n−m) only if v ≠ 0. Since w ≤ i, we never overwrite an element we still need to read. New size = w. Cost O(m).
+- **Case m > n** (other is longer): call `ensureCapacity(m)` first (this is the only time mData may move). Let d = m − n. Pair this[i] with other[d+i] for i = 0 … n−1, compacting from w = 0. Then the first d elements of other have no partner: put them **in front** by moving `mFront` back one slot at a time, for j = d−1 down to 0, so they end up in the right order. Cost O(n + d) = O(m).
+- **this == other**: it falls into case m ≤ n with m = n, every element is doubled (or dropped if 0+0). Reading other and writing this is the same array, but because w ≤ i the compaction is still safe. We just must not clear it at the end: `if (&other != this)`.
+- **Clearing other** = `mSize = 0; mFront = 0;`. Don't `delete[]` or reallocate: its mData address must stay.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (n = 4, m = 6, so case m > n with d = 2; both queues start at mFront = 0):
+
+| step | i or j | x (this) | y (other) | v = x+y | action | A so far |
+|---|---|---|---|---|---|---|
+| pair | i=0 | 1 | other[2] = 6 | 7 | write at w=0 | 7 |
+| pair | i=1 | 2 | other[3] = −2 | 0 | skip | 7 |
+| pair | i=2 | 3 | other[4] = 8 | 11 | write at w=1 | 7 11 |
+| pair | i=3 | 4 | other[5] = −9 | −5 | write at w=2 | 7 11 −5 |
+| front | j=1 | | other[1] = 0 | | mFront−1, store 0 (kept: unmatched) | 0 7 11 −5 |
+| front | j=0 | | other[0] = 5 | | mFront−1, store 5 | 5 0 7 11 −5 |
+
+mSize = 5, B becomes empty. Output `5 0 7 11 -5`. ✓
+
+**Sample 3, `f A A`** with A = {5,−5,2}: m = n = 3, w starts at 0: 10, −10, 4 (no zero sums), A stays non-empty. Then B = {10,−4}, `f A B`: m = 2 ≤ n = 3, A[0] = 10 untouched, −10+10 = 0 dropped, 4−4 = 0 dropped → {10}. ✓
+
+## 5. Traps
+- **Aligning the fronts** instead of the backs.
+- **Dropping an unmatched 0** (the 0 in B above must stay).
+- **Building a new array and swapping it in**: this changes mData's address when capacity did not grow, and the grader checks it.
+- **Clearing other when &other == this** (sample 3 expects A to keep its data).
+- **Forgetting the wrap-around**: always use `(mFront + i) % mCap`, never `mData[i]`.
+- **O(n + m) per call**: correct but too slow when this is huge and other is tiny.
+- **Moving mFront back:** `(mFront + mCap − 1) % mCap`, not `mFront − 1` (which goes negative).
+
+## 6. Background
+Lesson 04 (Queue): a circular array maps logical index i to `(mFront + i) % mCap`, and adding at the front is just stepping mFront back one. The **two-pointer compaction** (read index i, write index w ≤ i) is the same trick as `std::remove_if`: it filters an array in place without extra memory.
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `void CP::queue<T>::fusion(CP::queue<T>& other)` ที่หลอม `other` เข้ากับ `this`:
+
+1. จับ **ท้ายคิว** ของทั้งสองคิวให้ตรงกัน แล้วบวกตัวที่ตำแหน่งตรงกัน
+2. ถ้าคู่ไหนบวกกันได้ **0** ทั้งคู่หายไป
+3. ตัวที่ไม่มีคู่ อยู่ที่ตำแหน่งของมันหลังจัดให้ตรงกัน และ **ถึงเป็น 0 ก็ไม่หาย**
+
+เมื่อเสร็จ `other` ต้องว่าง ยกเว้น `other` กับ `this` เป็นคิวเดียวกัน (ทุกตัวบวกกับตัวเอง และไม่ล้างคิว) address ของ `this`, `other` และ `mData` ทั้งสองต้องไม่เปลี่ยน ยกเว้น `this->mData` ที่เปลี่ยนได้เฉพาะตอนขยายความจุ
+
+ตัวอย่าง: A = {1,2,3,4}, B = {5,0,6,−2,8,−9} (ซ้ายสุดคือหน้าคิว) หลัง `A.fusion(B)` ได้ A = {5, 0, 1+6, (2−2 = 0 หายไป), 3+8, 4−9} = {5,0,7,11,−5}
+
+ขอบเขต: a, b ≤ 5·10⁵ คำสั่งไม่เกิน 10⁵ คิวใด ๆ ไม่เกิน 10⁶ ตัว ชุดทดสอบ: 5% other ว่าง, 10% this กับ other เป็นคิวเดียวกัน, 20% ยาวเท่ากัน, 65% ไม่มีเงื่อนไข
+
+## 2. จริง ๆ แล้วถามอะไร
+นึกภาพสองคิวจัดชิดขวา (เหมือนบวกเลขในแนวตั้ง ที่หลักหน่วยต้องตรงกัน):
+
+```text
+A:        1  2  3  4
+B:  5  0  6 -2  8 -9
+    ^^^^ มีแค่ใน B: ลอกมาตามเดิม
+          ^^^^^^^^^^ คู่: 7  0  11 -5   (ตัวที่เป็น 0 ทิ้ง)
+```
+
+ผลลัพธ์ยาว max(n, m) ลบจำนวนคู่ที่ทิ้ง คิวนี้เป็น **อาร์เรย์วงกลม**: ตัวที่ i (0 = หน้าคิว) อยู่ที่ `mData[(mFront + i) % mCap]` กับดักคือความเร็ว: ถ้า A ใหญ่มากแต่ B เล็กนิดเดียว (ชุดทดสอบความเร็ว push หนึ่งตัวเข้า B แล้วหลอมเข้า A ขนาด 500,000 ตัว 50,000 ครั้ง) วิธีที่ไล่ทั้ง A ทุกครั้งจะใช้ 2.5·10¹⁰ ขั้น เราต้องการ **O(m)** ต่อครั้ง โดย m คือขนาดของ other
+
+## 3. อะไร ทำไม อย่างไร
+ให้ n = ขนาดของ this, m = ขนาดของ other
+
+- **กรณี m ≤ n** (other สั้นกว่า): เปลี่ยนแค่ m ตัวท้ายของ this ตัวที่ 0 … n−m−1 ไม่ต้องแตะ ไล่ j = 0 … m−1 ทีละคู่ (index ของ this คือ i = n−m+j, ของ other คือ j) คำนวณ v = x + y แล้ว **บีบให้ชิด (compact)**: เขียน v ที่ตำแหน่ง w (เริ่ม w = n−m) เฉพาะเมื่อ v ≠ 0 เพราะ w ≤ i เสมอ จึงไม่เขียนทับตัวที่ยังต้องอ่าน ขนาดใหม่ = w ใช้เวลา O(m)
+- **กรณี m > n** (other ยาวกว่า): เรียก `ensureCapacity(m)` ก่อน (เป็นครั้งเดียวที่ mData อาจย้าย) ให้ d = m − n จับคู่ this[i] กับ other[d+i] สำหรับ i = 0 … n−1 บีบให้ชิดโดยเริ่ม w = 0 จากนั้น d ตัวแรกของ other ไม่มีคู่: เอาไปไว้ **ข้างหน้า** โดยถอย `mFront` ทีละช่อง สำหรับ j = d−1 ลงไปถึง 0 ลำดับจะออกมาถูก (เหมือนต่อแถวด้านหน้า คนสุดท้ายของกลุ่มต้องยืนก่อน) ใช้เวลา O(n + d) = O(m)
+- **this == other**: เข้ากรณี m ≤ n โดย m = n ทุกตัวถูกคูณสอง (หรือทิ้งถ้า 0+0) อ่านจาก other กับเขียนลง this เป็นอาร์เรย์เดียวกัน แต่เพราะ w ≤ i การบีบยังปลอดภัย แค่ห้ามล้างคิวตอนจบ: `if (&other != this)`
+- **ล้าง other** = `mSize = 0; mFront = 0;` ห้าม `delete[]` หรือจองใหม่ เพราะ address ของ mData ต้องเหมือนเดิม
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (n = 4, m = 6 จึงเป็นกรณี m > n โดย d = 2; ทั้งสองคิวเริ่มที่ mFront = 0):
+
+| ขั้น | i หรือ j | x (this) | y (other) | v = x+y | ทำอะไร | A ตอนนี้ |
+|---|---|---|---|---|---|---|
+| จับคู่ | i=0 | 1 | other[2] = 6 | 7 | เขียนที่ w=0 | 7 |
+| จับคู่ | i=1 | 2 | other[3] = −2 | 0 | ข้าม | 7 |
+| จับคู่ | i=2 | 3 | other[4] = 8 | 11 | เขียนที่ w=1 | 7 11 |
+| จับคู่ | i=3 | 4 | other[5] = −9 | −5 | เขียนที่ w=2 | 7 11 −5 |
+| ต่อหน้า | j=1 | | other[1] = 0 | | ถอย mFront เก็บ 0 (เก็บไว้เพราะไม่มีคู่) | 0 7 11 −5 |
+| ต่อหน้า | j=0 | | other[0] = 5 | | ถอย mFront เก็บ 5 | 5 0 7 11 −5 |
+
+mSize = 5, B ว่าง ผลลัพธ์ `5 0 7 11 -5` ✓
+
+**ตัวอย่างที่ 3 `f A A`** กับ A = {5,−5,2}: m = n = 3, w เริ่มที่ 0: 10, −10, 4 (ไม่มีผลรวมเป็น 0) A ไม่ถูกล้าง จากนั้น B = {10,−4}, `f A B`: m = 2 ≤ n = 3, A[0] = 10 ไม่แตะ, −10+10 = 0 ทิ้ง, 4−4 = 0 ทิ้ง → {10} ✓
+
+## 5. จุดที่มักพลาด
+- **จับหน้าคิวให้ตรงกัน** แทนท้ายคิว
+- **ทิ้ง 0 ที่ไม่มีคู่** (0 ใน B ด้านบนต้องอยู่)
+- **สร้างอาร์เรย์ใหม่แล้วสลับเข้าไป**: ทำให้ address ของ mData เปลี่ยนทั้งที่ไม่ได้ขยายความจุ grader ตรวจตรงนี้
+- **ล้าง other ตอนที่ &other == this** (ตัวอย่างที่ 3 ต้องการให้ A ยังมีข้อมูล)
+- **ลืมการวนรอบ**: ใช้ `(mFront + i) % mCap` เสมอ ห้ามใช้ `mData[i]`
+- **O(n + m) ต่อครั้ง**: ถูกแต่ช้าเกินเมื่อ this ใหญ่มากและ other เล็ก
+- **ถอย mFront:** ใช้ `(mFront + mCap − 1) % mCap` ไม่ใช่ `mFront − 1` (ซึ่งติดลบได้)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 04 (Queue): อาร์เรย์วงกลมแปลง index i เป็น `(mFront + i) % mCap` และการเพิ่มที่หน้าคิวก็แค่ถอย mFront หนึ่งช่อง เทคนิค **บีบด้วยสองตัวชี้** (ตัวอ่าน i ตัวเขียน w ≤ i) เป็นเทคนิคเดียวกับ `std::remove_if`: กรองอาร์เรย์ในที่เดิมโดยไม่ใช้หน่วยความจำเพิ่ม

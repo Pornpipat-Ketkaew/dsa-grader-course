@@ -1,0 +1,125 @@
+id: 69_DS1
+group: s68
+lesson: 07 · Trees & BST + 06 · heap array layout
+stars: 2
+kind: flatten()
+tags: map_bst, height, heap indices 2i+1 / 2i+2, recursion
+title: Flatten Tree
+title_th: แปลงต้นไม้เป็นเวกเตอร์ (Flatten Tree)
+blurb: Write a BST into a vector using heap positions (root 0, children 2i+1 and 2i+2), with 0 in every empty slot down to the deepest level.
+blurb_th: เขียน BST ลงเวกเตอร์ตามตำแหน่งแบบฮีป (ราก 0 ลูก 2i+1 และ 2i+2) ช่องที่ไม่มีโหนดใส่ 0 จนถึงชั้นที่ลึกที่สุด
+files: sol/69_DS1/student.h
+tests: all 4 PDF samples plus a 2-node tree; 300 random trees (including chains) against a Python model that places each key by walking the BST; a perfect tree of 65,535 keys (16 full levels) in 0.02 s. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF และต้นไม้ 2 โหนด; สุ่ม 300 ต้น (รวมต้นไม้เส้นตรง) เทียบกับโมเดลใน Python ที่หาตำแหน่งของแต่ละ key โดยเดินตาม BST; ต้นไม้สมบูรณ์ 65,535 key (16 ชั้นเต็ม) ใช้ 0.02 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan
+==== en
+## 1. What the problem says
+Add `std::vector<KeyT> flatten() const` to `CP::map_bst`. Put every node's key into a vector using the **binary-heap numbering**:
+- the root is at index **0**;
+- the left child of index i is at **2i + 1**, the right child at **2i + 2** (the parent of i is (i − 1)/2).
+
+The vector must have **every slot of every level** from the root down to the deepest level that has a real node, with **0** in each slot that has no node. Keys equal values here, so writing the key is enough.
+
+- Two helpers are provided: `int recursive1(node* n)` and `void recursive2(node* n, size_t i, std::vector<KeyT>& v)`; use them as you like.
+- Edit only `student.h`, no I/O. The grader's `main` differs.
+- 1 ≤ n ≤ 65,535 distinct keys in 1..10⁹. Subtasks: 30% height ≤ 5 (at most 6 levels); 70% nothing else.
+
+## 2. What it really means
+Draw the tree as if it were a complete tree and read it level by level, writing 0 for missing nodes. Sample 4 (insert 8 3 12 6 10 4 11):
+
+```text
+level 0:                 8                       index 0
+level 1:         3               12              index 1, 2
+level 2:     0       6       10       0          index 3..6
+level 3:   0   0   4   0   0   11   0   0        index 7..14
+
+vector: 8 3 12 0 6 10 0 0 0 4 0 0 11 0 0         (15 = 2^4 - 1 slots)
+```
+
+Note the children of a missing node (index 3) still get their slots (7 and 8), all 0.
+
+## 3. What, why, how
+- **Size first.** A tree with `levels` levels needs all slots 0 .. 2^levels − 2, so the size is **2^levels − 1**. `recursive1` computes `levels` (empty → 0, otherwise 1 + max of the children). Create the vector filled with 0 once.
+- **Then place.** `recursive2(n, i, v)`: if n is NULL return; else `v[i] = key`, recurse left with 2i + 1 and right with 2i + 2. Each node is visited once.
+- **Cost:** O(n) for the two walks plus O(2^levels) to create the vector, which is the size of the answer anyway.
+- **Why heap numbering works for any tree:** the index of a node depends only on its path from the root (left = ×2+1, right = ×2+2), not on which other nodes exist.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (insert 8 3 10 6; levels = 3 so 7 slots):
+
+| call | node | index i | writes | children go to |
+|---|---|---|---|---|
+| r2(8, 0) | 8 | 0 | v[0] = 8 | 1, 2 |
+| r2(3, 1) | 3 | 1 | v[1] = 3 | 3 (NULL), 4 |
+| r2(6, 4) | 6 | 4 | v[4] = 6 | 9, 10 (both NULL) |
+| r2(10, 2) | 10 | 2 | v[2] = 10 | 5, 6 (both NULL) |
+
+Result `8 3 10 0 6 0 0`.
+
+## 5. Traps
+- **Size = number of nodes:** wrong; empty slots count. Sample 1 has 4 nodes but 7 slots.
+- **Size = 2 × (largest index) or similar guesses:** the vector must end exactly at the last slot of the deepest level (sample 1 ends with two 0s at indices 5 and 6, beyond the largest used index 4).
+- **Height off by one:** count levels (one node → 1 level → 1 slot). With "height in edges" you need 2^(h+1) − 1.
+- **Pushing back level by level with a queue (BFS)** also works, but you must push 0 placeholders for missing children and stop exactly at the last level; the index formula is simpler.
+- **Very tall trees:** a chain of 40 nodes would need 2^40 slots. The tests can't contain that (the answer would not fit in memory), but use `size_t` for indices.
+
+## 6. Background
+Lesson 06: the **array layout of a heap** (children at 2i+1, 2i+2) is just a numbering of positions in a complete binary tree; here it is applied to any BST. Lesson 07, section 4: one recursion computes a value **up** (levels), the other passes a value **down** (the index i).
+==== th
+## 1. โจทย์บอกอะไร
+ให้เพิ่ม `std::vector<KeyT> flatten() const` ในคลาส `CP::map_bst` เขียน key ของทุกโหนดลงเวกเตอร์โดยใช้ **การกำหนดเลขตำแหน่งแบบ binary heap**:
+- รากอยู่ที่ index **0**
+- ลูกซ้ายของ index i อยู่ที่ **2i + 1** ลูกขวาอยู่ที่ **2i + 2** (พ่อของ i อยู่ที่ (i − 1)/2)
+
+เวกเตอร์ต้องมี **ทุกช่องของทุกชั้น** ตั้งแต่รากจนถึงชั้นที่ลึกที่สุดที่มีโหนดจริง ช่องที่ไม่มีโหนดให้ใส่ **0** ข้อนี้ key = value เสมอ เขียน key อย่างเดียวก็พอ
+
+- มีฟังก์ชันช่วย `int recursive1(node* n)` และ `void recursive2(node* n, size_t i, std::vector<KeyT>& v)` ให้ใช้ได้ตามต้องการ
+- แก้ได้เฉพาะ `student.h` ห้ามอ่าน/พิมพ์ข้อมูล `main` ใน grader ต่างออกไป
+- 1 ≤ n ≤ 65,535 key ไม่ซ้ำ อยู่ใน 1..10⁹ ชุดทดสอบ: 30% ความสูง ≤ 5 (ไม่เกิน 6 ชั้น); 70% ไม่มีเงื่อนไขอื่น
+
+## 2. จริง ๆ แล้วถามอะไร
+วาดต้นไม้เหมือนเป็นต้นไม้สมบูรณ์ แล้วอ่านทีละชั้น ช่องที่ไม่มีโหนดเขียน 0 (เหมือนผังที่นั่งในโรงหนัง: ทุกเก้าอี้มีเลขที่นั่ง ไม่ว่าจะมีคนนั่งหรือไม่) ตัวอย่างที่ 4 (ใส่ 8 3 12 6 10 4 11):
+
+```text
+level 0:                 8                       index 0
+level 1:         3               12              index 1, 2
+level 2:     0       6       10       0          index 3..6
+level 3:   0   0   4   0   0   11   0   0        index 7..14
+
+vector: 8 3 12 0 6 10 0 0 0 4 0 0 11 0 0         (15 = 2^4 - 1 slots)
+```
+
+สังเกตว่าลูกของช่องที่ไม่มีโหนด (index 3) ก็ยังมีช่องของตัวเอง (7 และ 8) เป็น 0 ทั้งคู่
+
+## 3. อะไร ทำไม อย่างไร
+- **หาขนาดก่อน** ต้นไม้ที่มี `levels` ชั้นต้องมีช่อง 0 .. 2^levels − 2 ขนาดจึงเป็น **2^levels − 1** `recursive1` คำนวณ `levels` (ว่าง → 0 ไม่งั้น 1 + ค่ามากสุดของลูก) แล้วสร้างเวกเตอร์ที่เติม 0 ไว้ครั้งเดียว
+- **แล้วค่อยวาง** `recursive2(n, i, v)`: ถ้า n เป็น NULL ให้ return ไม่งั้น `v[i] = key` แล้วเวียนเกิดไปซ้ายด้วย 2i + 1 และไปขวาด้วย 2i + 2 แต่ละโหนดถูกเยี่ยมครั้งเดียว
+- **เวลา:** O(n) สำหรับการเดินสองรอบ บวก O(2^levels) สำหรับสร้างเวกเตอร์ ซึ่งก็คือขนาดของคำตอบอยู่แล้ว
+- **ทำไมเลขแบบฮีปใช้ได้กับต้นไม้ทุกแบบ:** index ของโหนดขึ้นกับเส้นทางจากรากเท่านั้น (ซ้าย = ×2+1, ขวา = ×2+2) ไม่ขึ้นกับว่ามีโหนดอื่นอยู่หรือไม่
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (ใส่ 8 3 10 6; levels = 3 จึงมี 7 ช่อง):
+
+| การเรียก | โหนด | index i | เขียน | ลูกไปที่ |
+|---|---|---|---|---|
+| r2(8, 0) | 8 | 0 | v[0] = 8 | 1, 2 |
+| r2(3, 1) | 3 | 1 | v[1] = 3 | 3 (NULL), 4 |
+| r2(6, 4) | 6 | 4 | v[4] = 6 | 9, 10 (NULL ทั้งคู่) |
+| r2(10, 2) | 10 | 2 | v[2] = 10 | 5, 6 (NULL ทั้งคู่) |
+
+ผลลัพธ์ `8 3 10 0 6 0 0`
+
+## 5. จุดที่มักพลาด
+- **ขนาด = จำนวนโหนด:** ผิด ช่องว่างก็ต้องนับ ตัวอย่างที่ 1 มี 4 โหนดแต่มี 7 ช่อง
+- **เดาขนาดเป็น 2 × (index มากสุด) หรือแบบอื่น:** เวกเตอร์ต้องจบที่ช่องสุดท้ายของชั้นที่ลึกที่สุดพอดี (ตัวอย่างที่ 1 จบด้วย 0 สองตัวที่ index 5 และ 6 ซึ่งเลย index ที่ใช้จริงมากสุดคือ 4)
+- **ความสูงคลาดไปหนึ่ง:** นับเป็นจำนวนชั้น (โหนดเดียว → 1 ชั้น → 1 ช่อง) ถ้าใช้ "ความสูงนับเป็นเส้นเชื่อม" ต้องใช้ 2^(h+1) − 1
+- **ใช้คิวไล่ทีละชั้น (BFS) แล้ว push_back** ก็ได้ แต่ต้องใส่ 0 แทนลูกที่ไม่มี และหยุดที่ชั้นสุดท้ายพอดี ใช้สูตร index ง่ายกว่า
+- **ต้นไม้สูงมาก:** เส้นตรง 40 โหนดต้องใช้ 2^40 ช่อง ชุดทดสอบมีแบบนั้นไม่ได้ (คำตอบใหญ่เกินหน่วยความจำ) แต่ควรใช้ `size_t` เป็น index
+
+## 6. ความรู้พื้นฐาน
+บทที่ 06: **การเก็บฮีปในอาร์เรย์** (ลูกที่ 2i+1, 2i+2) ก็คือการให้เลขตำแหน่งในต้นไม้ทวิภาคสมบูรณ์ ข้อนี้เอามาใช้กับ BST ทั่วไป บทที่ 07 หัวข้อ 4: การเวียนเกิดหนึ่งคำนวณค่า **ขึ้น** (จำนวนชั้น) อีกอันส่งค่า **ลง** (index i)

@@ -1,0 +1,143 @@
+id: 69_DS4
+group: s68
+lesson: 05 · Linked list (doubly linked, header node)
+stars: 4
+kind: rotate()
+tags: SegmentList, cut / splice / merge, iterator = ptr + off, header never merges
+title: Segment Rotator
+title_th: หมุนช่วงในลิสต์แบบ segment (Segment Rotator)
+blurb: Rotate the range [a, b) right by k in a run-length linked list: cut at three points, move the block of nodes, then merge equal neighbours at three joints, keeping a and b on the right elements.
+blurb_th: หมุนช่วง [a, b) ไปทางขวา k ตำแหน่งในลิสต์ที่เก็บเป็น segment: ตัดสามจุด ย้ายก้อน node แล้วรวมเพื่อนบ้านที่ค่าเท่ากันสามรอยต่อ โดยให้ a และ b ยังชี้ข้อมูลที่ถูกต้อง
+files: sol/69_DS4/student.h
+tests: all 4 PDF samples (header with val 0 next to 0-segments, cuts inside one node, k = 0, b = end()); 500 random lists and rotations against a Python model on the expanded array; a structure harness of 3000 lists × 6 rotations checking prev/next links, len ≥ 1, no equal neighbours, mSegs, mSize, a and b on the right index, and at most 3 new nodes per call; K = 100,000 segments with 100,000 rotations in 0.06 s. ASan + UBSan clean.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF (header ที่มี val 0 ติดกับ segment ค่า 0, ตัดสองครั้งใน node เดียว, k = 0, b = end()); สุ่มลิสต์และการหมุน 500 ชุด เทียบกับแบบจำลองใน Python ที่กางเป็นอาร์เรย์เต็ม; harness ตรวจโครงสร้าง 3000 ลิสต์ × หมุน 6 ครั้ง ตรวจ prev/next, len ≥ 1, ไม่มีเพื่อนบ้านค่าเท่ากัน, mSegs, mSize, a และ b ชี้ index ถูก และสร้าง node ใหม่ไม่เกิน 3 ตัวต่อครั้ง; K = 100,000 segment หมุน 100,000 ครั้ง ใช้ 0.06 วินาที ผ่าน ASan + UBSan
+==== en
+## 1. What the problem says
+`CP::SegmentList<T>` stores a sequence as **segments**: maximal runs of equal values. Each segment is one node with `val`, `len ≥ 1`, `prev`, `next`, in a circular doubly linked list with a header node `mHeader` (val = T(), len 0). `mSegs` = number of segments, `mSize` = sum of len. Neighbouring segments always have **different** values.
+
+An `iterator` is a pair `(ptr, off)`: element number off inside segment ptr. `end()` is `(mHeader, 0)`. Helpers: `insert(it, len, v)` adds a node before `it.ptr` (needs `it.off == 0`), `erase(it)` removes node `it.ptr`; both fix mSegs/mSize but never merge.
+
+Write `void rotate(iterator &a, iterator &b, long long k)`: rotate the elements in [a, b) **right by k** (like `std::rotate`): the last k elements of the range move to its front, in order. 0 ≤ a < b ≤ n, 0 ≤ k < b − a. Afterwards:
+
+1. The list is correct: every len ≥ 1, links and mSegs/mSize right, **no equal neighbours** (merge them). mHeader is not a segment: never merge with it, even if a value equals T() = 0.
+2. `a` points at index a (the first element of the rotated range), `b` at index b (or end()). If merging deletes the node a or b points to, move the iterator to the merged node.
+3. Do not copy segments into new nodes; **move the existing nodes** by relinking. Nodes that leave the list must be deleted.
+
+Sample 1: 5×2 | 1×3 | 7×2 | 5×2 | 7×3 | 2×1, `r 2 9 2`. The two 5s at indices 7–8 move to index 2 and join the 5×2 in front; the two 7-segments that become neighbours join too.
+
+## 2. What it really means
+Let c = b − k. The range [a, b) is two blocks: **L = [a, c)** and **R = [c, b)**. Rotating right by k is just "swap the blocks": the result is R then L. In a linked list that is cheap: **cut** so that a, c and b each start a node, then **unlink R's nodes and relink them in front of a**. Only three places in the list get new neighbours, so only three places can need a merge:
+
+```text
+before:  ... P | L-nodes | R-nodes | B ...
+after:   ... P | R-nodes | L-nodes | B ...
+              ^joint 1  ^joint 2  ^joint 3
+```
+
+Nothing inside R or inside L changes, so no other merge is ever needed.
+
+## 3. What, why, how
+1. **k = 0:** return at once (nothing moves).
+2. **Find c** by walking back k elements from b, a whole segment at a time: if `b.off ≥ k`, c is in b's node at offset `b.off − k`; otherwise subtract b.off, then walk `prev` nodes subtracting their len until the rest fits inside one. Cost = number of segments in R.
+3. **Cut** at b, then c, then a (right to left). Cutting iterator it with off > 0 means: insert a new node with the first `off` elements before it (`insert(iterator(x,0), off, x->val)`), shrink x by off, undo insert's extra `mSize += off`, set `it.off = 0`. If an iterator further left (c or a) pointed into x, it now lives in the new node, with the same offset. At most 3 new nodes are created; these are splits of a segment, not copies of a moved one.
+4. **Splice:** `first = C`, `last = Bn->prev`, `beforeA = A->prev`, `lastOfLeft = C->prev`. Unhook R (`lastOfLeft ↔ Bn`), hook it between beforeA and A (`beforeA ↔ first`, `last ↔ A`). Now `a = (first, 0)`, because index a holds R's first element.
+5. **Merge** the three joints: `merge(first->prev, first)`, `merge(A->prev, A)`, `merge(Bn->prev, Bn)`. A merge of L and R (left and right nodes) is skipped if either is mHeader or the values differ. Otherwise `L->len += R->len`, unlink R, and if a or b pointed to R, move it to `(L, oldLen + off)`; then `delete R`, `mSegs--`.
+
+The cuts and merges are O(1) each, so the whole call is O(segments in R), which you cannot avoid with iterators that hold no index. b stays on index b all along: it only moves when its node is merged, and then onto the same element.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (`r 2 9 2`; list 5×2 [0..1] | 1×3 [2..4] | 7×2 [5..6] | 5×2 [7..8] | 7×3 [9..11] | 2×1 [12]):
+
+| step | what happens | list afterwards | a | b |
+|---|---|---|---|---|
+| start | a = (1×3, 0), b = (7×3, 0), k = 2 | 5×2 1×3 7×2 5×2 7×3 2×1 | (1×3, 0) | (7×3, 0) |
+| find c | b.off = 0 < 2: left = 2; prev node 5×2 has len 2 ≥ 2, c = (5×2 second, 2 − 2 = 0) | same | | |
+| cut | all three offsets are 0, nothing to cut | same | | |
+| splice | R = [5×2], moved before 1×3 | 5×2 **5×2** 1×3 7×2 7×3 2×1 | (moved 5×2, 0) | (7×3, 0) |
+| joint 1 | 5 = 5: merge, a's node deleted, a = (5×4, 2 + 0) | 5×4 1×3 7×2 7×3 2×1 | (5×4, 2) | |
+| joint 2 | 5×4 vs 1×3: different | same | | |
+| joint 3 | 7×2 vs 7×3: merge, b's node deleted, b = (7×5, 2 + 0) | 5×4 1×3 7×5 2×1 | | (7×5, 2) |
+
+Output `5 2 7 3 4`: a points at 5 with 4 − 2 = 2 left in its segment, b at 7 with 5 − 2 = 3 left, 4 segments. ✓
+
+**Sample 2, second rotation** `r 0 10 2`: the last segment 0×2 (which sat just before mHeader) moves to the very front, right after mHeader (val 0). Joint 1 is (mHeader, 0×2) and must **not** merge, otherwise the list loses two elements.
+
+## 5. Traps
+- **Merging with mHeader** because its val is T() = 0 and a real segment has val 0 (sample 2).
+- **Forgetting to fix a or b** when their node is merged away: the iterator dangles (ASan reports heap-use-after-free).
+- **Cutting left to right**: cutting at a first moves elements of a's node into a new node, and a later cut at c or b inside the same node would use stale offsets. Cut from the right and pass the left iterators so they follow.
+- **Copying the moved segments** into new nodes: forbidden by rule 3, and the grader checks node addresses.
+- **mSize after a cut**: `insert` adds len to mSize, but a cut does not change the total, so subtract it again.
+- **Walking element by element** to find c: len can be 10⁹, so walk segment by segment.
+- **a after the rotation**: it must point at R's first element, not stay on L's first element.
+
+## 6. Background
+Lesson 05 (Linked list): with a doubly linked list, moving a whole block of nodes is **O(1) relinking** (this is how `std::list::splice` works), whatever the block's length. **Run-length encoding** (storing value × count) saves space; the price is that every operation must split at its edges and merge equal neighbours afterwards, and the header/sentinel node must be kept out of those merges.
+==== th
+## 1. โจทย์บอกอะไร
+`CP::SegmentList<T>` เก็บลำดับข้อมูลเป็น **segment**: ช่วงของค่าที่เท่ากันและติดกันยาวที่สุด แต่ละ segment คือ node หนึ่งตัวที่มี `val`, `len ≥ 1`, `prev`, `next` อยู่ในลิสต์สองทางแบบวงกลมที่มี node หัว `mHeader` (val = T(), len 0) `mSegs` = จำนวน segment, `mSize` = ผลรวมของ len segment ที่อยู่ติดกันมีค่า **ไม่เท่ากัน** เสมอ (เหมือนเขียน "5 ห้าตัว, 1 สามตัว" แทนการเขียน 5 5 5 5 5 1 1 1)
+
+`iterator` คือคู่ `(ptr, off)`: ข้อมูลตัวที่ off ใน segment ptr ส่วน `end()` คือ `(mHeader, 0)` บริการช่วยเหลือ: `insert(it, len, v)` เพิ่ม node หน้า `it.ptr` (ต้องมี `it.off == 0`), `erase(it)` ลบ node `it.ptr` ทั้งสองปรับ mSegs/mSize ให้ แต่ไม่รวม segment
+
+ให้เขียน `void rotate(iterator &a, iterator &b, long long k)`: หมุนข้อมูลในช่วง [a, b) **ไปทางขวา k ตำแหน่ง** (เหมือน `std::rotate`) คือ k ตัวสุดท้ายของช่วงย้ายไปอยู่หน้าช่วงโดยคงลำดับเดิม 0 ≤ a < b ≤ n, 0 ≤ k < b − a เมื่อเสร็จ:
+
+1. ลิสต์ถูกต้อง: len ≥ 1 ทุกตัว ตัวชี้และ mSegs/mSize ถูก **ไม่มีเพื่อนบ้านค่าเท่ากัน** (ต้องรวม) mHeader ไม่ใช่ segment: ห้ามรวมกับมัน ถึงค่าจะเท่ากับ T() = 0
+2. `a` ชี้ index a (ตัวแรกของช่วงหลังหมุน) `b` ชี้ index b (หรือ end()) ถ้าการรวมลบ node ที่ a หรือ b ชี้อยู่ ต้องย้าย iterator ไปที่ node ที่รวมแล้ว
+3. ห้ามคัดลอก segment ไปสร้าง node ใหม่ ให้ **ย้าย node เดิม** โดยเปลี่ยนตัวชี้ node ที่ออกจากลิสต์ต้องถูก delete
+
+ตัวอย่างที่ 1: 5×2 | 1×3 | 7×2 | 5×2 | 7×3 | 2×1, `r 2 9 2` เลข 5 สองตัวที่ index 7–8 ย้ายไป index 2 แล้วรวมกับ 5×2 ข้างหน้า ส่วน segment 7 สองก้อนที่มาติดกันก็รวมกันด้วย
+
+## 2. จริง ๆ แล้วถามอะไร
+ให้ c = b − k ช่วง [a, b) แบ่งเป็นสองก้อน: **L = [a, c)** และ **R = [c, b)** การหมุนขวา k ตำแหน่งก็คือ "สลับสองก้อน" ได้ R ตามด้วย L ในลิสต์แบบลิงก์ทำได้ถูกมาก: **ตัด** ให้ a, c และ b เป็นจุดเริ่มของ node แล้ว **ปลด node ของ R ไปต่อหน้า a** (เหมือนตู้รถไฟ: ปลดตู้ช่วงหนึ่งออก แล้วไปพ่วงอีกที่ ไม่ต้องขนของในตู้) มีแค่สามที่ในลิสต์ที่ได้เพื่อนบ้านใหม่ จึงมีแค่สามที่ที่อาจต้องรวม:
+
+```text
+ก่อน:  ... P | node ของ L | node ของ R | B ...
+หลัง:  ... P | node ของ R | node ของ L | B ...
+            ^รอยต่อ 1   ^รอยต่อ 2   ^รอยต่อ 3
+```
+
+ข้างใน R และข้างใน L ไม่เปลี่ยน จึงไม่ต้องรวมที่อื่นอีก
+
+## 3. อะไร ทำไม อย่างไร
+1. **k = 0:** return ทันที (ไม่มีอะไรย้าย)
+2. **หา c** โดยถอยจาก b ไป k ตัว ทีละ segment: ถ้า `b.off ≥ k` c อยู่ใน node ของ b ที่ offset `b.off − k` ไม่งั้นลบ b.off ออก แล้วเดิน `prev` ลบ len ทีละ node จนส่วนที่เหลืออยู่ใน node เดียว ใช้เวลา = จำนวน segment ใน R
+3. **ตัด** ที่ b แล้ว c แล้ว a (จากขวาไปซ้าย) การตัดที่ iterator it ที่มี off > 0 คือ: สร้าง node ใหม่ที่มี `off` ตัวแรกไว้ข้างหน้า (`insert(iterator(x,0), off, x->val)`), ลด len ของ x ลง off, ลบ `mSize += off` ที่ insert เพิ่มเกินมา แล้วตั้ง `it.off = 0` ถ้า iterator ที่อยู่ซ้ายกว่า (c หรือ a) ชี้อยู่ใน x มันย้ายไปอยู่ใน node ใหม่ โดย offset เท่าเดิม สร้าง node ใหม่ไม่เกิน 3 ตัว ซึ่งเป็นการแบ่ง segment ไม่ใช่การคัดลอกก้อนที่ย้าย
+4. **ต่อสาย (splice):** `first = C`, `last = Bn->prev`, `beforeA = A->prev`, `lastOfLeft = C->prev` ปลด R ออก (`lastOfLeft ↔ Bn`) แล้วพ่วงระหว่าง beforeA กับ A (`beforeA ↔ first`, `last ↔ A`) ตอนนี้ `a = (first, 0)` เพราะ index a เก็บตัวแรกของ R
+5. **รวม** สามรอยต่อ: `merge(first->prev, first)`, `merge(A->prev, A)`, `merge(Bn->prev, Bn)` การรวม L กับ R (node ซ้ายกับขวา) จะข้ามถ้าตัวใดเป็น mHeader หรือค่าต่างกัน ไม่งั้น `L->len += R->len` ปลด R ออก ถ้า a หรือ b ชี้ R ให้ย้ายไปที่ `(L, oldLen + off)` แล้ว `delete R`, `mSegs--`
+
+การตัดและการรวมใช้เวลา O(1) ต่อครั้ง ทั้งฟังก์ชันจึงใช้ O(จำนวน segment ใน R) ซึ่งเลี่ยงไม่ได้เพราะ iterator ไม่ได้เก็บ index b อยู่ที่ index b ตลอด: มันย้ายเฉพาะตอน node ถูกรวม และย้ายไปที่ข้อมูลตัวเดิม
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (`r 2 9 2`; ลิสต์ 5×2 [0..1] | 1×3 [2..4] | 7×2 [5..6] | 5×2 [7..8] | 7×3 [9..11] | 2×1 [12]):
+
+| ขั้น | เกิดอะไรขึ้น | ลิสต์หลังขั้นนี้ | a | b |
+|---|---|---|---|---|
+| เริ่ม | a = (1×3, 0), b = (7×3, 0), k = 2 | 5×2 1×3 7×2 5×2 7×3 2×1 | (1×3, 0) | (7×3, 0) |
+| หา c | b.off = 0 < 2: left = 2; node ก่อนหน้า 5×2 มี len 2 ≥ 2 ได้ c = (5×2 ตัวที่สอง, 2 − 2 = 0) | เหมือนเดิม | | |
+| ตัด | offset ทั้งสามเป็น 0 ไม่ต้องตัด | เหมือนเดิม | | |
+| ต่อสาย | R = [5×2] ย้ายไปหน้า 1×3 | 5×2 **5×2** 1×3 7×2 7×3 2×1 | (5×2 ที่ย้ายมา, 0) | (7×3, 0) |
+| รอยต่อ 1 | 5 = 5: รวม node ของ a ถูกลบ a = (5×4, 2 + 0) | 5×4 1×3 7×2 7×3 2×1 | (5×4, 2) | |
+| รอยต่อ 2 | 5×4 กับ 1×3: ค่าต่างกัน | เหมือนเดิม | | |
+| รอยต่อ 3 | 7×2 กับ 7×3: รวม node ของ b ถูกลบ b = (7×5, 2 + 0) | 5×4 1×3 7×5 2×1 | | (7×5, 2) |
+
+ผลลัพธ์ `5 2 7 3 4`: a ชี้ 5 เหลือ 4 − 2 = 2 ตัวใน segment, b ชี้ 7 เหลือ 5 − 2 = 3 ตัว มี 4 segment ✓
+
+**ตัวอย่างที่ 2 การหมุนครั้งที่สอง** `r 0 10 2`: segment สุดท้าย 0×2 (ซึ่งอยู่ก่อน mHeader) ย้ายไปอยู่หน้าสุด ถัดจาก mHeader (val 0) รอยต่อ 1 คือ (mHeader, 0×2) ซึ่ง **ห้าม** รวม ไม่งั้นข้อมูลจะหายไปสองตัว
+
+## 5. จุดที่มักพลาด
+- **รวมกับ mHeader** เพราะ val ของมันคือ T() = 0 และมี segment จริงที่ค่าเป็น 0 (ตัวอย่างที่ 2)
+- **ลืมแก้ a หรือ b** เมื่อ node ของมันถูกรวมหายไป: iterator ชี้ไปที่หน่วยความจำที่ถูกลบแล้ว (ASan แจ้ง heap-use-after-free)
+- **ตัดจากซ้ายไปขวา**: ตัดที่ a ก่อนจะย้ายข้อมูลส่วนหน้าของ node ของ a ไป node ใหม่ แล้วการตัดที่ c หรือ b ใน node เดียวกันจะใช้ offset ที่ผิด ให้ตัดจากขวา และส่ง iterator ทางซ้ายเข้าไปให้มันตามไปด้วย
+- **คัดลอก segment ที่ย้าย** ไปสร้าง node ใหม่: ผิดกฎข้อ 3 และ grader ตรวจ address ของ node
+- **mSize หลังตัด**: `insert` บวก len เข้า mSize แต่การตัดไม่ได้เปลี่ยนจำนวนข้อมูลทั้งหมด จึงต้องลบออก
+- **เดินทีละตัว** เพื่อหา c: len อาจถึง 10⁹ ต้องเดินทีละ segment
+- **a หลังหมุน**: ต้องชี้ตัวแรกของ R ไม่ใช่ค้างอยู่ที่ตัวแรกของ L
+
+## 6. ความรู้พื้นฐาน
+บทที่ 05 (Linked list): ในลิสต์สองทาง การย้ายก้อน node ทั้งก้อนคือ **การเปลี่ยนตัวชี้ O(1)** (แบบเดียวกับ `std::list::splice`) ไม่ว่าก้อนจะยาวแค่ไหน **Run-length encoding** (เก็บ ค่า × จำนวน) ช่วยประหยัดพื้นที่ แต่แลกกับการที่ทุกคำสั่งต้องตัดที่ขอบ และรวมเพื่อนบ้านค่าเท่ากันหลังทำ และต้องกัน node หัว (sentinel) ไม่ให้เข้าไปรวมด้วย
