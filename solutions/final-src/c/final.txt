@@ -1,0 +1,71 @@
+chapter: final
+==== en
+## 1. How to use this chapter
+These are the six problems of the **da66 final exam**. Unlike the earlier chapters, the technique is **not** given by the chapter title, which is exactly the situation in the exam room. Before reading a solution, try this routine on each problem:
+
+1. **Read the limits first.** They tell you the allowed complexity (see the table below).
+2. **Name the objects.** Cells? Airports? Sequences? Is it a graph, a table to fill, or a list to enumerate?
+3. **Name the question type.** "All …" → enumeration. "How many ways" → counting DP. "Fewest / cheapest" → BFS or Dijkstra. "Connected?" → DFS or union-find.
+4. **Write the state or the graph on paper**, then the cost estimate, then code.
+5. **Test the samples and an edge case** (n = 1, nothing reachable, the largest input) before you submit.
+
+| n is about … | you can afford … | typical tools |
+|---|---|---|
+| 10–12 | O(n!) | permutations, backtracking |
+| 20–25 | O(2ⁿ · n) | subsets, bit masks |
+| 500–700 | O(n³) | Floyd–Warshall, 3 nested loops |
+| 2,000–5,000 | O(n²) | dense Dijkstra / Prim, 2-D DP |
+| 10⁵–10⁶ | O(n log n) | sort, heap, binary search |
+| 10⁷ and more | O(n), small constant | one BFS pass, fast input, 1 byte per cell |
+
+## 2. Map of this chapter
+| problem | what it really is | technique from |
+|---|---|---|
+| [Linear recurrence](#da66_f1_linear_recurrence) | fill a 1-D table | [DP](#ch-dp) |
+| [Map walk](#da66_f1_map_walk) | list every path in alphabetical order | [Brute force](#ch-brute) |
+| [Buffet flight](#da66_f1_buffet_flight) | vertex fees turned into edge weights | [Shortest paths](#ch-sp) |
+| [Sea bridge](#da66_f1_sea_bridge) | shortest path between two regions | [Graph 1](#ch-graph1) |
+| [Grid loop](#da66_f2_grid_loop) | cycles in a degree-≤2 graph | [Graph 1](#ch-graph1) |
+| [New Game Plus](#da66_f2_new_game_plus) | path counting with "last move" in the state | [DP](#ch-dp) |
+
+## 3. Exam habits that save points
+- **Fast input** whenever the input has more than about 10⁶ numbers: Buffet flight and Sea bridge cannot pass without it, and Grid loop reads a million numbers too.
+- **Memory:** count bytes for big grids (25 million cells × 4 bytes = 100 MB).
+- **Mod** after every addition and multiplication in counting problems.
+- **No deep recursion** on inputs with 10⁵+ steps: iterate instead.
+- Statements have **mistakes** (swapped labels, wrong line counts). When the text and the samples disagree, trust the samples, and read the warnings on each page here.
+==== th
+## 1. วิธีใช้บทนี้
+นี่คือโจทย์ทั้งหกข้อของ **ข้อสอบปลายภาค da66** ต่างจากบทก่อน ๆ เพราะ **ไม่มี** ชื่อบทบอกเทคนิค ซึ่งก็คือสถานการณ์จริงในห้องสอบ ก่อนอ่านเฉลย ลองทำตามขั้นตอนนี้กับทุกข้อ:
+
+1. **อ่านขอบเขตก่อน** มันบอกความซับซ้อนที่ยอมรับได้ (ดูตารางข้างล่าง)
+2. **ตั้งชื่อสิ่งของ** ช่อง? สนามบิน? ลำดับ? เป็นกราฟ ตารางที่ต้องเติม หรือรายการที่ต้องแจกแจง
+3. **ตั้งชื่อประเภทคำถาม** "ทุก …" → แจกแจง "มีกี่วิธี" → DP นับจำนวน "น้อยที่สุด / ถูกที่สุด" → BFS หรือ Dijkstra "เชื่อมกันไหม" → DFS หรือ union-find
+4. **เขียน state หรือกราฟลงกระดาษ** แล้วประเมินต้นทุน แล้วค่อยเขียนโค้ด
+5. **ทดสอบตัวอย่างและกรณีขอบ** (n = 1, ไปไม่ถึงเลย, input ใหญ่สุด) ก่อนส่ง
+
+| n ประมาณ … | ทำได้ถึง … | เครื่องมือที่มักใช้ |
+|---|---|---|
+| 10–12 | O(n!) | permutation, backtracking |
+| 20–25 | O(2ⁿ · n) | เซตย่อย, bit mask |
+| 500–700 | O(n³) | Floyd–Warshall, ลูปซ้อน 3 ชั้น |
+| 2,000–5,000 | O(n²) | Dijkstra / Prim แบบหนาแน่น, DP 2 มิติ |
+| 10⁵–10⁶ | O(n log n) | sort, heap, binary search |
+| 10⁷ ขึ้นไป | O(n) ค่าคงที่เล็ก | BFS รอบเดียว, input เร็ว, 1 ไบต์ต่อช่อง |
+
+## 2. แผนที่ของบทนี้
+| โจทย์ | จริง ๆ แล้วคืออะไร | เทคนิคจากบท |
+|---|---|---|
+| [Linear recurrence](#da66_f1_linear_recurrence) | เติมตาราง 1 มิติ | [DP](#ch-dp) |
+| [Map walk](#da66_f1_map_walk) | แจกแจงทุกเส้นทางตามลำดับตัวอักษร | [Brute force](#ch-brute) |
+| [Buffet flight](#da66_f1_buffet_flight) | เปลี่ยนค่าบนปมเป็นน้ำหนักเส้น | [เส้นทางสั้นสุด](#ch-sp) |
+| [Sea bridge](#da66_f1_sea_bridge) | เส้นทางสั้นสุดระหว่างสองพื้นที่ | [กราฟ 1](#ch-graph1) |
+| [Grid loop](#da66_f2_grid_loop) | วงวนในกราฟที่ดีกรี ≤ 2 | [กราฟ 1](#ch-graph1) |
+| [New Game Plus](#da66_f2_new_game_plus) | นับเส้นทางโดยใส่ "ท่าล่าสุด" ใน state | [DP](#ch-dp) |
+
+## 3. นิสัยในห้องสอบที่ช่วยเก็บคะแนน
+- **input เร็ว** เมื่อ input มีตัวเลขเกินราว 10⁶ ตัว: Buffet flight กับ Sea bridge ผ่านไม่ได้ถ้าไม่มี และ Grid loop ก็อ่านตัวเลขเป็นล้านตัว
+- **หน่วยความจำ:** นับไบต์สำหรับตารางใหญ่ (25 ล้านช่อง × 4 ไบต์ = 100 MB)
+- **mod** หลังทุกการบวกและคูณในโจทย์นับจำนวน
+- **ไม่ใช้ recursion ลึก** กับ input ที่มีขั้นตอน 10⁵ ขึ้นไป: ใช้ลูปแทน
+- โจทย์มี **ข้อผิดพลาด** (ป้ายสลับกัน, จำนวนบรรทัดผิด) เมื่อข้อความกับตัวอย่างขัดกัน ให้เชื่อตัวอย่าง และอ่านคำเตือนในแต่ละหน้าของหนังสือนี้

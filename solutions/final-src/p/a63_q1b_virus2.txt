@@ -1,0 +1,138 @@
+id: a63_q1b_virus2
+group: dc
+lesson: 12 · Divide & conquer
+stars: 2
+complexity: O(n · 2^k)
+kind: program
+tags: recursion on halves, return extra information, count of ones
+title: Virus 2 (DIVOC-20)
+title_th: ไวรัสระบาด 2 (DIVOC-20)
+blurb: Any 2-digit code is a virus; two viruses may be joined if their numbers of 1s differ by at most one. Recurse on halves and return the count of 1s (or −1 for "invalid").
+blurb_th: รหัส 2 หลักทุกแบบเป็นไวรัส ไวรัสสองตัวต่อกันได้ถ้าจำนวนเลข 1 ต่างกันไม่เกินหนึ่ง เวียนเกิดทีละครึ่งแล้วคืนจำนวนเลข 1 (หรือ −1 เมื่อไม่ถูกต้อง)
+files: sol/a63_q1b_virus2/main.cpp
+tests: all 3 PDF samples; 300 random cases (valid codes built top-down, some with one flipped bit, some random; k ≤ 4) against a Python set of every valid code generated from the definition; 15 random valid codes of size 2¹⁰ all accepted.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF; สุ่ม 300 ชุด (รหัสถูกต้องที่สร้างจากบนลงล่าง บางตัวพลิก 1 บิต บางตัวสุ่มล้วน; k ≤ 4) เทียบกับเซตรหัสถูกต้องทั้งหมดที่สร้างจากนิยามใน Python; รหัสถูกต้องสุ่มขนาด 2¹⁰ จำนวน 15 ตัวถูกยอมรับทั้งหมด
+==== en
+## 1. What the problem says
+DIVOC-20 codes are 0/1 strings of length 2^k:
+
+- size 2¹: **all four** codes `00`, `01`, `10`, `11` are viruses;
+- size 2^k: a · b where a and b are viruses of size 2^(k−1) **and the number of 1s in a differs from the number of 1s in b by at most 1**.
+
+n codes (2 ≤ n ≤ 15), k ≤ 10 (length up to 1,024). Print `yes` / `no` for each.
+
+## 2. What it really means
+Cut in the middle and check three things: left is valid, right is valid, their counts of 1s are close.
+
+```text
+0 1 0 1 │ 0 1 1 1          left 0101: (01 | 01) counts 1 and 1 ✓ → 2 ones
+                           right 0111: (01 | 11) counts 1 and 2 ✓ → 3 ones
+                           top: 2 vs 3 ✓                         → yes
+0 0 1 1 │ 0 0 1 1          left 0011: (00 | 11) counts 0 and 2 ✗ → no
+```
+
+:::hint Hint 1
+A function that only answers yes/no forces the parent to count the 1s of each half again. Can the child return **more** than a bool?
+:::
+:::hint Hint 2
+Return the number of 1s when the piece is valid and −1 when it is not. The parent then has everything it needs in O(1).
+:::
+
+## 3. What, why, how
+- **What:** the same "undo the construction" idea as [Virus](#a62_q1b_virus), but the joining rule needs a number from each half.
+- **Why return the count:** the recursion already visits every digit. Passing the count upwards avoids recounting at every level (which would make it O(2^k · k)), and −1 doubles as the "invalid" signal.
+- **How:** `check(l, r)`:
+  1. size 2 → return s[l] + s[l+1] (always valid);
+  2. a = check(left); if a < 0 return −1;
+  3. b = check(right); if b < 0 return −1;
+  4. if |a − b| > 1 return −1; else return a + b.
+- **Cost:** every digit is read once, at a leaf, and there are 2^k − 1 calls in total: O(2^k) per code.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for `1 1 1 1 1 1 1 0 0 1 1 1 1 1 0 1` (third sample, second code):
+
+| piece | left count | right count | difference | returns |
+|---|---|---|---|---|
+| 11 · 11 | 2 | 2 | 0 | 4 |
+| 11 · 10 | 2 | 1 | 1 | 3 |
+| 1111 · 1110 | 4 | 3 | 1 | 7 |
+| 01 · 11 | 1 | 2 | 1 | 3 |
+| 11 · 01 | 2 | 1 | 1 | 3 |
+| 0111 · 1101 | 3 | 3 | 0 | 6 |
+| 11111110 · 01111101 | 7 | 6 | 1 | **13 → yes** |
+
+The first code of that sample ends in `1 1 0 0` instead of `1 1 0 1`: its last quarter `11 · 00` has counts 2 and 0 → −1 → **no**.
+
+## 5. Traps
+- **Checking only the top level:** the rule applies at **every** level. `0011 0101` has top counts 2 and 2, but `00 | 11` inside is invalid.
+- **Comparing the halves' contents** instead of their counts of 1s.
+- **Base case at size 1:** the definition starts at size 2, where every code is valid. Splitting further (`0 | 1`, counts 0 and 1) happens to give the same answers, but stopping at 2 follows the statement and is one level cheaper.
+- **Input format:** digits are separated by spaces.
+
+## 6. Background
+Lesson 12. A recursive function can return a **summary** of the part it solved (a count, a height, a min/max, a hash) so the parent can combine without looking inside again. This is the same "combine step" as merge sort returning a sorted half, or a tree recursion returning a subtree's height.
+==== th
+## 1. โจทย์บอกอะไร
+รหัส DIVOC-20 เป็นสตริง 0/1 ยาว 2^k:
+
+- ขนาด 2¹: **ทั้งสี่แบบ** `00`, `01`, `10`, `11` เป็นไวรัส
+- ขนาด 2^k: a · b โดย a และ b เป็นไวรัสขนาด 2^(k−1) **และจำนวนเลข 1 ใน a ต่างจากจำนวนเลข 1 ใน b ไม่เกิน 1**
+
+มีรหัส n ตัว (2 ≤ n ≤ 15), k ≤ 10 (ยาวได้ถึง 1,024) ให้พิมพ์ `yes` / `no` ของแต่ละตัว
+
+## 2. จริง ๆ แล้วถามอะไร
+ตัดครึ่งแล้วตรวจสามอย่าง: ครึ่งซ้ายถูก ครึ่งขวาถูก และจำนวนเลข 1 ของสองครึ่งใกล้กัน
+
+```text
+0 1 0 1 │ 0 1 1 1          left 0101: (01 | 01) counts 1 and 1 ✓ → 2 ones
+                           right 0111: (01 | 11) counts 1 and 2 ✓ → 3 ones
+                           top: 2 vs 3 ✓                         → yes
+0 0 1 1 │ 0 0 1 1          left 0011: (00 | 11) counts 0 and 2 ✗ → no
+```
+
+:::hint คำใบ้ 1
+ฟังก์ชันที่ตอบแค่ใช่/ไม่ใช่ บังคับให้ตัวแม่ต้องนับเลข 1 ของแต่ละครึ่งใหม่ ตัวลูกคืนค่า **มากกว่า** bool ได้ไหม
+:::
+:::hint คำใบ้ 2
+คืนจำนวนเลข 1 ถ้าส่วนนั้นถูกต้อง และคืน −1 ถ้าไม่ถูก ตัวแม่ก็มีทุกอย่างที่ต้องใช้ใน O(1)
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** แนวคิด "ย้อนขั้นตอนการสร้าง" เหมือนข้อ [Virus](#a62_q1b_virus) แต่กฎการต่อต้องใช้ตัวเลขจากแต่ละครึ่ง
+- **ทำไมคืนจำนวน:** การเวียนเกิดเดินผ่านทุกหลักอยู่แล้ว การส่งจำนวนขึ้นไปทำให้ไม่ต้องนับซ้ำทุกชั้น (ซึ่งจะกลายเป็น O(2^k · k)) และ −1 ใช้เป็นสัญญาณ "ไม่ถูกต้อง" ไปในตัว
+- **อย่างไร:** `check(l, r)`:
+  1. ขนาด 2 → คืน s[l] + s[l+1] (ถูกต้องเสมอ)
+  2. a = check(ซ้าย); ถ้า a < 0 คืน −1
+  3. b = check(ขวา); ถ้า b < 0 คืน −1
+  4. ถ้า |a − b| > 1 คืน −1 ไม่เช่นนั้นคืน a + b
+- **ต้นทุน:** แต่ละหลักถูกอ่านครั้งเดียวที่ใบ และมีการเรียกทั้งหมด 2^k − 1 ครั้ง: O(2^k) ต่อรหัส
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** รหัส `1 1 1 1 1 1 1 0 0 1 1 1 1 1 0 1` (ตัวอย่างที่สาม รหัสที่สอง):
+
+| ส่วน | จำนวนซ้าย | จำนวนขวา | ต่างกัน | คืนค่า |
+|---|---|---|---|---|
+| 11 · 11 | 2 | 2 | 0 | 4 |
+| 11 · 10 | 2 | 1 | 1 | 3 |
+| 1111 · 1110 | 4 | 3 | 1 | 7 |
+| 01 · 11 | 1 | 2 | 1 | 3 |
+| 11 · 01 | 2 | 1 | 1 | 3 |
+| 0111 · 1101 | 3 | 3 | 0 | 6 |
+| 11111110 · 01111101 | 7 | 6 | 1 | **13 → yes** |
+
+รหัสแรกของตัวอย่างเดียวกันลงท้ายด้วย `1 1 0 0` แทน `1 1 0 1`: ส่วนสุดท้าย `11 · 00` มีจำนวน 2 กับ 0 → −1 → **no**
+
+## 5. จุดที่มักพลาด
+- **ตรวจแค่ชั้นบนสุด:** กฎใช้กับ **ทุกชั้น** `0011 0101` ชั้นบนมีจำนวน 2 กับ 2 แต่ข้างใน `00 | 11` ผิด
+- **เทียบเนื้อหาของสองครึ่ง** แทนที่จะเทียบจำนวนเลข 1
+- **กรณีฐานที่ขนาด 1:** นิยามเริ่มที่ขนาด 2 ซึ่งถูกทุกแบบ ถ้าแบ่ง `01` เป็น `0 | 1` (จำนวน 0 กับ 1) ก็บังเอิญได้ผลเหมือนกัน แต่หยุดที่ 2 ตามโจทย์ปลอดภัยกว่า
+- **รูปแบบข้อมูล:** แต่ละหลักคั่นด้วยช่องว่าง
+
+## 6. ความรู้พื้นฐาน
+บทที่ 12 ฟังก์ชันเวียนเกิดคืน **สรุป** ของส่วนที่แก้แล้วได้ (จำนวน ความสูง ค่าน้อยสุด/มากสุด hash) เพื่อให้ตัวแม่รวมผลได้โดยไม่ต้องมองเข้าไปข้างในอีก นี่คือขั้น "รวม" แบบเดียวกับ merge sort ที่คืนครึ่งที่เรียงแล้ว หรือการเวียนเกิดบนต้นไม้ที่คืนความสูงของต้นไม้ย่อย

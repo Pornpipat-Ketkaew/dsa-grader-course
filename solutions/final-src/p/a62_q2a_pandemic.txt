@@ -1,0 +1,140 @@
+id: a62_q2a_pandemic
+group: graph1
+lesson: 16 · Graphs: BFS (multi-source)
+stars: 2
+complexity: O(R · C)
+kind: program
+tags: multi-source BFS, grid, stop at day T
+title: Pandemic
+title_th: โรคระบาด (Pandemic)
+blurb: A virus spreads one cell per day on a grid, never into mountains. Count the infected cells after T days with one BFS that starts from every infected cell at once.
+blurb_th: ไวรัสแพร่วันละหนึ่งช่องบนตาราง และไม่เข้าภูเขา นับช่องที่ติดเชื้อหลัง T วัน ด้วย BFS ครั้งเดียวที่เริ่มจากทุกช่องที่ติดเชื้อพร้อมกัน
+files: sol/a62_q2a_pandemic/main.cpp
+tests: the 3 PDF samples; 300 random grids (up to 6×6, T ≤ 8) against a day-by-day simulation in Python; a 500×500 grid with T = 1,000,000 in 0.02 s.
+tests_th: ตัวอย่าง 3 ชุดใน PDF; สุ่มตาราง 300 ชุด (ถึง 6×6, T ≤ 8) เทียบกับการจำลองทีละวันใน Python; ตาราง 500×500 กับ T = 1,000,000 ใช้ 0.02 วินาที
+==== en
+## 1. What the problem says
+The country is an R × C grid (1 ≤ R, C ≤ 500). Each cell is
+- **0**: healthy land,
+- **1**: infected on day 0,
+- **2**: a mountain, which the virus can never enter.
+
+If a cell is infected on day x, its 4 neighbours (up, down, left, right) are infected on day x + 1. After **T** days (0 ≤ T ≤ 1,000,000), how many cells are infected?
+
+Sample 2: a 3 × 3 grid with two infected corners and T = 2 → **8**.
+
+## 2. What it really means
+"Infected on day d" means **BFS distance d from the nearest infected cell**, walking only through non-mountain cells. So the answer is the number of cells whose distance to the **nearest** source is ≤ T.
+
+That is a **multi-source BFS**: put every day-0 cell in the queue first, at distance 0, and run one ordinary BFS.
+
+```text
+sample 2, distance to the nearest 1:
+   day 0       distances      T = 2: count cells with distance ≤ 2
+   0 0 1        2 1 0           ✓ ✓ ✓
+   0 0 0        3 2 1           ✗ ✓ ✓      → 8 cells
+   0 0 1        2 1 0           ✓ ✓ ✓
+```
+
+:::hint Hint 1
+Running one BFS per infected cell is too slow when half the map is infected. Can one BFS start in many places at once?
+:::
+:::hint Hint 2
+T can be 1,000,000, but the BFS stops by itself once the queue is empty. You only need T to decide whether to expand a cell.
+:::
+
+## 3. What, why, how
+- **What:** BFS on a grid graph (cells are nodes, side-sharing neighbours are edges), with all sources in the queue at the start.
+- **Why one BFS is enough:** imagine a super-source joined to every infected cell by a 0-length edge. A BFS from it gives each cell its distance to the nearest real source. Putting all sources in the queue at distance 0 *is* that BFS, without building the extra node.
+- **Why the queue order matters:** BFS pops cells in non-decreasing distance. So when you pop a cell with day = T, every later cell has day ≥ T too, and none of its neighbours (day T + 1) should be added.
+- **How:** day[][] = −1. Push every 1-cell with day 0. Pop (r, c): count it; if day == T stop expanding; otherwise give each in-bounds, non-mountain, unseen neighbour day + 1 and push it.
+- **Cost:** every cell enters the queue at most once: O(R · C) = 250,000 cells. T never enters the cost.
+- **Why not simulate day by day:** each day costs O(R · C), and T can be 10⁶: 2.5 × 10¹¹ steps.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1 (5 × 4, T = 3, one source at row 3, column 2; the mountain is at row 3, column 1):
+
+| day | new cells this day | infected so far |
+|---|---|---|
+| 0 | (3,2) | 1 |
+| 1 | (2,2) (4,2) (3,3) | 4 |
+| 2 | (1,2) (2,1) (2,3) (4,1) (4,3) | 9 |
+| 3 | (0,2) (1,1) (1,3) (2,0) (4,0) | **14** |
+
+The mountain (3,1) is never entered, and (3,0) is reached only on day 4, so it is not counted.
+
+## 5. Traps
+- **T = 0:** the answer is just the number of 1s. The check `day == T` before expanding handles it.
+- **Simulating T days:** times out for large T, and wastes work once the grid stops changing.
+- **One BFS per source:** O(sources · R · C), too slow.
+- **Counting mountains or 0-cells that were never reached:** count only popped cells.
+- **Reading 250,000 numbers with slow input:** use `scanf` or turn off cin syncing.
+
+## 6. Background
+Lesson 16. Multi-source BFS appears again in [Hacking](#a58_q3_p3a_hacking) (with weights, so Dijkstra) and in [Sea bridge](#da66_f1_sea_bridge). The idea "add a virtual source joined to all real sources" works for BFS, Dijkstra and even MST. Compare also the depth cut-off in [Connection](#ex05m2_connection).
+==== th
+## 1. โจทย์บอกอะไร
+ประเทศเป็นตาราง R × C (1 ≤ R, C ≤ 500) แต่ละช่องเป็น
+- **0**: พื้นที่ปกติ ยังไม่ติดเชื้อ
+- **1**: ติดเชื้อตั้งแต่วันที่ 0
+- **2**: ภูเขา ไวรัสเข้าไม่ได้เลย
+
+ถ้าช่องหนึ่งติดเชื้อในวันที่ x ช่องข้างเคียง 4 ทิศ (บน ล่าง ซ้าย ขวา) จะติดในวันที่ x + 1 ถามว่าเมื่อผ่านไป **T** วัน (0 ≤ T ≤ 1,000,000) มีกี่ช่องที่ติดเชื้อ
+
+ตัวอย่างที่ 2: ตาราง 3 × 3 มีมุมที่ติดเชื้อสองมุม T = 2 → **8**
+
+## 2. จริง ๆ แล้วถามอะไร
+"ติดเชื้อในวันที่ d" แปลว่า **ระยะ BFS เท่ากับ d จากช่องติดเชื้อที่ใกล้ที่สุด** โดยเดินผ่านเฉพาะช่องที่ไม่ใช่ภูเขา คำตอบจึงคือจำนวนช่องที่ระยะไปยังจุดเริ่ม **ที่ใกล้ที่สุด** ≤ T
+
+นี่คือ **BFS หลายจุดเริ่ม (multi-source BFS)**: ใส่ทุกช่องที่ติดเชื้อวันที่ 0 ลงคิวก่อนด้วยระยะ 0 แล้วทำ BFS ธรรมดาครั้งเดียว
+
+```text
+sample 2, distance to the nearest 1:
+   day 0       distances      T = 2: count cells with distance ≤ 2
+   0 0 1        2 1 0           ✓ ✓ ✓
+   0 0 0        3 2 1           ✗ ✓ ✓      → 8 cells
+   0 0 1        2 1 0           ✓ ✓ ✓
+```
+
+:::hint คำใบ้ 1
+ทำ BFS หนึ่งครั้งต่อช่องติดเชื้อหนึ่งช่องจะช้าเกินไปถ้าครึ่งแผนที่ติดเชื้อ BFS ครั้งเดียวเริ่มจากหลายที่พร้อมกันได้ไหม
+:::
+:::hint คำใบ้ 2
+T อาจเป็น 1,000,000 แต่ BFS จะหยุดเองเมื่อคิวว่าง เราใช้ T แค่ตัดสินว่าจะขยายช่องนั้นต่อหรือไม่
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** BFS บนกราฟตาราง (ช่องคือปม ช่องที่มีด้านติดกันคือเส้นเชื่อม) โดยใส่ทุกจุดเริ่มลงคิวตั้งแต่แรก
+- **ทำไม BFS ครั้งเดียวพอ:** ลองนึกถึงปมพิเศษ (super-source) ที่ต่อกับทุกช่องติดเชื้อด้วยเส้นยาว 0 BFS จากปมนี้ให้ระยะของทุกช่องไปยังจุดเริ่มจริงที่ใกล้ที่สุด การใส่ทุกจุดเริ่มลงคิวด้วยระยะ 0 *ก็คือ* BFS นั้นเอง โดยไม่ต้องสร้างปมเพิ่ม
+- **ทำไมลำดับในคิวสำคัญ:** BFS ดึงช่องออกตามระยะที่ไม่ลดลง ดังนั้นเมื่อดึงช่องที่ day = T ช่องที่ตามมาทั้งหมดก็มี day ≥ T และไม่ควรเพิ่มเพื่อนบ้านของมัน (ซึ่งจะเป็น day T + 1)
+- **อย่างไร:** day[][] = −1 ใส่ทุกช่องที่เป็น 1 ด้วย day 0 ดึง (r, c): นับมัน; ถ้า day == T ไม่ต้องขยาย; ไม่อย่างนั้นให้เพื่อนบ้านที่อยู่ในตาราง ไม่ใช่ภูเขา และยังไม่เคยเห็น มี day + 1 แล้วใส่ลงคิว
+- **ต้นทุน:** ทุกช่องเข้าคิวอย่างมากครั้งเดียว: O(R · C) = 250,000 ช่อง T ไม่อยู่ในต้นทุนเลย
+- **ทำไมไม่จำลองทีละวัน:** แต่ละวันใช้ O(R · C) และ T อาจเป็น 10⁶: 2.5 × 10¹¹ ขั้น
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 (5 × 4, T = 3, จุดเริ่มเดียวที่แถว 3 คอลัมน์ 2; ภูเขาอยู่ที่แถว 3 คอลัมน์ 1):
+
+| วัน | ช่องใหม่ในวันนั้น | ติดเชื้อสะสม |
+|---|---|---|
+| 0 | (3,2) | 1 |
+| 1 | (2,2) (4,2) (3,3) | 4 |
+| 2 | (1,2) (2,1) (2,3) (4,1) (4,3) | 9 |
+| 3 | (0,2) (1,1) (1,3) (2,0) (4,0) | **14** |
+
+ภูเขา (3,1) ไม่ถูกเข้าเลย และ (3,0) ถูกถึงในวันที่ 4 จึงไม่นับ
+
+## 5. จุดที่มักพลาด
+- **T = 0:** คำตอบคือจำนวนเลข 1 เท่านั้น การเช็ก `day == T` ก่อนขยายจัดการให้แล้ว
+- **จำลองทีละวันจนครบ T วัน:** หมดเวลาเมื่อ T ใหญ่ และเสียงานเปล่าหลังตารางหยุดเปลี่ยน
+- **BFS หนึ่งครั้งต่อจุดเริ่ม:** O(จำนวนจุดเริ่ม · R · C) ช้าเกินไป
+- **นับภูเขาหรือช่อง 0 ที่ไปไม่ถึง:** นับเฉพาะช่องที่ถูกดึงออกจากคิว
+- **อ่านตัวเลข 250,000 ตัวด้วย input ที่ช้า:** ใช้ `scanf` หรือปิด sync ของ cin
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 BFS หลายจุดเริ่มจะพบอีกในข้อ [Hacking](#a58_q3_p3a_hacking) (มีน้ำหนัก จึงใช้ Dijkstra) และ [Sea bridge](#da66_f1_sea_bridge) ไอเดีย "เพิ่มจุดเริ่มเสมือนที่ต่อกับทุกจุดเริ่มจริง" ใช้ได้กับ BFS, Dijkstra และแม้แต่ MST ลองเทียบกับการหยุดที่ความลึก K ในข้อ [Connection](#ex05m2_connection)

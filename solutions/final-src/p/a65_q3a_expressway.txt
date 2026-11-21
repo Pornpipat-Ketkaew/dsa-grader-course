@@ -1,0 +1,146 @@
+id: a65_q3a_expressway
+group: sp
+lesson: 17 · Shortest paths: Floyd–Warshall (the k-loop's meaning)
+stars: 4
+complexity: O(n³)
+kind: program
+tags: Floyd–Warshall, intermediate vertices ≤ k, online answers, undirected
+title: Expressway
+title_th: ทางด่วน (Expressway)
+blurb: Each year a new province joins with roads to older provinces only; after every year print the cheapest 1 → 2 cost. Floyd–Warshall adds stop-over provinces in exactly that order, so d[1][2] after phase k is year k's answer.
+blurb_th: ทุกปีมีจังหวัดใหม่ที่สร้างทางด่วนเชื่อมไปยังจังหวัดเก่าเท่านั้น หลังแต่ละปีให้พิมพ์ค่าเดินทาง 1 → 2 ที่ถูกที่สุด Floyd–Warshall เพิ่มจังหวัดแวะพักตามลำดับนั้นพอดี d[1][2] หลังเฟส k จึงเป็นคำตอบของปีที่ k
+files: sol/a65_q3a_expressway/main.cpp
+tests: the PDF sample and n = 3 with no new roads; 300 random inputs (n ≤ 9) against a fresh Dijkstra after every year in Python; n = 700 with every possible road (about 245,000 roads) in 0.26 s.
+tests_th: ตัวอย่างใน PDF และ n = 3 ที่ไม่มีถนนใหม่; สุ่ม 300 ชุด (n ≤ 9) เทียบกับการรัน Dijkstra ใหม่ทุกปีใน Python; n = 700 ที่มีถนนครบทุกคู่ (ราว 245,000 เส้น) ใช้ 0.26 วินาที
+==== en
+## 1. What the problem says
+A country has n provinces (3 ≤ n ≤ 700). In years 1–2 the only expressway is 1 – 2 with toll c[1][2] (≤ 1,000,000). In year i ≥ 3, the government builds k[i] expressways from province **i to older provinces t < i**, each with a toll p (0..1,000). Roads are two-way. Somchai travels from province 1 to province 2 every year. For each year 3..n, after that year's roads are built, print the cheapest toll from 1 to 2.
+
+Input: `n c12`, then one line per year i: `k t1 p1 t2 p2 …`.
+
+Sample (n = 5, c12 = 10) → `10 9 7`.
+
+## 2. What it really means
+Recomputing a shortest path every year costs n Dijkstras: 700 × (E log V), with E up to 245,000: around 10⁹ to 2 × 10⁹. Too slow.
+
+The key is the meaning of Floyd–Warshall's outer loop. After phase k:
+
+> d[a][b] = the cheapest a → b route whose **stop-overs** (inner vertices) are all in {1, …, k}.
+
+A route from 1 to 2 that only stops at provinces ≤ k uses only provinces 1..k, and every road between two provinces ≤ k exists by year k (a road built in year i joins i to something older). So **d[1][2] after phase k is exactly the answer for year k**.
+
+```text
+sample:  year 3: 3–1 (6), 3–2 (7)
+         year 4: 4–1 (1), 4–3 (1), 4–2 (9)
+         year 5: 5–1 (2), 5–2 (5)
+
+   year 3: 1 → 2 direct            = 10
+   year 4: 1 → 4 → 3 → 2  1+1+7    = 9
+   year 5: 1 → 5 → 2      2+5      = 7
+```
+
+:::hint Hint 1
+Floyd–Warshall's loop `for k` adds one vertex at a time as an allowed stop-over. In what order are the provinces "added" to the country?
+:::
+:::hint Hint 2
+Read every road first. Then run Floyd–Warshall once with k = 1, 2, …, n, and print d[1][2] at the end of each phase k ≥ 3.
+:::
+
+## 3. What, why, how
+- **What:** one ordinary Floyd–Warshall, reading off an answer after each phase.
+- **Why reading all roads in advance is safe:** in phase k, a road to a province j > k can only appear as the **first or last** step of d[a][b] with a = j or b = j. It is never used inside a 1 → 2 route until phase j, because j is not yet an allowed stop-over.
+- **Why the invariant holds:** before phase k, d[a][b] uses stop-overs < k. A best route with stop-overs ≤ k either avoids k (already counted) or passes k once: d[a][k] + d[k][b]. That is the Floyd update.
+- **How:** d = INF, d[i][i] = 0, fill the roads (keep the cheaper one if a pair repeats). For k = 1..n: for all a, b: d[a][b] = min(d[a][b], d[a][k] + d[k][b]); if k ≥ 3 print d[1][2].
+- **Cost:** n³ = 3.4 × 10⁸ simple additions; skipping rows with d[a][k] = INF helps. Measured 0.26 s.
+- **Sizes:** a path costs at most 1,000,000 + 700 · 1,000 < 2 × 10⁹: `int` works, with INF = 10⁹ and the INF row skip preventing INF + INF overflow.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the sample. Values of d[1][2] and the entries that make it change:
+
+| phase k | new stop-over | relevant values | d[1][2] | printed |
+|---|---|---|---|---|
+| 1 | province 1 | d[2][3] = min(7, 10+6) = 7 | 10 | |
+| 2 | province 2 | nothing better for 1 → 2 | 10 | |
+| 3 | province 3 | d[1][3] + d[3][2] = 6 + 7 = 13; d[4][2] = min(9, 1+7) = 8 | 10 | **10** |
+| 4 | province 4 | d[1][4] + d[4][2] = 1 + 8 = 9 | 9 | **9** |
+| 5 | province 5 | d[1][5] + d[5][2] = 2 + 5 = 7 | 7 | **7** |
+
+## 5. Traps
+- **One Dijkstra per year:** correct but too slow at n = 700 with dense roads.
+- **Running Floyd–Warshall every year:** O(n⁴), far too slow.
+- **Floyd with the k-loop inside:** the order of the three loops matters; k must be **outermost**, otherwise the invariant is gone.
+- **Tolls of 0:** allowed; Floyd handles them.
+- **Repeated pair (a, b):** keep the smaller toll.
+- **Overflow with INF + INF:** skip rows where d[a][k] is INF (the code does), or use `long long`.
+
+## 6. Background
+Lesson 17. Floyd–Warshall is DP over "which vertices may be used as stop-overs". This problem rewards knowing that **invariant**, not just the code. The same idea answers "shortest path using only vertices ≤ k" or "add vertices one at a time" questions in O(n³) total. For a single source with non-negative weights use [Dijkstra](#a61_q2_farthest); for negative weights use [Bellman–Ford](#ex06e2_shortest).
+==== th
+## 1. โจทย์บอกอะไร
+ประเทศหนึ่งมี n จังหวัด (3 ≤ n ≤ 700) ในปีที่ 1–2 มีทางด่วนเส้นเดียวคือ 1 – 2 ค่าผ่าน c[1][2] (≤ 1,000,000) ในปีที่ i ≥ 3 รัฐบาลสร้างทางด่วน k[i] เส้นจากจังหวัด **i ไปยังจังหวัดเก่า t < i** แต่ละเส้นมีค่าผ่าน p (0..1,000) ทางด่วนเป็นสองทาง สมชายเดินทางจากจังหวัด 1 ไปจังหวัด 2 ทุกปี สำหรับปี 3..n หลังสร้างทางด่วนของปีนั้นเสร็จ ให้พิมพ์ค่าผ่านที่ถูกที่สุดจาก 1 ไป 2
+
+input: `n c12` แล้วปีละหนึ่งบรรทัด: `k t1 p1 t2 p2 …`
+
+ตัวอย่าง (n = 5, c12 = 10) → `10 9 7`
+
+## 2. จริง ๆ แล้วถามอะไร
+การหาเส้นทางสั้นสุดใหม่ทุกปีคือ Dijkstra n ครั้ง: 700 × (E log V) โดย E ถึง 245,000: ราว 10⁹ ถึง 2 × 10⁹ ช้าเกินไป
+
+กุญแจคือความหมายของลูปนอกสุดของ Floyd–Warshall หลังเฟส k:
+
+> d[a][b] = เส้นทาง a → b ที่ถูกที่สุดซึ่ง **จุดแวะ** (ปมด้านใน) ทั้งหมดอยู่ใน {1, …, k}
+
+เส้นทางจาก 1 ไป 2 ที่แวะเฉพาะจังหวัด ≤ k ใช้แค่จังหวัด 1..k และถนนทุกเส้นระหว่างจังหวัด ≤ k มีอยู่แล้วในปีที่ k (ถนนที่สร้างในปี i เชื่อม i กับจังหวัดที่เก่ากว่า) ดังนั้น **d[1][2] หลังเฟส k คือคำตอบของปีที่ k พอดี**
+
+```text
+sample:  year 3: 3–1 (6), 3–2 (7)
+         year 4: 4–1 (1), 4–3 (1), 4–2 (9)
+         year 5: 5–1 (2), 5–2 (5)
+
+   year 3: 1 → 2 direct            = 10
+   year 4: 1 → 4 → 3 → 2  1+1+7    = 9
+   year 5: 1 → 5 → 2      2+5      = 7
+```
+
+:::hint คำใบ้ 1
+ลูป `for k` ของ Floyd–Warshall เพิ่มปมทีละปมเป็นจุดแวะที่อนุญาต จังหวัดถูก "เพิ่ม" เข้าประเทศตามลำดับไหน
+:::
+:::hint คำใบ้ 2
+อ่านถนนทั้งหมดก่อน แล้วรัน Floyd–Warshall ครั้งเดียวด้วย k = 1, 2, …, n และพิมพ์ d[1][2] ตอนจบทุกเฟส k ≥ 3
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Floyd–Warshall ธรรมดาครั้งเดียว อ่านคำตอบออกหลังแต่ละเฟส
+- **ทำไมอ่านถนนทั้งหมดล่วงหน้าได้:** ในเฟส k ถนนที่ไปจังหวัด j > k จะปรากฏได้แค่เป็นก้าว **แรกหรือก้าวสุดท้าย** ของ d[a][b] ที่ a = j หรือ b = j มันไม่ถูกใช้ข้างในเส้นทาง 1 → 2 จนถึงเฟส j เพราะ j ยังไม่ใช่จุดแวะที่อนุญาต
+- **ทำไม invariant ถูกต้อง:** ก่อนเฟส k, d[a][b] ใช้จุดแวะ < k เส้นทางที่ดีที่สุดที่จุดแวะ ≤ k จะไม่ผ่าน k (นับไว้แล้ว) หรือผ่าน k หนึ่งครั้ง: d[a][k] + d[k][b] นี่คือการอัปเดตของ Floyd
+- **อย่างไร:** d = INF, d[i][i] = 0 ใส่ถนน (ถ้าคู่ซ้ำ เก็บอันที่ถูกกว่า) สำหรับ k = 1..n: ทุก a, b: d[a][b] = min(d[a][b], d[a][k] + d[k][b]); ถ้า k ≥ 3 พิมพ์ d[1][2]
+- **ต้นทุน:** n³ = 3.4 × 10⁸ การบวกง่าย ๆ การข้ามแถวที่ d[a][k] = INF ช่วยได้ วัดได้ 0.26 วินาที
+- **ขนาด:** ค่าเส้นทางไม่เกิน 1,000,000 + 700 · 1,000 < 2 × 10⁹: `int` ใช้ได้ โดยมี INF = 10⁹ และการข้ามแถว INF กันไม่ให้ INF + INF ล้น
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่าง ค่าของ d[1][2] และช่องที่ทำให้มันเปลี่ยน:
+
+| เฟส k | จุดแวะใหม่ | ค่าที่เกี่ยวข้อง | d[1][2] | พิมพ์ |
+|---|---|---|---|---|
+| 1 | จังหวัด 1 | d[2][3] = min(7, 10+6) = 7 | 10 | |
+| 2 | จังหวัด 2 | ไม่มีอะไรดีขึ้นสำหรับ 1 → 2 | 10 | |
+| 3 | จังหวัด 3 | d[1][3] + d[3][2] = 6 + 7 = 13; d[4][2] = min(9, 1+7) = 8 | 10 | **10** |
+| 4 | จังหวัด 4 | d[1][4] + d[4][2] = 1 + 8 = 9 | 9 | **9** |
+| 5 | จังหวัด 5 | d[1][5] + d[5][2] = 2 + 5 = 7 | 7 | **7** |
+
+## 5. จุดที่มักพลาด
+- **Dijkstra หนึ่งครั้งต่อปี:** ถูกต้องแต่ช้าเกินไปเมื่อ n = 700 และถนนหนาแน่น
+- **รัน Floyd–Warshall ทุกปี:** O(n⁴) ช้าเกินไปมาก
+- **Floyd ที่ลูป k อยู่ข้างใน:** ลำดับของสามลูปสำคัญ k ต้องอยู่ **นอกสุด** ไม่อย่างนั้น invariant หายไป
+- **ค่าผ่าน 0:** อนุญาต Floyd จัดการได้
+- **คู่ (a, b) ซ้ำ:** เก็บค่าที่น้อยกว่า
+- **ล้นจาก INF + INF:** ข้ามแถวที่ d[a][k] เป็น INF (โค้ดทำแล้ว) หรือใช้ `long long`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 Floyd–Warshall คือ DP บน "ปมไหนใช้เป็นจุดแวะได้บ้าง" ข้อนี้ให้รางวัลกับคนที่เข้าใจ **invariant** นี้ ไม่ใช่แค่จำโค้ด ไอเดียเดียวกันตอบคำถามแบบ "เส้นทางสั้นสุดที่ใช้เฉพาะปม ≤ k" หรือ "เพิ่มปมทีละปม" ได้ใน O(n³) รวม ถ้ามีจุดเริ่มเดียวและน้ำหนักไม่ติดลบใช้ [Dijkstra](#a61_q2_farthest) ถ้ามีน้ำหนักติดลบใช้ [Bellman–Ford](#ex06e2_shortest)

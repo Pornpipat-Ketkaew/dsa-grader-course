@@ -1,0 +1,124 @@
+id: ex02e1_fibo
+group: dp
+lesson: 14 · DP basics (memoization)
+stars: 1
+complexity: O(N)
+kind: program
+tags: memoization, top-down DP, overlapping sub-problems
+title: Fibonacci
+title_th: ฟีโบนัชชี (Fibonacci)
+blurb: F(N) for N ≤ 45. The plain recursion makes billions of calls; a memo table makes every F(i) computed once.
+blurb_th: หา F(N) เมื่อ N ≤ 45 การเวียนเกิดตรง ๆ เรียกฟังก์ชันเป็นพันล้านครั้ง แต่ตาราง memo ทำให้แต่ละ F(i) ถูกคำนวณครั้งเดียว
+files: sol/ex02e1_fibo/main.cpp
+tests: the 3 PDF samples and every N from 1 to 45 against Python's exact integers; F(45) = 1,134,903,170 in 0.006 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และทุก N ตั้งแต่ 1 ถึง 45 เทียบกับจำนวนเต็มแบบแม่นยำของ Python; F(45) = 1,134,903,170 ใช้ 0.006 วินาที
+==== en
+## 1. What the problem says
+F(0) = 0, F(1) = 1 and F(i) = F(i−1) + F(i−2). Read N (1 ≤ N ≤ 45) and print F(N). Samples: F(1) = 1, F(10) = 55, F(17) = 1597.
+
+## 2. What it really means
+The definition translates directly into a recursive function, and that function is correct. The problem is **speed**: the call tree repeats the same work over and over.
+
+```text
+                    fib(5)
+              /               \
+         fib(4)                fib(3)          ← fib(3) is computed twice,
+        /      \              /      \            fib(2) three times, ...
+    fib(3)    fib(2)      fib(2)    fib(1)
+    /    \
+fib(2)  fib(1)
+```
+
+The number of calls grows like F(N) itself: for N = 45 about 3.7 billion calls, far beyond 1 second.
+
+:::hint Hint 1
+How many *different* values fib(i) can be asked for? Only N + 1 of them.
+:::
+:::hint Hint 2
+Keep an array `memo[i]`, initialised to −1. Before computing fib(i), look it up; after computing it, store it.
+:::
+
+## 3. What, why, how
+- **What:** the two signs of dynamic programming are both here:
+  - **optimal / exact sub-structure:** F(i) is built from smaller answers F(i−1), F(i−2);
+  - **overlapping sub-problems:** the same smaller answers are needed many times.
+- **Why memoization fixes it:** each fib(i) is computed **once**; later calls return the stored value in O(1). Total work: O(N).
+- **How (top-down):** keep the recursive code, add "look up first, store after". This is usually the fastest way to turn a correct recursion into a fast one on an exam.
+- **Bottom-up alternative:** fill F[0], F[1], …, F[N] in a loop, or keep only the last two values. Same O(N), no recursion.
+- **Size check:** F(45) = 1,134,903,170 < 2³¹ − 1 = 2,147,483,647, so even `int` fits; F(47) would not. We use `long long` anyway.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** of the memo table while computing fib(6) (each value is computed at the moment its first call returns):
+
+| i | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|
+| order filled | base | base | 1st | 2nd | 3rd | 4th | 5th |
+| memo[i] | 0 | 1 | 1 | 2 | 3 | 5 | 8 |
+
+fib(6) calls fib(5) and fib(4). fib(5) goes all the way down and fills memo[2..5]. When fib(6) then asks for fib(4), it is already in the table: one lookup instead of a whole subtree.
+
+## 5. Traps
+- **Using 0 as "not computed":** works for i ≥ 1 because F(i) > 0, but F(0) = 0 would be recomputed. −1 is the safe marker.
+- **Forgetting to store** (`return fib(i-1) + fib(i-2);` without `memo[i] =`): the table stays empty and the program is as slow as before.
+- **Array too small:** `memo[45]` has indices 0..44; we need index 45, so declare 46.
+
+## 6. Background
+Lesson 14 (DP basics). Fibonacci is the hello-world of DP: it shows *why* memoization matters. Every DP in this chapter follows the same steps: name the sub-problem (here "F(i)"), write the recurrence, decide the base cases, and compute each sub-problem once. [Binomial Coefficient](#ex02e2_cnk) is the same idea with two parameters.
+==== th
+## 1. โจทย์บอกอะไร
+F(0) = 0, F(1) = 1 และ F(i) = F(i−1) + F(i−2) อ่าน N (1 ≤ N ≤ 45) แล้วพิมพ์ F(N) ตัวอย่าง: F(1) = 1, F(10) = 55, F(17) = 1597
+
+## 2. จริง ๆ แล้วถามอะไร
+นิยามแปลงเป็นฟังก์ชันเวียนเกิดได้ตรง ๆ และฟังก์ชันนั้นก็ถูกต้อง ปัญหาคือ **ความเร็ว**: ต้นไม้การเรียกทำงานเดิมซ้ำแล้วซ้ำอีก
+
+```text
+                    fib(5)
+              /               \
+         fib(4)                fib(3)          ← fib(3) is computed twice,
+        /      \              /      \            fib(2) three times, ...
+    fib(3)    fib(2)      fib(2)    fib(1)
+    /    \
+fib(2)  fib(1)
+```
+
+จำนวนการเรียกโตพอ ๆ กับ F(N) เอง: N = 45 เรียกประมาณ 3.7 พันล้านครั้ง เกิน 1 วินาทีไปมาก
+
+:::hint คำใบ้ 1
+fib(i) ที่ *ต่างกัน* ถูกถามได้กี่ค่า? แค่ N + 1 ค่าเท่านั้น
+:::
+:::hint คำใบ้ 2
+เก็บอาร์เรย์ `memo[i]` เริ่มต้นเป็น −1 ก่อนคำนวณ fib(i) ให้เปิดดูก่อน คำนวณเสร็จแล้วให้เก็บไว้
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** ลักษณะสองอย่างของ dynamic programming อยู่ในข้อนี้ครบ:
+  - **โครงสร้างย่อย:** F(i) สร้างจากคำตอบที่เล็กกว่า F(i−1), F(i−2)
+  - **ปัญหาย่อยซ้ำกัน:** คำตอบย่อยเดิมถูกใช้หลายครั้ง
+- **ทำไม memoization แก้ได้:** แต่ละ fib(i) ถูกคำนวณ **ครั้งเดียว** การเรียกครั้งต่อไปคืนค่าที่เก็บไว้ใน O(1) งานรวม O(N)
+- **อย่างไร (top-down):** ใช้โค้ดเวียนเกิดเดิม เพิ่ม "เปิดดูก่อน เก็บหลังคำนวณ" นี่มักเป็นวิธีที่เร็วที่สุดในห้องสอบที่จะเปลี่ยนการเวียนเกิดที่ถูกต้องให้เร็ว
+- **แบบ bottom-up:** เติม F[0], F[1], …, F[N] ด้วยลูป หรือเก็บแค่สองค่าล่าสุด O(N) เท่ากัน ไม่ต้องเวียนเกิด
+- **เช็กขนาด:** F(45) = 1,134,903,170 < 2³¹ − 1 = 2,147,483,647 ใช้ `int` ก็พอ แต่ F(47) จะไม่พอ เราใช้ `long long` ไว้ก่อน
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** ตาราง memo ระหว่างคำนวณ fib(6) (แต่ละค่าถูกเติมตอนที่การเรียกครั้งแรกของมันคืนค่า):
+
+| i | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|---|
+| ลำดับที่เติม | ฐาน | ฐาน | ที่ 1 | ที่ 2 | ที่ 3 | ที่ 4 | ที่ 5 |
+| memo[i] | 0 | 1 | 1 | 2 | 3 | 5 | 8 |
+
+fib(6) เรียก fib(5) และ fib(4) โดย fib(5) ลงไปจนสุดและเติม memo[2..5] ไว้ พอ fib(6) ถาม fib(4) ค่านั้นอยู่ในตารางแล้ว: เปิดดูครั้งเดียวแทนที่จะคำนวณทั้งต้นไม้ย่อย
+
+## 5. จุดที่มักพลาด
+- **ใช้ 0 แทน "ยังไม่คำนวณ":** ใช้ได้กับ i ≥ 1 เพราะ F(i) > 0 แต่ F(0) = 0 จะถูกคำนวณซ้ำ −1 ปลอดภัยกว่า
+- **ลืมเก็บค่า** (`return fib(i-1) + fib(i-2);` โดยไม่มี `memo[i] =`): ตารางว่างตลอดและโปรแกรมช้าเท่าเดิม
+- **อาร์เรย์เล็กไป:** `memo[45]` มีตำแหน่ง 0..44 แต่เราต้องใช้ตำแหน่ง 45 จึงต้องประกาศ 46
+
+## 6. ความรู้พื้นฐาน
+บทที่ 14 (DP เบื้องต้น) Fibonacci คือ hello-world ของ DP: แสดงให้เห็นว่า *ทำไม* memoization จึงสำคัญ DP ทุกข้อในบทนี้ทำตามขั้นตอนเดียวกัน: ตั้งชื่อปัญหาย่อย (ในข้อนี้คือ "F(i)") เขียนความสัมพันธ์เวียนเกิด กำหนดกรณีฐาน และคำนวณปัญหาย่อยแต่ละตัวครั้งเดียว ข้อ [Binomial Coefficient](#ex02e2_cnk) เป็นแนวคิดเดียวกันแต่มีสองพารามิเตอร์

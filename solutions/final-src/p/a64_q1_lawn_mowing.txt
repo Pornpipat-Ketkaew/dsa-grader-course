@@ -1,0 +1,138 @@
+id: a64_q1_lawn_mowing
+group: dc
+lesson: 08 · Prefix sums + binary search
+stars: 2
+complexity: O(n + m log n)
+kind: program
+tags: prefix sums, binary search on a monotone array, long long, fast I/O
+title: Lawn Mowing
+title_th: ตัดหญ้า (Lawn Mowing)
+blurb: Start mowing at cell a with budget b; each cell costs its grass plus k. Prefix-sum the cost, then binary-search the farthest affordable end.
+blurb_th: เริ่มตัดที่ช่อง a ด้วยงบ b แต่ละช่องมีค่าใช้จ่ายเท่ากับหญ้าในช่องบวก k ทำ prefix sum ของค่าใช้จ่าย แล้ว binary search หาจุดสิ้นสุดที่ไกลที่สุดที่ยังจ่ายไหว
+files: sol/a64_q1_lawn_mowing/main.cpp
+tests: both PDF samples (k = 0 and k = 2); 300 random cases with zeros, k ∈ {0, 1, 2, 5, 1000} and budgets up to 10¹² against a Python program that tries every end r; n = m = 500,000 with k = 1000 in 0.19 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF (k = 0 และ k = 2); สุ่ม 300 ชุดที่มีหญ้า 0, k ∈ {0, 1, 2, 5, 1000} และงบสูงถึง 10¹² เทียบกับโปรแกรม Python ที่ลองทุกจุดสิ้นสุด r; n = m = 500,000 กับ k = 1000 ใช้ 0.19 วินาที
+==== en
+## 1. What the problem says
+The lawn is an array A[0..n−1]; A[i] is the amount of grass in cell i. Mowing cells l..r costs
+
+  **A[l] + A[l+1] + … + A[r] + (r − l + 1) · k**
+
+(the grass itself plus a tiredness fee of k per cell). Each of m queries gives a start cell a and a budget b: starting at a and going right, **how much grass can we cut at most** without spending more than b?
+
+- 1 ≤ n, m ≤ 500,000; 0 ≤ k ≤ 1,000; 0 ≤ A[i] ≤ 1,000; 0 ≤ b ≤ 10¹² (needs `long long`).
+- Large input: use fast I/O.
+
+## 2. What it really means
+Since l = a is fixed, the only choice is **how far right** to go. Going further never costs less, and never gives less grass. So the answer is "go as far as the money allows". Second sample (k = 2, all cells 1, so every cell costs 3):
+
+```text
+cell:          0    1    2    3    4
+cost so far:   3    6    9   12   15
+budget 10:     ✓    ✓    ✓    ✗    ✗     → cut cells 0..2 → grass 3
+```
+
+Trying every end for every query is O(n·m) = 2.5·10¹¹: too slow.
+
+:::hint Hint 1
+Precompute a prefix array of the **cost**, Q[i] = cost of mowing cells 0..i−1. Then the cost of a..j−1 is Q[j] − Q[a], an O(1) subtraction.
+:::
+:::hint Hint 2
+Q never decreases, so "Q[j] ≤ Q[a] + b" is true for j = a, a+1, …, then false forever. Binary-search the last true j, like [ex02e3_bs](#ex02e3_bs).
+:::
+
+## 3. What, why, how
+- **What:** prefix sums turn a range sum into one subtraction; binary search finds the farthest end.
+- **Two prefix arrays** (both of length n + 1, index 0 = empty prefix):
+  - P[i] = A[0] + … + A[i−1] → grass of cells a..j−1 is P[j] − P[a];
+  - Q[i] = P[i] + i·k → cost of cells a..j−1 is Q[j] − Q[a].
+- **Why binary search is allowed:** A[i] ≥ 0 and k ≥ 0, so Q is non-decreasing. "Affordable" is monotone in j.
+- **How:** search j in [a, n] for the last j with Q[j] ≤ Q[a] + b. j = a (mow nothing, cost 0) always fits, so it is the starting answer. Print P[j] − P[a].
+- **Overflow check:** Q[n] ≤ 500,000 · 2,000 = 10⁹, and Q[a] + b ≤ 10⁹ + 10¹²: `long long` everywhere.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**, second sample, query a = 0, b = 10 (P = 0 1 2 3 4 5, Q = 0 3 6 9 12 15, limit = Q[0] + 10 = 10):
+
+| step | lo | hi | mid | Q[mid] | ≤ 10? | best |
+|---|---|---|---|---|---|---|
+| 1 | 0 | 5 | 2 | 6 | yes | 2 |
+| 2 | 3 | 5 | 4 | 12 | no | 2 |
+| 3 | 3 | 3 | 3 | 9 | yes | 3 |
+| — | 4 | 3 | | | stop | **3** |
+
+Answer P[3] − P[0] = **3**. First sample, query (1, 8), k = 0: Q = 0 1 3 6 10 15, limit = 1 + 8 = 9, last Q[j] ≤ 9 is j = 3, answer P[3] − P[1] = 6 − 1 = **5** ✓.
+
+## 5. Traps
+- **`int` for the budget or the sums:** b goes up to 10¹².
+- **Off-by-one in the prefix arrays:** with "P[i] = sum of the first i cells" the range a..j−1 is P[j] − P[a] and there is no −1 anywhere. Mixing this with "P[i] = sum up to and including i" is the classic bug.
+- **Forgetting that mowing nothing is allowed:** a budget smaller than the first cell's cost gives 0, not −1.
+- **Two-pointer instead of binary search:** queries come with arbitrary starts and budgets, so a single sliding window does not apply.
+- **Slow I/O:** 500,000 queries with `cin`/`endl` can time out. Use `scanf/printf` or `sync_with_stdio(false)` and `"\n"`.
+
+## 6. Background
+Lesson 08: prefix sums + binary search. The general lesson: when every element is ≥ 0, prefix sums are **sorted**, and a sorted array can be binary-searched. If some A[i] could be negative this would break (the cost could go down), and you would need a different tool.
+==== th
+## 1. โจทย์บอกอะไร
+สนามหญ้าคืออาร์เรย์ A[0..n−1] โดย A[i] คือปริมาณหญ้าในช่อง i การตัดช่อง l..r มีค่าใช้จ่าย
+
+  **A[l] + A[l+1] + … + A[r] + (r − l + 1) · k**
+
+(ค่าหญ้าบวกค่าเหนื่อยช่องละ k) คำถามแต่ละข้อจาก m ข้อให้ช่องเริ่ม a และงบ b: ถ้าเริ่มที่ a แล้วตัดไปทางขวา **จะได้หญ้ามากที่สุดเท่าไร** โดยไม่ใช้เงินเกิน b
+
+- 1 ≤ n, m ≤ 500,000; 0 ≤ k ≤ 1,000; 0 ≤ A[i] ≤ 1,000; 0 ≤ b ≤ 10¹² (ต้องใช้ `long long`)
+- ข้อมูลเยอะ ต้องอ่าน/เขียนแบบเร็ว
+
+## 2. จริง ๆ แล้วถามอะไร
+เพราะ l = a ถูกกำหนดแล้ว สิ่งเดียวที่เลือกได้คือ **ไปทางขวาไกลแค่ไหน** การไปไกลขึ้นไม่มีทางถูกลง และไม่มีทางได้หญ้าน้อยลง คำตอบจึงเป็น "ไปให้ไกลที่สุดเท่าที่เงินพอ" ตัวอย่างที่สอง (k = 2 ทุกช่องมีหญ้า 1 ดังนั้นช่องละ 3 บาท):
+
+```text
+cell:          0    1    2    3    4
+cost so far:   3    6    9   12   15
+budget 10:     ✓    ✓    ✓    ✗    ✗     → cut cells 0..2 → grass 3
+```
+
+ถ้าลองทุกจุดสิ้นสุดของทุกคำถามจะเป็น O(n·m) = 2.5·10¹¹ ช้าเกินไป
+
+:::hint คำใบ้ 1
+คำนวณ prefix ของ **ค่าใช้จ่าย** ไว้ก่อน Q[i] = ค่าตัดช่อง 0..i−1 แล้วค่าตัดช่อง a..j−1 คือ Q[j] − Q[a] ลบครั้งเดียว O(1)
+:::
+:::hint คำใบ้ 2
+Q ไม่มีวันลดลง ดังนั้น "Q[j] ≤ Q[a] + b" จะจริงสำหรับ j = a, a+1, … แล้วเท็จตลอดไป ใช้ binary search หา j ตัวสุดท้ายที่จริง เหมือนข้อ [ex02e3_bs](#ex02e3_bs)
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** prefix sum เปลี่ยนผลรวมช่วงให้เป็นการลบครั้งเดียว และ binary search หาจุดสิ้นสุดที่ไกลที่สุด
+- **prefix สองชุด** (ยาว n + 1 ทั้งคู่ ตำแหน่ง 0 = ยังไม่มีช่องไหน):
+  - P[i] = A[0] + … + A[i−1] → หญ้าของช่อง a..j−1 คือ P[j] − P[a]
+  - Q[i] = P[i] + i·k → ค่าใช้จ่ายของช่อง a..j−1 คือ Q[j] − Q[a]
+- **ทำไมใช้ binary search ได้:** A[i] ≥ 0 และ k ≥ 0 ดังนั้น Q ไม่ลดลง เงื่อนไข "จ่ายไหว" จึงเป็น monotone ตาม j
+- **อย่างไร:** ค้น j ในช่วง [a, n] หา j สุดท้ายที่ Q[j] ≤ Q[a] + b ส่วน j = a (ไม่ตัดเลย ค่าใช้จ่าย 0) ใช้ได้เสมอ จึงเป็นคำตอบเริ่มต้น แล้วพิมพ์ P[j] − P[a]
+- **เช็กการล้น:** Q[n] ≤ 500,000 · 2,000 = 10⁹ และ Q[a] + b ≤ 10⁹ + 10¹² ใช้ `long long` ทุกที่
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** ตัวอย่างที่สอง คำถาม a = 0, b = 10 (P = 0 1 2 3 4 5, Q = 0 3 6 9 12 15, limit = Q[0] + 10 = 10):
+
+| ขั้น | lo | hi | mid | Q[mid] | ≤ 10? | best |
+|---|---|---|---|---|---|---|
+| 1 | 0 | 5 | 2 | 6 | ใช่ | 2 |
+| 2 | 3 | 5 | 4 | 12 | ไม่ | 2 |
+| 3 | 3 | 3 | 3 | 9 | ใช่ | 3 |
+| — | 4 | 3 | | | หยุด | **3** |
+
+คำตอบ P[3] − P[0] = **3** ส่วนตัวอย่างแรก คำถาม (1, 8) k = 0: Q = 0 1 3 6 10 15, limit = 1 + 8 = 9, Q[j] ≤ 9 ตัวสุดท้ายคือ j = 3 คำตอบ P[3] − P[1] = 6 − 1 = **5** ✓
+
+## 5. จุดที่มักพลาด
+- **ใช้ `int` เก็บงบหรือผลรวม:** b สูงถึง 10¹²
+- **ผิดไปหนึ่งใน prefix:** ถ้าใช้นิยาม "P[i] = ผลรวม i ช่องแรก" ช่วง a..j−1 คือ P[j] − P[a] ไม่มี −1 ที่ไหนเลย การเอานิยามนี้ไปปนกับ "P[i] = ผลรวมถึงช่อง i" คือบั๊กคลาสสิก
+- **ลืมว่าไม่ตัดเลยก็ได้:** งบน้อยกว่าค่าตัดช่องแรกต้องตอบ 0 ไม่ใช่ −1
+- **ใช้ two pointers แทน binary search:** คำถามมีจุดเริ่มและงบอะไรก็ได้ หน้าต่างเลื่อนอันเดียวใช้ไม่ได้
+- **I/O ช้า:** คำถาม 500,000 ข้อกับ `cin`/`endl` อาจเกินเวลา ใช้ `scanf/printf` หรือ `sync_with_stdio(false)` กับ `"\n"`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 08: prefix sum + binary search บทเรียนทั่วไปคือ: เมื่อทุกสมาชิก ≥ 0 prefix sum จะ **เรียงอยู่แล้ว** และอาร์เรย์ที่เรียงแล้วใช้ binary search ได้ ถ้า A[i] ติดลบได้วิธีนี้จะพัง (ค่าใช้จ่ายลดลงได้) และต้องใช้เครื่องมืออื่น

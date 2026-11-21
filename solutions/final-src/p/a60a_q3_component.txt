@@ -1,0 +1,130 @@
+id: a60a_q3_component
+group: graph1
+lesson: 16 · Graphs: DFS, connected components
+stars: 1
+complexity: O(v + e)
+kind: program
+tags: DFS, connected components, adjacency list, visited array
+title: Component Count
+title_th: นับ Connected Component
+blurb: Count the connected components: every node not yet visited starts a new DFS, and that DFS marks its whole component.
+blurb_th: นับ connected component: ทุกปมที่ยังไม่ถูกเยี่ยมจะเริ่ม DFS ใหม่ และ DFS นั้นจะทำเครื่องหมายทั้ง component
+files: sol/a60a_q3_component/main.cpp
+tests: all 5 PDF samples; 300 random graphs against a Python label-propagation count (a different algorithm); a 10,000-node path (recursion depth 10,000) gives 1.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF; สุ่มกราฟ 300 ชุดเทียบกับการนับแบบกระจายป้ายชื่อใน Python (คนละอัลกอริทึม); เส้นทาง 10,000 ปม (เวียนเกิดลึก 10,000 ชั้น) ได้ 1
+==== en
+## 1. What the problem says
+A simple undirected graph with v nodes (numbered **1..v**, v ≤ 10,000) and e edges (e ≤ 10,000). Print the number of **connected components**: maximal groups of nodes where every pair is joined by some path.
+
+Sample: 4 nodes, edges 1–2, 2–3, 3–1 → {1, 2, 3} and {4} → **2**. A graph with 5 nodes and no edges has **5** components.
+
+## 2. What it really means
+Think of the nodes as islands and the edges as bridges. A component is everything you can reach from one island. Count how many times you have to "start fresh" to visit every island.
+
+```text
+last sample: 10 nodes
+  1 ─ 2          5 ─ 6 ─ 7       8     9     10
+  │ ╱ │
+  3 ─ 4
+  {1,2,3,4}      {5,6,7}         {8}   {9}   {10}      → 5
+```
+
+:::hint Hint 1
+A DFS (or BFS) from a node visits exactly its component.
+:::
+:::hint Hint 2
+Loop over all nodes 1..v. If a node is not visited yet, it is in a component you have not seen: count it and run DFS from it.
+:::
+
+## 3. What, why, how
+- **What:** graph traversal + a visited array.
+- **Why counting "fresh starts" works:** a DFS from u marks every node reachable from u and nothing else. When the outer loop finds an unvisited node, none of the earlier searches could reach it, so it belongs to a new component.
+- **How:**
+  1. build adjacency lists (store each edge in **both** directions);
+  2. for u = 1..v: if not seen[u] → components++, dfs(u).
+- **Cost:** each node is visited once, each edge looked at twice: O(v + e).
+- **Recursion depth:** a path of 10,000 nodes makes the DFS 10,000 calls deep. That is fine for C++ (each frame is tiny). For 10⁶ nodes use an explicit stack or BFS, as in [Line Graph](#a62_q2a_line_graph).
+- **Alternative:** a disjoint-set union (DSU): start with v sets, merge for every edge; the answer is v minus the number of successful merges. See [Detecting a Cycle](#ex05m1_cycle).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for the last sample (10 nodes, edges 1-2, 2-3, 3-4, 1-3, 2-4, 5-6, 6-7):
+
+| outer u | seen[u]? | action | DFS marks | components |
+|---|---|---|---|---|
+| 1 | no | new component | 1, 2, 3, 4 | 1 |
+| 2, 3, 4 | yes | skip | | 1 |
+| 5 | no | new component | 5, 6, 7 | 2 |
+| 6, 7 | yes | skip | | 2 |
+| 8 | no | new component | 8 | 3 |
+| 9 | no | new component | 9 | 4 |
+| 10 | no | new component | 10 | **5** |
+
+## 5. Traps
+- **Nodes are 1..v, not 0..v−1:** size the arrays v + 1 and loop from 1.
+- **Storing only one direction:** then DFS from 2 cannot get back to 1 and a component gets counted twice.
+- **Isolated nodes:** they are components too (the second sample, 5 nodes 0 edges → 5).
+- **The statement's typo** "1 ≤ a, b ≤ e": it means ≤ v.
+
+## 6. Background
+Lesson 16. "Loop over all nodes, start a traversal at every unvisited one" is the skeleton for components, for counting islands in a grid, for checking whether a graph is connected (answer 1), and for many problems in this chapter ([Line Graph](#a62_q2a_line_graph), [Grid Loop](#da66_f2_grid_loop)).
+==== th
+## 1. โจทย์บอกอะไร
+กราฟไม่มีทิศทางแบบเชิงเดียว มี v ปม (หมายเลข **1..v**, v ≤ 10,000) และ e เส้นเชื่อม (e ≤ 10,000) ให้พิมพ์จำนวน **connected component**: กลุ่มปมที่ใหญ่ที่สุดที่ทุกคู่ในกลุ่มมีเส้นทางถึงกัน
+
+ตัวอย่าง: 4 ปม เส้นเชื่อม 1–2, 2–3, 3–1 → {1, 2, 3} และ {4} → **2** กราฟ 5 ปมที่ไม่มีเส้นเชื่อมเลยมี **5** component
+
+## 2. จริง ๆ แล้วถามอะไร
+นึกว่าปมคือเกาะ และเส้นเชื่อมคือสะพาน component คือทุกเกาะที่ไปถึงได้จากเกาะหนึ่ง ให้นับว่าต้อง "เริ่มใหม่" กี่ครั้งจึงจะเยี่ยมครบทุกเกาะ
+
+```text
+last sample: 10 nodes
+  1 ─ 2          5 ─ 6 ─ 7       8     9     10
+  │ ╱ │
+  3 ─ 4
+  {1,2,3,4}      {5,6,7}         {8}   {9}   {10}      → 5
+```
+
+:::hint คำใบ้ 1
+DFS (หรือ BFS) จากปมหนึ่งจะเยี่ยมทุกปมใน component ของมันพอดี
+:::
+:::hint คำใบ้ 2
+วนทุกปม 1..v ถ้าปมไหนยังไม่ถูกเยี่ยม แปลว่าอยู่ใน component ที่ยังไม่เคยเห็น: นับเพิ่มแล้วเริ่ม DFS จากมัน
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** การท่องกราฟ + อาร์เรย์ visited
+- **ทำไมนับ "การเริ่มใหม่" ได้:** DFS จาก u ทำเครื่องหมายทุกปมที่ไปถึงได้จาก u และไม่ทำเครื่องหมายปมอื่น เมื่อลูปนอกเจอปมที่ยังไม่ถูกเยี่ยม แปลว่าการค้นก่อน ๆ ไปไม่ถึงมัน มันจึงอยู่ใน component ใหม่
+- **อย่างไร:**
+  1. สร้าง adjacency list (เก็บแต่ละเส้นเชื่อม **ทั้งสองทิศ**)
+  2. u = 1..v: ถ้า !seen[u] → components++ แล้ว dfs(u)
+- **ต้นทุน:** ทุกปมถูกเยี่ยมครั้งเดียว ทุกเส้นถูกดูสองครั้ง: O(v + e)
+- **ความลึกของการเวียนเกิด:** เส้นทาง 10,000 ปมทำให้ DFS ลึก 10,000 ชั้น สำหรับ C++ ไม่มีปัญหา (แต่ละเฟรมเล็กมาก) ถ้า 10⁶ ปมให้ใช้ stack เองหรือ BFS เหมือนข้อ [Line Graph](#a62_q2a_line_graph)
+- **ทางเลือก:** disjoint-set union (DSU): เริ่มด้วย v เซต รวมเซตทุกเส้นเชื่อม คำตอบคือ v ลบจำนวนการรวมที่สำเร็จ ดูข้อ [Detecting a Cycle](#ex05m1_cycle)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** ตัวอย่างสุดท้าย (10 ปม เส้นเชื่อม 1-2, 2-3, 3-4, 1-3, 2-4, 5-6, 6-7):
+
+| ลูปนอก u | seen[u]? | ทำอะไร | DFS ทำเครื่องหมาย | components |
+|---|---|---|---|---|
+| 1 | ไม่ | component ใหม่ | 1, 2, 3, 4 | 1 |
+| 2, 3, 4 | ใช่ | ข้าม | | 1 |
+| 5 | ไม่ | component ใหม่ | 5, 6, 7 | 2 |
+| 6, 7 | ใช่ | ข้าม | | 2 |
+| 8 | ไม่ | component ใหม่ | 8 | 3 |
+| 9 | ไม่ | component ใหม่ | 9 | 4 |
+| 10 | ไม่ | component ใหม่ | 10 | **5** |
+
+## 5. จุดที่มักพลาด
+- **ปมเป็น 1..v ไม่ใช่ 0..v−1:** จองอาร์เรย์ขนาด v + 1 และวนจาก 1
+- **เก็บเส้นเชื่อมทิศเดียว:** DFS จาก 2 จะกลับไป 1 ไม่ได้ และ component เดียวจะถูกนับสองครั้ง
+- **ปมโดดเดี่ยว:** ก็เป็น component (ตัวอย่างที่สอง 5 ปม 0 เส้น → 5)
+- **โจทย์พิมพ์ผิด** "1 ≤ a, b ≤ e": หมายถึง ≤ v
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 "วนทุกปม เริ่มการท่องที่ทุกปมที่ยังไม่ถูกเยี่ยม" คือโครงสำหรับ component, การนับเกาะในตาราง, การตรวจว่ากราฟเชื่อมกันหมดไหม (คำตอบ 1) และอีกหลายข้อในบทนี้ ([Line Graph](#a62_q2a_line_graph), [Grid Loop](#da66_f2_grid_loop))

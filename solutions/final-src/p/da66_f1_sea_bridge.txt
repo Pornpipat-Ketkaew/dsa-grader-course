@@ -1,0 +1,146 @@
+id: da66_f1_sea_bridge
+group: final
+lesson: 16 · Graphs: multi-source BFS on a huge grid
+stars: 3
+complexity: O(R · C)
+kind: program
+tags: multi-source BFS, layers, grid, 25 million cells, fread, one byte per cell
+title: Sea bridge
+title_th: สะพานข้ามทะเล (Sea Bridge)
+blurb: Pick the fewest grid cells (no volcanoes) forming a connected road that touches both country 1 and country 2. That is the shortest path from any 1-cell to any 2-cell, counted in cells: one multi-source BFS.
+blurb_th: เลือกช่องในตารางให้น้อยที่สุด (ห้ามภูเขาไฟ) เป็นถนนที่ต่อกันและแตะทั้งประเทศ 1 และประเทศ 2 นั่นคือเส้นทางสั้นสุดจากช่อง 1 ใดก็ได้ไปช่อง 2 ใดก็ได้ นับเป็นจำนวนช่อง: BFS หลายจุดเริ่มครั้งเดียว
+files: sol/da66_f1_sea_bridge/main.cpp
+tests: all 6 PDF samples and a 5×5 corner-to-corner map; 300 random maps (up to 6×6) against a Python BFS from every 1-cell; a 5,000 × 5,000 map with the two countries in opposite corners (answer 9,999, about 50 MB of input) in 0.38 s.
+tests_th: ตัวอย่างทั้ง 6 ชุดใน PDF และแผนที่ 5×5 มุมถึงมุม; สุ่ม 300 แผนที่ (ถึง 6×6) เทียบกับ BFS จากทุกช่อง 1 ใน Python; แผนที่ 5,000 × 5,000 ที่สองประเทศอยู่มุมตรงข้ามกัน (คำตอบ 9,999 input ราว 50 MB) ใช้ 0.38 วินาที
+==== en
+## 1. What the problem says
+A sea is an R × C grid (1 ≤ R, C ≤ 5,000). Each cell is **0** sea, **1** country 1, **2** country 2, or **3** a volcano. Choose some cells to build a road such that
+1. no chosen cell is a volcano,
+2. the chosen cells are connected through side-sharing neighbours,
+3. at least one chosen cell is country 1 and at least one is country 2.
+
+Print the **minimum number of cells**. A road always exists, and the input is huge (use fast I/O).
+
+Sample 1 → **4**: the 1-cell, two sea cells, and the 2-cell in a row.
+
+## 2. What it really means
+A smallest connected set that contains a 1-cell and a 2-cell is just a **path** from some 1-cell to some 2-cell (any extra cell could be dropped). Its size is the number of cells on the path, both ends included. So:
+
+> answer = 1 + (shortest number of steps from **any** 1-cell to **any** 2-cell), walking only on non-volcano cells.
+
+"From any of many starts" is a **multi-source BFS**: all 1-cells together form layer 1.
+
+```text
+sample 6 (answer 16): the only way round the volcano walls
+
+   0 2 0 0 0        . 2 ─ ─ ┐
+   3 3 3 3 0        3 3 3 3 │
+   0 0 0 0 0        ┌ ─ ─ ─ ┘
+   0 3 3 3 3        │ 3 3 3 3
+   0 0 0 0 1        └ ─ ─ ─ 1          16 cells from 1 to 2
+```
+
+:::hint Hint 1
+Why can the best road be assumed to be a simple path? What happens to a cell that is not between the two ends?
+:::
+:::hint Hint 2
+Start a BFS from **every** 1-cell at once. The first time the BFS touches a 2-cell, you have the answer.
+:::
+
+## 3. What, why, how
+- **What:** multi-source BFS on the grid, processed one layer at a time, stopping at the first 2-cell.
+- **Why BFS:** every cell costs exactly 1, so "fewest cells" = "fewest steps", the thing BFS finds.
+- **Why stopping early is safe:** BFS finishes all of layer L before layer L + 1. The first 2-cell seen belongs to the smallest possible layer.
+- **Why passing through other 1- or 2-cells needs no special care:** a shortest path never passes through another 1-cell (it could start there instead) and stops at its first 2-cell.
+- **Memory:** 25,000,000 cells. A vector of `int` distances would be 100 MB, and `vector<vector<int>>` far worse. The solution keeps **one byte per cell**, marks a visited cell by overwriting it with 3 ("blocked"), and stores the layer number in a single variable. The queue is a flat array of cell indices r·C + c.
+- **Input:** 25 million numbers ≈ 50 MB. Read it with a small `fread` buffer.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2 (5 × 5). Country 1 cells: (1,3) (1,4) (2,4) (4,3) (4,4).
+
+| loop L | cells in layer L (being expanded) | what expanding them finds |
+|---|---|---|
+| 1 | the five 1-cells | layer 2: (0,3) (0,4) (1,2) (2,3) (3,3) (3,4) (4,2); no 2-cell |
+| 2 | the seven cells above | (0,3) has the neighbour (0,2), a **2** → print L + 1 = **3** |
+
+The road found: (1,3) – (0,3) – (0,2), 3 cells. The PDF draws (1,3) – (1,2) – (0,2), another road of the same length.
+
+## 5. Traps
+- **Counting steps instead of cells:** cells = steps + 1.
+- **BFS from each 1-cell separately:** up to 25 million BFS runs.
+- **`int` distances or `vector<vector<int>>` for 25 million cells:** memory and cache misses; one byte per cell is enough.
+- **Recursion (DFS flood fill):** the depth can reach millions; it also does not find shortest paths.
+- **Slow input:** plain `cin` on 50 MB is too slow; even `scanf` is borderline.
+- **A 1-cell right next to a 2-cell:** answer 2 (sample 4).
+
+## 6. Background
+Lesson 16. Same idea as [Pandemic](#a62_q2a_pandemic): many sources in one queue. The "shortest road between two regions" pattern is a classic exam favourite (it is also the core of "shortest bridge" problems). For huge grids, think about bytes per cell before writing any code.
+==== th
+## 1. โจทย์บอกอะไร
+ทะเลเป็นตาราง R × C (1 ≤ R, C ≤ 5,000) แต่ละช่องเป็น **0** ทะเล, **1** ประเทศ 1, **2** ประเทศ 2 หรือ **3** ภูเขาไฟ ให้เลือกช่องบางช่องมาสร้างถนนโดย
+1. ห้ามเลือกช่องภูเขาไฟ
+2. ช่องที่เลือกต้องต่อกันผ่านช่องที่มีด้านติดกัน
+3. ต้องมีช่องของประเทศ 1 อย่างน้อยหนึ่งช่อง และของประเทศ 2 อย่างน้อยหนึ่งช่อง
+
+ให้พิมพ์ **จำนวนช่องที่น้อยที่สุด** รับประกันว่าสร้างถนนได้เสมอ และ input ใหญ่มาก (ใช้ fast I/O)
+
+ตัวอย่างที่ 1 → **4**: ช่อง 1, ช่องทะเลสองช่อง และช่อง 2 เรียงกัน
+
+## 2. จริง ๆ แล้วถามอะไร
+เซตเชื่อมต่อที่เล็กที่สุดที่มีช่อง 1 และช่อง 2 ก็คือ **เส้นทาง** จากช่อง 1 บางช่องไปช่อง 2 บางช่อง (ช่องเกินตัดทิ้งได้) ขนาดของมันคือจำนวนช่องบนเส้นทาง นับทั้งสองปลาย ดังนั้น:
+
+> คำตอบ = 1 + (จำนวนก้าวที่น้อยที่สุดจากช่อง 1 **ใดก็ได้** ไปช่อง 2 **ใดก็ได้**) โดยเดินเฉพาะช่องที่ไม่ใช่ภูเขาไฟ
+
+"จากจุดเริ่มหลายจุด" คือ **BFS หลายจุดเริ่ม**: ช่อง 1 ทุกช่องรวมกันเป็นชั้นที่ 1
+
+```text
+sample 6 (answer 16): the only way round the volcano walls
+
+   0 2 0 0 0        . 2 ─ ─ ┐
+   3 3 3 3 0        3 3 3 3 │
+   0 0 0 0 0        ┌ ─ ─ ─ ┘
+   0 3 3 3 3        │ 3 3 3 3
+   0 0 0 0 1        └ ─ ─ ─ 1          16 cells from 1 to 2
+```
+
+:::hint คำใบ้ 1
+ทำไมจึงสมมติได้ว่าถนนที่ดีที่สุดเป็นเส้นทางธรรมดา ช่องที่ไม่ได้อยู่ระหว่างสองปลายจะเป็นอย่างไร
+:::
+:::hint คำใบ้ 2
+เริ่ม BFS จาก **ทุก** ช่อง 1 พร้อมกัน ครั้งแรกที่ BFS แตะช่อง 2 ก็ได้คำตอบแล้ว
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** BFS หลายจุดเริ่มบนตาราง ทำทีละชั้น และหยุดที่ช่อง 2 ช่องแรก
+- **ทำไม BFS:** ทุกช่องมีค่า 1 พอดี "ช่องน้อยที่สุด" = "ก้าวน้อยที่สุด" ซึ่งคือสิ่งที่ BFS หา
+- **ทำไมหยุดก่อนได้:** BFS ทำชั้น L ให้เสร็จก่อนชั้น L + 1 ช่อง 2 ช่องแรกที่เจอจึงอยู่ในชั้นที่เล็กที่สุดที่เป็นไปได้
+- **ทำไมการผ่านช่อง 1 หรือ 2 อื่นไม่ต้องดูแลพิเศษ:** เส้นทางสั้นสุดไม่ผ่านช่อง 1 อื่น (เริ่มที่นั่นแทนได้) และหยุดที่ช่อง 2 แรก
+- **หน่วยความจำ:** 25,000,000 ช่อง vector ของระยะแบบ `int` จะเป็น 100 MB และ `vector<vector<int>>` แย่กว่านั้นมาก เฉลยเก็บ **หนึ่งไบต์ต่อช่อง** ทำเครื่องหมายว่าเยี่ยมแล้วโดยเขียนทับเป็น 3 ("กั้น") และเก็บหมายเลขชั้นในตัวแปรตัวเดียว คิวเป็นอาร์เรย์แบนของดัชนีช่อง r·C + c
+- **input:** ตัวเลข 25 ล้านตัว ≈ 50 MB อ่านด้วยบัฟเฟอร์ `fread` เล็ก ๆ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 (5 × 5) ช่องประเทศ 1: (1,3) (1,4) (2,4) (4,3) (4,4)
+
+| รอบ L | ช่องในชั้น L (กำลังขยาย) | การขยายเจออะไร |
+|---|---|---|
+| 1 | ช่อง 1 ทั้งห้า | ชั้น 2: (0,3) (0,4) (1,2) (2,3) (3,3) (3,4) (4,2); ไม่มีช่อง 2 |
+| 2 | เจ็ดช่องข้างบน | (0,3) มีเพื่อนบ้าน (0,2) ซึ่งเป็น **2** → พิมพ์ L + 1 = **3** |
+
+ถนนที่หาได้: (1,3) – (0,3) – (0,2) 3 ช่อง ส่วน PDF วาด (1,3) – (1,2) – (0,2) ซึ่งเป็นอีกถนนที่ยาวเท่ากัน
+
+## 5. จุดที่มักพลาด
+- **นับก้าวแทนนับช่อง:** ช่อง = ก้าว + 1
+- **BFS จากช่อง 1 ทีละช่อง:** อาจถึง 25 ล้านครั้ง
+- **ระยะแบบ `int` หรือ `vector<vector<int>>` สำหรับ 25 ล้านช่อง:** เปลืองหน่วยความจำและ cache miss หนึ่งไบต์ต่อช่องก็พอ
+- **recursion (flood fill แบบ DFS):** ลึกได้หลายล้านชั้น และไม่ได้หาเส้นทางสั้นสุดด้วย
+- **input ช้า:** `cin` ธรรมดากับ 50 MB ช้าเกินไป แม้ `scanf` ก็เฉียดฉิว
+- **ช่อง 1 อยู่ติดช่อง 2:** คำตอบ 2 (ตัวอย่างที่ 4)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 ไอเดียเดียวกับ [Pandemic](#a62_q2a_pandemic): จุดเริ่มหลายจุดในคิวเดียว รูปแบบ "ถนนที่สั้นที่สุดระหว่างสองพื้นที่" เป็นโจทย์ที่ออกสอบบ่อย (เป็นแก่นของโจทย์แบบ "shortest bridge") สำหรับตารางขนาดมหึมา ให้คิดเรื่องจำนวนไบต์ต่อช่องก่อนเขียนโค้ด

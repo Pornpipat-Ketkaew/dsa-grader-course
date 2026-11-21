@@ -1,0 +1,132 @@
+id: ex01e3
+group: dc
+lesson: 08 · Binary search
+stars: 1
+complexity: O((N + M) log N)
+kind: program
+tags: binary search, real-number queries, invariant, no <algorithm>
+title: Binary Search Near
+title_th: ค้นหาแบบทวิภาคหาค่าใกล้ (Binary Search Near)
+blurb: For each query X, the largest array value that is ≤ X (or −1). Halve the window [lo, hi] and remember the last value that fitted.
+blurb_th: สำหรับแต่ละคำถาม X หาค่าในอาร์เรย์ที่มากที่สุดซึ่ง ≤ X (หรือ −1) แบ่งช่วง [lo, hi] ทีละครึ่งและจำค่าล่าสุดที่ใช้ได้
+files: sol/ex01e3/main.cpp
+tests: the PDF sample, plus real-valued queries just below / at / above an element (4.99, 5.0, 14.999); 300 random cases (some integer, some real queries) against a Python linear scan; N = M = 100,000 with real queries in 0.05 s.
+tests_th: ตัวอย่างใน PDF และคำถามที่เป็นจำนวนจริงซึ่งอยู่ต่ำกว่า / เท่ากับ / สูงกว่าสมาชิกนิดเดียว (4.99, 5.0, 14.999); สุ่ม 300 ชุด (คำถามเป็นทั้งจำนวนเต็มและจำนวนจริง) เทียบกับการไล่หาทีละตัวใน Python; N = M = 100,000 พร้อมคำถามจำนวนจริง ใช้ 0.05 วินาที
+==== en
+## 1. What the problem says
+You get a **sorted** array A of N **distinct** positive integers and M queries. For each query X (a **real number**), print the **largest element of A that is not bigger than X**, or **−1** if every element is bigger.
+
+- 1 ≤ N, M ≤ 100,000; elements ≤ 1,000,000, strictly increasing.
+- You may **not** use library binary search, hashing or sorting (no `lower_bound`, no `upper_bound`, no `set`).
+
+## 2. What it really means
+Picture the array on a number line and drop X onto it. The answer is the **nearest element on the left of X** (or on X itself):
+
+```text
+A:        14   15        20             30
+           |    |         |              |
+x = 16 ─────────────▲                          → nearest at or left of 16 is 15
+x = 10 ─▲                                       → nothing on the left        → -1
+x = 68 ───────────────────────────────────────▲ → 30
+```
+
+A linear scan costs N per query, so N·M = 10¹⁰ in the worst case: far too slow. Binary search costs about log₂(100,000) ≈ 17 steps per query.
+
+:::hint Hint 1: which elements are "good"?
+Call A[i] good if A[i] ≤ X. Because A is sorted, the good elements form a **prefix** of the array: good, good, …, good, bad, bad, … You want the last good one.
+:::
+:::hint Hint 2: what to do at mid
+If A[mid] is good, it is a candidate, but there may be a later good one: remember it and go **right**. If it is bad, everything to its right is bad too: go **left**.
+:::
+
+## 3. What, why, how
+- **What:** find the boundary between "≤ X" and "> X" in a sorted array.
+- **Why binary search works:** the predicate "A[i] ≤ X" is *monotone* (true…true false…false). Checking the middle tells us which half contains the boundary, so we throw away half the array every step.
+- **How (the invariant):** keep a window `[lo, hi]` and a variable `ans`.
+  - everything left of `lo` is known to be ≤ X (and the best of them is in `ans`),
+  - everything right of `hi` is known to be > X.
+  - When `lo > hi` the window is empty and `ans` is the answer. It starts at −1, which is exactly the "nothing fits" output.
+- **Real-number queries:** read X into a `double`. Comparing an `int` with a `double` is exact here (all values are small integers or decimals), so `A[mid] <= x` is all we need. Reading X as `int` is **wrong**: `cin` reads `14.9` as 14 and stops at the dot; the next `cin >> x` then sees `.9`, fails, and every later query is garbage.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for A = [14, 15, 20, 30] and X = 16:
+
+| step | lo | hi | mid | A[mid] | A[mid] ≤ 16? | ans | move |
+|---|---|---|---|---|---|---|---|
+| 1 | 0 | 3 | 1 | 15 | yes | 15 | lo = 2 |
+| 2 | 2 | 3 | 2 | 20 | no | 15 | hi = 1 |
+| — | 2 | 1 | | | window empty | **15** | stop |
+
+And X = 10: mid = 1 (15 > 10, hi = 0), mid = 0 (14 > 10, hi = −1), window empty, ans is still **−1**.
+
+## 5. Traps
+- **Reading the query as `int`.** The statement says *real numbers*. Use `double`.
+- **`mid = (lo + hi) / 2` overflow:** harmless for N ≤ 100,000, but `lo + (hi - lo) / 2` is the habit that never fails.
+- **Infinite loops** come from `lo = mid` instead of `lo = mid + 1`. With the "remember ans and move past mid" style the window always shrinks.
+- **Using `upper_bound`:** it would work, but the problem forbids it, and the grader may check.
+- **`endl` on 100,000 lines** flushes 100,000 times; use `"\n"` and `ios_base::sync_with_stdio(false)`.
+
+## 6. Background
+Lesson 08 (binary search). This is the template the whole Divide & Conquer chapter starts from: *find the last position where a monotone condition is true*. [Binary Search Near Repeat](#ex02e3_bs) is the same code returning the **index** instead of the value, and [Lawn Mowing](#a64_q1_lawn_mowing) applies it to prefix sums.
+==== th
+## 1. โจทย์บอกอะไร
+มีอาร์เรย์ A ที่ **เรียงแล้ว** มีจำนวนเต็มบวก N ตัวที่ **ไม่ซ้ำกัน** และมีคำถาม M ข้อ แต่ละคำถามเป็น X (เป็น **จำนวนจริง**) ให้ตอบ **สมาชิกของ A ที่มากที่สุดซึ่งไม่เกิน X** หรือ **−1** ถ้าทุกตัวมากกว่า X
+
+- 1 ≤ N, M ≤ 100,000; สมาชิก ≤ 1,000,000 เรียงจากน้อยไปมากอย่างเคร่งครัด
+- **ห้าม** ใช้ binary search, hashing หรือ sorting จากไลบรารี (ห้าม `lower_bound`, `upper_bound`, `set`)
+
+## 2. จริง ๆ แล้วถามอะไร
+ลองนึกภาพอาร์เรย์วางบนเส้นจำนวน แล้วปัก X ลงไป คำตอบคือ **สมาชิกที่อยู่ใกล้ X ที่สุดทางซ้าย** (หรือตรงตำแหน่ง X พอดี):
+
+```text
+A:        14   15        20             30
+           |    |         |              |
+x = 16 ─────────────▲                          → nearest at or left of 16 is 15
+x = 10 ─▲                                       → nothing on the left        → -1
+x = 68 ───────────────────────────────────────▲ → 30
+```
+
+ถ้าไล่ทีละตัว ต้องใช้ N ขั้นต่อคำถาม รวม N·M = 10¹⁰ ในกรณีแย่สุด ช้าเกินไปมาก แต่ binary search ใช้ประมาณ log₂(100,000) ≈ 17 ขั้นต่อคำถามเท่านั้น
+
+:::hint คำใบ้ 1: ตัวไหน "ใช้ได้"
+เรียก A[i] ว่าใช้ได้ถ้า A[i] ≤ X เพราะ A เรียงอยู่ ตัวที่ใช้ได้จึงอยู่ติดกันตั้งแต่ **ต้นอาร์เรย์**: ได้, ได้, …, ได้, ไม่ได้, ไม่ได้, … เราต้องการตัวที่ใช้ได้ตัวสุดท้าย
+:::
+:::hint คำใบ้ 2: ที่ mid ต้องทำอะไร
+ถ้า A[mid] ใช้ได้ มันเป็นผู้สมัครคำตอบ แต่อาจมีตัวที่ใช้ได้อยู่ทางขวาอีก ให้จำไว้แล้วไป **ขวา** ถ้าใช้ไม่ได้ ทุกตัวทางขวาของมันก็ใช้ไม่ได้ ให้ไป **ซ้าย**
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** หาเส้นแบ่งระหว่าง "≤ X" กับ "> X" ในอาร์เรย์ที่เรียงแล้ว
+- **ทำไม binary search ใช้ได้:** เงื่อนไข "A[i] ≤ X" เป็นแบบ *ทางเดียว (monotone)* (จริง…จริง เท็จ…เท็จ) ดูตัวกลางตัวเดียวก็รู้ว่าเส้นแบ่งอยู่ครึ่งไหน จึงทิ้งได้ครึ่งหนึ่งทุกขั้น
+- **อย่างไร (invariant):** เก็บช่วง `[lo, hi]` และตัวแปร `ans`
+  - ทุกตัวทางซ้ายของ `lo` รู้แน่แล้วว่า ≤ X (และตัวที่ดีที่สุดในนั้นอยู่ใน `ans`)
+  - ทุกตัวทางขวาของ `hi` รู้แน่แล้วว่า > X
+  - เมื่อ `lo > hi` ช่วงว่าง `ans` คือคำตอบ ค่าเริ่มต้นคือ −1 ซึ่งตรงกับกรณี "ไม่มีตัวไหนใช้ได้" พอดี
+- **คำถามเป็นจำนวนจริง:** อ่าน X ด้วย `double` การเทียบ `int` กับ `double` ในข้อนี้ถูกต้องแน่นอน จึงใช้ `A[mid] <= x` ได้เลย ถ้าอ่านเป็น `int` จะ **ผิด**: `cin` อ่าน `14.9` ได้ 14 แล้วหยุดที่จุด การอ่านครั้งถัดไปจะเจอ `.9` แล้วล้มเหลว คำถามที่เหลือทั้งหมดจะได้ค่าขยะ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** เมื่อ A = [14, 15, 20, 30] และ X = 16:
+
+| ขั้น | lo | hi | mid | A[mid] | A[mid] ≤ 16? | ans | ขยับ |
+|---|---|---|---|---|---|---|---|
+| 1 | 0 | 3 | 1 | 15 | ใช่ | 15 | lo = 2 |
+| 2 | 2 | 3 | 2 | 20 | ไม่ | 15 | hi = 1 |
+| — | 2 | 1 | | | ช่วงว่าง | **15** | หยุด |
+
+ส่วน X = 10: mid = 1 (15 > 10, hi = 0), mid = 0 (14 > 10, hi = −1) ช่วงว่าง ans ยังเป็น **−1**
+
+## 5. จุดที่มักพลาด
+- **อ่านคำถามเป็น `int`** โจทย์บอกว่าเป็น *จำนวนจริง* ต้องใช้ `double`
+- **`mid = (lo + hi) / 2` ล้น:** สำหรับ N ≤ 100,000 ไม่เป็นไร แต่ `lo + (hi - lo) / 2` เป็นนิสัยที่ไม่มีวันพลาด
+- **วนไม่รู้จบ** เกิดจากเขียน `lo = mid` แทน `lo = mid + 1` ถ้าใช้แบบ "จำ ans แล้วข้าม mid ไป" ช่วงจะหดเสมอ
+- **ใช้ `upper_bound`:** ได้คำตอบถูก แต่โจทย์ห้าม และ grader อาจตรวจ
+- **`endl` 100,000 บรรทัด** จะ flush 100,000 ครั้ง ให้ใช้ `"\n"` และ `ios_base::sync_with_stdio(false)`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 08 (binary search) นี่คือแม่แบบที่บท Divide & Conquer ทั้งบทเริ่มจากมัน: *หาตำแหน่งสุดท้ายที่เงื่อนไขแบบ monotone ยังเป็นจริง* ข้อ [Binary Search Near Repeat](#ex02e3_bs) คือโค้ดเดียวกันแต่ตอบ **ตำแหน่ง** แทนค่า และข้อ [Lawn Mowing](#a64_q1_lawn_mowing) นำไปใช้กับ prefix sum

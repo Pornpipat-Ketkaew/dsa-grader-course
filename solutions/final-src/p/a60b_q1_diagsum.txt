@@ -1,0 +1,138 @@
+id: a60b_q1_diagsum
+group: dp
+lesson: 10 · Kadane (maximum subarray)
+stars: 2
+complexity: O(n²)
+kind: program
+tags: Kadane, maximum subarray, diagonals, d = c − r
+title: Diagonal Sum
+title_th: ผลรวมแนวทะแยง (Diagonal Sum)
+blurb: The best sum of a contiguous piece of any down-right diagonal. Each diagonal is an array: run Kadane's "best sum ending here" along it.
+blurb_th: ผลรวมที่มากที่สุดของช่วงติดกันบนเส้นทแยงลงขวาเส้นใดก็ได้ แต่ละเส้นทแยงคืออาร์เรย์หนึ่ง จึงใช้ Kadane "ผลรวมที่ดีที่สุดที่จบตรงนี้" ไล่ไปตามเส้น
+files: sol/a60b_q1_diagsum/main.cpp
+tests: all 3 PDF samples (the third is written with 4×4 rows under n = 3; both readings give −1), a 1×1 negative table; 300 random tables (n ≤ 7, some all-negative) against the O(n⁴) definition in Python; n = 1000 in 0.08 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF (ชุดที่สามเขียนแถว 4×4 ใต้ n = 3 แต่อ่านแบบไหนก็ได้ −1), ตาราง 1×1 ที่ติดลบ; สุ่ม 300 ตาราง (n ≤ 7 บางตารางติดลบทั้งหมด) เทียบกับนิยาม O(n⁴) ใน Python; n = 1000 ใช้ 0.08 วินาที
+==== en
+## 1. What the problem says
+An n × n table A (n ≤ 1,000, entries −999..999). The "diagonal sum at (i, j) of length k" is A[i][j] + A[i+1][j+1] + … for k cells, stopping early at the border. Find the **maximum** diagonal sum over all i, j, k (k ≥ 1).
+
+```text
+ 1   2   3   4
+-2  -5   2  -5
+ 6   3  -7   1         best: start (2,1), length 2 → 3 + 7 = 10
+ 3  -2   7  -9
+```
+
+The PDF's hints: O(n⁴) passes half of the tests, O(n³) gets full marks.
+
+## 2. What it really means
+A diagonal sum is the sum of a **contiguous piece of one diagonal**. So the question is: over all 2n − 1 diagonals, what is the best contiguous piece? That is the **maximum subarray** problem, once per diagonal.
+
+```text
+diagonal d = c − r = −1:   A[1][0], A[2][1], A[3][2]  =  -2, 3, 7   → best piece 3 + 7 = 10
+diagonal d = 0 (main):     1, -5, -7, -9                            → best piece 1
+```
+
+:::hint Hint 1
+All cells (r, c) with the same c − r lie on the same down-right diagonal. Walk each one as if it were a 1D array.
+:::
+:::hint Hint 2
+For a 1D array: let endHere = best sum of a piece that ends at the current cell. Then endHere = max(x, endHere + x). The answer is the largest endHere ever seen.
+:::
+
+## 3. What, why, how
+- **What:** Kadane's algorithm (a tiny DP) on each diagonal.
+- **Why Kadane works:** the best piece ending at position p either is just A[p] or extends the best piece ending at p−1 (any other piece ending at p−1 would be worse). One pass, O(length).
+- **How to enumerate diagonals:** d = c − r goes from −(n−1) (bottom-left corner) to n−1 (top-right corner). The first cell of diagonal d is r = max(0, −d), c = r + d; then step r++, c++ while inside.
+- **Cost:** every cell belongs to exactly one diagonal → O(n²) total, even better than the PDF's O(n³).
+- **The O(n³) the PDF expects:** for every start (i, j), extend k = 1, 2, … keeping a running sum. That is also fine for n = 1,000 (about 3·10⁸ additions in the worst case, which is tight). Kadane is simpler to make fast.
+- **All negative:** pieces must have k ≥ 1, so the answer is the largest single entry. Starting `best` at A[0][0] (an actual cell), not at 0, handles that.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** of Kadane along every diagonal of the first sample:
+
+| d | cells (top-left → bottom-right) | endHere after each cell | best on this diagonal |
+|---|---|---|---|
+| −3 | 3 | 3 | 3 |
+| −2 | 6, −2 | 6, 4 | 6 |
+| −1 | −2, 3, 7 | −2, **3** (restart), **10** | **10** |
+| 0 | 1, −5, −7, −9 | 1, −4, −7, −9 | 1 |
+| 1 | 2, 2, 1 | 2, 4, 5 | 5 |
+| 2 | 3, −5 | 3, −2 | 3 |
+| 3 | 4 | 4 | 4 |
+
+Overall maximum **10**.
+
+## 5. Traps
+- **Starting best at 0:** the third sample (all −1) must print −1, not 0.
+- **Only main diagonals:** pieces can start anywhere, on any of the 2n − 1 diagonals, not just at the top row.
+- **Anti-diagonals:** the problem only uses down-right steps (i+p, j+p).
+- **The odd third sample:** it says n = 3 but shows 4 rows of 4 numbers. Reading 9 numbers or 16 gives −1 either way.
+
+## 6. Background
+Kadane's algorithm (lesson 10, maximum subarray) is a one-variable DP: the state "best sum ending here" depends only on the previous state. The same problem is also a classic divide & conquer exercise (best crossing the middle + best left + best right), in O(n log n); Kadane's O(n) is the DP improvement.
+==== th
+## 1. โจทย์บอกอะไร
+ตาราง A ขนาด n × n (n ≤ 1,000 ค่า −999..999) "ผลรวมทะแยงที่จุด (i, j) ความยาว k" คือ A[i][j] + A[i+1][j+1] + … รวม k ช่อง แต่หยุดก่อนถ้าถึงขอบ ให้หาผลรวมทะแยงที่ **มากที่สุด** ทุก i, j, k (k ≥ 1)
+
+```text
+ 1   2   3   4
+-2  -5   2  -5
+ 6   3  -7   1         best: start (2,1), length 2 → 3 + 7 = 10
+ 3  -2   7  -9
+```
+
+คำแนะนำใน PDF: O(n⁴) ผ่านครึ่งหนึ่งของชุดทดสอบ O(n³) ได้คะแนนเต็ม
+
+## 2. จริง ๆ แล้วถามอะไร
+ผลรวมทะแยงคือผลรวมของ **ช่วงติดกันบนเส้นทแยงเส้นหนึ่ง** คำถามจึงเป็น: ในเส้นทแยงทั้งหมด 2n − 1 เส้น ช่วงติดกันที่ดีที่สุดคืออะไร นั่นคือโจทย์ **maximum subarray** ทำเส้นละครั้ง
+
+```text
+diagonal d = c − r = −1:   A[1][0], A[2][1], A[3][2]  =  -2, 3, 7   → best piece 3 + 7 = 10
+diagonal d = 0 (main):     1, -5, -7, -9                            → best piece 1
+```
+
+:::hint คำใบ้ 1
+ทุกช่อง (r, c) ที่มี c − r เท่ากันอยู่บนเส้นทแยงลงขวาเส้นเดียวกัน ให้เดินแต่ละเส้นเหมือนเป็นอาร์เรย์หนึ่งมิติ
+:::
+:::hint คำใบ้ 2
+สำหรับอาร์เรย์หนึ่งมิติ: ให้ endHere = ผลรวมดีที่สุดของช่วงที่จบที่ช่องปัจจุบัน แล้ว endHere = max(x, endHere + x) คำตอบคือ endHere ที่มากที่สุดที่เคยเห็น
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** อัลกอริทึม Kadane (DP ตัวเล็ก ๆ) บนแต่ละเส้นทแยง
+- **ทำไม Kadane ถูก:** ช่วงที่ดีที่สุดที่จบที่ตำแหน่ง p เป็นได้แค่ A[p] ตัวเดียว หรือต่อจากช่วงที่ดีที่สุดที่จบที่ p−1 (ช่วงอื่นที่จบที่ p−1 แย่กว่าแน่นอน) เดินรอบเดียว O(ความยาว)
+- **ไล่เส้นทแยงอย่างไร:** d = c − r มีค่าตั้งแต่ −(n−1) (มุมซ้ายล่าง) ถึง n−1 (มุมขวาบน) ช่องแรกของเส้น d คือ r = max(0, −d), c = r + d แล้วเพิ่ม r++, c++ ไปเรื่อย ๆ ขณะยังอยู่ในตาราง
+- **ต้นทุน:** ทุกช่องอยู่บนเส้นทแยงเส้นเดียวพอดี → รวม O(n²) ดีกว่า O(n³) ที่ PDF ขอเสียอีก
+- **O(n³) ที่ PDF คาดหวัง:** ทุกจุดเริ่ม (i, j) ขยาย k = 1, 2, … พร้อมเก็บผลรวมสะสม ก็ใช้ได้กับ n = 1,000 (ประมาณ 3·10⁸ การบวกในกรณีแย่สุด ค่อนข้างเฉียด) Kadane ทำให้เร็วได้ง่ายกว่า
+- **ติดลบหมด:** ช่วงต้องมี k ≥ 1 คำตอบจึงเป็นค่าเดี่ยวที่มากที่สุด การเริ่ม `best` ที่ A[0][0] (ช่องจริง) แทนที่จะเริ่มที่ 0 จัดการกรณีนี้ได้
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** Kadane ตามทุกเส้นทแยงของตัวอย่างแรก:
+
+| d | ช่อง (ซ้ายบน → ขวาล่าง) | endHere หลังแต่ละช่อง | ดีที่สุดบนเส้นนี้ |
+|---|---|---|---|
+| −3 | 3 | 3 | 3 |
+| −2 | 6, −2 | 6, 4 | 6 |
+| −1 | −2, 3, 7 | −2, **3** (เริ่มใหม่), **10** | **10** |
+| 0 | 1, −5, −7, −9 | 1, −4, −7, −9 | 1 |
+| 1 | 2, 2, 1 | 2, 4, 5 | 5 |
+| 2 | 3, −5 | 3, −2 | 3 |
+| 3 | 4 | 4 | 4 |
+
+ค่ามากสุดรวม **10**
+
+## 5. จุดที่มักพลาด
+- **เริ่ม best ที่ 0:** ตัวอย่างที่สาม (−1 ทั้งหมด) ต้องพิมพ์ −1 ไม่ใช่ 0
+- **ดูแค่เส้นทแยงหลัก:** ช่วงเริ่มที่ไหนก็ได้ บนเส้นทแยงเส้นใดก็ได้จาก 2n − 1 เส้น ไม่ใช่แค่แถวบนสุด
+- **เส้นทแยงอีกทิศ:** โจทย์ใช้แค่การก้าวลงขวา (i+p, j+p)
+- **ตัวอย่างที่สามแปลก ๆ:** บอก n = 3 แต่แสดง 4 แถวแถวละ 4 ตัว อ่าน 9 ตัวหรือ 16 ตัวก็ได้ −1 เหมือนกัน
+
+## 6. ความรู้พื้นฐาน
+อัลกอริทึม Kadane (บทที่ 10, maximum subarray) เป็น DP ตัวแปรเดียว: สถานะ "ผลรวมดีที่สุดที่จบตรงนี้" ขึ้นกับสถานะก่อนหน้าเท่านั้น โจทย์เดียวกันยังเป็นแบบฝึก divide & conquer คลาสสิก (ดีที่สุดที่คร่อมตรงกลาง + ดีที่สุดซ้าย + ดีที่สุดขวา) ใน O(n log n) และ O(n) ของ Kadane คือการปรับปรุงด้วย DP

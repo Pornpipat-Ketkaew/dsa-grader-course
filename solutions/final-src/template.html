@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Final Data Algorithm Grader Solution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;600;700&family=IBM+Plex+Sans+Thai:wght@400;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eef0f4; --panel: #ffffff; --panel-2: #f6f7fa; --ink: #161a24; --muted: #5b6375; --line: #d9dde6;
+  --stack: #2a64d6; --stack-tint: #e9f0fd; --heap: #b56d00; --heap-tint: #fdf3e2; --ptr: #d02f67;
+  --acc: #0b8f7d; --acc-tint: #dff4f0; --chg: #ffe066; --bad: #d6402b; --bad-tint: #fbe9e6; --new: #1f9d55; --code-bg: #fbfbfd;
+  --font-display: "Bricolage Grotesque", "IBM Plex Sans Thai", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "IBM Plex Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1117; --panel: #161b24; --panel-2: #1b212c; --ink: #e7eaf0; --muted: #9aa3b5; --line: #2a3242;
+    --stack: #7aa7ff; --stack-tint: #172338; --heap: #f2b64f; --heap-tint: #2a2215; --ptr: #ff6f9f;
+    --acc: #3fd0b9; --acc-tint: #12302c; --chg: #8a6d00; --bad: #ff7b66; --bad-tint: #321a17; --new: #4ccf83; --code-bg: #12161e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1117; --panel: #161b24; --panel-2: #1b212c; --ink: #e7eaf0; --muted: #9aa3b5; --line: #2a3242;
+  --stack: #7aa7ff; --stack-tint: #172338; --heap: #f2b64f; --heap-tint: #2a2215; --ptr: #ff6f9f;
+  --acc: #3fd0b9; --acc-tint: #12302c; --chg: #8a6d00; --bad: #ff7b66; --bad-tint: #321a17; --new: #4ccf83; --code-bg: #12161e;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15.5px; line-height: 1.6; }
+code, .mono { font-family: var(--font-mono); font-size: .9em; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+h1, h2, h3, h4 { font-family: var(--font-display); text-wrap: balance; line-height: 1.25; }
+a { color: var(--stack); }
+
+/* top bar */
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: var(--panel); border-bottom: 1px solid var(--line); height: 50px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--ink); text-decoration: none; white-space: nowrap; }
+.brand-mark { display: grid; grid-template-columns: repeat(4, 7px); gap: 2px; }
+.brand-mark i { width: 7px; height: 7px; border-radius: 1.5px; background: var(--stack); opacity: .9; }
+.brand-mark i:nth-child(2n) { background: var(--heap); }
+.brand-mark i:nth-child(3) { background: var(--ptr); }
+.spacer { flex: 1; }
+.search { width: min(320px, 40vw); padding: 5px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel-2); font-size: 14px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex: 0 0 auto; }
+.seg button { border: 0; background: transparent; padding: 4px 10px; cursor: pointer; font-size: 13px; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.iconbtn { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 4px 10px; cursor: pointer; font-size: 13px; }
+.menu-btn { display: none; }
+
+/* shell */
+.app { display: grid; grid-template-columns: 290px minmax(0, 1fr); }
+.side { border-right: 1px solid var(--line); background: var(--panel); padding: 10px 10px 40px; position: sticky; top: 50px; height: calc(100vh - 50px); overflow-y: auto; }
+.side a { display: grid; grid-template-columns: 16px 1fr auto; gap: 6px; align-items: baseline; padding: 4px 8px; border-radius: 7px; color: var(--ink); text-decoration: none; font-size: 13.5px; line-height: 1.3; }
+.side a:hover { background: var(--panel-2); }
+.side a[aria-current="page"] { background: var(--acc-tint); font-weight: 600; box-shadow: inset 3px 0 0 var(--acc); }
+.side a .dn { color: var(--new); font-size: 12px; }
+.side a .st { font-size: 10px; color: var(--heap); letter-spacing: -1px; }
+.side a .id { display: block; font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); font-weight: 400; }
+.side h4 { margin: 14px 8px 4px; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.side h4 small { display: block; text-transform: none; letter-spacing: 0; font-family: var(--font-body); font-weight: 400; }
+.side .home-link { grid-template-columns: 1fr; font-weight: 600; }
+.main { min-width: 0; padding: 0 0 80px; }
+.page { max-width: 980px; margin: 0 auto; padding: 22px 24px 40px; }
+
+/* home */
+.hero h1 { font-size: clamp(28px, 4vw, 40px); margin: 6px 0 8px; }
+.hero .lede { color: var(--muted); font-size: 17px; max-width: 70ch; margin: 0; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 6px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; font-size: 13px; color: var(--muted); }
+.stat b { display: block; font-family: var(--font-display); font-size: 22px; color: var(--ink); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+.card { display: grid; gap: 2px; padding: 11px 13px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; text-decoration: none; color: var(--ink); }
+.card:hover { border-color: var(--acc); }
+.card .t { font-weight: 600; }
+.card .k { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.card .s { font-size: 13px; color: var(--muted); }
+.card.done { border-color: color-mix(in srgb, var(--new) 50%, var(--line)); }
+.grp h2 { font-size: 21px; margin: 28px 0 4px; }
+.grp p.gs { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+
+/* problem */
+.crumbs { font-size: 12px; color: var(--muted); font-family: var(--font-mono); display: flex; flex-wrap: wrap; gap: 6px 12px; }
+.ptitle { font-size: clamp(26px, 3.4vw, 34px); margin: 4px 0 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.tag { font-size: 12px; padding: 1px 9px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--muted); }
+.tag.kind { border-color: var(--stack); color: var(--stack); }
+.tag.stars { color: var(--heap); border-color: var(--heap); }
+.toc { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 0 4px; position: sticky; top: 50px; background: var(--bg); z-index: 5; border-bottom: 1px solid var(--line); margin-bottom: 8px; }
+.toc a { font-size: 12.5px; text-decoration: none; padding: 2px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); }
+.toc a:hover { border-color: var(--acc); }
+.toc .donebtn { margin-left: auto; font-size: 12.5px; padding: 2px 10px; border-radius: 7px; border: 1px solid var(--line); background: var(--panel); cursor: pointer; }
+.toc .donebtn[aria-pressed="true"] { background: var(--new); color: #fff; border-color: var(--new); }
+.md h2 { font-size: 22px; margin: 30px 0 8px; padding-top: 10px; border-top: 1px solid var(--line); scroll-margin-top: 100px; }
+.md h3 { font-size: 17px; margin: 20px 0 6px; }
+.md p { margin: 8px 0; max-width: 78ch; }
+.md ul, .md ol { margin: 6px 0; padding-left: 22px; max-width: 78ch; }
+.md li { margin: 3px 0; }
+.md code { background: var(--panel-2); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+.md table { border-collapse: collapse; font-size: 14px; background: var(--panel); border: 1px solid var(--line); margin: 10px 0; display: block; overflow-x: auto; max-width: 100%; width: max-content; }
+.md th, .md td { padding: 5px 11px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); text-align: left; vertical-align: top; }
+.md th { background: var(--panel-2); font-weight: 600; }
+.md td code, .md th code { white-space: nowrap; }
+.md pre.dia { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 13px; line-height: 1.45; margin: 10px 0; }
+.md blockquote { margin: 10px 0; border-left: 3px solid var(--heap); background: var(--heap-tint); padding: 8px 14px; border-radius: 0 8px 8px 0; }
+.md blockquote.ok { border-color: var(--acc); background: var(--acc-tint); }
+.md blockquote.bad { border-color: var(--bad); background: var(--bad-tint); }
+.md blockquote p { margin: 4px 0; }
+.md hr { border: 0; border-top: 1px dashed var(--line); margin: 18px 0; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; margin: 12px 0; overflow: hidden; }
+.panel .ph { display: flex; align-items: center; gap: 8px; padding: 7px 12px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: .04em; text-transform: uppercase; }
+.panel .ph .sub { text-transform: none; letter-spacing: 0; font-weight: 400; font-family: var(--font-mono); }
+.panel .ph button { margin-left: auto; text-transform: none; letter-spacing: 0; }
+.code { margin: 0; padding: 8px 0; background: var(--code-bg); font-family: var(--font-mono); font-size: 13px; line-height: 1.55; overflow: auto; }
+.code .ln { display: grid; grid-template-columns: 42px 1fr; padding-right: 12px; white-space: pre; }
+.code .ln .no { color: var(--muted); text-align: right; padding-right: 12px; user-select: none; opacity: .65; }
+.tk-k { color: #8b3fc7; font-weight: 600; } .tk-t { color: #1c6fb8; } .tk-n { color: #b4531f; } .tk-c { color: #6f7a8c; font-style: italic; } .tk-s { color: #1e8a4c; } .tk-p { color: #b02a72; } .tk-d { color: #a0522d; }
+:root[data-theme="dark"] .tk-k { color: #c792ea; } :root[data-theme="dark"] .tk-t { color: #82aaff; } :root[data-theme="dark"] .tk-n { color: #f78c6c; } :root[data-theme="dark"] .tk-s { color: #c3e88d; } :root[data-theme="dark"] .tk-p { color: #ff79c6; } :root[data-theme="dark"] .tk-c { color: #8b95a7; } :root[data-theme="dark"] .tk-d { color: #e0a96d; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tk-k { color: #c792ea; } :root:not([data-theme="light"]) .tk-t { color: #82aaff; } :root:not([data-theme="light"]) .tk-n { color: #f78c6c; } :root:not([data-theme="light"]) .tk-s { color: #c3e88d; } :root:not([data-theme="light"]) .tk-p { color: #ff79c6; } :root:not([data-theme="light"]) .tk-c { color: #8b95a7; } :root:not([data-theme="light"]) .tk-d { color: #e0a96d; } }
+.tests { border-left: 3px solid var(--new); background: color-mix(in srgb, var(--new) 10%, transparent); padding: 8px 14px; border-radius: 0 8px 8px 0; margin: 10px 0; font-size: 14.5px; }
+.tests b { color: var(--new); }
+.pager { display: flex; justify-content: space-between; gap: 10px; margin-top: 34px; }
+.pager a { flex: 1; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); text-decoration: none; color: var(--ink); font-size: 14px; }
+.pager a:hover { border-color: var(--acc); }
+.pager a small { display: block; color: var(--muted); font-size: 12px; }
+.pager a.next { text-align: right; }
+.empty { color: var(--muted); padding: 30px 0; }
+
+
+/* final-book additions */
+code, .code, pre.dia, .mono { font-variant-ligatures: none; font-feature-settings: 'liga' 0, 'calt' 0; }
+.side a.chap { grid-template-columns: 22px 1fr auto; margin-top: 12px; padding: 6px 8px; font-weight: 700; font-family: var(--font-display); font-size: 14px; background: var(--panel-2); }
+.side a.chap .cn { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 6px; background: var(--ink); color: var(--panel); font-size: 11.5px; }
+.side a.chap .id { font-family: var(--font-body); font-size: 11px; font-weight: 400; }
+.side a.chap .cp { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); font-weight: 400; }
+.side a.pl { grid-template-columns: 26px 1fr auto; }
+.side a.pl .dn { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); }
+.hero .kicker { margin: 0; font-family: var(--font-mono); font-size: 12px; color: var(--acc); letter-spacing: .04em; }
+.chno { display: inline-grid; place-items: center; min-width: 28px; height: 28px; padding: 0 6px; border-radius: 8px; background: var(--ink); color: var(--panel); font-size: 15px; margin-right: 10px; vertical-align: 3px; }
+.chno.big { min-width: 40px; height: 40px; font-size: 22px; border-radius: 10px; vertical-align: 4px; }
+.grp h2 a { color: var(--ink); text-decoration: none; }
+.pno { font-family: var(--font-mono); font-size: .62em; color: var(--acc); margin-right: 12px; vertical-align: .18em; }
+.lede2 { color: var(--muted); margin: 0 0 8px; }
+.crumbs a { color: var(--muted); }
+.card .m { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; font-size: 11px; }
+.card .m .st { color: var(--heap); letter-spacing: -1px; }
+.card .m code { color: var(--muted); font-size: 10.5px; }
+.tag.cx { border-color: var(--acc); color: var(--acc); font-family: var(--font-mono); }
+details.hint { margin: 8px 0; border: 1px solid var(--line); border-left: 3px solid var(--stack); border-radius: 0 10px 10px 0; background: var(--stack-tint); max-width: 82ch; }
+details.hint summary { cursor: pointer; padding: 7px 12px; font-weight: 600; color: var(--stack); list-style: none; }
+details.hint summary::before { content: '▸ '; }
+details.hint[open] summary::before { content: '▾ '; }
+details.hint .hb { padding: 0 14px 8px; }
+.md .note { border: 1px dashed var(--acc); background: var(--acc-tint); border-radius: 10px; padding: 6px 14px; margin: 10px 0; max-width: 82ch; }
+@media print { details.hint > *:not(summary) { display: block; } details.hint { break-inside: avoid; } .md h2 { break-after: avoid; } }
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .side { position: fixed; z-index: 40; left: 0; top: 50px; width: 290px; transform: translateX(-100%); transition: transform .2s; box-shadow: 0 0 30px rgba(0,0,0,.25); }
+  .side.open { transform: none; }
+  .menu-btn { display: inline-block; }
+  .search { width: 120px; }
+  .page { padding: 16px 14px 40px; }
+}
+@media (max-width: 560px) { #brandtxt { display: none; } .search { width: auto; flex: 1; min-width: 0; } .topbar { gap: 8px; } }
+@media print { .topbar, .side, .toc, .pager { display: none !important; } .app { display: block; } }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menubtn">Menu</button>
+  <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span id="brandtxt">Final Algorithm Solutions</span></a>
+  <span class="spacer"></span>
+  <input class="search" id="q" type="search" placeholder="Search…" aria-label="Search problems">
+  <div class="seg" id="lang" role="group" aria-label="Language"><button data-l="en" aria-pressed="true">EN</button><button data-l="th" aria-pressed="false">ไทย</button></div>
+  <button class="iconbtn" id="theme" title="Theme">◐</button>
+</header>
+<div class="app">
+  <nav class="side" id="side" aria-label="Problems"></nav>
+  <main class="main" id="main"></main>
+</div>
+<script>
+const DATA = /*__DATA__*/;
+const L = (en, th) => ({ en, th: th == null ? en : th });
+let LANG = 'en';
+const tr = x => (x && typeof x === 'object' && 'en' in x) ? (x[LANG] != null && x[LANG] !== '' ? x[LANG] : x.en) : (x == null ? '' : String(x));
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+const UI = {
+  brand: L('Final Data Algorithm Grader Solution', 'เฉลยโจทย์ Grader อัลกอริทึม ฉบับปลายภาค'),
+  brandShort: L('Final Algorithm Solutions', 'เฉลยอัลกอริทึม ปลายภาค'),
+  search: L('Search problems, ideas…', 'ค้นหาโจทย์ หรือเทคนิค…'),
+  menu: L('Menu', 'เมนู'),
+  home: L('Overview', 'ภาพรวม'),
+  lede: L('Every problem on your final-exam list, grouped by the technique that solves it and ordered from easier to harder inside each chapter. Every page follows the same path: what the statement says, what it really asks, hints to try first, why the idea works, a complete solution that was compiled and tested, a step-by-step trace, the traps, and the background.',
+          'โจทย์ทุกข้อในรายการสอบปลายภาค จัดกลุ่มตามเทคนิคที่ใช้แก้ และเรียงจากง่ายไปยากในแต่ละบท ทุกหน้าเดินตามลำดับเดียวกัน: โจทย์บอกอะไร จริง ๆ แล้วถามอะไร คำใบ้ให้ลองคิดเองก่อน ทำไมแนวคิดนี้ถึงถูก โค้ดเฉลยฉบับเต็มที่คอมไพล์และทดสอบแล้ว การไล่ค่าทีละขั้น จุดที่มักพลาด และความรู้พื้นฐาน'),
+  problems: L('problems', 'ข้อ'), chapters: L('chapters', 'บท'), done: L('marked done', 'ทำเสร็จแล้ว'), tested: L('solutions tested', 'เฉลยที่ทดสอบแล้ว'),
+  how: L('How each page is laid out', 'แต่ละหน้าจัดเรียงอย่างไร'),
+  howList: L('1 · What the problem says  →  2 · What it really means (+ hints)  →  3 · What, why, how  →  4 · Full code + tests + trace  →  5 · Traps  →  6 · Background',
+             '1 · โจทย์บอกอะไร  →  2 · จริง ๆ แล้วถามอะไร (+ คำใบ้)  →  3 · อะไร ทำไม อย่างไร  →  4 · โค้ดเต็ม + การทดสอบ + ไล่ค่า  →  5 · จุดที่มักพลาด  →  6 · ความรู้พื้นฐาน'),
+  code: L('Full solution', 'โค้ดเฉลยฉบับเต็ม'), copy: L('Copy', 'คัดลอก'), copied: L('Copied ✓', 'คัดลอกแล้ว ✓'),
+  tests: L('Verified', 'ตรวจสอบแล้ว'), lesson: L('Lesson', 'บทเรียน'), prev: L('Previous', 'ก่อนหน้า'), next: L('Next', 'ถัดไป'),
+  markDone: L('Mark as done', 'ทำเครื่องหมายว่าเสร็จ'), isDone: L('Done ✓', 'เสร็จแล้ว ✓'),
+  noRes: L('No problem matches that search.', 'ไม่พบโจทย์ที่ตรงกับคำค้น'),
+  submit: L('submit', 'ส่ง'), kindProg: L('full program', 'โปรแกรมเต็ม'),
+  chapter: L('Chapter', 'บทที่'), primer: L('Chapter primer', 'บทนำของบท'), inThis: L('Problems in this chapter', 'โจทย์ในบทนี้'),
+  readPrimer: L('Read the primer', 'อ่านบทนำ'), start: L('Start here', 'เริ่มที่นี่'),
+  time: L('time', 'เวลา'),
+};
+
+// ---------- C++ colouring ----------
+const KW = new Set('if else for while do return break continue new delete class struct public private protected template typename const static void auto true false nullptr this namespace using operator sizeof switch case default inline virtual friend NULL'.split(' '));
+const TY = new Set('tuple ll Mat Edge int char bool double float long short unsigned size_t string vector list map set queue stack deque pair priority_queue unordered_map unordered_set iterator T node std CP KeyT MappedT ValueT Comp greater less multiset tuple'.split(' '));
+function hl(line) {
+  let out = '', m;
+  const re = /(\/\/.*$)|(^\s*#\w+.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)|(\s+)|(.)/g;
+  while ((m = re.exec(line))) {
+    if (m[1]) out += '<span class="tk-c">' + esc(m[1]) + '</span>';
+    else if (m[2]) out += '<span class="tk-d">' + esc(m[2]) + '</span>';
+    else if (m[3]) out += '<span class="tk-s">' + esc(m[3]) + '</span>';
+    else if (m[4]) out += '<span class="tk-n">' + m[4] + '</span>';
+    else if (m[5]) out += KW.has(m[5]) ? '<span class="tk-k">' + m[5] + '</span>' : TY.has(m[5]) ? '<span class="tk-t">' + m[5] + '</span>' : esc(m[5]);
+    else if (m[6]) out += m[6];
+    else out += (m[7] === '*' || m[7] === '&') ? '<span class="tk-p">' + esc(m[7]) + '</span>' : esc(m[7]);
+  }
+  return out;
+}
+function codeBlock(src) {
+  // block comments /* */ are rare in our code; handle line by line
+  return '<pre class="code">' + src.replace(/\s+$/, '').split('\n').map((l, i) => '<span class="ln"><span class="no">' + (i + 1) + '</span><span>' + (hl(l) || ' ') + '</span></span>').join('') + '</pre>';
+}
+
+// ---------- tiny markdown ----------
+function inline(s) {
+  s = esc(s);
+  // keep code spans out of the bold rule (code may contain * such as *this or T*)
+  const codes = [];
+  s = s.replace(/`([^`]+)`/g, (_, c) => { codes.push('<code>' + c + '</code>'); return '\u0000' + (codes.length - 1) + '\u0000'; });
+  s = s.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  s = s.replace(/\u0000(\d+)\u0000/g, (_, k) => codes[+k]);
+  s = s.replace(/\[([^\]]+)\]\((#[^)]+)\)/g, '<a href="$2">$1</a>');
+  return s;
+}
+function md(text, ctx) {
+  const lines = text.replace(/\r/g, '').split('\n');
+  let out = '', i = 0, para = [];
+  const flush = () => { if (para.length) { out += '<p>' + inline(para.join(' ')) + '</p>'; para = []; } };
+  while (i < lines.length) {
+    const ln = lines[i];
+    if (/^```/.test(ln)) {
+      flush();
+      const lang = ln.slice(3).trim(); const buf = []; i++;
+      while (i < lines.length && !/^```/.test(lines[i])) buf.push(lines[i++]);
+      i++;
+      out += lang === 'cpp' ? '<div class="panel">' + codeBlock(buf.join('\n')) + '</div>' : '<pre class="dia">' + esc(buf.join('\n')) + '</pre>';
+      continue;
+    }
+    if (/^:::(hint|note)\b/.test(ln)) {
+      flush();
+      const m2 = ln.match(/^:::(hint|note)\s*(.*)$/); const buf = []; i++;
+      while (i < lines.length && !/^:::\s*$/.test(lines[i])) buf.push(lines[i++]);
+      i++;
+      const inner = md(buf.join('\n'), { code: '', tests: '', heads: [] });
+      out += m2[1] === 'hint' ? '<details class="hint"><summary>' + inline(m2[2] || 'Hint') + '</summary><div class="hb">' + inner + '</div></details>' : '<div class="note">' + inner + '</div>';
+      continue;
+    }
+    if (/^\{\{code\}\}\s*$/.test(ln)) { flush(); out += ctx.code; i++; continue; }
+    if (/^\{\{tests\}\}\s*$/.test(ln)) { flush(); out += ctx.tests; i++; continue; }
+    let h = ln.match(/^(#{2,3})\s+(.*)$/);
+    if (h) { flush(); const lv = h[1].length; const id = lv === 2 ? 's' + (ctx.sec = (ctx.sec || 0) + 1) : ''; if (lv === 2) ctx.heads.push([id, h[2]]); out += '<h' + lv + (id ? ' id="' + id + '"' : '') + '>' + inline(h[2]) + '</h' + lv + '>'; i++; continue; }
+    if (/^---\s*$/.test(ln)) { flush(); out += '<hr>'; i++; continue; }
+    if (/^\|/.test(ln)) {
+      flush(); const rows = [];
+      while (i < lines.length && /^\|/.test(lines[i])) rows.push(lines[i++]);
+      const cells = r => r.trim().replace(/^\|/, '').replace(/\|$/, '').split(/(?<!\\)\|/).map(c => inline(c.trim().replace(/\\\|/g, '|')));
+      let t = '<table><thead><tr>' + cells(rows[0]).map(c => '<th>' + c + '</th>').join('') + '</tr></thead><tbody>';
+      rows.slice(/^\|[\s:|-]+\|?\s*$/.test(rows[1] || '') ? 2 : 1).forEach(r => { t += '<tr>' + cells(r).map(c => '<td>' + c + '</td>').join('') + '</tr>'; });
+      out += t + '</tbody></table>'; continue;
+    }
+    if (/^>\s?/.test(ln)) {
+      flush(); const buf = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) buf.push(lines[i++].replace(/^>\s?/, ''));
+      let cls = '';
+      if (/^\[!ok\]/.test(buf[0])) { cls = ' class="ok"'; buf[0] = buf[0].replace(/^\[!ok\]\s*/, ''); }
+      else if (/^\[!bad\]/.test(buf[0])) { cls = ' class="bad"'; buf[0] = buf[0].replace(/^\[!bad\]\s*/, ''); }
+      out += '<blockquote' + cls + '>' + md(buf.join('\n'), { code: '', tests: '', heads: [] }) + '</blockquote>'; continue;
+    }
+    if (/^\s*([-*]|\d+\.)\s+/.test(ln)) {
+      flush();
+      const ordered = /^\s*\d+\./.test(ln);
+      let t = ordered ? '<ol>' : '<ul>';
+      while (i < lines.length && /^\s*([-*]|\d+\.)\s+/.test(lines[i])) {
+        const ind = lines[i].match(/^\s*/)[0].length;
+        let item = lines[i].replace(/^\s*([-*]|\d+\.)\s+/, ''); i++;
+        // continuation lines (indented, not a new bullet)
+        while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*([-*]|\d+\.)\s+/.test(lines[i])) item += ' ' + lines[i++].trim();
+        // nested bullets
+        let sub = '';
+        if (i < lines.length && /^\s+([-*]|\d+\.)\s+/.test(lines[i]) && lines[i].match(/^\s*/)[0].length > ind) {
+          const buf = [];
+          while (i < lines.length && /^\s+\S/.test(lines[i]) && lines[i].match(/^\s*/)[0].length > ind) buf.push(lines[i++].replace(/^\s{2,4}/, ''));
+          sub = md(buf.join('\n'), { code: '', tests: '', heads: [] });
+        }
+        t += '<li>' + inline(item) + sub + '</li>';
+      }
+      out += t + (ordered ? '</ol>' : '</ul>'); continue;
+    }
+    if (/^\s*$/.test(ln)) { flush(); i++; continue; }
+    para.push(ln.trim()); i++;
+  }
+  flush();
+  return out;
+}
+
+// ---------- state ----------
+const PROBS = DATA.problems;
+const GROUPS = DATA.groups;
+GROUPS.forEach((g, gi) => { g.no = gi + 1; g.probs = PROBS.filter(p => p.group === g.id); g.probs.forEach((p, pi) => p.no = g.no + '.' + (pi + 1)); });
+// one reading order: chapter primer, its problems, next primer, ...
+const SEQ = [];
+GROUPS.forEach(g => { SEQ.push({ kind: 'ch', g, id: 'ch-' + g.id }); g.probs.forEach(p => SEQ.push({ kind: 'p', p, id: p.id })); });
+const seqTitle = s => s.kind === 'ch' ? tr(UI.chapter) + ' ' + s.g.no + ' · ' + tr(s.g.title) : s.p.no + ' · ' + tr(s.p.title);
+const KEY = 'fdag-';
+let DONE = {};
+try { DONE = JSON.parse(localStorage.getItem(KEY + 'done') || '{}'); } catch (e) { }
+const saveDone = () => { try { localStorage.setItem(KEY + 'done', JSON.stringify(DONE)); } catch (e) { } };
+let QUERY = '';
+const stars = n => '★'.repeat(n) + '☆'.repeat(Math.max(0, 3 - n));
+const matches = p => !QUERY || (p.id + ' ' + p.title.en + ' ' + p.title.th + ' ' + (p.tags || []).join(' ') + ' ' + p.blurb.en + ' ' + p.blurb.th).toLowerCase().includes(QUERY);
+
+function pager(id) {
+  const i = SEQ.findIndex(s => s.id === id);
+  const pv = SEQ[i - 1], nx = SEQ[i + 1];
+  return '<div class="pager">' + (pv ? '<a href="#' + pv.id + '"><small>← ' + tr(UI.prev) + '</small>' + esc(seqTitle(pv)) + '</a>' : '<span></span>') +
+    (nx ? '<a class="next" href="#' + nx.id + '"><small>' + tr(UI.next) + ' →</small>' + esc(seqTitle(nx)) + '</a>' : '<span></span>') + '</div>';
+}
+
+function renderSide(cur) {
+  let h = '<a class="home-link" href="#home"' + (cur ? '' : ' aria-current="page"') + '>' + tr(UI.home) + '</a>';
+  GROUPS.forEach(g => {
+    const ps = g.probs.filter(matches);
+    if (QUERY && !ps.length) return;
+    const nd = g.probs.filter(p => DONE[p.id]).length;
+    h += '<a class="chap" href="#ch-' + g.id + '"' + (cur === 'ch-' + g.id ? ' aria-current="page"' : '') + '><span class="cn">' + g.no + '</span><span>' + esc(tr(g.title)) + '<span class="id">' + esc(tr(g.sub)) + '</span></span><span class="cp">' + nd + '/' + g.probs.length + '</span></a>';
+    ps.forEach(p => {
+      h += '<a class="pl" href="#' + p.id + '"' + (cur === p.id ? ' aria-current="page"' : '') + '><span class="dn">' + (DONE[p.id] ? '✓' : p.no) + '</span><span>' + esc(tr(p.title)) + '<span class="id">' + p.id + '</span></span><span class="st">' + stars(p.stars) + '</span></a>';
+    });
+  });
+  if (QUERY && !PROBS.some(matches)) h += '<p class="empty" style="padding:10px">' + tr(UI.noRes) + '</p>';
+  document.getElementById('side').innerHTML = h;
+  const a = document.querySelector('.side a[aria-current="page"]');
+  if (a && a.scrollIntoViewIfNeeded) a.scrollIntoViewIfNeeded();
+}
+
+function card(p) {
+  return '<a class="card' + (DONE[p.id] ? ' done' : '') + '" href="#' + p.id + '"><span class="k">' + p.no + ' · ' + p.id + (DONE[p.id] ? ' · ✓' : '') + '</span><span class="t">' + esc(tr(p.title)) + '</span><span class="s">' + inline(tr(p.blurb)) + '</span><span class="m"><span class="st">' + stars(p.stars) + '</span>' + (p.complexity ? '<code>' + esc(p.complexity) + '</code>' : '') + '</span></a>';
+}
+
+function renderHome() {
+  const nDone = PROBS.filter(p => DONE[p.id]).length;
+  let h = '<div class="page"><div class="hero"><p class="kicker">2110327 · DataAlgo grader</p><h1>' + tr(UI.brand) + '</h1><p class="lede">' + tr(UI.lede) + '</p></div>';
+  h += '<div class="stats"><div class="stat"><b>' + PROBS.length + '</b>' + tr(UI.problems) + '</div><div class="stat"><b>' + GROUPS.length + '</b>' + tr(UI.chapters) + '</div><div class="stat"><b>' + PROBS.filter(p => p.tests).length + '</b>' + tr(UI.tested) + '</div><div class="stat"><b>' + nDone + '</b>' + tr(UI.done) + '</div></div>';
+  h += '<p class="mono" style="font-size:12.5px;color:var(--muted)"><b>' + tr(UI.how) + ':</b> ' + tr(UI.howList) + '</p>';
+  if (DATA.intro) h += '<div class="md">' + md(tr(DATA.intro), { code: '', tests: '', heads: [] }) + '</div>';
+  GROUPS.forEach(g => {
+    const ps = g.probs.filter(matches);
+    if (QUERY && !ps.length) return;
+    h += '<section class="grp"><h2><a href="#ch-' + g.id + '"><span class="chno">' + g.no + '</span>' + esc(tr(g.title)) + '</a></h2><p class="gs">' + esc(tr(g.sub)) + ' · <a href="#ch-' + g.id + '">' + tr(UI.readPrimer) + ' →</a></p><div class="cards">';
+    ps.forEach(p => { h += card(p); });
+    h += '</div></section>';
+  });
+  return h + '</div>';
+}
+
+function renderChapter(g) {
+  const ctx = { code: '', tests: '', heads: [] };
+  const body = md(tr(g.intro) || '', ctx);
+  let h = '<div class="page">';
+  h += '<div class="crumbs"><a href="#home">' + tr(UI.home) + '</a><span>' + tr(UI.chapter) + ' ' + g.no + '</span><span>' + tr(UI.primer) + '</span></div>';
+  h += '<h1 class="ptitle"><span class="chno big">' + g.no + '</span>' + esc(tr(g.title)) + '</h1><p class="lede2">' + esc(tr(g.sub)) + '</p>';
+  if (ctx.heads.length) h += '<nav class="toc">' + ctx.heads.map(([id, t]) => '<a href="#ch-' + g.id + '/' + id + '">' + inline(t.replace(/^\d+\.\s*/, '')) + '</a>').join('') + '</nav>';
+  h += '<article class="md">' + body + '</article>';
+  h += '<section class="grp"><h2>' + tr(UI.inThis) + '</h2><div class="cards">' + g.probs.map(card).join('') + '</div></section>';
+  return h + pager('ch-' + g.id) + '</div>';
+}
+
+function renderProblem(p) {
+  const g = GROUPS.find(x => x.id === p.group);
+  const files = p.files.map(f =>
+    '<div class="panel"><div class="ph">' + tr(UI.code) + ' <span class="sub">' + esc(f.name) + '</span><button class="iconbtn copybtn" data-f="' + esc(f.name) + '">' + tr(UI.copy) + '</button></div>' + codeBlock(f.src) + '</div>').join('');
+  const tests = p.tests ? '<div class="tests"><b>' + tr(UI.tests) + ':</b> ' + inline(tr(p.tests)) + '</div>' : '';
+  const ctx = { code: files, tests, heads: [] };
+  const body = md(tr(p.body) || '', ctx);
+  let h = '<div class="page">';
+  h += '<div class="crumbs"><a href="#ch-' + g.id + '">' + tr(UI.chapter) + ' ' + g.no + ' · ' + esc(tr(g.title)) + '</a><span>' + tr(UI.lesson) + ' ' + esc(p.lesson) + '</span><span>' + p.id + '</span></div>';
+  h += '<h1 class="ptitle"><span class="pno">' + p.no + '</span>' + esc(tr(p.title)) + '</h1>';
+  h += '<div class="tags"><span class="tag kind">' + (p.kind === 'program' ? tr(UI.kindProg) : tr(UI.submit) + ' ' + esc(p.kind)) + '</span><span class="tag stars">' + stars(p.stars) + '</span>' + (p.complexity ? '<span class="tag cx">' + esc(p.complexity) + '</span>' : '') + (p.tags || []).map(t => '<span class="tag">' + esc(t) + '</span>').join('') + '</div>';
+  h += '<nav class="toc">' + ctx.heads.map(([id, t]) => '<a href="#' + p.id + '/' + id + '">' + inline(t.replace(/^\d+\.\s*/, '')) + '</a>').join('') + '<button class="donebtn" id="donebtn" aria-pressed="' + (DONE[p.id] ? 'true' : 'false') + '">' + (DONE[p.id] ? tr(UI.isDone) : tr(UI.markDone)) + '</button></nav>';
+  h += '<article class="md">' + body + '</article>';
+  return h + pager(p.id) + '</div>';
+}
+
+function route() {
+  const hash = decodeURIComponent(location.hash.slice(1));
+  const [id, sec] = hash.split('/');
+  const p = PROBS.find(x => x.id === id);
+  const g = id && id.startsWith('ch-') ? GROUPS.find(x => 'ch-' + x.id === id) : null;
+  const main = document.getElementById('main');
+  main.innerHTML = p ? renderProblem(p) : g ? renderChapter(g) : renderHome();
+  renderSide(p ? p.id : g ? id : null);
+  document.title = (p ? p.no + ' ' + tr(p.title) + ' · ' : g ? tr(g.title) + ' · ' : '') + tr(UI.brand);
+  document.getElementById('side').classList.remove('open');
+  document.querySelectorAll('.copybtn').forEach(b => b.onclick = () => {
+    const f = p.files.find(x => x.name === b.dataset.f);
+    navigator.clipboard && navigator.clipboard.writeText(f.src).then(() => { b.textContent = tr(UI.copied); setTimeout(() => b.textContent = tr(UI.copy), 1500); });
+  });
+  const db = document.getElementById('donebtn');
+  if (p && db) db.onclick = () => { DONE[p.id] = !DONE[p.id]; if (!DONE[p.id]) delete DONE[p.id]; saveDone(); db.setAttribute('aria-pressed', DONE[p.id] ? 'true' : 'false'); db.textContent = DONE[p.id] ? tr(UI.isDone) : tr(UI.markDone); renderSide(p.id); };
+  if (sec) { const el = document.getElementById(sec); if (el) el.scrollIntoView(); } else window.scrollTo(0, 0);
+}
+
+function setLang(l) {
+  LANG = l;
+  try { localStorage.setItem(KEY + 'lang', l); } catch (e) { }
+  document.documentElement.lang = l === 'th' ? 'th' : 'en';
+  document.querySelectorAll('#lang button').forEach(b => b.setAttribute('aria-pressed', b.dataset.l === l ? 'true' : 'false'));
+  document.getElementById('brandtxt').textContent = tr(UI.brandShort);
+  document.getElementById('q').placeholder = tr(UI.search);
+  document.getElementById('menubtn').textContent = tr(UI.menu);
+  const y = window.scrollY; route(); if (location.hash.split('/').length < 2) window.scrollTo(0, y);
+}
+function setTheme(t) {
+  if (t) document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem(KEY + 'theme', t || ''); } catch (e) { }
+}
+(function init() {
+  try { const l = localStorage.getItem(KEY + 'lang'); if (l) LANG = l; const t = localStorage.getItem(KEY + 'theme'); if (t) setTheme(t); } catch (e) { }
+  document.querySelectorAll('#lang button').forEach(b => b.onclick = () => setLang(b.dataset.l));
+  document.getElementById('theme').onclick = () => {
+    const cur = document.documentElement.getAttribute('data-theme');
+    const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    setTheme(dark ? 'light' : 'dark');
+  };
+  document.getElementById('menubtn').onclick = () => document.getElementById('side').classList.toggle('open');
+  document.getElementById('q').oninput = e => { QUERY = e.target.value.trim().toLowerCase(); const hash = location.hash.slice(1).split('/')[0]; if (!hash || hash === 'home') route(); else renderSide(hash); };
+  window.addEventListener('hashchange', route);
+  setLang(LANG);
+})();
+</script>
+</body>
+</html>

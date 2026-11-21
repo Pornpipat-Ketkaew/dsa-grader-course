@@ -1,0 +1,156 @@
+id: a62_q1a_recur
+group: dc
+lesson: 12 · Divide & conquer
+stars: 1
+complexity: O(4^a) = O(size of the matrix)
+kind: program
+tags: recursion, quadrants, fill a 2D vector, 1 << a
+title: Recursive Matrix
+title_th: เมทริกซ์ประหลาด (Recur Matrix)
+blurb: Build the 2^a × 2^a matrix H(a, b) whose four quarters are H(a−1, b), H(a−1, b−1), H(a−1, b+1), H(a−1, b). One recursive call per quarter.
+blurb_th: สร้างเมทริกซ์ H(a, b) ขนาด 2^a × 2^a ที่สี่ส่วนของมันคือ H(a−1, b), H(a−1, b−1), H(a−1, b+1), H(a−1, b) เรียกเวียนเกิดหนึ่งครั้งต่อหนึ่งส่วน
+files: sol/a62_q1a_recur/main.cpp
+tests: all 3 PDF samples and the 4 matrices drawn in the statement (H(1,5), H(1,0), H(2,1), H(2,7)); every a = 0..8 with b ∈ {−100, −3, 0, 42, 100} (45 cases) against a Python program that builds H by literally concatenating the four quarters; a = 8 (256 × 256) in 0.01 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และเมทริกซ์ 4 ตัวที่วาดไว้ในโจทย์ (H(1,5), H(1,0), H(2,1), H(2,7)); ทุก a = 0..8 กับ b ∈ {−100, −3, 0, 42, 100} (45 กรณี) เทียบกับโปรแกรม Python ที่สร้าง H โดยต่อสี่ส่วนเข้าด้วยกันตรง ๆ; a = 8 (256 × 256) ใช้ 0.01 วินาที
+==== en
+## 1. What the problem says
+Print the square matrix H(a, b) of size 2^a × 2^a (0 ≤ a ≤ 8, −100 ≤ b ≤ 100), defined by
+
+- H(0, b) = the 1 × 1 matrix [b];
+- H(a, b) = four copies of size 2^(a−1) glued together:
+
+```text
+            ┌────────────────┬────────────────┐
+            │  H(a-1, b)     │  H(a-1, b-1)   │
+H(a, b)  =  ├────────────────┼────────────────┤
+            │  H(a-1, b+1)   │  H(a-1, b)     │
+            └────────────────┴────────────────┘
+```
+
+Print it row by row, numbers separated by spaces.
+
+## 2. What it really means
+The definition is already an algorithm: *to fill a square, fill its four quarters with smaller copies.* For example H(2, 1):
+
+```text
+ 1  0 │  0 -1        top-left  = H(1,1) = [1 0; 2 1]
+ 2  1 │  1  0        top-right = H(1,0) = [0 -1; 1 0]
+──────┼──────
+ 2  1 │  1  0        bottom-left  = H(1,2) = [2 1; 3 2]
+ 3  2 │  2  1        bottom-right = H(1,1)
+```
+
+The PDF even suggests the function shape: `recur(v, a, b, top, bottom, left, right)` writes H(a, b) into the rectangle of `v` with those borders.
+
+:::hint Hint 1
+Allocate the full 2^a × 2^a `vector<vector<int>>` once in `main`. The recursion never creates matrices; it only **writes** into a sub-square, described by its top-left corner and its size.
+:::
+:::hint Hint 2
+If the square starts at (top, left) and has side 2^a, the quarters start at (top, left), (top, left+h), (top+h, left), (top+h, left+h) with h = 2^(a−1).
+:::
+
+## 3. What, why, how
+- **What:** a divide-and-conquer *construction*: split the output into four independent parts and build each one recursively.
+- **Why it terminates and is correct:** each call lowers a by one; at a = 0 the square is a single cell and we write b. Every cell of the big square belongs to exactly one quarter, so every cell is written exactly once.
+- **How:** `recur(v, a, b, top, left)`:
+  1. if a == 0: `v[top][left] = b`;
+  2. else h = 1 << (a−1) and four calls with (b, top, left), (b−1, top, left+h), (b+1, top+h, left), (b, top+h, left+h).
+- **Cost:** the number of base cases equals the number of cells, 4^a ≤ 65,536, and the internal calls add only a third more. Printing 65,536 numbers is the real cost.
+- **A bonus pattern (not needed, but nice to see):** going into the top-right quarter subtracts 1, bottom-left adds 1. A cell's row bits say "went down", its column bits say "went right", so H(a, b)[r][c] = b + popcount(r) − popcount(c). Check: H(2,1)[2][1] = 1 + 1 − 1 = 1 ✓. On an exam the recursive version is the safe one: it follows the definition word by word.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** of the calls for H(1, 5) (a 2 × 2 matrix):
+
+| call | a | b | top | left | action |
+|---|---|---|---|---|---|
+| recur(v,1,5,0,0) | 1 | 5 | 0 | 0 | h = 1, split into 4 |
+| → top-left | 0 | 5 | 0 | 0 | v[0][0] = 5 |
+| → top-right | 0 | 4 | 0 | 1 | v[0][1] = 4 |
+| → bottom-left | 0 | 6 | 1 | 0 | v[1][0] = 6 |
+| → bottom-right | 0 | 5 | 1 | 1 | v[1][1] = 5 |
+
+Result `5 4 / 6 5`, the PDF's H(1, 5).
+
+## 5. Traps
+- **Swapping the two off-diagonal quarters:** top-right is **b−1**, bottom-left is **b+1**. Check with H(1, 0) = [0 −1; 1 0].
+- **2^a written as `2^a` in C++** is XOR, not a power. Use `1 << a`.
+- **a = 0** must print just `b` (one number).
+- **Building new matrices on every call and copying them** works but is slower and longer to write; writing into one shared matrix is simpler.
+- **Negative numbers:** b can be −100; nothing special, just do not use `unsigned`.
+
+## 6. Background
+Lesson 12 (divide & conquer). The usual D&C recipe is *divide, solve the parts, combine*; here "combine" is free because each part writes its own region. The same quadrant recursion shows up in quad-trees, the Sierpiński pattern, Strassen's matrix product, and the [virus](#a62_q1b_virus) problems in this chapter, where we split a string in halves instead of a square in quarters.
+==== th
+## 1. โจทย์บอกอะไร
+ให้พิมพ์เมทริกซ์จัตุรัส H(a, b) ขนาด 2^a × 2^a (0 ≤ a ≤ 8, −100 ≤ b ≤ 100) ซึ่งนิยามว่า
+
+- H(0, b) คือเมทริกซ์ 1 × 1 ที่มีค่า [b]
+- H(a, b) คือเมทริกซ์ขนาด 2^(a−1) สี่ก้อนต่อกัน:
+
+```text
+            ┌────────────────┬────────────────┐
+            │  H(a-1, b)     │  H(a-1, b-1)   │
+H(a, b)  =  ├────────────────┼────────────────┤
+            │  H(a-1, b+1)   │  H(a-1, b)     │
+            └────────────────┴────────────────┘
+```
+
+พิมพ์ทีละแถว ตัวเลขคั่นด้วยช่องว่าง
+
+## 2. จริง ๆ แล้วถามอะไร
+นิยามนี้ก็คืออัลกอริทึมอยู่แล้ว: *จะเติมสี่เหลี่ยมใหญ่ ให้เติมสี่ส่วนของมันด้วยสำเนาที่เล็กกว่า* ตัวอย่าง H(2, 1):
+
+```text
+ 1  0 │  0 -1        top-left  = H(1,1) = [1 0; 2 1]
+ 2  1 │  1  0        top-right = H(1,0) = [0 -1; 1 0]
+──────┼──────
+ 2  1 │  1  0        bottom-left  = H(1,2) = [2 1; 3 2]
+ 3  2 │  2  1        bottom-right = H(1,1)
+```
+
+PDF ยังแนะนำหน้าตาฟังก์ชันให้ด้วย: `recur(v, a, b, top, bottom, left, right)` เขียน H(a, b) ลงในสี่เหลี่ยมของ `v` ที่มีขอบตามนั้น
+
+:::hint คำใบ้ 1
+สร้าง `vector<vector<int>>` ขนาด 2^a × 2^a ครั้งเดียวใน `main` การเวียนเกิดไม่ต้องสร้างเมทริกซ์ใหม่เลย แค่ **เขียนค่า** ลงในสี่เหลี่ยมย่อย ซึ่งระบุด้วยมุมซ้ายบนและขนาด
+:::
+:::hint คำใบ้ 2
+ถ้าสี่เหลี่ยมเริ่มที่ (top, left) และยาวด้านละ 2^a สี่ส่วนของมันจะเริ่มที่ (top, left), (top, left+h), (top+h, left), (top+h, left+h) โดย h = 2^(a−1)
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** การ *สร้าง* แบบแบ่งแยกและเอาชนะ: แบ่งผลลัพธ์เป็นสี่ส่วนที่ไม่เกี่ยวกัน แล้วสร้างแต่ละส่วนแบบเวียนเกิด
+- **ทำไมจบได้และถูกต้อง:** ทุกครั้งที่เรียก a ลดลงหนึ่ง เมื่อ a = 0 สี่เหลี่ยมเหลือช่องเดียวและเราเขียน b ลงไป ทุกช่องของสี่เหลี่ยมใหญ่อยู่ในส่วนย่อยส่วนเดียวพอดี จึงถูกเขียนครั้งเดียวพอดี
+- **อย่างไร:** `recur(v, a, b, top, left)`:
+  1. ถ้า a == 0: `v[top][left] = b`
+  2. ไม่เช่นนั้น h = 1 << (a−1) แล้วเรียกสี่ครั้งด้วย (b, top, left), (b−1, top, left+h), (b+1, top+h, left), (b, top+h, left+h)
+- **ต้นทุน:** จำนวนกรณีฐานเท่ากับจำนวนช่อง คือ 4^a ≤ 65,536 ส่วนการเรียกภายในเพิ่มอีกแค่หนึ่งในสาม งานจริงคือการพิมพ์ 65,536 ตัวเลข
+- **รูปแบบแถม (ไม่จำเป็นแต่น่าดู):** การเข้าไปส่วนขวาบนลบ 1 ส่วนซ้ายล่างบวก 1 บิตของแถวบอกว่า "ลงไปข้างล่าง" บิตของคอลัมน์บอกว่า "ไปทางขวา" จึงได้ H(a, b)[r][c] = b + popcount(r) − popcount(c) ตรวจ: H(2,1)[2][1] = 1 + 1 − 1 = 1 ✓ แต่ในห้องสอบ แบบเวียนเกิดปลอดภัยกว่า เพราะทำตามนิยามทุกคำ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่การเรียกฟังก์ชัน** สำหรับ H(1, 5) (เมทริกซ์ 2 × 2):
+
+| การเรียก | a | b | top | left | ทำอะไร |
+|---|---|---|---|---|---|
+| recur(v,1,5,0,0) | 1 | 5 | 0 | 0 | h = 1 แบ่งเป็น 4 ส่วน |
+| → ซ้ายบน | 0 | 5 | 0 | 0 | v[0][0] = 5 |
+| → ขวาบน | 0 | 4 | 0 | 1 | v[0][1] = 4 |
+| → ซ้ายล่าง | 0 | 6 | 1 | 0 | v[1][0] = 6 |
+| → ขวาล่าง | 0 | 5 | 1 | 1 | v[1][1] = 5 |
+
+ได้ `5 4 / 6 5` ตรงกับ H(1, 5) ใน PDF
+
+## 5. จุดที่มักพลาด
+- **สลับสองส่วนนอกแนวทแยง:** ขวาบนคือ **b−1** ซ้ายล่างคือ **b+1** ตรวจด้วย H(1, 0) = [0 −1; 1 0]
+- **เขียน 2^a ใน C++ เป็น `2^a`** นั่นคือ XOR ไม่ใช่การยกกำลัง ใช้ `1 << a`
+- **a = 0** ต้องพิมพ์แค่ `b` ตัวเดียว
+- **สร้างเมทริกซ์ใหม่ทุกครั้งที่เรียกแล้วคัดลอกต่อกัน** ก็ได้ แต่ช้ากว่าและเขียนยาวกว่า การเขียนลงเมทริกซ์เดียวที่ใช้ร่วมกันง่ายกว่า
+- **ค่าติดลบ:** b เป็น −100 ได้ ไม่มีอะไรพิเศษ แค่อย่าใช้ `unsigned`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 12 (divide & conquer) สูตร D&C ปกติคือ *แบ่ง แก้ส่วนย่อย แล้วรวม* ในข้อนี้ขั้น "รวม" ไม่มีค่าใช้จ่าย เพราะแต่ละส่วนเขียนพื้นที่ของตัวเอง การเวียนเกิดแบบสี่ส่วนแบบนี้พบใน quad-tree, รูปสามเหลี่ยม Sierpiński, การคูณเมทริกซ์แบบ Strassen และโจทย์ [ไวรัส](#a62_q1b_virus) ในบทนี้ที่แบ่งสตริงเป็นสองครึ่งแทนการแบ่งสี่เหลี่ยมเป็นสี่ส่วน

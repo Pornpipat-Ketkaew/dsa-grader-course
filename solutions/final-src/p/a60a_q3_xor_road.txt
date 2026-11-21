@@ -1,0 +1,122 @@
+id: a60a_q3_xor_road
+group: mst
+lesson: 18 · Maximum spanning tree (Prim)
+stars: 3
+complexity: O(n²)
+kind: program
+tags: maximum spanning tree, Prim O(n²), XOR weights, unsigned long long
+title: Beautiful roads (XOR)
+title_th: ถนนสวย (XOR road)
+blurb: Build n−1 roads joining n districts; a road between codes x and y has beauty x XOR y. Maximise the total: a maximum spanning tree of a complete graph whose weights are computed on the fly.
+blurb_th: สร้างถนน n−1 เส้นเชื่อม n อำเภอ ถนนระหว่างรหัส x กับ y มีความสวย x XOR y ทำให้ผลรวมมากที่สุด: maximum spanning tree ของกราฟสมบูรณ์ที่คำนวณน้ำหนักระหว่างทาง
+files: sol/a60a_q3_xor_road/main.cpp
+tests: the PDF sample and n = 1; 300 random inputs (n ≤ 9, codes < 256 and < 2³⁰) against Kruskal in Python; n = 2,000 random 30-bit codes in 0.02 s.
+tests_th: ตัวอย่างใน PDF และ n = 1; สุ่ม 300 ชุด (n ≤ 9 รหัส < 256 และ < 2³⁰) เทียบกับ Kruskal ใน Python; n = 2,000 รหัสสุ่ม 30 บิต ใช้ 0.02 วินาที
+==== en
+## 1. What the problem says
+A province has n districts (1 ≤ n ≤ 2,000), each with a distinct code, a positive integer ≤ 2³⁰ − 1. The governor builds **n − 1 roads** so that every district can reach every other. A road between districts with codes x and y has **beauty x XOR y**. Print the **largest possible total beauty**. The PDF warns the answer can be big: use `unsigned long long`.
+
+Sample: codes 3, 10, 9, 6 → **37**, using roads (3, 9), (6, 9), (6, 10) with beauty 10 + 15 + 12.
+
+## 2. What it really means
+n − 1 roads that connect n districts form a **spanning tree**. We want the one with the **largest** total weight: a **maximum spanning tree**. Any road can be built, so the graph is complete, with n(n−1)/2 ≈ 2,000,000 edges.
+
+```text
+weights x XOR y for the sample      max spanning tree (37)
+        3   10   9   6
+   3    -    9  10   5                3 ─10─ 9 ─15─ 6 ─12─ 10
+  10         -   3  12
+   9             -  15
+   6                 -
+```
+
+:::hint Hint 1
+Does Prim still work if you always pick the **largest** connection instead of the smallest?
+:::
+:::hint Hint 2
+You do not have to store 2,000 × 2,000 weights. When you need w(u, v), compute `code[u] ^ code[v]`.
+:::
+
+## 3. What, why, how
+- **What:** Prim's algorithm, O(n²) array version, with every comparison flipped (max instead of min).
+- **Why flipping works:** a maximum spanning tree for w is a minimum spanning tree for −w. The cut property becomes "the heaviest edge across a cut is in some maximum spanning tree", and Prim adds exactly that edge each round.
+- **Why array Prim:** the graph is complete. Kruskal would need to sort 2 million edges (and store them: 2 million × 16 bytes). Array Prim is n² = 4 × 10⁶ steps and stores only n numbers.
+- **How:** best[v] = largest road from v to the tree (−1 = none yet; 0 for district 0). n rounds: pick the outside u with the largest best[u], add it, then best[v] = max(best[v], code[u] ^ code[v]) for every outside v.
+- **Overflow:** up to 1,999 roads of beauty up to 2³⁰ − 1: about 2.1 × 10¹². That does not fit in `int`.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the sample (index: code 0:3, 1:10, 2:9, 3:6).
+
+| round | picks u (code) | adds | total | best[0..3] afterwards |
+|---|---|---|---|---|
+| 0 | 0 (3) | 0 | 0 | · 9 10 5 |
+| 1 | 2 (9) | 10 | 10 | · 9 · 15 |
+| 2 | 3 (6) | 15 | 25 | · 12 · · |
+| 3 | 1 (10) | 12 | **37** | · · · · |
+
+## 5. Traps
+- **`int` total:** overflows; the answer can be about 2 × 10¹².
+- **Storing all edges for Kruskal:** 2 million edges is slow to sort and heavy on memory.
+- **Greedy "connect each node to its best partner":** may create cycles and fewer than n − 1 distinct roads.
+- **n = 1:** no roads, answer 0.
+- **Initialising best[] with 0 instead of −1:** fine here because codes are distinct (so every XOR is ≥ 1), but −1 is the safe habit for "no edge yet".
+
+## 6. Background
+Lesson 18. Minimum and maximum spanning trees are the same algorithm with the comparison flipped. A faster method for XOR-MST exists (a binary trie, O(n · 30 · log n)), but with n ≤ 2,000 the simple O(n²) Prim is plenty. See [Cable company](#ex06e1_cable) for the same loop on a minimum tree.
+==== th
+## 1. โจทย์บอกอะไร
+จังหวัดหนึ่งมี n อำเภอ (1 ≤ n ≤ 2,000) แต่ละอำเภอมีรหัสไม่ซ้ำกันเป็นจำนวนเต็มบวก ≤ 2³⁰ − 1 ผู้ว่าฯ จะสร้าง **ถนน n − 1 เส้น** ให้ทุกอำเภอเดินทางถึงกันได้ ถนนระหว่างอำเภอรหัส x กับ y มี **ความสวย x XOR y** ให้พิมพ์ **ผลรวมความสวยที่มากที่สุด** PDF เตือนว่าคำตอบอาจใหญ่มาก ควรใช้ `unsigned long long`
+
+ตัวอย่าง: รหัส 3, 10, 9, 6 → **37** ใช้ถนน (3, 9), (6, 9), (6, 10) ความสวย 10 + 15 + 12
+
+## 2. จริง ๆ แล้วถามอะไร
+ถนน n − 1 เส้นที่เชื่อม n อำเภอคือ **spanning tree** เราต้องการต้นที่น้ำหนักรวม **มากที่สุด**: **maximum spanning tree** สร้างถนนคู่ไหนก็ได้ กราฟจึงสมบูรณ์ มี n(n−1)/2 ≈ 2,000,000 เส้น
+
+```text
+weights x XOR y for the sample      max spanning tree (37)
+        3   10   9   6
+   3    -    9  10   5                3 ─10─ 9 ─15─ 6 ─12─ 10
+  10         -   3  12
+   9             -  15
+   6                 -
+```
+
+:::hint คำใบ้ 1
+Prim ยังใช้ได้ไหมถ้าเราเลือกเส้นที่ **มากที่สุด** แทนที่จะเลือกน้อยที่สุด
+:::
+:::hint คำใบ้ 2
+ไม่ต้องเก็บน้ำหนัก 2,000 × 2,000 ค่า เมื่อต้องการ w(u, v) ก็คำนวณ `code[u] ^ code[v]`
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** อัลกอริทึม Prim แบบอาร์เรย์ O(n²) โดยกลับการเปรียบเทียบทุกจุด (max แทน min)
+- **ทำไมกลับแล้วยังถูก:** maximum spanning tree ของ w คือ minimum spanning tree ของ −w cut property กลายเป็น "เส้นที่หนักที่สุดที่ข้ามรอยแบ่งอยู่ใน maximum spanning tree บางต้น" และ Prim เพิ่มเส้นนั้นพอดีทุกรอบ
+- **ทำไมใช้ Prim แบบอาร์เรย์:** กราฟสมบูรณ์ Kruskal ต้องเรียง 2 ล้านเส้น (และเก็บมัน: 2 ล้าน × 16 ไบต์) Prim แบบอาร์เรย์ใช้ n² = 4 × 10⁶ ขั้นและเก็บแค่ n ค่า
+- **อย่างไร:** best[v] = ถนนที่สวยที่สุดจาก v เข้าต้นไม้ (−1 = ยังไม่มี; 0 สำหรับอำเภอ 0) ทำ n รอบ: เลือก u ที่อยู่นอกและ best[u] มากที่สุด บวกเข้าผลรวม แล้ว best[v] = max(best[v], code[u] ^ code[v]) สำหรับทุก v ที่อยู่นอก
+- **ล้น:** ถนนถึง 1,999 เส้น สวยถึง 2³⁰ − 1: ประมาณ 2.1 × 10¹² ใส่ `int` ไม่ได้
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่าง (ลำดับ: รหัส 0:3, 1:10, 2:9, 3:6)
+
+| รอบ | เลือก u (รหัส) | บวก | ผลรวม | best[0..3] หลังรอบ |
+|---|---|---|---|---|
+| 0 | 0 (3) | 0 | 0 | · 9 10 5 |
+| 1 | 2 (9) | 10 | 10 | · 9 · 15 |
+| 2 | 3 (6) | 15 | 25 | · 12 · · |
+| 3 | 1 (10) | 12 | **37** | · · · · |
+
+## 5. จุดที่มักพลาด
+- **ผลรวมเป็น `int`:** ล้น คำตอบอาจถึงราว 2 × 10¹²
+- **เก็บทุกเส้นเพื่อทำ Kruskal:** 2 ล้านเส้นเรียงช้าและกินหน่วยความจำมาก
+- **ละโมบแบบ "ต่อแต่ละปมกับคู่ที่ดีที่สุดของมัน":** อาจเกิดวงวนและได้ถนนไม่ครบ n − 1 เส้น
+- **n = 1:** ไม่มีถนน คำตอบ 0
+- **ตั้ง best[] เป็น 0 แทน −1:** ข้อนี้ไม่เป็นไรเพราะรหัสไม่ซ้ำ (XOR ทุกคู่ ≥ 1) แต่ −1 คือนิสัยที่ปลอดภัยสำหรับ "ยังไม่มีเส้น"
+
+## 6. ความรู้พื้นฐาน
+บทที่ 18 minimum และ maximum spanning tree เป็นอัลกอริทึมเดียวกันแค่กลับการเปรียบเทียบ มีวิธีที่เร็วกว่าสำหรับ XOR-MST (ใช้ binary trie, O(n · 30 · log n)) แต่เมื่อ n ≤ 2,000 Prim O(n²) ธรรมดาก็เหลือเฟือ ดูข้อ [บริษัทสายเคเบิล](#ex06e1_cable) ที่ใช้ลูปเดียวกันกับต้นไม้น้อยที่สุด

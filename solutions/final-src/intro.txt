@@ -1,0 +1,27 @@
+intro: home
+==== en
+## Which technique? Read the statement for these signals
+| the statement says … | think of … | chapter |
+|---|---|---|
+| "print **all** …", "in lexicographic order", n ≤ 10–20 | backtracking | [1 · Brute force](#ch-brute) |
+| "the k-th smallest", huge input described by groups | sort + prefix sums + binary search | [2 · Sorting](#ch-sort) |
+| sorted data, "largest value ≤ x", n up to 10⁹ with a repeated operation, sizes 2ᵏ | binary search, fast power, recurse on halves | [3 · Divide & conquer](#ch-dc) |
+| "how many ways … mod M", "maximum sum of a route" | dynamic programming | [4 · DP](#ch-dp) |
+| "connected", "spread", "fewest steps", "is there a cycle" | BFS, DFS, union-find | [5 · Graph 1](#ch-graph1) |
+| "connect everything as cheaply as possible" | Prim or Kruskal | [6 · MST](#ch-mst) |
+| "minimum cost from A to B", negative weights, "after each new node" | Dijkstra, Bellman–Ford, Floyd–Warshall | [7 · Shortest paths](#ch-sp) |
+
+Start each chapter with its **primer** (the technique, a code template, how to spot it), then work through the problems in order. Try the two hints on each page before you open the code. Chapter 8 mixes everything, exactly like the exam.
+==== th
+## ใช้เทคนิคไหนดี ลองหาสัญญาณเหล่านี้ในโจทย์
+| โจทย์พูดว่า … | ให้นึกถึง … | บท |
+|---|---|---|
+| "พิมพ์ **ทุก** …", "เรียงตามพจนานุกรม", n ≤ 10–20 | backtracking | [1 · Brute force](#ch-brute) |
+| "ตัวที่ k ที่น้อยที่สุด", input ใหญ่ที่บรรยายเป็นกลุ่ม | sort + prefix sum + binary search | [2 · การเรียงลำดับ](#ch-sort) |
+| ข้อมูลเรียงแล้ว, "ค่ามากสุดที่ ≤ x", n ถึง 10⁹ กับการดำเนินการซ้ำ, ขนาด 2ᵏ | binary search, ยกกำลังเร็ว, เรียกซ้ำบนครึ่ง | [3 · แบ่งแยกและเอาชนะ](#ch-dc) |
+| "มีกี่วิธี … mod M", "ผลรวมมากสุดของเส้นทาง" | dynamic programming | [4 · DP](#ch-dp) |
+| "เชื่อมกัน", "แพร่", "ก้าวน้อยที่สุด", "มีวงวนไหม" | BFS, DFS, union-find | [5 · กราฟ 1](#ch-graph1) |
+| "เชื่อมทุกอย่างให้ถูกที่สุด" | Prim หรือ Kruskal | [6 · MST](#ch-mst) |
+| "ค่าใช้จ่ายน้อยสุดจาก A ไป B", น้ำหนักติดลบ, "หลังเพิ่มปมใหม่ทุกครั้ง" | Dijkstra, Bellman–Ford, Floyd–Warshall | [7 · เส้นทางสั้นสุด](#ch-sp) |
+
+เริ่มแต่ละบทด้วย **บทนำ** (เทคนิค โครงโค้ด และวิธีสังเกต) แล้วทำโจทย์ตามลำดับ ลองคำใบ้สองข้อในแต่ละหน้าก่อนเปิดดูโค้ด บทที่ 8 ผสมทุกอย่างเข้าด้วยกัน เหมือนข้อสอบจริง

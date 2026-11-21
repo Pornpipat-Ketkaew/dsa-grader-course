@@ -1,0 +1,149 @@
+id: ex00e5
+group: brute
+lesson: 11 · Recursion & backtracking
+stars: 1
+complexity: O(2ⁿ · n)
+kind: program
+tags: binary strings, recursion order, state passed down
+title: Consecutive Ones
+title_th: เลข 1 ติดกัน (Consecutive Ones)
+blurb: All n-bit strings, in increasing order, that contain at least k consecutive 1s. Recurse 0-then-1 and carry the current run length.
+blurb_th: สตริง n บิตทุกตัวที่มีเลข 1 ติดกันอย่างน้อย k ตัว เรียงจากน้อยไปมาก เวียนเกิดโดยลอง 0 ก่อน 1 และพกความยาวช่วง 1 ปัจจุบันไปด้วย
+files: sol/ex00e5/main.cpp
+tests: all 3 PDF samples (the PDF's third sample is missing 11100, which does contain three 1s in a row; the program prints it); 12 more (n, k) pairs including k = 0, k = n, n = 0 and n = 20, compared line by line with a Python brute force over all 2ⁿ numbers; n = 20, k = 0 (1,048,576 lines) in 0.05 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF (ตัวอย่างที่สามใน PDF ขาด 11100 ซึ่งมีเลข 1 ติดกันสามตัว โปรแกรมนี้พิมพ์ออกมาด้วย); อีก 12 คู่ (n, k) รวม k = 0, k = n, n = 0 และ n = 20 เทียบทีละบรรทัดกับ brute force ใน Python ที่ไล่ทุกเลข 2ⁿ ตัว; n = 20, k = 0 (1,048,576 บรรทัด) ใช้ 0.05 วินาที
+==== en
+## 1. What the problem says
+Print every **n-bit binary number** that contains **at least k consecutive 1s**, one per line, **from smallest to largest**. Input: `n k` with 0 ≤ k ≤ n ≤ 20.
+
+Samples: `3 2` → 011, 110, 111. `4 2` → 0011 0110 0111 1011 1100 1101 1110 1111. `5 3` → 00111 01110 01111 10111 11100 11101 11110 11111.
+
+**Note:** the PDF's third sample leaves out `11100`, but it clearly has three 1s in a row. That is a typo in the PDF; the correct output includes it.
+
+## 2. What it really means
+Two parts: **generate** all 2ⁿ strings in numeric order, and **filter** by "has a block of k ones".
+
+For fixed-length binary strings, numeric order = dictionary order, and a recursion that tries `0` before `1` at each position produces exactly that order:
+
+```text
+n = 3:     0 → 0 → 0  = 000
+                 → 1  = 001
+             → 1 → 0  = 010
+                 → 1  = 011  ✓ (k = 2)
+           1 → 0 → 0  = 100
+                 → 1  = 101
+             → 1 → 0  = 110  ✓
+                 → 1  = 111  ✓
+```
+
+:::hint Hint 1
+The output must be in increasing order. If you build the string left to right, which character should you try first at each position?
+:::
+:::hint Hint 2
+Pass two extra facts down the recursion: the length of the run of 1s at the end so far, and whether a run of length k has already appeared.
+:::
+
+## 3. What, why, how
+- `gen(pos, run, ok)`:
+  - `run` = length of the block of 1s at the end of what we have so far;
+  - `ok` = whether a block of length ≥ k has **already** appeared.
+- Placing `0` resets `run` to 0. Placing `1` makes `run + 1`, and if that reaches k, `ok` becomes true and **stays true** (we pass `ok || run + 1 >= k`).
+- At `pos == n`: print if `ok`.
+- **k = 0:** every string qualifies (zero consecutive ones always exist), so start with `ok = true`.
+- **Cost:** 2ⁿ leaves, O(2ⁿ · n) characters printed at most: ≈ 2·10⁷ for n = 20. Collect output in one string; printing a million lines with `endl` would be the slow part.
+- Simple alternative: loop v from 0 to 2ⁿ − 1, build the string, check with `s.find(string(k,'1'))`. Also O(2ⁿ · n) and accepted; the recursion avoids re-scanning.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace for `3 2`** (only the leaves):
+
+| string | runs of 1s while building | ok at the end | printed? |
+|---|---|---|---|
+| 000 | 0,0,0 | no | |
+| 001 | 0,0,1 | no | |
+| 010 | 0,1,0 | no | |
+| 011 | 0,1,**2** | yes | 011 |
+| 100 | 1,0,0 | no | |
+| 101 | 1,0,1 | no | |
+| 110 | 1,**2**,0 | yes (stays yes after the 0) | 110 |
+| 111 | 1,**2**,3 | yes | 111 |
+
+## 5. Traps
+- **Checking only the run at the end:** "110" ends with run 0 but qualifies. That's why `ok` must remember the past.
+- **Trying `1` before `0`:** prints in decreasing order.
+- **k = 0** and **n = 0:** with k = 0 all 2ⁿ strings print; n = 0 gives one empty line.
+- **Leading zeros:** the numbers must be printed with all n bits (`0011`, not `11`).
+- **Trusting the PDF sample literally** (it lacks 11100): the rule in the statement wins.
+
+## 6. Background
+Lesson 11: **generate in order by choosing the smaller option first**, and **carry the state you need for the filter** down the recursion (here: current run length and a "seen" flag). The same pattern lists strings without two adjacent 1s, balanced parentheses, and so on. When the state is small, the count (instead of the list) can be found with DP over (pos, run, ok), Lesson 14. Compare [Generate barcode](#ex00e4) (any order, pruning) and, for walking a grid in alphabetical order, [Map walk](#da66_f1_map_walk) in the final-preparation chapter.
+
+==== th
+## 1. โจทย์บอกอะไร
+พิมพ์ **เลขฐานสองขนาด n บิต** ทุกตัวที่มี **เลข 1 ติดกันอย่างน้อย k ตัว** บรรทัดละตัว **เรียงจากน้อยไปมาก** ข้อมูลนำเข้า: `n k` โดย 0 ≤ k ≤ n ≤ 20
+
+ตัวอย่าง: `3 2` → 011, 110, 111 `4 2` → 0011 0110 0111 1011 1100 1101 1110 1111 `5 3` → 00111 01110 01111 10111 11100 11101 11110 11111
+
+**หมายเหตุ:** ตัวอย่างที่สามใน PDF ไม่มี `11100` ทั้งที่มันมีเลข 1 ติดกันสามตัวชัดเจน เป็นการพิมพ์ตกใน PDF คำตอบที่ถูกต้องต้องมีบรรทัดนี้
+
+## 2. จริง ๆ แล้วถามอะไร
+มีสองส่วน: **สร้าง** สตริงทั้ง 2ⁿ แบบตามลำดับตัวเลข และ **กรอง** ด้วยเงื่อนไข "มีช่วงเลข 1 ยาว k"
+
+สำหรับสตริงไบนารีความยาวเท่ากัน ลำดับตัวเลข = ลำดับพจนานุกรม และการเวียนเกิดที่ลอง `0` ก่อน `1` ทุกตำแหน่งจะได้ลำดับนั้นพอดี (เหมือนมาตรวัดระยะทางในรถที่หมุนจากหลักขวาสุด):
+
+```text
+n = 3:     0 → 0 → 0  = 000
+                 → 1  = 001
+             → 1 → 0  = 010
+                 → 1  = 011  ✓ (k = 2)
+           1 → 0 → 0  = 100
+                 → 1  = 101
+             → 1 → 0  = 110  ✓
+                 → 1  = 111  ✓
+```
+
+:::hint คำใบ้ 1
+ผลลัพธ์ต้องเรียงจากน้อยไปมาก ถ้าสร้างสตริงจากซ้ายไปขวา แต่ละตำแหน่งควรลองตัวอักษรไหนก่อน
+:::
+:::hint คำใบ้ 2
+ส่งข้อมูลเพิ่มสองอย่างลงไปใน recursion: ความยาวของช่วงเลข 1 ที่ท้ายสตริงตอนนี้ และว่าเคยมีช่วงยาว k ปรากฏแล้วหรือยัง
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- `gen(pos, run, ok)`:
+  - `run` = ความยาวช่วงเลข 1 ที่อยู่ท้ายสุดของส่วนที่สร้างแล้ว
+  - `ok` = เคยเจอช่วงยาว ≥ k **มาแล้ว** หรือยัง
+- ใส่ `0` → `run` กลับเป็น 0 ใส่ `1` → `run + 1` และถ้าถึง k แล้ว `ok` เป็นจริงและ **จริงตลอดไป** (ส่ง `ok || run + 1 >= k`)
+- เมื่อ `pos == n`: พิมพ์ถ้า `ok`
+- **k = 0:** ทุกสตริงผ่าน (ช่วงเลข 1 ยาว 0 มีอยู่เสมอ) จึงเริ่มด้วย `ok = true`
+- **เวลา:** มีใบ 2ⁿ ใบ พิมพ์ไม่เกิน O(2ⁿ · n) ตัวอักษร ≈ 2·10⁷ สำหรับ n = 20 รวมผลลัพธ์ใน string เดียว การพิมพ์หนึ่งล้านบรรทัดด้วย `endl` จะเป็นส่วนที่ช้าที่สุด
+- วิธีง่ายอีกแบบ: วน v จาก 0 ถึง 2ⁿ − 1 สร้างสตริง แล้วเช็กด้วย `s.find(string(k,'1'))` ก็ O(2ⁿ · n) และผ่านเหมือนกัน การเวียนเกิดแค่ไม่ต้องสแกนซ้ำ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่กรณี `3 2`** (เฉพาะใบ):
+
+| สตริง | ความยาวช่วง 1 ระหว่างสร้าง | ok ตอนจบ | พิมพ์? |
+|---|---|---|---|
+| 000 | 0,0,0 | ไม่ | |
+| 001 | 0,0,1 | ไม่ | |
+| 010 | 0,1,0 | ไม่ | |
+| 011 | 0,1,**2** | ใช่ | 011 |
+| 100 | 1,0,0 | ไม่ | |
+| 101 | 1,0,1 | ไม่ | |
+| 110 | 1,**2**,0 | ใช่ (ยังใช่หลังเจอ 0) | 110 |
+| 111 | 1,**2**,3 | ใช่ | 111 |
+
+## 5. จุดที่มักพลาด
+- **เช็กแค่ช่วงท้ายสุด:** "110" จบด้วยช่วงยาว 0 แต่ผ่านเงื่อนไข นี่คือเหตุผลที่ `ok` ต้องจำอดีตไว้
+- **ลอง `1` ก่อน `0`:** ได้ลำดับจากมากไปน้อย
+- **k = 0** และ **n = 0:** k = 0 พิมพ์ครบ 2ⁿ ตัว; n = 0 ได้บรรทัดว่างหนึ่งบรรทัด
+- **เลข 0 นำหน้า:** ต้องพิมพ์ครบ n บิต (`0011` ไม่ใช่ `11`)
+- **เชื่อตัวอย่างใน PDF ตามตัวอักษร** (ขาด 11100): กฎในโจทย์สำคัญกว่า
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11: **สร้างตามลำดับโดยเลือกทางที่เล็กกว่าก่อน** และ **พกสถานะที่ต้องใช้กรองลงไปในการเวียนเกิด** (ในข้อนี้คือความยาวช่วงปัจจุบันและธง "เคยเจอแล้ว") รูปแบบเดียวกันใช้แจกแจงสตริงที่ไม่มี 1 ติดกัน วงเล็บที่สมดุล ฯลฯ ถ้าถามแค่ "จำนวน" (ไม่ต้องแจกแจง) และสถานะเล็ก ใช้ DP บน (pos, run, ok) ได้ ดูบทที่ 14 เทียบกับ [Generate barcode](#ex00e4) (ลำดับใดก็ได้ มีการตัดกิ่ง) และการเดินบนตารางตามลำดับตัวอักษรในข้อ [Map walk](#da66_f1_map_walk) ในบทเตรียมสอบปลายภาค

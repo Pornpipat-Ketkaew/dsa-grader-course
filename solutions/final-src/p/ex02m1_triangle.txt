@@ -1,0 +1,124 @@
+id: ex02m1_triangle
+group: dp
+lesson: 14 · DP basics (bottom-up table)
+stars: 1
+complexity: O(N²)
+kind: program
+tags: bottom-up DP, best path, number triangle, in-place table
+title: Number Triangle
+title_th: สามเหลี่ยมตัวเลข (Number Triangle)
+blurb: Best top-to-bottom route in a triangle, stepping down-left or down-right. Work from the bottom row up: best[j] = t[i][j] + max(best[j], best[j+1]).
+blurb_th: เส้นทางจากยอดถึงฐานที่ได้ผลรวมมากสุด โดยลงได้แค่ซ้ายล่างหรือขวาล่าง คิดจากแถวล่างขึ้นบน: best[j] = t[i][j] + max(best[j], best[j+1])
+files: sol/ex02m1_triangle/main.cpp
+tests: all 3 PDF samples (note: the PDF's first answer 40 is crossed out and corrected to 30); 300 random triangles (N ≤ 12) against a Python program that tries all 2^(N−1) routes; N = 100 all 1000s gives 100,000.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF (หมายเหตุ: คำตอบแรกใน PDF 40 ถูกขีดฆ่าแก้เป็น 30); สุ่มสามเหลี่ยม 300 ชุด (N ≤ 12) เทียบกับโปรแกรม Python ที่ลองทุกเส้นทาง 2^(N−1) แบบ; N = 100 ที่ทุกค่าเป็น 1000 ได้ 100,000
+==== en
+## 1. What the problem says
+A triangle has N levels (1 ≤ N ≤ 100); level i holds i numbers (0..1,000). A route starts at the top, visits exactly one number per level, and from the k-th number of a level goes to the k-th or the (k+1)-th number of the next level. Print the **largest possible sum** of a route.
+
+```text
+        7
+       3 8
+      8 1 0
+     2 7 4 4
+    4 5 2 6 5        best route 7 → 3 → 8 → 7 → 5 = 30
+```
+
+(In the PDF the first sample's answer is printed as 40, crossed out and corrected to 30: 10 + 20 = 30.)
+
+## 2. What it really means
+There are 2^(N−1) routes: for N = 100 that is about 6·10²⁹, so trying them all is impossible. But two routes that reach the same cell **share their whole future**: from that cell on, the best continuation does not care how we got there.
+
+:::hint Hint 1
+Define best(i, j) = the largest sum of a route that **starts** at row i, position j and goes down to the bottom. What is best on the bottom row?
+:::
+:::hint Hint 2
+best(i, j) = t[i][j] + max(best(i+1, j), best(i+1, j+1)). Fill rows from the bottom up; the answer is best(0, 0).
+:::
+
+## 3. What, why, how
+- **What:** a DP over cells; the sub-problem is "best route from here down".
+- **Why it is correct (optimal sub-structure):** a best route from (i, j) takes one step to (i+1, j) or (i+1, j+1) and then must continue with a best route from there; otherwise we could swap in the better continuation and get a larger total.
+- **Why bottom-up:** each row needs only the row below it, so start with the bottom row (best = the numbers themselves) and move up. N(N+1)/2 cells, O(1) each: about 5,000 steps.
+- **How, with one array:** keep `best[0..i+1]` for row i+1. For row i, go left to right: `best[j] = t[i][j] + max(best[j], best[j+1])`. Writing `best[j]` is safe because `best[j]` and `best[j+1]` are read first, and later positions only read `best[j+1]` and beyond.
+- **Top-down alternative:** best(i, j) from the top would also work with memoization; bottom-up just avoids the recursion.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** on the 5-level triangle (the `best` array after each row is processed):
+
+| row processed | numbers in that row | best after processing |
+|---|---|---|
+| start (row 4) | 4 5 2 6 5 | 4 5 2 6 5 |
+| row 3 | 2 7 4 4 | 2+5=**7**, 7+5=**12**, 4+6=**10**, 4+6=**10** |
+| row 2 | 8 1 0 | 8+12=**20**, 1+12=**13**, 0+10=**10** |
+| row 1 | 3 8 | 3+20=**23**, 8+13=**21** |
+| row 0 | 7 | 7+23=**30** |
+
+Answer **30**. Reading the max choices back: 7 → 3 → 8 → 7 → 5.
+
+## 5. Traps
+- **Greedy (always take the bigger child):** from 7 it would pick 8 (> 3) and end with 7 + 8 + 1 + 7 + 5 = 28 at best. Local choices are not enough.
+- **Going top-down without memo:** 2^(N−1) calls.
+- **Index of the children:** from position j you go to j or j+1 on the next row (not j−1 and j+1).
+- **N = 1:** the answer is the single number; the loop over rows simply does not run.
+
+## 6. Background
+Lesson 14. This is the classic first "grid/triangle DP": define the state as a position, the value as the best result from (or to) that position, and fill in an order where every dependency is already known. The same shape appears in [New Game Plus](#da66_f2_new_game_plus) (counting paths column by column) and in grid path problems in general.
+==== th
+## 1. โจทย์บอกอะไร
+สามเหลี่ยมมี N ชั้น (1 ≤ N ≤ 100) ชั้นที่ i มีตัวเลข i ตัว (0..1,000) เส้นทางเริ่มจากยอด ผ่านตัวเลขชั้นละหนึ่งตัวพอดี และจากตัวที่ k ของชั้นหนึ่งจะลงไปตัวที่ k หรือตัวที่ (k+1) ของชั้นถัดไป ให้พิมพ์ **ผลรวมที่มากที่สุด** ของเส้นทาง
+
+```text
+        7
+       3 8
+      8 1 0
+     2 7 4 4
+    4 5 2 6 5        best route 7 → 3 → 8 → 7 → 5 = 30
+```
+
+(ใน PDF คำตอบของตัวอย่างแรกพิมพ์ไว้ว่า 40 แล้วถูกขีดฆ่าแก้เป็น 30: 10 + 20 = 30)
+
+## 2. จริง ๆ แล้วถามอะไร
+มีเส้นทางทั้งหมด 2^(N−1) แบบ ถ้า N = 100 ประมาณ 6·10²⁹ แบบ ลองทุกแบบไม่ได้แน่ แต่สองเส้นทางที่มาถึงช่องเดียวกัน **มีอนาคตเหมือนกันทั้งหมด**: จากช่องนั้นไป เส้นทางต่อที่ดีที่สุดไม่สนใจว่าเรามาถึงได้อย่างไร
+
+:::hint คำใบ้ 1
+นิยาม best(i, j) = ผลรวมมากที่สุดของเส้นทางที่ **เริ่ม** จากแถว i ตำแหน่ง j แล้วลงไปจนถึงฐาน แถวล่างสุด best เป็นเท่าไร
+:::
+:::hint คำใบ้ 2
+best(i, j) = t[i][j] + max(best(i+1, j), best(i+1, j+1)) เติมจากแถวล่างขึ้นบน คำตอบคือ best(0, 0)
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** DP บนช่อง ปัญหาย่อยคือ "เส้นทางที่ดีที่สุดจากตรงนี้ลงไป"
+- **ทำไมถูก (optimal sub-structure):** เส้นทางที่ดีที่สุดจาก (i, j) ก้าวไป (i+1, j) หรือ (i+1, j+1) แล้วต้องเดินต่อด้วยเส้นทางที่ดีที่สุดจากตรงนั้น ไม่เช่นนั้นเราสลับเอาเส้นทางต่อที่ดีกว่ามาใส่แล้วได้ผลรวมมากขึ้น
+- **ทำไม bottom-up:** แต่ละแถวต้องใช้แค่แถวข้างล่าง เริ่มที่แถวล่างสุด (best = ตัวเลขเอง) แล้วไล่ขึ้น มี N(N+1)/2 ช่อง ช่องละ O(1) ประมาณ 5,000 ขั้น
+- **อย่างไร ด้วยอาร์เรย์เดียว:** เก็บ `best[0..i+1]` ของแถว i+1 ไว้ สำหรับแถว i ไล่จากซ้ายไปขวา: `best[j] = t[i][j] + max(best[j], best[j+1])` การเขียนทับ `best[j]` ปลอดภัย เพราะอ่าน `best[j]` และ `best[j+1]` ก่อนเขียน และตำแหน่งถัดไปอ่านแค่ `best[j+1]` เป็นต้นไป
+- **แบบ top-down:** คิด best(i, j) จากยอดพร้อม memo ก็ได้ bottom-up แค่ไม่ต้องเวียนเกิด
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** สามเหลี่ยม 5 ชั้น (อาร์เรย์ `best` หลังประมวลผลแต่ละแถว):
+
+| แถวที่ประมวลผล | ตัวเลขในแถวนั้น | best หลังประมวลผล |
+|---|---|---|
+| เริ่ม (แถว 4) | 4 5 2 6 5 | 4 5 2 6 5 |
+| แถว 3 | 2 7 4 4 | 2+5=**7**, 7+5=**12**, 4+6=**10**, 4+6=**10** |
+| แถว 2 | 8 1 0 | 8+12=**20**, 1+12=**13**, 0+10=**10** |
+| แถว 1 | 3 8 | 3+20=**23**, 8+13=**21** |
+| แถว 0 | 7 | 7+23=**30** |
+
+คำตอบ **30** ย้อนดูตัวเลือก max กลับขึ้นไปจะได้ 7 → 3 → 8 → 7 → 5
+
+## 5. จุดที่มักพลาด
+- **Greedy (เลือกลูกที่มากกว่าเสมอ):** จาก 7 จะเลือก 8 (> 3) แล้วได้ดีที่สุดแค่ 7 + 8 + 1 + 7 + 5 = 28 การเลือกเฉพาะหน้าไม่พอ
+- **เวียนเกิดจากยอดโดยไม่มี memo:** เรียก 2^(N−1) ครั้ง
+- **ตำแหน่งของลูก:** จากตำแหน่ง j ลงไป j หรือ j+1 ในแถวถัดไป (ไม่ใช่ j−1 และ j+1)
+- **N = 1:** คำตอบคือตัวเลขตัวเดียว ลูปแถวจะไม่ทำงานเลย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 14 นี่คือ "DP บนตาราง/สามเหลี่ยม" ข้อแรกแบบคลาสสิก: ให้สถานะเป็นตำแหน่ง ค่าคือผลดีที่สุดจาก (หรือถึง) ตำแหน่งนั้น แล้วเติมตามลำดับที่ทุกค่าที่ต้องพึ่งรู้แล้ว รูปแบบเดียวกันพบในข้อ [New Game Plus](#da66_f2_new_game_plus) (นับเส้นทางทีละคอลัมน์) และโจทย์เส้นทางบนตารางทั่วไป

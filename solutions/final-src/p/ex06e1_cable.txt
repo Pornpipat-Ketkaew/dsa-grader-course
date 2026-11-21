@@ -1,0 +1,126 @@
+id: ex06e1_cable
+group: mst
+lesson: 18 · Minimum spanning tree (Prim)
+stars: 2
+complexity: O(N²)
+kind: program
+tags: MST, Prim O(N²), dense graph, triangular input
+title: Cable company
+title_th: บริษัทสายเคเบิล (Cable Company)
+blurb: Every pair of N service centres has a cable price; connect them all as cheaply as possible. That is a minimum spanning tree of a complete graph, and Prim's O(N²) version is the natural fit.
+blurb_th: ศูนย์บริการ N แห่ง ทุกคู่มีราคาสายเคเบิล ต้องเชื่อมทุกแห่งให้ถูกที่สุด นั่นคือ minimum spanning tree ของกราฟสมบูรณ์ และ Prim แบบ O(N²) เหมาะที่สุด
+files: sol/ex06e1_cable/main.cpp
+tests: the 2 PDF samples and N = 2; 300 random complete graphs (N ≤ 9) against Kruskal in Python; N = 1,000 (half a million costs) in 0.07 s.
+tests_th: ตัวอย่าง 2 ชุดใน PDF และ N = 2; สุ่มกราฟสมบูรณ์ 300 ชุด (N ≤ 9) เทียบกับ Kruskal ใน Python; N = 1,000 (ราคาครึ่งล้านค่า) ใช้ 0.07 วินาที
+==== en
+## 1. What the problem says
+There are N service centres (2 ≤ N ≤ 1,000). Data can be relayed, so the network works if the cables form one **connected** graph. You are given the cost of a cable for **every pair** (non-negative, ≤ 1,000), as a triangle: line i lists the costs from centre i to centres i+1, i+2, …, N−1. Print the minimum total cost.
+
+Sample 1: N = 4 → **7**.
+
+> The PDF says "the kth integer describes the cable from i to k", but line i has only N−i−1 numbers. The samples make sense only if the kth number on line i is the cable from i to **i + 1 + k**.
+
+## 2. What it really means
+The cheapest set of cables that keeps everything connected never contains a cycle (drop the most expensive cable of a cycle and you are still connected, for less). So it is a **tree** on all N nodes: a **minimum spanning tree (MST)**.
+
+```text
+sample 1 costs            the MST (cost 1 + 2 + 4 = 7)
+      0   1   2   3
+  0   -   1   3   4           0 ──1── 1
+  1       -   2   7           │       │
+  2           -   6           4       2
+  3               -           │       │
+                              3       2
+```
+
+:::hint Hint 1
+The graph is **complete**: every pair has an edge, about 500,000 of them. Which MST algorithm does not need to sort the edges?
+:::
+:::hint Hint 2
+Prim with a simple array instead of a heap: each round scan all N nodes for the cheapest one outside the tree.
+:::
+
+## 3. What, why, how
+- **What:** Prim's algorithm, O(N²) array version.
+- **Why it is correct (cut property):** split the nodes into "in the tree" and "outside". The cheapest edge across that split is in some MST. Prim adds exactly that edge every round.
+- **Why O(N²) beats the heap and Kruskal here:** E = N(N−1)/2 ≈ 500,000. Kruskal sorts E edges: O(E log E). Heap Prim is O(E log N). Array Prim is O(N²) = 10⁶ with no log factor and no edge list at all.
+- **How:** best[v] = cheapest cable from v to the tree (∞ at the start, 0 for centre 0). N rounds: pick the outside u with the smallest best[u], add best[u] to the total, put u in the tree, then for every outside v set best[v] = min(best[v], w[u][v]).
+- **Input:** fill w[i][j] and w[j][i] for i < j from the triangle.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1. best[] is shown after each round (· = already in the tree).
+
+| round | picks u | adds | total | best[0..3] afterwards |
+|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | · 1 3 4 |
+| 1 | 1 | 1 | 1 | · · 2 4 |
+| 2 | 2 | 2 | 3 | · · · 4 |
+| 3 | 3 | 4 | **7** | · · · · |
+
+## 5. Traps
+- **Misreading the triangle:** the kth number on line i is the cable to i + 1 + k, not to k.
+- **Kruskal with a full edge sort:** works, but costs more memory and time; with a slow DSU it can time out.
+- **Forgetting the update step:** after adding u you must lower best[v] using u's cables.
+- **N = 2:** one line with one number; the answer is that number.
+
+## 6. Background
+Lesson 18. The cut property makes both Prim and Kruskal correct. Rule of thumb: dense or complete graph → array Prim O(V²); sparse graph → Kruskal with DSU, or heap Prim. The next problem, [Beautiful roads](#a60a_q3_xor_road), is a *maximum* spanning tree on a complete graph whose weights are computed, not read. Prim's loop looks almost the same as dense Dijkstra in [Farthest](#a61_q2_farthest): only the value stored in best[] changes.
+==== th
+## 1. โจทย์บอกอะไร
+มีศูนย์บริการ N แห่ง (2 ≤ N ≤ 1,000) ข้อมูลส่งต่อผ่านศูนย์อื่นได้ เครือข่ายจึงใช้งานได้ถ้าสายเคเบิลทำให้กราฟ **เชื่อมกันหมด** โจทย์ให้ราคาสายของ **ทุกคู่** (ไม่ติดลบ ≤ 1,000) เป็นรูปสามเหลี่ยม: บรรทัด i คือราคาจากศูนย์ i ไปศูนย์ i+1, i+2, …, N−1 ให้พิมพ์ราคารวมที่น้อยที่สุด
+
+ตัวอย่างที่ 1: N = 4 → **7**
+
+> PDF เขียนว่า "ตัวที่ k คือสายจาก i ไป k" แต่บรรทัด i มีแค่ N−i−1 ตัว ตัวอย่างจะถูกต้องก็ต่อเมื่อตัวที่ k ของบรรทัด i คือสายจาก i ไป **i + 1 + k**
+
+## 2. จริง ๆ แล้วถามอะไร
+ชุดสายที่ถูกที่สุดที่ยังเชื่อมทุกจุดไม่มีวงวนเลย (ตัดสายที่แพงที่สุดในวงทิ้ง ก็ยังเชื่อมกันอยู่และถูกลง) จึงเป็น **ต้นไม้** ที่ครอบทุกปม N ปม: **minimum spanning tree (MST)**
+
+```text
+sample 1 costs            the MST (cost 1 + 2 + 4 = 7)
+      0   1   2   3
+  0   -   1   3   4           0 ──1── 1
+  1       -   2   7           │       │
+  2           -   6           4       2
+  3               -           │       │
+                              3       2
+```
+
+:::hint คำใบ้ 1
+กราฟนี้ **สมบูรณ์**: ทุกคู่มีเส้น ประมาณ 500,000 เส้น อัลกอริทึม MST ตัวไหนที่ไม่ต้องเรียงเส้น
+:::
+:::hint คำใบ้ 2
+Prim ที่ใช้อาร์เรย์ธรรมดาแทน heap: ทุกรอบไล่ดูทั้ง N ปมเพื่อหาปมที่ถูกที่สุดที่อยู่นอกต้นไม้
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** อัลกอริทึม Prim แบบอาร์เรย์ O(N²)
+- **ทำไมถูกต้อง (cut property):** แบ่งปมเป็น "อยู่ในต้นไม้" กับ "อยู่นอก" เส้นที่ถูกที่สุดที่ข้ามรอยแบ่งนี้อยู่ใน MST บางต้นแน่นอน Prim เพิ่มเส้นนั้นพอดีในทุกรอบ
+- **ทำไม O(N²) ชนะ heap และ Kruskal ในข้อนี้:** E = N(N−1)/2 ≈ 500,000 Kruskal ต้องเรียง E เส้น: O(E log E) Prim แบบ heap คือ O(E log N) ส่วน Prim แบบอาร์เรย์คือ O(N²) = 10⁶ ไม่มี log และไม่ต้องมีรายการเส้นเลย
+- **อย่างไร:** best[v] = ราคาสายที่ถูกที่สุดจาก v เข้าต้นไม้ (เริ่ม ∞ และ 0 สำหรับศูนย์ 0) ทำ N รอบ: เลือก u ที่อยู่นอกและ best[u] น้อยสุด บวก best[u] เข้าผลรวม ใส่ u ในต้นไม้ แล้วทุก v ที่อยู่นอก ตั้ง best[v] = min(best[v], w[u][v])
+- **อ่าน input:** เติม w[i][j] และ w[j][i] สำหรับ i < j จากสามเหลี่ยม
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 แสดง best[] หลังแต่ละรอบ (· = อยู่ในต้นไม้แล้ว)
+
+| รอบ | เลือก u | บวก | ผลรวม | best[0..3] หลังรอบ |
+|---|---|---|---|---|
+| 0 | 0 | 0 | 0 | · 1 3 4 |
+| 1 | 1 | 1 | 1 | · · 2 4 |
+| 2 | 2 | 2 | 3 | · · · 4 |
+| 3 | 3 | 4 | **7** | · · · · |
+
+## 5. จุดที่มักพลาด
+- **อ่านสามเหลี่ยมผิด:** ตัวที่ k ของบรรทัด i คือสายไป i + 1 + k ไม่ใช่ไป k
+- **Kruskal ที่เรียงเส้นทั้งหมด:** ใช้ได้ แต่เปลืองหน่วยความจำและเวลากว่า ถ้า DSU ช้าอาจหมดเวลา
+- **ลืมขั้นอัปเดต:** หลังเพิ่ม u ต้องลด best[v] ด้วยสายของ u
+- **N = 2:** มีบรรทัดเดียวที่มีเลขตัวเดียว คำตอบคือเลขนั้น
+
+## 6. ความรู้พื้นฐาน
+บทที่ 18 cut property ทำให้ทั้ง Prim และ Kruskal ถูกต้อง หลักจำ: กราฟหนาแน่นหรือสมบูรณ์ → Prim แบบอาร์เรย์ O(V²); กราฟเบาบาง → Kruskal กับ DSU หรือ Prim แบบ heap ข้อถัดไป [ถนนสวย](#a60a_q3_xor_road) เป็น *maximum* spanning tree บนกราฟสมบูรณ์ที่น้ำหนักต้องคำนวณเอง ไม่ได้อ่านมา ลูปของ Prim หน้าตาแทบเหมือน Dijkstra แบบหนาแน่นในข้อ [Farthest](#a61_q2_farthest) ต่างกันแค่ค่าที่เก็บใน best[]

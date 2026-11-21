@@ -1,0 +1,152 @@
+id: a66_q1a_day_cover
+group: brute
+lesson: 11 · Recursion & backtracking (subsets)
+stars: 2
+complexity: O(2ᵐ · n / 64)
+kind: program
+tags: set cover, all subsets, invite or skip, bitset, pruning
+title: Day cover
+title_th: หาคนช่วยงานให้ครบทุกวัน (Day Cover)
+blurb: Choose the fewest of m ≤ 20 students so that every one of n days has at least one helper. With m ≤ 20 you can try every group: invite-or-skip recursion, each student's days as a bitset.
+blurb_th: เลือกนิสิตจาก m ≤ 20 คนให้น้อยที่สุด โดยทุกวันใน n วันมีคนช่วยงานอย่างน้อยหนึ่งคน เมื่อ m ≤ 20 ลองได้ทุกกลุ่ม: recursion แบบชวนหรือข้าม และเก็บวันว่างของแต่ละคนเป็น bitset
+files: sol/a66_q1a_day_cover/main.cpp
+tests: both PDF samples and n = m = 1; 300 random inputs (n ≤ 12, m ≤ 8) against a Python brute force that tries all groups from the smallest size up; n = 1,000, m = 20 with answers 20 (no pruning possible), 1, 20 and 10 (1,024 optimal groups), each in under 0.02 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และ n = m = 1; สุ่ม 300 ชุด (n ≤ 12, m ≤ 8) เทียบกับ brute force ใน Python ที่ลองทุกกลุ่มจากขนาดเล็กไปใหญ่; n = 1,000, m = 20 ที่คำตอบเป็น 20 (ตัดกิ่งไม่ได้เลย), 1, 20 และ 10 (กลุ่มที่ดีที่สุด 1,024 กลุ่ม) แต่ละชุดใช้ไม่ถึง 0.02 วินาที
+==== en
+## 1. What the problem says
+An exhibition runs for n days (n ≤ 1,000), numbered 1..n. Every day needs **at least one** student helper. m students (m ≤ 20) volunteered; student i lists the days they are free (k numbers, sorted, distinct). Print the **smallest number of students** that together cover every day. An answer always exists.
+
+Input: `n m`, then one line per student: `k d1 d2 … dk`.
+
+Sample 2: n = 5, m = 4 with free days {1,3,5}, {1,2,3}, {2,5}, {3,4} → **3** (for example students 1, 3, 4).
+
+## 2. What it really means
+This is **set cover**: pick the fewest sets whose union is {1, …, n}. In general there is no fast algorithm for it, so the limit is the hint: **m ≤ 20** means only 2²⁰ ≈ 10⁶ possible groups of students. Try them all.
+
+```text
+student:   1     2     3     4         each student = a row of n bits
+day 1..5:  10101 11100 01001 00110
+
+invite 1, 3, 4:   10101
+               OR 01001
+               OR 00110
+               =  11111   → every day covered, 3 students
+```
+
+:::hint Hint 1
+Compare m with n. Which one is small enough to enumerate every possibility over?
+:::
+:::hint Hint 2
+For each student make one decision: invite or skip. Carry the set of covered days down the recursion, and stop a branch once it already uses as many students as the best answer so far.
+:::
+
+## 3. What, why, how
+- **What:** enumerate all 2ᵐ subsets of students with an invite-or-skip recursion (a binary decision tree, as in [Generate barcode](#ex00e4)).
+- **Why brute force is right here:** set cover is NP-hard, so no clever polynomial idea is expected. The limits (m ≤ 20, a 1-second limit) are chosen exactly so that 2ᵐ works.
+- **Bitset:** store each student's free days as `bitset<1000>`. Combining a group is `cover | avail[i]`, which handles 64 days per machine instruction. Checking "all days covered" is `cover == full`.
+- **How:** `pick(i, used, cover)` decides students i..m−1.
+  - If `used >= best`, stop: this branch cannot improve the answer.
+  - If `cover == full`, record `best = used` and stop: adding more students only makes it worse.
+  - If i == m, stop: students ran out with a day still empty.
+  - Otherwise try **invite** i, then **skip** i.
+- **Why invite first:** it finds a complete cover quickly, so `best` becomes small early and the pruning cuts more of the tree.
+- **Cost:** at most 2ᵐ⁺¹ calls, each with an O(n/64) bitset operation: about 2 × 10⁶ × 16 word operations. Measured under 0.02 s even when pruning never helps (answer = 20).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2 (✓ = invite, ✗ = skip; students in input order).
+
+| decisions so far | days covered | used | what happens |
+|---|---|---|---|
+| ✓1 ✓2 ✓3 ✓4 | 1 2 3 4 5 | 4 | all covered → best = 4 |
+| ✓1 ✓2 ✓3 ✗4 | 1 2 3 5 | 3 | out of students, day 4 empty |
+| ✓1 ✓2 ✗3 ✓4 | 1 2 3 4 5 | 3 | all covered → **best = 3** |
+| ✓1 ✓2 ✗3 ✗4 | 1 2 3 5 | 2 | out of students |
+| ✓1 ✗2 ✓3 ✓4 | | 3 | used ≥ best: pruned |
+| ✓1 ✗2 ✓3 ✗4 | 1 2 3 5 | 2 | out of students |
+| ✓1 ✗2 ✗3 ✓4 | 1 3 4 5 | 2 | out of students |
+| ✓1 ✗2 ✗3 ✗4 | 1 3 5 | 1 | out of students |
+| ✗1 … | | | every branch either runs out or reaches 3 students and is pruned |
+
+Answer **3**. The group found is students 1, 2, 4; the PDF lists 1, 3, 4 and 2, 3, 4, which are equally good.
+
+## 5. Traps
+- **Greedy "take the student covering most new days":** not always optimal for set cover. With sets {1–4}, {1,2,5}, {3,4,6}, greedy takes {1–4} first and needs 3 students; the best is 2.
+- **Days are 1-based:** day d goes to bit d − 1.
+- **Checking "all covered" with a loop over n days at every leaf:** O(2ᵐ · n) = 10⁹; use the bitset comparison.
+- **`vector<bool>` or `bool[1000]` per state, copied each call:** works but is about 64 times slower than a bitset.
+- **Forgetting the guarantee:** an answer always exists, so `best` is always set; starting it at m + 1 is a safe "infinity".
+
+## 6. Background
+Lesson 11. "Try every subset" is the brute force for problems over a small set of items (m ≤ 20–25): each item is in or out. Bitsets make the set operations cheap. The same idea appears as bit-mask DP when the state is the set itself. For the other generators in this chapter see [Generate barcode](#ex00e4) (subsets of a fixed size) and [Permutation with constraint](#a64_q1_permu_before) (orderings).
+==== th
+## 1. โจทย์บอกอะไร
+นิทรรศการจัดทั้งหมด n วัน (n ≤ 1,000) เลขวัน 1..n ทุกวันต้องมีนิสิตมาช่วยงาน **อย่างน้อยหนึ่งคน** มีนิสิตอาสา m คน (m ≤ 20) นิสิตคนที่ i ให้รายการวันที่ว่าง (k ตัว เรียงแล้วและไม่ซ้ำ) ให้พิมพ์ **จำนวนนิสิตที่น้อยที่สุด** ที่รวมกันแล้วครอบคลุมทุกวัน รับประกันว่ามีคำตอบเสมอ
+
+input: `n m` แล้วนิสิตคนละบรรทัด: `k d1 d2 … dk`
+
+ตัวอย่างที่ 2: n = 5, m = 4 วันว่างคือ {1,3,5}, {1,2,3}, {2,5}, {3,4} → **3** (เช่นนิสิตคนที่ 1, 3, 4)
+
+## 2. จริง ๆ แล้วถามอะไร
+นี่คือ **set cover**: เลือกเซตให้น้อยที่สุดโดยยูเนียนของมันคือ {1, …, n} โดยทั่วไปไม่มีอัลกอริทึมที่เร็วสำหรับปัญหานี้ ขอบเขตจึงเป็นคำใบ้: **m ≤ 20** แปลว่ากลุ่มนิสิตที่เป็นไปได้มีแค่ 2²⁰ ≈ 10⁶ กลุ่ม ลองทุกกลุ่มเลย
+
+```text
+student:   1     2     3     4         each student = a row of n bits
+day 1..5:  10101 11100 01001 00110
+
+invite 1, 3, 4:   10101
+               OR 01001
+               OR 00110
+               =  11111   → every day covered, 3 students
+```
+
+:::hint คำใบ้ 1
+เทียบ m กับ n ตัวไหนเล็กพอที่จะไล่ทุกความเป็นไปได้
+:::
+:::hint คำใบ้ 2
+นิสิตแต่ละคนตัดสินใจครั้งเดียว: ชวนหรือข้าม ส่งเซตของวันที่ครอบคลุมแล้วลงไปใน recursion และหยุดกิ่งทันทีที่ใช้นิสิตเท่ากับคำตอบที่ดีที่สุดที่เจอแล้ว
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** ไล่ทุกเซตย่อย 2ᵐ แบบของนิสิตด้วย recursion แบบชวนหรือข้าม (ต้นไม้การตัดสินใจแบบสองทาง เหมือนข้อ [Generate barcode](#ex00e4))
+- **ทำไม brute force ถูกทางในข้อนี้:** set cover เป็นปัญหา NP-hard จึงไม่มีไอเดียฉลาดแบบพหุนามที่โจทย์คาดหวัง ขอบเขต (m ≤ 20 เวลา 1 วินาที) ถูกเลือกมาให้ 2ᵐ ผ่านพอดี
+- **Bitset:** เก็บวันว่างของแต่ละคนเป็น `bitset<1000>` การรวมกลุ่มคือ `cover | avail[i]` ซึ่งทำ 64 วันต่อหนึ่งคำสั่งเครื่อง การเช็ก "ครอบคลุมทุกวัน" คือ `cover == full`
+- **อย่างไร:** `pick(i, used, cover)` ตัดสินใจนิสิต i..m−1
+  - ถ้า `used >= best` หยุด: กิ่งนี้ทำให้คำตอบดีขึ้นไม่ได้
+  - ถ้า `cover == full` บันทึก `best = used` แล้วหยุด: เพิ่มคนอีกมีแต่แย่ลง
+  - ถ้า i == m หยุด: นิสิตหมดแล้วแต่ยังมีวันว่าง
+  - ไม่อย่างนั้นลอง **ชวน** i ก่อน แล้วค่อย **ข้าม** i
+- **ทำไมชวนก่อน:** จะเจอชุดที่ครอบคลุมครบเร็ว `best` จึงเล็กลงตั้งแต่ต้น และการตัดกิ่งตัดต้นไม้ได้มากขึ้น
+- **ต้นทุน:** เรียกไม่เกิน 2ᵐ⁺¹ ครั้ง แต่ละครั้งมีการดำเนินการ bitset O(n/64): ราว 2 × 10⁶ × 16 คำสั่ง วัดได้ไม่ถึง 0.02 วินาที แม้ในกรณีที่ตัดกิ่งไม่ได้เลย (คำตอบ = 20)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 (✓ = ชวน, ✗ = ข้าม; นิสิตตามลำดับ input)
+
+| การตัดสินใจจนถึงตอนนี้ | วันที่ครอบคลุม | used | เกิดอะไรขึ้น |
+|---|---|---|---|
+| ✓1 ✓2 ✓3 ✓4 | 1 2 3 4 5 | 4 | ครบทุกวัน → best = 4 |
+| ✓1 ✓2 ✓3 ✗4 | 1 2 3 5 | 3 | นิสิตหมด วันที่ 4 ยังว่าง |
+| ✓1 ✓2 ✗3 ✓4 | 1 2 3 4 5 | 3 | ครบทุกวัน → **best = 3** |
+| ✓1 ✓2 ✗3 ✗4 | 1 2 3 5 | 2 | นิสิตหมด |
+| ✓1 ✗2 ✓3 ✓4 | | 3 | used ≥ best: ตัดกิ่ง |
+| ✓1 ✗2 ✓3 ✗4 | 1 2 3 5 | 2 | นิสิตหมด |
+| ✓1 ✗2 ✗3 ✓4 | 1 3 4 5 | 2 | นิสิตหมด |
+| ✓1 ✗2 ✗3 ✗4 | 1 3 5 | 1 | นิสิตหมด |
+| ✗1 … | | | ทุกกิ่งไม่นิสิตหมดก็ถึง 3 คนแล้วถูกตัด |
+
+คำตอบ **3** กลุ่มที่เจอคือนิสิต 1, 2, 4 ส่วน PDF ให้ 1, 3, 4 และ 2, 3, 4 ซึ่งดีเท่ากัน
+
+## 5. จุดที่มักพลาด
+- **ละโมบแบบ "เลือกคนที่ครอบคลุมวันใหม่มากที่สุด":** ไม่ได้คำตอบดีที่สุดเสมอสำหรับ set cover เช่นเซต {1–4}, {1,2,5}, {3,4,6} ละโมบเลือก {1–4} ก่อนแล้วต้องใช้ 3 คน แต่ที่ดีที่สุดคือ 2
+- **วันเริ่มที่ 1:** วัน d เก็บที่บิต d − 1
+- **เช็ก "ครบทุกวัน" ด้วยลูป n วันทุกใบ:** O(2ᵐ · n) = 10⁹ ใช้การเทียบ bitset แทน
+- **`vector<bool>` หรือ `bool[1000]` ต่อ state แล้วคัดลอกทุกครั้ง:** ใช้ได้แต่ช้ากว่า bitset ราว 64 เท่า
+- **ลืมข้อรับประกัน:** มีคำตอบเสมอ `best` จึงถูกตั้งค่าแน่นอน การเริ่มที่ m + 1 เป็น "อนันต์" ที่ปลอดภัย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11 "ลองทุกเซตย่อย" คือ brute force สำหรับปัญหาบนสิ่งของจำนวนน้อย (m ≤ 20–25): สิ่งของแต่ละชิ้นอยู่หรือไม่อยู่ bitset ทำให้การดำเนินการบนเซตถูก ไอเดียเดียวกันปรากฏเป็น bit-mask DP เมื่อ state คือตัวเซตเอง ตัวสร้างแบบอื่นในบทนี้ดูที่ [Generate barcode](#ex00e4) (เซตย่อยขนาดคงที่) และ [Permutation with constraint](#a64_q1_permu_before) (การเรียงลำดับ)

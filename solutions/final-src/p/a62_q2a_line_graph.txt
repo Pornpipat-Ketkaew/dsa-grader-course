@@ -1,0 +1,140 @@
+id: a62_q2a_line_graph
+group: graph1
+lesson: 16 · Graphs: components + degrees
+stars: 2
+complexity: O(v + e)
+kind: program
+tags: connected components, degree ≤ 2, iterative DFS, statement vs sample
+title: Line Graph Count
+title_th: นับกราฟเส้นตรง (Line Graph)
+blurb: Count the components that look like a line. In every such component no node has degree > 2; the official samples also count a ring, so the test is just "max degree ≤ 2".
+blurb_th: นับ component ที่เป็นเส้นตรง ใน component แบบนั้นไม่มีปมไหนมีดีกรีเกิน 2 และตัวอย่างทางการนับวงแหวนด้วย จึงตรวจแค่ "ดีกรีสูงสุด ≤ 2"
+files: sol/a62_q2a_line_graph/main.cpp
+tests: all 6 PDF samples (sample 4 is the one that counts a triangle); 300 random graphs (v ≤ 8) against a Python check that tries every node order to see if a component is a path or a ring; a 100,000-node path (no recursion: explicit stack) and v = 100,000, e = 200,000 random in 0.06 s.
+tests_th: ตัวอย่างทั้ง 6 ชุดใน PDF (ชุดที่ 4 คือชุดที่นับสามเหลี่ยม); สุ่มกราฟ 300 ชุด (v ≤ 8) เทียบกับการตรวจใน Python ที่ลองทุกลำดับปมว่า component เป็นเส้นทางหรือวงแหวน; เส้นทาง 100,000 ปม (ไม่ใช้การเวียนเกิด ใช้ stack เอง) และสุ่ม v = 100,000, e = 200,000 ใช้ 0.06 วินาที
+==== en
+## 1. What the problem says
+A "line graph" is a graph that can be seen as a tree where every node has only **one child** (except the leaf): nodes connected in a straight line. A single node with no edges also counts. Given a simple undirected graph (v ≤ 100,000 nodes 0..v−1, e ≤ 200,000 edges), split it into connected components and print **how many components are line graphs**.
+
+Samples: a path 1–0–2 → 1; three isolated nodes → 3; K₄ (every pair connected) → 0; and the interesting one:
+
+```text
+5 4 / 0 1 / 2 3 / 3 4 / 4 2          expected output: 2
+```
+
+## 2. What it really means
+Components: {0, 1} (a line) and {2, 3, 4}, which is a **triangle**. By the words of the statement a triangle is not a line, yet the expected answer is **2**: the official solution counted it. So the grader's real test is:
+
+> a component counts when **no node in it has degree more than 2**.
+
+```text
+path        ring          star (fails)
+o─o─o─o     o─o           o
+            │ │          ╱│╲
+            o─o          o o o    ← centre has degree 3
+```
+
+A connected graph with all degrees ≤ 2 is either a path or a ring (cycle). The samples tell us the grader accepts both.
+
+:::hint Hint 1
+For each component you only need one fact: is there any node in it whose degree is greater than 2?
+:::
+:::hint Hint 2
+v can be 100,000 and a component can be one long path: use BFS or a DFS with your own stack instead of recursion.
+:::
+
+## 3. What, why, how
+- **What:** components (as in [Component Count](#a60a_q3_component)) plus a degree check per component.
+- **Why degree ≤ 2 characterises "path or ring":** start at an end (degree 1) or anywhere on a ring; at each node there is at most one new neighbour to continue to, so the component is a single chain that either stops or closes up.
+- **How:**
+  1. read edges into adjacency lists (degree = list size);
+  2. for every unvisited node, walk its component with an explicit stack, and set `degOk = false` if any node has more than 2 neighbours;
+  3. count the components with `degOk`.
+- **The strict version** (what the words say): also require edges = nodes − 1, i.e. no ring. Count nodes and the sum of degrees in the walk; edges = sum / 2. On sample 4 the strict version prints 1, which contradicts the official answer 2, so we submit the degree-only version and keep the strict one as a one-line change if a different grader ever needs it.
+- **Cost:** O(v + e).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for sample 4 (5 nodes; degrees: deg0 = 1, deg1 = 1, deg2 = 2, deg3 = 2, deg4 = 2):
+
+| start | component found | max degree | counted? | total |
+|---|---|---|---|---|
+| 0 | {0, 1} | 1 | yes | 1 |
+| 1 | already seen | | | 1 |
+| 2 | {2, 3, 4} (a triangle) | 2 | yes (as the sample requires) | **2** |
+
+Sample with K₄: every node has degree 3, the only component fails, output **0**.
+
+## 5. Traps
+- **Trusting the wording over the samples:** the strict "no cycle" rule fails sample 4. When the statement and the official samples disagree, the samples show what the grader checks.
+- **Deep recursion:** a 100,000-node path makes a recursive DFS 100,000 frames deep; that may overflow the stack on some graders. The explicit stack avoids it.
+- **The swapped limits in the statement** ("2 ≤ n ≤ 100,000 and 0 ≤ v ≤ 200,000"): v is the node count, e the edge count.
+- **Isolated nodes** count as lines (sample 3 → 3).
+
+## 6. Background
+Lesson 16. Many component questions boil down to "walk the component and collect a small summary" (size, number of edges, max degree, whether it is bipartite …). Deciding the property from that summary is then O(1). Remember also: a connected graph with n nodes is a tree iff it has n − 1 edges.
+==== th
+## 1. โจทย์บอกอะไร
+"กราฟเส้นตรง" คือกราฟที่มองเป็นต้นไม้ที่ทุกปมมี **ลูกแค่ปมเดียว** (ยกเว้นปมใบ) คือปมต่อกันเป็นเส้นตรง ปมเดียวที่ไม่มีเส้นเชื่อมก็นับด้วย กำหนดกราฟไม่มีทิศทางแบบเชิงเดียว (v ≤ 100,000 ปม หมายเลข 0..v−1, e ≤ 200,000 เส้น) ให้แบ่งเป็น connected component แล้วพิมพ์ **จำนวน component ที่เป็นกราฟเส้นตรง**
+
+ตัวอย่าง: เส้นทาง 1–0–2 → 1; ปมโดดเดี่ยวสามปม → 3; K₄ (ทุกคู่เชื่อมกัน) → 0; และตัวที่น่าสนใจ:
+
+```text
+5 4 / 0 1 / 2 3 / 3 4 / 4 2          expected output: 2
+```
+
+## 2. จริง ๆ แล้วถามอะไร
+component คือ {0, 1} (เส้นตรง) และ {2, 3, 4} ซึ่งเป็น **สามเหลี่ยม** ตามถ้อยคำของโจทย์ สามเหลี่ยมไม่ใช่เส้นตรง แต่คำตอบที่คาดหวังคือ **2**: เฉลยทางการนับมันด้วย ดังนั้นสิ่งที่ grader ตรวจจริง ๆ คือ:
+
+> component จะถูกนับเมื่อ **ไม่มีปมไหนในนั้นมีดีกรีเกิน 2**
+
+```text
+path        ring          star (fails)
+o─o─o─o     o─o           o
+            │ │          ╱│╲
+            o─o          o o o    ← centre has degree 3
+```
+
+กราฟที่เชื่อมกันและทุกดีกรี ≤ 2 เป็นได้แค่เส้นทางหรือวงแหวน (วงวน) ตัวอย่างบอกเราว่า grader ยอมรับทั้งสองแบบ
+
+:::hint คำใบ้ 1
+สำหรับแต่ละ component เราต้องรู้แค่อย่างเดียว: มีปมไหนในนั้นที่ดีกรีเกิน 2 ไหม
+:::
+:::hint คำใบ้ 2
+v ถึง 100,000 และ component หนึ่งอาจเป็นเส้นยาวเส้นเดียว ให้ใช้ BFS หรือ DFS ที่มี stack ของเราเองแทนการเวียนเกิด
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** หา component (เหมือนข้อ [Component Count](#a60a_q3_component)) บวกการตรวจดีกรีของแต่ละ component
+- **ทำไมดีกรี ≤ 2 แปลว่า "เส้นทางหรือวงแหวน":** เริ่มที่ปลาย (ดีกรี 1) หรือที่ไหนก็ได้บนวงแหวน แต่ละปมมีเพื่อนบ้านใหม่ให้ไปต่อได้อย่างมากหนึ่งปม component จึงเป็นโซ่เส้นเดียวที่จบลงหรือวนกลับมาปิด
+- **อย่างไร:**
+  1. อ่านเส้นเชื่อมเก็บใน adjacency list (ดีกรี = ขนาดของ list)
+  2. ทุกปมที่ยังไม่เยี่ยม เดินทั้ง component ด้วย stack ของเราเอง และตั้ง `degOk = false` ถ้าเจอปมที่มีเพื่อนบ้านเกิน 2
+  3. นับ component ที่ `degOk`
+- **แบบเคร่งครัด** (ตามถ้อยคำ): ต้องมีเส้นเชื่อม = จำนวนปม − 1 ด้วย คือห้ามเป็นวงแหวน นับจำนวนปมและผลรวมดีกรีระหว่างเดิน แล้วเส้นเชื่อม = ผลรวม / 2 กับตัวอย่างที่ 4 แบบเคร่งครัดพิมพ์ 1 ซึ่งขัดกับคำตอบทางการ 2 เราจึงส่งแบบตรวจดีกรีอย่างเดียว และเก็บแบบเคร่งครัดไว้เป็นการแก้บรรทัดเดียวถ้า grader อื่นต้องการ
+- **ต้นทุน:** O(v + e)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** ตัวอย่างที่ 4 (5 ปม ดีกรี: deg0 = 1, deg1 = 1, deg2 = 2, deg3 = 2, deg4 = 2):
+
+| เริ่มที่ | component ที่พบ | ดีกรีสูงสุด | นับไหม | รวม |
+|---|---|---|---|---|
+| 0 | {0, 1} | 1 | นับ | 1 |
+| 1 | เยี่ยมแล้ว | | | 1 |
+| 2 | {2, 3, 4} (สามเหลี่ยม) | 2 | นับ (ตามที่ตัวอย่างต้องการ) | **2** |
+
+ตัวอย่าง K₄: ทุกปมดีกรี 3 component เดียวที่มีไม่ผ่าน ผลลัพธ์ **0**
+
+## 5. จุดที่มักพลาด
+- **เชื่อถ้อยคำมากกว่าตัวอย่าง:** กฎ "ห้ามมีวงวน" แบบเคร่งครัดไม่ผ่านตัวอย่างที่ 4 เมื่อโจทย์กับตัวอย่างทางการขัดกัน ตัวอย่างคือสิ่งที่บอกว่า grader ตรวจอะไร
+- **การเวียนเกิดลึกเกินไป:** เส้นทาง 100,000 ปมทำให้ DFS แบบเวียนเกิดลึก 100,000 เฟรม อาจทำ stack ล้นในบาง grader การใช้ stack ของเราเองเลี่ยงปัญหานี้
+- **ขอบเขตในโจทย์สลับกัน** ("2 ≤ n ≤ 100,000 และ 0 ≤ v ≤ 200,000"): v คือจำนวนปม e คือจำนวนเส้น
+- **ปมโดดเดี่ยว** นับเป็นเส้นตรง (ตัวอย่างที่ 3 → 3)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 คำถามเรื่อง component หลายข้อลดรูปเหลือ "เดินทั้ง component แล้วเก็บสรุปเล็ก ๆ" (ขนาด จำนวนเส้น ดีกรีสูงสุด เป็นกราฟสองส่วนไหม …) แล้วตัดสินคุณสมบัติจากสรุปนั้นใน O(1) จำไว้ด้วยว่า กราฟที่เชื่อมกันมี n ปม จะเป็นต้นไม้ก็ต่อเมื่อมี n − 1 เส้น

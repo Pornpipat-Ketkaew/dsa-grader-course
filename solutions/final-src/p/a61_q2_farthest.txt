@@ -1,0 +1,144 @@
+id: a61_q2_farthest
+group: sp
+lesson: 17 · Shortest paths: Dijkstra (dense)
+stars: 2
+complexity: O(N²)
+kind: program
+tags: Dijkstra O(N²), adjacency matrix, directed, unreachable → -1
+title: Farthest city
+title_th: เมืองไกลสุด (Farthest)
+blurb: One-way roads given as an adjacency matrix; find the shortest distance from the capital to every city and print the largest one, or -1 if some city cannot be reached.
+blurb_th: ถนนทางเดียวให้มาเป็น adjacency matrix หาระยะสั้นสุดจากเมืองหลวงไปทุกเมือง แล้วพิมพ์ค่าที่มากที่สุด หรือ -1 ถ้ามีเมืองที่ไปไม่ถึง
+files: sol/a61_q2_farthest/main.cpp
+tests: the PDF sample and a 2-city graph where city 2 is unreachable; 300 random directed matrices (N ≤ 8) against Floyd–Warshall in Python; N = 1,000 with half the roads present in 0.07 s.
+tests_th: ตัวอย่างใน PDF และกราฟ 2 เมืองที่ไปเมือง 2 ไม่ได้; สุ่มเมทริกซ์มีทิศ 300 ชุด (N ≤ 8) เทียบกับ Floyd–Warshall ใน Python; N = 1,000 ที่มีถนนครึ่งหนึ่ง ใช้ 0.07 วินาที
+==== en
+## 1. What the problem says
+Country Algo has N cities (2 ≤ N ≤ 1,000) and **one-way** roads, at most one from a to b, each with a positive length < 1,000,000. The distance from the capital (city 1) to city c is the length of the **shortest** route. The input is an N × N adjacency matrix: entry (i, j) is the road i → j, **−1** means no road, and the diagonal is 0.
+
+Print the distance from the capital to the **farthest** city, that is the largest of these shortest distances. If **any** city cannot be reached, print **−1**.
+
+Sample → **6** (distances 1, 3, 4, 6 to cities 2, 3, 4, 5).
+
+> The Thai title says "เมืองใกล้สุด" (nearest city), but the explanation and the sample both ask for the **largest** shortest distance.
+
+## 2. What it really means
+"Shortest distance from one source, positive weights" is exactly **Dijkstra**. Then take the maximum over all cities, and check that none is still ∞.
+
+```text
+roads in the sample (from → to : length)
+   1 → 2 : 1      2 → 3 : 2      3 → 4 : 4      4 → 2 : 4      5 → 4 : 4
+   1 → 5 : 7      2 → 4 : 3                     4 → 3 : 2
+                  2 → 5 : 5
+
+shortest distances from city 1
+   city 2 : 1    (1 → 2)
+   city 3 : 3    (1 → 2 → 3)
+   city 4 : 4    (1 → 2 → 4)
+   city 5 : 6    (1 → 2 → 5, cheaper than the direct road of 7)   ← farthest
+```
+
+:::hint Hint 1
+The input is already a matrix with up to 1,000,000 entries. Which Dijkstra suits a matrix best?
+:::
+:::hint Hint 2
+Use the O(N²) version: each round, scan all N cities for the closest unfinished one. No heap needed.
+:::
+
+## 3. What, why, how
+- **What:** Dijkstra, array (dense) version.
+- **Why Dijkstra:** all road lengths are positive. Then the unfinished city with the smallest tentative distance can never be improved later: any other route would go through a city that is at least as far already.
+- **Why the dense version:** reading the matrix already costs N². A heap would add a log factor and an edge list, and gains nothing when E can be close to N².
+- **How:** dist[0] = 0, others ∞. N rounds: pick the unfinished u with the smallest finite dist (stop if none), mark it done, and relax every v with w[u][v] > 0. At the end, any ∞ → print −1; otherwise print the max.
+- **Sizes:** a path can have 999 roads of length < 10⁶: under 10⁹, so `int` would just fit, but `long long` costs nothing here.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the sample (cities numbered 1..5 as in the PDF; ∞ = not reached yet).
+
+| round | finalise | dist after relaxing (1 2 3 4 5) |
+|---|---|---|
+| 1 | city 1 (0) | 0 1 ∞ ∞ 7 |
+| 2 | city 2 (1) | 0 1 3 4 6 |
+| 3 | city 3 (3) | 0 1 3 4 6 |
+| 4 | city 4 (4) | 0 1 3 4 6 |
+| 5 | city 5 (6) | 0 1 3 4 6 |
+
+No ∞ remains, the largest is **6**.
+
+## 5. Traps
+- **Treating −1 as an edge of length −1:** only positive entries are roads. The code tests `w[u][v] > 0`, which also skips the diagonal 0.
+- **Printing the nearest city:** the title misleads; the sample's answer is the largest distance.
+- **Forgetting the −1 case:** one unreachable city makes the whole answer −1.
+- **Picking an unreached city (dist = ∞) as u:** guard it, or stop when no finite dist is left.
+- **Reading the matrix with slow `cin`:** a million numbers; use `scanf` or fast I/O.
+
+## 6. Background
+Lesson 17. Dijkstra comes in two shapes: **dense** O(V²) with a matrix, as here, and **heap** O(E log V) with adjacency lists, as in [Columbia](#ex06e3_columbia) and [Hacking](#a58_q3_p3a_hacking). With negative edges Dijkstra breaks: see [Shortest path](#ex06e2_shortest) for Bellman–Ford. The dense loop is the same shape as Prim in [Cable company](#ex06e1_cable).
+==== th
+## 1. โจทย์บอกอะไร
+ประเทศอัลกอมี N เมือง (2 ≤ N ≤ 1,000) และถนน **ทางเดียว** จาก a ไป b อย่างมากหนึ่งเส้น แต่ละเส้นยาวเป็นจำนวนเต็มบวก < 1,000,000 ระยะทางจากเมืองหลวง (เมือง 1) ไปเมือง c คือความยาวของเส้นทางที่ **สั้นที่สุด** input เป็น adjacency matrix ขนาด N × N: ช่อง (i, j) คือถนน i → j **−1** คือไม่มีถนน และแนวทแยงเป็น 0
+
+ให้พิมพ์ระยะทางจากเมืองหลวงไปเมืองที่ **ไกลที่สุด** คือค่ามากที่สุดของระยะสั้นสุดเหล่านี้ ถ้ามีเมือง **ใดก็ได้** ที่ไปไม่ถึง ให้พิมพ์ **−1**
+
+ตัวอย่าง → **6** (ระยะ 1, 3, 4, 6 ไปเมือง 2, 3, 4, 5)
+
+> ชื่อภาษาไทยเขียนว่า "เมืองใกล้สุด" แต่คำอธิบายและตัวอย่างถามหาระยะสั้นสุดที่ **มากที่สุด**
+
+## 2. จริง ๆ แล้วถามอะไร
+"ระยะสั้นสุดจากจุดเริ่มเดียว น้ำหนักเป็นบวก" คือ **Dijkstra** พอดี แล้วหาค่ามากสุดจากทุกเมือง และเช็กว่าไม่มีเมืองไหนยังเป็น ∞
+
+```text
+roads in the sample (from → to : length)
+   1 → 2 : 1      2 → 3 : 2      3 → 4 : 4      4 → 2 : 4      5 → 4 : 4
+   1 → 5 : 7      2 → 4 : 3                     4 → 3 : 2
+                  2 → 5 : 5
+
+shortest distances from city 1
+   city 2 : 1    (1 → 2)
+   city 3 : 3    (1 → 2 → 3)
+   city 4 : 4    (1 → 2 → 4)
+   city 5 : 6    (1 → 2 → 5, cheaper than the direct road of 7)   ← farthest
+```
+
+:::hint คำใบ้ 1
+input เป็นเมทริกซ์อยู่แล้ว ถึง 1,000,000 ช่อง Dijkstra แบบไหนเหมาะกับเมทริกซ์ที่สุด
+:::
+:::hint คำใบ้ 2
+ใช้แบบ O(N²): ทุกรอบไล่ดูทั้ง N เมืองเพื่อหาเมืองที่ยังไม่เสร็จและใกล้ที่สุด ไม่ต้องใช้ heap
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Dijkstra แบบอาร์เรย์ (หนาแน่น)
+- **ทำไม Dijkstra:** ถนนทุกเส้นยาวเป็นบวก เมืองที่ยังไม่เสร็จและมีระยะชั่วคราวน้อยที่สุดจะไม่มีทางถูกปรับให้ดีขึ้นอีก เพราะเส้นทางอื่นต้องผ่านเมืองที่ไกลอย่างน้อยเท่ากันอยู่แล้ว
+- **ทำไมแบบหนาแน่น:** แค่อ่านเมทริกซ์ก็ใช้ N² แล้ว heap จะเพิ่ม log และต้องมีรายการเส้น โดยไม่ได้อะไรเพิ่มเมื่อ E เกือบเท่า N²
+- **อย่างไร:** dist[0] = 0 ที่เหลือ ∞ ทำ N รอบ: เลือก u ที่ยังไม่เสร็จและ dist จำกัดน้อยที่สุด (หยุดถ้าไม่มี) ทำเครื่องหมายว่าเสร็จ แล้ว relax ทุก v ที่ w[u][v] > 0 สุดท้ายถ้ามี ∞ → พิมพ์ −1 ไม่อย่างนั้นพิมพ์ค่ามากสุด
+- **ขนาด:** เส้นทางมีถนนได้ 999 เส้น แต่ละเส้น < 10⁶: ต่ำกว่า 10⁹ `int` พอดีใส่ได้ แต่ `long long` ไม่เสียอะไรในข้อนี้
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่าง (ใช้เลขเมือง 1..5 ตาม PDF; ∞ = ยังไปไม่ถึง)
+
+| รอบ | ปิดเมือง | dist หลัง relax (1 2 3 4 5) |
+|---|---|---|
+| 1 | เมือง 1 (0) | 0 1 ∞ ∞ 7 |
+| 2 | เมือง 2 (1) | 0 1 3 4 6 |
+| 3 | เมือง 3 (3) | 0 1 3 4 6 |
+| 4 | เมือง 4 (4) | 0 1 3 4 6 |
+| 5 | เมือง 5 (6) | 0 1 3 4 6 |
+
+ไม่มี ∞ เหลือ ค่ามากสุดคือ **6**
+
+## 5. จุดที่มักพลาด
+- **มอง −1 เป็นเส้นยาว −1:** เฉพาะค่าบวกเท่านั้นที่เป็นถนน โค้ดเช็ก `w[u][v] > 0` ซึ่งข้ามแนวทแยงที่เป็น 0 ด้วย
+- **พิมพ์เมืองที่ใกล้ที่สุด:** ชื่อโจทย์ชวนให้หลง คำตอบของตัวอย่างคือระยะที่มากที่สุด
+- **ลืมกรณี −1:** เมืองเดียวที่ไปไม่ถึงทำให้คำตอบทั้งหมดเป็น −1
+- **เลือกเมืองที่ยังไปไม่ถึง (dist = ∞) เป็น u:** ต้องกันไว้ หรือหยุดเมื่อไม่มี dist จำกัดเหลือ
+- **อ่านเมทริกซ์ด้วย `cin` ที่ช้า:** ล้านตัวเลข ใช้ `scanf` หรือ fast I/O
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 Dijkstra มีสองแบบ: **หนาแน่น** O(V²) กับเมทริกซ์ แบบข้อนี้ และ **heap** O(E log V) กับ adjacency list แบบข้อ [Columbia](#ex06e3_columbia) และ [Hacking](#a58_q3_p3a_hacking) ถ้ามีเส้นติดลบ Dijkstra ใช้ไม่ได้: ดูข้อ [Shortest path](#ex06e2_shortest) ที่ใช้ Bellman–Ford ลูปแบบหนาแน่นมีรูปเดียวกับ Prim ในข้อ [บริษัทสายเคเบิล](#ex06e1_cable)

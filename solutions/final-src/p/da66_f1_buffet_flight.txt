@@ -1,0 +1,138 @@
+id: da66_f1_buffet_flight
+group: final
+lesson: 17 · Shortest paths: Dijkstra (dense)
+stars: 3
+complexity: O(n² + m)
+kind: program
+tags: Dijkstra O(n²), edge cost from vertex fees, adjacency matrix, fast input, -1 unreachable
+title: Buffet flight
+title_th: บินบุฟเฟต์ (Buffet Flight)
+blurb: Flights are free but each one charges a take-off fee at the start airport and a landing fee at the end. Cheapest cost from airport 0 to every airport: Dijkstra where flight a → b weighs co[a] + ci[b].
+blurb_th: บินฟรี แต่ทุกเที่ยวเสียค่าบินออกที่สนามบินต้นทางและค่าลงจอดที่ปลายทาง หาค่าใช้จ่ายน้อยสุดจากสนามบิน 0 ไปทุกสนามบิน: Dijkstra ที่เที่ยวบิน a → b หนัก co[a] + ci[b]
+files: sol/da66_f1_buffet_flight/main.cpp
+tests: all 3 PDF samples and a single airport; 300 random directed graphs (n ≤ 8) against Floyd–Warshall in Python; n = 2,000 with all n² − n = 3,998,000 flights (the largest input, about 40 MB) in 0.11 s.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และสนามบินเดียว; สุ่มกราฟมีทิศ 300 ชุด (n ≤ 8) เทียบกับ Floyd–Warshall ใน Python; n = 2,000 ที่มีเที่ยวบินครบ n² − n = 3,998,000 เที่ยว (input ใหญ่สุด ราว 40 MB) ใช้ 0.11 วินาที
+==== en
+## 1. What the problem says
+There are n airports (n ≤ 2,000) and m one-way flights (m ≤ n² − n). Flying is free, but a flight a → b charges **co[a]** (take-off at a) plus **ci[b]** (landing at b), both 1..1,000. You start at airport 0. For every airport print the minimum total fee to get there, or **−1** if it cannot be reached.
+
+Input: `n m`; then **ci[0..n−1]** (landing); then **co[0..n−1]** (take-off); then m lines `a b`.
+
+Sample 1: ci = 100 1 2 3, co = 10 20 30 40, flights 0→1→2→3 → `0 11 33 66`.
+
+> The PDF's comment for sample 1 writes "co[0] + ci[1] = 1 + 10", with the two numbers swapped; by the input order, co[0] = 10 and ci[1] = 1. The total 11 is the same.
+
+## 2. What it really means
+Give the flight a → b the weight **co[a] + ci[b]**. Then a trip's cost is the sum of its flights' weights, and we want single-source shortest paths with **positive** weights: **Dijkstra**.
+
+```text
+sample 3 (ci = 5 7 3 4 8, co = 1 4 4 2 6)
+
+  0 ─(1+4=5)─▶ 3          dist: 0 → 0
+  0 ─(1+8=9)─▶ 4                3 → 5
+  0 ─(1+7=8)─▶ 1                1 → 8
+  1 ─(4+3=7)─▶ 2                4 → 9
+                                2 → 8 + 7 = 15
+```
+
+:::hint Hint 1
+Turn the two fees into one weight per flight. What kind of shortest-path problem is left?
+:::
+:::hint Hint 2
+m can be about 4,000,000, nearly n². Which version of Dijkstra suits a graph that dense, and how do you read 8 million numbers fast?
+:::
+
+## 3. What, why, how
+- **What:** Dijkstra, O(n²) array version, on an adjacency matrix of flags.
+- **Why dense:** with m up to n² − n, the heap version is O(m log n) ≈ 4 × 10⁶ · 11, plus adjacency lists of 4 million ints (16 MB). The array version is O(n²) = 4 × 10⁶ steps and a `char` matrix of 4 MB.
+- **Why the weight trick is exact:** a route 0 → x → y pays co[0] + ci[x] + co[x] + ci[y], which is just (co[0] + ci[x]) + (co[x] + ci[y]): the sum of the two flight weights.
+- **How:** dist[0] = 0. n rounds: pick the unfinished airport u with the smallest finite dist (stop if none), mark it, and for every v with flight[u][v], relax with dist[u] + co[u] + ci[v]. Print −1 for ∞.
+- **Input size:** about 40 MB of text. The PDF suggests `sync_with_stdio(false)`; a small `fread` reader is faster still and is what the solution uses.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 3, dist[0..4] after each round (· = finalised):
+
+| round | finalise | dist afterwards |
+|---|---|---|
+| 1 | 0 (0) | · 8 ∞ 5 9 |
+| 2 | 3 (5) | · 8 ∞ · 9 (3 → 4 would be 5 + 2 + 8 = 15) |
+| 3 | 1 (8) | · · 15 · 9 |
+| 4 | 4 (9) | · · 15 · · (4 → 1 would be 22, 4 → 3 would be 19) |
+| 5 | 2 (15) | done |
+
+Output `0 8 15 5 9`.
+
+## 5. Traps
+- **Swapping ci and co:** the **first** fee line is ci (landing), the second is co (take-off).
+- **Charging fees per airport visited, not per flight:** each flight pays one take-off and one landing; an airport you pass through pays both its landing and its take-off.
+- **Charging airport 0's landing fee:** you start there; its answer is 0.
+- **Slow input:** 8 million numbers with plain `cin` takes about a second.
+- **Heap Dijkstra with adjacency lists:** works, but uses much more memory and time at m ≈ 4 × 10⁶.
+
+## 6. Background
+Lesson 17. Costs that live on vertices can always be pushed onto edges (here: take-off on the start, landing on the end), as in [Columbia](#ex06e3_columbia) and [Hacking](#a58_q3_p3a_hacking). Dense graph → array Dijkstra, exactly as in [Farthest](#a61_q2_farthest).
+==== th
+## 1. โจทย์บอกอะไร
+มีสนามบิน n แห่ง (n ≤ 2,000) และเที่ยวบินทางเดียว m เที่ยว (m ≤ n² − n) บินฟรี แต่เที่ยวบิน a → b ต้องจ่าย **co[a]** (บินออกจาก a) บวก **ci[b]** (ลงจอดที่ b) ทั้งคู่อยู่ในช่วง 1..1,000 เราเริ่มที่สนามบิน 0 ให้พิมพ์ค่าใช้จ่ายรวมน้อยที่สุดไปถึงทุกสนามบิน หรือ **−1** ถ้าไปไม่ได้
+
+input: `n m` แล้ว **ci[0..n−1]** (ลงจอด) แล้ว **co[0..n−1]** (บินออก) แล้ว m บรรทัด `a b`
+
+ตัวอย่างที่ 1: ci = 100 1 2 3, co = 10 20 30 40 เที่ยวบิน 0→1→2→3 → `0 11 33 66`
+
+> คอมเมนต์ของตัวอย่างที่ 1 ใน PDF เขียน "co[0] + ci[1] = 1 + 10" ซึ่งสลับตัวเลขกัน ตามลำดับ input co[0] = 10 และ ci[1] = 1 ผลรวม 11 เท่ากัน
+
+## 2. จริง ๆ แล้วถามอะไร
+ให้เที่ยวบิน a → b มีน้ำหนัก **co[a] + ci[b]** ค่าใช้จ่ายของการเดินทางก็คือผลรวมน้ำหนักของเที่ยวบิน และเราต้องการเส้นทางสั้นสุดจากจุดเดียวที่น้ำหนัก **เป็นบวก**: **Dijkstra**
+
+```text
+sample 3 (ci = 5 7 3 4 8, co = 1 4 4 2 6)
+
+  0 ─(1+4=5)─▶ 3          dist: 0 → 0
+  0 ─(1+8=9)─▶ 4                3 → 5
+  0 ─(1+7=8)─▶ 1                1 → 8
+  1 ─(4+3=7)─▶ 2                4 → 9
+                                2 → 8 + 7 = 15
+```
+
+:::hint คำใบ้ 1
+เปลี่ยนค่าธรรมเนียมสองอย่างให้เป็นน้ำหนักเดียวต่อเที่ยวบิน เหลือปัญหาเส้นทางสั้นสุดแบบไหน
+:::
+:::hint คำใบ้ 2
+m อาจราว 4,000,000 เกือบเท่า n² Dijkstra แบบไหนเหมาะกับกราฟที่หนาแน่นขนาดนั้น และจะอ่านตัวเลข 8 ล้านตัวให้เร็วได้อย่างไร
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Dijkstra แบบอาร์เรย์ O(n²) บน adjacency matrix ที่เก็บเป็นธง
+- **ทำไมแบบหนาแน่น:** เมื่อ m ถึง n² − n แบบ heap คือ O(m log n) ≈ 4 × 10⁶ · 11 บวก adjacency list ของ int 4 ล้านตัว (16 MB) แบบอาร์เรย์คือ O(n²) = 4 × 10⁶ ขั้น กับเมทริกซ์ `char` 4 MB
+- **ทำไมท่าน้ำหนักนี้ถูกต้องพอดี:** เส้นทาง 0 → x → y จ่าย co[0] + ci[x] + co[x] + ci[y] ซึ่งก็คือ (co[0] + ci[x]) + (co[x] + ci[y]): ผลรวมน้ำหนักของสองเที่ยวบิน
+- **อย่างไร:** dist[0] = 0 ทำ n รอบ: เลือกสนามบิน u ที่ยังไม่เสร็จและ dist จำกัดน้อยที่สุด (หยุดถ้าไม่มี) ทำเครื่องหมาย แล้วทุก v ที่ flight[u][v] ให้ relax ด้วย dist[u] + co[u] + ci[v] พิมพ์ −1 แทน ∞
+- **ขนาด input:** ข้อความราว 40 MB PDF แนะนำ `sync_with_stdio(false)` ตัวอ่านแบบ `fread` เล็ก ๆ เร็วกว่านั้นอีก และเป็นสิ่งที่เฉลยใช้
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 3 dist[0..4] หลังแต่ละรอบ (· = ปิดแล้ว):
+
+| รอบ | ปิด | dist หลังรอบ |
+|---|---|---|
+| 1 | 0 (0) | · 8 ∞ 5 9 |
+| 2 | 3 (5) | · 8 ∞ · 9 (3 → 4 จะเป็น 5 + 2 + 8 = 15) |
+| 3 | 1 (8) | · · 15 · 9 |
+| 4 | 4 (9) | · · 15 · · (4 → 1 จะเป็น 22, 4 → 3 จะเป็น 19) |
+| 5 | 2 (15) | เสร็จ |
+
+ผลลัพธ์ `0 8 15 5 9`
+
+## 5. จุดที่มักพลาด
+- **สลับ ci กับ co:** บรรทัดค่าธรรมเนียม **แรก** คือ ci (ลงจอด) บรรทัดที่สองคือ co (บินออก)
+- **คิดค่าต่อสนามบินที่ผ่าน ไม่ใช่ต่อเที่ยวบิน:** แต่ละเที่ยวบินจ่ายค่าบินออกหนึ่งครั้งและค่าลงจอดหนึ่งครั้ง สนามบินที่แวะผ่านจึงจ่ายทั้งค่าลงจอดและค่าบินออกของมัน
+- **คิดค่าลงจอดของสนามบิน 0:** เราเริ่มที่นั่น คำตอบของมันคือ 0
+- **input ช้า:** ตัวเลข 8 ล้านตัวด้วย `cin` ธรรมดาใช้ราวหนึ่งวินาที
+- **Dijkstra แบบ heap กับ adjacency list:** ใช้ได้ แต่ใช้หน่วยความจำและเวลามากกว่ามากเมื่อ m ≈ 4 × 10⁶
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 ค่าที่อยู่บนปมย้ายไปไว้บนเส้นได้เสมอ (ข้อนี้: ค่าบินออกที่ต้นเส้น ค่าลงจอดที่ปลายเส้น) เหมือนข้อ [Columbia](#ex06e3_columbia) และ [Hacking](#a58_q3_p3a_hacking) กราฟหนาแน่น → Dijkstra แบบอาร์เรย์ แบบเดียวกับข้อ [Farthest](#a61_q2_farthest)

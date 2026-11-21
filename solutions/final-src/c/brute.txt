@@ -1,0 +1,113 @@
+chapter: brute
+==== en
+## 1. The idea
+**Brute force** means: list every candidate answer and check each one. It is the first solution to think of, and often the right one when the input is small (n ≤ 10 for permutations, n ≤ 20 for subsets).
+
+**Backtracking** is brute force done carefully. Build the candidate one choice at a time (a decision tree), and **stop a branch as soon as it can no longer succeed** (pruning). The work then becomes proportional to the answers instead of to all candidates.
+
+```text
+           choose position 0
+          /        |        \
+    choose 1    choose 1   choose 1        each level = one decision
+     / | \       / | \      / | \          a leaf = one complete candidate
+   ...  ✗ ...   ...  ...   ✗  ...          ✗ = pruned: cannot lead to an answer
+```
+
+## 2. The template
+```cpp
+int n;
+vector<int> cur;            // the partial answer, one entry per decided level
+vector<bool> used;          // which values are taken (for permutations)
+
+void gen(int pos) {
+    if (pos == n) {         // every level decided: record or print the answer
+        print(cur);
+        return;
+    }
+    // try every choice for this level, in the order the output needs (smallest first)
+    for (int v = 0; v < n; v++) {
+        if (used[v] || !canPlace(v, pos)) continue;   // pruning: skip impossible branches
+        used[v] = true;  cur[pos] = v;                // make the choice
+        gen(pos + 1);                                 // decide the rest
+        used[v] = false;                              // undo it (backtrack)
+    }
+}
+```
+
+Three parts: a **base case** that records the answer, a **loop over choices** in the required order, and **make / recurse / undo**.
+
+## 3. How to recognise it
+- "Print **all** …", "list every …", "in lexicographic / alphabetical order".
+- Small limits: n ≤ 8–11 for permutations (n! up to 4 × 10⁷), n ≤ 20 for subsets or binary strings (2²⁰ ≈ 10⁶).
+- The output itself is huge: then you **must** enumerate, and the only question is how fast you print.
+
+## 4. Cost and pitfalls
+- Without pruning: n! or 2ⁿ leaves times O(n) per leaf. With good pruning: about O(answers · n).
+- **Order for free:** trying choices smallest-first gives lexicographic output, as long as no answer is a prefix of another.
+- **Undo** every change after the recursive call (used[], visited cells, counters).
+- **Output speed:** collect lines in a buffer or a `string`; never `endl` per line.
+- **Recursion depth** equals the number of levels; fine for n ≤ 10⁴, dangerous beyond that.
+
+## 5. In this chapter
+- [Generate barcode](#ex00e4): binary strings with exactly A ones, pruning by "is there still room?".
+- [Consecutive ones](#ex00e5): all n-bit strings in order, carrying the current run length as extra state.
+- [Permutation with constraint](#a64_q1_permu_before): permutations in lexicographic order with "a before b" rules, a used[] array and a local check.
+- [Day cover](#a66_q1a_day_cover): try every subset of at most 20 students (invite or skip), with bitsets and pruning by the best answer so far.
+
+[Map walk](#da66_f1_map_walk), in the final-preparation chapter, is the same technique on a grid.
+==== th
+## 1. ไอเดีย
+**Brute force** คือ: แจกแจงทุกคำตอบที่เป็นไปได้แล้วตรวจทีละตัว เป็นวิธีแรกที่ควรนึกถึง และมักเป็นวิธีที่ถูกเมื่อ input เล็ก (n ≤ 10 สำหรับ permutation, n ≤ 20 สำหรับเซตย่อย)
+
+**Backtracking** คือ brute force ที่ทำอย่างระวัง สร้างคำตอบทีละการตัดสินใจ (ต้นไม้การตัดสินใจ) และ **หยุดกิ่งทันทีที่รู้ว่าไปต่อไม่สำเร็จแน่** (การตัดกิ่ง หรือ pruning) งานที่ทำจะเป็นสัดส่วนกับจำนวนคำตอบ แทนที่จะเป็นจำนวนตัวเลือกทั้งหมด
+
+```text
+           choose position 0
+          /        |        \
+    choose 1    choose 1   choose 1        each level = one decision
+     / | \       / | \      / | \          a leaf = one complete candidate
+   ...  ✗ ...   ...  ...   ✗  ...          ✗ = pruned: cannot lead to an answer
+```
+
+## 2. โครงโค้ด
+```cpp
+int n;
+vector<int> cur;            // the partial answer, one entry per decided level
+vector<bool> used;          // which values are taken (for permutations)
+
+void gen(int pos) {
+    if (pos == n) {         // every level decided: record or print the answer
+        print(cur);
+        return;
+    }
+    // try every choice for this level, in the order the output needs (smallest first)
+    for (int v = 0; v < n; v++) {
+        if (used[v] || !canPlace(v, pos)) continue;   // pruning: skip impossible branches
+        used[v] = true;  cur[pos] = v;                // make the choice
+        gen(pos + 1);                                 // decide the rest
+        used[v] = false;                              // undo it (backtrack)
+    }
+}
+```
+
+มีสามส่วน: **กรณีฐาน** ที่บันทึกคำตอบ, **ลูปทางเลือก** ตามลำดับที่ผลลัพธ์ต้องการ และ **เลือก / เรียกซ้ำ / ย้อนคืน**
+
+## 3. ดูอย่างไรว่าใช่
+- "พิมพ์ **ทุก** …", "แจกแจงทุก …", "เรียงตามลำดับพจนานุกรม / ตัวอักษร"
+- ขอบเขตเล็ก: n ≤ 8–11 สำหรับ permutation (n! ถึง 4 × 10⁷), n ≤ 20 สำหรับเซตย่อยหรือสตริงไบนารี (2²⁰ ≈ 10⁶)
+- ผลลัพธ์ใหญ่มากเอง: แบบนี้ **ต้อง** แจกแจง คำถามเดียวคือพิมพ์ให้เร็วแค่ไหน
+
+## 4. ต้นทุนและจุดพลาด
+- ไม่ตัดกิ่ง: n! หรือ 2ⁿ ใบ คูณ O(n) ต่อใบ ตัดกิ่งดี: ราว O(จำนวนคำตอบ · n)
+- **ได้ลำดับฟรี:** ลองทางเลือกจากน้อยไปมาก ผลลัพธ์จะเรียงตามพจนานุกรม ตราบที่ไม่มีคำตอบไหนเป็น prefix ของอีกคำตอบ
+- **ย้อนคืน** ทุกการเปลี่ยนแปลงหลังเรียกซ้ำ (used[], ช่องที่เยี่ยมแล้ว, ตัวนับ)
+- **ความเร็วการพิมพ์:** เก็บบรรทัดไว้ใน buffer หรือ `string` อย่าใช้ `endl` ทุกบรรทัด
+- **ความลึกของ recursion** เท่ากับจำนวนชั้น n ≤ 10⁴ ไม่เป็นไร เกินนั้นอันตราย
+
+## 5. ในบทนี้
+- [Generate barcode](#ex00e4): สตริงไบนารีที่มีเลข 1 พอดี A ตัว ตัดกิ่งด้วย "ยังมีที่พอไหม"
+- [Consecutive ones](#ex00e5): สตริง n บิตทุกตัวตามลำดับ พกความยาวช่วงเลข 1 ปัจจุบันเป็นสถานะเพิ่ม
+- [Permutation with constraint](#a64_q1_permu_before): permutation ตามลำดับพจนานุกรมพร้อมกฎ "a มาก่อน b" ใช้ used[] และการเช็กเฉพาะจุด
+- [Day cover](#a66_q1a_day_cover): ลองทุกเซตย่อยของนิสิตไม่เกิน 20 คน (ชวนหรือข้าม) ใช้ bitset และตัดกิ่งด้วยคำตอบที่ดีที่สุดที่เจอแล้ว
+
+[Map walk](#da66_f1_map_walk) ในบทเตรียมสอบปลายภาคใช้เทคนิคเดียวกันบนตาราง

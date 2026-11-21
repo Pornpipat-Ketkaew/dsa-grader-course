@@ -1,0 +1,121 @@
+chapter: dc
+==== en
+## 1. The idea
+**Divide and conquer** splits a problem into smaller copies of itself, solves them (usually recursively), and combines the results.
+
+Three shapes appear again and again in the grader:
+
+| shape | split | combine | cost |
+|---|---|---|---|
+| **binary search** | keep one half | nothing | O(log n) |
+| **fast power** | Aⁿ from A^(n/2) | one or two multiplications | O(log n) multiplications |
+| **defined by halves** | a 2ᵏ object = two 2ᵏ⁻¹ objects | check / build both halves | O(n log n) or O(n) |
+
+## 2. The templates
+```cpp
+// binary search for the LAST index with a[i] <= x  (a sorted ascending)
+int lo = 0, hi = n - 1, ans = -1;
+// shrink [lo, hi] until it is empty; ans remembers the best index seen
+while (lo <= hi) {
+    int mid = lo + (hi - lo) / 2;
+    if (a[mid] <= x) { ans = mid; lo = mid + 1; }   // fits: remember it, look further right
+    else hi = mid - 1;                             // too big: look left
+}
+```
+
+```cpp
+// fast power: A^n mod k, recursively
+Mat power(Mat A, long long n) {
+    if (n == 1) return A;
+    Mat h = power(A, n / 2);       // solve the half-size problem once
+    Mat r = mul(h, h);             // combine: A^(2·(n/2))
+    return (n % 2) ? mul(r, A) : r;  // odd n needs one more A
+}
+```
+
+```cpp
+// a problem defined on halves: solve [lo, hi) from [lo, mid) and [mid, hi)
+bool check(int lo, int hi) {
+    if (hi - lo == 1) return base(lo);          // size 1 (or 2): decide directly
+    int mid = (lo + hi) / 2;
+    return check(lo, mid) && check(mid, hi) && fits(lo, mid, hi);
+}
+```
+
+## 3. How to recognise it
+- **Sorted** data, or a quantity that only grows (prefix sums, cost by distance): binary search.
+- n up to 10⁹ or 10¹⁸ with a **repeated operation** (power, linear recurrence): fast exponentiation.
+- Sizes are **powers of two** and the definition talks about "the first half" and "the second half": recurse on halves.
+
+## 4. Cost and pitfalls
+- Write `mid = lo + (hi - lo) / 2` and decide **before coding** which invariant [lo, hi] keeps; most binary-search bugs are off-by-one.
+- Comparing with a **real** query value (e.g. 3.5) needs a `double`; see [Binary search near](#ex01e3).
+- Fast power: compute the half power **once** and square it; calling `power(n/2)` twice turns O(log n) back into O(n).
+- Recursion on halves of size 2ᵏ has depth k, tiny; total work is O(n log n) if each level scans everything, O(n) if a level only combines two answers.
+
+## 5. In this chapter
+- [Binary search near](#ex01e3) and [Binary search near repeat](#ex02e3_bs): the invariant, then duplicates.
+- [Recursive matrix](#a62_q1a_recur): build an object quarter by quarter.
+- [Matrix modulo](#a60_q1_matmod): fast power of a 2 × 2 matrix.
+- [Lawn mowing](#a64_q1_lawn_mowing): prefix sums + binary search on the answer.
+- [Virus detection](#a62_q1b_virus) and [Virus 2](#a63_q1b_virus2): definitions by halves, returning a value up the recursion.
+==== th
+## 1. ไอเดีย
+**แบ่งแยกและเอาชนะ (Divide and conquer)** แบ่งปัญหาเป็นปัญหาแบบเดียวกันที่เล็กลง แก้มัน (มักแบบเวียนเกิด) แล้วรวมผล
+
+มีสามรูปแบบที่เจอบ่อยใน grader:
+
+| รูปแบบ | แบ่ง | รวม | ต้นทุน |
+|---|---|---|---|
+| **binary search** | เก็บไว้ครึ่งเดียว | ไม่ต้องรวม | O(log n) |
+| **ยกกำลังแบบเร็ว** | Aⁿ จาก A^(n/2) | คูณหนึ่งหรือสองครั้ง | O(log n) ครั้ง |
+| **นิยามด้วยครึ่ง** | วัตถุขนาด 2ᵏ = วัตถุ 2ᵏ⁻¹ สองชิ้น | ตรวจ / สร้างทั้งสองครึ่ง | O(n log n) หรือ O(n) |
+
+## 2. โครงโค้ด
+```cpp
+// binary search for the LAST index with a[i] <= x  (a sorted ascending)
+int lo = 0, hi = n - 1, ans = -1;
+// shrink [lo, hi] until it is empty; ans remembers the best index seen
+while (lo <= hi) {
+    int mid = lo + (hi - lo) / 2;
+    if (a[mid] <= x) { ans = mid; lo = mid + 1; }   // fits: remember it, look further right
+    else hi = mid - 1;                             // too big: look left
+}
+```
+
+```cpp
+// fast power: A^n mod k, recursively
+Mat power(Mat A, long long n) {
+    if (n == 1) return A;
+    Mat h = power(A, n / 2);       // solve the half-size problem once
+    Mat r = mul(h, h);             // combine: A^(2·(n/2))
+    return (n % 2) ? mul(r, A) : r;  // odd n needs one more A
+}
+```
+
+```cpp
+// a problem defined on halves: solve [lo, hi) from [lo, mid) and [mid, hi)
+bool check(int lo, int hi) {
+    if (hi - lo == 1) return base(lo);          // size 1 (or 2): decide directly
+    int mid = (lo + hi) / 2;
+    return check(lo, mid) && check(mid, hi) && fits(lo, mid, hi);
+}
+```
+
+## 3. ดูอย่างไรว่าใช่
+- ข้อมูล **เรียงแล้ว** หรือปริมาณที่เพิ่มขึ้นอย่างเดียว (prefix sum, ค่าใช้จ่ายตามระยะ): binary search
+- n ถึง 10⁹ หรือ 10¹⁸ พร้อม **การดำเนินการซ้ำ ๆ** (ยกกำลัง, linear recurrence): ยกกำลังแบบเร็ว
+- ขนาดเป็น **กำลังของสอง** และนิยามพูดถึง "ครึ่งแรก" กับ "ครึ่งหลัง": เรียกซ้ำบนครึ่ง
+
+## 4. ต้นทุนและจุดพลาด
+- เขียน `mid = lo + (hi - lo) / 2` และตัดสินใจ **ก่อนเขียนโค้ด** ว่า [lo, hi] รักษา invariant อะไร บั๊ก binary search ส่วนใหญ่คือคลาดไปหนึ่ง
+- การเทียบกับค่าคำถามที่เป็น **จำนวนจริง** (เช่น 3.5) ต้องใช้ `double` ดู [Binary search near](#ex01e3)
+- ยกกำลังแบบเร็ว: คำนวณกำลังครึ่ง **ครั้งเดียว** แล้วยกกำลังสอง การเรียก `power(n/2)` สองครั้งทำให้ O(log n) กลับเป็น O(n)
+- การเรียกซ้ำบนครึ่งของขนาด 2ᵏ ลึกแค่ k งานรวมเป็น O(n log n) ถ้าแต่ละชั้นไล่ทุกตัว และ O(n) ถ้าแต่ละชั้นแค่รวมคำตอบสองค่า
+
+## 5. ในบทนี้
+- [Binary search near](#ex01e3) และ [Binary search near repeat](#ex02e3_bs): invariant แล้วตามด้วยข้อมูลซ้ำ
+- [Recursive matrix](#a62_q1a_recur): สร้างวัตถุทีละส่วนสี่
+- [Matrix modulo](#a60_q1_matmod): ยกกำลังเมทริกซ์ 2 × 2 แบบเร็ว
+- [Lawn mowing](#a64_q1_lawn_mowing): prefix sum + binary search บนคำตอบ
+- [Virus detection](#a62_q1b_virus) และ [Virus 2](#a63_q1b_virus2): นิยามด้วยครึ่ง และส่งค่ากลับขึ้นมาตาม recursion
