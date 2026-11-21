@@ -1,0 +1,144 @@
+id: da66_f2_new_game_plus
+group: final
+lesson: 14 · Dynamic programming (state = position + last move)
+stars: 3
+complexity: O(R · C)
+kind: program
+tags: counting DP, extra state for "last door", column by column, mod 100000007
+title: New Game Plus
+title_th: นิวเกมพลัส (New Game Plus)
+blurb: Walk a maze from column 1 to column C, each step going up-right, right or down-right, never using the same door twice in a row, avoiding blocked rooms. Count the routes mod 100,000,007 with a DP whose state remembers the last door.
+blurb_th: เดินเขาวงกตจากคอลัมน์ 1 ไปคอลัมน์ C แต่ละก้าวไปขวาบน ขวา หรือขวาล่าง ห้ามใช้ประตูเดิมสองครั้งติดกัน และหลบห้องห้ามเข้า นับจำนวนเส้นทาง mod 100,000,007 ด้วย DP ที่ state จำประตูล่าสุดไว้
+files: sol/da66_f2_new_game_plus/main.cpp
+tests: all 7 PDF samples, including the 25 × 25 empty maze (543,099,714 routes → 43,099,679); 300 random mazes (up to 5 × 6) against a Python brute force that enumerates every route; a 500 × 500 maze with 10 % blocked rooms in 0.02 s.
+tests_th: ตัวอย่างทั้ง 7 ชุดใน PDF รวมถึงเขาวงกตว่าง 25 × 25 (543,099,714 เส้นทาง → 43,099,679); สุ่ม 300 เขาวงกต (ถึง 5 × 6) เทียบกับ brute force ใน Python ที่ไล่ทุกเส้นทาง; เขาวงกต 500 × 500 ที่มีห้องห้ามเข้า 10 % ใช้ 0.02 วินาที
+==== en
+## 1. What the problem says
+A maze is an R × C grid of rooms (2 ≤ R, C ≤ 500); 1 marks a blocked room. You start in **any open room of column 1** and must reach **any room of column C**. Each room has three doors:
+- **X** → (r − 1, c + 1), up-right
+- **Y** → (r, c + 1), right
+- **Z** → (r + 1, c + 1), down-right
+
+Rules: you may **not use the same door as the previous step** (X then X is forbidden, X then Y then X is fine); you cannot enter blocked rooms or leave the grid. Two plays differ if their **lists of rooms** differ. Print the number of plays **mod 100,000,007**.
+
+Sample 2 (2 × 3, room (1,2) blocked) → **3**. The route (2,1) → (2,2) → (2,3) is not allowed: Y twice in a row.
+
+## 2. What it really means
+Every step moves one column right, so a play has exactly C rooms, one per column, and a room list is the same as a door sequence plus the starting row. We are **counting paths** in a DAG of columns: a counting DP like [chocolate](#a62_q1b_chocolate), built column by column like [table no 11](#a64_q2_table_no_11).
+
+The catch is the rule "not the same door twice". Whether a door is allowed depends on **how we got here**. So the state must remember it:
+
+> ways[r][d] = number of valid room lists that end in room (r, current column) and **entered it through door d**.
+
+For column 1 nobody used a door yet; give it a fourth value d = "start" that forbids nothing.
+
+```text
+transition (column c → c+1):
+   ways_next[r + Δ(e)][e] += ways[r][d]      for every door e ≠ d,
+                                             Δ(X) = −1, Δ(Y) = 0, Δ(Z) = +1,
+                                             if the target room is inside and open
+```
+
+:::hint Hint 1
+Counting paths column by column is easy without the door rule. What extra fact do you need about a path to know which doors it may use next?
+:::
+:::hint Hint 2
+Use 4 counters per room: entered by X, by Y, by Z, or "started here". Then each counter feeds the 2 or 3 doors that differ from it.
+:::
+
+## 3. What, why, how
+- **What:** a counting DP over columns with state (row, last door).
+- **Why the state is enough:** the future (which doors are allowed next, which rooms can be reached) depends only on the current room and the last door, not on the earlier history. That is exactly the "memoryless" condition a DP state needs.
+- **Why counts add up correctly:** two room lists that differ anywhere stay different when extended, so adding counts never double-counts.
+- **How:** cur[r][start] = 1 for every open room in column 0. For c = 0..C−2, build nxt from cur by the transition above, then swap. The answer is the sum of all cur[r][d] in the last column, mod 100,000,007.
+- **Cost:** R · C · 4 · 3 ≈ 3 × 10⁶ updates. Memory: two columns of R × 4 numbers.
+- **Mod:** reduce after every addition; values stay below 2 × 10⁸, safe in `long long`.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2. Rooms (row, column) 0-based; (0,1) is blocked. Counters are [X, Y, Z, start].
+
+| column | row 0 | row 1 | comment |
+|---|---|---|---|
+| 0 | [0, 0, 0, 1] | [0, 0, 0, 1] | start anywhere open |
+| 1 | blocked | [0, 1, 1, 0] | row 0 can only go Z (Y is blocked); row 1 goes Y (X is blocked) |
+| 2 | [2, 0, 0, 0] | [0, 1, 0, 0] | from "entered by Z": X up or Y right; from "entered by Y": only X up (Z is off the grid) |
+
+Total 2 + 1 = **3**.
+
+## 5. Traps
+- **State without the last door:** you cannot enforce the rule.
+- **Forbidding the same door at the very first step:** there is no previous door for column 1.
+- **Starting from blocked rooms in column 1** or counting blocked rooms in column C: both are forbidden.
+- **Mod only at the end:** the true count for 500 × 500 is astronomically large.
+- **Recursion over all routes:** exponential (the 25 × 25 sample alone has 543 million routes).
+
+## 6. Background
+Lesson 14. "Add the last move to the state" is the standard way to handle rules such as "no two equal moves in a row". The same idea appears in [table no 11](#a64_q2_table_no_11), where the state remembers what is in the previous row. Summing the counts of all predecessors is the pattern of [chocolate](#a62_q1b_chocolate); moving through a grid one layer at a time, choosing among a few next cells, is the shape of [triangle](#ex02m1_triangle).
+==== th
+## 1. โจทย์บอกอะไร
+เขาวงกตเป็นตารางห้อง R × C (2 ≤ R, C ≤ 500) เลข 1 คือห้องห้ามเข้า เราเริ่มที่ **ห้องเปิดใดก็ได้ในคอลัมน์ 1** และต้องไปถึง **ห้องใดก็ได้ในคอลัมน์ C** แต่ละห้องมีสามประตู:
+- **X** → (r − 1, c + 1) ขวาบน
+- **Y** → (r, c + 1) ขวา
+- **Z** → (r + 1, c + 1) ขวาล่าง
+
+กฎ: **ห้ามใช้ประตูเดียวกับก้าวก่อนหน้า** (X แล้ว X ห้าม แต่ X แล้ว Y แล้ว X ได้) ห้ามเข้าห้องห้ามเข้าหรือออกนอกตาราง การเล่นสองแบบต่างกันถ้า **รายการห้อง** ต่างกัน ให้พิมพ์จำนวนรูปแบบการเล่น **mod 100,000,007**
+
+ตัวอย่างที่ 2 (2 × 3, ห้อง (1,2) ห้ามเข้า) → **3** เส้นทาง (2,1) → (2,2) → (2,3) ไม่ได้: ใช้ Y สองครั้งติดกัน
+
+## 2. จริง ๆ แล้วถามอะไร
+ทุกก้าวขยับไปขวาหนึ่งคอลัมน์ การเล่นหนึ่งแบบจึงมี C ห้องพอดี คอลัมน์ละห้อง และรายการห้องก็เท่ากับลำดับประตูบวกแถวเริ่มต้น เรากำลัง **นับเส้นทาง** ใน DAG ของคอลัมน์: DP นับจำนวนแบบข้อ [chocolate](#a62_q1b_chocolate) ที่สร้างทีละคอลัมน์แบบข้อ [table no 11](#a64_q2_table_no_11)
+
+จุดยากคือกฎ "ห้ามประตูเดิมสองครั้ง" ประตูไหนใช้ได้ขึ้นกับว่า **เรามาถึงที่นี่อย่างไร** state จึงต้องจำสิ่งนี้ไว้:
+
+> ways[r][d] = จำนวนรายการห้องที่ถูกกฎซึ่งจบที่ห้อง (r, คอลัมน์ปัจจุบัน) และ **เข้ามาทางประตู d**
+
+คอลัมน์ 1 ยังไม่มีใครใช้ประตู ให้ค่าที่สี่ d = "เริ่ม" ซึ่งไม่ห้ามอะไรเลย
+
+```text
+transition (column c → c+1):
+   ways_next[r + Δ(e)][e] += ways[r][d]      for every door e ≠ d,
+                                             Δ(X) = −1, Δ(Y) = 0, Δ(Z) = +1,
+                                             if the target room is inside and open
+```
+
+:::hint คำใบ้ 1
+ถ้าไม่มีกฎประตู การนับเส้นทางทีละคอลัมน์ง่ายมาก เราต้องรู้ข้อมูลอะไรเพิ่มเกี่ยวกับเส้นทาง เพื่อจะรู้ว่าก้าวต่อไปใช้ประตูไหนได้
+:::
+:::hint คำใบ้ 2
+ใช้ตัวนับ 4 ตัวต่อห้อง: เข้าทาง X, ทาง Y, ทาง Z หรือ "เริ่มที่นี่" แล้วตัวนับแต่ละตัวส่งต่อให้ประตู 2 หรือ 3 บานที่ไม่ซ้ำกับมัน
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** DP นับจำนวนทีละคอลัมน์ ด้วย state (แถว, ประตูล่าสุด)
+- **ทำไม state นี้พอ:** อนาคต (ประตูไหนใช้ได้ต่อ ห้องไหนไปถึงได้) ขึ้นกับแค่ห้องปัจจุบันและประตูล่าสุด ไม่ขึ้นกับประวัติก่อนหน้า ซึ่งคือเงื่อนไข "ไม่ต้องจำอดีต" ที่ state ของ DP ต้องมี
+- **ทำไมการบวกจำนวนถูกต้อง:** รายการห้องสองรายการที่ต่างกันตรงไหนสักที่ จะยังต่างกันเมื่อต่อยาวออกไป การบวกจึงไม่นับซ้ำ
+- **อย่างไร:** cur[r][เริ่ม] = 1 สำหรับทุกห้องเปิดในคอลัมน์ 0 สำหรับ c = 0..C−2 สร้าง nxt จาก cur ด้วย transition ข้างบน แล้วสลับ คำตอบคือผลรวมของ cur[r][d] ทั้งหมดในคอลัมน์สุดท้าย mod 100,000,007
+- **ต้นทุน:** R · C · 4 · 3 ≈ 3 × 10⁶ การอัปเดต หน่วยความจำ: สองคอลัมน์ ขนาด R × 4
+- **mod:** ลดหลังทุกการบวก ค่าอยู่ต่ำกว่า 2 × 10⁸ ปลอดภัยใน `long long`
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 ห้อง (แถว, คอลัมน์) เริ่มที่ 0; (0,1) ห้ามเข้า ตัวนับคือ [X, Y, Z, เริ่ม]
+
+| คอลัมน์ | แถว 0 | แถว 1 | หมายเหตุ |
+|---|---|---|---|
+| 0 | [0, 0, 0, 1] | [0, 0, 0, 1] | เริ่มที่ห้องเปิดใดก็ได้ |
+| 1 | ห้ามเข้า | [0, 1, 1, 0] | แถว 0 ไปได้แค่ Z (Y ห้ามเข้า); แถว 1 ไป Y (X ห้ามเข้า) |
+| 2 | [2, 0, 0, 0] | [0, 1, 0, 0] | จาก "เข้าทาง Z": X ขึ้น หรือ Y ขวา; จาก "เข้าทาง Y": ได้แค่ X ขึ้น (Z ออกนอกตาราง) |
+
+รวม 2 + 1 = **3**
+
+## 5. จุดที่มักพลาด
+- **state ไม่มีประตูล่าสุด:** บังคับกฎไม่ได้
+- **ห้ามประตูซ้ำตั้งแต่ก้าวแรก:** คอลัมน์ 1 ยังไม่มีประตูก่อนหน้า
+- **เริ่มจากห้องห้ามเข้าในคอลัมน์ 1** หรือนับห้องห้ามเข้าในคอลัมน์ C: ห้ามทั้งคู่
+- **mod แค่ตอนท้าย:** จำนวนจริงของ 500 × 500 ใหญ่มหาศาล
+- **recursion ไล่ทุกเส้นทาง:** เอกซ์โพเนนเชียล (แค่ตัวอย่าง 25 × 25 ก็มี 543 ล้านเส้นทาง)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 14 "ใส่ท่าล่าสุดลงใน state" คือวิธีมาตรฐานสำหรับกฎแบบ "ห้ามท่าเดิมสองครั้งติดกัน" ไอเดียเดียวกันอยู่ในข้อ [table no 11](#a64_q2_table_no_11) ที่ state จำว่าแถวก่อนหน้ามีอะไร การบวกจำนวนจากทุกตัวก่อนหน้าคือรูปแบบของข้อ [chocolate](#a62_q1b_chocolate) ส่วนการเดินผ่านตารางทีละชั้นโดยเลือกจากช่องถัดไปไม่กี่ช่องคือรูปร่างของข้อ [triangle](#ex02m1_triangle)

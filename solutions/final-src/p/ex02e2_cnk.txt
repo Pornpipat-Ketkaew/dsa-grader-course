@@ -1,0 +1,122 @@
+id: ex02e2_cnk
+group: dp
+lesson: 14 · DP basics (memoization, Pascal's triangle)
+stars: 1
+complexity: O(N · K)
+kind: program
+tags: memoization, 2D memo table, Pascal's triangle
+title: Binomial Coefficient
+title_th: สัมประสิทธิ์ทวินาม (Binomial Coefficient)
+blurb: C(n, k) from C(n−1, k−1) + C(n−1, k). Memoize the pairs (n, k): at most 31 × 31 different calls.
+blurb_th: C(n, k) = C(n−1, k−1) + C(n−1, k) memo คู่ (n, k) ไว้ จะมีการเรียกที่ต่างกันไม่เกิน 31 × 31 แบบ
+files: sol/ex02e2_cnk/main.cpp
+tests: the 3 PDF samples and all 465 pairs 1 ≤ K ≤ N ≤ 30 against Python's math.comb.
+tests_th: ตัวอย่างทั้ง 3 ชุดใน PDF และทุกคู่ 1 ≤ K ≤ N ≤ 30 (465 คู่) เทียบกับ math.comb ของ Python
+==== en
+## 1. What the problem says
+C(n, k) = 1 if k = 0 or k = n, otherwise C(n−1, k−1) + C(n−1, k). Read N, K (1 ≤ K ≤ N ≤ 30) and print C(N, K). Samples: C(10, 3) = 120, C(10, 10) = 1, C(30, 15) = 155,117,520.
+
+## 2. What it really means
+This is Pascal's triangle: each entry is the sum of the two entries above it.
+
+```text
+n=0:              1
+n=1:            1   1
+n=2:          1   2   1
+n=3:        1   3   3   1
+n=4:      1   4   6   4   1          C(4,2) = 6 = 3 + 3
+```
+
+The plain recursion for C(30, 15) returns 155 million and makes about twice that many calls, because the same (n, k) pairs are recomputed again and again: too slow for 1 second.
+
+:::hint Hint 1
+How many different pairs (n, k) can appear? n ≤ 30 and k ≤ n, so fewer than 31 × 31.
+:::
+:::hint Hint 2
+Same trick as [Fibonacci](#ex02e1_fibo), but the memo is a 2D table `memo[n][k]`.
+:::
+
+## 3. What, why, how
+- **What:** memoization with two parameters.
+- **Why the recurrence holds:** to choose k items from n, look at item n: either we take it (choose the other k−1 from n−1) or we do not (choose k from n−1).
+- **Why it is fast now:** at most 31 · 31 = 961 different calls, each doing O(1) work after its two sub-calls.
+- **Marker for "not computed":** C(n, k) ≥ 1 for every valid pair, so 0 can safely mean "empty". (In [Fibonacci](#ex02e1_fibo) that was not true for F(0), so we used −1 there.)
+- **Bottom-up version:** two nested loops filling `C[n][k]` row by row of Pascal's triangle give the same table.
+- **Size:** the largest value is C(30, 15) = 155,117,520, which fits in `int`; `long long` costs nothing.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the memo entries filled while computing C(4, 2):
+
+| call | needs | value stored |
+|---|---|---|
+| C(4,2) | C(3,1) + C(3,2) | 6 |
+| C(3,1) | C(2,0) + C(2,1) = 1 + 2 | 3 |
+| C(2,1) | C(1,0) + C(1,1) = 1 + 1 | 2 |
+| C(3,2) | C(2,1) + C(2,2) = **2 (from memo)** + 1 | 3 |
+
+The second request for C(2, 1) is answered from the table.
+
+## 5. Traps
+- **Missing base case k == n:** the recursion would go to C(n−1, n) which is outside the triangle.
+- **Computing n! / (k!(n−k)!) directly:** 30! has 33 digits and overflows `long long`. The additive recurrence never overflows here.
+- **Table of size [30][30]:** index 30 is needed; use [31][31].
+
+## 6. Background
+Lesson 14. Pascal's triangle is the first 2D DP: each cell depends on cells in the previous row. The same counting argument ("take the last item or not") is behind knapsack and subset-sum DPs, and behind [Chocolate](#a62_q1b_chocolate) in this chapter.
+==== th
+## 1. โจทย์บอกอะไร
+C(n, k) = 1 ถ้า k = 0 หรือ k = n ไม่เช่นนั้น C(n−1, k−1) + C(n−1, k) อ่าน N, K (1 ≤ K ≤ N ≤ 30) แล้วพิมพ์ C(N, K) ตัวอย่าง: C(10, 3) = 120, C(10, 10) = 1, C(30, 15) = 155,117,520
+
+## 2. จริง ๆ แล้วถามอะไร
+นี่คือสามเหลี่ยมปาสคาล: แต่ละค่าเป็นผลบวกของสองค่าที่อยู่เหนือมัน
+
+```text
+n=0:              1
+n=1:            1   1
+n=2:          1   2   1
+n=3:        1   3   3   1
+n=4:      1   4   6   4   1          C(4,2) = 6 = 3 + 3
+```
+
+การเวียนเกิดตรง ๆ สำหรับ C(30, 15) คืนค่า 155 ล้าน และเรียกฟังก์ชันประมาณสองเท่าของจำนวนนั้น เพราะคู่ (n, k) เดิมถูกคำนวณซ้ำไปเรื่อย ๆ ช้าเกิน 1 วินาที
+
+:::hint คำใบ้ 1
+คู่ (n, k) ที่ต่างกันมีได้กี่คู่? n ≤ 30 และ k ≤ n จึงน้อยกว่า 31 × 31
+:::
+:::hint คำใบ้ 2
+ใช้ท่าเดียวกับ [Fibonacci](#ex02e1_fibo) แต่ memo เป็นตารางสองมิติ `memo[n][k]`
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** memoization ที่มีสองพารามิเตอร์
+- **ทำไมความสัมพันธ์นี้ถูก:** จะเลือก k ชิ้นจาก n ชิ้น ให้ดูชิ้นที่ n: เลือกมัน (แล้วเลือกอีก k−1 จาก n−1) หรือไม่เลือก (เลือก k จาก n−1)
+- **ทำไมตอนนี้เร็ว:** มีการเรียกที่ต่างกันไม่เกิน 31 · 31 = 961 แบบ แต่ละแบบทำงาน O(1) หลังจากได้ผลจากสองการเรียกย่อย
+- **ค่าที่แปลว่า "ยังไม่คำนวณ":** C(n, k) ≥ 1 ทุกคู่ที่ใช้ได้ จึงใช้ 0 แทน "ว่าง" ได้ปลอดภัย (ในข้อ [Fibonacci](#ex02e1_fibo) ไม่เป็นจริงสำหรับ F(0) จึงใช้ −1)
+- **แบบ bottom-up:** ลูปซ้อนสองชั้นเติม `C[n][k]` ทีละแถวของสามเหลี่ยมปาสคาล ได้ตารางเดียวกัน
+- **ขนาด:** ค่ามากสุดคือ C(30, 15) = 155,117,520 ใส่ใน `int` ได้ ใช้ `long long` ก็ไม่เสียอะไร
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ช่อง memo ที่ถูกเติมระหว่างคำนวณ C(4, 2):
+
+| การเรียก | ต้องใช้ | ค่าที่เก็บ |
+|---|---|---|
+| C(4,2) | C(3,1) + C(3,2) | 6 |
+| C(3,1) | C(2,0) + C(2,1) = 1 + 2 | 3 |
+| C(2,1) | C(1,0) + C(1,1) = 1 + 1 | 2 |
+| C(3,2) | C(2,1) + C(2,2) = **2 (จาก memo)** + 1 | 3 |
+
+การขอ C(2, 1) ครั้งที่สองได้คำตอบจากตารางทันที
+
+## 5. จุดที่มักพลาด
+- **ขาดกรณีฐาน k == n:** การเวียนเกิดจะไปเรียก C(n−1, n) ซึ่งอยู่นอกสามเหลี่ยม
+- **คำนวณ n! / (k!(n−k)!) ตรง ๆ:** 30! มี 33 หลัก ล้น `long long` แต่สูตรแบบบวกไม่มีทางล้นในข้อนี้
+- **ตารางขนาด [30][30]:** ต้องใช้ตำแหน่ง 30 ให้ประกาศ [31][31]
+
+## 6. ความรู้พื้นฐาน
+บทที่ 14 สามเหลี่ยมปาสคาลเป็น DP สองมิติตัวแรก: แต่ละช่องขึ้นกับช่องในแถวก่อนหน้า เหตุผลการนับแบบเดียวกัน ("เลือกชิ้นสุดท้ายหรือไม่") อยู่เบื้องหลัง DP แบบ knapsack, subset-sum และข้อ [Chocolate](#a62_q1b_chocolate) ในบทนี้

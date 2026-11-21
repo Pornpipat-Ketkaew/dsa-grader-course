@@ -1,0 +1,134 @@
+id: da66_f1_linear_recurrence
+group: final
+lesson: 14 · Dynamic programming I (bottom-up table)
+stars: 2
+complexity: O(n · k)
+kind: program
+tags: bottom-up DP, recurrence, modular arithmetic, long long products
+title: Linear recurrence
+title_th: ความสัมพันธ์เวียนเกิดเชิงเส้น (Linear Recurrence)
+blurb: R(n) = c1·R(n−1) + … + ck·R(n−k), with R(0..k−1) given; print R(n) mod 32717. Fill a table from left to right: each value needs only the k before it.
+blurb_th: R(n) = c1·R(n−1) + … + ck·R(n−k) โดยให้ R(0..k−1) มา ให้พิมพ์ R(n) mod 32717 เติมตารางจากซ้ายไปขวา แต่ละค่าใช้แค่ k ค่าก่อนหน้า
+files: sol/da66_f1_linear_recurrence/main.cpp
+tests: all 5 PDF samples, Fibonacci F(10) = 55, and n < k (answer = a_n); 300 random inputs against a Python big-integer evaluation taken mod 32717 at the end; k = n = 1,000 (the largest case) in 0.005 s.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF, Fibonacci F(10) = 55 และกรณี n < k (คำตอบ = a_n); สุ่ม 300 ชุดเทียบกับการคำนวณด้วยจำนวนเต็มใหญ่ใน Python แล้ว mod 32717 ตอนท้าย; k = n = 1,000 (กรณีใหญ่สุด) ใช้ 0.005 วินาที
+==== en
+## 1. What the problem says
+Compute R(n), where
+
+```text
+R(n) = c1·R(n−1) + c2·R(n−2) + … + ck·R(n−k)    if n ≥ k
+R(n) = a_n                                       if n < k
+```
+
+The values can be huge, so print **R(n) mod 32717**. With k = 2, c1 = c2 = 1, a0 = 0, a1 = 1 this is Fibonacci.
+
+Input: `k n`, then c1..ck, then a0..a(k−1) (all 0..1,000). Limits: k ≤ 1,000 and n ≤ 1,000.
+
+Sample 1: k = 2, n = 4, c = (2, 10), a = (2, 3) → **424**.
+
+## 2. What it really means
+Every R(i) depends on the k values right before it, and those are smaller indices. So compute R(0), R(1), R(2), … in order, and each one is ready when you need it. That is **bottom-up DP**, the same pattern as [Fibonacci](#ex02e1_fibo), with k terms instead of 2.
+
+```text
+index:   0    1    2              3              4
+R:       2    3    2·3+10·2=26    2·26+10·3=82   2·82+10·26 = 424
+                   ╰── uses R1, R0 ╰── R2, R1     ╰── R3, R2
+```
+
+:::hint Hint 1
+Plain recursion recomputes the same R(i) many times: exponential. What if you store every R(i) once?
+:::
+:::hint Hint 2
+Take mod after every multiplication and addition. A product c · R is at most 1,000 · 32,716 ≈ 3.3 × 10⁷, so it fits easily; use `long long` for the running sum anyway.
+:::
+
+## 3. What, why, how
+- **What:** a 1-D DP table R[0..n], filled left to right.
+- **Why mod at every step is allowed:** (x + y) mod m = ((x mod m) + (y mod m)) mod m and (x · y) mod m = ((x mod m)(y mod m)) mod m. So reducing early never changes the final remainder, and it keeps every number small.
+- **How:** R[i] = a_i mod 32717 for i < k. For i = k..n: sum = Σ_{j=1..k} c_j · R[i − j], reduced mod 32717 after each term. Print R[n].
+- **Cost:** O(n · k) = 10⁶ multiplications: instant.
+- **n < k:** the loop does nothing and R[n] is just a_n (mod 32717). Make the array big enough for both n and k − 1.
+- **Why not matrix power:** a k × k matrix to the power n costs k³ log n ≈ 10¹⁰ here. Matrix power only wins when n is huge and k tiny, like [matmod](#a60_q1_matmod).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 3 (k = 3, n = 4, c = (7, 3, 2), a = (4, 4, 2)):
+
+| i | c1·R[i−1] + c2·R[i−2] + c3·R[i−3] | R[i] |
+|---|---|---|
+| 0, 1, 2 | given | 4, 4, 2 |
+| 3 | 7·2 + 3·4 + 2·4 = 14 + 12 + 8 | 34 |
+| 4 | 7·34 + 3·2 + 2·4 = 238 + 6 + 8 | **252** |
+
+## 5. Traps
+- **Mixing up the order of c:** c1 multiplies R(n−1), the **closest** value, not R(n−k).
+- **Not reducing a_i:** a_i ≤ 1,000 < 32,717, so it does not matter here, but reducing is the safe habit.
+- **Array too small when n < k:** allocate max(n, k − 1) + 1 cells.
+- **Recursion without memo:** about kⁿ calls.
+- **Taking mod only at the end:** the true values have hundreds of digits.
+
+## 6. Background
+Lesson 14. A linear recurrence is the simplest DP: the state is the index, the transition is the formula. When n becomes astronomically large (say 10¹⁸), the same recurrence is solved by **raising its companion matrix to the n-th power** with divide and conquer, as in [matmod](#a60_q1_matmod). See also [Fibonacci](#ex02e1_fibo) and [C(n, k)](#ex02e2_cnk).
+==== th
+## 1. โจทย์บอกอะไร
+คำนวณ R(n) โดย
+
+```text
+R(n) = c1·R(n−1) + c2·R(n−2) + … + ck·R(n−k)    if n ≥ k
+R(n) = a_n                                       if n < k
+```
+
+ค่าอาจใหญ่มาก ให้พิมพ์ **R(n) mod 32717** ถ้า k = 2, c1 = c2 = 1, a0 = 0, a1 = 1 ก็คือ Fibonacci
+
+input: `k n` ตามด้วย c1..ck แล้ว a0..a(k−1) (ทุกตัว 0..1,000) ขอบเขต: k ≤ 1,000 และ n ≤ 1,000
+
+ตัวอย่างที่ 1: k = 2, n = 4, c = (2, 10), a = (2, 3) → **424**
+
+## 2. จริง ๆ แล้วถามอะไร
+R(i) ทุกตัวขึ้นกับ k ค่าก่อนหน้ามันพอดี ซึ่งมีดัชนีน้อยกว่า ดังนั้นคำนวณ R(0), R(1), R(2), … ตามลำดับ แต่ละค่าจะพร้อมใช้เมื่อเราต้องการ นี่คือ **DP แบบ bottom-up** รูปแบบเดียวกับ [Fibonacci](#ex02e1_fibo) แค่มี k พจน์แทน 2
+
+```text
+index:   0    1    2              3              4
+R:       2    3    2·3+10·2=26    2·26+10·3=82   2·82+10·26 = 424
+                   ╰── uses R1, R0 ╰── R2, R1     ╰── R3, R2
+```
+
+:::hint คำใบ้ 1
+recursion ธรรมดาคำนวณ R(i) ตัวเดิมซ้ำหลายครั้ง: เอกซ์โพเนนเชียล ถ้าเก็บ R(i) ทุกตัวไว้ครั้งเดียวล่ะ
+:::
+:::hint คำใบ้ 2
+mod หลังทุกการคูณและการบวก ผลคูณ c · R ไม่เกิน 1,000 · 32,716 ≈ 3.3 × 10⁷ ใส่ได้สบาย แต่ใช้ `long long` สำหรับผลรวมไว้ก็ดี
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** ตาราง DP หนึ่งมิติ R[0..n] เติมจากซ้ายไปขวา
+- **ทำไม mod ทุกขั้นได้:** (x + y) mod m = ((x mod m) + (y mod m)) mod m และ (x · y) mod m = ((x mod m)(y mod m)) mod m การลดค่าเร็วจึงไม่เปลี่ยนเศษสุดท้าย และทำให้ทุกตัวเลขเล็ก
+- **อย่างไร:** R[i] = a_i mod 32717 สำหรับ i < k สำหรับ i = k..n: sum = Σ_{j=1..k} c_j · R[i − j] mod 32717 หลังทุกพจน์ พิมพ์ R[n]
+- **ต้นทุน:** O(n · k) = 10⁶ การคูณ: ทันที
+- **n < k:** ลูปไม่ทำอะไร R[n] ก็คือ a_n (mod 32717) ต้องจองอาร์เรย์ให้พอทั้ง n และ k − 1
+- **ทำไมไม่ใช้ matrix power:** เมทริกซ์ k × k ยกกำลัง n ใช้ k³ log n ≈ 10¹⁰ ในข้อนี้ matrix power ชนะเฉพาะเมื่อ n ใหญ่มากและ k เล็ก แบบข้อ [matmod](#a60_q1_matmod)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 3 (k = 3, n = 4, c = (7, 3, 2), a = (4, 4, 2)):
+
+| i | c1·R[i−1] + c2·R[i−2] + c3·R[i−3] | R[i] |
+|---|---|---|
+| 0, 1, 2 | ให้มา | 4, 4, 2 |
+| 3 | 7·2 + 3·4 + 2·4 = 14 + 12 + 8 | 34 |
+| 4 | 7·34 + 3·2 + 2·4 = 238 + 6 + 8 | **252** |
+
+## 5. จุดที่มักพลาด
+- **สลับลำดับของ c:** c1 คูณกับ R(n−1) ซึ่งเป็นค่าที่ **ใกล้ที่สุด** ไม่ใช่ R(n−k)
+- **ไม่ลด a_i:** a_i ≤ 1,000 < 32,717 ข้อนี้จึงไม่เป็นไร แต่การลดเป็นนิสัยที่ปลอดภัย
+- **อาร์เรย์เล็กไปเมื่อ n < k:** จอง max(n, k − 1) + 1 ช่อง
+- **recursion ไม่มี memo:** ประมาณ kⁿ ครั้ง
+- **mod แค่ตอนท้าย:** ค่าจริงมีหลายร้อยหลัก
+
+## 6. ความรู้พื้นฐาน
+บทที่ 14 linear recurrence คือ DP ที่ง่ายที่สุด: state คือดัชนี transition คือสูตร ถ้า n ใหญ่มหาศาล (เช่น 10¹⁸) recurrence เดียวกันแก้ได้ด้วยการ **ยกกำลังเมทริกซ์ประกอบ (companion matrix)** แบบแบ่งแยกและเอาชนะ เหมือนข้อ [matmod](#a60_q1_matmod) ดูเพิ่มที่ [Fibonacci](#ex02e1_fibo) และ [C(n, k)](#ex02e2_cnk)

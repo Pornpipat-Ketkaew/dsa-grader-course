@@ -1,0 +1,127 @@
+id: a65_q2a_huge_array
+group: sort
+lesson: 08 · Prefix sums + binary search
+stars: 2
+complexity: O((N + Q) log N)
+kind: program
+tags: run-length groups, sort, prefix sum, lower_bound, long long
+title: Huge Array
+title_th: อาร์เรย์ยักษ์ (Huge Array)
+blurb: The k-th smallest of up to 2·10⁹ numbers given as (value, count) groups: sort the groups, prefix-sum the counts, binary-search each position.
+blurb_th: หาตัวที่ k ของตัวเลขมากถึง 2·10⁹ ตัวที่ให้มาเป็นกลุ่ม (ค่า, จำนวน): sort กลุ่ม ทำ prefix sum ของจำนวน แล้ว binary search แต่ละตำแหน่ง
+files: sol/a65_q2a_huge_array/main.cpp
+tests: both PDF samples; one group of 2·10⁹ copies of 2·10⁹ (overflow check); 300 random cases against a Python brute force that really builds and sorts the array; N = Q = 100,000 in 0.06 s.
+tests_th: ตัวอย่างทั้งสองใน PDF; กลุ่มเดียวที่มีค่า 2·10⁹ จำนวน 2·10⁹ ตัว (เช็ก overflow); สุ่ม 300 ชุดเทียบกับ brute force ใน Python ที่สร้างอาร์เรย์จริงแล้ว sort; N = Q = 100,000 ใช้ 0.06 วินาที
+==== en
+## 1. What the problem says
+An array of **S** numbers (1 ≤ S ≤ 2,000,000,000) is made by joining **N groups**; group i is the value **X[i] repeated C[i] times**. Example: (4,2), (3,4), (10,2) → [4,4,3,3,3,3,10,10]. Then **Q questions**: after sorting the array ascending, what is at position **P[j]** (1-based)?
+
+- Input: `N Q`, then N lines `X[i] C[i]`, then Q lines `P[j]` with 1 ≤ P[j] ≤ S. 1 ≤ X[i] ≤ 2·10⁹.
+- Output: Q lines, one answer each. Limit 1 s; use fast I/O.
+- Subtasks: 10% N, Q ≤ 1,000 and C = 1; 20% N ≤ 1,000, Q ≤ 100,000, S ≤ 10⁶; 20% N, Q ≤ 1,000; 50% N, Q ≤ 100,000.
+
+## 2. What it really means
+S can be 2·10⁹: we can't even **store** the array (8 GB of ints). But it is described by only N ≤ 100,000 groups, and sorting the array just means **sorting the groups by value** and laying them out in that order. Sample 2:
+
+```text
+groups sorted by value:  (4,5)   (7,7)    (8,3)    (9,1) (9,3)
+positions in the array:  1..5    6..12    13..15   16    17..19
+last position (prefix):  5       12       15       16    19
+
+P = 1  → first prefix ≥ 1  is 5  (group 4)  → 4
+P = 15 → first prefix ≥ 15 is 15 (group 8)  → 8
+P = 8  → first prefix ≥ 8  is 12 (group 7)  → 7
+```
+
+:::hint Hint 1
+You cannot build an array of 2·10⁹ numbers. But what does the sorted array look like if you only sort the N groups by value?
+:::
+:::hint Hint 2
+Keep last[i] = total count of groups 0..i. Position p is in the first group whose last[i] ≥ p: one lower_bound per query.
+:::
+
+## 3. What, why, how
+- **Naive:** build the array and sort: fine when S ≤ 10⁶ (the 20% subtask), impossible for S = 2·10⁹.
+- **Step 1:** sort the N pairs by X. Equal X values may stay as separate groups; they are next to each other, so it doesn't matter.
+- **Step 2:** `last[i] = C[0] + … + C[i]` = the position of the last copy of group i. This sequence is strictly increasing (every C ≥ 1).
+- **Step 3:** position p lies in the **first group whose `last` ≥ p**: that is exactly `lower_bound(last, p)`. Answer = that group's X.
+- **Cost:** O(N log N + Q log N), memory O(N).
+- **Types:** S ≤ 2·10⁹ is close to the `int` limit (≈ 2.147·10⁹) and X goes up to 2·10⁹ too. Using `long long` for X, C, the prefix sums and P removes any doubt.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace of sample 1** (all C = 1): sorted groups (1,1) (1,1) (3,1) (5,1) (10,1); last = 1 2 3 4 5.
+
+| P | lower_bound(last, P) | group | answer |
+|---|---|---|---|
+| 5 | index 4 (last 5) | (10,1) | 10 |
+| 1 | index 0 (last 1) | (1,1) | 1 |
+
+## 5. Traps
+- **Building the array:** memory and time blow up for large S.
+- **`upper_bound` instead of `lower_bound`:** for p equal to a group's last position (P = 15 in sample 2) `upper_bound` returns the *next* group (9 instead of 8).
+- **Overflow:** with N = 100,000 and large C the running sum exceeds 2³¹ − 1 if it is an `int`.
+- **Forgetting to sort the groups:** the input order is arbitrary (sample 2 starts with 9).
+- **Slow I/O:** 200,000+ lines; use `ios_base::sync_with_stdio(false); cin.tie(0);` and `"\n"` instead of `endl`.
+
+## 6. Background
+Lesson 08: **prefix sums + binary search** answer "which bucket contains the k-th item". The same idea selects the k-th element of a run-length encoded list, picks a random item with weights (sample p, find the bucket), and maps a global index to a (block, offset) pair. Remember: `lower_bound(prefix, k)` = first bucket whose cumulative count reaches k. In this book, binary search over a monotone sequence is the core of the D&C chapter, see [Binary search](#ex02e3_bs) and [Lawn mowing](#a64_q1_lawn_mowing).
+
+==== th
+## 1. โจทย์บอกอะไร
+อาร์เรย์ขนาด **S** ตัว (1 ≤ S ≤ 2,000,000,000) เกิดจากการต่อ **N ชุด** เข้าด้วยกัน ชุดที่ i คือ **ค่า X[i] ซ้ำกัน C[i] ตัว** ตัวอย่าง: (4,2), (3,4), (10,2) → [4,4,3,3,3,3,10,10] แล้วมี **คำถาม Q ข้อ**: ถ้าเรียงอาร์เรย์จากน้อยไปมาก ตำแหน่ง **P[j]** (เริ่มนับที่ 1) มีค่าเท่าไร
+
+- ข้อมูลนำเข้า: `N Q` แล้ว N บรรทัด `X[i] C[i]` แล้ว Q บรรทัด `P[j]` โดย 1 ≤ P[j] ≤ S และ 1 ≤ X[i] ≤ 2·10⁹
+- ผลลัพธ์: Q บรรทัด บรรทัดละหนึ่งคำตอบ เวลา 1 วินาที ต้องใช้ fast I/O
+- ชุดทดสอบ: 10% N, Q ≤ 1,000 และ C = 1; 20% N ≤ 1,000, Q ≤ 100,000, S ≤ 10⁶; 20% N, Q ≤ 1,000; 50% N, Q ≤ 100,000
+
+## 2. จริง ๆ แล้วถามอะไร
+S อาจเป็น 2·10⁹ แค่ **เก็บ** อาร์เรย์ก็ทำไม่ได้แล้ว (int 8 GB) แต่มันถูกบรรยายด้วยกลุ่มแค่ N ≤ 100,000 กลุ่ม และการเรียงอาร์เรย์ก็คือ **เรียงกลุ่มตามค่า** แล้ววางต่อกันตามลำดับนั้น (เหมือนชั้นหนังสือ: ไม่ต้องรู้ว่าแต่ละเล่มอยู่ไหน แค่รู้ว่าแต่ละหมวดกินที่กี่ช่อง) ตัวอย่างที่ 2:
+
+```text
+groups sorted by value:  (4,5)   (7,7)    (8,3)    (9,1) (9,3)
+positions in the array:  1..5    6..12    13..15   16    17..19
+last position (prefix):  5       12       15       16    19
+
+P = 1  → first prefix ≥ 1  is 5  (group 4)  → 4
+P = 15 → first prefix ≥ 15 is 15 (group 8)  → 8
+P = 8  → first prefix ≥ 8  is 12 (group 7)  → 7
+```
+
+:::hint คำใบ้ 1
+สร้างอาร์เรย์ 2·10⁹ ตัวไม่ได้ แต่ถ้าเรียงแค่ N กลุ่มตามค่า อาร์เรย์ที่เรียงแล้วจะหน้าตาเป็นอย่างไร
+:::
+:::hint คำใบ้ 2
+เก็บ last[i] = จำนวนรวมของกลุ่ม 0..i ตำแหน่ง p อยู่ในกลุ่มแรกที่ last[i] ≥ p: ใช้ lower_bound หนึ่งครั้งต่อคำถาม
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **วิธีตรง ๆ:** สร้างอาร์เรย์แล้ว sort ใช้ได้เมื่อ S ≤ 10⁶ (ชุดทดสอบ 20%) แต่ S = 2·10⁹ ทำไม่ได้
+- **ขั้นที่ 1:** sort คู่ทั้ง N คู่ตาม X ค่า X ที่ซ้ำกันจะแยกเป็นคนละกลุ่มก็ได้ เพราะมันอยู่ติดกันอยู่แล้ว
+- **ขั้นที่ 2:** `last[i] = C[0] + … + C[i]` = ตำแหน่งของตัวสุดท้ายในกลุ่ม i ลำดับนี้เพิ่มขึ้นเสมอ (ทุก C ≥ 1)
+- **ขั้นที่ 3:** ตำแหน่ง p อยู่ใน **กลุ่มแรกที่ `last` ≥ p** ซึ่งก็คือ `lower_bound(last, p)` พอดี คำตอบคือ X ของกลุ่มนั้น
+- **เวลา:** O(N log N + Q log N) หน่วยความจำ O(N)
+- **ชนิดข้อมูล:** ผลรวมของ C ระหว่างสะสมอาจเกิน `int` ได้ prefix sum และ P จึงใช้ `long long`
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ตัวอย่างที่ 1** (C = 1 ทุกตัว): กลุ่มหลัง sort (1,1) (1,1) (3,1) (5,1) (10,1); last = 1 2 3 4 5
+
+| P | lower_bound(last, P) | กลุ่ม | คำตอบ |
+|---|---|---|---|
+| 5 | index 4 (last 5) | (10,1) | 10 |
+| 1 | index 0 (last 1) | (1,1) | 1 |
+
+## 5. จุดที่มักพลาด
+- **สร้างอาร์เรย์จริง:** หน่วยความจำและเวลาระเบิดเมื่อ S ใหญ่
+- **ใช้ `upper_bound` แทน `lower_bound`:** ถ้า p เท่ากับตำแหน่งสุดท้ายของกลุ่มพอดี (P = 15 ในตัวอย่างที่ 2) `upper_bound` จะได้กลุ่ม *ถัดไป* (9 แทน 8)
+- **Overflow:** N = 100,000 กับ C ใหญ่ ผลรวมเกิน 2³¹ − 1 ถ้าเก็บเป็น `int`
+- **ลืม sort กลุ่ม:** ลำดับในข้อมูลนำเข้าไม่แน่นอน (ตัวอย่างที่ 2 เริ่มด้วย 9)
+- **I/O ช้า:** มีมากกว่า 200,000 บรรทัด ใช้ `ios_base::sync_with_stdio(false); cin.tie(0);` และ `"\n"` แทน `endl`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 08: **prefix sum + binary search** ตอบคำถาม "ของชิ้นที่ k อยู่ในถังไหน" แนวคิดเดียวกันใช้หาตัวที่ k ในลิสต์ที่เก็บแบบ run-length, สุ่มของแบบมีน้ำหนัก (สุ่ม p แล้วหาถัง) และแปลง index รวมเป็นคู่ (บล็อก, ตำแหน่งในบล็อก) จำไว้: `lower_bound(prefix, k)` = ถังแรกที่จำนวนสะสมถึง k ในหนังสือเล่มนี้ การค้นหาแบบทวิภาคบนลำดับที่เพิ่มขึ้นเป็นแก่นของบท D&C ดู [Binary search](#ex02e3_bs) และ [Lawn mowing](#a64_q1_lawn_mowing)

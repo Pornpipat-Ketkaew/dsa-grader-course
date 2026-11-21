@@ -1,0 +1,144 @@
+id: a62_q1b_virus
+group: dc
+lesson: 12 · Divide & conquer
+stars: 2
+complexity: O(n · 2^k · k)
+kind: program
+tags: recursion on halves, reverse, two mutually recursive checks, index ranges
+title: Virus Detection (DIVOC)
+title_th: ตรวจไวรัส (DIVOC)
+blurb: A size-2^k virus is (a virus, possibly reversed) followed by a virus. Check halves recursively with two functions: "is a virus" and "is a reversed virus".
+blurb_th: ไวรัสขนาด 2^k คือ (ไวรัส ที่อาจกลับด้าน) ต่อด้วยไวรัส ตรวจทีละครึ่งแบบเวียนเกิดด้วยสองฟังก์ชัน: "เป็นไวรัส" และ "เป็นไวรัสกลับด้าน"
+files: sol/a62_q1b_virus/main.cpp
+tests: all 4 PDF samples; the PDF's table (exactly 6 viruses of size 8) reproduced by enumeration; 300 random cases (real viruses, viruses with 1–2 flipped bits, reversed viruses; k ≤ 4) against a Python set of ALL viruses generated from the definition; 10 random viruses of size 2⁸ all accepted.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF; ตารางใน PDF (ไวรัสขนาด 8 มีพอดี 6 แบบ) สร้างซ้ำได้ด้วยการแจกแจง; สุ่ม 300 ชุด (ไวรัสจริง ไวรัสที่พลิกบิต 1–2 ตัว และไวรัสกลับด้าน; k ≤ 4) เทียบกับเซตไวรัส *ทั้งหมด* ที่สร้างจากนิยามใน Python; ไวรัสสุ่มขนาด 2⁸ จำนวน 10 ตัวถูกยอมรับทั้งหมด
+==== en
+## 1. What the problem says
+A DIVOC genetic code is an array of 0/1 of length 2^k, built like this:
+
+- size 2¹: only `0 1`;
+- size 2^k: take two viruses a and b of size 2^(k−1) and write **a followed by b**. Before joining, a (and only a) **may mutate**: it gets reversed.
+
+The PDF lists all viruses up to size 8: `01`; `0101`, `1001`; and six of size 8 (`01010101`, `01011001`, `10010101`, `10011001`, `10100101`, `10101001`).
+
+Input: n codes (n ≤ 10) of length 2^k (k ≤ 8). Print `yes` or `no` for each.
+
+## 2. What it really means
+To check a code, **undo the last construction step**: cut it in the middle.
+
+```text
+code   1 0 1 0 │ 1 0 0 1
+        left a │ right b
+right half must be a virus            : 1 0 0 1  = (0 1 reversed) + 0 1  ✓
+left half must be a virus OR reversed : 1 0 1 0  reversed = 0 1 0 1 ✓
+→ yes
+```
+
+The difficulty is the reversal: the left half may be "a virus written backwards", and the halves **inside** that reversed part are themselves swapped and reversed.
+
+:::hint Hint 1
+Write `bool fw(l, r)`: "is s[l..r−1] a virus?". The definition gives fw(whole) = fw(right) && (fw(left) || "left is a reversed virus").
+:::
+:::hint Hint 2
+Instead of copying and reversing, write a second function bw(l, r) = "read right-to-left, is s[l..r−1] a virus?". Reversing a·b gives rev(b)·rev(a): work out what that means for the two halves.
+:::
+
+## 3. What, why, how
+- **What:** a recognition problem for a recursively defined set. Undo the definition: split in halves, check the halves.
+- **fw (forward):** size 2 → exactly `0 1`. Otherwise fw = fw(right half) **and** (fw(left half) **or** bw(left half)).
+- **bw (backward = reversed virus):** if x = a·b is a virus, then rev(x) = rev(b)·rev(a). So for a code y = L·R to be a reversed virus:
+  - L must be rev(b) where b is a virus → **bw(L)**;
+  - R must be rev(a) where a is a virus or a reversed virus → **fw(R) or bw(R)**.
+  - Size 2 → exactly `1 0`.
+- **Why no copying is needed:** both functions take index ranges [l, r) of the same array. Nothing is reversed physically.
+- **Cost:** each call makes at most 3 calls on halves, and k ≤ 8, so at most 3⁸ ≈ 6,500 calls per code: instant. (The simpler "copy the half, reverse it, recurse" also passes here; the index version is cleaner and avoids allocations.)
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for `1 0 1 0 1 0 0 1` (third sample, second line):
+
+| call | piece | rule | result |
+|---|---|---|---|
+| fw(0,8) | 1010 1001 | fw(right) && (fw(left) ‖ bw(left)) | wait |
+| fw(4,8) | 10 01 | fw(01) && (fw(10) ‖ bw(10)) = T && (F ‖ T) | **T** |
+| fw(0,4) | 10 10 | fw(right 10) = F | **F** |
+| bw(0,4) | 10 10 | bw(left 10) && (fw(10) ‖ bw(10)) = T && T | **T** |
+| fw(0,8) | | T && (F ‖ T) | **yes** |
+
+And `1 0 1 1 1 0 0 0`: the right half `1000` fails fw (its right part `00` is neither `01`), so **no** at once.
+
+## 5. Traps
+- **Allowing the right half to be reversed:** only a mutates. `0 1 1 0` is **not** a size-4 virus (right half `10` is reversed).
+- **Forgetting that a reversed virus swaps its halves:** testing "both halves reversed in place" accepts wrong codes. Derive bw from rev(a·b) = rev(b)·rev(a).
+- **Checking by counting zeros and ones:** every virus has as many 0s as 1s, but `1 1 0 0` has that too and is not a virus.
+- **Reading the code as a string:** the input has spaces between digits (`0 1 0 1`); read integers.
+
+## 6. Background
+Lesson 12. Recognising a recursively built object means running the construction backwards; with halves, the recursion depth is log₂(length). Two functions that call each other (mutual recursion) are a neat way to carry an extra "state" (here: orientation) without copying data. Compare with [Virus 2](#a63_q1b_virus2), where the extra state is a count instead of an orientation.
+==== th
+## 1. โจทย์บอกอะไร
+รหัสพันธุกรรมของไวรัส DIVOC เป็นอาร์เรย์ 0/1 ยาว 2^k สร้างแบบนี้:
+
+- ขนาด 2¹: มีแค่ `0 1`
+- ขนาด 2^k: เอาไวรัส a และ b ขนาด 2^(k−1) มาเขียน **a ตามด้วย b** ก่อนต่อกัน a (และเฉพาะ a) **อาจกลายพันธุ์** คือถูกกลับด้าน
+
+PDF แจกแจงไวรัสถึงขนาด 8 ไว้ให้: `01`; `0101`, `1001`; และขนาด 8 อีกหกแบบ (`01010101`, `01011001`, `10010101`, `10011001`, `10100101`, `10101001`)
+
+ข้อมูลนำเข้า: รหัส n ตัว (n ≤ 10) ยาว 2^k (k ≤ 8) ให้พิมพ์ `yes` หรือ `no` ของแต่ละตัว
+
+## 2. จริง ๆ แล้วถามอะไร
+จะตรวจรหัส ให้ **ย้อนขั้นตอนการสร้างขั้นสุดท้าย**: ตัดตรงกลาง
+
+```text
+code   1 0 1 0 │ 1 0 0 1
+        left a │ right b
+right half must be a virus            : 1 0 0 1  = (0 1 reversed) + 0 1  ✓
+left half must be a virus OR reversed : 1 0 1 0  reversed = 0 1 0 1 ✓
+→ yes
+```
+
+ความยากอยู่ที่การกลับด้าน: ครึ่งซ้ายอาจเป็น "ไวรัสที่เขียนกลับหลัง" และครึ่งย่อย **ภายใน** ส่วนที่กลับด้านนั้นก็สลับที่และกลับด้านด้วย
+
+:::hint คำใบ้ 1
+เขียน `bool fw(l, r)`: "s[l..r−1] เป็นไวรัสไหม" นิยามบอกว่า fw(ทั้งก้อน) = fw(ครึ่งขวา) && (fw(ครึ่งซ้าย) || "ครึ่งซ้ายเป็นไวรัสกลับด้าน")
+:::
+:::hint คำใบ้ 2
+แทนที่จะคัดลอกแล้วกลับด้าน ให้เขียนฟังก์ชันที่สอง bw(l, r) = "ถ้าอ่านจากขวาไปซ้าย s[l..r−1] เป็นไวรัสไหม" การกลับด้าน a·b ได้ rev(b)·rev(a) ลองคิดว่าแปลว่าอะไรกับสองครึ่ง
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** โจทย์ตรวจสมาชิกของเซตที่นิยามแบบเวียนเกิด ให้ย้อนนิยาม: แบ่งครึ่ง แล้วตรวจแต่ละครึ่ง
+- **fw (ไปข้างหน้า):** ขนาด 2 → ต้องเป็น `0 1` เท่านั้น ไม่เช่นนั้น fw = fw(ครึ่งขวา) **และ** (fw(ครึ่งซ้าย) **หรือ** bw(ครึ่งซ้าย))
+- **bw (ย้อนหลัง = ไวรัสกลับด้าน):** ถ้า x = a·b เป็นไวรัส แล้ว rev(x) = rev(b)·rev(a) ดังนั้นรหัส y = L·R จะเป็นไวรัสกลับด้านได้เมื่อ:
+  - L ต้องเป็น rev(b) ที่ b เป็นไวรัส → **bw(L)**
+  - R ต้องเป็น rev(a) ที่ a เป็นไวรัสหรือไวรัสกลับด้าน → **fw(R) หรือ bw(R)**
+  - ขนาด 2 → ต้องเป็น `1 0` เท่านั้น
+- **ทำไมไม่ต้องคัดลอก:** ทั้งสองฟังก์ชันรับช่วงตำแหน่ง [l, r) ของอาร์เรย์เดียวกัน ไม่มีการกลับด้านข้อมูลจริง
+- **ต้นทุน:** แต่ละการเรียกเรียกต่อบนครึ่งได้ไม่เกิน 3 ครั้ง และ k ≤ 8 จึงไม่เกิน 3⁸ ≈ 6,500 ครั้งต่อรหัส เร็วมาก (วิธีง่ายกว่าที่ "คัดลอกครึ่ง กลับด้าน แล้วเวียนเกิด" ก็ผ่านข้อนี้ แต่แบบใช้ตำแหน่งสะอาดกว่าและไม่ต้องจองหน่วยความจำใหม่)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** รหัส `1 0 1 0 1 0 0 1` (ตัวอย่างที่สาม บรรทัดที่สอง):
+
+| การเรียก | ส่วน | กฎ | ผล |
+|---|---|---|---|
+| fw(0,8) | 1010 1001 | fw(ขวา) && (fw(ซ้าย) ‖ bw(ซ้าย)) | รอ |
+| fw(4,8) | 10 01 | fw(01) && (fw(10) ‖ bw(10)) = T && (F ‖ T) | **T** |
+| fw(0,4) | 10 10 | fw(ขวา 10) = F | **F** |
+| bw(0,4) | 10 10 | bw(ซ้าย 10) && (fw(10) ‖ bw(10)) = T && T | **T** |
+| fw(0,8) | | T && (F ‖ T) | **yes** |
+
+ส่วน `1 0 1 1 1 0 0 0`: ครึ่งขวา `1000` ไม่ผ่าน fw (ส่วนขวาของมัน `00` ไม่ใช่ `01`) จึงตอบ **no** ทันที
+
+## 5. จุดที่มักพลาด
+- **ยอมให้ครึ่งขวากลับด้านได้:** กลายพันธุ์ได้แค่ a `0 1 1 0` **ไม่ใช่** ไวรัสขนาด 4 (ครึ่งขวา `10` ถูกกลับด้าน)
+- **ลืมว่าไวรัสกลับด้านสลับสองครึ่งด้วย:** ถ้าตรวจแค่ "สองครึ่งกลับด้านอยู่ที่เดิม" จะยอมรับรหัสที่ผิด ให้ได้ bw มาจาก rev(a·b) = rev(b)·rev(a)
+- **ตรวจด้วยการนับ 0 กับ 1:** ไวรัสทุกตัวมี 0 เท่ากับ 1 ก็จริง แต่ `1 1 0 0` ก็เท่ากันและไม่ใช่ไวรัส
+- **อ่านรหัสเป็นสตริง:** ข้อมูลมีช่องว่างคั่นทุกหลัก (`0 1 0 1`) ให้อ่านเป็นจำนวนเต็ม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 12 การตรวจว่าวัตถุถูกสร้างตามกฎเวียนเกิดหรือไม่ คือการรันขั้นตอนการสร้างย้อนหลัง ถ้าแบ่งครึ่ง ความลึกของการเวียนเกิดคือ log₂(ความยาว) ฟังก์ชันสองตัวที่เรียกกันไปมา (mutual recursion) เป็นวิธีที่สวยในการพก "สถานะ" เพิ่ม (ในข้อนี้คือทิศทาง) โดยไม่ต้องคัดลอกข้อมูล เทียบกับข้อ [Virus 2](#a63_q1b_virus2) ที่สถานะเพิ่มคือจำนวนแทนทิศทาง

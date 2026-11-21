@@ -1,0 +1,144 @@
+id: ex06e2_shortest
+group: sp
+lesson: 17 · Shortest paths: Bellman–Ford, negative cycles
+stars: 3
+complexity: O(N · E)
+kind: program
+tags: Bellman–Ford, negative edges, negative-cycle detection, virtual source
+title: Shortest path with negative edges
+title_th: เส้นทางสั้นสุดที่มีเส้นติดลบ (Shortest path)
+blurb: Shortest distances from s in a directed graph whose edges may be negative, or -1 if the graph has a negative cycle. Bellman–Ford twice: once from a virtual source to find any negative cycle, once from s.
+blurb_th: ระยะสั้นสุดจาก s ในกราฟมีทิศที่เส้นอาจติดลบ หรือ -1 ถ้ากราฟมีวงวนติดลบ ใช้ Bellman–Ford สองครั้ง: ครั้งแรกจากจุดเริ่มเสมือนเพื่อหาวงวนติดลบที่ใดก็ได้ ครั้งที่สองจาก s
+files: sol/ex06e2_shortest/main.cpp
+tests: the 2 PDF samples, a 3-vertex graph where a negative edge beats a direct one, and N = 1; 300 random graphs (N ≤ 7, weights −5..9) against Floyd–Warshall with negative-cycle detection in Python; N = 100 with 10,000 edges in 0.01 s.
+tests_th: ตัวอย่าง 2 ชุดใน PDF, กราฟ 3 ปมที่เส้นติดลบชนะเส้นตรง และ N = 1; สุ่มกราฟ 300 ชุด (N ≤ 7 น้ำหนัก −5..9) เทียบกับ Floyd–Warshall ที่ตรวจวงวนติดลบใน Python; N = 100 กับ 10,000 เส้น ใช้ 0.01 วินาที
+==== en
+## 1. What the problem says
+A directed graph has N vertices (N ≤ 100) and E weighted edges a → b with weight c, where **−1,000 ≤ c ≤ 1,000**. Print the shortest distance from s to every vertex 0..N−1 on one line. If the graph has a **negative cycle**, print only **−1**.
+
+Sample 1 → `0 -1 0 4`. Sample 2 → `-1`: the cycle 1 → 2 → 3 → 1 has total weight −3.
+
+## 2. What it really means
+Dijkstra assumes that once a vertex is the closest, nothing can make it closer. A negative edge breaks that. **Bellman–Ford** makes no such assumption: it simply relaxes **every** edge, round after round.
+
+Look closely at sample 2: s = 0, but vertex 0 has **no edges at all**, so s cannot reach the cycle. The expected answer is still −1. So we must detect a negative cycle **anywhere in the graph**, not only one reachable from s.
+
+```text
+sample 2:   0 (s, alone)        1 ──(−1)──▶ 2
+                                ▲            │
+                              (−1)         (−1)
+                                └──── 3 ◀────┘     cycle total −3 < 0  →  print −1
+```
+
+:::hint Hint 1
+A shortest path without a negative cycle uses at most N − 1 edges. What does it mean if a distance still improves in round N?
+:::
+:::hint Hint 2
+To catch a cycle that s cannot reach, start **every** vertex at distance 0, as if a hidden source had a 0-edge to each of them.
+:::
+
+## 3. What, why, how
+- **What:** Bellman–Ford, used twice.
+- **Why N − 1 rounds are enough:** with no negative cycle, some shortest path is simple, so it has ≤ N − 1 edges. After round i, every shortest path with ≤ i edges is correct (induction on i).
+- **Why round N detects a cycle:** if something still improves in round N, there is a "shortest path" with N edges, which must repeat a vertex: a cycle that lowers the cost, a negative cycle.
+- **Step 1 (any negative cycle):** h[v] = 0 for all v, i.e. a virtual source joined to every vertex. Relax all edges up to N rounds. Still changing in round N → print −1.
+- **Step 2 (the distances):** dist[s] = 0, others ∞; relax all edges N − 1 times, skipping edges out of ∞ vertices. Stop early when a round changes nothing.
+- **Cost:** O(N · E) per step. With N = 100 that is tiny.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace A**: sample 2, step 1 (h starts at 0 everywhere; edges in input order 1→2, 2→3, 3→1):
+
+| round | h[0] h[1] h[2] h[3] | changed? |
+|---|---|---|
+| 1 | 0 −3 −1 −2 | yes |
+| 2 | 0 −6 −4 −5 | yes |
+| 3 | 0 −9 −7 −8 | yes |
+| 4 = N | 0 −12 −10 −11 | **yes → −1** |
+
+**Trace B**: sample 1, step 2 from s = 0 (edges 0→1 −1, 1→2 +1, 2→3 +4):
+
+| round | dist[0..3] |
+|---|---|
+| start | 0 ∞ ∞ ∞ |
+| 1 | 0 −1 0 4 |
+| 2 | no change, stop |
+
+Output `0 -1 0 4`.
+
+## 5. Traps
+- **Using Dijkstra:** wrong with negative edges, even without a cycle (the third test: 2→1 costs 7 directly but 5 − 3 = 2 via 0).
+- **Only checking cycles reachable from s:** sample 2 says the answer is −1 anyway.
+- **Relaxing from an ∞ vertex in step 2:** ∞ + (−5) looks smaller than ∞; skip edges whose start is still ∞.
+- **Unreachable vertices:** the PDF does not say what to print. This solution prints the INF value (10¹⁸); no sample has the case.
+- **The edge count:** reading until end of input is equivalent to reading E lines, and safe if E is off.
+
+## 6. Background
+Lesson 17. Bellman–Ford is the tool for negative weights, and its "one more round" test is the standard negative-cycle detector. [Exchange](#ex06m2_exchange) turns currency arbitrage into exactly this negative-cycle question. The "virtual source with 0-edges" idea is also how Johnson's algorithm starts. For non-negative weights use [Dijkstra](#a61_q2_farthest) instead; it is much faster.
+==== th
+## 1. โจทย์บอกอะไร
+กราฟมีทิศมี N ปม (N ≤ 100) และเส้นมีน้ำหนัก E เส้น a → b น้ำหนัก c โดย **−1,000 ≤ c ≤ 1,000** ให้พิมพ์ระยะสั้นสุดจาก s ไปทุกปม 0..N−1 ในบรรทัดเดียว ถ้ากราฟมี **วงวนติดลบ** ให้พิมพ์แค่ **−1**
+
+ตัวอย่างที่ 1 → `0 -1 0 4` ตัวอย่างที่ 2 → `-1`: วงวน 1 → 2 → 3 → 1 มีผลรวม −3
+
+## 2. จริง ๆ แล้วถามอะไร
+Dijkstra ถือว่าเมื่อปมหนึ่งใกล้ที่สุดแล้ว จะไม่มีอะไรทำให้มันใกล้ขึ้นได้อีก เส้นติดลบทำลายข้อนี้ **Bellman–Ford** ไม่ได้สมมติแบบนั้น มันแค่ relax **ทุก** เส้น ทีละรอบ
+
+ดูตัวอย่างที่ 2 ดี ๆ: s = 0 แต่ปม 0 **ไม่มีเส้นเลย** s จึงไปไม่ถึงวงวน แต่คำตอบที่ต้องการก็ยังเป็น −1 ดังนั้นเราต้องหาวงวนติดลบ **ที่ใดก็ได้ในกราฟ** ไม่ใช่แค่วงที่ s ไปถึง
+
+```text
+sample 2:   0 (s, alone)        1 ──(−1)──▶ 2
+                                ▲            │
+                              (−1)         (−1)
+                                └──── 3 ◀────┘     cycle total −3 < 0  →  print −1
+```
+
+:::hint คำใบ้ 1
+เส้นทางสั้นสุดที่ไม่มีวงวนติดลบใช้เส้นไม่เกิน N − 1 เส้น ถ้าระยะยังดีขึ้นได้ในรอบที่ N แปลว่าอะไร
+:::
+:::hint คำใบ้ 2
+เพื่อจับวงที่ s ไปไม่ถึง ให้ทุกปมเริ่มที่ระยะ 0 เหมือนมีจุดเริ่มซ่อนอยู่ที่มีเส้นน้ำหนัก 0 ไปทุกปม
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Bellman–Ford ใช้สองครั้ง
+- **ทำไม N − 1 รอบพอ:** ถ้าไม่มีวงวนติดลบ จะมีเส้นทางสั้นสุดที่ไม่ซ้ำปม จึงมี ≤ N − 1 เส้น หลังรอบที่ i เส้นทางสั้นสุดทุกเส้นที่มี ≤ i เส้นจะถูกต้อง (อุปนัยบน i)
+- **ทำไมรอบที่ N ตรวจวงวนได้:** ถ้ายังมีอะไรดีขึ้นในรอบที่ N แปลว่ามี "เส้นทางสั้นสุด" ที่ใช้ N เส้น ซึ่งต้องซ้ำปม: วงที่ทำให้ค่าลดลง คือวงวนติดลบ
+- **ขั้นที่ 1 (วงวนติดลบที่ใดก็ได้):** h[v] = 0 ทุก v คือจุดเริ่มเสมือนที่ต่อกับทุกปม relax ทุกเส้นไม่เกิน N รอบ ถ้ายังเปลี่ยนในรอบที่ N → พิมพ์ −1
+- **ขั้นที่ 2 (ระยะทาง):** dist[s] = 0 ที่เหลือ ∞; relax ทุกเส้น N − 1 ครั้ง โดยข้ามเส้นที่ออกจากปมที่เป็น ∞ หยุดก่อนได้ถ้ารอบนั้นไม่มีอะไรเปลี่ยน
+- **ต้นทุน:** O(N · E) ต่อขั้น เมื่อ N = 100 ถือว่าน้อยมาก
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า A**: ตัวอย่างที่ 2 ขั้นที่ 1 (h เริ่มเป็น 0 ทุกปม; เส้นตามลำดับ input 1→2, 2→3, 3→1):
+
+| รอบ | h[0] h[1] h[2] h[3] | เปลี่ยนไหม |
+|---|---|---|
+| 1 | 0 −3 −1 −2 | ใช่ |
+| 2 | 0 −6 −4 −5 | ใช่ |
+| 3 | 0 −9 −7 −8 | ใช่ |
+| 4 = N | 0 −12 −10 −11 | **ใช่ → −1** |
+
+**ไล่ค่า B**: ตัวอย่างที่ 1 ขั้นที่ 2 จาก s = 0 (เส้น 0→1 −1, 1→2 +1, 2→3 +4):
+
+| รอบ | dist[0..3] |
+|---|---|
+| เริ่ม | 0 ∞ ∞ ∞ |
+| 1 | 0 −1 0 4 |
+| 2 | ไม่เปลี่ยน หยุด |
+
+ผลลัพธ์ `0 -1 0 4`
+
+## 5. จุดที่มักพลาด
+- **ใช้ Dijkstra:** ผิดเมื่อมีเส้นติดลบ แม้ไม่มีวงวน (ชุดทดสอบที่ 3: 2→1 ตรง ๆ เสีย 7 แต่ผ่าน 0 เสีย 5 − 3 = 2)
+- **เช็กเฉพาะวงที่ s ไปถึง:** ตัวอย่างที่ 2 บอกว่าคำตอบก็ยังเป็น −1
+- **relax จากปมที่เป็น ∞ ในขั้นที่ 2:** ∞ + (−5) ดูเหมือนน้อยกว่า ∞ ต้องข้ามเส้นที่จุดเริ่มยังเป็น ∞
+- **ปมที่ไปไม่ถึง:** PDF ไม่ได้บอกว่าให้พิมพ์อะไร เฉลยนี้พิมพ์ค่า INF (10¹⁸) ไม่มีตัวอย่างไหนมีกรณีนี้
+- **จำนวนเส้น:** การอ่านจนจบ input เท่ากับการอ่าน E บรรทัด และปลอดภัยถ้า E ผิด
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 Bellman–Ford คือเครื่องมือสำหรับน้ำหนักติดลบ และการทดสอบ "อีกหนึ่งรอบ" คือวิธีมาตรฐานในการตรวจวงวนติดลบ ข้อ [Exchange](#ex06m2_exchange) แปลงการค้ากำไรจากค่าเงินให้เป็นคำถามเรื่องวงวนติดลบแบบนี้พอดี ไอเดีย "จุดเริ่มเสมือนที่มีเส้น 0" ก็เป็นวิธีเริ่มต้นของอัลกอริทึม Johnson ถ้าน้ำหนักไม่ติดลบ ให้ใช้ [Dijkstra](#a61_q2_farthest) ซึ่งเร็วกว่ามาก

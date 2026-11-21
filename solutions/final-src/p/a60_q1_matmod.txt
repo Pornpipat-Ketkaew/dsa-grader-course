@@ -1,0 +1,122 @@
+id: a60_q1_matmod
+group: dc
+lesson: 12 · Divide & conquer (fast exponentiation)
+stars: 2
+complexity: O(log n)
+kind: program
+tags: exponentiation by squaring, 2×2 matrix, modular arithmetic, recursion
+title: Matrix Modulo
+title_th: เมทริกซ์มอดุโล (Matrix Modulo)
+blurb: Aⁿ mod k for a 2×2 matrix with n up to 2³⁰. Square the half power: Aⁿ = (A^(n/2))² (× A if n is odd), about 30 multiplications.
+blurb_th: หา Aⁿ mod k ของเมทริกซ์ 2×2 เมื่อ n สูงถึง 2³⁰ ใช้การยกกำลังสองของครึ่งหนึ่ง: Aⁿ = (A^(n/2))² (× A ถ้า n คี่) คูณแค่ราว 30 ครั้ง
+files: sol/a60_q1_matmod/main.cpp
+tests: all 5 PDF samples plus n = 1 and k = 1; 300 random cases (n ≤ 300) against a Python program that multiplies A n times with exact big integers and reduces only at the end; n = 2³⁰ − 1 checked against an independent iterative square-and-multiply in Python.
+tests_th: ตัวอย่างทั้ง 5 ชุดใน PDF และกรณี n = 1 กับ k = 1; สุ่ม 300 ชุด (n ≤ 300) เทียบกับโปรแกรม Python ที่คูณ A ทีละครั้ง n ครั้งด้วยจำนวนเต็มขนาดใหญ่แบบแม่นยำแล้วค่อย mod ตอนจบ; n = 2³⁰ − 1 ตรวจกับการยกกำลังแบบวนลูปอีกวิธีใน Python
+==== en
+## 1. What the problem says
+Given a 2 × 2 matrix A = [a b; c d] (1 ≤ a, b, c, d ≤ 9,999) and numbers n (1 ≤ n ≤ 2³⁰) and k (1 ≤ k ≤ 10,000), print the four entries of **Aⁿ mod k** (every entry taken mod k).
+
+The PDF reminds us that (MN) mod k = ((M mod k)(N mod k)) mod k, and suggests writing `matrix_multiply(M, N, k)` that returns a matrix. Half of the tests have n small enough for an O(n) loop.
+
+## 2. What it really means
+Multiplying A by itself n times is n − 1 matrix products: with n ≈ 10⁹ that is far too slow. But powers can be **reused**:
+
+```text
+A^8  = A^4 · A^4        A^4 = A^2 · A^2        A^2 = A · A        → 3 products instead of 7
+A^13 = A^6 · A^6 · A    A^6 = A^3 · A^3        A^3 = A · A · A    → a handful of products
+```
+
+Every step halves the exponent, so n = 2³⁰ needs about 30 levels.
+
+:::hint Hint 1
+Write `power(A, n)` that calls `power(A, n / 2)` **once**, stores the result, and multiplies it by itself.
+:::
+:::hint Hint 2
+When n is odd, n / 2 rounds down, so one A is missing: multiply by A once more. Reduce mod k after every multiplication so the numbers stay small.
+:::
+
+## 3. What, why, how
+- **What:** exponentiation by squaring (a divide-and-conquer on the exponent).
+- **Why it is correct:** Aⁿ = A^⌊n/2⌋ · A^⌊n/2⌋ · (A if n is odd). Matrix multiplication is associative, so the grouping does not matter.
+- **Why it is fast:** T(n) = T(n/2) + O(1) → O(log n). The trap is calling `power(A, n/2)` **twice** (`power(n/2) * power(n/2)`): then T(n) = 2T(n/2) + O(1) = O(n) again.
+- **Why mod after each product:** every entry stays < k ≤ 10⁴, so a product of two entries is < 10⁸ and a sum of two such products < 2·10⁸: it fits in `int`, and certainly in `long long`. Without the mod the entries of A^(2³⁰) would have hundreds of millions of digits.
+- **How the 2 × 2 product works:** row of the left times column of the right:
+  - [a b; c d] · [e f; g h] = [ae+bg  af+bh; ce+dg  cf+dh].
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for the third sample (n = 5, k = 10,000, A = [1 2; 3 4]):
+
+| call | n | half = A^(n/2) | half · half | n odd? | returns |
+|---|---|---|---|---|---|
+| power(5) | 5 | waits for power(2) | | | |
+| power(2) | 2 | power(1) = [1 2; 3 4] | [7 10; 15 22] | no | A² = [7 10; 15 22] |
+| power(5) | 5 | [7 10; 15 22] | A⁴ = [199 290; 435 634] | yes, × A | **[1069 1558; 2337 3406]** |
+
+(For example 199 = 7·7 + 10·15 and 1069 = 199·1 + 290·3.) With k = 10 the same numbers mod 10 give `9 8 7 6`, the fourth sample.
+
+## 5. Traps
+- **Two recursive calls** for the two halves: correct output but O(n) time.
+- **Forgetting the odd case:** A⁵ would come out as A⁴.
+- **Not reducing the input** (a can be 9,999 > k): reduce right after reading or at the first product.
+- **k = 1:** every entry is 0. Our code prints `0 0 0 0` because x % 1 = 0.
+- **Using `pow` from `<cmath>`:** it works on doubles, not matrices, and loses precision.
+
+## 6. Background
+Lesson 12. Fast power is the textbook "decrease by half" D&C. The same code with numbers instead of matrices computes aⁿ mod m; with the matrix [1 1; 1 0] it gives Fibonacci numbers in O(log n), which is how you would speed up [Linear Recurrence](#da66_f1_linear_recurrence) if n were huge (there n ≤ 1,000, so a plain DP is enough).
+==== th
+## 1. โจทย์บอกอะไร
+มีเมทริกซ์ 2 × 2 A = [a b; c d] (1 ≤ a, b, c, d ≤ 9,999) และตัวเลข n (1 ≤ n ≤ 2³⁰) กับ k (1 ≤ k ≤ 10,000) ให้พิมพ์สมาชิกทั้งสี่ของ **Aⁿ mod k** (mod k ทุกช่อง)
+
+PDF เตือนว่า (MN) mod k = ((M mod k)(N mod k)) mod k และแนะนำให้เขียน `matrix_multiply(M, N, k)` ที่คืนค่าเป็นเมทริกซ์ ครึ่งหนึ่งของชุดทดสอบมี n เล็กพอให้วนลูป O(n) ได้
+
+## 2. จริง ๆ แล้วถามอะไร
+การคูณ A ไปเรื่อย ๆ n ครั้งคือการคูณเมทริกซ์ n − 1 ครั้ง ถ้า n ≈ 10⁹ ช้าเกินไปมาก แต่ผลการยกกำลัง **นำกลับมาใช้ซ้ำได้**:
+
+```text
+A^8  = A^4 · A^4        A^4 = A^2 · A^2        A^2 = A · A        → 3 products instead of 7
+A^13 = A^6 · A^6 · A    A^6 = A^3 · A^3        A^3 = A · A · A    → a handful of products
+```
+
+ทุกขั้นเลขชี้กำลังลดลงครึ่งหนึ่ง n = 2³⁰ จึงใช้แค่ประมาณ 30 ชั้น
+
+:::hint คำใบ้ 1
+เขียน `power(A, n)` ที่เรียก `power(A, n / 2)` **ครั้งเดียว** เก็บผลไว้ แล้วคูณมันกับตัวเอง
+:::
+:::hint คำใบ้ 2
+ถ้า n คี่ n / 2 จะปัดลง A ขาดไปหนึ่งตัว ให้คูณ A เพิ่มอีกครั้ง และ mod k หลังการคูณทุกครั้งเพื่อให้ตัวเลขเล็กอยู่เสมอ
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** การยกกำลังด้วยการยกกำลังสอง (exponentiation by squaring) คือ D&C บนเลขชี้กำลัง
+- **ทำไมถูก:** Aⁿ = A^⌊n/2⌋ · A^⌊n/2⌋ · (A ถ้า n คี่) การคูณเมทริกซ์มีสมบัติการเปลี่ยนกลุ่ม จะจับกลุ่มแบบไหนก็ได้ผลเท่ากัน
+- **ทำไมเร็ว:** T(n) = T(n/2) + O(1) → O(log n) กับดักคือเรียก `power(A, n/2)` **สองครั้ง** (`power(n/2) * power(n/2)`) จะได้ T(n) = 2T(n/2) + O(1) = O(n) เหมือนเดิม
+- **ทำไมต้อง mod หลังคูณทุกครั้ง:** ทุกช่องจะ < k ≤ 10⁴ ผลคูณสองช่องจึง < 10⁸ และผลบวกของสองผลคูณ < 2·10⁸ ใส่ใน `int` ได้ ใส่ใน `long long` ได้แน่นอน ถ้าไม่ mod สมาชิกของ A^(2³⁰) จะยาวหลายร้อยล้านหลัก
+- **การคูณ 2 × 2 ทำอย่างไร:** แถวของตัวซ้ายคูณคอลัมน์ของตัวขวา:
+  - [a b; c d] · [e f; g h] = [ae+bg  af+bh; ce+dg  cf+dh]
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** ตัวอย่างที่สาม (n = 5, k = 10,000, A = [1 2; 3 4]):
+
+| การเรียก | n | half = A^(n/2) | half · half | n คี่? | คืนค่า |
+|---|---|---|---|---|---|
+| power(5) | 5 | รอ power(2) | | | |
+| power(2) | 2 | power(1) = [1 2; 3 4] | [7 10; 15 22] | ไม่ | A² = [7 10; 15 22] |
+| power(5) | 5 | [7 10; 15 22] | A⁴ = [199 290; 435 634] | ใช่ × A | **[1069 1558; 2337 3406]** |
+
+(เช่น 199 = 7·7 + 10·15 และ 1069 = 199·1 + 290·3) ถ้า k = 10 ตัวเลขชุดเดียวกัน mod 10 ได้ `9 8 7 6` ตรงกับตัวอย่างที่สี่
+
+## 5. จุดที่มักพลาด
+- **เรียกเวียนเกิดสองครั้ง** สำหรับสองครึ่ง: คำตอบถูก แต่ใช้เวลา O(n)
+- **ลืมกรณี n คี่:** A⁵ จะกลายเป็น A⁴
+- **ไม่ mod ค่าที่อ่านเข้ามา** (a เป็น 9,999 > k ได้): mod ทันทีหลังอ่าน หรืออย่างช้าตอนคูณครั้งแรก
+- **k = 1:** ทุกช่องเป็น 0 โค้ดของเราพิมพ์ `0 0 0 0` เพราะ x % 1 = 0
+- **ใช้ `pow` จาก `<cmath>`:** ทำงานกับ double ไม่ใช่เมทริกซ์ และเสียความแม่นยำ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 12 การยกกำลังแบบเร็วคือ D&C แบบ "ลดลงครึ่งหนึ่ง" ตามตำรา โค้ดเดียวกันถ้าใช้ตัวเลขแทนเมทริกซ์จะคำนวณ aⁿ mod m ได้ และถ้าใช้เมทริกซ์ [1 1; 1 0] จะได้เลข Fibonacci ใน O(log n) ซึ่งเป็นวิธีเร่งข้อ [Linear Recurrence](#da66_f1_linear_recurrence) ถ้า n ใหญ่มาก (ในข้อนั้น n ≤ 1,000 จึงใช้ DP ธรรมดาก็พอ)

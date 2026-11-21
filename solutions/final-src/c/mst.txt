@@ -1,0 +1,125 @@
+chapter: mst
+==== en
+## 1. The idea
+A **spanning tree** connects all V nodes with exactly V − 1 edges and no cycle. The **minimum spanning tree (MST)** is the one with the smallest total weight: the cheapest way to connect everything.
+
+Both classic algorithms are greedy, and both are correct because of one fact:
+
+> **Cut property.** Split the nodes into two non-empty groups. The cheapest edge crossing between the groups belongs to some MST.
+
+- **Prim:** grow one tree from a start node; each round add the cheapest edge leaving the tree.
+- **Kruskal:** sort all edges; add each edge unless it would close a cycle (checked with union-find).
+
+```text
+Prim, round by round                    Kruskal, edge by edge (sorted)
+  tree = {0}                              1: 0–1  add
+  cheapest edge out: 0–1 (1)  add 1       2: 1–2  add
+  cheapest edge out: 1–2 (2)  add 2       3: 0–2  skip (0 and 2 already connected)
+  cheapest edge out: 0–3 (4)  add 3       4: 0–3  add  → 3 edges, done
+```
+
+## 2. The templates
+```cpp
+// Prim O(V^2), best for dense / complete graphs (w = adjacency matrix)
+vector<long long> best(n, INF);        // cheapest edge from v into the tree
+vector<bool> inTree(n, false);
+best[0] = 0;
+long long total = 0;
+// n rounds, one node joins per round
+for (int round = 0; round < n; round++) {
+    int u = -1;
+    // pick the outside node with the cheapest connection
+    for (int v = 0; v < n; v++)
+        if (!inTree[v] && (u == -1 || best[v] < best[u])) u = v;
+    inTree[u] = true; total += best[u];
+    // u's edges may be cheaper connections for the others
+    for (int v = 0; v < n; v++)
+        if (!inTree[v] && w[u][v] < best[v]) best[v] = w[u][v];
+}
+```
+
+```cpp
+// Kruskal O(E log E), best for sparse graphs given as an edge list
+sort(edges.begin(), edges.end());      // (weight, a, b) by weight
+// try the edges from cheapest to most expensive
+for (auto [c, a, b] : edges)
+    if (unite(a, b)) total += c;       // unite() is the union-find from Graph 1
+```
+
+## 3. How to recognise it
+- "Connect all …", "every pair must be able to communicate (directly or through others)", "minimum total cost of cables / roads".
+- Exactly V − 1 edges must be chosen and the result must be connected.
+- "**Maximum** total" with the same shape: flip every comparison; the same algorithms give a maximum spanning tree.
+
+## 4. Cost and pitfalls
+- Dense or complete graph (E ≈ V²): **array Prim**, O(V²), no edge list needed.
+- Sparse graph: Kruskal O(E log E) or heap Prim O(E log V).
+- The MST is not a shortest-path tree: it minimises the **total**, not the distance from one node.
+- Totals can exceed `int`: up to (V − 1) × max weight.
+- Weights computed from the nodes (e.g. x XOR y): compute them on the fly instead of storing V² numbers.
+
+## 5. In this chapter
+- [Cable company](#ex06e1_cable): textbook MST on a complete graph, array Prim.
+- [Beautiful roads (XOR)](#a60a_q3_xor_road): a maximum spanning tree with weights computed on the fly.
+==== th
+## 1. ไอเดีย
+**Spanning tree** เชื่อมทุก V ปมด้วยเส้น V − 1 เส้นพอดีโดยไม่มีวงวน **Minimum spanning tree (MST)** คือต้นที่น้ำหนักรวมน้อยที่สุด: วิธีที่ถูกที่สุดในการเชื่อมทุกอย่าง
+
+อัลกอริทึมคลาสสิกทั้งสองเป็นแบบละโมบ และถูกต้องเพราะข้อเท็จจริงข้อเดียว:
+
+> **Cut property.** แบ่งปมเป็นสองกลุ่มที่ไม่ว่าง เส้นที่ถูกที่สุดที่ข้ามระหว่างสองกลุ่มอยู่ใน MST บางต้นแน่นอน
+
+- **Prim:** ปลูกต้นไม้ต้นเดียวจากปมเริ่ม ทุกรอบเพิ่มเส้นที่ถูกที่สุดที่ออกจากต้นไม้
+- **Kruskal:** เรียงเส้นทั้งหมด แล้วเพิ่มทีละเส้นถ้ามันไม่ปิดวง (เช็กด้วย union-find)
+
+```text
+Prim, round by round                    Kruskal, edge by edge (sorted)
+  tree = {0}                              1: 0–1  add
+  cheapest edge out: 0–1 (1)  add 1       2: 1–2  add
+  cheapest edge out: 1–2 (2)  add 2       3: 0–2  skip (0 and 2 already connected)
+  cheapest edge out: 0–3 (4)  add 3       4: 0–3  add  → 3 edges, done
+```
+
+## 2. โครงโค้ด
+```cpp
+// Prim O(V^2), best for dense / complete graphs (w = adjacency matrix)
+vector<long long> best(n, INF);        // cheapest edge from v into the tree
+vector<bool> inTree(n, false);
+best[0] = 0;
+long long total = 0;
+// n rounds, one node joins per round
+for (int round = 0; round < n; round++) {
+    int u = -1;
+    // pick the outside node with the cheapest connection
+    for (int v = 0; v < n; v++)
+        if (!inTree[v] && (u == -1 || best[v] < best[u])) u = v;
+    inTree[u] = true; total += best[u];
+    // u's edges may be cheaper connections for the others
+    for (int v = 0; v < n; v++)
+        if (!inTree[v] && w[u][v] < best[v]) best[v] = w[u][v];
+}
+```
+
+```cpp
+// Kruskal O(E log E), best for sparse graphs given as an edge list
+sort(edges.begin(), edges.end());      // (weight, a, b) by weight
+// try the edges from cheapest to most expensive
+for (auto [c, a, b] : edges)
+    if (unite(a, b)) total += c;       // unite() is the union-find from Graph 1
+```
+
+## 3. ดูอย่างไรว่าใช่
+- "เชื่อมทุก …", "ทุกคู่ต้องติดต่อกันได้ (ตรง ๆ หรือผ่านจุดอื่น)", "ค่าสายเคเบิล / ถนนรวมน้อยที่สุด"
+- ต้องเลือกเส้น V − 1 เส้นพอดี และผลลัพธ์ต้องเชื่อมกันหมด
+- "ผลรวม **มากที่สุด**" ในรูปเดียวกัน: กลับการเปรียบเทียบทุกจุด อัลกอริทึมเดิมให้ maximum spanning tree
+
+## 4. ต้นทุนและจุดพลาด
+- กราฟหนาแน่นหรือสมบูรณ์ (E ≈ V²): **Prim แบบอาร์เรย์** O(V²) ไม่ต้องมีรายการเส้น
+- กราฟเบาบาง: Kruskal O(E log E) หรือ Prim แบบ heap O(E log V)
+- MST ไม่ใช่ต้นไม้เส้นทางสั้นสุด: มันทำให้ **ผลรวม** น้อยที่สุด ไม่ใช่ระยะจากปมเดียว
+- ผลรวมอาจเกิน `int`: ถึง (V − 1) × น้ำหนักสูงสุด
+- น้ำหนักที่คำนวณจากปม (เช่น x XOR y): คำนวณตอนใช้ แทนการเก็บ V² ค่า
+
+## 5. ในบทนี้
+- [บริษัทสายเคเบิล](#ex06e1_cable): MST แบบตำราบนกราฟสมบูรณ์ ด้วย Prim แบบอาร์เรย์
+- [ถนนสวย (XOR)](#a60a_q3_xor_road): maximum spanning tree ที่คำนวณน้ำหนักระหว่างทาง

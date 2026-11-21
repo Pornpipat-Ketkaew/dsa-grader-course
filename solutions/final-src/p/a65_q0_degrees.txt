@@ -1,0 +1,144 @@
+id: a65_q0_degrees
+group: graph1
+lesson: 16 · Graphs: representation
+stars: 1
+complexity: O(n²)
+kind: program
+tags: adjacency matrix, degree, counting array, fast input
+title: Degrees
+title_th: ดีกรีของปม (Degrees)
+blurb: Read an adjacency matrix, the degree of node i is the sum of row i, then count how many nodes have each degree 0..k. The only difficulty is reading 25 million numbers fast.
+blurb_th: อ่านเมทริกซ์ประชิด ดีกรีของปม i คือผลรวมแถว i แล้วนับว่ามีกี่ปมที่มีดีกรี 0..k ความยากเดียวคืออ่านตัวเลข 25 ล้านตัวให้เร็ว
+files: sol/a65_q0_degrees/main.cpp
+tests: the PDF sample, n = 1, an edgeless graph; 300 random symmetric matrices against a Python count; n = 5,000 with half the entries 1 (50 MB of input) in 0.17 s (plain `cin` with sync off needed about 1 s).
+tests_th: ตัวอย่างใน PDF, n = 1, กราฟไม่มีเส้นเชื่อม; สุ่มเมทริกซ์สมมาตร 300 ชุดเทียบกับการนับใน Python; n = 5,000 ที่ครึ่งหนึ่งเป็น 1 (ข้อมูล 50 MB) ใช้ 0.17 วินาที (`cin` ที่ปิด sync แล้วยังใช้ราว 1 วินาที)
+==== en
+## 1. What the problem says
+An undirected, unweighted, simple graph with n nodes is given as an **adjacency matrix** (n lines of n numbers 0/1). Let k be the largest degree. Print k + 1 numbers: the i-th number (i = 0..k) is **how many nodes have degree i**.
+
+- 50% of tests n ≤ 300, the rest n ≤ 5,000.
+- The PDF warns that normal `cin`/`cout` are too slow for this input.
+
+Sample: the 6-node graph in the PDF has degrees 2, 2, 1, 3, 2, 2 → `0 1 4 1` (no node of degree 0, one of degree 1, four of degree 2, one of degree 3).
+
+## 2. What it really means
+- In an adjacency matrix, row i has a 1 in column j exactly when i and j are neighbours. So **deg(i) = sum of row i**.
+- Then build a histogram of the degrees.
+
+```text
+row        matrix          sum = degree
+node 1:    0 1 0 1 0 0     2
+node 2:    1 0 1 0 0 0     2
+node 3:    0 1 0 0 0 0     1
+node 4:    1 0 0 0 1 1     3          histogram: deg 0 → 0, deg 1 → 1,
+node 5:    0 0 0 1 0 1     2                     deg 2 → 4, deg 3 → 1
+node 6:    0 0 0 1 1 0     2
+```
+
+:::hint Hint 1
+The algorithm is two loops. The real question is: how long does it take to read 5,000 × 5,000 = 25,000,000 numbers?
+:::
+:::hint Hint 2
+Read the input in big blocks with `fread` and parse the digits yourself. It is several times faster than `cin`, even with `sync_with_stdio(false)`.
+:::
+
+## 3. What, why, how
+- **What:** degree counting + a counting array (histogram).
+- **Why sum the row:** each 1 in row i is one edge touching i. Because the graph is simple, there are no self-loops (diagonal is 0) and no repeated edges.
+- **How:**
+  1. deg[i] += every number in row i;
+  2. k = max degree; cnt[0..k] = 0; for each node cnt[deg[i]]++;
+  3. print cnt[0] … cnt[k].
+- **Why fast input:** the input is about 50 MB of text. Measured on 25 M numbers: `cin` (sync off) ≈ 1.0 s, our `fread` parser ≈ 0.17 s. With a 1-second limit this decides the score.
+- **Memory:** we do not store the matrix; each number is added and forgotten.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** of the counting step for the sample (deg = 2 2 1 3 2 2, k = 3):
+
+| node | deg | cnt[0] | cnt[1] | cnt[2] | cnt[3] |
+|---|---|---|---|---|---|
+| 1 | 2 | 0 | 0 | 1 | 0 |
+| 2 | 2 | 0 | 0 | 2 | 0 |
+| 3 | 1 | 0 | 1 | 2 | 0 |
+| 4 | 3 | 0 | 1 | 2 | 1 |
+| 5 | 2 | 0 | 1 | 3 | 1 |
+| 6 | 2 | 0 | 1 | **4** | 1 |
+
+Output `0 1 4 1`.
+
+## 5. Traps
+- **Slow I/O:** the algorithm is trivial; most failed submissions on this problem are timeouts.
+- **Printing up to n instead of up to k:** the output has exactly k + 1 numbers, ending at the maximum degree.
+- **Counting each edge twice "by mistake":** summing a **row** is correct; summing the whole matrix gives 2·|E|, which is a different quantity.
+- **Storing the matrix as `int`:** 25 M ints = 100 MB. Not needed at all.
+
+## 6. Background
+Lesson 16 (graph representations). Adjacency matrix: O(n²) memory, O(1) "is there an edge?", O(n) to list neighbours. Adjacency list: O(n + m) memory, and listing neighbours costs only the degree. The rest of this chapter uses adjacency lists. A useful fact here: the sum of all degrees is 2·|E| (handshake lemma).
+==== th
+## 1. โจทย์บอกอะไร
+กราฟไม่มีทิศทาง ไม่มีน้ำหนัก และเป็นกราฟเชิงเดียว มี n ปม ให้มาในรูป **adjacency matrix** (n บรรทัด บรรทัดละ n ตัวเลข 0/1) ให้ k เป็นดีกรีสูงสุด แล้วพิมพ์ตัวเลข k + 1 ตัว: ตัวที่ i (i = 0..k) คือ **จำนวนปมที่มีดีกรีเท่ากับ i**
+
+- 50% ของชุดทดสอบ n ≤ 300 ที่เหลือ n ≤ 5,000
+- PDF เตือนว่า `cin`/`cout` แบบปกติช้าเกินไปสำหรับข้อมูลนี้
+
+ตัวอย่าง: กราฟ 6 ปมใน PDF มีดีกรี 2, 2, 1, 3, 2, 2 → `0 1 4 1` (ไม่มีปมดีกรี 0, ดีกรี 1 มีหนึ่งปม, ดีกรี 2 มีสี่ปม, ดีกรี 3 มีหนึ่งปม)
+
+## 2. จริง ๆ แล้วถามอะไร
+- ใน adjacency matrix แถว i มีเลข 1 ที่คอลัมน์ j ก็ต่อเมื่อ i กับ j เป็นเพื่อนบ้านกัน ดังนั้น **deg(i) = ผลรวมของแถว i**
+- จากนั้นทำฮิสโตแกรมของดีกรี
+
+```text
+row        matrix          sum = degree
+node 1:    0 1 0 1 0 0     2
+node 2:    1 0 1 0 0 0     2
+node 3:    0 1 0 0 0 0     1
+node 4:    1 0 0 0 1 1     3          histogram: deg 0 → 0, deg 1 → 1,
+node 5:    0 0 0 1 0 1     2                     deg 2 → 4, deg 3 → 1
+node 6:    0 0 0 1 1 0     2
+```
+
+:::hint คำใบ้ 1
+อัลกอริทึมมีแค่สองลูป คำถามจริงคือ: อ่านตัวเลข 5,000 × 5,000 = 25,000,000 ตัวใช้เวลาเท่าไร
+:::
+:::hint คำใบ้ 2
+อ่านข้อมูลเป็นก้อนใหญ่ด้วย `fread` แล้วแปลงตัวเลขเอง เร็วกว่า `cin` หลายเท่า แม้จะใส่ `sync_with_stdio(false)` แล้วก็ตาม
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** นับดีกรี + อาร์เรย์นับ (ฮิสโตแกรม)
+- **ทำไมรวมแถว:** เลข 1 แต่ละตัวในแถว i คือเส้นเชื่อมหนึ่งเส้นที่แตะ i เพราะเป็นกราฟเชิงเดียว จึงไม่มี self-loop (แนวทแยงเป็น 0) และไม่มีเส้นซ้ำ
+- **อย่างไร:**
+  1. deg[i] += ทุกตัวเลขในแถว i
+  2. k = ดีกรีสูงสุด; cnt[0..k] = 0; ทุกปมทำ cnt[deg[i]]++
+  3. พิมพ์ cnt[0] … cnt[k]
+- **ทำไมต้องอ่านเร็ว:** ข้อมูลเป็นข้อความประมาณ 50 MB วัดกับตัวเลข 25 ล้านตัว: `cin` (ปิด sync) ≈ 1.0 วินาที ตัวแปลง `fread` ของเรา ≈ 0.17 วินาที เวลาจำกัด 1 วินาทีจึงตัดสินคะแนนที่ตรงนี้
+- **หน่วยความจำ:** ไม่ต้องเก็บเมทริกซ์ อ่านแต่ละตัวแล้วบวกแล้วทิ้ง
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** ขั้นการนับของตัวอย่าง (deg = 2 2 1 3 2 2, k = 3):
+
+| ปม | deg | cnt[0] | cnt[1] | cnt[2] | cnt[3] |
+|---|---|---|---|---|---|
+| 1 | 2 | 0 | 0 | 1 | 0 |
+| 2 | 2 | 0 | 0 | 2 | 0 |
+| 3 | 1 | 0 | 1 | 2 | 0 |
+| 4 | 3 | 0 | 1 | 2 | 1 |
+| 5 | 2 | 0 | 1 | 3 | 1 |
+| 6 | 2 | 0 | 1 | **4** | 1 |
+
+ผลลัพธ์ `0 1 4 1`
+
+## 5. จุดที่มักพลาด
+- **I/O ช้า:** อัลกอริทึมง่ายมาก ส่วนใหญ่ที่ไม่ผ่านข้อนี้คือเกินเวลา
+- **พิมพ์ถึง n แทนที่จะถึง k:** ผลลัพธ์มีตัวเลข k + 1 ตัวพอดี จบที่ดีกรีสูงสุด
+- **นับเส้นเชื่อมซ้ำสองครั้ง:** รวม **แถว** ถูกต้อง แต่ถ้ารวมทั้งเมทริกซ์จะได้ 2·|E| ซึ่งเป็นคนละปริมาณ
+- **เก็บเมทริกซ์เป็น `int`:** 25 ล้าน int = 100 MB ไม่จำเป็นเลย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 (การเก็บกราฟ) Adjacency matrix: ใช้หน่วยความจำ O(n²) ถาม "มีเส้นเชื่อมไหม" ใน O(1) ไล่เพื่อนบ้าน O(n) ส่วน adjacency list: หน่วยความจำ O(n + m) และไล่เพื่อนบ้านใช้เวลาเท่าดีกรีเท่านั้น ข้อที่เหลือในบทนี้ใช้ adjacency list ข้อเท็จจริงที่มีประโยชน์ตรงนี้: ผลรวมดีกรีทั้งหมดเท่ากับ 2·|E| (handshake lemma)

@@ -1,0 +1,130 @@
+id: ex05m2_connection
+group: graph1
+lesson: 16 · Graphs: BFS (distances)
+stars: 2
+complexity: O(N · (N + E))
+kind: program
+tags: BFS from every node, distance ≤ K, adjacency list
+title: Connection
+title_th: เครือข่ายเพื่อน (Connection)
+blurb: For every student, count the students within distance K (themselves included); print the maximum. One BFS per student, cut off at depth K.
+blurb_th: สำหรับนิสิตแต่ละคน นับคนที่อยู่ห่างไม่เกิน K (รวมตัวเอง) แล้วพิมพ์ค่ามากสุด ทำ BFS หนึ่งครั้งต่อนิสิตหนึ่งคน และหยุดที่ความลึก K
+files: sol/ex05m2_connection/main.cpp
+tests: the PDF sample; 300 random graphs (N ≤ 10, K ≤ 4) against Floyd–Warshall distances in Python; N = 1,000 with E = 100,000 and K = 4 (the worst case) in 0.22 s.
+tests_th: ตัวอย่างใน PDF; สุ่มกราฟ 300 ชุด (N ≤ 10, K ≤ 4) เทียบกับระยะทางจาก Floyd–Warshall ใน Python; N = 1,000 กับ E = 100,000 และ K = 4 (กรณีแย่สุด) ใช้ 0.22 วินาที
+==== en
+## 1. What the problem says
+N students (0..N−1, N ≤ 1,000) and E friendships (E ≤ 100,000, each line A < B, no repeats). A student's **degree-K friends** are everyone reachable by a path of length **at most K** (1 ≤ K ≤ 4); a student is their own degree-0 friend. Print the **largest number of degree-K friends** any student has.
+
+Sample: 7 students, 8 edges, K = 2 → **6**.
+
+## 2. What it really means
+"Path of length at most K" = **BFS distance ≤ K**. For one student, run BFS and count the nodes at distance 0, 1, …, K. Do this for every student and keep the maximum.
+
+```text
+sample graph                         from student 4 (K = 2):
+   0 ── 6 ── 5 ── 4 ── 3 ── 2           distance 0: 4
+        │    │    │                     distance 1: 1, 3, 5
+        └─── 1 ───┘                     distance 2: 2, 6         → 6 students
+```
+
+(The edges are 0-6, 1-6, 1-5, 1-4, 2-3, 3-4, 4-5, 5-6.)
+
+:::hint Hint 1
+BFS visits nodes in order of distance. Which distance is the first one you do **not** need?
+:::
+:::hint Hint 2
+When you pop a node whose distance is already K, count it but do not push its neighbours.
+:::
+
+## 3. What, why, how
+- **What:** single-source BFS repeated from every node, with a depth cut-off.
+- **Why BFS (not DFS):** BFS finds **shortest** distances in an unweighted graph. A DFS may first reach a node by a long detour, say distance 3 > K, and wrongly skip it, even though a 2-step path exists.
+- **How:** for each s: dist[] = −1, dist[s] = 0, queue = {s}, count = 0. Pop u: count++; if dist[u] == K continue; push every neighbour with dist −1 at dist[u] + 1.
+- **Cost:** each BFS is O(N + E) in the worst case; N of them: 1,000 · 101,000 ≈ 10⁸ simple steps, measured 0.22 s. With small K the cut-off usually makes it much faster.
+- **Why not Floyd–Warshall:** N³ = 10⁹ for N = 1,000: too slow, and it ignores that the graph is unweighted.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: number of students within distance 2, from every start:
+
+| start | reached (distance) | count |
+|---|---|---|
+| 0 | 0(0) 6(1) 1(2) 5(2) | 4 |
+| 1 | 1(0) 4(1) 5(1) 6(1) 0(2) 3(2) | **6** |
+| 2 | 2(0) 3(1) 4(2) | 3 |
+| 3 | 3(0) 2(1) 4(1) 1(2) 5(2) | 5 |
+| 4 | 4(0) 1(1) 3(1) 5(1) 2(2) 6(2) | **6** |
+| 5 | 5(0) 1(1) 4(1) 6(1) 0(2) 3(2) | **6** |
+| 6 | 6(0) 0(1) 1(1) 5(1) 4(2) | 5 |
+
+Maximum **6**.
+
+## 5. Traps
+- **Forgetting to count the student themself:** the PDF says you are your own degree-0 friend.
+- **DFS with a depth limit:** can miss nodes reached first through a long path (see above).
+- **Resetting `dist` with `memset` on a huge array per start:** fine here (N ≤ 1,000), but think about it when N is large.
+- **One-directional edges:** friendship is mutual; store both directions.
+
+## 6. Background
+Lesson 16. BFS from a source gives the shortest number of edges to every node. Running it from every node gives all-pairs distances in O(N·(N + E)), which beats Floyd–Warshall on sparse unweighted graphs. The "stop expanding at depth K" trick is the same as limiting the spread to T days in [Pandemic](#a62_q2a_pandemic).
+==== th
+## 1. โจทย์บอกอะไร
+มีนิสิต N คน (0..N−1, N ≤ 1,000) และความเป็นเพื่อน E คู่ (E ≤ 100,000 แต่ละบรรทัด A < B ไม่ซ้ำ) **เพื่อนดีกรี K** ของนิสิตคนหนึ่งคือทุกคนที่ไปถึงได้ด้วยเส้นทางยาว **ไม่เกิน K** (1 ≤ K ≤ 4) และนิสิตเป็นเพื่อนดีกรี 0 ของตัวเอง ให้พิมพ์ **จำนวนเพื่อนดีกรี K ที่มากที่สุด** ของนิสิตคนใดคนหนึ่ง
+
+ตัวอย่าง: นิสิต 7 คน 8 เส้น K = 2 → **6**
+
+## 2. จริง ๆ แล้วถามอะไร
+"เส้นทางยาวไม่เกิน K" = **ระยะทาง BFS ≤ K** สำหรับนิสิตหนึ่งคน ทำ BFS แล้วนับปมที่ระยะ 0, 1, …, K ทำแบบนี้กับนิสิตทุกคนแล้วเก็บค่ามากสุด
+
+```text
+sample graph                         from student 4 (K = 2):
+   0 ── 6 ── 5 ── 4 ── 3 ── 2           distance 0: 4
+        │    │    │                     distance 1: 1, 3, 5
+        └─── 1 ───┘                     distance 2: 2, 6         → 6 students
+```
+
+(เส้นเชื่อมคือ 0-6, 1-6, 1-5, 1-4, 2-3, 3-4, 4-5, 5-6)
+
+:::hint คำใบ้ 1
+BFS เยี่ยมปมตามลำดับระยะทาง ระยะไหนคือระยะแรกที่เรา **ไม่** ต้องการ
+:::
+:::hint คำใบ้ 2
+เมื่อดึงปมที่ระยะเท่ากับ K แล้ว ให้นับมัน แต่ไม่ต้องใส่เพื่อนบ้านของมันลงคิว
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** BFS จากจุดเดียว ทำซ้ำจากทุกปม พร้อมหยุดที่ความลึก K
+- **ทำไม BFS (ไม่ใช่ DFS):** BFS หาระยะ **สั้นที่สุด** ในกราฟไม่มีน้ำหนัก DFS อาจไปถึงปมหนึ่งครั้งแรกผ่านทางอ้อมที่ยาว เช่นระยะ 3 > K แล้วข้ามมันไปอย่างผิด ๆ ทั้งที่มีทาง 2 ก้าวอยู่
+- **อย่างไร:** ทุก s: dist[] = −1, dist[s] = 0, คิว = {s}, count = 0 ดึง u: count++; ถ้า dist[u] == K ให้ continue; ใส่เพื่อนบ้านที่ dist เป็น −1 ด้วยระยะ dist[u] + 1
+- **ต้นทุน:** BFS แต่ละครั้ง O(N + E) ในกรณีแย่สุด ทำ N ครั้ง: 1,000 · 101,000 ≈ 10⁸ ขั้นง่าย ๆ วัดได้ 0.22 วินาที ถ้า K เล็ก การหยุดที่ K มักทำให้เร็วกว่านั้นมาก
+- **ทำไมไม่ใช้ Floyd–Warshall:** N³ = 10⁹ เมื่อ N = 1,000 ช้าเกินไป และไม่ได้ใช้ประโยชน์ที่กราฟไม่มีน้ำหนัก
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: จำนวนนิสิตที่อยู่ในระยะ 2 จากทุกจุดเริ่ม:
+
+| เริ่ม | ไปถึง (ระยะ) | จำนวน |
+|---|---|---|
+| 0 | 0(0) 6(1) 1(2) 5(2) | 4 |
+| 1 | 1(0) 4(1) 5(1) 6(1) 0(2) 3(2) | **6** |
+| 2 | 2(0) 3(1) 4(2) | 3 |
+| 3 | 3(0) 2(1) 4(1) 1(2) 5(2) | 5 |
+| 4 | 4(0) 1(1) 3(1) 5(1) 2(2) 6(2) | **6** |
+| 5 | 5(0) 1(1) 4(1) 6(1) 0(2) 3(2) | **6** |
+| 6 | 6(0) 0(1) 1(1) 5(1) 4(2) | 5 |
+
+ค่ามากสุด **6**
+
+## 5. จุดที่มักพลาด
+- **ลืมนับตัวเอง:** PDF บอกว่าเราเป็นเพื่อนดีกรี 0 ของตัวเอง
+- **DFS แบบจำกัดความลึก:** อาจพลาดปมที่ไปถึงครั้งแรกผ่านทางยาว (ดูข้างบน)
+- **รีเซ็ต `dist` ด้วย `memset` บนอาร์เรย์ใหญ่ทุกครั้ง:** ข้อนี้ไม่เป็นไร (N ≤ 1,000) แต่ต้องคิดถ้า N ใหญ่
+- **เก็บเส้นทิศเดียว:** ความเป็นเพื่อนเป็นของทั้งสองฝ่าย ต้องเก็บทั้งสองทิศ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 BFS จากจุดเริ่มให้จำนวนเส้นที่น้อยที่สุดไปทุกปม ทำจากทุกปมจะได้ระยะทุกคู่ใน O(N·(N + E)) ซึ่งเร็วกว่า Floyd–Warshall บนกราฟไม่มีน้ำหนักที่เส้นไม่หนาแน่น ท่า "หยุดขยายที่ความลึก K" เหมือนกับการจำกัดการแพร่ที่ T วันในข้อ [Pandemic](#a62_q2a_pandemic)

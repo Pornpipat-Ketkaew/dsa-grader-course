@@ -1,0 +1,136 @@
+id: ex06e3_columbia
+group: sp
+lesson: 17 · Shortest paths: Dijkstra (heap) on a grid
+stars: 2
+complexity: O(RC · log(RC))
+kind: program
+tags: Dijkstra with a heap, grid graph, cost on the cell you enter
+title: Columbia
+title_th: เมืองโคลัมเบีย (Columbia)
+blurb: Entering each block of a grid city costs that block's fee. Print the cheapest cost from the top-left block to every block: Dijkstra on a grid, where each edge's weight is the fee of the cell it enters.
+blurb_th: การเข้าแต่ละบล็อกของเมืองตารางต้องจ่ายค่าผ่านของบล็อกนั้น พิมพ์ค่าใช้จ่ายถูกที่สุดจากบล็อกมุมซ้ายบนไปทุกบล็อก: Dijkstra บนตาราง โดยน้ำหนักของเส้นคือค่าผ่านของช่องที่เดินเข้าไป
+files: sol/ex06e3_columbia/main.cpp
+tests: the PDF sample and a 1×1 city; 300 random grids (up to 6×6, fees 0..9) against a Bellman–Ford-style relaxation in Python; 400 × 500 = 200,000 blocks in 0.04 s.
+tests_th: ตัวอย่างใน PDF และเมือง 1×1; สุ่มตาราง 300 ชุด (ถึง 6×6 ค่าผ่าน 0..9) เทียบกับการ relax แบบ Bellman–Ford ใน Python; 400 × 500 = 200,000 บล็อก ใช้ 0.04 วินาที
+==== en
+## 1. What the problem says
+The city is an R × C grid of blocks (R · C ≤ 200,000). To **enter** a block you pay its fee (0..1,000). You live in the **top-left** block and do not pay for it. You may move up, down, left or right. Print an R × C table: the minimum total fee to reach each block.
+
+Sample (4 × 4):
+
+```text
+fees          answer
+1 1 1 1       0 1 2  3
+9 8 7 1       9 9 9  4
+1 1 1 1       8 7 6  5
+1 2 4 9       9 9 10 14
+```
+
+## 2. What it really means
+Make every block a node and join side-sharing blocks. Moving from a to b costs fee[b], so each **directed** edge a → b has weight **fee[b]**. All weights are ≥ 0: single-source shortest paths with non-negative weights is **Dijkstra**.
+
+Look at block (1, 0), fee 9: going straight down costs 9, but the detour around the top row and back along row 2 costs 1+1+1+1+1+1+1+1+1 = 9 too. Dijkstra simply tries everything in the right order.
+
+:::hint Hint 1
+BFS is not enough: fees differ, so "fewest steps" is not "cheapest". What do you use when edges have different non-negative weights?
+:::
+:::hint Hint 2
+You never need an edge list. From cell (r, c) the 4 neighbours are computed on the spot, and the weight is the fee of the neighbour.
+:::
+
+## 3. What, why, how
+- **What:** Dijkstra with a min-heap (priority queue) of (distance, r, c), lazy deletion.
+- **Why it works with a cost on the cell:** a "vertex cost" is just an edge cost on every edge *into* that vertex. Fees are ≥ 0, so Dijkstra's greedy choice is safe (zero fees are fine; only negative ones break it).
+- **Why a heap, not the O(V²) scan:** V = 200,000, so V² = 4 × 10¹⁰ is far too slow. The graph is sparse (≤ 4 edges per node), so the heap gives O(V log V).
+- **How:** dist = ∞, dist[0][0] = 0, push (0, 0, 0). Pop (d, r, c); if d > dist[r][c] it is an outdated copy: skip. Otherwise for each neighbour (nr, nc): nd = d + fee[nr][nc]; if better, store and push.
+- **Lazy deletion:** instead of a "decrease key", push a new pair and ignore old ones when they come out. The heap may hold up to about 4V entries: still fine.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the order Dijkstra finalises the 16 blocks of the sample (distance, row, column):
+
+| pops 1–8 | pops 9–16 |
+|---|---|
+| 0 (0,0) | 8 (2,0) |
+| 1 (0,1) | 9 (1,0) |
+| 2 (0,2) | 9 (1,1) |
+| 3 (0,3) | 9 (1,2) |
+| 4 (1,3) | 9 (3,0) |
+| 5 (2,3) | 9 (3,1) |
+| 6 (2,2) | 10 (3,2) |
+| 7 (2,1) | **14** (3,3) |
+
+The cheap path goes along the top, down the right column, and back left along row 2. (3,3) costs 5 + 9 = 14 from (2,3), but 10 + 9 = 19 from (3,2).
+
+## 5. Traps
+- **Paying for the start block:** dist[0][0] = 0.
+- **Putting the fee on the cell you leave instead of the one you enter:** gives wrong numbers, e.g. (0,1) would cost 1 from the start's fee.
+- **BFS or DP that only moves right/down:** the cheapest route can go up and left (see row 2 in the sample).
+- **No outdated-entry check:** still correct, but much slower.
+- **Output format:** one row per line, numbers separated by single spaces.
+
+## 6. Background
+Lesson 17. Grids are graphs with implicit edges; the same 4-direction loop is used in [Pandemic](#a62_q2a_pandemic) (BFS, all weights 1). When the cost is on the vertex, Dijkstra still works: see also [Hacking](#a58_q3_p3a_hacking), which adds many sources. Compare with dense Dijkstra in [Farthest](#a61_q2_farthest).
+==== th
+## 1. โจทย์บอกอะไร
+เมืองเป็นตารางบล็อก R × C (R · C ≤ 200,000) การ **เข้า** บล็อกหนึ่งต้องจ่ายค่าผ่านของบล็อกนั้น (0..1,000) เราอยู่บล็อก **มุมซ้ายบน** และไม่ต้องจ่ายค่าบล็อกตัวเอง เดินได้ บน ล่าง ซ้าย ขวา ให้พิมพ์ตาราง R × C: ค่าผ่านรวมน้อยที่สุดเพื่อไปถึงแต่ละบล็อก
+
+ตัวอย่าง (4 × 4):
+
+```text
+fees          answer
+1 1 1 1       0 1 2  3
+9 8 7 1       9 9 9  4
+1 1 1 1       8 7 6  5
+1 2 4 9       9 9 10 14
+```
+
+## 2. จริง ๆ แล้วถามอะไร
+ให้ทุกบล็อกเป็นปม และต่อบล็อกที่มีด้านติดกัน การเดินจาก a ไป b เสีย fee[b] ดังนั้นเส้น **มีทิศ** a → b มีน้ำหนัก **fee[b]** น้ำหนักทุกเส้น ≥ 0: ระยะสั้นสุดจากจุดเดียวที่น้ำหนักไม่ติดลบคือ **Dijkstra**
+
+ลองดูบล็อก (1, 0) ค่าผ่าน 9: เดินลงตรง ๆ เสีย 9 ส่วนทางอ้อมไปตามแถวบนแล้วกลับมาตามแถว 2 เสีย 1+1+1+1+1+1+1+1+1 = 9 เท่ากัน Dijkstra แค่ลองทุกทางตามลำดับที่ถูกต้อง
+
+:::hint คำใบ้ 1
+BFS ไม่พอ: ค่าผ่านไม่เท่ากัน "ก้าวน้อยสุด" จึงไม่ใช่ "ถูกที่สุด" ถ้าเส้นมีน้ำหนักไม่ติดลบที่ต่างกัน เราใช้อะไร
+:::
+:::hint คำใบ้ 2
+ไม่ต้องมีรายการเส้นเลย จากช่อง (r, c) เพื่อนบ้าน 4 ช่องคำนวณได้ทันที และน้ำหนักคือค่าผ่านของเพื่อนบ้าน
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Dijkstra ที่ใช้ min-heap (priority queue) ของ (ระยะ, r, c) พร้อมการลบแบบขี้เกียจ (lazy deletion)
+- **ทำไมใช้ได้เมื่อค่าอยู่ที่ช่อง:** "ค่าของปม" ก็คือค่าบนทุกเส้นที่ *เข้า* ปมนั้น ค่าผ่าน ≥ 0 การเลือกแบบละโมบของ Dijkstra จึงปลอดภัย (ค่า 0 ไม่เป็นไร มีแค่ค่าติดลบที่ทำให้พัง)
+- **ทำไมใช้ heap ไม่ใช่การไล่ O(V²):** V = 200,000 ดังนั้น V² = 4 × 10¹⁰ ช้าเกินไป กราฟเบาบาง (≤ 4 เส้นต่อปม) heap จึงให้ O(V log V)
+- **อย่างไร:** dist = ∞, dist[0][0] = 0 ใส่ (0, 0, 0) ดึง (d, r, c); ถ้า d > dist[r][c] แปลว่าเป็นสำเนาเก่า ข้ามไป ไม่อย่างนั้นสำหรับเพื่อนบ้าน (nr, nc): nd = d + fee[nr][nc]; ถ้าดีกว่า เก็บแล้วใส่ heap
+- **ลบแบบขี้เกียจ:** แทนที่จะ "ลดค่า key" ให้ใส่คู่ใหม่ไปเลย แล้วข้ามคู่เก่าตอนมันออกมา heap อาจมีถึงราว 4V รายการ ก็ยังไหว
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ลำดับที่ Dijkstra ปิด 16 บล็อกของตัวอย่าง (ระยะ, แถว, คอลัมน์):
+
+| ดึงครั้งที่ 1–8 | ดึงครั้งที่ 9–16 |
+|---|---|
+| 0 (0,0) | 8 (2,0) |
+| 1 (0,1) | 9 (1,0) |
+| 2 (0,2) | 9 (1,1) |
+| 3 (0,3) | 9 (1,2) |
+| 4 (1,3) | 9 (3,0) |
+| 5 (2,3) | 9 (3,1) |
+| 6 (2,2) | 10 (3,2) |
+| 7 (2,1) | **14** (3,3) |
+
+ทางที่ถูกไปตามแถวบน ลงคอลัมน์ขวา แล้ววกกลับซ้ายตามแถว 2 ช่อง (3,3) เสีย 5 + 9 = 14 ถ้ามาจาก (2,3) แต่เสีย 10 + 9 = 19 ถ้ามาจาก (3,2)
+
+## 5. จุดที่มักพลาด
+- **จ่ายค่าบล็อกเริ่มต้น:** dist[0][0] = 0
+- **คิดค่าผ่านที่ช่องที่ออก แทนช่องที่เข้า:** ได้ตัวเลขผิด เช่น (0,1) จะเสีย 1 จากค่าของช่องเริ่ม
+- **BFS หรือ DP ที่เดินได้แค่ขวา/ลง:** ทางที่ถูกที่สุดอาจเดินขึ้นและไปทางซ้าย (ดูแถว 2 ในตัวอย่าง)
+- **ไม่เช็กสำเนาเก่า:** ยังถูกต้อง แต่ช้าลงมาก
+- **รูปแบบผลลัพธ์:** หนึ่งแถวต่อหนึ่งบรรทัด คั่นตัวเลขด้วยช่องว่างหนึ่งช่อง
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 ตารางคือกราฟที่มีเส้นแบบแฝง ลูป 4 ทิศแบบเดียวกันใช้ในข้อ [Pandemic](#a62_q2a_pandemic) (BFS น้ำหนักเป็น 1 หมด) เมื่อค่าอยู่ที่ปม Dijkstra ก็ยังใช้ได้: ดูข้อ [Hacking](#a58_q3_p3a_hacking) ที่เพิ่มจุดเริ่มหลายจุด เทียบกับ Dijkstra แบบหนาแน่นในข้อ [Farthest](#a61_q2_farthest)

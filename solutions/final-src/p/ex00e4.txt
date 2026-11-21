@@ -1,0 +1,141 @@
+id: ex00e4
+group: brute
+lesson: 11 · Recursion & backtracking
+stars: 1
+complexity: O(C(B, A) · B)
+kind: program
+tags: combinations, backtracking, pruning
+title: Generate Barcode
+title_th: สร้างบาร์โค้ด (Generate Barcode)
+blurb: Print every length-B binary string with exactly A ones: choose each character recursively and prune branches that can no longer finish.
+blurb_th: พิมพ์สตริงไบนารียาว B ทุกแบบที่มีเลข 1 พอดี A ตัว: เลือกทีละตัวอักษรแบบเวียนเกิด และตัดกิ่งที่ไม่มีทางจบได้
+files: sol/ex00e4/main.cpp
+tests: all 4 PDF samples plus A = 0, A = B, B = 0 and larger cases, compared (sorted, since any order is accepted) with Python itertools.combinations, and checked for duplicates; the line count equals C(20, A) for every A = 0..20; the largest case C(20,10) = 184,756 lines in 0.01 s.
+tests_th: ตัวอย่างทั้ง 4 ชุดใน PDF และกรณี A = 0, A = B, B = 0 และกรณีใหญ่ขึ้น เทียบ (หลัง sort เพราะลำดับใดก็ได้) กับ itertools.combinations ของ Python และเช็กว่าไม่มีบรรทัดซ้ำ; จำนวนบรรทัดเท่ากับ C(20, A) ทุก A = 0..20; กรณีใหญ่สุด C(20,10) = 184,756 บรรทัดใช้ 0.01 วินาที
+==== en
+## 1. What the problem says
+A barcode is a string of `0` (black bar) and `1` (white bar). An "interleaved A of B" barcode has **B bars, exactly A of them white**. Given A and B (0 ≤ A ≤ B ≤ 20), print **all** such barcodes, one per line: exactly C(B, A) distinct lines, **in any order**.
+
+Samples: `2 5` → the 10 strings of length 5 with two 1s; `1 3` → 001, 100, 010; `0 2` → 00.
+
+## 2. What it really means
+Choose **which A positions out of B** get a `1`, i.e. list all combinations. Picture it as a binary decision tree: at each position decide 0 or 1.
+
+```text
+A = 1, B = 3                       "???"   need one 1
+                             0 /           \ 1
+                         "0??"               "1??"   need no more 1s
+                       0 /     \ 1            0 |     (1 not allowed)
+                   "00?"       "01?"          "10?"
+                 0 ✗   \ 1       0 |            0 |
+          (no room       001     010            100
+           for the 1)
+```
+
+The branch marked ✗ is cut: a `0` there would leave too few places for the remaining `1`s.
+
+:::hint Hint 1
+Build the barcode one bar at a time, left to right. At each position, what are the two choices, and when is each one impossible?
+:::
+:::hint Hint 2
+Before writing a 0, check that the places left after it can still hold every 1 you still need. Write a 1 only while you still need one.
+:::
+
+## 3. What, why, how
+- `gen(pos, ones)`: the first `pos` characters are fixed and contain `ones` ones.
+  - If `pos == B`, print.
+  - Try `0` **only if** the remaining `B − pos − 1` places can still hold the `A − ones` ones we need.
+  - Try `1` **only if** we still need one (`ones < A`).
+- **Why prune:** without the two checks we would generate all 2^B strings and filter; with them, every branch we enter leads to at least one answer, so the work is proportional to the output: O(C(B,A) · B).
+- 2^20 ≈ 10⁶ would also be fast enough here, but pruning is the habit to learn.
+- **Output:** up to 184,756 lines; collect them in one string and print once.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace for `1 3`** (this program's order is 0 before 1):
+
+| call | cur | need ones | places left | try 0? | try 1? |
+|---|---|---|---|---|---|
+| gen(0,0) | ??? | 1 | 3 | 1 ≤ 2 yes | yes |
+| gen(1,0) | 0?? | 1 | 2 | 1 ≤ 1 yes | yes |
+| gen(2,0) | 00? | 1 | 1 | 1 ≤ 0 **no** | yes → **001** |
+| gen(2,1) | 01? | 0 | 1 | yes → **010** | no |
+| gen(1,1) | 1?? | 0 | 2 | yes | no |
+| gen(2,1) | 10? | 0 | 1 | yes → **100** | no |
+
+Output: 001, 010, 100 (the PDF shows another order, which is also accepted).
+
+## 5. Traps
+- **A = 0 or A = B:** exactly one line (`00…0` or `11…1`). **B = 0** (A = 0): one empty line, C(0,0) = 1.
+- **Duplicates:** generating "choose positions" with nested loops in the wrong way (e.g. picking positions in any order) prints each combination A! times. Choosing character by character never repeats.
+- **`endl` per line:** flushes 184,756 times. Use `'\n'` and one big output.
+- Reading the order requirement: **any** order is fine here, unlike Consecutive Ones (next problem) where the order is fixed.
+
+## 6. Background
+Lesson 11: **backtracking** = depth-first search over a decision tree with **pruning** (don't enter a branch that can't lead to a valid answer). Generating combinations, permutations and subsets all follow this skeleton: a recursive `gen(pos, state)`, a base case that records the answer, and a loop/branches over choices with feasibility checks. In this book: the next page, [Consecutive ones](#ex00e5), keeps a fixed order and carries extra state; [Permutation with constraint](#a64_q1_permu_before) uses the same skeleton for permutations.
+
+==== th
+## 1. โจทย์บอกอะไร
+บาร์โค้ดเป็นสตริงของ `0` (แท่งดำ) และ `1` (แท่งขาว) บาร์โค้ดแบบ "interleaved A of B" มี **B แท่ง ขาวพอดี A แท่ง** รับ A และ B (0 ≤ A ≤ B ≤ 20) แล้วพิมพ์บาร์โค้ดแบบนั้น **ทุกแบบ** บรรทัดละหนึ่งแบบ: ต้องมี C(B, A) บรรทัดที่ไม่ซ้ำกัน **เรียงลำดับใดก็ได้**
+
+ตัวอย่าง: `2 5` → สตริงยาว 5 ที่มีเลข 1 สองตัวทั้ง 10 แบบ; `1 3` → 001, 100, 010; `0 2` → 00
+
+## 2. จริง ๆ แล้วถามอะไร
+เลือกว่า **ตำแหน่งไหน A ตำแหน่งจาก B ตำแหน่ง** จะเป็น `1` ก็คือการแจกแจงการจัดหมู่ (combination) ทั้งหมด นึกภาพเป็นต้นไม้การตัดสินใจ: ทุกตำแหน่งเลือก 0 หรือ 1 (เหมือนเดินทางแยก ที่ทุกแยกเลือกซ้ายหรือขวา)
+
+```text
+A = 1, B = 3                       "???"   need one 1
+                             0 /           \ 1
+                         "0??"               "1??"   need no more 1s
+                       0 /     \ 1            0 |     (1 not allowed)
+                   "00?"       "01?"          "10?"
+                 0 ✗   \ 1       0 |            0 |
+          (no room       001     010            100
+           for the 1)
+```
+
+กิ่งที่มี ✗ ถูกตัดทิ้ง: ถ้าใส่ `0` ตรงนั้นจะเหลือที่ไม่พอสำหรับเลข `1` ที่ยังต้องใส่
+
+:::hint คำใบ้ 1
+สร้างบาร์โค้ดทีละแท่งจากซ้ายไปขวา แต่ละตำแหน่งมีสองทางเลือกอะไร และเมื่อไหร่ที่แต่ละทางเป็นไปไม่ได้
+:::
+:::hint คำใบ้ 2
+ก่อนเขียน 0 ให้เช็กว่าตำแหน่งที่เหลือหลังจากนั้นยังพอใส่เลข 1 ที่ยังต้องการได้ทั้งหมด และเขียน 1 เฉพาะเมื่อยังต้องการอยู่
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- `gen(pos, ones)`: ตัวอักษร `pos` ตัวแรกถูกกำหนดแล้ว มีเลข 1 อยู่ `ones` ตัว
+  - ถ้า `pos == B` พิมพ์
+  - ลองใส่ `0` **เฉพาะเมื่อ** ที่ที่เหลือ `B − pos − 1` ช่องยังพอใส่เลข 1 ที่ยังขาดอีก `A − ones` ตัว
+  - ลองใส่ `1` **เฉพาะเมื่อ** ยังขาดเลข 1 อยู่ (`ones < A`)
+- **ทำไมต้องตัดกิ่ง:** ถ้าไม่เช็กสองข้อนี้ เราจะสร้างทั้ง 2^B แบบแล้วค่อยกรอง แต่ถ้าเช็ก ทุกกิ่งที่เข้าไปจะได้คำตอบอย่างน้อยหนึ่งตัวเสมอ งานจึงเป็นสัดส่วนกับผลลัพธ์: O(C(B,A) · B)
+- ข้อนี้ 2^20 ≈ 10⁶ ก็ยังเร็วพอ แต่การตัดกิ่งเป็นนิสัยที่ควรฝึก
+- **การพิมพ์:** มากถึง 184,756 บรรทัด เก็บรวมใน string เดียวแล้วพิมพ์ครั้งเดียว
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่กรณี `1 3`** (โปรแกรมนี้ลอง 0 ก่อน 1):
+
+| การเรียก | cur | ยังขาดเลข 1 | ช่องที่เหลือ | ลอง 0? | ลอง 1? |
+|---|---|---|---|---|---|
+| gen(0,0) | ??? | 1 | 3 | 1 ≤ 2 ได้ | ได้ |
+| gen(1,0) | 0?? | 1 | 2 | 1 ≤ 1 ได้ | ได้ |
+| gen(2,0) | 00? | 1 | 1 | 1 ≤ 0 **ไม่ได้** | ได้ → **001** |
+| gen(2,1) | 01? | 0 | 1 | ได้ → **010** | ไม่ได้ |
+| gen(1,1) | 1?? | 0 | 2 | ได้ | ไม่ได้ |
+| gen(2,1) | 10? | 0 | 1 | ได้ → **100** | ไม่ได้ |
+
+ผลลัพธ์: 001, 010, 100 (PDF แสดงลำดับอื่น ซึ่งก็ถูกเหมือนกัน)
+
+## 5. จุดที่มักพลาด
+- **A = 0 หรือ A = B:** มีบรรทัดเดียวพอดี (`00…0` หรือ `11…1`) **B = 0** (A = 0): บรรทัดว่างหนึ่งบรรทัด C(0,0) = 1
+- **คำตอบซ้ำ:** ถ้า "เลือกตำแหน่ง" ด้วยลูปซ้อนแบบผิด ๆ (เช่นเลือกตำแหน่งเรียงแบบไหนก็ได้) แต่ละแบบจะถูกพิมพ์ A! ครั้ง การเลือกทีละตัวอักษรไม่มีวันซ้ำ
+- **`endl` ทุกบรรทัด:** flush 184,756 ครั้ง ใช้ `'\n'` และพิมพ์ทีเดียว
+- อ่านเงื่อนไขลำดับให้ดี: ข้อนี้ลำดับ **อะไรก็ได้** ต่างจากข้อ Consecutive Ones (ข้อถัดไป) ที่กำหนดลำดับไว้
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11: **backtracking** = ค้นหาแบบลึกก่อน (DFS) บนต้นไม้การตัดสินใจ พร้อม **ตัดกิ่ง** (ไม่เข้ากิ่งที่ไม่มีทางได้คำตอบที่ถูก) การสร้าง combination, permutation และ subset ใช้โครงเดียวกันหมด: ฟังก์ชันเวียนเกิด `gen(pos, state)`, กรณีฐานที่บันทึกคำตอบ และลูป/ทางเลือกพร้อมเงื่อนไขว่ายังเป็นไปได้ ในหนังสือเล่มนี้: หน้าถัดไป [Consecutive ones](#ex00e5) ต้องเรียงตามลำดับและพกสถานะเพิ่ม ส่วน [Permutation with constraint](#a64_q1_permu_before) ใช้โครงเดียวกันกับ permutation

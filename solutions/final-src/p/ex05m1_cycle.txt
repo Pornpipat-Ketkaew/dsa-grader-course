@@ -1,0 +1,126 @@
+id: ex05m1_cycle
+group: graph1
+lesson: 18 · Disjoint-set union (also 16 · DFS)
+stars: 2
+complexity: O(E · α(N)) per graph
+kind: program
+tags: cycle detection, union-find, DSU, path compression, multiple test cases
+title: Detecting a Cycle
+title_th: ตรวจหาวงวน (Detecting a Cycle)
+blurb: Does an undirected simple graph contain a cycle? Add edges one by one into a union-find: an edge whose two ends are already connected closes a cycle.
+blurb_th: กราฟไม่มีทิศทางแบบเชิงเดียวมีวงวนหรือไม่ ใส่เส้นเชื่อมทีละเส้นลงใน union-find: เส้นที่ปลายทั้งสองเชื่อมถึงกันอยู่แล้วคือเส้นที่ปิดวงวน
+files: sol/ex05m1_cycle/main.cpp
+tests: the PDF sample (4 graphs); 300 random inputs with up to 5 graphs each against the Python rule "a forest has exactly nodes − components edges"; 100 graphs of 1,000 nodes and 10,000 edges in 0.07 s.
+tests_th: ตัวอย่างใน PDF (4 กราฟ); สุ่ม 300 ชุด ชุดละไม่เกิน 5 กราฟ เทียบกับกฎใน Python "ป่า (forest) มีเส้นเชื่อมพอดี จำนวนปม − จำนวน component"; 100 กราฟ กราฟละ 1,000 ปม 10,000 เส้น ใช้ 0.07 วินาที
+==== en
+## 1. What the problem says
+T graphs (T ≤ 100). Each has N vertices (0..N−1, N ≤ 1,000) and E edges (1 ≤ E ≤ 10,000), undirected and simple. For each graph print `YES` if it contains a cycle, otherwise `NO`.
+
+Sample: (4 nodes, 0 edges) → NO; (triangle 0-1-2 plus edge 2-3) → YES; (triangle plus node 3) → YES; (single edge 1-3) → NO.
+
+## 2. What it really means
+A graph has **no** cycle exactly when it is a forest. Build the graph edge by edge and watch the pieces merge:
+
+```text
+edge 2-3:  {2,3}            pieces: {0} {1} {2,3}
+edge 0-1:  {0,1}            pieces: {0,1} {2,3}
+edge 1-2:  joins them       pieces: {0,1,2,3}
+edge 2-0:  2 and 0 are ALREADY in the same piece  →  this edge closes a cycle
+```
+
+:::hint Hint 1
+An edge (a, b) creates a cycle exactly when a and b were already connected before the edge was added.
+:::
+:::hint Hint 2
+Keep "which piece is each vertex in" with a union-find (disjoint-set) structure: `find(x)` gives the piece's representative, `parent[ra] = rb` merges two pieces.
+:::
+
+## 3. What, why, how
+- **What:** cycle detection in an undirected graph with DSU.
+- **Why it is correct:** if a and b are already connected by a path P, then P + (a, b) is a cycle. If they are not connected, the new edge only joins two separate trees, which never creates a cycle. So a cycle exists iff at least one edge finds its ends in the same set.
+- **How:**
+  1. `parent[i] = i` for every vertex (each vertex alone);
+  2. for each edge: ra = find(a), rb = find(b); equal → cycle; otherwise `parent[ra] = rb`.
+- **Path compression** (`parent[x] = find(parent[x])`) keeps the trees almost flat, so each find is practically O(1).
+- **Read every edge even after a cycle is found**: the next graph starts after the last edge line.
+- **DFS alternative:** run DFS and look for an edge to an already-visited vertex **that is not the parent** you came from. It works too, but the parent check is an easy place to make mistakes; DSU has no such subtlety. A third way: a graph is a forest iff E = N − (number of components).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for the second graph of the sample (edges 2-3, 0-1, 1-2, 2-0):
+
+| edge | find(a) | find(b) | same? | action | parent[] after |
+|---|---|---|---|---|---|
+| 2-3 | 2 | 3 | no | parent[2] = 3 | 0 1 3 3 |
+| 0-1 | 0 | 1 | no | parent[0] = 1 | 1 1 3 3 |
+| 1-2 | 1 | 3 | no | parent[1] = 3 | 1 3 3 3 |
+| 2-0 | 3 | 3 (0→1→3, compressed) | **yes** | cycle! | 3 3 3 3 |
+
+Output `YES`.
+
+## 5. Traps
+- **Stopping to read when a cycle is found:** the remaining edge lines would be read as the next graph's N and E.
+- **Treating the reverse direction as a cycle in DFS:** in an undirected graph, going back along the edge you came from is not a cycle.
+- **Not resetting per graph:** `parent` must be re-initialised for every test case.
+- **Isolated vertices:** they never matter for cycles (first sample: 4 vertices, 0 edges → NO; note the PDF says E ≥ 1 but the sample has E = 0, and the code handles it).
+
+## 6. Background
+Lesson 18 introduces union-find for Kruskal's MST, where exactly this test ("are both ends already connected?") decides whether an edge is taken. Seeing it here first makes [Cable Company](#ex06e1_cable) easy. In a directed graph, cycle detection is different (DFS with three colours), because a → b and b → a are not the same edge.
+==== th
+## 1. โจทย์บอกอะไร
+มีกราฟ T กราฟ (T ≤ 100) แต่ละกราฟมี N จุด (0..N−1, N ≤ 1,000) และ E เส้นเชื่อม (1 ≤ E ≤ 10,000) ไม่มีทิศทางและเป็นกราฟเชิงเดียว ให้พิมพ์ `YES` ถ้ากราฟมีวงวน ไม่เช่นนั้น `NO`
+
+ตัวอย่าง: (4 ปม 0 เส้น) → NO; (สามเหลี่ยม 0-1-2 บวกเส้น 2-3) → YES; (สามเหลี่ยมบวกปม 3) → YES; (เส้นเดียว 1-3) → NO
+
+## 2. จริง ๆ แล้วถามอะไร
+กราฟ **ไม่มี** วงวนก็ต่อเมื่อเป็นป่า (forest) ให้สร้างกราฟทีละเส้นแล้วดูชิ้นส่วนรวมกัน:
+
+```text
+edge 2-3:  {2,3}            pieces: {0} {1} {2,3}
+edge 0-1:  {0,1}            pieces: {0,1} {2,3}
+edge 1-2:  joins them       pieces: {0,1,2,3}
+edge 2-0:  2 and 0 are ALREADY in the same piece  →  this edge closes a cycle
+```
+
+:::hint คำใบ้ 1
+เส้น (a, b) สร้างวงวนก็ต่อเมื่อ a กับ b เชื่อมถึงกันอยู่แล้วก่อนใส่เส้นนี้
+:::
+:::hint คำใบ้ 2
+เก็บว่า "แต่ละจุดอยู่ชิ้นไหน" ด้วยโครงสร้าง union-find (disjoint-set): `find(x)` ให้ตัวแทนของชิ้น และ `parent[ra] = rb` รวมสองชิ้นเข้าด้วยกัน
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** ตรวจวงวนในกราฟไม่มีทิศทางด้วย DSU
+- **ทำไมถูก:** ถ้า a กับ b เชื่อมกันอยู่แล้วด้วยเส้นทาง P แล้ว P + (a, b) คือวงวน ถ้ายังไม่เชื่อมกัน เส้นใหม่แค่เชื่อมต้นไม้สองต้นที่แยกกัน ซึ่งไม่มีทางเกิดวงวน ดังนั้นมีวงวนก็ต่อเมื่อมีอย่างน้อยหนึ่งเส้นที่ปลายทั้งสองอยู่เซตเดียวกัน
+- **อย่างไร:**
+  1. `parent[i] = i` ทุกจุด (แต่ละจุดอยู่คนเดียว)
+  2. ทุกเส้น: ra = find(a), rb = find(b) เท่ากัน → มีวงวน ไม่เท่า → `parent[ra] = rb`
+- **Path compression** (`parent[x] = find(parent[x])`) ทำให้ต้นไม้แทบแบน find แต่ละครั้งจึงเกือบ O(1)
+- **อ่านทุกเส้นให้ครบแม้เจอวงวนแล้ว**: กราฟถัดไปเริ่มหลังบรรทัดเส้นเชื่อมบรรทัดสุดท้าย
+- **ทางเลือก DFS:** ทำ DFS แล้วหาเส้นที่ไปยังจุดที่เคยเยี่ยมแล้ว **ซึ่งไม่ใช่พ่อ** ที่เราเพิ่งเดินมา ใช้ได้เหมือนกัน แต่การเช็กพ่อเป็นจุดที่พลาดง่าย DSU ไม่มีความละเอียดอ่อนแบบนั้น วิธีที่สาม: กราฟเป็นป่าก็ต่อเมื่อ E = N − (จำนวน component)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** กราฟที่สองของตัวอย่าง (เส้น 2-3, 0-1, 1-2, 2-0):
+
+| เส้น | find(a) | find(b) | เท่ากัน? | ทำอะไร | parent[] หลังทำ |
+|---|---|---|---|---|---|
+| 2-3 | 2 | 3 | ไม่ | parent[2] = 3 | 0 1 3 3 |
+| 0-1 | 0 | 1 | ไม่ | parent[0] = 1 | 1 1 3 3 |
+| 1-2 | 1 | 3 | ไม่ | parent[1] = 3 | 1 3 3 3 |
+| 2-0 | 3 | 3 (0→1→3 แล้วบีบทาง) | **ใช่** | มีวงวน! | 3 3 3 3 |
+
+ผลลัพธ์ `YES`
+
+## 5. จุดที่มักพลาด
+- **หยุดอ่านเมื่อเจอวงวน:** บรรทัดเส้นเชื่อมที่เหลือจะถูกอ่านเป็น N และ E ของกราฟถัดไป
+- **นับการเดินย้อนเส้นเดิมเป็นวงวนใน DFS:** ในกราฟไม่มีทิศทาง การเดินกลับตามเส้นที่เพิ่งมาไม่ใช่วงวน
+- **ไม่รีเซ็ตทุกกราฟ:** ต้องตั้งค่า `parent` ใหม่ทุกกรณีทดสอบ
+- **จุดโดดเดี่ยว:** ไม่มีผลกับวงวน (ตัวอย่างแรก 4 จุด 0 เส้น → NO; สังเกตว่า PDF บอก E ≥ 1 แต่ตัวอย่างมี E = 0 โค้ดของเรารองรับ)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 18 แนะนำ union-find สำหรับ MST แบบ Kruskal ซึ่งใช้การทดสอบเดียวกันนี้ ("ปลายทั้งสองเชื่อมกันอยู่แล้วหรือยัง") ตัดสินว่าจะเลือกเส้นไหม ได้เห็นมันที่นี่ก่อนทำให้ข้อ [Cable Company](#ex06e1_cable) ง่ายขึ้น ส่วนในกราฟมีทิศทาง การหาวงวนต่างออกไป (DFS สามสี) เพราะ a → b กับ b → a ไม่ใช่เส้นเดียวกัน

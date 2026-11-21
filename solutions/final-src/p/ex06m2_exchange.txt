@@ -1,0 +1,164 @@
+id: ex06m2_exchange
+group: sp
+lesson: 17 · Shortest paths: negative cycles (arbitrage)
+stars: 4
+complexity: O(K · N³) worst case, usually far less
+kind: program
+tags: arbitrage, −log weights, Bellman–Ford, negative-cycle detection, floating point
+title: Exchange
+title_th: แลกเงิน (Exchange)
+blurb: Can a chain of currency exchanges that returns to the start make money? Taking −log of each rate turns "product > 1" into "sum < 0", so the question becomes: is there a negative cycle?
+blurb_th: มีลำดับการแลกเงินที่วนกลับมาสกุลเดิมแล้วได้เงินเพิ่มไหม การใส่ −log ให้อัตราแลกเปลี่ยนเปลี่ยน "ผลคูณ > 1" เป็น "ผลรวม < 0" คำถามจึงกลายเป็น: มีวงวนติดลบหรือไม่
+files: sol/ex06m2_exchange/main.cpp
+tests: the PDF sample, single-currency and "no profit" tables, and the PDF's own 1 → 2 → 3 → 1 example (rates 0 mean no exchange); 300 random tables (N ≤ 6) against a brute force that tries every simple cycle; 20 tables of N = 500 without and with a hidden loop in 0.8–0.9 s (mostly reading 5 million numbers); a 50-currency ring whose profit is only 0.05 % in total, both ways.
+tests_th: ตัวอย่างใน PDF, ตารางสกุลเดียวและตาราง "ไม่มีกำไร" และตัวอย่าง 1 → 2 → 3 → 1 ของ PDF เอง (อัตรา 0 คือแลกไม่ได้); สุ่ม 300 ตาราง (N ≤ 6) เทียบกับ brute force ที่ลองทุกวงที่ไม่ซ้ำปม; 20 ตารางขนาด N = 500 แบบไม่มีและมีวงซ่อน ใช้ 0.8–0.9 วินาที (ส่วนใหญ่คือการอ่านตัวเลข 5 ล้านตัว); วงแหวน 50 สกุลที่กำไรรวมแค่ 0.05 % ทั้งสองแบบ
+==== en
+## 1. What the problem says
+An exchanger deals in N currencies (N ≤ 500). R[a][b] is how many units of b you get for **one unit** of a. R[a][b] need not be 1 / R[b][a]. If some chain X → Y → Z → … → X ends with **more** money than it started with, you can make infinite money. For each of K tables (K ≤ 20), print **YES** if that is possible, otherwise **NO**.
+
+The PDF's example: R[1][2] = 0.7, R[2][3] = 2, R[3][1] = 0.75 → 1 · 0.7 · 2 · 0.75 = **1.05** > 1.
+
+Sample → `YES` then `NO`.
+
+## 2. What it really means
+Along a chain, money **multiplies**: x units become x · R[a][b] · R[b][c] · …. We want a **cycle whose product of rates is > 1**.
+
+Take logarithms: log turns products into sums, and log is increasing:
+
+```text
+R1 · R2 · … · Rk  > 1
+⇔  log R1 + log R2 + … + log Rk  > 0
+⇔  (−log R1) + (−log R2) + … + (−log Rk)  < 0
+```
+
+So with edge weights **w(a, b) = −log R[a][b]**, a profit loop is exactly a **negative cycle**. That is the question [Bellman–Ford](#ex06e2_shortest) answers.
+
+Sample 1: currencies 1 and 2 give 2 · 0.7 = 1.4 > 1, so w = −log 2 − log 0.7 ≈ −0.693 + 0.357 = **−0.336 < 0** → YES.
+
+:::hint Hint 1
+How do you turn "multiply along the path" into "add along the path"?
+:::
+:::hint Hint 2
+After the −log transform, you only need to know whether **some** negative cycle exists, from any start. Start every currency at distance 0.
+:::
+
+## 3. What, why, how
+- **What:** −log transform + Bellman–Ford with a virtual source (h[v] = 0 for all v).
+- **Why the virtual source:** a profit loop may start at any currency. A hidden node with 0-edges to everyone reaches every cycle.
+- **Basic test:** relax all N² pairs; if a value still improves in round N, there is a negative cycle. That alone is O(N³) = 1.25 × 10⁸ per table, and K = 20 tables: too slow if every table needs all N rounds.
+- **Faster early exit:** keep par[v] = the currency that last improved v. If the parent pointers ever form a **cycle**, that cycle is negative (each strict improvement along it lowered the total). Checking after each round costs O(N) and usually finds a profit loop within a few rounds.
+- **Early "NO":** if a round changes nothing, distances are final and there is no negative cycle.
+- **Rate 0:** you cannot exchange at all; use w = +∞ (no edge).
+- **Floating point:** −log values are inexact. Only count an improvement if it is bigger than EPS = 10⁻¹², so that rounding noise on a "product exactly 1" loop does not look like profit.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample table 1 (rows as given). w = −ln R, rounded to 3 decimals:
+
+| | 0 | 1 | 2 |
+|---|---|---|---|
+| **0** | 0 | 0.357 | −0.182 |
+| **1** | −0.095 | 0 | −0.693 |
+| **2** | 0.288 | 0.357 | 0 |
+
+Round 1 from h = (0, 0, 0), pairs in order u = 0..2, v = 0..2:
+
+| step | relax | h afterwards | par |
+|---|---|---|---|
+| 0 → 2 | 0 − 0.182 | (0, 0, −0.182) | par[2] = 0 |
+| 1 → 0 | 0 − 0.095 | (−0.095, 0, −0.182) | par[0] = 1 |
+| 1 → 2 | 0 − 0.693 | (−0.095, 0, −0.693) | par[2] = 1 |
+| 2 → 0 | −0.693 + 0.288 | (−0.405, 0, −0.693) | par[0] = 2 |
+| 2 → 1 | −0.693 + 0.357 | (−0.405, −0.336, −0.693) | par[1] = 2 |
+
+Now par[1] = 2 and par[2] = 1: the parent pointers form the cycle 1 → 2 → 1, worth 2 · 0.7 = 1.4 > 1 → **YES**.
+
+Table 2: the only loop is 0 → 1 → 0 with 0.7 · 1.2 = 0.84 < 1; the rounds settle, nothing changes → **NO**.
+
+## 5. Traps
+- **Multiplying rates around every cycle:** there are exponentially many cycles.
+- **Using `log` without the minus:** then you look for a **positive** cycle, which shortest-path algorithms cannot find.
+- **Exact comparisons with doubles:** a loop whose product is exactly 1 can come out as −1e−16; use an EPS.
+- **A rate of 0:** log 0 = −∞ breaks everything; treat it as "no edge".
+- **Row/column order:** the PDF says the i-th number of line j is R[i][j] (a transposed table). Reversing every edge reverses every cycle, which keeps each cycle's product, so the YES/NO answer is the same either way.
+- **Floyd–Warshall per table:** also correct (look for d[i][i] < 0), but 20 × 500³ was measured at about 3 s.
+
+## 6. Background
+Lesson 17. Currency arbitrage is the classic application of "log turns products into sums". The same trick works for "most reliable path" (product of probabilities: maximise ⇔ minimise −log). The parent-cycle check is a well-known speed-up for Bellman–Ford, also used in SPFA. See [Shortest path](#ex06e2_shortest) for the plain round-N test.
+==== th
+## 1. โจทย์บอกอะไร
+ร้านแลกเงินมี N สกุล (N ≤ 500) R[a][b] คือจำนวนหน่วยของ b ที่ได้ต่อ **หนึ่งหน่วย** ของ a และ R[a][b] ไม่จำเป็นต้องเท่ากับ 1 / R[b][a] ถ้ามีลำดับ X → Y → Z → … → X ที่จบด้วยเงิน **มากกว่า** ตอนเริ่ม ก็สร้างเงินได้ไม่จำกัด สำหรับตาราง K ตาราง (K ≤ 20) ให้พิมพ์ **YES** ถ้าทำได้ ไม่อย่างนั้น **NO**
+
+ตัวอย่างใน PDF: R[1][2] = 0.7, R[2][3] = 2, R[3][1] = 0.75 → 1 · 0.7 · 2 · 0.75 = **1.05** > 1
+
+ตัวอย่าง → `YES` แล้ว `NO`
+
+## 2. จริง ๆ แล้วถามอะไร
+ตามลำดับการแลก เงิน **คูณกัน**: x หน่วยกลายเป็น x · R[a][b] · R[b][c] · … เราต้องการ **วงที่ผลคูณของอัตรา > 1**
+
+ใส่ log: log เปลี่ยนผลคูณเป็นผลบวก และ log เป็นฟังก์ชันเพิ่ม:
+
+```text
+R1 · R2 · … · Rk  > 1
+⇔  log R1 + log R2 + … + log Rk  > 0
+⇔  (−log R1) + (−log R2) + … + (−log Rk)  < 0
+```
+
+ดังนั้นถ้าให้น้ำหนักเส้น **w(a, b) = −log R[a][b]** วงที่ได้กำไรก็คือ **วงวนติดลบ** พอดี ซึ่งเป็นคำถามที่ [Bellman–Ford](#ex06e2_shortest) ตอบได้
+
+ตัวอย่างที่ 1: สกุล 1 และ 2 ให้ 2 · 0.7 = 1.4 > 1 ดังนั้น w = −log 2 − log 0.7 ≈ −0.693 + 0.357 = **−0.336 < 0** → YES
+
+:::hint คำใบ้ 1
+จะเปลี่ยน "คูณไปตามทาง" ให้เป็น "บวกไปตามทาง" ได้อย่างไร
+:::
+:::hint คำใบ้ 2
+หลังแปลงด้วย −log เราแค่ต้องรู้ว่ามีวงวนติดลบ **สักวง** หรือไม่ จากจุดเริ่มใดก็ได้ ให้ทุกสกุลเริ่มที่ระยะ 0
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** แปลงด้วย −log + Bellman–Ford กับจุดเริ่มเสมือน (h[v] = 0 ทุก v)
+- **ทำไมต้องมีจุดเริ่มเสมือน:** วงกำไรอาจเริ่มที่สกุลไหนก็ได้ ปมซ่อนที่มีเส้น 0 ไปทุกสกุลไปถึงทุกวงได้
+- **การทดสอบพื้นฐาน:** relax ทุกคู่ N² คู่ ถ้ายังมีค่าดีขึ้นในรอบที่ N แปลว่ามีวงวนติดลบ แค่นี้ก็ O(N³) = 1.25 × 10⁸ ต่อตาราง และมี K = 20 ตาราง: ช้าเกินไปถ้าทุกตารางต้องใช้ครบ N รอบ
+- **ออกก่อนแบบเร็ว:** เก็บ par[v] = สกุลที่ทำให้ v ดีขึ้นครั้งล่าสุด ถ้า pointer พ่อเหล่านี้กลายเป็น **วง** เมื่อไหร่ วงนั้นติดลบแน่นอน (การปรับให้ดีขึ้นแบบเข้มงวดทุกครั้งตามวงทำให้ผลรวมลดลง) การเช็กหลังทุกรอบใช้ O(N) และปกติจะเจอวงกำไรภายในไม่กี่รอบ
+- **ตอบ "NO" ก่อน:** ถ้ารอบไหนไม่มีอะไรเปลี่ยน ระยะคงที่แล้วและไม่มีวงวนติดลบ
+- **อัตรา 0:** แลกไม่ได้เลย ใช้ w = +∞ (ไม่มีเส้น)
+- **ทศนิยม:** ค่า −log ไม่แม่นยำ นับว่าดีขึ้นเฉพาะเมื่อดีขึ้นมากกว่า EPS = 10⁻¹² เพื่อไม่ให้ความคลาดเคลื่อนจากการปัดเศษบนวงที่ "ผลคูณเท่ากับ 1 พอดี" ดูเหมือนกำไร
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตารางตัวอย่างที่ 1 (แถวตามที่ให้มา) w = −ln R ปัดเป็นทศนิยม 3 ตำแหน่ง:
+
+| | 0 | 1 | 2 |
+|---|---|---|---|
+| **0** | 0 | 0.357 | −0.182 |
+| **1** | −0.095 | 0 | −0.693 |
+| **2** | 0.288 | 0.357 | 0 |
+
+รอบที่ 1 จาก h = (0, 0, 0) ไล่คู่ตามลำดับ u = 0..2, v = 0..2:
+
+| ขั้น | relax | h หลังขั้นนี้ | par |
+|---|---|---|---|
+| 0 → 2 | 0 − 0.182 | (0, 0, −0.182) | par[2] = 0 |
+| 1 → 0 | 0 − 0.095 | (−0.095, 0, −0.182) | par[0] = 1 |
+| 1 → 2 | 0 − 0.693 | (−0.095, 0, −0.693) | par[2] = 1 |
+| 2 → 0 | −0.693 + 0.288 | (−0.405, 0, −0.693) | par[0] = 2 |
+| 2 → 1 | −0.693 + 0.357 | (−0.405, −0.336, −0.693) | par[1] = 2 |
+
+ตอนนี้ par[1] = 2 และ par[2] = 1: pointer พ่อเป็นวง 1 → 2 → 1 มีค่า 2 · 0.7 = 1.4 > 1 → **YES**
+
+ตารางที่ 2: วงเดียวคือ 0 → 1 → 0 ได้ 0.7 · 1.2 = 0.84 < 1 รอบต่าง ๆ นิ่ง ไม่มีอะไรเปลี่ยน → **NO**
+
+## 5. จุดที่มักพลาด
+- **คูณอัตรารอบทุกวง:** จำนวนวงเพิ่มแบบเอกซ์โพเนนเชียล
+- **ใช้ `log` โดยไม่ใส่ลบ:** จะกลายเป็นหาวง **บวก** ซึ่งอัลกอริทึมเส้นทางสั้นสุดหาไม่ได้
+- **เทียบ double แบบตรงเป๊ะ:** วงที่ผลคูณเท่ากับ 1 พอดีอาจออกมาเป็น −1e−16 ต้องใช้ EPS
+- **อัตรา 0:** log 0 = −∞ ทำให้ทุกอย่างพัง ให้ถือว่า "ไม่มีเส้น"
+- **ลำดับแถว/คอลัมน์:** PDF บอกว่าตัวที่ i ของบรรทัด j คือ R[i][j] (ตารางกลับด้าน) การกลับทิศทุกเส้นทำให้ทุกวงกลับทิศ ซึ่งผลคูณของแต่ละวงไม่เปลี่ยน คำตอบ YES/NO จึงเหมือนกันทั้งสองแบบ
+- **Floyd–Warshall ทุกตาราง:** ก็ถูก (หา d[i][i] < 0) แต่ 20 × 500³ วัดได้ราว 3 วินาที
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 การค้ากำไรจากค่าเงิน (arbitrage) คือตัวอย่างคลาสสิกของ "log เปลี่ยนผลคูณเป็นผลบวก" ท่าเดียวกันใช้กับ "เส้นทางที่น่าเชื่อถือที่สุด" (ผลคูณความน่าจะเป็น: ทำให้มากที่สุด ⇔ ทำให้ −log น้อยที่สุด) การเช็กวงของ pointer พ่อเป็นท่าเร่ง Bellman–Ford ที่รู้จักกันดี ใช้ใน SPFA ด้วย ดูข้อ [Shortest path](#ex06e2_shortest) สำหรับการทดสอบรอบที่ N แบบธรรมดา

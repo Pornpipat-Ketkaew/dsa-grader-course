@@ -1,0 +1,155 @@
+chapter: sp
+==== en
+## 1. The idea
+A **shortest path** minimises the total weight of a route. Which algorithm to use depends on two questions: **how many sources** and **can weights be negative?**
+
+| situation | algorithm | cost |
+|---|---|---|
+| all weights equal | BFS (Graph 1) | O(V + E) |
+| one source, weights ≥ 0, dense graph | Dijkstra, array version | O(V²) |
+| one source, weights ≥ 0, sparse graph | Dijkstra with a heap | O(E log V) |
+| negative weights, or "detect a negative cycle" | Bellman–Ford | O(V · E) |
+| **all pairs**, V ≤ ~700 | Floyd–Warshall | O(V³) |
+
+All of them repeat one step, **relaxation**: if going through u is better, take it.
+
+```text
+dist[v] > dist[u] + w(u, v)   →   dist[v] = dist[u] + w(u, v)
+```
+
+## 2. The templates
+```cpp
+// Dijkstra with a heap and lazy deletion
+vector<long long> dist(n, INF);
+priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
+dist[s] = 0; pq.push({0, s});
+// pop nodes in increasing order of distance
+while (!pq.empty()) {
+    auto [d, u] = pq.top(); pq.pop();
+    if (d > dist[u]) continue;                 // an outdated copy
+    // relax every edge u -> v
+    for (auto [v, w] : adj[u])
+        if (d + w < dist[v]) { dist[v] = d + w; pq.push({dist[v], v}); }
+}
+```
+
+```cpp
+// Bellman-Ford: n-1 rounds, then one more round to detect a negative cycle
+dist[s] = 0;
+// rounds 1 .. n-1: after round i, every shortest path with <= i edges is correct
+for (int round = 1; round <= n - 1; round++)
+    for (auto [a, b, c] : edges)
+        if (dist[a] != INF && dist[a] + c < dist[b]) dist[b] = dist[a] + c;
+bool negCycle = false;
+// round n: any further improvement means a negative cycle
+for (auto [a, b, c] : edges)
+    if (dist[a] != INF && dist[a] + c < dist[b]) negCycle = true;
+```
+
+```cpp
+// Floyd-Warshall: k MUST be the outermost loop
+// after phase k, d[a][b] uses only stop-overs from {0..k}
+for (int k = 0; k < n; k++)
+    for (int a = 0; a < n; a++)
+        for (int b = 0; b < n; b++)
+            if (d[a][k] + d[k][b] < d[a][b]) d[a][b] = d[a][k] + d[k][b];
+```
+
+## 3. How to recognise it
+- "Minimum cost / time / distance from … to …" with different costs per step.
+- A cost on **cells or nodes** instead of edges: put it on every edge **into** that node.
+- Several starting points at once: push them all first (multi-source), or add a virtual source.
+- Products of rates ("exchange", "probability"): take −log and look for a negative cycle.
+- "After each new node is added": think of what Floyd–Warshall's phase k means.
+
+## 4. Cost and pitfalls
+- Dijkstra is **wrong** with negative edges, even without a negative cycle.
+- Use `long long` for distances, and a large INF such as 10¹⁸; never add to INF.
+- Unreachable nodes: decide what to print (−1? INF?) and test it.
+- Read the input format twice: matrices with −1 for "no edge", 1-based vs 0-based, edge counts that do not match the text.
+- Floyd–Warshall needs d[i][i] = 0 and the k loop outside.
+
+## 5. In this chapter
+- [Farthest city](#a61_q2_farthest): Dijkstra O(V²) on a matrix; the maximum of the distances.
+- [Columbia](#ex06e3_columbia): heap Dijkstra on a grid with costs on the cells.
+- [Hacking](#a58_q3_p3a_hacking): multi-source Dijkstra with vertex costs.
+- [Shortest path with negative edges](#ex06e2_shortest): Bellman–Ford and negative cycles anywhere.
+- [Exchange](#ex06m2_exchange): arbitrage as a negative cycle after −log.
+- [Expressway](#a65_q3a_expressway): reading an answer after every Floyd–Warshall phase.
+==== th
+## 1. ไอเดีย
+**เส้นทางสั้นสุด** ทำให้น้ำหนักรวมของเส้นทางน้อยที่สุด จะใช้อัลกอริทึมไหนขึ้นกับสองคำถาม: **มีจุดเริ่มกี่จุด** และ **น้ำหนักติดลบได้ไหม**
+
+| สถานการณ์ | อัลกอริทึม | ต้นทุน |
+|---|---|---|
+| น้ำหนักเท่ากันหมด | BFS (กราฟ 1) | O(V + E) |
+| จุดเริ่มเดียว น้ำหนัก ≥ 0 กราฟหนาแน่น | Dijkstra แบบอาร์เรย์ | O(V²) |
+| จุดเริ่มเดียว น้ำหนัก ≥ 0 กราฟเบาบาง | Dijkstra กับ heap | O(E log V) |
+| น้ำหนักติดลบ หรือ "ตรวจวงวนติดลบ" | Bellman–Ford | O(V · E) |
+| **ทุกคู่** V ≤ ~700 | Floyd–Warshall | O(V³) |
+
+ทุกตัวทำซ้ำขั้นตอนเดียวคือ **relaxation**: ถ้าผ่าน u แล้วดีกว่า ก็ใช้ทางนั้น
+
+```text
+dist[v] > dist[u] + w(u, v)   →   dist[v] = dist[u] + w(u, v)
+```
+
+## 2. โครงโค้ด
+```cpp
+// Dijkstra with a heap and lazy deletion
+vector<long long> dist(n, INF);
+priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
+dist[s] = 0; pq.push({0, s});
+// pop nodes in increasing order of distance
+while (!pq.empty()) {
+    auto [d, u] = pq.top(); pq.pop();
+    if (d > dist[u]) continue;                 // an outdated copy
+    // relax every edge u -> v
+    for (auto [v, w] : adj[u])
+        if (d + w < dist[v]) { dist[v] = d + w; pq.push({dist[v], v}); }
+}
+```
+
+```cpp
+// Bellman-Ford: n-1 rounds, then one more round to detect a negative cycle
+dist[s] = 0;
+// rounds 1 .. n-1: after round i, every shortest path with <= i edges is correct
+for (int round = 1; round <= n - 1; round++)
+    for (auto [a, b, c] : edges)
+        if (dist[a] != INF && dist[a] + c < dist[b]) dist[b] = dist[a] + c;
+bool negCycle = false;
+// round n: any further improvement means a negative cycle
+for (auto [a, b, c] : edges)
+    if (dist[a] != INF && dist[a] + c < dist[b]) negCycle = true;
+```
+
+```cpp
+// Floyd-Warshall: k MUST be the outermost loop
+// after phase k, d[a][b] uses only stop-overs from {0..k}
+for (int k = 0; k < n; k++)
+    for (int a = 0; a < n; a++)
+        for (int b = 0; b < n; b++)
+            if (d[a][k] + d[k][b] < d[a][b]) d[a][b] = d[a][k] + d[k][b];
+```
+
+## 3. ดูอย่างไรว่าใช่
+- "ค่าใช้จ่าย / เวลา / ระยะทางน้อยที่สุดจาก … ไป …" โดยแต่ละก้าวราคาไม่เท่ากัน
+- ค่าอยู่บน **ช่องหรือปม** แทนที่จะอยู่บนเส้น: ใส่ค่านั้นบนทุกเส้นที่ **เข้า** ปมนั้น
+- มีจุดเริ่มหลายจุดพร้อมกัน: ใส่ทั้งหมดก่อน (multi-source) หรือเพิ่มจุดเริ่มเสมือน
+- ผลคูณของอัตรา ("แลกเงิน", "ความน่าจะเป็น"): ใส่ −log แล้วหาวงวนติดลบ
+- "หลังเพิ่มปมใหม่ทุกครั้ง": คิดถึงความหมายของเฟส k ใน Floyd–Warshall
+
+## 4. ต้นทุนและจุดพลาด
+- Dijkstra **ผิด** เมื่อมีเส้นติดลบ แม้ไม่มีวงวนติดลบ
+- ใช้ `long long` สำหรับระยะ และ INF ใหญ่ ๆ เช่น 10¹⁸ อย่าบวกอะไรเข้ากับ INF
+- ปมที่ไปไม่ถึง: ตัดสินใจว่าจะพิมพ์อะไร (−1? INF?) แล้วทดสอบมัน
+- อ่านรูปแบบ input สองรอบ: เมทริกซ์ที่ใช้ −1 แทน "ไม่มีเส้น", เริ่มที่ 1 หรือ 0, จำนวนเส้นที่ไม่ตรงกับคำบรรยาย
+- Floyd–Warshall ต้องมี d[i][i] = 0 และลูป k อยู่นอกสุด
+
+## 5. ในบทนี้
+- [Farthest city](#a61_q2_farthest): Dijkstra O(V²) บนเมทริกซ์ แล้วหาค่ามากสุดของระยะ
+- [Columbia](#ex06e3_columbia): Dijkstra แบบ heap บนตารางที่ค่าอยู่บนช่อง
+- [Hacking](#a58_q3_p3a_hacking): Dijkstra หลายจุดเริ่มที่ค่าอยู่บนปม
+- [Shortest path with negative edges](#ex06e2_shortest): Bellman–Ford และวงวนติดลบที่ใดก็ได้
+- [Exchange](#ex06m2_exchange): การค้ากำไรเป็นวงวนติดลบหลังใส่ −log
+- [Expressway](#a65_q3a_expressway): อ่านคำตอบหลังทุกเฟสของ Floyd–Warshall

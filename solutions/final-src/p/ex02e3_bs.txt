@@ -1,0 +1,126 @@
+id: ex02e3_bs
+group: dc
+lesson: 08 · Binary search
+stars: 1
+complexity: O((N + M) log N)
+kind: program
+tags: binary search, duplicates, last index ≤ x, no <algorithm>
+title: Binary Search Near Repeat
+title_th: ค้นหาแบบทวิภาค ข้อมูลซ้ำได้ (Binary Search Near Repeat)
+blurb: Duplicates allowed now, and the answer is the LAST index i with A[i] ≤ X. Same halving, but on a tie keep going right.
+blurb_th: คราวนี้ข้อมูลซ้ำได้ และคำตอบคือตำแหน่ง i สุดท้ายที่ A[i] ≤ X ใช้การแบ่งครึ่งแบบเดิม แต่เมื่อเท่ากันให้ไปทางขวาต่อ
+files: sol/ex02e3_bs/main.cpp
+tests: the PDF sample; an all-equal array (7 7 7 7 7 with X = 6, 7, 8); 300 random arrays with many duplicates against a Python linear scan for the last index; N = M = 100,000 in 0.04 s.
+tests_th: ตัวอย่างใน PDF; อาร์เรย์ที่ทุกตัวเท่ากัน (7 7 7 7 7 กับ X = 6, 7, 8); สุ่ม 300 ชุดที่มีค่าซ้ำเยอะ เทียบกับการไล่หาตำแหน่งสุดท้ายใน Python; N = M = 100,000 ใช้ 0.04 วินาที
+==== en
+## 1. What the problem says
+Same setting as [Binary Search Near](#ex01e3), with two changes:
+
+- the array is **non-decreasing**: values may **repeat**;
+- for each query X (an integer this time) print the **largest index** i (0-based) with A[i] ≤ X, or **−1** if there is none.
+
+The output paragraph of the PDF copies the old sentence ("the largest element…"), but the sample makes it clear that the answer is an **index**: for X = 14 in `10 13 14 14 14 15 16 16 18 200` the answer is 4, the position of the last 14.
+
+## 2. What it really means
+```text
+index:   0   1   2   3   4   5   6   7   8   9
+A:      10  13  14  14  14  15  16  16  18 200
+         ✓   ✓   ✓   ✓   ✓   ✗   ✗   ✗   ✗   ✗     (A[i] ≤ 14 ?)
+                         ▲
+                     answer 4: the last ✓
+```
+
+With duplicates, "find a 14" is not enough: binary search may land on the first or the middle 14. We need the **last** position where the condition holds.
+
+:::hint Hint 1
+The ✓/✗ pattern is still "all ✓, then all ✗". What happens to that pattern when X sits exactly on a run of equal values?
+:::
+:::hint Hint 2
+When A[mid] ≤ X, record `ans = mid` and keep searching to the **right** (`lo = mid + 1`), even if A[mid] == X.
+:::
+
+## 3. What, why, how
+- **What:** the boundary index between "≤ X" and "> X".
+- **Why the tie rule matters:** stopping at the first `A[mid] == X` returns *some* 14, not the last one. Treating equality as "good, look right" pushes the search to the end of the run.
+- **How:** exactly the code of [ex01e3](#ex01e3), but `ans = mid` instead of `ans = A[mid]`. The invariant is unchanged: indices `< lo` are ≤ X, indices `> hi` are > X, `ans` is the last ≤ X index seen.
+- **Mirror image:** to find the *first* index with A[i] ≥ X (what `lower_bound` does), record on "≥" and move **left**. Knowing both versions covers almost every binary search on the exam.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace** for the sample array and X = 14:
+
+| step | lo | hi | mid | A[mid] | ≤ 14? | ans | move |
+|---|---|---|---|---|---|---|---|
+| 1 | 0 | 9 | 4 | 14 | yes | 4 | lo = 5 (look for a later 14) |
+| 2 | 5 | 9 | 7 | 16 | no | 4 | hi = 6 |
+| 3 | 5 | 6 | 5 | 15 | no | 4 | hi = 4 |
+| — | 5 | 4 | | | empty | **4** | stop |
+
+X = 16 gives 7 (the last 16), X = 9 gives −1, X = 200 gives 9: all match the sample.
+
+## 5. Traps
+- **Returning the value instead of the index** (the PDF's output sentence is misleading; trust the sample).
+- **Returning on equality** (`if (A[mid] == x) return mid;`): gives an arbitrary copy of x, not the last one.
+- **0-based indices:** the statement says the index starts at 0.
+- **No library helpers:** `upper_bound(A, A+n, x) - A - 1` is the one-line answer, but it is forbidden here.
+
+## 6. Background
+Lesson 08. "First true / last true" binary search is the most reused D&C pattern in the course. The same idea also finds answers that are not stored in any array ("binary search on the answer"), as in [Lawn Mowing](#a64_q1_lawn_mowing) where we search over end positions.
+==== th
+## 1. โจทย์บอกอะไร
+เหมือนข้อ [Binary Search Near](#ex01e3) แต่ต่างกันสองอย่าง:
+
+- อาร์เรย์ **ไม่ลดลง**: ค่า **ซ้ำกันได้**
+- สำหรับแต่ละคำถาม X (คราวนี้เป็นจำนวนเต็ม) ให้พิมพ์ **ตำแหน่ง (index) ที่มากที่สุด** i (เริ่มที่ 0) ที่ A[i] ≤ X หรือ **−1** ถ้าไม่มี
+
+ย่อหน้าข้อมูลส่งออกใน PDF ลอกประโยคเดิมมา ("สมาชิกที่มากที่สุด…") แต่ตัวอย่างบอกชัดว่าคำตอบคือ **ตำแหน่ง**: X = 14 ในอาร์เรย์ `10 13 14 14 14 15 16 16 18 200` ได้คำตอบ 4 ซึ่งเป็นตำแหน่งของ 14 ตัวสุดท้าย
+
+## 2. จริง ๆ แล้วถามอะไร
+```text
+index:   0   1   2   3   4   5   6   7   8   9
+A:      10  13  14  14  14  15  16  16  18 200
+         ✓   ✓   ✓   ✓   ✓   ✗   ✗   ✗   ✗   ✗     (A[i] ≤ 14 ?)
+                         ▲
+                     answer 4: the last ✓
+```
+
+เมื่อมีค่าซ้ำ แค่ "หา 14 ให้เจอ" ไม่พอ เพราะ binary search อาจตกที่ 14 ตัวแรกหรือตัวกลาง เราต้องการตำแหน่ง **สุดท้าย** ที่เงื่อนไขยังจริง
+
+:::hint คำใบ้ 1
+รูปแบบ ✓/✗ ยังเป็น "✓ ทั้งหมด แล้วตามด้วย ✗ ทั้งหมด" เหมือนเดิม ลองคิดว่าถ้า X ตรงกับกลุ่มค่าที่เท่ากันพอดี รูปแบบนี้เป็นอย่างไร
+:::
+:::hint คำใบ้ 2
+เมื่อ A[mid] ≤ X ให้บันทึก `ans = mid` แล้วค้นต่อไปทาง **ขวา** (`lo = mid + 1`) แม้ A[mid] == X ก็ตาม
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** ตำแหน่งเส้นแบ่งระหว่าง "≤ X" กับ "> X"
+- **ทำไมกฎตอนเท่ากันสำคัญ:** ถ้าหยุดทันทีที่เจอ `A[mid] == X` จะได้ 14 *ตัวไหนก็ไม่รู้* ไม่ใช่ตัวสุดท้าย การถือว่าเท่ากันคือ "ใช้ได้ ไปดูทางขวาต่อ" จะดันการค้นไปจนสุดกลุ่ม
+- **อย่างไร:** โค้ดเหมือน [ex01e3](#ex01e3) ทุกบรรทัด เปลี่ยนแค่ `ans = mid` แทน `ans = A[mid]` invariant เหมือนเดิม: ตำแหน่ง `< lo` มีค่า ≤ X, ตำแหน่ง `> hi` มีค่า > X และ `ans` คือตำแหน่ง ≤ X ตัวสุดท้ายที่เคยเห็น
+- **แบบกลับด้าน:** ถ้าต้องการตำแหน่ง *แรก* ที่ A[i] ≥ X (สิ่งที่ `lower_bound` ทำ) ให้บันทึกเมื่อ "≥" แล้วไป **ซ้าย** รู้สองแบบนี้ก็ครอบคลุม binary search เกือบทุกข้อในข้อสอบ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า** อาร์เรย์ตัวอย่างกับ X = 14:
+
+| ขั้น | lo | hi | mid | A[mid] | ≤ 14? | ans | ขยับ |
+|---|---|---|---|---|---|---|---|
+| 1 | 0 | 9 | 4 | 14 | ใช่ | 4 | lo = 5 (หา 14 ตัวหลังกว่านี้) |
+| 2 | 5 | 9 | 7 | 16 | ไม่ | 4 | hi = 6 |
+| 3 | 5 | 6 | 5 | 15 | ไม่ | 4 | hi = 4 |
+| — | 5 | 4 | | | ว่าง | **4** | หยุด |
+
+X = 16 ได้ 7 (16 ตัวสุดท้าย), X = 9 ได้ −1, X = 200 ได้ 9 ตรงกับตัวอย่างทั้งหมด
+
+## 5. จุดที่มักพลาด
+- **ตอบค่าแทนตำแหน่ง** (ประโยคข้อมูลส่งออกใน PDF ชวนให้เข้าใจผิด ให้เชื่อตัวอย่าง)
+- **return ทันทีเมื่อเท่ากัน** (`if (A[mid] == x) return mid;`): ได้ x ตัวไหนก็ได้ ไม่ใช่ตัวสุดท้าย
+- **ตำแหน่งเริ่มที่ 0:** โจทย์บอกไว้ชัด
+- **ห้ามใช้ตัวช่วยจากไลบรารี:** `upper_bound(A, A+n, x) - A - 1` คือคำตอบบรรทัดเดียว แต่ข้อนี้ห้าม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 08 binary search แบบ "จริงตัวแรก / จริงตัวสุดท้าย" เป็นรูปแบบ D&C ที่ถูกใช้ซ้ำมากที่สุดในวิชา แนวคิดเดียวกันยังใช้หาคำตอบที่ไม่ได้เก็บอยู่ในอาร์เรย์ไหนเลย ("binary search บนคำตอบ") เช่นข้อ [Lawn Mowing](#a64_q1_lawn_mowing) ที่เราค้นบนตำแหน่งสิ้นสุด

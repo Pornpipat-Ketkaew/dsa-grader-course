@@ -1,0 +1,87 @@
+chapter: sort
+==== en
+## 1. The idea
+Sorting is rarely the whole answer. It is the **first step** that makes the rest easy: after sorting, equal values sit together, the k-th smallest is at index k − 1, and "how many are smaller than x" is a binary search.
+
+Exam questions on sorting come in two flavours:
+- **Use** a sort: sort (often something compressed, such as groups or pairs), then scan or binary-search.
+- **Understand** a sort: given the code of insertion sort, bubble sort or merge sort, count how often a line runs or how far an element moves.
+
+## 2. The templates
+```cpp
+// sort pairs by value, then build prefix counts
+sort(g.begin(), g.end());                          // by .first, then .second
+vector<long long> last(g.size());
+// i = 0 .. size-1: last[i] = total count of groups 0..i
+for (int i = 0; i < (int)g.size(); i++)
+    last[i] = (i ? last[i - 1] : 0) + g[i].second;
+// the group that holds position p (1-based): first last[i] >= p
+int idx = lower_bound(last.begin(), last.end(), p) - last.begin();
+```
+
+```cpp
+// Fenwick tree: "how many seen values are <= v", point add in O(log n)
+vector<int> bit(n + 1, 0);
+void add(int v)  { for (int i = v; i <= n; i += i & -i) bit[i]++; }        // climb to the parents
+int  sum(int v)  { int s = 0; for (int i = v; i > 0; i -= i & -i) s += bit[i]; return s; }  // walk down
+```
+
+## 3. How to recognise it
+- The input is too big to expand, but its **description** is small (groups, ranges).
+- "The k-th smallest", "the median", "how many are below / above".
+- Code of a classic sort is printed in the statement, with a line number to count: think **inversions**.
+
+## 4. Cost and pitfalls
+- `std::sort` is O(n log n); never write bubble sort for real data.
+- Insertion sort's work = number of inversions: Θ(n²) in the worst case (reversed input).
+- Counts and positions can pass 2³¹ − 1: use `long long`.
+- `lower_bound` = first element ≥ x; `upper_bound` = first element > x. Mixing them up is an off-by-one.
+
+## 5. In this chapter
+- [Huge array](#a65_q2a_huge_array): sort compressed groups, prefix sums, one binary search per query.
+- [Insertion sort count](#a66_q2a_insertion_count): what insertion sort really does, counted per element with a Fenwick tree.
+
+The binary search here leads straight into the next chapter, [Divide & conquer](#ch-dc).
+==== th
+## 1. ไอเดีย
+การเรียงลำดับไม่ค่อยเป็นคำตอบทั้งหมด มันคือ **ขั้นแรก** ที่ทำให้ส่วนที่เหลือง่าย: หลังเรียงแล้ว ค่าที่เท่ากันอยู่ติดกัน ตัวที่ k อยู่ที่ index k − 1 และ "มีกี่ตัวที่น้อยกว่า x" ก็คือ binary search
+
+ข้อสอบเรื่องการเรียงมีสองแบบ:
+- **ใช้** การเรียง: เรียง (มักเป็นข้อมูลที่ถูกบีบอัด เช่นกลุ่มหรือคู่) แล้วไล่หรือ binary search
+- **เข้าใจ** การเรียง: ให้โค้ด insertion sort, bubble sort หรือ merge sort มา แล้วนับว่าบรรทัดหนึ่งทำงานกี่ครั้ง หรือสมาชิกหนึ่งตัวเลื่อนไปไกลแค่ไหน
+
+## 2. โครงโค้ด
+```cpp
+// sort pairs by value, then build prefix counts
+sort(g.begin(), g.end());                          // by .first, then .second
+vector<long long> last(g.size());
+// i = 0 .. size-1: last[i] = total count of groups 0..i
+for (int i = 0; i < (int)g.size(); i++)
+    last[i] = (i ? last[i - 1] : 0) + g[i].second;
+// the group that holds position p (1-based): first last[i] >= p
+int idx = lower_bound(last.begin(), last.end(), p) - last.begin();
+```
+
+```cpp
+// Fenwick tree: "how many seen values are <= v", point add in O(log n)
+vector<int> bit(n + 1, 0);
+void add(int v)  { for (int i = v; i <= n; i += i & -i) bit[i]++; }        // climb to the parents
+int  sum(int v)  { int s = 0; for (int i = v; i > 0; i -= i & -i) s += bit[i]; return s; }  // walk down
+```
+
+## 3. ดูอย่างไรว่าใช่
+- input ใหญ่เกินจะขยายออกมา แต่ **คำบรรยาย** มันเล็ก (กลุ่ม, ช่วง)
+- "ตัวที่ k ที่น้อยที่สุด", "มัธยฐาน", "มีกี่ตัวที่น้อยกว่า / มากกว่า"
+- โจทย์พิมพ์โค้ดการเรียงแบบคลาสสิกมาให้ พร้อมเลขบรรทัดที่ต้องนับ: ให้คิดถึง **inversion**
+
+## 4. ต้นทุนและจุดพลาด
+- `std::sort` เป็น O(n log n) อย่าเขียน bubble sort กับข้อมูลจริง
+- งานของ insertion sort = จำนวน inversion: Θ(n²) ในกรณีแย่สุด (input กลับด้าน)
+- จำนวนและตำแหน่งอาจเกิน 2³¹ − 1: ใช้ `long long`
+- `lower_bound` = ตัวแรกที่ ≥ x; `upper_bound` = ตัวแรกที่ > x สลับกันเมื่อไหร่ก็คลาดไปหนึ่ง
+
+## 5. ในบทนี้
+- [Huge array](#a65_q2a_huge_array): เรียงกลุ่มที่ถูกบีบอัด ทำ prefix sum แล้ว binary search หนึ่งครั้งต่อคำถาม
+- [Insertion sort count](#a66_q2a_insertion_count): insertion sort ทำอะไรจริง ๆ นับแยกรายตัวด้วย Fenwick tree
+
+binary search ในบทนี้พาไปสู่บทถัดไป [แบ่งแยกและเอาชนะ](#ch-dc) โดยตรง

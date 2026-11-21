@@ -1,0 +1,153 @@
+chapter: graph1
+==== en
+## 1. The idea
+A **graph** is nodes plus edges. Almost every graph question starts the same way: **store** the graph, **walk** it, and **count** what you meet.
+
+- **Store:** an adjacency list `vector<vector<int>> adj` for sparse graphs; an adjacency matrix when the input already is one or the graph is dense; nothing at all for a **grid**, where the neighbours of (r, c) are computed on the spot.
+- **Walk:** DFS goes deep first (good for "which nodes are connected"); BFS goes layer by layer (good for "**fewest steps**").
+- **Count:** components, degrees, cycles, distances.
+
+```text
+BFS from s: layers by distance          DFS from s: one branch to the end, then back
+      s                                       s
+    / | \      layer 1                        |
+   a  b  c                                    a ── d ── g      (then back up to try b, c)
+   |     |     layer 2
+   d     e
+```
+
+## 2. The templates
+```cpp
+// BFS: shortest number of edges from s (several sources: push them all first)
+vector<int> dist(n, -1);
+queue<int> q;
+dist[s] = 0; q.push(s);
+// pop nodes in order of distance
+while (!q.empty()) {
+    int u = q.front(); q.pop();
+    // every neighbour not seen yet is one step further
+    for (int v : adj[u])
+        if (dist[v] == -1) { dist[v] = dist[u] + 1; q.push(v); }
+}
+```
+
+```cpp
+// counting components with an iterative DFS (no deep recursion)
+vector<bool> seen(n, false);
+int comps = 0;
+// every node 0..n-1 that is still unseen starts a new component
+for (int s = 0; s < n; s++) {
+    if (seen[s]) continue;
+    comps++;
+    vector<int> st = {s}; seen[s] = true;
+    // pop and expand until the whole component is marked
+    while (!st.empty()) {
+        int u = st.back(); st.pop_back();
+        for (int v : adj[u]) if (!seen[v]) { seen[v] = true; st.push_back(v); }
+    }
+}
+```
+
+```cpp
+// union-find with path compression: "are a and b already connected?"
+int find(int x) { return par[x] == x ? x : par[x] = find(par[x]); }
+bool unite(int a, int b) { a = find(a); b = find(b); if (a == b) return false; par[a] = b; return true; }
+```
+
+## 3. How to recognise it
+- "Connected", "reach", "group", "spread", "friends of friends": components or BFS.
+- "Minimum number of steps / days / moves", all moves cost the same: **BFS**. Many starting points: **multi-source BFS**.
+- "Does it contain a cycle?": union-find (an edge inside one set closes a cycle) or degree counting.
+- n nodes and n edges, connected: a tree plus **one** extra edge, exactly one cycle.
+
+## 4. Cost and pitfalls
+- BFS and DFS are O(V + E) with adjacency lists, O(V²) with a matrix.
+- Undirected edges: store **both** directions.
+- Recursive DFS on 10⁵–10⁶ nodes can overflow the stack; use an explicit stack or BFS.
+- 10⁶+ numbers of input: use `scanf`, `ios::sync_with_stdio(false)`, or a `fread` reader.
+- Grids: keep direction arrays `dr[] = {-1, 1, 0, 0}`, `dc[] = {0, 0, -1, 1}` and check bounds before reading a cell.
+
+## 5. In this chapter
+- [Degrees](#a65_q0_degrees): the simplest graph fact, and fast input.
+- [Component count](#a60a_q3_component): DFS marks one component at a time.
+- [Detecting a cycle](#ex05m1_cycle): union-find.
+- [Line graph count](#a62_q2a_line_graph): components plus a degree test.
+- [Connection](#ex05m2_connection): BFS from every node with a depth limit.
+- [Pandemic](#a62_q2a_pandemic): multi-source BFS on a grid, stop at day T.
+- [Cycle in a tree](#a59_q3_cycle): peel leaves until only the cycle is left.
+==== th
+## 1. ไอเดีย
+**กราฟ** คือปมกับเส้นเชื่อม โจทย์กราฟเกือบทุกข้อเริ่มเหมือนกัน: **เก็บ** กราฟ **เดิน** สำรวจ แล้ว **นับ** สิ่งที่เจอ
+
+- **เก็บ:** adjacency list `vector<vector<int>> adj` สำหรับกราฟเบาบาง; adjacency matrix เมื่อ input เป็นเมทริกซ์อยู่แล้วหรือกราฟหนาแน่น; และไม่ต้องเก็บอะไรเลยสำหรับ **ตาราง** ที่เพื่อนบ้านของ (r, c) คำนวณได้ทันที
+- **เดิน:** DFS ลงลึกก่อน (เหมาะกับ "ปมไหนเชื่อมกันบ้าง") BFS ไปทีละชั้น (เหมาะกับ "**ก้าวน้อยที่สุด**")
+- **นับ:** component, ดีกรี, วงวน, ระยะทาง
+
+```text
+BFS from s: layers by distance          DFS from s: one branch to the end, then back
+      s                                       s
+    / | \      layer 1                        |
+   a  b  c                                    a ── d ── g      (then back up to try b, c)
+   |     |     layer 2
+   d     e
+```
+
+## 2. โครงโค้ด
+```cpp
+// BFS: shortest number of edges from s (several sources: push them all first)
+vector<int> dist(n, -1);
+queue<int> q;
+dist[s] = 0; q.push(s);
+// pop nodes in order of distance
+while (!q.empty()) {
+    int u = q.front(); q.pop();
+    // every neighbour not seen yet is one step further
+    for (int v : adj[u])
+        if (dist[v] == -1) { dist[v] = dist[u] + 1; q.push(v); }
+}
+```
+
+```cpp
+// counting components with an iterative DFS (no deep recursion)
+vector<bool> seen(n, false);
+int comps = 0;
+// every node 0..n-1 that is still unseen starts a new component
+for (int s = 0; s < n; s++) {
+    if (seen[s]) continue;
+    comps++;
+    vector<int> st = {s}; seen[s] = true;
+    // pop and expand until the whole component is marked
+    while (!st.empty()) {
+        int u = st.back(); st.pop_back();
+        for (int v : adj[u]) if (!seen[v]) { seen[v] = true; st.push_back(v); }
+    }
+}
+```
+
+```cpp
+// union-find with path compression: "are a and b already connected?"
+int find(int x) { return par[x] == x ? x : par[x] = find(par[x]); }
+bool unite(int a, int b) { a = find(a); b = find(b); if (a == b) return false; par[a] = b; return true; }
+```
+
+## 3. ดูอย่างไรว่าใช่
+- "เชื่อมกัน", "ไปถึง", "กลุ่ม", "แพร่กระจาย", "เพื่อนของเพื่อน": component หรือ BFS
+- "จำนวนก้าว / วัน / ครั้งที่น้อยที่สุด" ทุกก้าวราคาเท่ากัน: **BFS** ถ้ามีจุดเริ่มหลายจุด: **BFS หลายจุดเริ่ม**
+- "มีวงวนไหม": union-find (เส้นที่อยู่ในเซตเดียวกันปิดวง) หรือนับดีกรี
+- n ปม n เส้น และเชื่อมกันหมด: ต้นไม้บวกเส้นเพิ่ม **หนึ่ง** เส้น มีวงพอดีหนึ่งวง
+
+## 4. ต้นทุนและจุดพลาด
+- BFS และ DFS เป็น O(V + E) กับ adjacency list และ O(V²) กับเมทริกซ์
+- เส้นไม่มีทิศ: เก็บ **ทั้งสอง** ทิศ
+- DFS แบบ recursive บน 10⁵–10⁶ ปมอาจทำให้ stack ล้น ใช้ stack เองหรือ BFS
+- input 10⁶ ตัวขึ้นไป: ใช้ `scanf`, `ios::sync_with_stdio(false)` หรือตัวอ่าน `fread`
+- ตาราง: เก็บอาร์เรย์ทิศ `dr[] = {-1, 1, 0, 0}`, `dc[] = {0, 0, -1, 1}` และเช็กขอบก่อนอ่านช่อง
+
+## 5. ในบทนี้
+- [Degrees](#a65_q0_degrees): ข้อเท็จจริงของกราฟที่ง่ายที่สุด และการอ่าน input ให้เร็ว
+- [Component count](#a60a_q3_component): DFS ทำเครื่องหมายทีละ component
+- [Detecting a cycle](#ex05m1_cycle): union-find
+- [Line graph count](#a62_q2a_line_graph): component บวกการทดสอบดีกรี
+- [Connection](#ex05m2_connection): BFS จากทุกปมพร้อมจำกัดความลึก
+- [Pandemic](#a62_q2a_pandemic): BFS หลายจุดเริ่มบนตาราง หยุดที่วัน T
+- [วงวนในต้นไม้](#a59_q3_cycle): ลอกใบจนเหลือแต่วงวน

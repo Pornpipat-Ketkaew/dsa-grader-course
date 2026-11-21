@@ -1,0 +1,148 @@
+id: a58_q3_p3a_hacking
+group: sp
+lesson: 17 · Shortest paths: multi-source Dijkstra
+stars: 3
+complexity: O((n + m) log n)
+kind: program
+tags: multi-source Dijkstra, vertex weights, max of shortest times
+title: Hacking
+title_th: แฮกเครือข่าย (Hacking)
+blurb: A virus starts on k servers; breaking into server i takes c[i] seconds, then it spreads along cables. When has every server fallen? Multi-source Dijkstra with the cost on the vertex, then take the maximum.
+blurb_th: ไวรัสเริ่มที่เซิร์ฟเวอร์ k เครื่อง การเจาะเครื่อง i ใช้ c[i] วินาที แล้วแพร่ไปตามสาย เมื่อไหร่ทุกเครื่องจะถูกเจาะ: Dijkstra หลายจุดเริ่มที่ค่าอยู่บนปม แล้วหาค่ามากสุด
+files: sol/a58_q3_p3a_hacking/main.cpp
+tests: the 3 PDF samples; 300 random connected graphs (n ≤ 9) against an event simulation in Python; n = 10,000, m = 40,000, k = 50 in 0.01 s.
+tests_th: ตัวอย่าง 3 ชุดใน PDF; สุ่มกราฟเชื่อมกัน 300 ชุด (n ≤ 9) เทียบกับการจำลองเหตุการณ์ใน Python; n = 10,000, m = 40,000, k = 50 ใช้ 0.01 วินาที
+==== en
+## 1. What the problem says
+There are n servers (n ≤ 10,000) and m two-way cables (n − 1 ≤ m ≤ 40,000). A hacker attacks k servers at time 0. Breaking into server i takes **c[i]** seconds (1..1,000). Once a server is hacked, the virus immediately starts attacking all its neighbours. Print the **earliest time at which every server is hacked**.
+
+Input: n m k; the k starting servers; c[0..n−1]; then the cables.
+
+Sample 2: n = 4, start at 0, c = 2 5 3 1 → **7**.
+
+> Two mistakes in the PDF: it says "the next **n − 1** lines" are cables, but the samples have **m** lines (sample 2 has 4 cables for 4 servers). And the Output section ("n lines … choke point") is copied from another problem: the samples print **one number**.
+
+## 2. What it really means
+Let t[v] be the time server v falls.
+- A starting server s falls at t[s] = c[s].
+- From a hacked u, a neighbour v can fall at t[u] + c[v].
+- t[v] is the minimum over all ways, so it is a **shortest path** where the cost sits on the **vertex you enter**, and there are **k sources**.
+
+The answer is max over v of t[v], because everything is hacked when the **last** server falls.
+
+```text
+sample 2:  c = [2, 5, 3, 1]        times
+   0 ── 1                           t[0] = 2         (attacked first)
+   │    │                           t[2] = 2+3 = 5   (via 0)
+   2 ── 3                           t[3] = 5+1 = 6   (via 2)
+                                    t[1] = 2+5 = 7   (via 0; via 3 would be 6+5 = 11)
+                                    answer = max = 7
+```
+
+:::hint Hint 1
+How would you handle k starting servers in one run instead of k runs?
+:::
+:::hint Hint 2
+Push every starting server into the heap at time c[s] before the loop starts. Then it is ordinary Dijkstra, with edge weight c[v] for an edge into v.
+:::
+
+## 3. What, why, how
+- **What:** Dijkstra with a binary heap, started from k sources at once.
+- **Why multi-source is correct:** add a virtual node joined to each start s by an edge of weight c[s]. One Dijkstra from it gives every server its fastest time from the nearest start. Pushing all starts first is the same thing.
+- **Why Dijkstra:** all c[i] ≥ 1 > 0, so the earliest unfinished server can never be reached earlier later on.
+- **How:** t = ∞. For each start s: t[s] = c[s], push. Pop (d, u); skip if d > t[u]. For each neighbour v: if d + c[v] < t[v], update and push. Print the max of t.
+- **Cost:** O((n + m) log n) ≈ 50,000 · 14. Measured 0.01 s.
+- **Sizes:** a time is at most 10,000 · 1,000 = 10⁷: `int` is safe.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2 (heap entries are (time, server)).
+
+| pop | action | t[0..3] | heap afterwards |
+|---|---|---|---|
+| start | push server 0 at c[0] = 2 | 2 ∞ ∞ ∞ | (2,0) |
+| (2,0) | t[1] = 2+5, t[2] = 2+3 | 2 7 5 ∞ | (5,2) (7,1) |
+| (5,2) | t[3] = 5+1 | 2 7 5 6 | (6,3) (7,1) |
+| (6,3) | 6+5 = 11 > 7: no change | 2 7 5 6 | (7,1) |
+| (7,1) | 7+1 = 8 > 6: no change | 2 7 5 6 | empty |
+
+max(2, 7, 5, 6) = **7**.
+
+## 5. Traps
+- **Reading n − 1 cable lines:** follow the samples and read **m**.
+- **Starting the sources at time 0:** the first attack also takes c[s] seconds (sample 1: server 1 falls at 5, not 0).
+- **Printing n lines:** print one number.
+- **One Dijkstra per source:** k can be n; that is O(n · m log n), too slow.
+- **A start listed twice:** harmless; the code only pushes if it improves t[s].
+
+## 6. Background
+Lesson 17. Cost on a vertex = cost on every edge into it. Many sources = one virtual source. Both tricks also appear in [Columbia](#ex06e3_columbia) (vertex costs) and [Pandemic](#a62_q2a_pandemic) (many sources, BFS). "Time when everything is done" = the maximum shortest distance, like [Farthest](#a61_q2_farthest).
+==== th
+## 1. โจทย์บอกอะไร
+มีเซิร์ฟเวอร์ n เครื่อง (n ≤ 10,000) และสายสองทาง m เส้น (n − 1 ≤ m ≤ 40,000) แฮกเกอร์โจมตีเซิร์ฟเวอร์ k เครื่องตอนเวลา 0 การเจาะเครื่อง i ใช้เวลา **c[i]** วินาที (1..1,000) เมื่อเครื่องไหนถูกเจาะแล้ว ไวรัสจะเริ่มโจมตีเพื่อนบ้านทุกเครื่องทันที ให้พิมพ์ **เวลาที่เร็วที่สุดที่ทุกเครื่องถูกเจาะ**
+
+input: n m k; เครื่องเริ่มต้น k เครื่อง; c[0..n−1]; แล้วตามด้วยสาย
+
+ตัวอย่างที่ 2: n = 4 เริ่มที่ 0, c = 2 5 3 1 → **7**
+
+> PDF ผิดสองจุด: เขียนว่า "อีก **n − 1** บรรทัด" เป็นสาย แต่ตัวอย่างมี **m** บรรทัด (ตัวอย่างที่ 2 มีสาย 4 เส้นสำหรับ 4 เครื่อง) และส่วน Output ("n บรรทัด … choke point") ถูกคัดลอกมาจากโจทย์อื่น ตัวอย่างพิมพ์ **ตัวเลขตัวเดียว**
+
+## 2. จริง ๆ แล้วถามอะไร
+ให้ t[v] คือเวลาที่เครื่อง v ถูกเจาะ
+- เครื่องเริ่มต้น s ถูกเจาะที่ t[s] = c[s]
+- จากเครื่อง u ที่ถูกเจาะแล้ว เพื่อนบ้าน v ถูกเจาะได้ที่ t[u] + c[v]
+- t[v] คือค่าน้อยสุดของทุกทาง จึงเป็น **ระยะสั้นสุด** ที่ค่าอยู่ที่ **ปมที่เดินเข้า** และมี **จุดเริ่ม k จุด**
+
+คำตอบคือ max ของ t[v] ทุก v เพราะทุกเครื่องถูกเจาะเมื่อเครื่อง **สุดท้าย** ล้ม
+
+```text
+sample 2:  c = [2, 5, 3, 1]        times
+   0 ── 1                           t[0] = 2         (attacked first)
+   │    │                           t[2] = 2+3 = 5   (via 0)
+   2 ── 3                           t[3] = 5+1 = 6   (via 2)
+                                    t[1] = 2+5 = 7   (via 0; via 3 would be 6+5 = 11)
+                                    answer = max = 7
+```
+
+:::hint คำใบ้ 1
+จะจัดการจุดเริ่ม k จุดในการรันครั้งเดียวแทนที่จะรัน k ครั้งได้อย่างไร
+:::
+:::hint คำใบ้ 2
+ใส่เครื่องเริ่มต้นทุกเครื่องลง heap ด้วยเวลา c[s] ก่อนเริ่มลูป แล้วก็เป็น Dijkstra ธรรมดา โดยเส้นที่เข้า v มีน้ำหนัก c[v]
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Dijkstra กับ binary heap เริ่มจาก k จุดพร้อมกัน
+- **ทำไมหลายจุดเริ่มถูกต้อง:** เพิ่มปมเสมือนที่ต่อกับจุดเริ่ม s แต่ละจุดด้วยเส้นน้ำหนัก c[s] Dijkstra ครั้งเดียวจากปมนี้ให้เวลาที่เร็วที่สุดจากจุดเริ่มที่ใกล้ที่สุดกับทุกเครื่อง การใส่ทุกจุดเริ่มก่อนก็คือสิ่งเดียวกัน
+- **ทำไม Dijkstra:** c[i] ทุกตัว ≥ 1 > 0 เครื่องที่ยังไม่เสร็จและเร็วที่สุดจะไม่มีทางถูกเจาะเร็วกว่านี้ภายหลัง
+- **อย่างไร:** t = ∞ ทุกจุดเริ่ม s: t[s] = c[s] แล้วใส่ heap ดึง (d, u); ข้ามถ้า d > t[u] เพื่อนบ้าน v: ถ้า d + c[v] < t[v] อัปเดตแล้วใส่ heap พิมพ์ค่ามากสุดของ t
+- **ต้นทุน:** O((n + m) log n) ≈ 50,000 · 14 วัดได้ 0.01 วินาที
+- **ขนาด:** เวลาไม่เกิน 10,000 · 1,000 = 10⁷: `int` ปลอดภัย
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 (รายการใน heap คือ (เวลา, เครื่อง))
+
+| ดึง | ทำอะไร | t[0..3] | heap หลังขั้นนี้ |
+|---|---|---|---|
+| เริ่ม | ใส่เครื่อง 0 ที่ c[0] = 2 | 2 ∞ ∞ ∞ | (2,0) |
+| (2,0) | t[1] = 2+5, t[2] = 2+3 | 2 7 5 ∞ | (5,2) (7,1) |
+| (5,2) | t[3] = 5+1 | 2 7 5 6 | (6,3) (7,1) |
+| (6,3) | 6+5 = 11 > 7: ไม่เปลี่ยน | 2 7 5 6 | (7,1) |
+| (7,1) | 7+1 = 8 > 6: ไม่เปลี่ยน | 2 7 5 6 | ว่าง |
+
+max(2, 7, 5, 6) = **7**
+
+## 5. จุดที่มักพลาด
+- **อ่านสาย n − 1 บรรทัด:** ทำตามตัวอย่าง อ่าน **m** บรรทัด
+- **ให้จุดเริ่มมีเวลา 0:** การโจมตีครั้งแรกก็ใช้ c[s] วินาทีเช่นกัน (ตัวอย่างที่ 1: เครื่อง 1 ล้มที่ 5 ไม่ใช่ 0)
+- **พิมพ์ n บรรทัด:** พิมพ์ตัวเลขตัวเดียว
+- **Dijkstra หนึ่งครั้งต่อหนึ่งจุดเริ่ม:** k อาจเท่ากับ n จะได้ O(n · m log n) ช้าเกินไป
+- **จุดเริ่มซ้ำกัน:** ไม่เป็นไร โค้ดใส่ heap เฉพาะเมื่อ t[s] ดีขึ้น
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 ค่าบนปม = ค่าบนทุกเส้นที่เข้าปมนั้น หลายจุดเริ่ม = จุดเริ่มเสมือนจุดเดียว ทั้งสองท่าพบอีกในข้อ [Columbia](#ex06e3_columbia) (ค่าบนปม) และ [Pandemic](#a62_q2a_pandemic) (หลายจุดเริ่ม ใช้ BFS) "เวลาที่ทุกอย่างเสร็จ" = ระยะสั้นสุดที่มากที่สุด เหมือนข้อ [Farthest](#a61_q2_farthest)

@@ -1,0 +1,125 @@
+chapter: dp
+==== en
+## 1. The idea
+**Dynamic programming** = recursion where the same sub-problems come back again and again, so you solve each one **once** and store it.
+
+Every DP answer has four parts. Write them down before writing code:
+1. **State:** what does `dp[i]` (or `dp[i][j]`) mean, in one sentence?
+2. **Transition:** how is a state computed from smaller states?
+3. **Base cases:** the smallest states, known directly.
+4. **Order:** fill the table so that every state's inputs are ready (or use memoised recursion and let the calls decide).
+
+```text
+plain recursion for F(5)            with a table
+          F5                         F0 F1 F2 F3 F4 F5
+        /    \                        0  1  1  2  3  5
+      F4      F3                      each computed once, left to right
+     /  \    /  \
+   F3   F2  F2  F1     F3 twice, F2 three times, ...  →  exponential
+```
+
+## 2. The templates
+```cpp
+// top-down: recursion + memo
+long long memo[MAXN];               // -1 = not computed yet
+long long f(int i) {
+    if (i <= 1) return i;           // base cases
+    if (memo[i] != -1) return memo[i];
+    return memo[i] = f(i - 1) + f(i - 2);   // transition, stored on the way out
+}
+```
+
+```cpp
+// bottom-up: fill the table in an order where the inputs are ready
+dp[0] = 1;                                      // base case
+// i = 1 .. n: every dp[i - s] with s >= 1 is already filled
+for (int i = 1; i <= n; i++) {
+    dp[i] = 0;
+    // add every way the last step can look
+    for (int s : steps)
+        if (i - s >= 0) dp[i] = (dp[i] + dp[i - s]) % MOD;
+}
+```
+
+## 3. How to recognise it
+- **Counting** ("how many ways"), often "mod something": DP that adds.
+- **Best** ("maximum sum", "minimum cost") over choices that build on each other: DP that takes max/min.
+- A brute force would try exponentially many sequences, but the future depends only on a **small summary** of the past (the position, the last move, the last column).
+- A rule like "not the same move twice" or "no two adjacent 1s": add the **last choice** to the state.
+
+## 4. Cost and pitfalls
+- Cost = (number of states) × (work per transition). Estimate it before coding.
+- Counting answers grow fast: take the mod after **every** addition and multiplication; use `long long` for products.
+- In-place updates can read a value that was already overwritten in the same round; when in doubt, keep two rows (`cur` / `nxt`).
+- Recursion with memo is easy to write but can be deep; bottom-up avoids stack overflow.
+
+## 5. In this chapter
+- [Fibonacci](#ex02e1_fibo) and [Binomial coefficient](#ex02e2_cnk): memoisation, from exponential to tiny.
+- [Number triangle](#ex02m1_triangle): a "best path" DP, filled bottom-up.
+- [Chocolate](#a62_q1b_chocolate): counting sequences, mod.
+- [Table without 11](#a64_q2_table_no_11): a state that remembers the last column.
+- [Diagonal sum](#a60b_q1_diagsum): Kadane's "best sum ending here".
+
+More DP in the final chapter: [Linear recurrence](#da66_f1_linear_recurrence) and [New Game Plus](#da66_f2_new_game_plus).
+==== th
+## 1. ไอเดีย
+**กำหนดการพลวัต (Dynamic programming)** = recursion ที่ปัญหาย่อยเดิมกลับมาซ้ำแล้วซ้ำอีก จึงแก้แต่ละปัญหา **ครั้งเดียว** แล้วเก็บไว้
+
+คำตอบ DP ทุกข้อมีสี่ส่วน เขียนออกมาก่อนเขียนโค้ด:
+1. **State:** `dp[i]` (หรือ `dp[i][j]`) หมายถึงอะไร ในประโยคเดียว
+2. **Transition:** state หนึ่งคำนวณจาก state ที่เล็กกว่าอย่างไร
+3. **กรณีฐาน:** state ที่เล็กที่สุด ซึ่งรู้ค่าได้ทันที
+4. **ลำดับ:** เติมตารางให้ทุก state มีข้อมูลที่ต้องใช้พร้อม (หรือใช้ recursion กับ memo แล้วปล่อยให้การเรียกเป็นตัวกำหนด)
+
+```text
+plain recursion for F(5)            with a table
+          F5                         F0 F1 F2 F3 F4 F5
+        /    \                        0  1  1  2  3  5
+      F4      F3                      each computed once, left to right
+     /  \    /  \
+   F3   F2  F2  F1     F3 twice, F2 three times, ...  →  exponential
+```
+
+## 2. โครงโค้ด
+```cpp
+// top-down: recursion + memo
+long long memo[MAXN];               // -1 = not computed yet
+long long f(int i) {
+    if (i <= 1) return i;           // base cases
+    if (memo[i] != -1) return memo[i];
+    return memo[i] = f(i - 1) + f(i - 2);   // transition, stored on the way out
+}
+```
+
+```cpp
+// bottom-up: fill the table in an order where the inputs are ready
+dp[0] = 1;                                      // base case
+// i = 1 .. n: every dp[i - s] with s >= 1 is already filled
+for (int i = 1; i <= n; i++) {
+    dp[i] = 0;
+    // add every way the last step can look
+    for (int s : steps)
+        if (i - s >= 0) dp[i] = (dp[i] + dp[i - s]) % MOD;
+}
+```
+
+## 3. ดูอย่างไรว่าใช่
+- **นับ** ("มีกี่วิธี") มักมี "mod อะไรสักอย่าง": DP แบบบวก
+- **ดีที่สุด** ("ผลรวมมากสุด", "ค่าใช้จ่ายน้อยสุด") จากทางเลือกที่ต่อยอดกัน: DP แบบ max/min
+- brute force ต้องลองลำดับจำนวนเอกซ์โพเนนเชียล แต่อนาคตขึ้นกับแค่ **สรุปสั้น ๆ** ของอดีต (ตำแหน่ง, ท่าล่าสุด, คอลัมน์ล่าสุด)
+- กฎแบบ "ห้ามท่าเดิมสองครั้ง" หรือ "ห้ามมี 1 ติดกัน": ใส่ **ทางเลือกล่าสุด** ลงใน state
+
+## 4. ต้นทุนและจุดพลาด
+- ต้นทุน = (จำนวน state) × (งานต่อ transition) ประเมินก่อนเขียนโค้ด
+- คำตอบแบบนับโตเร็ว: mod หลัง **ทุก** การบวกและคูณ ใช้ `long long` สำหรับผลคูณ
+- การอัปเดตทับที่เดิมอาจอ่านค่าที่ถูกเขียนทับไปแล้วในรอบเดียวกัน ถ้าไม่แน่ใจให้ใช้สองแถว (`cur` / `nxt`)
+- recursion กับ memo เขียนง่ายแต่อาจลึก bottom-up เลี่ยง stack overflow ได้
+
+## 5. ในบทนี้
+- [Fibonacci](#ex02e1_fibo) และ [Binomial coefficient](#ex02e2_cnk): memoization จากเอกซ์โพเนนเชียลเหลือนิดเดียว
+- [Number triangle](#ex02m1_triangle): DP แบบ "เส้นทางดีที่สุด" เติมจากล่างขึ้นบน
+- [Chocolate](#a62_q1b_chocolate): นับลำดับ พร้อม mod
+- [Table without 11](#a64_q2_table_no_11): state ที่จำคอลัมน์ล่าสุด
+- [Diagonal sum](#a60b_q1_diagsum): "ผลรวมดีที่สุดที่จบตรงนี้" ของ Kadane
+
+DP เพิ่มเติมในบทสุดท้าย: [Linear recurrence](#da66_f1_linear_recurrence) และ [New Game Plus](#da66_f2_new_game_plus)
