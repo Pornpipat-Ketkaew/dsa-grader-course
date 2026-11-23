@@ -1,0 +1,146 @@
+id: ex01m3
+group: dc
+lesson: 08 · Binary search (on the answer)
+stars: 2
+complexity: O(A · N · log(c · T))
+kind: program
+tags: binary search on the answer, monotone count, restaurant, long long, queue simulation is too slow
+title: Restaurant
+title_th: ร้านอาหารคิวยาว (Restaurant)
+blurb: N chefs, chef i serves one customer every Tᵢ minutes starting at time 0. When is customer c (up to 10¹²) seated? By time t, chef i has seated t / Tᵢ + 1 customers; binary search the smallest t where the total reaches c.
+blurb_th: มีเชฟ N คน เชฟ i เสิร์ฟลูกค้าคนละ Tᵢ นาทีเริ่มที่เวลา 0 ลูกค้าคนที่ c (ถึง 10¹²) ได้นั่งเมื่อไร เมื่อถึงเวลา t เชฟ i ให้ลูกค้านั่งไปแล้ว t / Tᵢ + 1 คน ใช้ binary search หา t ที่น้อยที่สุดซึ่งผลรวมถึง c
+files: sol/ex01m3/main.cpp
+tests: the PDF sample, a single chef with T = 1 (c = 10¹² is seated at 999,999,999,999), two slow chefs with c = 10¹²; 300 random inputs (N ≤ 4, c ≤ 40) against a Python simulation with a priority queue of free seats; N = 1,000, A = 200 random c up to 10¹² in 0.03 s.
+tests_th: ตัวอย่างใน PDF, เชฟคนเดียว T = 1 (c = 10¹² ได้นั่งที่ 999,999,999,999), เชฟช้าสองคนกับ c = 10¹²; สุ่ม 300 ชุด (N ≤ 4, c ≤ 40) เทียบกับการจำลองใน Python ด้วย priority queue ของที่นั่งว่าง; N = 1,000, A = 200 ค่า c สุ่มถึง 10¹² ใช้ 0.03 วินาที
+==== en
+## 1. What the problem says
+A restaurant has N seats, each with its own chef (N ≤ 1,000). A customer at seat i finishes in exactly Tᵢ minutes (1 ≤ Tᵢ ≤ 1,000). At time 0 the first N customers sit down. Whenever a seat becomes free, the next customer in the queue takes it at once. For A questions (A ≤ 200), each a customer number c (1 ≤ c ≤ 10¹²), print **the time customer c is seated**.
+
+Input: `N A`, the N values T, then the A values c.
+
+Sample: T = 2 2 5, c = 4 5 6 30 123456789012 → **2 2 4 24 102880657508**.
+
+## 2. What it really means
+Simulating customer by customer is out of the question with c = 10¹². Turn the question around: **how many customers have been seated by time t?** Chef i seats someone at times 0, Tᵢ, 2Tᵢ, …, so by time t (inclusive) that is ⌊t / Tᵢ⌋ + 1 people.
+
+```text
+T = 2, 2, 5        seated(t) = Σ (t / Tᵢ + 1)
+
+t:          0  1  2  3  4  5  6
+seat 1:     1  1  2  2  3  3  4
+seat 2:     1  1  2  2  3  3  4
+seat 3:     1  1  1  1  1  2  2
+seated(t):  3  3  5  5  7  8  10      never decreases as t grows
+
+customer 6 → the first t with seated(t) ≥ 6 is t = 4
+```
+
+seated(t) only grows with t, so "the first t with seated(t) ≥ c" can be found by **binary search on t**.
+
+:::hint Hint 1
+Do not follow the customers. For a fixed time t, can you count how many customers are already seated? Each chef works independently.
+:::
+:::hint Hint 2
+seated(t) = Σ (t / Tᵢ + 1) is non-decreasing in t. Binary search the smallest t with seated(t) ≥ c. An upper bound: chef 1 alone seats c people by time T₁ · c.
+:::
+
+## 3. What, why, how
+- **What:** for each c, binary search t in [0, T₁ · c]; each test costs O(N).
+- **Why the count formula is the answer:** customers sit in order of time. Customer c sits at the first moment when at least c seat-starts have happened, that is, the smallest t with seated(t) ≥ c. Several seats freeing at the same moment take customers in seat order, but the time is the same for all of them, so ties do not matter.
+- **How:**
+  - `seatedBy(t)` loops over the chefs and adds `t / T[i] + 1`.
+  - `lo = 0`, `hi = T[0] * c` (always enough). While lo < hi: mid = lo + (hi − lo) / 2; if seatedBy(mid) ≥ c then hi = mid, else lo = mid + 1.
+- **Sizes:** t can be 10¹⁵ and seatedBy can reach about 10¹⁸ (N = 1,000 chefs with T = 1). Both fit in `long long` (max ≈ 9.2 × 10¹⁸).
+- **Cost:** about 50 halvings × 1,000 chefs × 200 questions = 10⁷ operations.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the sample, customer c = 6 (seatedBy values from the table in section 2).
+
+| lo | hi | mid | seatedBy(mid) | ≥ 6? | next |
+|---|---|---|---|---|---|
+| 0 | 12 | 6 | 10 | yes | hi = 6 |
+| 0 | 6 | 3 | 5 | no | lo = 4 |
+| 4 | 6 | 5 | 8 | yes | hi = 5 |
+| 4 | 5 | 4 | 7 | yes | hi = 4 |
+| 4 | 4 | | | | answer **4** |
+
+Customer 30 the same way gives 24 (seatedBy(23) = 29, seatedBy(24) = 31).
+
+## 5. Traps
+- **Simulating with a priority queue:** correct (it is our brute force) but O(c log N), hopeless for c = 10¹².
+- **Forgetting the "+1":** every chef also seats someone at time 0. Without it, customer 1 would wait until min T.
+- **int overflow:** `t`, `c`, `hi` and the sum must all be `long long`; `T[0] * c` needs T stored as `long long` (or a cast) before multiplying.
+- **mid = (lo + hi) / 2** is fine here (values stay below 2 × 10¹⁵), but `lo + (hi − lo) / 2` is the habit that never overflows.
+- **Searching for "seatedBy(t) == c":** there may be no such t (sample: seatedBy jumps from 3 to 5, so c = 4 has no exact t). Search for the first t with ≥ c.
+
+## 6. Background
+Lesson 8. "Binary search on the answer" works whenever you can test a guess cheaply and the test is monotone: if t works, every larger t works. The same shape appears in "minimum time for k machines to make P products", "smallest maximum load", and the [Binary search near](#ex02e3_bs) problems earlier in this chapter, where the monotone function is just a sorted array.
+==== th
+## 1. โจทย์บอกอะไร
+ร้านอาหารมี N ที่นั่ง แต่ละที่นั่งมีเชฟของตัวเอง (N ≤ 1,000) ลูกค้าที่นั่ง i กินเสร็จใน Tᵢ นาทีพอดี (1 ≤ Tᵢ ≤ 1,000) ที่เวลา 0 ลูกค้า N คนแรกนั่ง เมื่อที่นั่งไหนว่าง ลูกค้าคนถัดไปในคิวเข้าไปนั่งทันที มีคำถาม A ข้อ (A ≤ 200) แต่ละข้อเป็นหมายเลขลูกค้า c (1 ≤ c ≤ 10¹²) ให้พิมพ์ **เวลาที่ลูกค้าคนที่ c ได้นั่ง**
+
+input: `N A` แล้วค่า T ทั้ง N ค่า แล้วค่า c ทั้ง A ค่า
+
+ตัวอย่าง: T = 2 2 5, c = 4 5 6 30 123456789012 → **2 2 4 24 102880657508**
+
+## 2. จริง ๆ แล้วถามอะไร
+จำลองทีละคนเป็นไปไม่ได้เมื่อ c = 10¹² ให้กลับคำถาม: **ถึงเวลา t มีลูกค้าได้นั่งไปแล้วกี่คน?** เชฟ i ให้คนนั่งที่เวลา 0, Tᵢ, 2Tᵢ, … ดังนั้นถึงเวลา t (รวม t) คือ ⌊t / Tᵢ⌋ + 1 คน
+
+```text
+T = 2, 2, 5        seated(t) = Σ (t / Tᵢ + 1)
+
+t:          0  1  2  3  4  5  6
+seat 1:     1  1  2  2  3  3  4
+seat 2:     1  1  2  2  3  3  4
+seat 3:     1  1  1  1  1  2  2
+seated(t):  3  3  5  5  7  8  10      never decreases as t grows
+
+customer 6 → the first t with seated(t) ≥ 6 is t = 4
+```
+
+seated(t) มีแต่เพิ่มขึ้นตาม t ดังนั้น "t แรกที่ seated(t) ≥ c" หาได้ด้วย **binary search บน t**
+
+:::hint คำใบ้ 1
+อย่าไล่ตามลูกค้า ถ้ากำหนดเวลา t มา นับได้ไหมว่ามีลูกค้านั่งไปแล้วกี่คน เชฟแต่ละคนทำงานเป็นอิสระต่อกัน
+:::
+:::hint คำใบ้ 2
+seated(t) = Σ (t / Tᵢ + 1) ไม่ลดลงเมื่อ t เพิ่ม ใช้ binary search หา t ที่น้อยที่สุดที่ seated(t) ≥ c ขอบบน: เชฟคนแรกคนเดียวก็ให้คนนั่งครบ c คนภายในเวลา T₁ · c
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** สำหรับแต่ละ c ทำ binary search บน t ในช่วง [0, T₁ · c] การทดสอบแต่ละครั้งใช้ O(N)
+- **ทำไมสูตรนับจำนวนคือคำตอบ:** ลูกค้านั่งตามลำดับเวลา ลูกค้าคนที่ c นั่งในขณะแรกที่มีการเริ่มที่นั่งเกิดขึ้นอย่างน้อย c ครั้ง คือ t ที่น้อยที่สุดที่ seated(t) ≥ c ถ้าหลายที่นั่งว่างพร้อมกัน ลูกค้าจะเข้าตามลำดับที่นั่ง แต่เวลาเท่ากันหมด ค่าเสมอจึงไม่มีผล
+- **อย่างไร:**
+  - `seatedBy(t)` วนเชฟทุกคนแล้วบวก `t / T[i] + 1`
+  - `lo = 0`, `hi = T[0] * c` (พอเสมอ) ขณะ lo < hi: mid = lo + (hi − lo) / 2 ถ้า seatedBy(mid) ≥ c ให้ hi = mid ไม่อย่างนั้น lo = mid + 1
+- **ขนาด:** t อาจถึง 10¹⁵ และ seatedBy ถึงราว 10¹⁸ (เชฟ 1,000 คน T = 1) ใส่ `long long` ได้ทั้งคู่ (สูงสุด ≈ 9.2 × 10¹⁸)
+- **ต้นทุน:** ราว 50 ครั้งที่แบ่งครึ่ง × เชฟ 1,000 คน × 200 คำถาม = 10⁷ ครั้ง
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างใน PDF ลูกค้า c = 6 (ค่า seatedBy จากตารางในหัวข้อ 2)
+
+| lo | hi | mid | seatedBy(mid) | ≥ 6? | ต่อไป |
+|---|---|---|---|---|---|
+| 0 | 12 | 6 | 10 | ใช่ | hi = 6 |
+| 0 | 6 | 3 | 5 | ไม่ | lo = 4 |
+| 4 | 6 | 5 | 8 | ใช่ | hi = 5 |
+| 4 | 5 | 4 | 7 | ใช่ | hi = 4 |
+| 4 | 4 | | | | คำตอบ **4** |
+
+ลูกค้าคนที่ 30 ทำแบบเดียวกันได้ 24 (seatedBy(23) = 29, seatedBy(24) = 31)
+
+## 5. จุดที่มักพลาด
+- **จำลองด้วย priority queue:** ถูกต้อง (เป็น brute force ของเรา) แต่ O(c log N) ไม่มีทางทันเมื่อ c = 10¹²
+- **ลืม "+1":** เชฟทุกคนให้คนนั่งที่เวลา 0 ด้วย ถ้าไม่บวก ลูกค้าคนแรกจะต้องรอถึง min T
+- **int ล้น:** `t`, `c`, `hi` และผลรวมต้องเป็น `long long` ทั้งหมด `T[0] * c` ต้องให้ T เป็น `long long` (หรือ cast) ก่อนคูณ
+- **mid = (lo + hi) / 2** ใช้ได้ในข้อนี้ (ค่าไม่เกิน 2 × 10¹⁵) แต่ `lo + (hi − lo) / 2` เป็นนิสัยที่ไม่มีวันล้น
+- **ค้นหา "seatedBy(t) == c":** อาจไม่มี t แบบนั้นเลย (ในตัวอย่าง seatedBy กระโดดจาก 3 เป็น 5 c = 4 จึงไม่มี t ที่เท่าพอดี) ให้ค้นหา t แรกที่ ≥ c
+
+## 6. ความรู้พื้นฐาน
+บทที่ 8 "binary search บนคำตอบ" ใช้ได้เมื่อทดสอบค่าที่เดาได้ถูก ๆ และการทดสอบเป็นทางเดียว (monotone): ถ้า t ใช้ได้ ทุก t ที่มากกว่าก็ใช้ได้ รูปแบบเดียวกันนี้มีใน "เวลาน้อยที่สุดที่เครื่อง k เครื่องผลิตของได้ P ชิ้น" "ภาระสูงสุดที่น้อยที่สุด" และข้อ [Binary search near](#ex02e3_bs) ก่อนหน้าในบทนี้ ที่ฟังก์ชันทางเดียวเป็นแค่อาเรย์ที่เรียงแล้ว

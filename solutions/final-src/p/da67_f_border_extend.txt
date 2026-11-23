@@ -1,0 +1,152 @@
+id: da67_f_border_extend
+group: final67
+lesson: 16 · Graphs: BFS (multi-source)
+stars: 2
+complexity: O(R · C)
+kind: program
+tags: multi-source BFS, grid, distance to nearest land, layered BFS, fast output
+title: Border extend
+title_th: ถมที่ขยายเกาะ (Border Extend)
+blurb: An R × C map of land (1) and water (0), R, C ≤ 1000. Every water cell within k steps (up, down, left, right) of some land becomes 2. Put all land cells in one BFS queue at distance 0, expand layer by layer, and stop growing at distance k.
+blurb_th: แผนที่ R × C ของพื้นดิน (1) และน้ำ (0) โดย R, C ≤ 1000 ทุกช่องน้ำที่อยู่ห่างจากพื้นดินไม่เกิน k ก้าว (บน ล่าง ซ้าย ขวา) จะกลายเป็น 2 ใส่ทุกช่องดินลงคิว BFS เดียวที่ระยะ 0 ขยายทีละชั้น และหยุดขยายที่ระยะ k
+files: sol/da67_f_border_extend/main.cpp
+tests: all five PDF samples; 300 random maps (R, C ≤ 7, k ≤ 4) against a Python brute force using the Manhattan distance to the nearest land cell; R = C = 1,000 with one land cell in a corner and k = 2,000 (the whole map) in 0.07 s.
+tests_th: ตัวอย่างทั้งห้าชุดใน PDF; สุ่มแผนที่ 300 ชุด (R, C ≤ 7, k ≤ 4) เทียบกับ brute force ใน Python ที่ใช้ระยะ Manhattan ไปยังช่องดินที่ใกล้ที่สุด; R = C = 1,000 มีดินช่องเดียวที่มุมและ k = 2,000 (ทั้งแผนที่) ใช้ 0.07 วินาที
+==== en
+## 1. What the problem says
+A map is an R × C grid (1 ≤ R, C ≤ 1,000): 1 is land, 0 is water. The **distance from land** of a water cell is the fewest steps (up, down, left or right, staying inside the grid) to reach any land cell. Every water cell whose distance is **at most k** (1 ≤ k ≤ 2,000) is filled; print the map with filled cells shown as **2**, in the same format as the input (numbers separated by spaces).
+
+Sample 1: a 5 × 3 map with one land cell in the middle of row 2, k = 2:
+
+```text
+input        output
+0 0 0        2 2 2
+0 1 0        2 1 2
+0 0 0        2 2 2
+0 0 0        0 2 0
+0 0 0        0 0 0
+```
+
+## 2. What it really means
+"Distance to the **nearest** of many land cells" is a **multi-source BFS**: put every land cell in the queue at distance 0 at the same time. The BFS then reaches each water cell first from its closest land cell, so its distance is correct. Stop expanding from cells at distance k.
+
+```text
+distance from the land cell (k = 2):     filled = distance 1..2
+2 1 2                                    2 2 2
+1 0 1                                    2 1 2
+2 1 2                                    2 2 2
+3 2 3                                    0 2 0      distance 3 > k stays water
+4 3 4                                    0 0 0
+```
+
+:::hint Hint 1
+Running one BFS per land cell could mean 10⁶ BFS runs over 10⁶ cells. How can a single BFS find the distance to the **nearest** land cell for every cell at once?
+:::
+:::hint Hint 2
+Push all land cells into the queue with distance 0 before the loop starts. Pop a cell; if its distance is already k, do not expand it; otherwise mark each unvisited neighbour with distance + 1, set it to 2 and push it.
+:::
+
+## 3. What, why, how
+- **What:** one BFS from all land cells together, limited to k layers.
+- **Why one BFS is enough:** imagine an extra cell joined to every land cell; a BFS from it visits cells in order of distance to the nearest land. Pushing all land cells first is exactly the first layer of that BFS.
+- **Why passing over land does not matter:** the walk may cross land, but a path that crosses land is never the shortest to the nearest land (it reached land earlier). So expanding only into unvisited water cells gives the right distances.
+- **How:**
+  - Read the grid into `g`; `dist = −1` everywhere, 0 on land, and push land cells.
+  - Pop (r, c); if `dist == k` continue; for the 4 neighbours inside the grid with `dist == −1`: set dist + 1, `g = 2`, push.
+  - Print row by row, numbers separated by spaces, `'\n'` at row ends.
+- **Cost:** every cell is pushed at most once: O(R · C) = 10⁶. The output is 2 × 10⁶ characters, so use fast I/O as the PDF advises.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1 (rows and columns from 0; land at (1, 1)).
+
+| layer (distance) | cells reached in this layer | set to 2 |
+|---|---|---|
+| 0 | (1,1) | land, unchanged |
+| 1 | (0,1) (2,1) (1,0) (1,2) | yes |
+| 2 | (0,0) (0,2) (2,0) (2,2) (3,1) | yes |
+| 3 | not expanded: layer 2 cells have dist = k | |
+
+The 9 cells set to 2 match the expected output.
+
+## 5. Traps
+- **One BFS per land cell:** correct but up to 10⁶ × 10⁶ work.
+- **Diagonal moves:** the statement allows only up, down, left and right. With 8 directions sample 1 would fill (3,0) and (3,2) too.
+- **Marking the cell as 2 when it is popped** instead of when it is pushed: fine for correctness if done carefully, but pushing a cell twice wastes memory; mark when pushing.
+- **k larger than the grid:** k can be 2,000 > R + C; the BFS simply runs out of cells. Do not allocate anything of size k.
+- **`endl` per row or per number:** 10⁶ numbers; use `'\n'` and turn off sync.
+- **No land at all:** nothing is pushed, the map is printed unchanged.
+
+## 6. Background
+Lesson 16. Multi-source BFS computes a **distance transform**: the distance of every cell to the nearest source. It appears in [Pandemic](#a62_q2a_pandemic) (infection spreading from many cities) and in [Sea bridge](#da66_f1_sea_bridge) (distance from one island). With weights it becomes multi-source Dijkstra; see [Shortest start](#a64_q3_shortest_start) for the same idea with negative edges.
+==== th
+## 1. โจทย์บอกอะไร
+แผนที่เป็นตาราง R × C (1 ≤ R, C ≤ 1,000): 1 คือพื้นดิน 0 คือน้ำ **ระยะห่างจากพื้นดิน** ของช่องน้ำคือจำนวนก้าวน้อยที่สุด (บน ล่าง ซ้าย หรือขวา และต้องอยู่ในตาราง) ที่เดินไปถึงช่องดินใดก็ได้ ทุกช่องน้ำที่ระยะ **ไม่เกิน k** (1 ≤ k ≤ 2,000) จะถูกถม ให้พิมพ์แผนที่โดยแสดงช่องที่ถูกถมเป็น **2** ในรูปแบบเดียวกับ input (ตัวเลขคั่นด้วยช่องว่าง)
+
+ตัวอย่างที่ 1: แผนที่ 5 × 3 มีดินช่องเดียวตรงกลางแถวที่ 2 และ k = 2:
+
+```text
+input        output
+0 0 0        2 2 2
+0 1 0        2 1 2
+0 0 0        2 2 2
+0 0 0        0 2 0
+0 0 0        0 0 0
+```
+
+## 2. จริง ๆ แล้วถามอะไร
+"ระยะไปยังช่องดินที่ **ใกล้ที่สุด** จากหลายช่อง" คือ **BFS หลายจุดเริ่ม**: ใส่ทุกช่องดินลงคิวที่ระยะ 0 พร้อมกัน BFS จะไปถึงช่องน้ำแต่ละช่องจากช่องดินที่ใกล้ที่สุดก่อนเสมอ ระยะจึงถูกต้อง แล้วหยุดขยายจากช่องที่ระยะ k
+
+```text
+distance from the land cell (k = 2):     filled = distance 1..2
+2 1 2                                    2 2 2
+1 0 1                                    2 1 2
+2 1 2                                    2 2 2
+3 2 3                                    0 2 0      distance 3 > k stays water
+4 3 4                                    0 0 0
+```
+
+:::hint คำใบ้ 1
+ถ้ารัน BFS หนึ่งครั้งต่อช่องดิน อาจต้องรัน 10⁶ ครั้งบน 10⁶ ช่อง BFS ครั้งเดียวจะหาระยะไปยังช่องดินที่ **ใกล้ที่สุด** ให้ทุกช่องพร้อมกันได้อย่างไร
+:::
+:::hint คำใบ้ 2
+ใส่ทุกช่องดินลงคิวด้วยระยะ 0 ก่อนเริ่มลูป ดึงช่องออกมา ถ้าระยะเท่ากับ k แล้วไม่ต้องขยาย ไม่อย่างนั้นให้เพื่อนบ้านที่ยังไม่เคยเยี่ยมมีระยะ + 1 ตั้งเป็น 2 แล้วใส่คิว
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** BFS ครั้งเดียวจากทุกช่องดินพร้อมกัน จำกัดไว้ k ชั้น
+- **ทำไม BFS ครั้งเดียวพอ:** นึกภาพช่องพิเศษหนึ่งช่องที่ต่อกับทุกช่องดิน BFS จากช่องนั้นเยี่ยมช่องต่าง ๆ ตามลำดับระยะไปยังดินที่ใกล้ที่สุด การใส่ทุกช่องดินลงคิวก่อนก็คือชั้นแรกของ BFS นั้นพอดี
+- **ทำไมการเดินผ่านดินไม่มีผล:** การเดินข้ามดินได้ แต่เส้นทางที่ข้ามดินไม่มีทางเป็นเส้นทางสั้นสุดไปยังดินที่ใกล้ที่สุด (มันถึงดินตั้งแต่ก่อนหน้านั้นแล้ว) การขยายเฉพาะไปยังช่องน้ำที่ยังไม่เยี่ยมจึงได้ระยะที่ถูกต้อง
+- **อย่างไร:**
+  - อ่านตารางลง `g` ตั้ง `dist = −1` ทุกช่อง 0 บนดิน และใส่ช่องดินลงคิว
+  - ดึง (r, c) ถ้า `dist == k` ให้ข้าม สำหรับเพื่อนบ้าน 4 ทิศที่อยู่ในตารางและ `dist == −1`: ตั้ง dist + 1, `g = 2` แล้วใส่คิว
+  - พิมพ์ทีละแถว ตัวเลขคั่นด้วยช่องว่าง ขึ้นบรรทัดด้วย `'\n'`
+- **ต้นทุน:** ทุกช่องถูกใส่คิวไม่เกินครั้งเดียว: O(R · C) = 10⁶ output ยาว 2 × 10⁶ ตัวอักษร จึงใช้ I/O เร็วตามที่ PDF แนะนำ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 (แถวและคอลัมน์เริ่มที่ 0 ดินอยู่ที่ (1, 1))
+
+| ชั้น (ระยะ) | ช่องที่ไปถึงในชั้นนี้ | ตั้งเป็น 2 |
+|---|---|---|
+| 0 | (1,1) | ดิน ไม่เปลี่ยน |
+| 1 | (0,1) (2,1) (1,0) (1,2) | ใช่ |
+| 2 | (0,0) (0,2) (2,0) (2,2) (3,1) | ใช่ |
+| 3 | ไม่ขยาย: ช่องในชั้น 2 มี dist = k | |
+
+ช่องที่เป็น 2 ทั้ง 9 ช่องตรงกับ output ที่ต้องการ
+
+## 5. จุดที่มักพลาด
+- **BFS หนึ่งครั้งต่อช่องดิน:** ถูกแต่งานอาจถึง 10⁶ × 10⁶
+- **เดินแนวทแยง:** โจทย์ให้เดินแค่บน ล่าง ซ้าย ขวา ถ้าใช้ 8 ทิศ ตัวอย่างที่ 1 จะถม (3,0) และ (3,2) ด้วย
+- **ตั้งเป็น 2 ตอนดึงออก** แทนตอนใส่คิว: ถ้าระวังก็ยังถูก แต่ช่องเดียวอาจถูกใส่คิวสองครั้งเปลืองหน่วยความจำ ให้ทำเครื่องหมายตอนใส่คิว
+- **k ใหญ่กว่าตาราง:** k อาจเป็น 2,000 > R + C BFS ก็แค่หมดช่องให้ไป อย่าสร้างอะไรที่มีขนาด k
+- **`endl` ทุกแถวหรือทุกตัวเลข:** มีตัวเลข 10⁶ ตัว ใช้ `'\n'` และปิด sync
+- **ไม่มีดินเลย:** ไม่มีอะไรถูกใส่คิว แผนที่พิมพ์ออกมาเหมือนเดิม
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 BFS หลายจุดเริ่มคำนวณ **distance transform**: ระยะจากทุกช่องไปยังแหล่งที่ใกล้ที่สุด พบได้ในข้อ [Pandemic](#a62_q2a_pandemic) (โรคระบาดจากหลายเมือง) และ [Sea bridge](#da66_f1_sea_bridge) (ระยะจากเกาะหนึ่ง) ถ้ามีน้ำหนักก็กลายเป็น Dijkstra หลายจุดเริ่ม ดูข้อ [Shortest start](#a64_q3_shortest_start) สำหรับไอเดียเดียวกันกับเส้นติดลบ

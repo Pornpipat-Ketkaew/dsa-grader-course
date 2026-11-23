@@ -1,0 +1,134 @@
+id: da68_f2_closed_city
+group: final68
+lesson: 17 · Shortest paths: Dijkstra (heap)
+stars: 1
+complexity: O((N + M) log N)
+kind: program
+tags: Dijkstra, forbidden vertices, delete closed nodes, undirected weighted graph, early exit at the target
+title: Closed city
+title_th: เมืองปิด (Closed City)
+blurb: Shortest path from city 1 to city N in an undirected weighted graph where K cities are closed and may not be passed through. Simply never add a road that touches a closed city, then run an ordinary Dijkstra.
+blurb_th: เส้นทางสั้นที่สุดจากเมือง 1 ไปเมือง N ในกราฟไม่มีทิศทางมีน้ำหนัก โดยมี K เมืองที่ปิดและห้ามผ่าน แค่ไม่ใส่ถนนที่แตะเมืองปิดลงในกราฟเลย แล้วรัน Dijkstra ธรรมดา
+files: sol/da68_f2_closed_city/main.cpp
+tests: both PDF samples (K = 0 with an empty second line, and K = 2) and a two-city graph; 300 random graphs (N ≤ 7, random closed cities, 1 always able to reach N) against Floyd–Warshall on the open cities in Python; N = 10⁵, M = 3 × 10⁵, 1,000 closed cities, weights up to 10⁶ in 0.09 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF (K = 0 ที่บรรทัดที่สองว่าง และ K = 2) และกราฟสองเมือง; สุ่มกราฟ 300 ชุด (N ≤ 7 สุ่มเมืองปิด และ 1 ไปถึง N ได้เสมอ) เทียบกับ Floyd–Warshall บนเมืองที่เปิดใน Python; N = 10⁵, M = 3 × 10⁵ เมืองปิด 1,000 เมือง น้ำหนักถึง 10⁶ ใช้ 0.09 วินาที
+==== en
+## 1. What the problem says
+There are N cities (1..N) and M undirected roads, each with a weight. K cities C[1..K] are **closed**: a route may not pass through them. Print the length of the shortest route from city 1 to city N that avoids every closed city. Such a route is guaranteed to exist.
+
+Input: `N M K`, then the K closed cities (an empty line when K = 0), then M lines `a b c`.
+
+Sample 2: N = 5, closed cities 3 and 4, roads 1-2 (5), 2-3 (3), 3-5 (2), 1-4 (1), 4-5 (2), 2-5 (15) → **20** (1 → 2 → 5). Without the closures the answer would be 3 (1 → 4 → 5).
+
+The PDF gives no limits for N, M or the weights; the solution below assumes up to about 10⁵ cities and a few 10⁵ roads, and uses `long long` distances.
+
+## 2. What it really means
+A closed city is simply **not part of the map**. Remove it, and every road that touches it, and what remains is an ordinary shortest-path problem with positive weights: Dijkstra.
+
+```text
+roads:   1-2 (5)   2-3 (3)   3-5 (2)   1-4 (1)   4-5 (2)   2-5 (15)
+closed:  3 and 4   →  drop 2-3, 3-5, 1-4 and 4-5
+
+left:    1-2 (5)   2-5 (15)          only route: 1 → 2 → 5 = 20
+(with every city open, 1 → 4 → 5 = 3 would have been the answer)
+```
+
+:::hint Hint 1
+What is the difference between "a city you may not pass through" and "a city that does not exist"?
+:::
+:::hint Hint 2
+Mark the closed cities, skip every road with a closed end while reading, and run Dijkstra from 1. You may stop as soon as N is taken out of the priority queue.
+:::
+
+## 3. What, why, how
+- **What:** filter the edges, then Dijkstra with a min-heap.
+- **Why filtering is exactly right:** a route that avoids closed cities uses only roads between open cities, and every route in the filtered graph avoids them. The two sets of routes are the same, so are their shortest lengths. Cities 1 and N themselves are never closed (a route exists).
+- **How:**
+  - `closed[]` from the second line; read roads and add both directions only if both ends are open.
+  - Dijkstra: `dist[1] = 0`, heap of (distance, city); skip stale entries; stop when city N is popped.
+  - Print `dist[N]`.
+- **Reading K = 0:** the second line is empty; `cin >>` skips blank lines automatically, so reading K numbers (none) just works.
+- **Cost:** O((N + M) log N).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2 after filtering (open roads: 1-2 (5), 2-5 (15)).
+
+| popped (dist, city) | relaxations | heap after |
+|---|---|---|
+| (0, 1) | dist[2] = 5 | (5, 2) |
+| (5, 2) | dist[5] = 5 + 15 = 20 | (20, 5) |
+| (20, 5) | city N popped: stop | |
+
+Answer **20**.
+
+## 5. Traps
+- **Checking closures only when popping:** if you push closed cities and skip them when popped, it still works, but a closed city must never be **relaxed through**; forgetting the check in one place lets routes slip through it.
+- **Reading the empty line with getline** for K = 0: then the next getline reads the first road as the closed list. Use `cin >>` for numbers.
+- **BFS instead of Dijkstra:** roads have weights.
+- **int distances:** with unknown limits, `long long` is the safe choice.
+
+## 6. Background
+Lesson 17. "Forbidden vertices" or "forbidden edges" are almost always handled by deleting them before the search. The harder variants are when closures depend on time or on the path so far; then the closure becomes part of the state, as with the "last move" state in [New Game Plus](#da66_f2_new_game_plus).
+==== th
+## 1. โจทย์บอกอะไร
+มีเมือง N เมือง (1..N) และถนนไม่มีทิศทาง M สาย แต่ละสายมีน้ำหนัก มีเมือง K เมือง C[1..K] ที่ **ปิด**: เส้นทางห้ามผ่านเมืองเหล่านี้ ให้พิมพ์ความยาวของเส้นทางที่สั้นที่สุดจากเมือง 1 ไปเมือง N ที่ไม่ผ่านเมืองปิดเลย รับประกันว่ามีเส้นทางแบบนี้
+
+input: `N M K` แล้วเมืองปิดทั้ง K เมือง (บรรทัดว่างเมื่อ K = 0) แล้วอีก M บรรทัด `a b c`
+
+ตัวอย่างที่ 2: N = 5 เมืองปิดคือ 3 และ 4 ถนน 1-2 (5), 2-3 (3), 3-5 (2), 1-4 (1), 4-5 (2), 2-5 (15) → **20** (1 → 2 → 5) ถ้าไม่มีการปิดเมือง คำตอบจะเป็น 3 (1 → 4 → 5)
+
+PDF ไม่ได้ให้ขอบเขตของ N, M หรือน้ำหนัก เฉลยข้างล่างถือว่ามีเมืองได้ถึงราว 10⁵ และถนนไม่กี่แสนสาย และใช้ระยะเป็น `long long`
+
+## 2. จริง ๆ แล้วถามอะไร
+เมืองปิดก็คือ **ไม่อยู่ในแผนที่** ตัดมันและถนนทุกสายที่แตะมันออก ที่เหลือคือปัญหาเส้นทางสั้นสุดธรรมดาที่น้ำหนักเป็นบวก: Dijkstra
+
+```text
+roads:   1-2 (5)   2-3 (3)   3-5 (2)   1-4 (1)   4-5 (2)   2-5 (15)
+closed:  3 and 4   →  drop 2-3, 3-5, 1-4 and 4-5
+
+left:    1-2 (5)   2-5 (15)          only route: 1 → 2 → 5 = 20
+(with every city open, 1 → 4 → 5 = 3 would have been the answer)
+```
+
+:::hint คำใบ้ 1
+"เมืองที่ห้ามผ่าน" กับ "เมืองที่ไม่มีอยู่" ต่างกันตรงไหน
+:::
+:::hint คำใบ้ 2
+ทำเครื่องหมายเมืองปิด ข้ามถนนทุกสายที่มีปลายเป็นเมืองปิดตั้งแต่ตอนอ่าน แล้วรัน Dijkstra จาก 1 หยุดได้ทันทีที่ดึงเมือง N ออกจาก priority queue
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** กรองเส้นก่อน แล้ว Dijkstra ด้วย min-heap
+- **ทำไมการกรองถูกต้องพอดี:** เส้นทางที่ไม่ผ่านเมืองปิดใช้แค่ถนนระหว่างเมืองที่เปิด และทุกเส้นทางในกราฟที่กรองแล้วก็ไม่ผ่านเมืองปิด เซตของเส้นทางทั้งสองแบบจึงเป็นเซตเดียวกัน ความยาวที่สั้นที่สุดจึงเท่ากัน เมือง 1 และ N เองไม่ปิดแน่นอน (เพราะมีเส้นทาง)
+- **อย่างไร:**
+  - `closed[]` จากบรรทัดที่สอง อ่านถนนแล้วใส่ทั้งสองทิศเฉพาะเมื่อปลายทั้งสองเปิด
+  - Dijkstra: `dist[1] = 0` heap ของ (ระยะ, เมือง) ข้ามรายการเก่า หยุดเมื่อดึงเมือง N ออกมา
+  - พิมพ์ `dist[N]`
+- **อ่านกรณี K = 0:** บรรทัดที่สองว่าง `cin >>` ข้ามบรรทัดว่างให้เอง การอ่านตัวเลข K ตัว (ไม่มีเลย) จึงใช้ได้ทันที
+- **ต้นทุน:** O((N + M) log N)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 หลังกรอง (ถนนที่เปิด: 1-2 (5), 2-5 (15))
+
+| ดึงออก (ระยะ, เมือง) | การ relax | heap หลังจากนั้น |
+|---|---|---|
+| (0, 1) | dist[2] = 5 | (5, 2) |
+| (5, 2) | dist[5] = 5 + 15 = 20 | (20, 5) |
+| (20, 5) | ดึงเมือง N ออกมาแล้ว: หยุด | |
+
+คำตอบ **20**
+
+## 5. จุดที่มักพลาด
+- **เช็กการปิดเฉพาะตอนดึงออก:** ถ้าใส่เมืองปิดลงคิวแล้วข้ามตอนดึงออกก็ยังใช้ได้ แต่ต้องไม่ **relax ผ่าน** เมืองปิดเด็ดขาด ลืมเช็กที่ใดที่หนึ่งเส้นทางก็จะเล็ดลอดผ่านไปได้
+- **อ่านบรรทัดว่างด้วย getline** เมื่อ K = 0: getline ถัดไปจะอ่านถนนสายแรกเป็นรายการเมืองปิด ใช้ `cin >>` สำหรับตัวเลข
+- **ใช้ BFS แทน Dijkstra:** ถนนมีน้ำหนัก
+- **ระยะเป็น int:** เมื่อไม่รู้ขอบเขต `long long` คือทางเลือกที่ปลอดภัย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 "ปมต้องห้าม" หรือ "เส้นต้องห้าม" แทบทุกครั้งจัดการด้วยการลบออกก่อนค้นหา รูปแบบที่ยากกว่าคือเมื่อการปิดขึ้นกับเวลาหรือเส้นทางที่ผ่านมา ตอนนั้นการปิดต้องกลายเป็นส่วนหนึ่งของ state เหมือน state "ท่าล่าสุด" ในข้อ [New Game Plus](#da66_f2_new_game_plus)

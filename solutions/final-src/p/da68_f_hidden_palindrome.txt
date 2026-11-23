@@ -1,0 +1,144 @@
+id: da68_f_hidden_palindrome
+group: final68
+lesson: 15 · DP with states (intervals)
+stars: 2
+complexity: O(N²) time, O(N) memory
+kind: program
+tags: longest palindromic subsequence, interval DP, two rolling rows, LCS with the reverse
+title: Hidden palindrome
+title_th: พาลินโดรมที่ซ่อนอยู่ (Hidden Palindrome)
+blurb: The longest palindromic subsequence of a string of length N ≤ 3000. Interval DP: L[i][j] is 2 + L[i+1][j−1] when s[i] = s[j], else the larger of L[i+1][j] and L[i][j−1]. Fill i from right to left, keeping only two rows.
+blurb_th: ลำดับย่อยที่เป็นพาลินโดรมยาวที่สุดของสตริงยาว N ≤ 3000 ใช้ interval DP: L[i][j] เป็น 2 + L[i+1][j−1] เมื่อ s[i] = s[j] ไม่อย่างนั้นเอาค่ามากกว่าระหว่าง L[i+1][j] และ L[i][j−1] เติม i จากขวาไปซ้ายโดยเก็บแค่สองแถว
+files: sol/da68_f_hidden_palindrome/main.cpp
+tests: all three PDF samples and "ab" (1); 300 random strings (N ≤ 12, alphabets of 1–3 letters) against a Python brute force over all 2ᴺ subsequences; N = 3,000 in under 0.01 s.
+tests_th: ตัวอย่างทั้งสามชุดใน PDF และ "ab" (1); สุ่มสตริง 300 ชุด (N ≤ 12 ใช้ตัวอักษร 1–3 แบบ) เทียบกับ brute force ใน Python ที่ลองทุกลำดับย่อย 2ᴺ แบบ; N = 3,000 ใช้ไม่ถึง 0.01 วินาที
+==== en
+## 1. What the problem says
+N sheep (1 ≤ N ≤ 3,000) stand in a row, each showing one lowercase letter. Choose some of them **keeping their order** (a subsequence) so that the letters read the same forwards and backwards (a palindrome). Print the **length of the longest** such palindrome.
+
+Input: N, then the string of N letters.
+
+Samples: `a` → **1**; `abvba` → **5** (the whole string); `abcab` → **3** (for example `aba` or `bcb`).
+
+## 2. What it really means
+This is the **longest palindromic subsequence** (LPS). Look at the two ends of a range s[i..j]:
+
+```text
+s[i] ... s[j]
+
+equal ends:      a [ b c ] a      both ends can be the outer pair of the palindrome
+                 L[i][j] = L[i+1][j-1] + 2
+
+different ends:  a [ b c a ] b    they cannot both be used: drop one of them
+                 L[i][j] = max(L[i+1][j], L[i][j-1])
+
+base: L[i][i] = 1 (a single letter), and an empty range has 0
+```
+
+:::hint Hint 1
+Define the answer on a range: the longest palindromic subsequence inside s[i..j]. What happens with the first and last letters of that range?
+:::
+:::hint Hint 2
+If s[i] = s[j], wrap the best palindrome of s[i+1..j−1] with them (+2). Otherwise take the better of s[i+1..j] and s[i..j−1]. Row i needs row i + 1, so fill i from N−1 down to 0 and j from i upward; two rows of N numbers are enough.
+:::
+
+## 3. What, why, how
+- **What:** interval DP on L[i][j], answer L[0][N−1], with two rolling rows.
+- **Why equal ends are always used:** take a longest palindrome P inside s[i..j] with at least 2 letters. Replace its first letter by s[i] and its last letter by s[j]. The positions are still in order, the two new end letters are equal, and the middle is unchanged, so it is still a palindrome of the same length, and it uses both ends. (If P has fewer than 2 letters, s[i] s[j] alone is longer.)
+- **Why the max is right for unequal ends:** a palindrome's first and last letters are equal, so it cannot start at i and end at j; it lies inside s[i+1..j] or s[i..j−1].
+- **How with two rows:**
+  - `nxt` holds row i + 1, `cur` becomes row i.
+  - `cur[i] = 1`; for j = i+1..N−1: if equal, `cur[j] = (j == i+1 ? 0 : nxt[j−1]) + 2`; else `max(nxt[j], cur[j−1])`.
+  - `swap(cur, nxt)` after each row; the answer is `nxt[N−1]` at the end.
+- **Cost:** N²/2 = 4.5 × 10⁶ cells; memory 2N ints. A full N × N int table (36 MB) would also fit in 256 MB, but the two-row version is just as easy.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 3, s = abcab. Entry (row i, column j) is L[i][j]; rows are filled from the bottom up.
+
+| i \ j | 0 a | 1 b | 2 c | 3 a | 4 b |
+|---|---|---|---|---|---|
+| 4 b | | | | | 1 |
+| 3 a | | | | 1 | 1 |
+| 2 c | | | 1 | 1 | 1 |
+| 1 b | | 1 | 1 | 1 | 3 (b…b: L[2][3] + 2) |
+| 0 a | 1 | 1 | 1 | 3 (a…a: L[1][2] + 2) | **3** |
+
+L[0][4]: a ≠ b, so max(L[1][4], L[0][3]) = max(3, 3) = **3**.
+
+## 5. Traps
+- **Substring instead of subsequence:** the longest palindromic **substring** of `abcab` is 1, not 3.
+- **Filling i upward:** row i needs row i + 1, which would not be ready yet.
+- **The j = i + 1 case with equal letters** ("aa"): the inside is empty, so the value is 2, not nxt[j−1] + 2 read from a stale cell.
+- **Recursion with memo** on (i, j) works but goes 3,000 levels deep and uses a full table; the loops are safer.
+- **LCS(s, reverse(s))** gives the same number with the [LCS](#ex03e1_lcs) code and is a perfectly good exam answer.
+
+## 6. Background
+Lesson 15. Interval DP ("the answer for s[i..j] from shorter ranges") also solves matrix-chain multiplication, optimal binary search trees and "minimum insertions to make a palindrome" (which is N − LPS). For LPS specifically, the identity LPS(s) = LCS(s, reverse(s)) links it to [Longest common subsequence](#ex03e1_lcs).
+==== th
+## 1. โจทย์บอกอะไร
+แกะ N ตัว (1 ≤ N ≤ 3,000) ยืนเรียงแถว แต่ละตัวมีตัวอักษรพิมพ์เล็กหนึ่งตัว ให้เลือกแกะบางตัวโดย **คงลำดับเดิม** (ลำดับย่อย) ให้ตัวอักษรอ่านจากซ้ายไปขวาและขวาไปซ้ายได้เหมือนกัน (พาลินโดรม) ให้พิมพ์ **ความยาวที่มากที่สุด** ของพาลินโดรมแบบนั้น
+
+input: N แล้วสตริงยาว N ตัว
+
+ตัวอย่าง: `a` → **1**; `abvba` → **5** (ทั้งสตริง); `abcab` → **3** (เช่น `aba` หรือ `bcb`)
+
+## 2. จริง ๆ แล้วถามอะไร
+นี่คือ **ลำดับย่อยพาลินโดรมที่ยาวที่สุด** (LPS) ดูที่ปลายทั้งสองของช่วง s[i..j]:
+
+```text
+s[i] ... s[j]
+
+equal ends:      a [ b c ] a      both ends can be the outer pair of the palindrome
+                 L[i][j] = L[i+1][j-1] + 2
+
+different ends:  a [ b c a ] b    they cannot both be used: drop one of them
+                 L[i][j] = max(L[i+1][j], L[i][j-1])
+
+base: L[i][i] = 1 (a single letter), and an empty range has 0
+```
+
+:::hint คำใบ้ 1
+นิยามคำตอบบนช่วง: ลำดับย่อยพาลินโดรมที่ยาวที่สุดภายใน s[i..j] แล้วตัวอักษรตัวแรกกับตัวสุดท้ายของช่วงนั้นเป็นอย่างไร
+:::
+:::hint คำใบ้ 2
+ถ้า s[i] = s[j] ให้ห่อพาลินโดรมที่ดีที่สุดของ s[i+1..j−1] ด้วยสองตัวนี้ (+2) ไม่อย่างนั้นเอาค่าที่ดีกว่าระหว่าง s[i+1..j] กับ s[i..j−1] แถว i ต้องใช้แถว i + 1 จึงเติม i จาก N−1 ลงไป 0 และ j จาก i ขึ้นไป ใช้แค่สองแถวขนาด N ก็พอ
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** interval DP บน L[i][j] คำตอบคือ L[0][N−1] โดยใช้สองแถวหมุนเวียน
+- **ทำไมปลายที่เท่ากันใช้ได้เสมอ:** หยิบพาลินโดรมที่ยาวที่สุด P ใน s[i..j] ที่ยาวอย่างน้อย 2 ตัว แทนตัวแรกของมันด้วย s[i] และตัวสุดท้ายด้วย s[j] ตำแหน่งยังเรียงถูก ตัวปลายใหม่ทั้งสองเท่ากัน และตรงกลางไม่เปลี่ยน จึงยังเป็นพาลินโดรมที่ยาวเท่าเดิมและใช้ปลายทั้งสอง (ถ้า P ยาวไม่ถึง 2 ตัว แค่ s[i] s[j] ก็ยาวกว่าแล้ว)
+- **ทำไม max ถูกเมื่อปลายไม่เท่ากัน:** ตัวแรกและตัวสุดท้ายของพาลินโดรมต้องเท่ากัน จึงเริ่มที่ i และจบที่ j พร้อมกันไม่ได้ มันต้องอยู่ใน s[i+1..j] หรือ s[i..j−1]
+- **ทำด้วยสองแถวอย่างไร:**
+  - `nxt` เก็บแถว i + 1 ส่วน `cur` กลายเป็นแถว i
+  - `cur[i] = 1` สำหรับ j = i+1..N−1: ถ้าเท่ากัน `cur[j] = (j == i+1 ? 0 : nxt[j−1]) + 2` ไม่อย่างนั้น `max(nxt[j], cur[j−1])`
+  - `swap(cur, nxt)` หลังจบแต่ละแถว ตอนจบคำตอบคือ `nxt[N−1]`
+- **ต้นทุน:** N²/2 = 4.5 × 10⁶ ช่อง หน่วยความจำ 2N ตัว ตาราง N × N เต็ม (36 MB) ก็ใส่ใน 256 MB ได้ แต่แบบสองแถวเขียนง่ายพอกัน
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 3, s = abcab ช่อง (แถว i, คอลัมน์ j) คือ L[i][j] เติมแถวจากล่างขึ้นบน
+
+| i \ j | 0 a | 1 b | 2 c | 3 a | 4 b |
+|---|---|---|---|---|---|
+| 4 b | | | | | 1 |
+| 3 a | | | | 1 | 1 |
+| 2 c | | | 1 | 1 | 1 |
+| 1 b | | 1 | 1 | 1 | 3 (b…b: L[2][3] + 2) |
+| 0 a | 1 | 1 | 1 | 3 (a…a: L[1][2] + 2) | **3** |
+
+L[0][4]: a ≠ b จึงเป็น max(L[1][4], L[0][3]) = max(3, 3) = **3**
+
+## 5. จุดที่มักพลาด
+- **ใช้ substring แทน subsequence:** พาลินโดรมแบบ **substring** ที่ยาวที่สุดของ `abcab` ยาวแค่ 1 ไม่ใช่ 3
+- **เติม i จากน้อยไปมาก:** แถว i ต้องใช้แถว i + 1 ซึ่งยังไม่พร้อม
+- **กรณี j = i + 1 ที่ตัวอักษรเท่ากัน** ("aa"): ข้างในว่าง ค่าจึงเป็น 2 ไม่ใช่ nxt[j−1] + 2 ที่อ่านจากช่องเก่า
+- **recursion พร้อม memo** บน (i, j) ใช้ได้ แต่ลึกถึง 3,000 ชั้นและใช้ตารางเต็ม ลูปปลอดภัยกว่า
+- **LCS(s, s กลับด้าน)** ให้ค่าเดียวกันโดยใช้โค้ด [LCS](#ex03e1_lcs) และเป็นคำตอบในห้องสอบที่ดีพอเลย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 15 interval DP ("คำตอบของ s[i..j] จากช่วงที่สั้นกว่า") ยังแก้การคูณเมทริกซ์ต่อกัน, binary search tree ที่ดีที่สุด และ "แทรกตัวอักษรน้อยที่สุดให้เป็นพาลินโดรม" (ซึ่งเท่ากับ N − LPS) สำหรับ LPS โดยเฉพาะ เอกลักษณ์ LPS(s) = LCS(s, s กลับด้าน) เชื่อมมันกับข้อ [Longest common subsequence](#ex03e1_lcs)

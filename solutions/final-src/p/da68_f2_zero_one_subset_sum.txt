@@ -1,0 +1,132 @@
+id: da68_f2_zero_one_subset_sum
+group: final68
+lesson: 14 · DP basics (counting)
+stars: 1
+complexity: O(N · S · K)
+kind: program
+tags: counting DP, only the number of 1s matters, compositions with bounded parts, dice sums
+title: 0-1 subset sum
+title_th: ผลรวมจากอาเรย์ 0-1 (0-1 Subset Sum)
+blurb: A 0/1 array of length N ≤ 15: replace every 1 by an integer from 1 to K so that the whole array sums to exactly S ≤ 150. Count the ways. The zeros do not matter; with m ones, count sequences of m values in 1..K summing to S by DP over "ones filled so far, sum so far".
+blurb_th: อาเรย์ 0/1 ยาว N ≤ 15: แทนเลข 1 ทุกตัวด้วยจำนวนเต็ม 1 ถึง K ให้ผลรวมทั้งอาเรย์เท่ากับ S ≤ 150 พอดี นับจำนวนวิธี เลข 0 ไม่มีผล ถ้ามีเลข 1 อยู่ m ตัว ก็นับลำดับของ m ค่าใน 1..K ที่รวมได้ S ด้วย DP บน "เติมเลข 1 ไปแล้วกี่ตัว, ผลรวมตอนนี้"
+files: sol/da68_f2_zero_one_subset_sum/main.cpp
+tests: both PDF samples and an array of zeros (0 ways); 300 random inputs (N ≤ 6, K ≤ 5, S ≤ 20) against a Python brute force over all Kᵐ fillings; N = 15 ones, K = 10, S = 82 against a separate Python DP.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และอาเรย์ที่เป็น 0 ทั้งหมด (0 วิธี); สุ่ม 300 ชุด (N ≤ 6, K ≤ 5, S ≤ 20) เทียบกับ brute force ใน Python ที่ลองทุกการเติม Kᵐ แบบ; N = 15 เป็น 1 ทั้งหมด, K = 10, S = 82 เทียบกับ DP อีกตัวใน Python
+==== en
+## 1. What the problem says
+You get a binary array of length N (1 ≤ N ≤ 15). Replace **every 1** by an integer between 1 and K (1 < K ≤ 10; different positions may get different values); zeros stay 0. Count the ways to do it so that the sum of the whole array is exactly S (0 < S ≤ 150).
+
+Input: `N K S`, then the N binary values.
+
+Samples: `3 2 4` with `1 0 1` → **1** (only 2 + 2); `6 7 6` with `1 0 1 0 1 0` → **10**.
+
+## 2. What it really means
+Zeros add nothing and cannot change, so only **m = the number of 1s** matters. The question is: how many sequences (x₁, …, xₘ) with every xᵢ in 1..K add up to S? This is "how many ways can m dice with K faces show a total of S". Positions are different, so 1 + 3 and 3 + 1 are different ways.
+
+```text
+sample 2: m = 3 ones, values 1..7, total 6
+ways[s] after filling t ones:
+t = 1:  s = 1..6 → 1 1 1 1 1 1
+t = 2:  s = 2..6 → 1 2 3 4 5
+t = 3:  s = 3..6 → 1 3 6 10        answer ways[6] = 10
+```
+
+:::hint Hint 1
+Do the positions of the zeros matter at all? Reduce the problem to "m numbers, each from 1 to K, with sum S".
+:::
+:::hint Hint 2
+Let ways[s] be the number of ways to fill the 1s handled so far with total s. Start with ways[0] = 1. For each 1, build a new array: nw[s + v] += ways[s] for v = 1..K. After m rounds, print ways[S].
+:::
+
+## 3. What, why, how
+- **What:** a counting DP, one round per 1, over sums 0..S.
+- **Why the rounds are independent:** the value at one position does not restrict another; only the total matters. So the count for t + 1 ones is the sum over the last value v of the count for t ones with total s − v.
+- **How:**
+  - Count the 1s while reading.
+  - `ways` of size S + 1, `ways[0] = 1`.
+  - m times: `nw` = zeros; for each s with ways[s] > 0 and v = 1..K with s + v ≤ S: `nw[s + v] += ways[s]`; `ways = nw`.
+- **No ones at all:** the loop runs 0 times, ways[S] is 0 because S > 0.
+- **Size:** at most 10¹⁵ fillings in total (K¹⁵), which fits in `long long`.
+- **Cost:** m · S · K ≤ 15 · 150 · 10 = 22,500 steps. Even brute force over all Kᵐ = 10¹⁵ fillings is impossible, so the DP is required for full marks.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1 (m = 2 ones, K = 2, S = 4).
+
+| ones filled | ways[0] | ways[1] | ways[2] | ways[3] | ways[4] |
+|---|---|---|---|---|---|
+| 0 | 1 | 0 | 0 | 0 | 0 |
+| 1 | 0 | 1 | 1 | 0 | 0 |
+| 2 | 0 | 0 | 1 | 2 | **1** |
+
+ways[4] = 1: the only filling is 2 + 2. (ways[3] = 2 counts 1 + 2 and 2 + 1 separately.)
+
+## 5. Traps
+- **Counting multisets instead of sequences:** 1 + 2 and 2 + 1 are different fillings (different positions get different values). Sample 2 needs 10, the number of ordered triples.
+- **Updating ways in place with s going up:** a single 1 could then receive several values; use a fresh array per round (or go downward).
+- **Forgetting that values start at 1:** with v starting at 0, a 1 could turn into 0, which the statement forbids, and the counts grow too big: sample 2 would print 28 instead of 10.
+- **S larger than m · K:** the answer is just 0; no special case is needed.
+
+## 6. Background
+Lesson 14. "Number of ways for m dice with K faces to total S" is a classic counting DP; it also has a closed form by inclusion–exclusion: Σ (−1)ʲ · C(m, j) · C(S − jK − 1, m − 1). The DP is easier to get right in an exam. Compare [SackKnap](#da68_f2_sackknap), the other DP in this paper, which minimises instead of counting.
+==== th
+## 1. โจทย์บอกอะไร
+ได้อาเรย์ฐานสองยาว N (1 ≤ N ≤ 15) ให้แทน **เลข 1 ทุกตัว** ด้วยจำนวนเต็มระหว่าง 1 ถึง K (1 < K ≤ 10 แต่ละตำแหน่งใช้ค่าต่างกันได้) ส่วนเลข 0 คงเป็น 0 ให้นับจำนวนวิธีที่ทำให้ผลรวมทั้งอาเรย์เท่ากับ S พอดี (0 < S ≤ 150)
+
+input: `N K S` แล้วค่าฐานสอง N ตัว
+
+ตัวอย่าง: `3 2 4` กับ `1 0 1` → **1** (มีแค่ 2 + 2); `6 7 6` กับ `1 0 1 0 1 0` → **10**
+
+## 2. จริง ๆ แล้วถามอะไร
+เลข 0 ไม่เพิ่มอะไรและเปลี่ยนไม่ได้ จึงมีแค่ **m = จำนวนเลข 1** ที่สำคัญ คำถามคือ: ลำดับ (x₁, …, xₘ) ที่ทุก xᵢ อยู่ใน 1..K และรวมได้ S มีกี่แบบ เหมือน "ลูกเต๋า m ลูกที่มี K หน้าออกผลรวม S ได้กี่แบบ" ตำแหน่งต่างกัน 1 + 3 กับ 3 + 1 จึงเป็นคนละวิธี
+
+```text
+sample 2: m = 3 ones, values 1..7, total 6
+ways[s] after filling t ones:
+t = 1:  s = 1..6 → 1 1 1 1 1 1
+t = 2:  s = 2..6 → 1 2 3 4 5
+t = 3:  s = 3..6 → 1 3 6 10        answer ways[6] = 10
+```
+
+:::hint คำใบ้ 1
+ตำแหน่งของเลข 0 มีผลไหม ลดปัญหาให้เหลือ "ตัวเลข m ตัว แต่ละตัว 1 ถึง K ผลรวม S"
+:::
+:::hint คำใบ้ 2
+ให้ ways[s] เป็นจำนวนวิธีเติมเลข 1 ที่จัดการไปแล้วให้รวมได้ s เริ่มด้วย ways[0] = 1 สำหรับเลข 1 แต่ละตัวสร้างอาเรย์ใหม่: nw[s + v] += ways[s] สำหรับ v = 1..K หลังทำ m รอบให้พิมพ์ ways[S]
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** DP นับจำนวน หนึ่งรอบต่อเลข 1 หนึ่งตัว บนผลรวม 0..S
+- **ทำไมแต่ละรอบเป็นอิสระ:** ค่าในตำแหน่งหนึ่งไม่จำกัดตำแหน่งอื่น สำคัญแค่ผลรวม จำนวนวิธีของ t + 1 ตัวจึงเป็นผลรวมบนค่าสุดท้าย v ของจำนวนวิธีของ t ตัวที่รวมได้ s − v
+- **อย่างไร:**
+  - นับเลข 1 ตอนอ่าน
+  - `ways` ขนาด S + 1 และ `ways[0] = 1`
+  - ทำ m ครั้ง: `nw` = ศูนย์ทั้งหมด สำหรับทุก s ที่ ways[s] > 0 และ v = 1..K ที่ s + v ≤ S: `nw[s + v] += ways[s]` แล้ว `ways = nw`
+- **ไม่มีเลข 1 เลย:** ลูปทำ 0 รอบ ways[S] เป็น 0 เพราะ S > 0
+- **ขนาด:** การเติมทั้งหมดมีไม่เกิน 10¹⁵ แบบ (K¹⁵) ใส่ `long long` ได้
+- **ต้นทุน:** m · S · K ≤ 15 · 150 · 10 = 22,500 ขั้น brute force บนการเติมทั้งหมด Kᵐ = 10¹⁵ แบบเป็นไปไม่ได้ จึงต้องใช้ DP เพื่อได้คะแนนเต็ม
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 (เลข 1 สองตัว m = 2, K = 2, S = 4)
+
+| เติมไปแล้ว | ways[0] | ways[1] | ways[2] | ways[3] | ways[4] |
+|---|---|---|---|---|---|
+| 0 | 1 | 0 | 0 | 0 | 0 |
+| 1 | 0 | 1 | 1 | 0 | 0 |
+| 2 | 0 | 0 | 1 | 2 | **1** |
+
+ways[4] = 1: มีการเติมแบบเดียวคือ 2 + 2 (ways[3] = 2 นับ 1 + 2 กับ 2 + 1 แยกกัน)
+
+## 5. จุดที่มักพลาด
+- **นับเป็น multiset แทนลำดับ:** 1 + 2 กับ 2 + 1 เป็นการเติมคนละแบบ (ตำแหน่งต่างกันได้ค่าต่างกัน) ตัวอย่างที่ 2 ต้องได้ 10 ซึ่งเป็นจำนวนสามสิ่งอันดับ
+- **ปรับ ways ในที่เดิมโดย s เดินขึ้น:** เลข 1 ตัวเดียวอาจได้หลายค่า ให้ใช้อาเรย์ใหม่ทุกรอบ (หรือเดินลง)
+- **ลืมว่าค่าเริ่มที่ 1:** v = 0 ไม่อนุญาต ถ้าเริ่ม v ที่ 0 คำตอบจะนับกรณีที่เลข 1 กลายเป็น 0 ซึ่งผิด ตัวอย่างที่ 2 จะได้ 28 แทน 10
+- **S มากกว่า m · K:** คำตอบคือ 0 ไม่ต้องมีกรณีพิเศษ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 14 "ลูกเต๋า m ลูกที่มี K หน้าออกผลรวม S ได้กี่วิธี" เป็น DP นับจำนวนคลาสสิก มีสูตรปิดด้วย inclusion–exclusion ด้วย: Σ (−1)ʲ · C(m, j) · C(S − jK − 1, m − 1) แต่ในห้องสอบ DP เขียนให้ถูกได้ง่ายกว่า เทียบกับข้อ [SackKnap](#da68_f2_sackknap) DP อีกข้อในชุดนี้ที่หาค่าน้อยสุดแทนการนับ

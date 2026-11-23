@@ -55,6 +55,7 @@ bool check(int lo, int hi) {
 
 ## 5. In this chapter
 - [Binary search near](#ex01e3) and [Binary search near repeat](#ex02e3_bs): the invariant, then duplicates.
+- [Restaurant](#ex01m3): binary search on the answer (the time), with a monotone count of seated customers.
 - [Recursive matrix](#a62_q1a_recur): build an object quarter by quarter.
 - [Matrix modulo](#a60_q1_matmod): fast power of a 2 × 2 matrix.
 - [Lawn mowing](#a64_q1_lawn_mowing): prefix sums + binary search on the answer.
@@ -115,6 +116,7 @@ bool check(int lo, int hi) {
 
 ## 5. ในบทนี้
 - [Binary search near](#ex01e3) และ [Binary search near repeat](#ex02e3_bs): invariant แล้วตามด้วยข้อมูลซ้ำ
+- [Restaurant](#ex01m3): binary search บนคำตอบ (เวลา) โดยจำนวนลูกค้าที่ได้นั่งเพิ่มขึ้นทางเดียว
 - [Recursive matrix](#a62_q1a_recur): สร้างวัตถุทีละส่วนสี่
 - [Matrix modulo](#a60_q1_matmod): ยกกำลังเมทริกซ์ 2 × 2 แบบเร็ว
 - [Lawn mowing](#a64_q1_lawn_mowing): prefix sum + binary search บนคำตอบ

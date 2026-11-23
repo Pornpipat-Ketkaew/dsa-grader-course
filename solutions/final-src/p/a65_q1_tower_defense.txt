@@ -1,0 +1,154 @@
+id: a65_q1_tower_defense
+group: brute
+lesson: 11 · Recursion & backtracking
+stars: 2
+complexity: O((m + 1)ᵏ) worst case, k, m ≤ 8
+kind: program
+tags: backtracking, assignment, each tower picks a target, pruning by upper bound, ignore n
+title: Tower defense
+title_th: ป้อมปืนยิงมอนสเตอร์ (Tower Defense)
+blurb: k ≤ 8 towers each shoot one monster within distance w, taking 1 power off it (never below 0). Minimise the total power left. Try every target for every tower with backtracking, counting only useful hits, and prune when even all remaining towers cannot beat the best.
+blurb_th: ป้อมปืน k ≤ 8 ป้อม แต่ละป้อมยิงมอนสเตอร์หนึ่งตัวที่อยู่ห่างไม่เกิน w ลดพลังลง 1 (ไม่ต่ำกว่า 0) ให้พลังรวมที่เหลือน้อยที่สุด ลองทุกเป้าของทุกป้อมด้วย backtracking นับเฉพาะการยิงที่มีผล และตัดกิ่งเมื่อต่อให้ป้อมที่เหลือยิงโดนหมดก็ไม่ดีกว่าคำตอบที่ดีที่สุด
+files: sol/a65_q1_tower_defense/main.cpp
+tests: all three PDF samples; 300 random inputs (k, m ≤ 5, w ≤ 4, powers 0..3) against a Python brute force over every target choice of every tower; n = 10⁶ with m = k = 8 and w = n for powers 1000 (answer 7,992), all 1 (answer 0) and 1,1,1,1,1,1,1,0 (only 7 useful hits, so the "all hit" shortcut never fires), each in under 0.01 s.
+tests_th: ตัวอย่างทั้งสามชุดใน PDF; สุ่ม 300 ชุด (k, m ≤ 5, w ≤ 4, พลัง 0..3) เทียบกับ brute force ใน Python ที่ลองทุกการเลือกเป้าของทุกป้อม; n = 10⁶ กับ m = k = 8 และ w = n โดยพลังเป็น 1000 (คำตอบ 7,992), เป็น 1 หมด (คำตอบ 0) และ 1,1,1,1,1,1,1,0 (ยิงมีผลได้แค่ 7 ครั้ง ทางลัด "ยิงโดนหมด" จึงไม่เคยทำงาน) แต่ละชุดใช้ไม่ถึง 0.01 วินาที
+==== en
+## 1. What the problem says
+A road has n cells (n ≤ 10⁶). m monsters stand on cells p[i] with power h[i] (several may share a cell). k towers stand on distinct cells t[i]. A tower at x may shoot **one** monster on cells x − w … x + w, once. A hit lowers that monster's power by 1, but **never below 0**. Choose the targets so that the **total power left** is as small as possible, and print it.
+
+Input: `n m k w`, then the m positions p, then the m powers h, then the k tower cells t. In every subtask m, k ≤ 8.
+
+Samples: `10 1 2 1` (monster at 1 with power 10, towers at 2 and 5) → **9**; the same with w = 4 → **8**; `100 3 3 1` (monsters at 80 70 60, power 1 each, towers at 70 71 69) → **2**.
+
+## 2. What it really means
+Total left = (sum of all powers) − (number of **useful** hits). A hit is useful if the monster still has power when it lands. So: assign each tower to a monster in its range, where monster j can absorb at most h[j] useful hits, and maximise the number of useful hits. With at most 8 towers and 8 monsters there are at most 9⁸ ≈ 4.3 × 10⁷ assignments, and pruning removes almost all of them.
+
+```text
+sample 3, w = 1
+cell:      ...  60  ...  69  70  71  ...  80
+monster:        M3           M2           M1        power 1 each
+tower:                   T3  T1  T2
+
+T1 (70), T2 (71), T3 (69) can all reach only M2 (cell 70)
+M2 absorbs 1 useful hit, the other two shots are wasted
+left = 3 − 1 = 2
+```
+
+:::hint Hint 1
+n can be 10⁶, but it plays no role: only the k tower cells and m monster cells matter. Look at how small k and m are.
+:::
+:::hint Hint 2
+Recurse over the towers. Tower i either shoots a monster that is in range and still alive (lower its power, recurse, restore it), or makes no useful hit. Track the number of useful hits, and stop a branch when hits + (towers left) cannot beat the best so far.
+:::
+
+## 3. What, why, how
+- **What:** backtracking `shoot(i, hits)` over towers 0..k−1; the answer is Σh − (most useful hits).
+- **Why brute force:** k, m ≤ 8 is the hint. Every tower has at most m + 1 choices, so even the full tree is at most 9⁸ leaves.
+- **Why "no useful hit" is one choice:** shooting a dead monster, shooting nothing, or having nothing in range all change nothing, so they collapse into one branch.
+- **How:**
+  - Read powers into `h` and keep the sum `total` (it fits in `long long` easily).
+  - In `shoot(i, hits)`: first the bound `if (hits + (k − i) <= best) return;`. Then, at i = k, record `best = hits`.
+  - For each monster j with `h[j] > 0` and `|p[j] − t[i]| ≤ w`: `h[j]--`, recurse with hits + 1, `h[j]++`.
+  - Finally the "no useful hit" branch: `shoot(i + 1, hits)`.
+- **Order matters for speed:** trying hits before the "no hit" branch finds a large `best` early, so the bound cuts more.
+- **Cost:** at most (m + 1)ᵏ leaves; measured under 0.01 s on the worst inputs we could build.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 3. Towers in input order T1 = 70, T2 = 71, T3 = 69; M2 = the monster at 70; the bound is "hits + towers left ≤ best → prune".
+
+| call | M2 power | what happens |
+|---|---|---|
+| shoot(0, 0) | 1 | bound 0 + 3 > 0; T1 shoots M2 |
+| shoot(1, 1) | 0 | T2: M2 is dead, nothing else in range → no useful hit |
+| shoot(2, 1) | 0 | T3: same → no useful hit |
+| shoot(3, 1) | 0 | all towers decided: **best = 1** |
+| back in shoot(0, 0) | 1 | M2 restored; now T1 makes no useful hit |
+| shoot(1, 0) | 1 | bound 0 + 2 > 1; T2 shoots M2 |
+| shoot(2, 1) | 0 | bound 1 + 1 > 1; T3: no useful hit |
+| shoot(3, 1) | 0 | bound 1 + 0 ≤ 1: pruned |
+| shoot(2, 0) | 1 | bound 0 + 1 ≤ 1: pruned |
+
+Most useful hits = 1, so the answer is 3 − 1 = **2**.
+
+## 5. Traps
+- **Allocating an array of size n** for the road: unnecessary, and 10⁶ cells per test is a waste. Only positions matter.
+- **Letting power go below 0:** without the `h[j] > 0` check, sample 3 would print 0 instead of 2.
+- **Counting hits on dead monsters** as progress: the bound and `best` must count only useful hits.
+- **Range test with the wrong sign:** use `abs(p − t) <= w`; a tower may stand on a monster's cell (distance 0).
+- **Greedy "each tower, in input order, shoots the strongest monster in range":** `5 2 2 1`, monsters at 2 and 4 with power 1 each, towers at 3 and 1. The tower at 3 reaches both and takes the first one (cell 2); the tower at 1 can only reach cell 2, which is now dead, so 1 power is left. The best is 0: tower 3 shoots cell 4, tower 1 shoots cell 2. Brute force needs no such case analysis.
+
+## 6. Background
+Lesson 11. The underlying problem is a **bipartite b-matching** (towers on one side, monsters with capacity h on the other), which max flow solves in polynomial time for any size. With m, k ≤ 8 the exam expects the backtracking. Spotting that the big number (n = 10⁶) is irrelevant and the small ones (8) decide the method is the real lesson here.
+==== th
+## 1. โจทย์บอกอะไร
+ถนนมี n ช่อง (n ≤ 10⁶) มีมอนสเตอร์ m ตัวอยู่ที่ช่อง p[i] พลัง h[i] (หลายตัวอยู่ช่องเดียวกันได้) มีป้อมปืน k ป้อมอยู่คนละช่อง t[i] ป้อมที่ช่อง x ยิงมอนสเตอร์ **หนึ่งตัว** ในช่อง x − w … x + w ได้ครั้งเดียว การยิงโดนลดพลังมอนสเตอร์ตัวนั้นลง 1 แต่ **ไม่ต่ำกว่า 0** ให้เลือกเป้าให้ **พลังรวมที่เหลือ** น้อยที่สุดแล้วพิมพ์ออกมา
+
+input: `n m k w` แล้วตำแหน่ง p ทั้ง m ค่า แล้วพลัง h ทั้ง m ค่า แล้วช่องของป้อม t ทั้ง k ค่า ทุกชุดทดสอบ m, k ≤ 8
+
+ตัวอย่าง: `10 1 2 1` (มอนสเตอร์ที่ 1 พลัง 10 ป้อมที่ 2 และ 5) → **9**; แบบเดียวกันแต่ w = 4 → **8**; `100 3 3 1` (มอนสเตอร์ที่ 80 70 60 พลังตัวละ 1 ป้อมที่ 70 71 69) → **2**
+
+## 2. จริง ๆ แล้วถามอะไร
+พลังที่เหลือ = (ผลรวมพลังทั้งหมด) − (จำนวนการยิงที่ **มีผล**) การยิงมีผลถ้ามอนสเตอร์ยังมีพลังตอนโดน ดังนั้น: จับคู่ป้อมแต่ละป้อมกับมอนสเตอร์ในระยะ โดยมอนสเตอร์ j รับการยิงที่มีผลได้ไม่เกิน h[j] ครั้ง แล้วทำให้จำนวนการยิงที่มีผลมากที่สุด เมื่อมีป้อมไม่เกิน 8 และมอนสเตอร์ไม่เกิน 8 การจับคู่มีไม่เกิน 9⁸ ≈ 4.3 × 10⁷ แบบ และการตัดกิ่งตัดเกือบทั้งหมดทิ้ง
+
+```text
+sample 3, w = 1
+cell:      ...  60  ...  69  70  71  ...  80
+monster:        M3           M2           M1        power 1 each
+tower:                   T3  T1  T2
+
+T1 (70), T2 (71), T3 (69) can all reach only M2 (cell 70)
+M2 absorbs 1 useful hit, the other two shots are wasted
+left = 3 − 1 = 2
+```
+
+:::hint คำใบ้ 1
+n อาจเป็น 10⁶ แต่ไม่มีผลอะไรเลย สิ่งที่สำคัญมีแค่ช่องของป้อม k ช่องกับช่องของมอนสเตอร์ m ช่อง ดูว่า k กับ m เล็กแค่ไหน
+:::
+:::hint คำใบ้ 2
+recursion ไล่ทีละป้อม ป้อม i จะยิงมอนสเตอร์ที่อยู่ในระยะและยังมีพลัง (ลดพลัง เรียกต่อ แล้วคืนพลัง) หรือไม่ยิงโดนอะไรที่มีผล เก็บจำนวนการยิงที่มีผลไว้ และหยุดกิ่งเมื่อ hits + (จำนวนป้อมที่เหลือ) ไม่มีทางชนะคำตอบที่ดีที่สุด
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** backtracking `shoot(i, hits)` ไล่ป้อม 0..k−1 คำตอบคือ Σh − (จำนวนการยิงที่มีผลมากที่สุด)
+- **ทำไม brute force:** k, m ≤ 8 คือคำใบ้ แต่ละป้อมมีทางเลือกไม่เกิน m + 1 แบบ ต้นไม้เต็มจึงมีใบไม่เกิน 9⁸ ใบ
+- **ทำไม "ไม่ยิงโดนอะไรที่มีผล" เป็นทางเลือกเดียว:** ยิงตัวที่ตายแล้ว ไม่ยิง หรือไม่มีอะไรในระยะ ล้วนไม่เปลี่ยนอะไร จึงรวมเป็นกิ่งเดียวได้
+- **อย่างไร:**
+  - อ่านพลังลง `h` และเก็บผลรวม `total` (ใส่ `long long` ได้สบาย)
+  - ใน `shoot(i, hits)`: เช็กขอบเขตก่อน `if (hits + (k − i) <= best) return;` แล้วเมื่อ i = k บันทึก `best = hits`
+  - สำหรับมอนสเตอร์ j ที่ `h[j] > 0` และ `|p[j] − t[i]| ≤ w`: `h[j]--` เรียกต่อด้วย hits + 1 แล้ว `h[j]++`
+  - สุดท้ายกิ่ง "ไม่มีผล": `shoot(i + 1, hits)`
+- **ลำดับมีผลต่อความเร็ว:** ลองยิงก่อนกิ่ง "ไม่ยิง" ทำให้เจอ `best` ค่ามากเร็ว การตัดกิ่งจึงตัดได้มากขึ้น
+- **ต้นทุน:** ใบไม่เกิน (m + 1)ᵏ ใบ วัดได้ไม่ถึง 0.01 วินาทีกับ input ที่แย่ที่สุดที่เราสร้างได้
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 3 ป้อมตามลำดับ input T1 = 70, T2 = 71, T3 = 69; M2 = มอนสเตอร์ที่ช่อง 70; ขอบเขตคือ "hits + ป้อมที่เหลือ ≤ best → ตัดกิ่ง"
+
+| การเรียก | พลัง M2 | เกิดอะไรขึ้น |
+|---|---|---|
+| shoot(0, 0) | 1 | ขอบเขต 0 + 3 > 0; T1 ยิง M2 |
+| shoot(1, 1) | 0 | T2: M2 ตายแล้ว ไม่มีตัวอื่นในระยะ → ไม่มีผล |
+| shoot(2, 1) | 0 | T3: เหมือนกัน → ไม่มีผล |
+| shoot(3, 1) | 0 | ตัดสินใจครบทุกป้อม: **best = 1** |
+| กลับมาที่ shoot(0, 0) | 1 | คืนพลัง M2; ตอนนี้ T1 ไม่ยิงที่มีผล |
+| shoot(1, 0) | 1 | ขอบเขต 0 + 2 > 1; T2 ยิง M2 |
+| shoot(2, 1) | 0 | ขอบเขต 1 + 1 > 1; T3: ไม่มีผล |
+| shoot(3, 1) | 0 | ขอบเขต 1 + 0 ≤ 1: ตัดกิ่ง |
+| shoot(2, 0) | 1 | ขอบเขต 0 + 1 ≤ 1: ตัดกิ่ง |
+
+ยิงมีผลได้มากที่สุด 1 ครั้ง คำตอบคือ 3 − 1 = **2**
+
+## 5. จุดที่มักพลาด
+- **สร้างอาเรย์ขนาด n** แทนถนน: ไม่จำเป็น และ 10⁶ ช่องต่อชุดทดสอบเป็นการเปลือง ตำแหน่งเท่านั้นที่สำคัญ
+- **ปล่อยให้พลังต่ำกว่า 0:** ถ้าไม่เช็ก `h[j] > 0` ตัวอย่างที่ 3 จะได้ 0 แทน 2
+- **นับการยิงตัวที่ตายแล้ว** เป็นความคืบหน้า: ขอบเขตและ `best` ต้องนับเฉพาะการยิงที่มีผล
+- **เช็กระยะผิดเครื่องหมาย:** ใช้ `abs(p − t) <= w` ป้อมอยู่ช่องเดียวกับมอนสเตอร์ได้ (ระยะ 0)
+- **greedy แบบ "ไล่ป้อมตามลำดับ input แต่ละป้อมยิงตัวที่พลังมากที่สุดในระยะ":** `5 2 2 1` มอนสเตอร์ที่ช่อง 2 และ 4 พลังตัวละ 1 ป้อมที่ช่อง 3 และ 1 ป้อมที่ 3 ถึงทั้งสองตัวและเลือกตัวแรก (ช่อง 2) ส่วนป้อมที่ 1 ถึงได้แค่ช่อง 2 ซึ่งตายไปแล้ว จึงเหลือพลัง 1 แต่ดีที่สุดคือ 0: ป้อมที่ 3 ยิงช่อง 4 ป้อมที่ 1 ยิงช่อง 2 brute force ไม่ต้องวิเคราะห์กรณีแบบนี้เลย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11 ปัญหาที่อยู่เบื้องหลังคือ **bipartite b-matching** (ป้อมฝั่งหนึ่ง มอนสเตอร์ที่มีความจุ h อีกฝั่ง) ซึ่ง max flow แก้ได้ในเวลาพหุนามสำหรับขนาดใดก็ได้ แต่เมื่อ m, k ≤ 8 ข้อสอบคาดหวัง backtracking บทเรียนที่แท้จริงของข้อนี้คือการเห็นว่าตัวเลขใหญ่ (n = 10⁶) ไม่เกี่ยว และตัวเลขเล็ก (8) เป็นตัวกำหนดวิธี

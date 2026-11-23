@@ -1,0 +1,142 @@
+id: da68_f2_sackknap
+group: final68
+lesson: 15 · DP with states (0/1 knapsack)
+stars: 2
+complexity: O(n · V)
+kind: program
+tags: 0/1 knapsack, exact weight, minimum cost, 1-D DP, weights downward, infinity, long long
+title: SackKnap
+title_th: เป้กลับด้าน (SackKnap)
+blurb: The knapsack turned around: choose items whose weights add up to exactly V and whose total price is as small as possible (−1 if impossible); n, V ≤ 10,000. 0/1 knapsack DP on one array best[0..V] with min instead of max, sums visited from V downward so each item is used once.
+blurb_th: knapsack กลับด้าน: เลือกของให้น้ำหนักรวมเท่ากับ V พอดี และราคารวมน้อยที่สุด (−1 ถ้าทำไม่ได้) โดย n, V ≤ 10,000 ใช้ DP แบบ 0/1 knapsack บนอาเรย์เดียว best[0..V] ใช้ min แทน max และไล่น้ำหนักจาก V ลงมาเพื่อให้ของแต่ละชิ้นถูกใช้ครั้งเดียว
+files: sol/da68_f2_sackknap/main.cpp
+tests: all three PDF samples (150, −1, 363); 300 random inputs (n ≤ 10, V ≤ 25) against a Python brute force over all 2ⁿ subsets; n = V = 10,000 with prices up to 10⁹ (0.03 s), and 10,000 items of weight 1 and price 10⁹ (answer 10¹³, checks overflow).
+tests_th: ตัวอย่างทั้งสามชุดใน PDF (150, −1, 363); สุ่ม 300 ชุด (n ≤ 10, V ≤ 25) เทียบกับ brute force ใน Python ที่ลองทุกเซตย่อย 2ⁿ แบบ; n = V = 10,000 ราคาถึง 10⁹ (0.03 วินาที) และของ 10,000 ชิ้นน้ำหนัก 1 ราคา 10⁹ (คำตอบ 10¹³ เพื่อตรวจว่าไม่ล้น)
+==== en
+## 1. What the problem says
+In ordinary 0/1 knapsack you maximise the price with total weight **at most** W. In **SackKnap** both are flipped: choose some of the n items (each at most once) so that the total weight is **exactly V**, and the total price is as **small** as possible. Print that price, or **−1** if no selection weighs exactly V.
+
+Input: `n V` (1 ≤ n, V ≤ 10,000), then n lines `wᵢ pᵢ` (1 ≤ wᵢ ≤ V, 1 ≤ pᵢ ≤ 10⁹).
+
+Samples: V = 10 with items (5, 100), (5, 50), (2, 20) → **150** (the two 5 kg items); V = 20 with four items of weight 6 and one of weight 3 → **−1** (every total is a multiple of 3); a 20-item example → **363**.
+
+## 2. What it really means
+It is the classic 0/1 knapsack table with two changes: the value is a **minimum**, and only states that hit a weight **exactly** are valid. Keep best[s] = the cheapest price of a selection weighing exactly s; INF means "no selection weighs s".
+
+```text
+best[s] after each item (V = 10, "·" = INF)
+
+s:              0    1    2    3    4    5    6    7    8    9    10
+start           0    ·    ·    ·    ·    ·    ·    ·    ·    ·    ·
+(5 kg, 100)     0    ·    ·    ·    ·   100   ·    ·    ·    ·    ·
+(5 kg, 50)      0    ·    ·    ·    ·   50    ·    ·    ·    ·   150
+(2 kg, 20)      0    ·   20    ·    ·   50    ·   70    ·    ·   150
+
+answer best[10] = 150
+```
+
+:::hint Hint 1
+This is 0/1 knapsack. What should best[s] mean when the weight must be exact and the price minimal? What is best[0], and what do the other entries start at?
+:::
+:::hint Hint 2
+best[0] = 0, everything else INF. For each item (w, p), for s from V down to w: if best[s − w] is not INF, best[s] = min(best[s], best[s − w] + p). The answer is best[V], or −1 if it is still INF.
+:::
+
+## 3. What, why, how
+- **What:** a 1-D 0/1 knapsack over exact weights with min.
+- **Why "exact" just means the starting values:** only best[0] = 0 is reachable at first. Every later finite value is built by adding real items to a reachable weight, so a finite best[s] always means some selection weighs exactly s.
+- **Why s goes downward:** best[s − w] must still be the value **before** this item. Going down, the smaller index has not been updated yet in this round, so each item is used at most once. (Going up would let an item be reused: that is the unbounded version.)
+- **How:**
+  - `vector<long long> best(V + 1, INF)`, `best[0] = 0`.
+  - For each item read on the fly: `for (int s = V; s >= w; s--)` relax.
+  - Print `best[V]` or −1.
+- **Sizes:** the cheapest selection uses at most 10,000 items of price 10⁹, up to 10¹³: `long long`. INF = 4 × 10¹⁸ so that INF + p never overflows, and the INF check skips such sums anyway.
+- **Cost:** n · V = 10⁸ simple steps; measured 0.03 s. The 2-D table (n × V × 8 bytes = 800 MB) would not fit; the 1-D array is 80 KB.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1, the updates made by each item (s from V down to w; only changes are listed).
+
+| item (w, p) | s checked | updates | best[10] |
+|---|---|---|---|
+| (5, 100) | 10 … 5 | best[5] = best[0] + 100 = 100 | INF |
+| (5, 50) | 10 … 5 | best[10] = best[5] + 50 = 150; then best[5] = min(100, 0 + 50) = 50 | 150 |
+| (2, 20) | 10 … 2 | best[10]: best[8] is INF, no change; best[7] = 50 + 20 = 70; best[2] = 20 | **150** |
+
+Note the order inside item 2: best[10] used the **old** best[5] = 100 (from item 1), and only afterwards best[5] became 50. That is exactly the "each item once" rule.
+
+## 5. Traps
+- **Starting every entry at 0** (as in the "at most W" knapsack): then best[V] means "weight at most V" and sample 2 prints 0 instead of −1.
+- **Inner loop upward:** item 2 could be taken twice; sample 1 would print 100 (5 kg, 50 twice) instead of 150.
+- **int for prices:** 10 × 10⁹ already overflows a 32-bit int.
+- **INF + p overflow:** with INF = LLONG_MAX the sum wraps negative and becomes "the best". Use a smaller INF or check before adding.
+- **2-D table:** 10⁴ × 10⁴ `long long` = 800 MB; even `int` is 400 MB. Use one row.
+
+## 6. Background
+Lesson 15. 0/1 knapsack variants differ only in the starting row and the combine step: "at most W, max value" starts at 0 and uses max; "exactly V, min cost" starts at INF with best[0] = 0 and uses min; "how many ways to make V" starts at 1 for s = 0 and uses +. Compare [0-1 subset sum](#da68_f2_zero_one_subset_sum) (counting) and [Fractional knapsack](#ex04e2_fknapsack), where items can be cut and greedy suffices.
+==== th
+## 1. โจทย์บอกอะไร
+0/1 knapsack ปกติให้ราคามากที่สุดโดยน้ำหนักรวม **ไม่เกิน** W แต่ **SackKnap** กลับทั้งสองอย่าง: เลือกของบางชิ้นจาก n ชิ้น (แต่ละชิ้นไม่เกินครั้งเดียว) ให้น้ำหนักรวม **เท่ากับ V พอดี** และราคารวม **น้อย** ที่สุด ให้พิมพ์ราคานั้น หรือ **−1** ถ้าไม่มีการเลือกแบบไหนหนัก V พอดี
+
+input: `n V` (1 ≤ n, V ≤ 10,000) แล้วอีก n บรรทัด `wᵢ pᵢ` (1 ≤ wᵢ ≤ V, 1 ≤ pᵢ ≤ 10⁹)
+
+ตัวอย่าง: V = 10 กับของ (5, 100), (5, 50), (2, 20) → **150** (ของ 5 kg สองชิ้น); V = 20 กับของหนัก 6 สี่ชิ้นและหนัก 3 หนึ่งชิ้น → **−1** (ผลรวมทุกแบบหารด้วย 3 ลงตัว); ตัวอย่าง 20 ชิ้น → **363**
+
+## 2. จริง ๆ แล้วถามอะไร
+นี่คือตาราง 0/1 knapsack คลาสสิกที่เปลี่ยนสองอย่าง: ค่าเป็น **ค่าน้อยสุด** และ state ที่ใช้ได้มีแค่ที่น้ำหนัก **พอดี** เก็บ best[s] = ราคาที่ถูกที่สุดของการเลือกที่หนัก s พอดี โดย INF แปลว่า "ไม่มีการเลือกไหนหนัก s"
+
+```text
+best[s] after each item (V = 10, "·" = INF)
+
+s:              0    1    2    3    4    5    6    7    8    9    10
+start           0    ·    ·    ·    ·    ·    ·    ·    ·    ·    ·
+(5 kg, 100)     0    ·    ·    ·    ·   100   ·    ·    ·    ·    ·
+(5 kg, 50)      0    ·    ·    ·    ·   50    ·    ·    ·    ·   150
+(2 kg, 20)      0    ·   20    ·    ·   50    ·   70    ·    ·   150
+
+answer best[10] = 150
+```
+
+:::hint คำใบ้ 1
+นี่คือ 0/1 knapsack ถ้าน้ำหนักต้องพอดีและราคาต้องน้อยที่สุด best[s] ควรหมายถึงอะไร best[0] เป็นเท่าไร และช่องอื่นเริ่มที่ค่าอะไร
+:::
+:::hint คำใบ้ 2
+best[0] = 0 ที่เหลือเป็น INF สำหรับของแต่ละชิ้น (w, p) ให้ s จาก V ลงไปถึง w: ถ้า best[s − w] ไม่ใช่ INF ให้ best[s] = min(best[s], best[s − w] + p) คำตอบคือ best[V] หรือ −1 ถ้ายังเป็น INF
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** 0/1 knapsack แบบหนึ่งมิติบนน้ำหนักพอดีพร้อม min
+- **ทำไม "พอดี" ขึ้นกับค่าเริ่มต้นอย่างเดียว:** ตอนแรกมีแค่ best[0] = 0 ที่ไปถึงได้ ค่าที่จำกัดทุกค่าหลังจากนั้นสร้างจากการเพิ่มของจริงเข้าไปในน้ำหนักที่ไปถึงได้ best[s] ที่จำกัดจึงแปลว่ามีการเลือกบางแบบที่หนัก s พอดีเสมอ
+- **ทำไม s เดินลง:** best[s − w] ต้องยังเป็นค่า **ก่อน** ใส่ของชิ้นนี้ เมื่อเดินลง ช่องที่เล็กกว่ายังไม่ถูกปรับในรอบนี้ ของแต่ละชิ้นจึงถูกใช้ไม่เกินครั้งเดียว (ถ้าเดินขึ้นของจะใช้ซ้ำได้ ซึ่งเป็นแบบไม่จำกัดจำนวน)
+- **อย่างไร:**
+  - `vector<long long> best(V + 1, INF)`, `best[0] = 0`
+  - ของแต่ละชิ้นอ่านแล้วใช้ทันที: `for (int s = V; s >= w; s--)` แล้ว relax
+  - พิมพ์ `best[V]` หรือ −1
+- **ขนาด:** การเลือกที่ถูกที่สุดใช้ของได้ถึง 10,000 ชิ้นราคา 10⁹ รวมถึง 10¹³: ใช้ `long long` ตั้ง INF = 4 × 10¹⁸ เพื่อไม่ให้ INF + p ล้น และการเช็ก INF ก็ข้ามผลรวมแบบนั้นอยู่แล้ว
+- **ต้นทุน:** n · V = 10⁸ ขั้นง่าย ๆ วัดได้ 0.03 วินาที ตารางสองมิติ (n × V × 8 ไบต์ = 800 MB) ใส่ไม่ได้ ส่วนอาเรย์หนึ่งมิติใช้แค่ 80 KB
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 การปรับค่าที่เกิดจากของแต่ละชิ้น (s จาก V ลงไป w แสดงเฉพาะที่เปลี่ยน)
+
+| ของ (w, p) | s ที่ตรวจ | การปรับ | best[10] |
+|---|---|---|---|
+| (5, 100) | 10 … 5 | best[5] = best[0] + 100 = 100 | INF |
+| (5, 50) | 10 … 5 | best[10] = best[5] + 50 = 150 แล้ว best[5] = min(100, 0 + 50) = 50 | 150 |
+| (2, 20) | 10 … 2 | best[10]: best[8] เป็น INF ไม่เปลี่ยน; best[7] = 50 + 20 = 70; best[2] = 20 | **150** |
+
+สังเกตลำดับในของชิ้นที่ 2: best[10] ใช้ best[5] **ค่าเก่า** = 100 (จากชิ้นที่ 1) แล้วหลังจากนั้น best[5] จึงกลายเป็น 50 นี่คือกฎ "ของแต่ละชิ้นใช้ครั้งเดียว" พอดี
+
+## 5. จุดที่มักพลาด
+- **เริ่มทุกช่องที่ 0** (แบบ knapsack "ไม่เกิน W"): best[V] จะแปลว่า "หนักไม่เกิน V" และตัวอย่างที่ 2 จะพิมพ์ 0 แทน −1
+- **ลูปในเดินขึ้น:** ของชิ้นที่ 2 จะถูกใช้สองครั้ง ตัวอย่างที่ 1 จะพิมพ์ 100 (5 kg ราคา 50 สองครั้ง) แทน 150
+- **ใช้ int กับราคา:** 10 × 10⁹ ก็ล้น int 32 บิตแล้ว
+- **INF + p ล้น:** ถ้า INF = LLONG_MAX ผลรวมจะวนกลับเป็นลบแล้วกลายเป็น "ค่าที่ดีที่สุด" ใช้ INF ที่เล็กกว่าหรือเช็กก่อนบวก
+- **ตารางสองมิติ:** 10⁴ × 10⁴ `long long` = 800 MB แม้แต่ `int` ก็ 400 MB ใช้แถวเดียว
+
+## 6. ความรู้พื้นฐาน
+บทที่ 15 knapsack แบบ 0/1 แต่ละรูปแบบต่างกันแค่แถวเริ่มต้นกับวิธีรวมค่า: "ไม่เกิน W, ค่ามากสุด" เริ่มที่ 0 และใช้ max; "พอดี V, ต้นทุนน้อยสุด" เริ่มที่ INF โดย best[0] = 0 และใช้ min; "มีกี่วิธีที่ได้ V" เริ่มที่ 1 สำหรับ s = 0 และใช้ + เทียบกับข้อ [0-1 subset sum](#da68_f2_zero_one_subset_sum) (นับจำนวน) และ [Fractional knapsack](#ex04e2_fknapsack) ที่ของแบ่งได้และ greedy ก็พอ

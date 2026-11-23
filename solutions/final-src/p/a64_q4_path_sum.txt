@@ -1,0 +1,158 @@
+id: a64_q4_path_sum
+group: brute
+lesson: 11 · Recursion & backtracking (simple paths)
+stars: 3
+complexity: exponential in n (n ≤ 20), cut down by bounds
+kind: program
+tags: simple path, DFS backtracking, path sum, pruning by upper bound, early exit, NP-hard
+title: Path sum
+title_th: ผลรวมบนเส้นทาง (Path Sum)
+blurb: An undirected weighted graph with n ≤ 20 nodes and 8 target sums K. For each K, is there a simple path (no repeated node) whose edge weights add up to exactly K? DFS over all simple paths from every start, cutting a branch when no open K can still be reached, and stopping once all 8 are answered.
+blurb_th: กราฟไม่มีทิศทางมีน้ำหนัก n ≤ 20 ปม และค่าเป้าหมาย K อีก 8 ค่า สำหรับแต่ละ K มี simple path (ไม่ผ่านปมซ้ำ) ที่ผลรวมน้ำหนักเท่ากับ K พอดีไหม ใช้ DFS ไล่ทุก simple path จากทุกจุดเริ่ม ตัดกิ่งเมื่อไม่มี K ที่ยังเปิดอยู่ตัวไหนเอื้อมถึงแล้ว และหยุดทันทีที่ตอบครบทั้ง 8 ค่า
+files: sol/a64_q4_path_sum/main.cpp
+tests: the PDF sample, a single node with a self-loop line; 300 random graphs (n ≤ 7) against a Python DFS that lists every simple path sum; n = 20 complete graph with random weights and random K (0.47 s); the same graph with K = 1, 2, 3, 4, 5, 19998, 19999, 20000 (0.005 s); a 20-node path of weight-1000 edges. Over 40 more random n = 20 graphs most ran under 0.5 s; the slowest took 3.4 s (see Traps).
+tests_th: ตัวอย่างใน PDF และกราฟปมเดียวที่มีบรรทัดเส้นวนกลับหาตัวเอง; สุ่มกราฟ 300 ชุด (n ≤ 7) เทียบกับ DFS ใน Python ที่แจกแจงผลรวมของทุก simple path; กราฟสมบูรณ์ n = 20 น้ำหนักสุ่มและ K สุ่ม (0.47 วินาที); กราฟเดียวกันกับ K = 1, 2, 3, 4, 5, 19998, 19999, 20000 (0.005 วินาที); เส้นทางตรง 20 ปมน้ำหนัก 1000 ทุกเส้น ทดลองกับกราฟสุ่ม n = 20 อีก 40 ชุด ส่วนใหญ่ใช้ไม่ถึง 0.5 วินาที ชุดที่ช้าที่สุดใช้ 3.4 วินาที (ดูหัวข้อจุดที่มักพลาด)
+==== en
+## 1. What the problem says
+An undirected graph has n nodes (numbered 0..n−1, n ≤ 20) and m weighted edges (m ≤ 200, weights 1..1000). You get 8 values K₁..K₈ (each 1..20,000). For each one, print **YES** if some **simple path** (a path that never visits a node twice) has edge weights adding up to exactly Kᵢ, otherwise **NO**. A path may start at any node.
+
+Input: `n m`, the 8 values K, then m lines `a b w`.
+
+Sample: edges 0–1 (10), 0–2 (15), 1–2 (5), 0–3 (35); K = 10 20 … 80 → **YES YES NO NO YES NO NO NO**. Note 0→1→2→0 sums to 30 but repeats node 0, so 30 is NO.
+
+## 2. What it really means
+Generate every simple path, collect the sums, answer the 8 questions. A simple path is built one node at a time, never returning to a node already on it: that is backtracking with an `onPath[]` array, started from every node.
+
+```text
+    10           paths from 0:    0-1 = 10 ✓K   0-1-2 = 15     0-2 = 15
+ 0 ──── 1                         0-2-1 = 20 ✓K 0-3 = 35
+ │ ╲    │        paths from 2:    2-0-3 = 50 ✓K
+35  15  5        30 needs 0-1-2-0: not simple
+ │    ╲ │        sums that exist: 5 10 15 20 25 35 45 50 55
+ 3      2        → 10 YES, 20 YES, 30 NO, 40 NO, 50 YES, 60 NO, 70 NO, 80 NO
+```
+
+There is no polynomial shortcut to hope for: with all weights equal to w, "is there a path of sum (n−1)·w" asks for a **Hamiltonian path**, a famous NP-complete problem. The limit n ≤ 20 is the hint that a search is expected, and the work is in making the search skip hopeless branches.
+
+:::hint Hint 1
+n ≤ 20 and you need paths that never repeat a node. Write the DFS that extends a path by one unused neighbour at a time, starting once from every node, and record every sum you see.
+:::
+:::hint Hint 2
+Two cuts make it fast. (1) Stop everything as soon as all 8 queries are answered. (2) Before going deeper, ask: can this path still grow into any K that is still open? The path can gain at most the heaviest edge of each node not yet on it, so if no open K lies in [sum, sum + that bound], return.
+:::
+
+## 3. What, why, how
+- **What:** `dfs(u, sum)` over simple paths, from every start node, answering queries as their sums appear.
+- **Why a bound is safe:** every node added to the path is entered through one edge touching it, and that edge weighs at most `heaviest[v]`. So the path can never gain more than `restMax` = Σ heaviest[v] over nodes not on the path. If no unanswered K lies in [sum, sum + restMax], nothing below this call can answer anything.
+- **How:**
+  - Read the edges into adjacency lists; compute `heaviest[v]`; `restMax` starts as the sum over all nodes.
+  - On entering a node, subtract its `heaviest` from `restMax`; on leaving, add it back (like `onPath`).
+  - In `dfs`: first the bound check, then mark every open K equal to `sum` as YES, then try each neighbour that is not on the path.
+  - Keep `unanswered`; when it hits 0, return immediately everywhere.
+- **Why every start node:** a path's sum is the same in both directions, but the path must be generated from one of its two ends; starting from every node covers all of them.
+- **Cost:** exponential in the worst case. With the two cuts, typical random inputs with n = 20 take well under a second; the measurements are in the "Verified" box.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the sample. `heaviest` = 35, 10, 15, 35 for nodes 0..3. Open K at the start: 10 20 30 40 50 60 70 80.
+
+| path | sum | restMax | open K in [sum, sum + restMax]? | answered here |
+|---|---|---|---|---|
+| 0 | 0 | 60 | yes (10 … 60) | |
+| 0-1 | 10 | 50 | yes | **10** |
+| 0-1-2 | 15 | 35 | yes (20 … 50) | |
+| 0-2 | 15 | 45 | yes | |
+| 0-2-1 | 20 | 35 | yes | **20** |
+| 0-3 | 35 | 25 | yes (40 … 60), but node 3 has no other neighbour | |
+| 1 … | | | 25, 45, 5, 20 found, nothing new | |
+| 1-2-0-3 | 55 | 0 | no (55 is not open) → pruned | |
+| 2-0-3 | 50 | 10 | yes | **50** |
+| 2-1-0-3 | 50 | 0 | no (50 already answered) → pruned | |
+| 3-0-1-2, 3-0-2-1 | 50, 55 | 0 | no → pruned | |
+
+All searches end with 10, 20, 50 found: **YES YES NO NO YES NO NO NO**.
+
+## 5. Traps
+- **Forgetting "simple":** a plain DFS with a global `visited[]` that is never cleared finds only one path per start. The mark must be undone when the DFS returns (backtracking), so other paths through the same node are still tried.
+- **Allowing node repeats:** the 0→1→2→0 cycle would make 30 a YES.
+- **A path of one node** has sum 0, and every K ≥ 1, so it never answers anything; it is just the start of the search.
+- **The worst case is still exponential.** Our slowest random case (n = 20, m = 80, one K just below the longest path sum, so it is never found and never cut) took 3.4 s. A K that cannot be reached but is not ruled out by the bound forces the search through almost every path. Whether the grader data contain such a case is not known; the point is to understand why these inputs are slow, since no method avoids them completely.
+- **Not stopping early** after all 8 answers: on dense graphs that is the difference between milliseconds and minutes.
+- **Output:** 8 lines, in the order of the queries, words in capitals.
+
+## 6. Background
+Lesson 11. Path problems split sharply: shortest paths are easy (Dijkstra), but **longest** or **exact-sum** simple paths are NP-hard. For n ≤ 20 the general exact method is a bit-mask DP over (set of visited nodes, last node), 2ⁿ · n states; here each state would have to carry a whole set of reachable sums (20,001 bits), about 2²⁰ · 20 · 2.5 KB, far too much memory. That is why the backtracking with bounds is the practical answer. Compare [Day cover](#a66_q1a_day_cover) for the "try all subsets, prune by the best so far" pattern.
+==== th
+## 1. โจทย์บอกอะไร
+กราฟไม่มีทิศทางมี n ปม (เลข 0..n−1, n ≤ 20) และเส้นเชื่อมมีน้ำหนัก m เส้น (m ≤ 200 น้ำหนัก 1..1000) มีค่า K₁..K₈ ให้ 8 ค่า (แต่ละค่า 1..20,000) สำหรับแต่ละค่า ให้พิมพ์ **YES** ถ้ามี **simple path** (เส้นทางที่ไม่ผ่านปมซ้ำ) ที่ผลรวมน้ำหนักเท่ากับ Kᵢ พอดี ไม่อย่างนั้นพิมพ์ **NO** เส้นทางเริ่มที่ปมไหนก็ได้
+
+input: `n m` แล้วค่า K ทั้ง 8 ค่า แล้วอีก m บรรทัด `a b w`
+
+ตัวอย่าง: เส้น 0–1 (10), 0–2 (15), 1–2 (5), 0–3 (35); K = 10 20 … 80 → **YES YES NO NO YES NO NO NO** สังเกตว่า 0→1→2→0 รวมได้ 30 แต่ผ่านปม 0 ซ้ำ 30 จึงเป็น NO
+
+## 2. จริง ๆ แล้วถามอะไร
+สร้างทุก simple path เก็บผลรวม แล้วตอบทั้ง 8 คำถาม simple path สร้างได้ทีละปมโดยไม่ย้อนกลับไปปมที่อยู่บนเส้นทางแล้ว นั่นคือ backtracking ที่ใช้อาเรย์ `onPath[]` และเริ่มจากทุกปม
+
+```text
+    10           paths from 0:    0-1 = 10 ✓K   0-1-2 = 15     0-2 = 15
+ 0 ──── 1                         0-2-1 = 20 ✓K 0-3 = 35
+ │ ╲    │        paths from 2:    2-0-3 = 50 ✓K
+35  15  5        30 needs 0-1-2-0: not simple
+ │    ╲ │        sums that exist: 5 10 15 20 25 35 45 50 55
+ 3      2        → 10 YES, 20 YES, 30 NO, 40 NO, 50 YES, 60 NO, 70 NO, 80 NO
+```
+
+อย่าหวังทางลัดแบบพหุนาม: ถ้าน้ำหนักเท่ากันหมดเป็น w คำถาม "มีเส้นทางผลรวม (n−1)·w ไหม" ก็คือการถามหา **Hamiltonian path** ซึ่งเป็นปัญหา NP-complete ชื่อดัง ขอบเขต n ≤ 20 บอกว่าโจทย์คาดหวังการค้นหา และงานอยู่ที่การทำให้การค้นหาข้ามกิ่งที่ไม่มีหวัง
+
+:::hint คำใบ้ 1
+n ≤ 20 และต้องการเส้นทางที่ไม่ผ่านปมซ้ำ เขียน DFS ที่ต่อเส้นทางทีละเพื่อนบ้านที่ยังไม่ได้ใช้ เริ่มหนึ่งครั้งจากทุกปม แล้วบันทึกทุกผลรวมที่เห็น
+:::
+:::hint คำใบ้ 2
+มีสองจุดตัดที่ทำให้เร็ว (1) หยุดทุกอย่างทันทีที่ตอบครบ 8 คำถาม (2) ก่อนลงลึก ถามว่าเส้นทางนี้ยังโตไปเป็น K ที่ยังเปิดอยู่ได้ไหม เส้นทางได้เพิ่มไม่เกินเส้นที่หนักที่สุดของแต่ละปมที่ยังไม่อยู่บนเส้นทาง ถ้าไม่มี K ที่เปิดอยู่ใน [sum, sum + ขอบเขตนั้น] ให้ return
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** `dfs(u, sum)` บน simple path จากทุกปมเริ่มต้น ตอบคำถามเมื่อผลรวมของมันปรากฏ
+- **ทำไมขอบเขตปลอดภัย:** ทุกปมที่ถูกเพิ่มเข้าเส้นทางเข้ามาทางเส้นหนึ่งเส้นที่แตะมัน และเส้นนั้นหนักไม่เกิน `heaviest[v]` เส้นทางจึงเพิ่มได้ไม่เกิน `restMax` = ผลรวม heaviest[v] ของปมที่ยังไม่อยู่บนเส้นทาง ถ้าไม่มี K ที่ยังไม่ได้ตอบอยู่ใน [sum, sum + restMax] ทุกอย่างใต้การเรียกนี้ก็ตอบอะไรไม่ได้
+- **อย่างไร:**
+  - อ่านเส้นเชื่อมลง adjacency list คำนวณ `heaviest[v]` และ `restMax` เริ่มเป็นผลรวมของทุกปม
+  - เมื่อเข้าปม ลบ `heaviest` ของมันออกจาก `restMax` เมื่อออกก็บวกคืน (เหมือน `onPath`)
+  - ใน `dfs`: เช็กขอบเขตก่อน แล้วตั้ง K ที่เปิดอยู่และเท่ากับ `sum` เป็น YES แล้วลองเพื่อนบ้านแต่ละตัวที่ไม่อยู่บนเส้นทาง
+  - เก็บ `unanswered` ไว้ เมื่อเป็น 0 ให้ return ทันทีทุกระดับ
+- **ทำไมต้องเริ่มทุกปม:** ผลรวมของเส้นทางเท่ากันทั้งสองทิศ แต่เส้นทางต้องถูกสร้างจากปลายข้างใดข้างหนึ่ง การเริ่มจากทุกปมจึงครอบคลุมทุกเส้นทาง
+- **ต้นทุน:** แย่สุดเป็นเลขชี้กำลัง เมื่อมีสองจุดตัด input สุ่มทั่วไปที่ n = 20 ใช้เวลาไม่ถึงวินาทีสบาย ๆ ตัวเลขที่วัดได้อยู่ในกล่อง "ตรวจสอบแล้ว"
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างใน PDF `heaviest` = 35, 10, 15, 35 สำหรับปม 0..3 K ที่เปิดอยู่ตอนเริ่ม: 10 20 30 40 50 60 70 80
+
+| เส้นทาง | sum | restMax | มี K เปิดใน [sum, sum + restMax]? | ตอบได้ตรงนี้ |
+|---|---|---|---|---|
+| 0 | 0 | 60 | มี (10 … 60) | |
+| 0-1 | 10 | 50 | มี | **10** |
+| 0-1-2 | 15 | 35 | มี (20 … 50) | |
+| 0-2 | 15 | 45 | มี | |
+| 0-2-1 | 20 | 35 | มี | **20** |
+| 0-3 | 35 | 25 | มี (40 … 60) แต่ปม 3 ไม่มีเพื่อนบ้านอื่น | |
+| 1 … | | | เจอ 25, 45, 5, 20 ไม่มีอะไรใหม่ | |
+| 1-2-0-3 | 55 | 0 | ไม่มี (55 ไม่ได้เปิด) → ตัดกิ่ง | |
+| 2-0-3 | 50 | 10 | มี | **50** |
+| 2-1-0-3 | 50 | 0 | ไม่มี (50 ตอบไปแล้ว) → ตัดกิ่ง | |
+| 3-0-1-2, 3-0-2-1 | 50, 55 | 0 | ไม่มี → ตัดกิ่ง | |
+
+การค้นหาทั้งหมดจบโดยเจอ 10, 20, 50: **YES YES NO NO YES NO NO NO**
+
+## 5. จุดที่มักพลาด
+- **ลืมว่าต้อง "simple":** DFS ธรรมดาที่ใช้ `visited[]` ทั่วทั้งโปรแกรมโดยไม่ล้างเลย จะเจอเส้นทางเดียวต่อจุดเริ่ม ต้องเอาเครื่องหมายออกตอน DFS กลับ (backtracking) เส้นทางอื่นที่ผ่านปมเดียวกันจึงยังถูกลอง
+- **ยอมให้ผ่านปมซ้ำ:** วง 0→1→2→0 จะทำให้ 30 กลายเป็น YES
+- **เส้นทางปมเดียว** มีผลรวม 0 และทุก K ≥ 1 จึงไม่เคยตอบอะไร เป็นแค่จุดเริ่มของการค้นหา
+- **กรณีแย่สุดยังเป็นเลขชี้กำลัง** กรณีสุ่มที่ช้าที่สุดของเรา (n = 20, m = 80 และ K ตัวหนึ่งต่ำกว่าผลรวมเส้นทางที่ยาวที่สุดนิดเดียว จึงไม่เคยเจอและไม่เคยถูกตัด) ใช้ 3.4 วินาที K ที่ไปไม่ถึงแต่ขอบเขตตัดไม่ได้บังคับให้การค้นหาวิ่งผ่านเกือบทุกเส้นทาง ไม่รู้ว่าข้อมูลของ grader มีกรณีแบบนี้หรือไม่ ประเด็นคือเข้าใจว่าทำไม input แบบนี้ถึงช้า เพราะไม่มีวิธีไหนเลี่ยงได้หมด
+- **ไม่หยุดก่อน** เมื่อตอบครบ 8 ข้อแล้ว: บนกราฟหนาแน่นนี่คือความต่างระหว่างมิลลิวินาทีกับหลายนาที
+- **output:** 8 บรรทัด ตามลำดับคำถาม เป็นตัวพิมพ์ใหญ่
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11 ปัญหาเส้นทางแบ่งกันชัดเจน: เส้นทางสั้นที่สุดง่าย (Dijkstra) แต่ simple path ที่ **ยาวที่สุด** หรือ **ผลรวมพอดี** เป็น NP-hard สำหรับ n ≤ 20 วิธีแม่นตรงทั่วไปคือ bit-mask DP บน (เซตของปมที่เยี่ยมแล้ว, ปมสุดท้าย) 2ⁿ · n state แต่ข้อนี้แต่ละ state ต้องพกเซตของผลรวมที่ไปถึงได้ทั้งเซต (20,001 บิต) ราว 2²⁰ · 20 · 2.5 KB ใช้หน่วยความจำมากเกินไป backtracking กับขอบเขตจึงเป็นคำตอบที่ใช้ได้จริง เทียบกับข้อ [Day cover](#a66_q1a_day_cover) สำหรับรูปแบบ "ลองทุกเซตย่อย ตัดกิ่งด้วยคำตอบที่ดีที่สุดจนถึงตอนนี้"

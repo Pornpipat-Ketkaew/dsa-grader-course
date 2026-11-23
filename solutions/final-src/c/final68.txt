@@ -1,0 +1,51 @@
+chapter: final68
+==== en
+## 1. How to use this chapter
+These are the nine problems of the **da68 final exam**, from its two papers: five `da68_f` problems and four `da68_f2` problems. Treat each one as in the exam room: no chapter title to tell you the technique. The routine from the [da66 final](#ch-final) still applies: limits first, then objects, question type, state or graph on paper, cost, code, samples and an edge case.
+
+Most problems here are a standard technique with **one twist**: knapsack turned around (exact weight, minimum price), MST plus free modems, BFS where any valid answer is accepted, a merge sort with a counter. Spotting the twist is the whole difficulty.
+
+## 2. Map of this chapter
+| problem | the signal in the statement | what it really is | technique from |
+|---|---|---|---|
+| [ABCD permutation](#da68_f_abcd_permutation) | "print all … in dictionary order", N ≤ 9 | last year's ABC with a fourth letter | [Brute force](#ch-brute) |
+| [Hidden palindrome](#da68_f_hidden_palindrome) | "choose some, keep the order, palindrome", N ≤ 3000 | longest palindromic subsequence, O(N²) | [DP](#ch-dp) |
+| [K connected city](#da68_f_k_connected_city) | "any K cities, connected", any answer accepted | the first K cities of a BFS | [Graph 1](#ch-graph1) |
+| [Internet provider](#da68_f_internet_provider) | "connect all cities", K free modems | MST minus its K − 1 heaviest edges | [MST](#ch-mst) |
+| [Game of trade](#da68_f_game_of_trades) | "at most K units", independent prices | best and second-best buyer, take the K best units | [Greedy](#ch-greedy) |
+| [0-1 subset sum](#da68_f2_zero_one_subset_sum) | "how many ways", N ≤ 15, S ≤ 150 | dice-sum counting DP over the number of 1s | [DP](#ch-dp) |
+| [Remaining merge](#da68_f2_remaining_merge) | "how many times lines 11 and 14 run" | run the given merge sort and count | [Sorting](#ch-sort) |
+| [Closed city](#da68_f2_closed_city) | "shortest path that avoids K cities" | delete the closed cities, then Dijkstra | [Shortest paths](#ch-sp) |
+| [SackKnap](#da68_f2_sackknap) | "weight exactly V, smallest price", n, V ≤ 10⁴ | 0/1 knapsack with min and INF start | [DP](#ch-dp) |
+
+## 3. Exam habits for this paper
+- **Know the knapsack family by heart:** "at most W, max", "exactly V, min", "how many ways". They differ only in the starting row and in max / min / +. SackKnap and 0-1 subset sum test exactly that.
+- **"Any valid answer" problems** (K connected city) are checked by a special judge. Prove your construction is valid instead of trying to match the sample output.
+- **Count bytes and overflow:** Game of trade reads 3 million numbers and its profit reaches 10¹²; SackKnap's prices reach 10¹³.
+- **Implement given pseudocode exactly** (Remaining merge): the tie rule `≤` changes the answer.
+- **Statements with unknown limits** (Closed city) deserve `long long` and an O((N + M) log N) algorithm by default.
+==== th
+## 1. วิธีใช้บทนี้
+นี่คือโจทย์ทั้งเก้าข้อของ **ข้อสอบปลายภาค da68** จากสองชุด: `da68_f` ห้าข้อและ `da68_f2` สี่ข้อ ให้ทำแต่ละข้อเหมือนอยู่ในห้องสอบ ไม่มีชื่อบทบอกเทคนิค ขั้นตอนจากบท [da66 final](#ch-final) ยังใช้ได้: ขอบเขตก่อน แล้วสิ่งของ ประเภทคำถาม state หรือกราฟบนกระดาษ ต้นทุน โค้ด ตัวอย่าง และกรณีขอบ
+
+โจทย์ส่วนใหญ่ในชุดนี้เป็นเทคนิคมาตรฐานที่ **บิดหนึ่งจุด**: knapsack กลับด้าน (น้ำหนักพอดี ราคาน้อยสุด), MST บวก Modem ฟรี, BFS ที่รับคำตอบใดก็ได้, merge sort ที่มีตัวนับ การมองเห็นจุดที่บิดคือความยากทั้งหมด
+
+## 2. แผนที่ของบทนี้
+| โจทย์ | สัญญาณในโจทย์ | จริง ๆ แล้วคืออะไร | เทคนิคจากบท |
+|---|---|---|---|
+| [ABCD permutation](#da68_f_abcd_permutation) | "พิมพ์ทุก … ตามลำดับพจนานุกรม", N ≤ 9 | ABC ของปีที่แล้วที่เพิ่มตัวอักษรที่สี่ | [Brute force](#ch-brute) |
+| [Hidden palindrome](#da68_f_hidden_palindrome) | "เลือกบางตัว คงลำดับ เป็นพาลินโดรม", N ≤ 3000 | ลำดับย่อยพาลินโดรมยาวที่สุด O(N²) | [DP](#ch-dp) |
+| [K connected city](#da68_f_k_connected_city) | "K เมืองใดก็ได้ที่เชื่อมกัน", รับคำตอบใดก็ได้ | K เมืองแรกของ BFS | [กราฟ 1](#ch-graph1) |
+| [Internet provider](#da68_f_internet_provider) | "เชื่อมทุกเมือง", Modem ฟรี K เครื่อง | MST ลบเส้นที่หนักที่สุด K − 1 เส้น | [MST](#ch-mst) |
+| [Game of trade](#da68_f_game_of_trades) | "ไม่เกิน K ชิ้น", ราคาเป็นอิสระต่อกัน | ผู้ซื้ออันดับหนึ่งและสอง แล้วหยิบ K ชิ้นที่ดีที่สุด | [Greedy](#ch-greedy) |
+| [0-1 subset sum](#da68_f2_zero_one_subset_sum) | "มีกี่วิธี", N ≤ 15, S ≤ 150 | DP นับผลรวมลูกเต๋าตามจำนวนเลข 1 | [DP](#ch-dp) |
+| [Remaining merge](#da68_f2_remaining_merge) | "บรรทัด 11 และ 14 ทำงานกี่ครั้ง" | รัน merge sort ที่ให้มาแล้วนับ | [การเรียงลำดับ](#ch-sort) |
+| [Closed city](#da68_f2_closed_city) | "เส้นทางสั้นสุดที่ไม่ผ่าน K เมือง" | ลบเมืองปิดออก แล้ว Dijkstra | [เส้นทางสั้นสุด](#ch-sp) |
+| [SackKnap](#da68_f2_sackknap) | "น้ำหนักพอดี V ราคาน้อยสุด", n, V ≤ 10⁴ | 0/1 knapsack ใช้ min และเริ่มที่ INF | [DP](#ch-dp) |
+
+## 3. นิสัยในห้องสอบสำหรับชุดนี้
+- **จำตระกูล knapsack ให้ขึ้นใจ:** "ไม่เกิน W, มากสุด", "พอดี V, น้อยสุด", "มีกี่วิธี" ต่างกันแค่แถวเริ่มต้นและ max / min / + ข้อ SackKnap และ 0-1 subset sum ทดสอบเรื่องนี้ตรง ๆ
+- **โจทย์ "คำตอบที่ถูกแบบใดก็ได้"** (K connected city) ตรวจด้วย special judge ให้พิสูจน์ว่าวิธีสร้างของเราถูก แทนที่จะพยายามให้ตรงกับ output ตัวอย่าง
+- **นับไบต์และระวังล้น:** Game of trade อ่านตัวเลข 3 ล้านตัวและกำไรถึง 10¹² ส่วนราคาใน SackKnap ถึง 10¹³
+- **เขียนตาม pseudocode ที่ให้มาให้ตรงเป๊ะ** (Remaining merge): กฎเท่ากัน `≤` เปลี่ยนคำตอบได้
+- **โจทย์ที่ไม่บอกขอบเขต** (Closed city) ควรใช้ `long long` และอัลกอริทึม O((N + M) log N) ไว้ก่อน

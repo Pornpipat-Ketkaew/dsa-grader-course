@@ -1,0 +1,146 @@
+id: ex07e3_coloring
+group: brute
+lesson: 11 · Recursion & backtracking (branch and bound)
+stars: 3
+complexity: exponential worst case; fast in practice for N ≤ 50
+kind: program
+tags: graph coloring, chromatic number, branch and bound, DSATUR, symmetry breaking, NP-hard
+title: Graph coloring
+title_th: ระบายสีกราฟ (Graph Coloring)
+blurb: Find the fewest colours for the N ≤ 50 vertices so that adjacent vertices differ. Branch and bound: always colour next the vertex with the most different neighbour colours (DSATUR), try only colours already used plus one new colour, and cut any branch that already uses as many colours as the best answer.
+blurb_th: หาจำนวนสีน้อยที่สุดสำหรับจุดยอด N ≤ 50 จุด โดยจุดที่อยู่ติดกันต้องสีต่างกัน ใช้ branch and bound: ระบายจุดที่เพื่อนบ้านมีสีต่างกันมากที่สุดก่อนเสมอ (DSATUR) ลองเฉพาะสีที่ใช้แล้วกับสีใหม่อีกหนึ่งสี และตัดกิ่งที่ใช้สีเท่ากับคำตอบที่ดีที่สุดแล้ว
+files: sol/ex07e3_coloring/main.cpp
+tests: the PDF sample (K₄), one vertex, the 5-cycle; 300 random graphs (N ≤ 8) against a Python brute force over all colourings with k = 1, 2, …; N = 50 random graphs with edge probability 10, 30, 50, 70, 90 % (answers 4, 6, 10, 13, 21, each in under 0.02 s), each answer re-checked by an independent backtracking program (k colours possible, k − 1 impossible); the Mycielski graph M₅ (23 vertices, no triangle, needs 5 colours) in 0.005 s.
+tests_th: ตัวอย่างใน PDF (K₄), จุดเดียว, วงห้าจุด; สุ่มกราฟ 300 ชุด (N ≤ 8) เทียบกับ brute force ใน Python ที่ลองทุกการระบายด้วย k = 1, 2, …; กราฟสุ่ม N = 50 ความน่าจะเป็นของเส้น 10, 30, 50, 70, 90 % (คำตอบ 4, 6, 10, 13, 21 แต่ละชุดไม่ถึง 0.02 วินาที) และตรวจทุกคำตอบซ้ำด้วยโปรแกรม backtracking อีกตัวที่เขียนแยก (ระบาย k สีได้ แต่ k − 1 สีไม่ได้); กราฟ Mycielski M₅ (23 จุด ไม่มีสามเหลี่ยม แต่ต้องใช้ 5 สี) ใช้ 0.005 วินาที
+==== en
+## 1. What the problem says
+An undirected graph has N vertices (0..N−1, N ≤ 50) and E edges. Colour the vertices so that the two ends of every edge get **different** colours. Print the **smallest number of colours** that makes this possible (the chromatic number).
+
+Input: `N E`, then E lines `a b`.
+
+Sample: 4 vertices, all 6 edges (a complete graph K₄) → **4**.
+
+## 2. What it really means
+Deciding whether a graph can be coloured with 3 colours is already NP-complete, so no fast formula exists. N ≤ 50 is too big for trying all colourings (kᴺ), but a well-ordered **branch and bound** search solves graphs of this size quickly. Three ideas do the work:
+
+```text
+1. bound      stop a branch that already uses as many colours as the best answer found
+2. symmetry   colours are interchangeable: a vertex may take any colour already in use,
+              or ONE new colour (trying colour 5 and colour 6 as "new" is the same thing)
+3. order      colour next the vertex whose neighbours already show the most different
+              colours (its "saturation"); it has the fewest options, so mistakes show early
+
+5-cycle 0-1-2-3-4-0:   0 ← 1, 1 ← 2, 2 ← 1, 3 ← 2, then 4 sees colours 1 and 2 → needs 3
+```
+
+:::hint Hint 1
+Colour the vertices one at a time and backtrack. Each vertex can take a colour that none of its coloured neighbours has. Keep the best (smallest) number of colours found, and stop any branch that already uses that many.
+:::
+:::hint Hint 2
+Two tricks make it fast. Never try two different "new" colours for the same vertex: all unused colours are alike. And always pick next the uncoloured vertex that sees the most different colours among its neighbours (break ties by degree).
+:::
+
+## 3. What, why, how
+- **What:** `solve(colored, k)` where k colours (1..k) are in use; at the end `best` is the answer.
+- **Why the symmetry rule is safe:** in any colouring you can rename the colours so that they appear in the order they are first used. So it is enough to try colours 1..k and the single new colour k + 1.
+- **Why DSATUR order:** a vertex that already sees many colours has the fewest choices. Colouring it early makes dead ends appear high in the tree, where cutting them removes the most work. It is also an excellent greedy order, so the first complete colouring found is usually already optimal or close, and the bound starts cutting at once.
+- **How:**
+  - `usedBy[v][c]` counts neighbours of v that have colour c; `satur[v]` = number of c with `usedBy[v][c] > 0`. Both are updated in O(N) when a vertex is coloured or uncoloured.
+  - Choose v = the uncoloured vertex with the largest `satur`, ties by `deg`.
+  - Try every c in 1..k with `usedBy[v][c] == 0`, then the new colour k + 1 if k + 1 < best.
+  - Prune with `if (k >= best) return;`.
+- **Cost:** exponential in the worst case (it must be, unless P = NP), but on the random 50-vertex graphs we tried, every density finished in under 0.02 s.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the 5-cycle 0-1-2-3-4-0 (all degrees 2, so ties go to the lowest number).
+
+| step | vertex chosen | its saturation | colour given | colours in use |
+|---|---|---|---|---|
+| 1 | 0 | 0 | 1 (new) | 1 |
+| 2 | 1 | 1 | 2 (new; 1 is taken by 0) | 2 |
+| 3 | 2 | 1 | 1 | 2 |
+| 4 | 3 | 1 | 2 | 2 |
+| 5 | 4 | 2 (sees 1 and 2) | 3 (new) | 3 → best = 3 |
+| back | 3, 2, 1 | | every other option would need a 3rd new colour, and 3 ≥ best | pruned |
+
+Answer **3**: an odd cycle cannot be coloured with 2 colours.
+
+## 5. Traps
+- **Greedy colouring alone** (each vertex gets the smallest free colour) gives an upper bound, not the answer. On the "crown" graph (two rows a₀..a₃ and b₀..b₃, aᵢ joined to every bⱼ with j ≠ i), in the order a₀ b₀ a₁ b₁ … it uses 4 colours; the graph is bipartite, so 2 suffice.
+- **"The answer is the largest clique":** the Mycielski graph M₅ has no triangle (largest clique 2) but needs 5 colours.
+- **No pruning by best:** with N = 50 the plain kᴺ search never ends.
+- **Trying every unused colour as "new":** multiplies the tree by up to N! symmetric copies.
+- **Duplicate or reversed edges** in the input are harmless with an adjacency matrix; the code skips repeats so degrees stay right.
+- **E = 0:** one colour is enough (N ≥ 1).
+
+## 6. Background
+Lesson 11. Graph colouring models scheduling (exams that share students cannot be at the same time), register allocation in compilers, and frequency assignment. DSATUR (Brélaz, 1979) is both a greedy heuristic and, with backtracking, a classic exact algorithm. Exact methods for larger graphs add stronger lower bounds (a big clique found first) or use the 2ⁿ inclusion–exclusion formula, which is O(2ⁿ · n) and exact for n up to about 30.
+==== th
+## 1. โจทย์บอกอะไร
+กราฟไม่มีทิศทางมี N จุดยอด (0..N−1, N ≤ 50) และ E เส้นเชื่อม ระบายสีจุดยอดโดยปลายทั้งสองของทุกเส้นเชื่อมต้องได้สี **ต่างกัน** ให้พิมพ์ **จำนวนสีที่น้อยที่สุด** ที่ทำได้ (chromatic number)
+
+input: `N E` แล้วอีก E บรรทัด `a b`
+
+ตัวอย่าง: 4 จุด เส้นครบทั้ง 6 เส้น (กราฟสมบูรณ์ K₄) → **4**
+
+## 2. จริง ๆ แล้วถามอะไร
+แค่ตัดสินว่ากราฟระบาย 3 สีได้ไหมก็เป็น NP-complete แล้ว จึงไม่มีสูตรเร็ว ๆ N ≤ 50 ใหญ่เกินกว่าจะลองทุกการระบาย (kᴺ) แต่ **branch and bound** ที่จัดลำดับดี ๆ แก้กราฟขนาดนี้ได้เร็ว มีสามไอเดียที่ทำงานหลัก:
+
+```text
+1. bound      stop a branch that already uses as many colours as the best answer found
+2. symmetry   colours are interchangeable: a vertex may take any colour already in use,
+              or ONE new colour (trying colour 5 and colour 6 as "new" is the same thing)
+3. order      colour next the vertex whose neighbours already show the most different
+              colours (its "saturation"); it has the fewest options, so mistakes show early
+
+5-cycle 0-1-2-3-4-0:   0 ← 1, 1 ← 2, 2 ← 1, 3 ← 2, then 4 sees colours 1 and 2 → needs 3
+```
+
+:::hint คำใบ้ 1
+ระบายทีละจุดแล้ว backtrack แต่ละจุดเลือกสีที่ไม่มีเพื่อนบ้านที่ระบายแล้วตัวไหนใช้ เก็บจำนวนสีที่ดีที่สุด (น้อยที่สุด) ที่เจอ และหยุดกิ่งที่ใช้สีเท่านั้นแล้ว
+:::
+:::hint คำใบ้ 2
+มีสองเทคนิคที่ทำให้เร็ว อย่าลองสี "ใหม่" สองสีต่างกันกับจุดเดียวกัน เพราะสีที่ยังไม่ถูกใช้เหมือนกันหมด และเลือกจุดที่ยังไม่ระบายซึ่งเห็นสีต่างกันในหมู่เพื่อนบ้านมากที่สุดเป็นตัวถัดไปเสมอ (เสมอกันให้ดูดีกรี)
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** `solve(colored, k)` เมื่อใช้สีอยู่ k สี (1..k) ตอนจบ `best` คือคำตอบ
+- **ทำไมกฎสมมาตรปลอดภัย:** การระบายใด ๆ เปลี่ยนชื่อสีได้ให้สีปรากฏตามลำดับที่ถูกใช้ครั้งแรก จึงพอที่จะลองสี 1..k และสีใหม่ k + 1 เพียงสีเดียว
+- **ทำไมใช้ลำดับ DSATUR:** จุดที่เห็นสีหลายสีแล้วมีตัวเลือกน้อยที่สุด การระบายมันก่อนทำให้ทางตันโผล่ตั้งแต่ระดับบนของต้นไม้ ซึ่งการตัดตรงนั้นตัดงานได้มากที่สุด และยังเป็นลำดับ greedy ที่ดีมาก การระบายครบครั้งแรกจึงมักดีที่สุดหรือใกล้แล้ว ขอบเขตจึงเริ่มตัดได้ทันที
+- **อย่างไร:**
+  - `usedBy[v][c]` นับเพื่อนบ้านของ v ที่มีสี c และ `satur[v]` = จำนวน c ที่ `usedBy[v][c] > 0` ทั้งสองอัปเดตใน O(N) ตอนระบายหรือลบสีจุดหนึ่ง
+  - เลือก v = จุดที่ยังไม่ระบายและ `satur` มากที่สุด เสมอกันดูที่ `deg`
+  - ลองทุก c ใน 1..k ที่ `usedBy[v][c] == 0` แล้วสีใหม่ k + 1 ถ้า k + 1 < best
+  - ตัดกิ่งด้วย `if (k >= best) return;`
+- **ต้นทุน:** แย่สุดเป็นเลขชี้กำลัง (ต้องเป็นแบบนั้น เว้นแต่ P = NP) แต่กับกราฟสุ่ม 50 จุดที่ลอง ทุกความหนาแน่นจบภายใน 0.02 วินาที
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: วงห้าจุด 0-1-2-3-4-0 (ดีกรีเป็น 2 หมด เสมอกันจึงเลือกเลขน้อยสุด)
+
+| ขั้น | จุดที่เลือก | saturation | สีที่ให้ | จำนวนสีที่ใช้ |
+|---|---|---|---|---|
+| 1 | 0 | 0 | 1 (ใหม่) | 1 |
+| 2 | 1 | 1 | 2 (ใหม่; 1 ถูก 0 ใช้แล้ว) | 2 |
+| 3 | 2 | 1 | 1 | 2 |
+| 4 | 3 | 1 | 2 | 2 |
+| 5 | 4 | 2 (เห็น 1 และ 2) | 3 (ใหม่) | 3 → best = 3 |
+| ย้อนกลับ | 3, 2, 1 | | ทางเลือกอื่นต้องใช้สีใหม่สีที่ 3 และ 3 ≥ best | ตัดกิ่ง |
+
+คำตอบ **3**: วงที่มีจำนวนจุดเป็นคี่ระบาย 2 สีไม่ได้
+
+## 5. จุดที่มักพลาด
+- **ใช้ greedy อย่างเดียว** (ให้แต่ละจุดได้สีว่างที่เลขน้อยสุด) ได้แค่ขอบบน ไม่ใช่คำตอบ บนกราฟ "มงกุฎ" (สองแถว a₀..a₃ และ b₀..b₃ โดย aᵢ ต่อกับทุก bⱼ ที่ j ≠ i) ถ้าระบายตามลำดับ a₀ b₀ a₁ b₁ … จะใช้ 4 สี แต่กราฟเป็น bipartite จึงพอแค่ 2 สี
+- **"คำตอบคือ clique ที่ใหญ่ที่สุด":** กราฟ Mycielski M₅ ไม่มีสามเหลี่ยมเลย (clique ใหญ่สุดคือ 2) แต่ต้องใช้ 5 สี
+- **ไม่ตัดกิ่งด้วย best:** เมื่อ N = 50 การค้นหา kᴺ ธรรมดาไม่มีวันจบ
+- **ลองทุกสีที่ยังไม่ใช้เป็น "สีใหม่":** ทำให้ต้นไม้ใหญ่ขึ้นเป็นสำเนาที่สมมาตรกันได้ถึง N! ชุด
+- **เส้นซ้ำหรือกลับทิศ** ใน input ไม่มีผลถ้าใช้ adjacency matrix โค้ดข้ามเส้นซ้ำเพื่อให้ดีกรีถูก
+- **E = 0:** สีเดียวพอ (N ≥ 1)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11 การระบายสีกราฟใช้จำลองการจัดตาราง (วิชาที่มีนิสิตร่วมกันสอบเวลาเดียวกันไม่ได้) การจัดสรร register ในคอมไพเลอร์ และการจัดสรรคลื่นความถี่ DSATUR (Brélaz, 1979) เป็นทั้ง heuristic แบบ greedy และเมื่อเพิ่ม backtracking ก็เป็นอัลกอริทึมแม่นตรงคลาสสิก วิธีแม่นตรงสำหรับกราฟใหญ่กว่านี้เพิ่มขอบล่างที่แข็งแรงขึ้น (หา clique ใหญ่ก่อน) หรือใช้สูตร inclusion–exclusion บน 2ⁿ ซึ่งเป็น O(2ⁿ · n) และแม่นตรงถึง n ประมาณ 30

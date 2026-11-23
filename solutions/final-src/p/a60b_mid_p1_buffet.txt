@@ -1,0 +1,142 @@
+id: a60b_mid_p1_buffet
+group: greedy
+lesson: 13 · Greedy (covering points)
+stars: 1
+complexity: O(f log f)
+kind: program
+tags: greedy, cover points with intervals, sort, sweep, lamps
+title: Buffet line
+title_th: ไฟส่องโต๊ะบุฟเฟต์ (Buffet Line)
+blurb: A table of n cells, f of them hold food. A lamp at cell x lights x − w … x + w. Light every food cell with the fewest lamps: sort the food, and each time a food cell is still dark put a lamp at food + w.
+blurb_th: โต๊ะยาว n ช่อง มีอาหาร f ช่อง หลอดไฟที่ช่อง x ส่องช่อง x − w … x + w ให้ทุกช่องที่มีอาหารสว่างโดยใช้หลอดน้อยที่สุด: เรียงช่องอาหาร แล้วทุกครั้งที่เจอช่องอาหารที่ยังมืด ให้ติดหลอดที่ช่อง อาหาร + w
+files: sol/a60b_mid_p1_buffet/main.cpp
+tests: all three PDF samples and f = n = 1 with w = 10,000; 300 random inputs (n ≤ 14) against a Python brute force that tries every set of lamp cells from the smallest size up; f = n = 10,000 with w = 0 (answer 10,000).
+tests_th: ตัวอย่างทั้งสามชุดใน PDF และ f = n = 1 กับ w = 10,000; สุ่ม 300 ชุด (n ≤ 14) เทียบกับ brute force ใน Python ที่ลองทุกชุดตำแหน่งหลอดไฟจากขนาดเล็กไปใหญ่; f = n = 10,000 กับ w = 0 (คำตอบ 10,000)
+==== en
+## 1. What the problem says
+A buffet table has n cells, numbered 1..n from left to right (n ≤ 10,000). f of the cells hold food. A lamp placed at cell x lights every cell from **x − w to x + w**. Lamps may go on any cell, with or without food. Print the **fewest lamps** that light every food cell.
+
+Input: `f w n`, then the f food cells (distinct, **not sorted**).
+
+Samples:
+- `3 0 10` with food 1 3 4 → **3** (w = 0: one lamp per food cell).
+- `5 1 10` with food 1 2 3 5 6 → **2** (lamps at 2 and 5).
+- `10 5 10` with food 1..10 shuffled → **1** (one lamp at 5 lights 0..10).
+
+(The Thai text of the PDF is garbled by a font problem; the meaning above comes from the readable parts and the samples.)
+
+## 2. What it really means
+Each lamp is an interval of length 2w + 1 that you can slide anywhere. Cover all the food points with the fewest such intervals. Look at the **leftmost food cell**: some lamp must light it. Of all lamps that light it, the one placed **as far right as possible** (at food + w) lights everything the others light to its right, and more.
+
+```text
+w = 1, food at 1 2 3 5 6
+
+cell:    1   2   3   4   5   6   7
+food:    F   F   F       F   F
+lamp 1:  [───x───]                    x = 1 + 1 = 2, lights 1..3
+lamp 2:                  [───x───]    first dark food is 5: x = 6, lights 5..7
+answer 2
+```
+
+:::hint Hint 1
+Sort the food cells. The leftmost one has to be lit by some lamp. Where should that lamp go so that it helps the cells to the right as much as possible?
+:::
+:::hint Hint 2
+Keep one number: the last cell that is already lit. Walk the sorted food cells; when one is beyond that number, add a lamp at food + w, and now everything up to food + 2w is lit.
+:::
+
+## 3. What, why, how
+- **What:** sort the food, sweep left to right, place a lamp only when a food cell is still dark, and place it at food + w.
+- **Why it is optimal (exchange argument):** any solution has some lamp L that lights the leftmost dark food d, so L is at most at d + w. Moving L to exactly d + w keeps d lit. The only cells it stops lighting are to the left of d, and those are already lit or hold no food; on the right it lights more. So the greedy lamp is never worse.
+- **How:** `litUpTo` = the last lit cell (0 at the start). For each food cell in sorted order: if `food > litUpTo`, count a lamp and set `litUpTo = food + 2w`.
+- **Past the end of the table?** food + w may be bigger than n. That does not matter: a lamp at n lights the same food cells (there is no food after n), so the count is the same.
+- **Cost:** O(f log f) for the sort.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2 (w = 1).
+
+| food (sorted) | litUpTo before | dark? | lamp at | litUpTo after | lamps |
+|---|---|---|---|---|---|
+| 1 | 0 | yes | 2 | 3 | 1 |
+| 2 | 3 | no | | 3 | 1 |
+| 3 | 3 | no | | 3 | 1 |
+| 5 | 3 | yes | 6 | 7 | **2** |
+| 6 | 7 | no | | 7 | 2 |
+
+The PDF lights cells 2 and 5; the greedy picks 2 and 6. Both use 2 lamps.
+
+## 5. Traps
+- **Forgetting to sort:** the food cells come in any order (sample 3 is shuffled). Without sorting, sample 3 prints more than 1.
+- **Lamp at the food cell itself:** wastes the left half of the light. Sample 2 would need 3 lamps (1, 3, 5).
+- **Off by one:** a lamp at x lights x − w **through** x + w inclusive, so after a lamp at food + w the lit range ends at food + 2w, not food + 2w − 1.
+- **Reading order:** the first line is `f w n`, not `n f w`.
+
+## 6. Background
+Lesson 13. "Cover points with the fewest intervals of fixed length" is the twin of [Class selection](#ex04e1_interval): both sort, both sweep once, both proved by an exchange argument. In some versions the lamps must stand on given cells (only some positions allowed); then the greedy becomes "of the allowed lamps that reach the leftmost dark point, take the one reaching furthest right", the same idea as the classic "minimum number of refuelling stops" problem.
+==== th
+## 1. โจทย์บอกอะไร
+โต๊ะบุฟเฟต์มี n ช่อง เลข 1..n จากซ้ายไปขวา (n ≤ 10,000) มีอาหาร f ช่อง หลอดไฟที่ติดที่ช่อง x ส่องสว่างทุกช่องตั้งแต่ **x − w ถึง x + w** ติดหลอดได้ทุกช่อง จะมีอาหารหรือไม่ก็ได้ ให้พิมพ์ **จำนวนหลอดที่น้อยที่สุด** ที่ทำให้ทุกช่องที่มีอาหารสว่าง
+
+input: `f w n` แล้วช่องที่มีอาหาร f ตัว (ไม่ซ้ำ และ **ไม่ได้เรียง**)
+
+ตัวอย่าง:
+- `3 0 10` อาหารที่ 1 3 4 → **3** (w = 0: หนึ่งหลอดต่อหนึ่งช่องอาหาร)
+- `5 1 10` อาหารที่ 1 2 3 5 6 → **2** (หลอดที่ 2 และ 5)
+- `10 5 10` อาหารที่ 1..10 สลับลำดับ → **1** (หลอดเดียวที่ 5 ส่อง 0..10)
+
+(ข้อความภาษาไทยใน PDF เพี้ยนเพราะปัญหาฟอนต์ ความหมายข้างบนได้จากส่วนที่อ่านออกและจากตัวอย่าง)
+
+## 2. จริง ๆ แล้วถามอะไร
+หลอดแต่ละดวงคือช่วงยาว 2w + 1 ที่เลื่อนไปไว้ตรงไหนก็ได้ ให้ครอบจุดอาหารทั้งหมดด้วยช่วงแบบนี้ให้น้อยที่สุด ดูที่ **ช่องอาหารซ้ายสุด**: ต้องมีหลอดสักดวงส่องมัน ในบรรดาหลอดที่ส่องมันได้ หลอดที่วาง **ขวาที่สุด** (ที่ อาหาร + w) ส่องทุกอย่างทางขวาที่หลอดอื่นส่องได้ และได้มากกว่าด้วย
+
+```text
+w = 1, food at 1 2 3 5 6
+
+cell:    1   2   3   4   5   6   7
+food:    F   F   F       F   F
+lamp 1:  [───x───]                    x = 1 + 1 = 2, lights 1..3
+lamp 2:                  [───x───]    first dark food is 5: x = 6, lights 5..7
+answer 2
+```
+
+:::hint คำใบ้ 1
+เรียงช่องอาหาร ช่องซ้ายสุดต้องถูกส่องด้วยหลอดสักดวง หลอดนั้นควรอยู่ตรงไหนจึงช่วยช่องทางขวาได้มากที่สุด
+:::
+:::hint คำใบ้ 2
+เก็บตัวเลขตัวเดียว: ช่องสุดท้ายที่สว่างแล้ว เดินผ่านช่องอาหารที่เรียงแล้ว ถ้าเจอช่องที่เกินตัวเลขนั้น ให้เพิ่มหลอดที่ อาหาร + w แล้วตอนนี้ทุกช่องถึง อาหาร + 2w สว่างแล้ว
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** เรียงช่องอาหาร กวาดจากซ้ายไปขวา ติดหลอดเฉพาะเมื่อเจอช่องอาหารที่ยังมืด และติดที่ อาหาร + w
+- **ทำไมดีที่สุด (exchange argument):** ทุกคำตอบต้องมีหลอด L ที่ส่องช่องอาหารมืดซ้ายสุด d จึงอยู่ไม่เกิน d + w การเลื่อน L ไปที่ d + w พอดีทำให้ d ยังสว่าง ส่วนที่เสียไปทางซ้ายเป็นช่องที่สว่างอยู่แล้วหรือไม่มีอาหาร และได้ช่องทางขวาเพิ่ม หลอดของ greedy จึงไม่มีทางแย่กว่า
+- **อย่างไร:** `litUpTo` = ช่องสุดท้ายที่สว่าง (เริ่มที่ 0) สำหรับช่องอาหารแต่ละช่องตามลำดับ: ถ้า `food > litUpTo` นับหลอดเพิ่ม แล้วตั้ง `litUpTo = food + 2w`
+- **เลยปลายโต๊ะ?** อาหาร + w อาจเกิน n ไม่เป็นไร หลอดที่ช่อง n ส่องช่องอาหารชุดเดียวกัน (หลัง n ไม่มีอาหาร) จำนวนหลอดจึงเท่าเดิม
+- **ต้นทุน:** O(f log f) สำหรับการเรียง
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 (w = 1)
+
+| อาหาร (เรียงแล้ว) | litUpTo ก่อน | มืด? | ติดหลอดที่ | litUpTo หลัง | จำนวนหลอด |
+|---|---|---|---|---|---|
+| 1 | 0 | ใช่ | 2 | 3 | 1 |
+| 2 | 3 | ไม่ | | 3 | 1 |
+| 3 | 3 | ไม่ | | 3 | 1 |
+| 5 | 3 | ใช่ | 6 | 7 | **2** |
+| 6 | 7 | ไม่ | | 7 | 2 |
+
+PDF ติดหลอดที่ช่อง 2 และ 5 ส่วน greedy เลือก 2 และ 6 ทั้งสองแบบใช้ 2 หลอด
+
+## 5. จุดที่มักพลาด
+- **ลืมเรียง:** ช่องอาหารมาในลำดับใดก็ได้ (ตัวอย่างที่ 3 สลับลำดับ) ถ้าไม่เรียง ตัวอย่างที่ 3 จะได้มากกว่า 1
+- **ติดหลอดที่ช่องอาหารเอง:** เสียแสงครึ่งซ้ายไปเปล่า ๆ ตัวอย่างที่ 2 จะต้องใช้ 3 หลอด (1, 3, 5)
+- **คลาดไปหนึ่ง:** หลอดที่ x ส่อง x − w **ถึง** x + w รวมปลายทั้งสอง หลังติดหลอดที่ อาหาร + w ช่วงสว่างจึงจบที่ อาหาร + 2w ไม่ใช่ อาหาร + 2w − 1
+- **ลำดับการอ่าน:** บรรทัดแรกคือ `f w n` ไม่ใช่ `n f w`
+
+## 6. ความรู้พื้นฐาน
+บทที่ 13 "ครอบจุดด้วยช่วงยาวคงที่ให้น้อยที่สุด" เป็นคู่แฝดของ [Class selection](#ex04e1_interval): เรียงทั้งคู่ กวาดรอบเดียวทั้งคู่ และพิสูจน์ด้วย exchange argument ทั้งคู่ บางเวอร์ชันบังคับให้หลอดตั้งได้เฉพาะบางช่อง greedy จะกลายเป็น "ในบรรดาหลอดที่อนุญาตและส่องถึงจุดมืดซ้ายสุด ให้เลือกดวงที่ส่องไปทางขวาได้ไกลที่สุด" ซึ่งเป็นไอเดียเดียวกับโจทย์คลาสสิก "เติมน้ำมันน้อยครั้งที่สุด"

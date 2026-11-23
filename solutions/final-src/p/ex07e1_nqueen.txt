@@ -1,0 +1,132 @@
+id: ex07e1_nqueen
+group: brute
+lesson: 11 · Recursion & backtracking
+stars: 1
+complexity: about O(N!) with heavy pruning
+kind: program
+tags: n-queens, backtracking, one queen per row, diagonals r+c and r-c, pruning
+title: n-Queen
+title_th: วางราชินี n ตัว (n-Queen)
+blurb: Count the ways to put N ≤ 12 queens on an N × N board with no two attacking. One queen per row; for each row try every column that is not attacked, using three boolean arrays for columns and both diagonals.
+blurb_th: นับจำนวนวิธีวางราชินี N ≤ 12 ตัวบนกระดาน N × N โดยไม่มีคู่ไหนกินกันได้ วางแถวละหนึ่งตัว แต่ละแถวลองทุกคอลัมน์ที่ไม่ถูกโจมตี โดยใช้อาเรย์ bool สามตัวสำหรับคอลัมน์และแนวทแยงทั้งสองทิศ
+files: sol/ex07e1_nqueen/main.cpp
+tests: both PDF samples and every N = 1..12 against the known counts (1, 0, 0, 2, 10, 4, 40, 92, 352, 724, 2,680, 14,200); N = 1..8 against a Python brute force over all permutations; N = 12 in 0.05 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และทุก N = 1..12 เทียบกับค่าที่รู้กันอยู่แล้ว (1, 0, 0, 2, 10, 4, 40, 92, 352, 724, 2,680, 14,200); N = 1..8 เทียบกับ brute force ใน Python ที่ลองทุก permutation; N = 12 ใช้ 0.05 วินาที
+==== en
+## 1. What the problem says
+Place N queens on an N × N chessboard so that no queen attacks another. A queen attacks along its row, its column and both diagonals. Print the **number of different placements** (1 ≤ N ≤ 12).
+
+Samples: N = 4 → **2**, N = 8 → **92**.
+
+## 2. What it really means
+No two queens share a row, so there is **exactly one queen per row**. Decide row by row which column gets the queen. A square (r, c) is attacked by an earlier queen if that queen is in column c, or on the same "↘" diagonal (same r − c), or the same "↙" diagonal (same r + c).
+
+```text
+N = 4, one of the 2 answers          the two diagonal labels of each square
+. Q . .     row 0 → column 1         r+c:  0 1 2 3      r-c:  0 -1 -2 -3
+. . . Q     row 1 → column 3               1 2 3 4            1  0 -1 -2
+Q . . .     row 2 → column 0               2 3 4 5            2  1  0 -1
+. . Q .     row 3 → column 2               3 4 5 6            3  2  1  0
+```
+
+:::hint Hint 1
+Two queens can never be in the same row. So instead of choosing N squares out of N², choose one column for each row.
+:::
+:::hint Hint 2
+Keep three boolean arrays: column used, diagonal r + c used, diagonal r − c used. A square is free when all three are false. Place, recurse to the next row, then remove the queen.
+:::
+
+## 3. What, why, how
+- **What:** backtracking `place(r)` that tries every column of row r; when r reaches N one placement is complete.
+- **Why it is fast enough:** the rows-and-columns rule alone already limits the search to N! orders, and the diagonal checks cut it far more. For N = 12 the search visits about 860,000 nodes (12! is 479 million); it runs in 0.05 s.
+- **How:**
+  - `colUsed[c]`, `diag1[r + c]` (values 0..2N−2), `diag2[r − c + N − 1]` (shift so the index is never negative).
+  - A square is free if all three flags are false; mark them, call `place(r + 1)`, unmark them.
+  - The checks are O(1), not a loop over earlier queens.
+- **Cost:** a little more than the number of nodes in the pruned tree; nothing else.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: N = 4 (column chosen for rows 0, 1, 2, 3; "✗" = every column of the next row is attacked).
+
+| path of columns | what happens |
+|---|---|
+| 0 → 2 | row 2: columns 0, 1, 2, 3 all attacked ✗ |
+| 0 → 3 → 1 | row 3: all attacked ✗ |
+| 1 → 3 → 0 → 2 | all 4 rows filled: **solution 1** |
+| 2 → 0 → 3 → 1 | **solution 2** |
+| 3 → 0 → 2 | row 3: all attacked ✗ |
+| 3 → 1 | row 2: all attacked ✗ |
+
+Count **2**. The two solutions are mirror images of each other.
+
+## 5. Traps
+- **Negative index** for the r − c diagonal: shift by N − 1, and size the arrays 2N − 1.
+- **Forgetting to undo** the three flags after the recursive call: later branches see phantom queens and the count is too small.
+- **Scanning all earlier queens** for each square works but costs an extra factor N; fine for N ≤ 12, slower for bigger N.
+- **Choosing squares instead of rows:** C(144, 12) candidates for N = 12 is hopeless.
+- **N = 2 and N = 3** have 0 solutions, not an error.
+
+## 6. Background
+Lesson 11. N-queens is the classic backtracking example. Faster versions use **bit masks**: the free columns of the next row are `~(cols | d1 | d2)` with d1 shifted left and d2 shifted right by one each row, which handles N up to about 16 in a second. Exploiting the mirror symmetry (only try the first half of the columns in row 0, then double) halves the time again.
+==== th
+## 1. โจทย์บอกอะไร
+วางราชินี N ตัวบนกระดานหมากรุก N × N โดยไม่มีราชินีตัวไหนกินตัวอื่นได้ ราชินีกินได้ตามแถว คอลัมน์ และแนวทแยงทั้งสองทิศ ให้พิมพ์ **จำนวนวิธีวางที่แตกต่างกัน** (1 ≤ N ≤ 12)
+
+ตัวอย่าง: N = 4 → **2**, N = 8 → **92**
+
+## 2. จริง ๆ แล้วถามอะไร
+ราชินีสองตัวอยู่แถวเดียวกันไม่ได้ จึงมี **ราชินีแถวละหนึ่งตัวพอดี** ตัดสินใจทีละแถวว่าราชินีอยู่คอลัมน์ไหน ช่อง (r, c) ถูกโจมตีโดยราชินีก่อนหน้า ถ้าราชินีนั้นอยู่คอลัมน์ c หรืออยู่บนแนวทแยง "↘" เดียวกัน (r − c เท่ากัน) หรือแนวทแยง "↙" เดียวกัน (r + c เท่ากัน)
+
+```text
+N = 4, one of the 2 answers          the two diagonal labels of each square
+. Q . .     row 0 → column 1         r+c:  0 1 2 3      r-c:  0 -1 -2 -3
+. . . Q     row 1 → column 3               1 2 3 4            1  0 -1 -2
+Q . . .     row 2 → column 0               2 3 4 5            2  1  0 -1
+. . Q .     row 3 → column 2               3 4 5 6            3  2  1  0
+```
+
+:::hint คำใบ้ 1
+ราชินีสองตัวอยู่แถวเดียวกันไม่ได้แน่ ๆ ดังนั้นแทนที่จะเลือก N ช่องจาก N² ช่อง ให้เลือกคอลัมน์ให้แต่ละแถว
+:::
+:::hint คำใบ้ 2
+เก็บอาเรย์ bool สามตัว: คอลัมน์ถูกใช้, แนวทแยง r + c ถูกใช้, แนวทแยง r − c ถูกใช้ ช่องว่างเมื่อทั้งสามเป็น false วางราชินี เรียกแถวถัดไป แล้วยกราชินีออก
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** backtracking `place(r)` ที่ลองทุกคอลัมน์ของแถว r เมื่อ r ถึง N ก็ได้การวางครบหนึ่งแบบ
+- **ทำไมเร็วพอ:** กฎแถวกับคอลัมน์อย่างเดียวก็จำกัดการค้นหาเหลือ N! ลำดับแล้ว และการเช็กแนวทแยงตัดได้อีกมาก สำหรับ N = 12 การค้นหาเยี่ยมราว 860,000 ปม (ขณะที่ 12! คือ 479 ล้าน) ใช้ 0.05 วินาที
+- **อย่างไร:**
+  - `colUsed[c]`, `diag1[r + c]` (ค่า 0..2N−2), `diag2[r − c + N − 1]` (เลื่อนเพื่อไม่ให้ index ติดลบ)
+  - ช่องว่างถ้าธงทั้งสามเป็น false ตั้งธง เรียก `place(r + 1)` แล้วเอาธงออก
+  - การเช็กเป็น O(1) ไม่ต้องวนดูราชินีก่อนหน้าทุกตัว
+- **ต้นทุน:** มากกว่าจำนวนปมในต้นไม้ที่ถูกตัดกิ่งแล้วเพียงเล็กน้อย ไม่มีอย่างอื่น
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: N = 4 (คอลัมน์ที่เลือกสำหรับแถว 0, 1, 2, 3; "✗" = ทุกคอลัมน์ของแถวถัดไปถูกโจมตี)
+
+| ลำดับคอลัมน์ | เกิดอะไรขึ้น |
+|---|---|
+| 0 → 2 | แถว 2: คอลัมน์ 0, 1, 2, 3 ถูกโจมตีหมด ✗ |
+| 0 → 3 → 1 | แถว 3: ถูกโจมตีหมด ✗ |
+| 1 → 3 → 0 → 2 | ครบ 4 แถว: **คำตอบที่ 1** |
+| 2 → 0 → 3 → 1 | **คำตอบที่ 2** |
+| 3 → 0 → 2 | แถว 3: ถูกโจมตีหมด ✗ |
+| 3 → 1 | แถว 2: ถูกโจมตีหมด ✗ |
+
+ได้ **2** วิธี ทั้งสองแบบเป็นภาพสะท้อนของกันและกัน
+
+## 5. จุดที่มักพลาด
+- **index ติดลบ** ของแนวทแยง r − c: เลื่อนด้วย N − 1 และให้อาเรย์ยาว 2N − 1
+- **ลืมเอาธงออก** ทั้งสามหลังเรียก recursion: กิ่งต่อ ๆ ไปจะเห็นราชินีผี และนับได้น้อยไป
+- **วนดูราชินีก่อนหน้าทุกตัว** สำหรับทุกช่องก็ใช้ได้ แต่เสียเพิ่มอีกเท่าตัว N พอไหวสำหรับ N ≤ 12 แต่ช้าลงเมื่อ N ใหญ่ขึ้น
+- **เลือกช่องแทนการเลือกแถว:** C(144, 12) แบบสำหรับ N = 12 ไม่มีทางทันเวลา
+- **N = 2 และ N = 3** มี 0 วิธี ไม่ใช่ข้อผิดพลาด
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11 N-queens เป็นตัวอย่าง backtracking คลาสสิก เวอร์ชันที่เร็วกว่าใช้ **bit mask**: คอลัมน์ว่างของแถวถัดไปคือ `~(cols | d1 | d2)` โดยเลื่อน d1 ไปทางซ้ายและ d2 ไปทางขวาหนึ่งบิตทุกแถว ทำได้ถึง N ประมาณ 16 ในหนึ่งวินาที การใช้สมมาตรแบบกระจก (ลองแค่ครึ่งแรกของคอลัมน์ในแถว 0 แล้วคูณสอง) ลดเวลาลงอีกครึ่ง

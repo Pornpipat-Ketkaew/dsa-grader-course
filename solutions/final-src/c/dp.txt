@@ -55,12 +55,14 @@ for (int i = 1; i <= n; i++) {
 
 ## 5. In this chapter
 - [Fibonacci](#ex02e1_fibo) and [Binomial coefficient](#ex02e2_cnk): memoisation, from exponential to tiny.
+- [Increasing sequence sum](#ex07e2_iss): partitions of N, the coin-change counting DP.
 - [Number triangle](#ex02m1_triangle): a "best path" DP, filled bottom-up.
+- [Longest common subsequence](#ex03e1_lcs): the two-string table on prefixes.
 - [Chocolate](#a62_q1b_chocolate): counting sequences, mod.
 - [Table without 11](#a64_q2_table_no_11): a state that remembers the last column.
 - [Diagonal sum](#a60b_q1_diagsum): Kadane's "best sum ending here".
 
-More DP in the final chapter: [Linear recurrence](#da66_f1_linear_recurrence) and [New Game Plus](#da66_f2_new_game_plus).
+More DP in the final chapters: [Linear recurrence](#da66_f1_linear_recurrence), [New Game Plus](#da66_f2_new_game_plus), [One two apart](#da67_f_one_two_apart), [Hidden palindrome](#da68_f_hidden_palindrome), [0-1 subset sum](#da68_f2_zero_one_subset_sum) and [SackKnap](#da68_f2_sackknap).
 ==== th
 ## 1. ไอเดีย
 **กำหนดการพลวัต (Dynamic programming)** = recursion ที่ปัญหาย่อยเดิมกลับมาซ้ำแล้วซ้ำอีก จึงแก้แต่ละปัญหา **ครั้งเดียว** แล้วเก็บไว้
@@ -117,9 +119,11 @@ for (int i = 1; i <= n; i++) {
 
 ## 5. ในบทนี้
 - [Fibonacci](#ex02e1_fibo) และ [Binomial coefficient](#ex02e2_cnk): memoization จากเอกซ์โพเนนเชียลเหลือนิดเดียว
+- [Increasing sequence sum](#ex07e2_iss): partition ของ N ด้วย DP นับแบบแลกเหรียญ
 - [Number triangle](#ex02m1_triangle): DP แบบ "เส้นทางดีที่สุด" เติมจากล่างขึ้นบน
+- [Longest common subsequence](#ex03e1_lcs): ตารางของสองสตริงบน prefix
 - [Chocolate](#a62_q1b_chocolate): นับลำดับ พร้อม mod
 - [Table without 11](#a64_q2_table_no_11): state ที่จำคอลัมน์ล่าสุด
 - [Diagonal sum](#a60b_q1_diagsum): "ผลรวมดีที่สุดที่จบตรงนี้" ของ Kadane
 
-DP เพิ่มเติมในบทสุดท้าย: [Linear recurrence](#da66_f1_linear_recurrence) และ [New Game Plus](#da66_f2_new_game_plus)
+DP เพิ่มเติมในบทข้อสอบปลายภาค: [Linear recurrence](#da66_f1_linear_recurrence), [New Game Plus](#da66_f2_new_game_plus), [One two apart](#da67_f_one_two_apart), [Hidden palindrome](#da68_f_hidden_palindrome), [0-1 subset sum](#da68_f2_zero_one_subset_sum) และ [SackKnap](#da68_f2_sackknap)

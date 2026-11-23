@@ -1,0 +1,124 @@
+id: da68_f_k_connected_city
+group: final68
+lesson: 16 · Graphs: BFS (connected subset)
+stars: 1
+complexity: O(N + M)
+kind: program
+tags: BFS, connected subgraph, any valid answer, special judge, first K visited
+title: K connected city
+title_th: เลือก K เมืองที่เชื่อมกัน (K Connected City)
+blurb: A connected graph with N ≤ 10⁵ cities: print any K cities that stay connected using only roads between chosen cities. The first K cities a BFS (or DFS) from any city visits always work, because each one was reached from a city already chosen.
+blurb_th: กราฟเชื่อมกันที่มี N ≤ 10⁵ เมือง ให้พิมพ์ K เมืองใดก็ได้ที่ยังเชื่อมกันโดยใช้แค่ถนนระหว่างเมืองที่เลือก K เมืองแรกที่ BFS (หรือ DFS) จากเมืองไหนก็ได้ไปถึงใช้ได้เสมอ เพราะแต่ละเมืองถูกค้นพบจากเมืองที่เลือกไว้แล้ว
+files: sol/da68_f_k_connected_city/main.cpp
+tests: any valid set is accepted, so a Python checker verifies every output (K distinct cities in range, connected through chosen cities only); all three PDF samples and N = 2; 300 random connected graphs (N ≤ 9, random K); N = 10⁵, M = 2 × 10⁵ with K = N in 0.06 s.
+tests_th: คำตอบที่ถูกแบบใดก็ได้ ตัวตรวจใน Python จึงตรวจทุก output (K เมืองไม่ซ้ำ อยู่ในช่วง และเชื่อมกันผ่านเมืองที่เลือกเท่านั้น); ตัวอย่างทั้งสามชุดใน PDF และ N = 2; สุ่มกราฟเชื่อมกัน 300 ชุด (N ≤ 9, K สุ่ม); N = 10⁵, M = 2 × 10⁵ กับ K = N ใช้ 0.06 วินาที
+==== en
+## 1. What the problem says
+A kingdom has N cities (2 ≤ N ≤ 100,000) and M roads (M ≤ 200,000); every pair of cities is connected by some route. The little goat may choose **any K cities** (1 ≤ K ≤ N), on one condition: every chosen city must be able to reach every other chosen city **without passing through a city that is not chosen**. Print one such set of K cities; any valid answer is accepted.
+
+Input: `N M K`, then M lines `u v`.
+
+Sample 1: roads 5–1, 1–3, 3–4, 4–2, K = 3 → the PDF prints **1 3 4**; our program prints **1 5 3**, which is just as valid.
+
+## 2. What it really means
+"Reach each other using only chosen cities" means the chosen cities form a **connected subgraph**. Grow such a set one city at a time: start anywhere, and each time add a city that is **adjacent** to one already chosen. A BFS from any city adds cities exactly in that way.
+
+```text
+sample 1:   5 ── 1 ── 3 ── 4 ── 2
+
+BFS from 1:  visit 1        chosen {1}
+             visit 5 (from 1)   chosen {1, 5}       each new city touches
+             visit 3 (from 1)   chosen {1, 5, 3}    a city already chosen
+K = 3 → print 1 5 3   (5 – 1 – 3 is connected)
+```
+
+:::hint Hint 1
+If you already have a connected set and add one city that has a road to some city in the set, is the new set still connected?
+:::
+:::hint Hint 2
+Run BFS from city 1 and print cities in the order they are taken from the queue; stop after K. Every city in the queue was discovered from an earlier one, so the printed prefix is always connected.
+:::
+
+## 3. What, why, how
+- **What:** BFS from city 1; output the first K cities popped.
+- **Why it is connected:** by induction. The first city alone is connected. City number t was pushed when some city u was popped, and u was popped earlier, so u is among the first t − 1 printed. The road u–t keeps the set connected.
+- **Why K cities always exist:** the whole kingdom is connected, so the BFS reaches all N ≥ K cities.
+- **How:** adjacency lists; `seen[]`; pop, print, count, and push unseen neighbours; stop when K are printed. Separate numbers by spaces and end with `'\n'`.
+- **Cost:** O(N + M), with fast I/O for up to 2 × 10⁵ edge lines and 10⁵ output numbers.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1 (adjacency in input order: 1 → [5, 3], 5 → [1], 3 → [1, 4]).
+
+| popped | printed so far | pushed | queue after |
+|---|---|---|---|
+| 1 | 1 | 5, 3 | 5 3 |
+| 5 | 1 5 | none | 3 |
+| 3 | **1 5 3** | 4 | 4 |
+| | K = 3 reached: stop | | |
+
+## 5. Traps
+- **DFS order works too** (every prefix of it is connected as well), but **sorting the output** or simply printing cities 1..K does not: 1, 2, 3 in sample 1 are not connected through each other.
+- **Expecting the sample output exactly:** the grader accepts any valid set; a "wrong answer" against the sample text alone proves nothing.
+- **Ignoring the condition and printing K arbitrary cities:** the subtasks where every pair has a road accept anything, the others do not.
+- **endl** for 10⁵ numbers is slow; print with spaces and one `'\n'`.
+
+## 6. Background
+Lesson 16. Every prefix of a BFS or DFS order is connected, a fact used in many places: growing a region of size K in a grid, Prim's algorithm (which is a "cheapest neighbour first" version of the same growth), and proofs that every connected graph has a spanning tree. When K must be chosen with a **cost**, the problem becomes much harder (minimum-weight connected subgraphs are NP-hard), which is why this problem asks for any answer.
+==== th
+## 1. โจทย์บอกอะไร
+อาณาจักรมี N เมือง (2 ≤ N ≤ 100,000) และถนน M เส้น (M ≤ 200,000) ทุกคู่เมืองมีเส้นทางถึงกัน แพะน้อยเลือก **K เมืองใดก็ได้** (1 ≤ K ≤ N) โดยมีเงื่อนไขว่าเมืองที่เลือกทุกเมืองต้องเดินทางถึงเมืองที่เลือกเมืองอื่น **โดยไม่ผ่านเมืองที่ไม่ได้เลือก** ให้พิมพ์เซตของเมือง K เมืองแบบนั้นหนึ่งชุด คำตอบที่ถูกแบบใดก็ได้รับ
+
+input: `N M K` แล้วอีก M บรรทัด `u v`
+
+ตัวอย่างที่ 1: ถนน 5–1, 1–3, 3–4, 4–2, K = 3 → PDF พิมพ์ **1 3 4** ส่วนโปรแกรมของเราพิมพ์ **1 5 3** ซึ่งถูกเหมือนกัน
+
+## 2. จริง ๆ แล้วถามอะไร
+"ถึงกันโดยผ่านแค่เมืองที่เลือก" แปลว่าเมืองที่เลือกเป็น **subgraph ที่เชื่อมกัน** สร้างเซตแบบนี้ทีละเมือง: เริ่มที่ไหนก็ได้ แล้วทุกครั้งเพิ่มเมืองที่ **ติดกับ** เมืองที่เลือกไว้แล้ว BFS จากเมืองใดก็ได้เพิ่มเมืองแบบนั้นพอดี
+
+```text
+sample 1:   5 ── 1 ── 3 ── 4 ── 2
+
+BFS from 1:  visit 1        chosen {1}
+             visit 5 (from 1)   chosen {1, 5}       each new city touches
+             visit 3 (from 1)   chosen {1, 5, 3}    a city already chosen
+K = 3 → print 1 5 3   (5 – 1 – 3 is connected)
+```
+
+:::hint คำใบ้ 1
+ถ้ามีเซตที่เชื่อมกันอยู่แล้ว แล้วเพิ่มเมืองหนึ่งที่มีถนนไปเมืองใดเมืองหนึ่งในเซต เซตใหม่ยังเชื่อมกันไหม
+:::
+:::hint คำใบ้ 2
+รัน BFS จากเมือง 1 แล้วพิมพ์เมืองตามลำดับที่ดึงออกจากคิว หยุดเมื่อครบ K ทุกเมืองในคิวถูกค้นพบจากเมืองก่อนหน้า prefix ที่พิมพ์จึงเชื่อมกันเสมอ
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** BFS จากเมือง 1 แล้วพิมพ์ K เมืองแรกที่ดึงออกจากคิว
+- **ทำไมเชื่อมกัน:** ใช้อุปนัย เมืองแรกเมืองเดียวเชื่อมกันแน่ เมืองลำดับที่ t ถูกใส่คิวตอนดึงเมือง u บางเมืองออกมา และ u ถูกดึงก่อน จึงอยู่ใน t − 1 เมืองแรกที่พิมพ์ ถนน u–t ทำให้เซตยังเชื่อมกัน
+- **ทำไมมี K เมืองเสมอ:** อาณาจักรเชื่อมกันทั้งหมด BFS จึงไปถึงครบ N ≥ K เมือง
+- **อย่างไร:** adjacency list, `seen[]` ดึงออก พิมพ์ นับ แล้วใส่เพื่อนบ้านที่ยังไม่เห็นลงคิว หยุดเมื่อพิมพ์ครบ K คั่นตัวเลขด้วยช่องว่างและจบด้วย `'\n'`
+- **ต้นทุน:** O(N + M) พร้อม I/O เร็วสำหรับถนนถึง 2 × 10⁵ บรรทัดและ output 10⁵ ตัว
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 (adjacency ตามลำดับ input: 1 → [5, 3], 5 → [1], 3 → [1, 4])
+
+| ดึงออก | พิมพ์แล้ว | ใส่คิว | คิวหลังจากนั้น |
+|---|---|---|---|
+| 1 | 1 | 5, 3 | 5 3 |
+| 5 | 1 5 | ไม่มี | 3 |
+| 3 | **1 5 3** | 4 | 4 |
+| | ครบ K = 3: หยุด | | |
+
+## 5. จุดที่มักพลาด
+- **ใช้ลำดับของ DFS** ก็ได้ (ลำดับ DFS มีคุณสมบัตินี้เหมือนกัน) แต่ **เรียง output** หรือเลือกเมือง 1..K ไม่ได้: 1, 2, 3 ในตัวอย่างที่ 1 ไม่เชื่อมกันผ่านกันเอง
+- **คาดหวังให้ตรงกับ output ตัวอย่างเป๊ะ:** grader รับเซตที่ถูกแบบใดก็ได้ การเทียบกับข้อความตัวอย่างอย่างเดียวพิสูจน์อะไรไม่ได้
+- **ไม่สนเงื่อนไขแล้วพิมพ์ K เมืองมั่ว ๆ:** ชุดทดสอบที่ทุกคู่มีถนนรับได้หมด แต่ชุดอื่นไม่รับ
+- **endl** กับตัวเลข 10⁵ ตัวช้า พิมพ์คั่นด้วยช่องว่างแล้วขึ้นบรรทัดครั้งเดียว
+
+## 6. ความรู้พื้นฐาน
+บทที่ 16 ทุก prefix ของลำดับ BFS หรือ DFS เชื่อมกัน ข้อเท็จจริงนี้ใช้หลายที่: ขยายพื้นที่ขนาด K ในตาราง, อัลกอริทึมของ Prim (ซึ่งเป็นการขยายแบบเดียวกันที่เลือก "เพื่อนบ้านที่ถูกที่สุดก่อน") และการพิสูจน์ว่าทุกกราฟที่เชื่อมกันมี spanning tree ถ้าต้องเลือก K เมืองโดยมี **ต้นทุน** ปัญหาจะยากขึ้นมาก (subgraph เชื่อมกันที่น้ำหนักน้อยที่สุดเป็น NP-hard) โจทย์นี้จึงขอแค่คำตอบใดก็ได้

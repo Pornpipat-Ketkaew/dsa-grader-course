@@ -1,0 +1,128 @@
+id: ex04e2_fknapsack
+group: greedy
+lesson: 13 · Greedy (fractional knapsack)
+stars: 1
+complexity: O(N log N)
+kind: program
+tags: greedy, fractional knapsack, value per weight, sort by ratio, real numbers
+title: Fractional knapsack
+title_th: เป้แบบแบ่งของได้ (Fractional Knapsack)
+blurb: A bag holds weight W; item i has value v and weight w, and you may take any fraction of it. Maximise the value: sort by v/w, take whole items while they fit, then a fraction of the next one.
+blurb_th: เป้รับน้ำหนักได้ W ของชิ้นที่ i มีมูลค่า v และน้ำหนัก w และจะหยิบเพียงบางส่วนก็ได้ ให้มูลค่ามากที่สุด: เรียงตาม v/w หยิบทั้งชิ้นจนกว่าจะใส่ไม่พอ แล้วหยิบบางส่วนของชิ้นถัดไป
+files: sol/ex04e2_fknapsack/main.cpp
+tests: both PDF samples and a bag larger than all items; 300 random inputs (N ≤ 6, integer and real W) against an exact-fraction Python brute force over "every set of whole items plus one partial item"; N = 100,000 in 0.02 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และเป้ที่ใหญ่กว่าของทั้งหมด; สุ่ม 300 ชุด (N ≤ 6 มีทั้ง W จำนวนเต็มและทศนิยม) เทียบกับ brute force ใน Python ที่คำนวณด้วยเศษส่วนแบบแม่นยำ ลอง "ทุกชุดของชิ้นเต็มบวกชิ้นบางส่วนหนึ่งชิ้น"; N = 100,000 ใช้ 0.02 วินาที
+==== en
+## 1. What the problem says
+A bag can hold total weight W (a real number). There are N items (N ≤ 100,000); item i has price vᵢ and weight wᵢ. You may take any **fraction** xᵢ between 0 and 1 of each item, earning xᵢvᵢ for xᵢwᵢ of weight. Print the largest total price, with 4 digits after the point.
+
+Input: `W N`, then the N prices, then the N weights.
+
+Sample 1: W = 6, v = 5 3 3, w = 4 3 3 → **7.0000**. Sample 2: W = 5.5, v = 2 3 4 5, w = 1 2 3 4 → **8.3333**.
+
+## 2. What it really means
+Since items can be cut, every kilogram is independent. What matters is **how much price one kilogram of each item brings**: vᵢ / wᵢ. Fill the bag with the most valuable kilograms first.
+
+```text
+sample 2, W = 5.5          price per kg
+item 1: v=2 w=1            2.00   ██ take all     room 5.5 → 4.5   total 2
+item 2: v=3 w=2            1.50   ██ take all     room 4.5 → 2.5   total 5
+item 3: v=4 w=3            1.33   █▌ take 2.5/3   room 2.5 → 0     total 5 + 3.3333
+item 4: v=5 w=4            1.25      nothing left
+answer 8.3333
+```
+
+:::hint Hint 1
+If you could buy the items by the kilogram, which kilogram would you buy first?
+:::
+:::hint Hint 2
+Sort the items by v/w from high to low. Take whole items while they fit. The first item that does not fit is taken partly, exactly enough to fill the bag, and then you stop.
+:::
+
+## 3. What, why, how
+- **What:** sort by price per weight, descending; take whole items; cut the first one that does not fit.
+- **Why it is optimal:** suppose an optimal filling has some weight of a cheaper-per-kg item while a better-per-kg item is not fully taken. Swap a small amount ε of weight from the cheaper one to the better one: the weight stays the same and the price goes up. So in an optimal answer every better item is used up before a worse one is touched, and that is what the greedy does.
+- **How:**
+  - Sort indices with the comparator `v[a] * w[b] > v[b] * w[a]`. It compares v[a]/w[a] with v[b]/w[b] without dividing.
+  - Keep `room` = weight left. For each item in order: if w ≤ room take it whole; otherwise add `v * room / w`, set room to 0 and stop.
+- **Precision:** `double` is enough; the judge accepts an error below 0.00001 %. Print with `%.4f`.
+- **Cost:** O(N log N).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1 (W = 6).
+
+| item | v | w | v / w | room before | taken | total after |
+|---|---|---|---|---|---|---|
+| 1 | 5 | 4 | 1.25 | 6 | whole | 5 |
+| 2 | 3 | 3 | 1.00 | 2 | 2/3 of it | 5 + 2 = **7** |
+| 3 | 3 | 3 | 1.00 | 0 | stop | 7 |
+
+## 5. Traps
+- **This greedy is only for fractions.** For the 0/1 knapsack (items cannot be cut) it fails: W = 10, items (6 kg, 7), (5 kg, 5), (5 kg, 5) → greedy 7, best 10. Use DP there, as in [SackKnap](#da68_f2_sackknap).
+- **Reading order:** all prices first, then all weights (the opposite of the "weight, value" habit).
+- **Integer division:** `v * room / w` with ints loses the fraction; read everything as `double`.
+- **Letting room go negative:** subtracting w before checking that the item fits makes room negative, and the next "fraction" v · room / w is then negative too. Check first, then take.
+- **Bag bigger than everything:** the loop ends with room left over; the answer is just the sum of all prices (third test).
+
+## 6. Background
+Lesson 13. Fractional knapsack is the standard example of a problem where greedy **is** correct, placed next to 0/1 knapsack where it **is not**. Fractional knapsack is a linear program, and the greedy is exactly its optimal solution: at most one variable ends strictly between 0 and 1. It can even be solved in O(N) by finding the "split item" with a selection algorithm instead of sorting.
+==== th
+## 1. โจทย์บอกอะไร
+เป้รับน้ำหนักรวมได้ W (จำนวนจริง) มีของ N ชิ้น (N ≤ 100,000) ของชิ้นที่ i มีราคา vᵢ และน้ำหนัก wᵢ จะหยิบ **บางส่วน** xᵢ ระหว่าง 0 ถึง 1 ของแต่ละชิ้นก็ได้ โดยได้ราคา xᵢvᵢ และใช้น้ำหนัก xᵢwᵢ ให้พิมพ์ราคารวมที่มากที่สุด ทศนิยม 4 ตำแหน่ง
+
+input: `W N` แล้วราคาทั้ง N ค่า แล้วน้ำหนักทั้ง N ค่า
+
+ตัวอย่างที่ 1: W = 6, v = 5 3 3, w = 4 3 3 → **7.0000** ตัวอย่างที่ 2: W = 5.5, v = 2 3 4 5, w = 1 2 3 4 → **8.3333**
+
+## 2. จริง ๆ แล้วถามอะไร
+เมื่อของตัดแบ่งได้ ทุก ๆ กิโลกรัมก็เป็นอิสระต่อกัน สิ่งที่สำคัญคือ **ของแต่ละชิ้นให้ราคาต่อหนึ่งกิโลกรัมเท่าไร**: vᵢ / wᵢ ให้ใส่กิโลกรัมที่มีค่าที่สุดก่อน
+
+```text
+sample 2, W = 5.5          price per kg
+item 1: v=2 w=1            2.00   ██ take all     room 5.5 → 4.5   total 2
+item 2: v=3 w=2            1.50   ██ take all     room 4.5 → 2.5   total 5
+item 3: v=4 w=3            1.33   █▌ take 2.5/3   room 2.5 → 0     total 5 + 3.3333
+item 4: v=5 w=4            1.25      nothing left
+answer 8.3333
+```
+
+:::hint คำใบ้ 1
+ถ้าซื้อของเป็นกิโลได้ จะซื้อกิโลกรัมไหนก่อน
+:::
+:::hint คำใบ้ 2
+เรียงของตาม v/w จากมากไปน้อย หยิบทั้งชิ้นจนกว่าจะใส่ไม่พอ ชิ้นแรกที่ใส่ไม่พอให้หยิบบางส่วนพอดีให้เป้เต็ม แล้วหยุด
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** เรียงตามราคาต่อน้ำหนักจากมากไปน้อย หยิบทั้งชิ้น แล้วตัดชิ้นแรกที่ใส่ไม่พอ
+- **ทำไมดีที่สุด:** สมมติคำตอบที่ดีที่สุดมีน้ำหนักของชิ้นที่ราคาต่อกิโลต่ำกว่าอยู่ ขณะที่ชิ้นที่ราคาต่อกิโลสูงกว่ายังหยิบไม่หมด ย้ายน้ำหนักเล็ก ๆ ε จากชิ้นที่ถูกกว่าไปชิ้นที่ดีกว่า น้ำหนักเท่าเดิมแต่ราคาเพิ่มขึ้น ดังนั้นในคำตอบที่ดีที่สุด ชิ้นที่ดีกว่าต้องถูกใช้จนหมดก่อนจะแตะชิ้นที่แย่กว่า ซึ่งก็คือสิ่งที่ greedy ทำ
+- **อย่างไร:**
+  - เรียง index ด้วยตัวเปรียบเทียบ `v[a] * w[b] > v[b] * w[a]` ซึ่งเทียบ v[a]/w[a] กับ v[b]/w[b] โดยไม่ต้องหาร
+  - เก็บ `room` = น้ำหนักที่เหลือ สำหรับของแต่ละชิ้นตามลำดับ: ถ้า w ≤ room หยิบทั้งชิ้น ไม่อย่างนั้นบวก `v * room / w` ตั้ง room เป็น 0 แล้วหยุด
+- **ความแม่นยำ:** `double` พอ ระบบตรวจยอมให้คลาดได้ไม่เกิน 0.00001 % พิมพ์ด้วย `%.4f`
+- **ต้นทุน:** O(N log N)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 (W = 6)
+
+| ชิ้น | v | w | v / w | room ก่อน | หยิบ | ผลรวมหลัง |
+|---|---|---|---|---|---|---|
+| 1 | 5 | 4 | 1.25 | 6 | ทั้งชิ้น | 5 |
+| 2 | 3 | 3 | 1.00 | 2 | 2/3 ชิ้น | 5 + 2 = **7** |
+| 3 | 3 | 3 | 1.00 | 0 | หยุด | 7 |
+
+## 5. จุดที่มักพลาด
+- **greedy นี้ใช้ได้เฉพาะแบบแบ่งได้** ถ้าเป็น 0/1 knapsack (ตัดของไม่ได้) จะผิด: W = 10 ของ (6 kg, 7), (5 kg, 5), (5 kg, 5) → greedy ได้ 7 แต่ดีที่สุดคือ 10 กรณีนั้นใช้ DP เหมือนข้อ [SackKnap](#da68_f2_sackknap)
+- **ลำดับการอ่าน:** ราคาทั้งหมดมาก่อน แล้วค่อยน้ำหนักทั้งหมด (กลับกับความเคยชิน "น้ำหนัก, มูลค่า")
+- **หารจำนวนเต็ม:** `v * room / w` แบบ int ทำเศษหาย ให้อ่านทุกค่าเป็น `double`
+- **ปล่อยให้ room ติดลบ:** ลบ w ก่อนเช็กว่าใส่ได้ไหม ทำให้ room ติดลบ แล้ว "ส่วนที่หยิบ" v · room / w ของชิ้นถัดไปก็ติดลบตาม ให้เช็กก่อนแล้วค่อยหยิบ
+- **เป้ใหญ่กว่าของทั้งหมด:** ลูปจบโดยยังมีที่เหลือ คำตอบคือผลรวมราคาทั้งหมด (ชุดทดสอบที่สาม)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 13 fractional knapsack เป็นตัวอย่างมาตรฐานของปัญหาที่ greedy **ถูก** วางคู่กับ 0/1 knapsack ที่ greedy **ไม่ถูก** fractional knapsack เป็น linear program และ greedy ให้คำตอบที่ดีที่สุดของมันพอดี: มีตัวแปรอย่างมากหนึ่งตัวที่ค่าอยู่ระหว่าง 0 กับ 1 จริง ๆ แก้ได้ใน O(N) ด้วยซ้ำ โดยหา "ชิ้นที่ถูกตัด" ด้วยอัลกอริทึม selection แทนการเรียง

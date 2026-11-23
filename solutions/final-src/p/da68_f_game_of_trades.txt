@@ -1,0 +1,152 @@
+id: da68_f_game_of_trades
+group: final68
+lesson: 13 · Greedy (+ counting sort)
+stars: 2
+complexity: O(N · M + 1000)
+kind: program
+tags: greedy, best and second-best buyer, profit per unit, counting sort by profit, long long, fast input
+title: Game of trade
+title_th: เกมซื้อขายของ (Game of Trade)
+blurb: N NPCs, M goods: buy item j from NPC i at X, sell it to any other NPC at Y, at most K units in total. Every unit's best profit is (best buyer other than the seller) − X; keep the best and second-best buyer per item, bucket the units by profit (1..999), and take the K most profitable.
+blurb_th: มี NPC N ตัว สินค้า M ชนิด ซื้อสินค้า j จาก NPC i ที่ราคา X แล้วขายให้ NPC ตัวอื่นที่ราคา Y ซื้อรวมได้ไม่เกิน K ชิ้น กำไรที่ดีที่สุดของแต่ละชิ้นคือ (ผู้ซื้อที่ดีที่สุดที่ไม่ใช่คนขาย) − X เก็บผู้ซื้ออันดับหนึ่งและอันดับสองของแต่ละสินค้า แบ่งถังตามกำไร (1..999) แล้วหยิบ K ชิ้นที่กำไรสูงสุด
+files: sol/da68_f_game_of_trades/main.cpp
+tests: both PDF samples and a single NPC (nobody to sell to → 0); 300 random inputs (N ≤ 4, M ≤ 3, K ≤ 8) against a Python search over every way to buy up to K units; N = M = 1,000 with K = 10⁹ (3 × 10⁶ numbers of input) in 0.16 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และ NPC ตัวเดียว (ไม่มีใครให้ขาย → 0); สุ่ม 300 ชุด (N ≤ 4, M ≤ 3, K ≤ 8) เทียบกับการค้นหาใน Python ที่ลองทุกวิธีซื้อไม่เกิน K ชิ้น; N = M = 1,000 กับ K = 10⁹ (input 3 × 10⁶ ตัวเลข) ใช้ 0.16 วินาที
+==== en
+## 1. What the problem says
+There are N NPCs and M kinds of goods (1 ≤ N, M ≤ 1,000). NPC i **sells** item j to Tack for X[i][j], **buys** item j from Tack for Y[i][j], and has Z[i][j] units of it in stock. Tack can borrow any amount of money, buys **at most K units in total** (0 ≤ K ≤ 10⁹), and only then sells. He may **not** sell an item back to the NPC he bought it from. Print the largest possible profit.
+
+Input: `N M K`, then N lines of X, N lines of Y, N lines of Z (each line has M numbers).
+
+Sample 1 (N = 3, M = 2, K = 3) → **14**: buy item 2 from NPC 2 (price 1) and two units of item 2 from NPC 3 (price 3), and sell all three to NPC 1 for 7 each: 21 − 7 = 14.
+
+## 2. What it really means
+Units do not interact: buying one unit never changes the price of another. So every single unit has its own best profit:
+
+**profit(i, j) = (the highest Y[·][j] among NPCs other than i) − X[i][j]**
+
+and Tack should simply take the K units with the largest positive profits. The only care needed is "other than i": keep the **best** and **second-best** buyer of each item; if the seller is the best buyer, use the second-best.
+
+```text
+sample 1      item 1                      item 2
+buyers Y      2, 1, 4   best 4 (NPC 3)    7, 3, 2   best 7 (NPC 1)
+                        2nd  2                      2nd  3
+
+seller i      sell to   profit  units     sell to   profit  units
+NPC 1         4         4−1 = 3   1       3         3−5 = −2  1
+NPC 2         4         4−2 = 2   2       7         7−1 = 6   1
+NPC 3         2         2−5 = −3  0       7         7−3 = 4   3
+
+take the K = 3 best units: 6, 4, 4  →  14
+```
+
+:::hint Hint 1
+Does buying one unit affect what another unit is worth? If not, each unit has a fixed profit. How would you find the best profit of one unit of item j bought from NPC i?
+:::
+:::hint Hint 2
+For each item, remember the highest and second-highest buying price and who offers the highest. A unit from seller i sells for the highest price unless i is that buyer, then for the second-highest. Profits are integers from −999 to 999: count units per profit in an array, then take from profit 999 downward until K units are used.
+:::
+
+## 3. What, why, how
+- **What:** compute every (profit, stock) pair, bucket by profit, and greedily take the K best units.
+- **Why greedy is optimal:** the total profit is a sum over the bought units, each unit's profit is fixed, and the only constraint is the count K. Taking the K largest values of a list maximises the sum: swapping any taken unit for a better untaken one can only increase it. Negative-profit units are never taken (K is "at most").
+- **Why best and second-best is enough:** the best buyer excluding i is the overall best unless i is that buyer, in which case it is the second-best. Equal prices are handled automatically (if two NPCs tie for best, the second-best equals the best).
+- **How:**
+  - One pass per item j over i to find `best1`, `who1`, `best2`.
+  - For each i: `p = (i == who1 ? best2 : best1) − X[i][j]`; if p > 0, `units[p] += Z[i][j]`.
+  - From p = 999 down: take `min(K, units[p])`, add `take · p`, reduce K.
+- **Sizes:** units[p] can reach 10⁹ (10⁶ cells × 1,000) and the profit 10⁹ × 999 ≈ 10¹²: use `long long`.
+- **Cost:** O(N · M) to read and process 3 × 10⁶ numbers, plus 999 buckets. Reading dominates, so fast input is essential (the PDF says so).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1, the buckets after processing (only positive profits) and the greedy take with K = 3.
+
+| profit p | units[p] | taken | K left | profit so far |
+|---|---|---|---|---|
+| 6 | 1 | 1 | 2 | 6 |
+| 4 | 3 | 2 | 0 | 6 + 8 = **14** |
+| 3 | 1 | 0 | 0 | 14 |
+| 2 | 2 | 0 | 0 | 14 |
+
+## 5. Traps
+- **Selling back to the seller:** using the overall best buyer for every seller gives NPC 1's item-2 units a profit of 7 − 5 = 2 instead of −2, and more generally overestimates.
+- **Sorting 10⁶ (profit, stock) pairs** works (O(NM log NM)) but the 999-bucket count is simpler and faster.
+- **Expanding stock into single units:** up to 10⁹ units; never loop per unit.
+- **int overflow:** total units and profit need `long long`.
+- **K = 0:** the answer is 0; the loop condition `K > 0` handles it.
+- **Slow input:** 3 million numbers; add `ios_base::sync_with_stdio(0); cin.tie(NULL);` as the PDF requires.
+
+## 6. Background
+Lesson 13. The problem looks like a flow or knapsack problem, but because units are independent and the only limit is a count, it collapses to "take the K largest". The **best and second-best** trick (to answer "best excluding one element" for every element in O(1)) is worth remembering; prefix and suffix maxima do the same job when the excluded element is a position in an array.
+==== th
+## 1. โจทย์บอกอะไร
+มี NPC N ตัว และสินค้า M ชนิด (1 ≤ N, M ≤ 1,000) NPC ตัวที่ i **ขาย** สินค้า j ให้ Tack ที่ราคา X[i][j] **รับซื้อ** สินค้า j จาก Tack ที่ราคา Y[i][j] และมีสินค้านั้นในสต็อก Z[i][j] ชิ้น Tack ยืมเงินได้ไม่จำกัด ซื้อ **รวมไม่เกิน K ชิ้น** (0 ≤ K ≤ 10⁹) แล้วจึงขาย และ **ห้าม** ขายของคืนให้ NPC ที่ซื้อมา ให้พิมพ์กำไรที่มากที่สุด
+
+input: `N M K` แล้ว N บรรทัดของ X, N บรรทัดของ Y, N บรรทัดของ Z (บรรทัดละ M ตัว)
+
+ตัวอย่างที่ 1 (N = 3, M = 2, K = 3) → **14**: ซื้อสินค้า 2 จาก NPC 2 (ราคา 1) และสินค้า 2 อีกสองชิ้นจาก NPC 3 (ราคา 3) แล้วขายทั้งสามชิ้นให้ NPC 1 ชิ้นละ 7: 21 − 7 = 14
+
+## 2. จริง ๆ แล้วถามอะไร
+สินค้าแต่ละชิ้นไม่เกี่ยวกัน: การซื้อชิ้นหนึ่งไม่เปลี่ยนราคาของชิ้นอื่น สินค้าทุกชิ้นจึงมีกำไรที่ดีที่สุดของตัวเอง:
+
+**profit(i, j) = (Y[·][j] ที่สูงที่สุดในบรรดา NPC ที่ไม่ใช่ i) − X[i][j]**
+
+แล้ว Tack แค่หยิบ K ชิ้นที่กำไรบวกมากที่สุด จุดที่ต้องระวังมีแค่ "ไม่ใช่ i": เก็บผู้ซื้อ **อันดับหนึ่ง** และ **อันดับสอง** ของแต่ละสินค้า ถ้าคนขายเป็นผู้ซื้ออันดับหนึ่งเอง ให้ใช้อันดับสอง
+
+```text
+sample 1      item 1                      item 2
+buyers Y      2, 1, 4   best 4 (NPC 3)    7, 3, 2   best 7 (NPC 1)
+                        2nd  2                      2nd  3
+
+seller i      sell to   profit  units     sell to   profit  units
+NPC 1         4         4−1 = 3   1       3         3−5 = −2  1
+NPC 2         4         4−2 = 2   2       7         7−1 = 6   1
+NPC 3         2         2−5 = −3  0       7         7−3 = 4   3
+
+take the K = 3 best units: 6, 4, 4  →  14
+```
+
+:::hint คำใบ้ 1
+การซื้อชิ้นหนึ่งมีผลต่อมูลค่าของอีกชิ้นไหม ถ้าไม่มี แต่ละชิ้นก็มีกำไรคงที่ แล้วจะหากำไรที่ดีที่สุดของสินค้า j หนึ่งชิ้นที่ซื้อจาก NPC i อย่างไร
+:::
+:::hint คำใบ้ 2
+สำหรับแต่ละสินค้า จำราคารับซื้อสูงสุดและรองลงมา และจำว่าใครให้ราคาสูงสุด ชิ้นที่ซื้อจาก i ขายได้ราคาสูงสุด เว้นแต่ i คือผู้ซื้อคนนั้น จึงใช้ราคารองลงมา กำไรเป็นจำนวนเต็ม −999 ถึง 999: นับจำนวนชิ้นต่อกำไรลงอาเรย์ แล้วหยิบจากกำไร 999 ลงมาจนครบ K ชิ้น
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** คำนวณคู่ (กำไร, สต็อก) ทุกคู่ แบ่งถังตามกำไร แล้วหยิบ K ชิ้นที่ดีที่สุดแบบ greedy
+- **ทำไม greedy ดีที่สุด:** กำไรรวมคือผลบวกของชิ้นที่ซื้อ กำไรของแต่ละชิ้นคงที่ และข้อจำกัดเดียวคือจำนวน K การหยิบ K ค่าที่มากที่สุดจากรายการทำให้ผลรวมมากที่สุด: การสลับชิ้นที่หยิบกับชิ้นที่ดีกว่าที่ไม่ได้หยิบมีแต่ทำให้เพิ่มขึ้น ชิ้นที่กำไรติดลบไม่ถูกหยิบเลย (K คือ "ไม่เกิน")
+- **ทำไมอันดับหนึ่งและสองพอ:** ผู้ซื้อที่ดีที่สุดที่ไม่ใช่ i คืออันดับหนึ่งของทั้งหมด เว้นแต่ i คือคนนั้น ซึ่งจะเป็นอันดับสอง ราคาที่เท่ากันจัดการได้เอง (ถ้ามีสองคนเสมอที่อันดับหนึ่ง อันดับสองก็เท่ากับอันดับหนึ่ง)
+- **อย่างไร:**
+  - สินค้า j แต่ละชนิด วน i หนึ่งรอบเพื่อหา `best1`, `who1`, `best2`
+  - สำหรับแต่ละ i: `p = (i == who1 ? best2 : best1) − X[i][j]` ถ้า p > 0 ให้ `units[p] += Z[i][j]`
+  - จาก p = 999 ลงมา: หยิบ `min(K, units[p])` บวก `take · p` แล้วลด K
+- **ขนาด:** units[p] ถึง 10⁹ ได้ (10⁶ ช่อง × 1,000) และกำไรถึง 10⁹ × 999 ≈ 10¹² ใช้ `long long`
+- **ต้นทุน:** O(N · M) สำหรับอ่านและประมวลผลตัวเลข 3 × 10⁶ ตัว บวกถัง 999 ใบ การอ่านกินเวลาส่วนใหญ่ จึงต้องใช้ input เร็ว (PDF บอกไว้)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 ถังหลังประมวลผล (เฉพาะกำไรบวก) และการหยิบแบบ greedy เมื่อ K = 3
+
+| กำไร p | units[p] | หยิบ | K ที่เหลือ | กำไรสะสม |
+|---|---|---|---|---|
+| 6 | 1 | 1 | 2 | 6 |
+| 4 | 3 | 2 | 0 | 6 + 8 = **14** |
+| 3 | 1 | 0 | 0 | 14 |
+| 2 | 2 | 0 | 0 | 14 |
+
+## 5. จุดที่มักพลาด
+- **ขายคืนให้คนขาย:** ถ้าใช้ผู้ซื้ออันดับหนึ่งกับทุกคนขาย สินค้า 2 ของ NPC 1 จะได้กำไร 7 − 5 = 2 แทน −2 และโดยทั่วไปจะประเมินสูงเกินจริง
+- **เรียงคู่ (กำไร, สต็อก) 10⁶ คู่** ก็ใช้ได้ (O(NM log NM)) แต่การนับลงถัง 999 ใบง่ายและเร็วกว่า
+- **แตกสต็อกเป็นทีละชิ้น:** อาจถึง 10⁹ ชิ้น อย่าวนทีละชิ้น
+- **int ล้น:** จำนวนชิ้นรวมและกำไรต้องใช้ `long long`
+- **K = 0:** คำตอบคือ 0 เงื่อนไขลูป `K > 0` จัดการให้แล้ว
+- **input ช้า:** ตัวเลข 3 ล้านตัว ใส่ `ios_base::sync_with_stdio(0); cin.tie(NULL);` ตามที่ PDF กำหนด
+
+## 6. ความรู้พื้นฐาน
+บทที่ 13 โจทย์ดูเหมือนปัญหา flow หรือ knapsack แต่เพราะแต่ละชิ้นเป็นอิสระและข้อจำกัดเดียวคือจำนวน จึงยุบเหลือ "หยิบ K ตัวที่มากที่สุด" เทคนิค **อันดับหนึ่งและอันดับสอง** (ตอบ "ค่าที่ดีที่สุดเมื่อไม่นับตัวหนึ่ง" ให้ทุกตัวใน O(1)) ควรจำไว้ ถ้าตัวที่ไม่นับเป็นตำแหน่งในอาเรย์ ค่าสูงสุดของ prefix และ suffix ก็ทำงานเดียวกันได้

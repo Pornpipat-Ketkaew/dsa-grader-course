@@ -1,0 +1,93 @@
+chapter: greedy
+==== en
+## 1. The idea
+A **greedy** algorithm builds the answer one piece at a time and, at every step, takes the choice that looks best **right now**. It never goes back to change an earlier choice. That makes it short and fast, usually just "sort, then one loop".
+
+The catch: greedy is only correct when you can prove that the locally best choice is **always part of some optimal answer**. The standard proof is an **exchange argument**: take any optimal answer that disagrees with the greedy choice, swap in the greedy choice, and show the answer is not worse.
+
+```text
+classes sorted by finish time:   [1────5]
+                                      [4───7]          skip: starts before 5
+                                         [6────10]     keep: starts at 6 ≥ 5
+take the class that ends first: it leaves the most room for everything after it
+```
+
+## 2. The template
+```cpp
+// 1. decide the order in which items are considered
+sort(items.begin(), items.end(), byGreedyKey);   // finish time, value per kg, position, ...
+
+// 2. one pass: take each item if it still fits, never undo
+State s = empty;
+for (int i = 0; i < n; i++) {
+    if (fits(s, items[i])) s = add(s, items[i]);
+}
+```
+
+Everything clever is in **the sort key**. The loop itself is trivial.
+
+## 3. How to recognise it
+- "Maximum number of …" or "minimum number of …" with intervals, points or deadlines on a line.
+- Items can be **split** (fractional knapsack). If they cannot be split, greedy is usually wrong and you need [DP](#ch-dp).
+- A choice that "obviously can't hurt": the leftmost uncovered point must be covered by something, so cover it as far to the right as possible.
+- The limits are large (n up to 10⁵ or more), so only O(n log n) fits.
+
+## 4. Cost and pitfalls
+- Cost: O(n log n) for the sort plus O(n) for the pass.
+- **Wrong key:** "shortest class first" or "earliest start first" fail for interval scheduling. Test a key on a small counter-example before trusting it.
+- **0/1 knapsack is not greedy:** best ratio first fails when items cannot be split (W = 10, items (6 kg, 7), (5 kg, 5), (5 kg, 5): the ratio picks 7, the answer is 10).
+- **Proof or brute force:** if you cannot argue an exchange, compare with a brute force on random small inputs, as every page here does.
+- **Ties** in the sort key: check whether the order among equal keys matters.
+
+## 5. In this chapter
+- [Class selection](#ex04e1_interval): the classic activity selection, earliest finish first. It is also **a58_m_p4**.
+- [Buffet line](#a60b_mid_p1_buffet): cover points with intervals of fixed length, placing each lamp as far right as it can go.
+- [Fractional knapsack](#ex04e2_fknapsack): best value per kilogram first, the last item cut to fit.
+
+[3 values sort](#ex04m1_sort) in the sorting chapter and [Game of trade](#da68_f_game_of_trades) in the da68 final are greedy too.
+==== th
+## 1. ไอเดีย
+อัลกอริทึม **ละโมบ (greedy)** สร้างคำตอบทีละชิ้น และทุกขั้นจะเลือกสิ่งที่ดูดีที่สุด **ณ ตอนนั้น** โดยไม่ย้อนกลับไปแก้การเลือกก่อนหน้าเลย จึงสั้นและเร็ว ส่วนใหญ่เป็นแค่ "เรียง แล้ววนลูปรอบเดียว"
+
+ข้อควรระวัง: greedy ถูกต้องก็ต่อเมื่อพิสูจน์ได้ว่าการเลือกที่ดีที่สุดเฉพาะหน้า **เป็นส่วนหนึ่งของคำตอบที่ดีที่สุดบางคำตอบเสมอ** วิธีพิสูจน์มาตรฐานคือ **exchange argument**: หยิบคำตอบที่ดีที่สุดใด ๆ ที่ไม่ตรงกับการเลือกแบบ greedy แล้วสลับเอาตัวที่ greedy เลือกเข้าไปแทน และแสดงว่าคำตอบไม่แย่ลง
+
+```text
+classes sorted by finish time:   [1────5]
+                                      [4───7]          skip: starts before 5
+                                         [6────10]     keep: starts at 6 ≥ 5
+take the class that ends first: it leaves the most room for everything after it
+```
+
+## 2. โครงโค้ด
+```cpp
+// 1. decide the order in which items are considered
+sort(items.begin(), items.end(), byGreedyKey);   // finish time, value per kg, position, ...
+
+// 2. one pass: take each item if it still fits, never undo
+State s = empty;
+for (int i = 0; i < n; i++) {
+    if (fits(s, items[i])) s = add(s, items[i]);
+}
+```
+
+ความฉลาดทั้งหมดอยู่ที่ **เกณฑ์การเรียง** ส่วนลูปนั้นง่ายมาก
+
+## 3. ดูอย่างไรว่าใช่
+- "จำนวนมากที่สุดของ …" หรือ "จำนวนน้อยที่สุดของ …" กับช่วงเวลา จุด หรือกำหนดส่งบนเส้นตรง
+- ของ **แบ่งได้** (fractional knapsack) ถ้าแบ่งไม่ได้ greedy มักผิด ต้องใช้ [DP](#ch-dp)
+- การเลือกที่ "ไม่มีทางเสียหาย" ชัด ๆ: จุดซ้ายสุดที่ยังไม่ถูกครอบคลุมต้องมีอะไรมาครอบมันแน่ ๆ จึงครอบมันโดยวางให้ไปทางขวามากที่สุด
+- ขอบเขตใหญ่ (n ถึง 10⁵ หรือมากกว่า) จึงทำได้แค่ O(n log n)
+
+## 4. ต้นทุนและจุดพลาด
+- ต้นทุน: O(n log n) สำหรับการเรียง บวก O(n) สำหรับลูป
+- **เกณฑ์ผิด:** "คาบสั้นสุดก่อน" หรือ "เริ่มก่อนก่อน" ใช้ไม่ได้กับการจัดห้องเรียน ลองเกณฑ์กับตัวอย่างค้านเล็ก ๆ ก่อนเชื่อ
+- **0/1 knapsack ไม่ใช่ greedy:** เลือกอัตราส่วนดีที่สุดก่อนผิดเมื่อแบ่งของไม่ได้ (W = 10 ของ (6 kg, 7), (5 kg, 5), (5 kg, 5): อัตราส่วนเลือก 7 แต่คำตอบคือ 10)
+- **พิสูจน์ หรือเทียบกับ brute force:** ถ้าอธิบาย exchange ไม่ได้ ให้เทียบกับ brute force บน input เล็กแบบสุ่ม เหมือนที่ทุกหน้าในหนังสือนี้ทำ
+- **ค่าเท่ากัน** ในเกณฑ์การเรียง: เช็กว่าลำดับระหว่างตัวที่เท่ากันมีผลหรือไม่
+
+## 5. ในบทนี้
+- [Class selection](#ex04e1_interval): การเลือกกิจกรรมแบบคลาสสิก เลือกคาบที่จบก่อนก่อน และเป็นข้อเดียวกับ **a58_m_p4**
+- [Buffet line](#a60b_mid_p1_buffet): ครอบจุดด้วยช่วงยาวคงที่ วางหลอดไฟแต่ละดวงให้ไปทางขวามากที่สุดเท่าที่ทำได้
+- [Fractional knapsack](#ex04e2_fknapsack): เลือกมูลค่าต่อกิโลกรัมสูงสุดก่อน ชิ้นสุดท้ายตัดให้พอดี
+
+[3 values sort](#ex04m1_sort) ในบทการเรียงลำดับ และ [Game of trade](#da68_f_game_of_trades) ในบท da68 final ก็เป็น greedy เช่นกัน

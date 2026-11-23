@@ -1,0 +1,138 @@
+id: da68_f2_remaining_merge
+group: final68
+lesson: 09 · Sorting (merge sort) + 12 · Divide & conquer
+stars: 1
+complexity: O(N log N)
+kind: program
+tags: merge sort, simulation, count leftover appends, ties go left, divide and conquer
+title: Remaining merge
+title_th: นับส่วนที่เหลือตอน merge (Remaining Merge)
+blurb: Run the given merge sort on N ≤ 200,000 numbers and count how many times the two "copy what is left" loops (lines 11 and 14 of merge) append an element. Just implement merge sort exactly as written and count; O(N log N).
+blurb_th: รัน merge sort ตาม pseudocode กับตัวเลข N ≤ 200,000 ตัว แล้วนับว่าลูป "คัดลอกส่วนที่เหลือ" สองลูป (บรรทัด 11 และ 14 ของ merge) ต่อสมาชิกกี่ครั้ง แค่เขียน merge sort ให้ตรงตามที่ให้มาแล้วนับ O(N log N)
+files: sol/da68_f2_remaining_merge/main.cpp
+tests: all three PDF samples and N = 1; 300 random arrays (N ≤ 12, values −3..3, many ties) against a line-by-line Python copy of the pseudocode; N = 200,000 random values in 0.03 s.
+tests_th: ตัวอย่างทั้งสามชุดใน PDF และ N = 1; สุ่มอาเรย์ 300 ชุด (N ≤ 12 ค่า −3..3 มีค่าซ้ำเยอะ) เทียบกับการแปล pseudocode ทีละบรรทัดใน Python; N = 200,000 ค่าสุ่มใช้ 0.03 วินาที
+==== en
+## 1. What the problem says
+The PDF gives a merge sort in pseudocode. `merge(A, l, m, r)` first takes the smaller front element of the two halves while **both** are non-empty (on a tie, `A[i] ≤ A[j]`, the left one), then **line 11** appends what is left of the left half and **line 14** appends what is left of the right half. For an array of N integers (N ≤ 200,000, |a[i]| ≤ 10⁹), print **how many times lines 11 and 14 run in total** while sorting.
+
+Samples: `3 1 2` → **2**; `0 1 1 0 1` → **4**; seven zeros → **9**.
+
+## 2. What it really means
+Each merge ends the main loop as soon as one half runs out; the other half still has a **tail**, and every element of that tail is one run of line 11 or line 14. So the answer is the sum of the tail lengths over all merges. With N ≤ 200,000 there is no need for a formula: run the merge sort and count.
+
+```text
+sample 2: 0 1 1 0 1           split at m = (l + r) / 2
+
+merge [0] [1]       main loop takes 0, left empty    tail [1]       → 1
+merge [0 1] [1]     takes 0, then 1 (tie → left)     tail [1]       → 1
+merge [0] [1]       takes 0                          tail [1]       → 1
+merge [0 1 1] [0 1] takes 0, 0, 1, 1 (ties → left)   tail [1]       → 1
+total 4
+```
+
+:::hint Hint 1
+How large is N, and how fast is merge sort itself? Do you need anything cleverer than running it?
+:::
+:::hint Hint 2
+Copy the pseudocode faithfully, including the tie rule `A[i] <= A[j]`, and add a counter in the two leftover loops. Use a temporary array allocated once, not a new vector in every merge.
+:::
+
+## 3. What, why, how
+- **What:** an exact implementation of the given merge sort with a counter.
+- **Why simulation is enough:** merge sort costs O(N log N) ≈ 200,000 × 18 = 3.6 × 10⁶ steps, far below the limit. The count is a side effect of the run.
+- **Why the details matter:** the count depends on **which half runs out first**, which depends on the tie rule (≤ takes the left element on a tie) and on the split m = ⌊(l + r) / 2⌋. Change either and the count changes. Seven zeros: with ≤ the left half always empties first and the whole right half is the tail, giving 9; with < the right half would empty first and the count would be 11.
+- **How:**
+  - Global `A` and `B` of size N; `merge(l, m, r)` writes into `B[l..r]`, then copies back.
+  - `counter++` inside the two leftover loops only.
+  - `mergeSort(0, N − 1)`, print counter (it is at most N log N, but `long long` is free).
+- **Recursion depth** is only log₂ N ≈ 18, so recursion is safe here.
+- **Cost:** O(N log N) time, O(N) memory.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 3, seven zeros (indices 0..6). Every tie goes left, so the left half always empties first and the right half's length is the tail.
+
+| merge (l, m, r) | left half | right half | tail = right length |
+|---|---|---|---|
+| (0, 0, 1) | 1 | 1 | 1 |
+| (2, 2, 3) | 1 | 1 | 1 |
+| (0, 1, 3) | 2 | 2 | 2 |
+| (4, 4, 5) | 1 | 1 | 1 |
+| (4, 5, 6) | 2 | 1 | 1 |
+| (0, 3, 6) | 4 | 3 | 3 |
+| total | | | **9** |
+
+## 5. Traps
+- **Using < instead of ≤:** the PDF's line 4 is `A[i] ≤ A[j]`. With `<`, sample 3 prints 11.
+- **Using std::sort and a formula:** the count depends on how this exact merge sort splits and breaks ties; reproduce it.
+- **Allocating a new vector in every merge:** 200,000 allocations make it several times slower; allocate B once.
+- **Counting the main loop's appends** too: only lines 11 and 14 count.
+- **0- vs 1-based indices:** the split ⌊(l + r) / 2⌋ gives the same half sizes either way as long as you are consistent; the brute force uses 1-based indices like the PDF and agrees on all tests.
+
+## 6. Background
+Lessons 9 and 12. Instrumenting an algorithm (counting comparisons, moves or particular lines) is a standard exam task that checks you can implement it **exactly**, not just "a sort". The same counting idea gives the number of inversions: count, in the main loop, how many left elements remain each time a right element is taken. Compare [Insertion sort count](#a66_q2a_insertion_count) in the sorting chapter.
+==== th
+## 1. โจทย์บอกอะไร
+PDF ให้ merge sort เป็น pseudocode `merge(A, l, m, r)` จะหยิบสมาชิกตัวหน้าที่น้อยกว่าของสองครึ่งขณะที่ **ทั้งสอง** ครึ่งยังไม่ว่าง (ถ้าเท่ากัน `A[i] ≤ A[j]` หยิบฝั่งซ้าย) แล้ว **บรรทัด 11** ต่อสิ่งที่เหลือของครึ่งซ้าย และ **บรรทัด 14** ต่อสิ่งที่เหลือของครึ่งขวา สำหรับอาเรย์จำนวนเต็ม N ตัว (N ≤ 200,000, |a[i]| ≤ 10⁹) ให้พิมพ์ **จำนวนครั้งที่บรรทัด 11 และ 14 ทำงานรวมกัน** ตลอดการเรียง
+
+ตัวอย่าง: `3 1 2` → **2**; `0 1 1 0 1` → **4**; ศูนย์เจ็ดตัว → **9**
+
+## 2. จริง ๆ แล้วถามอะไร
+merge แต่ละครั้งจบลูปหลักทันทีที่ครึ่งหนึ่งหมด อีกครึ่งยังมี **หาง** เหลืออยู่ และสมาชิกทุกตัวในหางนั้นคือการทำงานหนึ่งครั้งของบรรทัด 11 หรือ 14 คำตอบจึงเป็นผลรวมความยาวหางของทุกการ merge เมื่อ N ≤ 200,000 ไม่ต้องหาสูตร: รัน merge sort แล้วนับ
+
+```text
+sample 2: 0 1 1 0 1           split at m = (l + r) / 2
+
+merge [0] [1]       main loop takes 0, left empty    tail [1]       → 1
+merge [0 1] [1]     takes 0, then 1 (tie → left)     tail [1]       → 1
+merge [0] [1]       takes 0                          tail [1]       → 1
+merge [0 1 1] [0 1] takes 0, 0, 1, 1 (ties → left)   tail [1]       → 1
+total 4
+```
+
+:::hint คำใบ้ 1
+N ใหญ่แค่ไหน และ merge sort เองเร็วแค่ไหน ต้องการอะไรที่ฉลาดกว่าการรันมันจริงไหม
+:::
+:::hint คำใบ้ 2
+แปล pseudocode ให้ตรงทุกรายละเอียด รวมถึงกฎเท่ากัน `A[i] <= A[j]` แล้วเพิ่มตัวนับในสองลูปที่คัดลอกส่วนที่เหลือ ใช้อาเรย์ชั่วคราวที่สร้างครั้งเดียว ไม่ใช่สร้าง vector ใหม่ทุกครั้งที่ merge
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** เขียน merge sort ตามที่ให้มาให้ตรงทุกอย่าง พร้อมตัวนับ
+- **ทำไมจำลองก็พอ:** merge sort ใช้ O(N log N) ≈ 200,000 × 18 = 3.6 × 10⁶ ขั้น ต่ำกว่าขีดจำกัดมาก จำนวนที่นับเป็นผลพลอยได้จากการรัน
+- **ทำไมรายละเอียดสำคัญ:** จำนวนขึ้นกับว่า **ครึ่งไหนหมดก่อน** ซึ่งขึ้นกับกฎเท่ากัน (≤ หยิบฝั่งซ้ายเมื่อเท่ากัน) และจุดแบ่ง m = ⌊(l + r) / 2⌋ เปลี่ยนอย่างใดอย่างหนึ่งจำนวนก็เปลี่ยน ศูนย์เจ็ดตัว: เมื่อใช้ ≤ ครึ่งซ้ายหมดก่อนเสมอ ครึ่งขวาทั้งหมดเป็นหาง ได้ 9 ถ้าใช้ < ครึ่งขวาจะหมดก่อนและได้ 11
+- **อย่างไร:**
+  - `A` และ `B` ทั่วทั้งโปรแกรมขนาด N `merge(l, m, r)` เขียนลง `B[l..r]` แล้วคัดลอกกลับ
+  - `counter++` เฉพาะในสองลูปที่คัดลอกส่วนที่เหลือ
+  - `mergeSort(0, N − 1)` แล้วพิมพ์ counter (ไม่เกิน N log N แต่ใช้ `long long` ก็ไม่เสียอะไร)
+- **ความลึกของ recursion** แค่ log₂ N ≈ 18 จึงใช้ recursion ได้อย่างปลอดภัย
+- **ต้นทุน:** เวลา O(N log N) หน่วยความจำ O(N)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 3 ศูนย์เจ็ดตัว (index 0..6) ทุกครั้งที่เท่ากันหยิบฝั่งซ้าย ครึ่งซ้ายจึงหมดก่อนเสมอ และความยาวของครึ่งขวาคือหาง
+
+| merge (l, m, r) | ครึ่งซ้าย | ครึ่งขวา | หาง = ความยาวครึ่งขวา |
+|---|---|---|---|
+| (0, 0, 1) | 1 | 1 | 1 |
+| (2, 2, 3) | 1 | 1 | 1 |
+| (0, 1, 3) | 2 | 2 | 2 |
+| (4, 4, 5) | 1 | 1 | 1 |
+| (4, 5, 6) | 2 | 1 | 1 |
+| (0, 3, 6) | 4 | 3 | 3 |
+| รวม | | | **9** |
+
+## 5. จุดที่มักพลาด
+- **ใช้ < แทน ≤:** บรรทัด 4 ใน PDF คือ `A[i] ≤ A[j]` ถ้าใช้ `<` ตัวอย่างที่ 3 จะพิมพ์ 11
+- **ใช้ std::sort แล้วหาสูตร:** จำนวนขึ้นกับว่า merge sort ตัวนี้แบ่งและตัดสินค่าเท่ากันอย่างไร ต้องทำตามให้ตรง
+- **สร้าง vector ใหม่ทุกครั้งที่ merge:** 200,000 ครั้งทำให้ช้าลงหลายเท่า สร้าง B ครั้งเดียว
+- **นับการต่อในลูปหลัก** ด้วย: นับเฉพาะบรรทัด 11 และ 14
+- **index เริ่มที่ 0 หรือ 1:** จุดแบ่ง ⌊(l + r) / 2⌋ ให้ขนาดครึ่งเท่ากันทั้งสองแบบถ้าใช้อย่างสม่ำเสมอ brute force ใช้ index เริ่มที่ 1 แบบ PDF และให้ผลตรงกันทุกชุดทดสอบ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 9 และ 12 การใส่ตัวนับในอัลกอริทึม (นับการเปรียบเทียบ การย้าย หรือบรรทัดที่กำหนด) เป็นงานมาตรฐานของข้อสอบ เพื่อตรวจว่าเขียนอัลกอริทึมได้ **ตรงเป๊ะ** ไม่ใช่แค่ "เรียงได้" ไอเดียการนับเดียวกันให้จำนวน inversion: ในลูปหลัก ทุกครั้งที่หยิบฝั่งขวา ให้นับว่าฝั่งซ้ายยังเหลือกี่ตัว เทียบกับข้อ [Insertion sort count](#a66_q2a_insertion_count) ในบทการเรียงลำดับ

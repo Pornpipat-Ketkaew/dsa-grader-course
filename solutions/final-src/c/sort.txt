@@ -38,10 +38,11 @@ int  sum(int v)  { int s = 0; for (int i = v; i > 0; i -= i & -i) s += bit[i]; r
 - `lower_bound` = first element ≥ x; `upper_bound` = first element > x. Mixing them up is an off-by-one.
 
 ## 5. In this chapter
+- [3 values sort](#ex04m1_sort): the fewest swaps, found by counting values per zone instead of sorting.
 - [Huge array](#a65_q2a_huge_array): sort compressed groups, prefix sums, one binary search per query.
 - [Insertion sort count](#a66_q2a_insertion_count): what insertion sort really does, counted per element with a Fenwick tree.
 
-The binary search here leads straight into the next chapter, [Divide & conquer](#ch-dc).
+[Remaining merge](#da68_f2_remaining_merge) in the da68 final runs merge sort with a counter. The binary search here leads straight into the next chapter, [Divide & conquer](#ch-dc).
 ==== th
 ## 1. ไอเดีย
 การเรียงลำดับไม่ค่อยเป็นคำตอบทั้งหมด มันคือ **ขั้นแรก** ที่ทำให้ส่วนที่เหลือง่าย: หลังเรียงแล้ว ค่าที่เท่ากันอยู่ติดกัน ตัวที่ k อยู่ที่ index k − 1 และ "มีกี่ตัวที่น้อยกว่า x" ก็คือ binary search
@@ -81,7 +82,8 @@ int  sum(int v)  { int s = 0; for (int i = v; i > 0; i -= i & -i) s += bit[i]; r
 - `lower_bound` = ตัวแรกที่ ≥ x; `upper_bound` = ตัวแรกที่ > x สลับกันเมื่อไหร่ก็คลาดไปหนึ่ง
 
 ## 5. ในบทนี้
+- [3 values sort](#ex04m1_sort): จำนวนการสลับน้อยที่สุด หาได้จากการนับค่าในแต่ละโซนแทนการเรียงจริง
 - [Huge array](#a65_q2a_huge_array): เรียงกลุ่มที่ถูกบีบอัด ทำ prefix sum แล้ว binary search หนึ่งครั้งต่อคำถาม
 - [Insertion sort count](#a66_q2a_insertion_count): insertion sort ทำอะไรจริง ๆ นับแยกรายตัวด้วย Fenwick tree
 
-binary search ในบทนี้พาไปสู่บทถัดไป [แบ่งแยกและเอาชนะ](#ch-dc) โดยตรง
+[Remaining merge](#da68_f2_remaining_merge) ใน da68 final รัน merge sort พร้อมตัวนับ ส่วน binary search ในบทนี้พาไปสู่บทถัดไป [แบ่งแยกและเอาชนะ](#ch-dc) โดยตรง

@@ -1,0 +1,152 @@
+id: a64_q3_shortest_start
+group: sp
+lesson: 17 · Shortest paths: Bellman–Ford (many sources)
+stars: 2
+complexity: O(n · m) worst case, usually far less
+kind: program
+tags: Bellman-Ford, negative edges, multi-source, virtual source, early stop, directed graph
+title: Shortest start
+title_th: เลือกจุดเริ่มที่ใกล้ที่สุด (Shortest Start)
+blurb: A directed graph with negative edges (no negative cycle) and k possible start nodes: the shortest distance from any of them to v. Give every start distance 0 at once (a hidden super-source) and run Bellman–Ford, stopping as soon as a round changes nothing.
+blurb_th: กราฟมีทิศทางที่มีเส้นน้ำหนักติดลบ (ไม่มีวงลบ) และมีจุดเริ่มที่เลือกได้ k จุด หาระยะสั้นที่สุดจากจุดเริ่มใดก็ได้ไปยัง v ให้ทุกจุดเริ่มมีระยะ 0 พร้อมกัน (เหมือนมีจุดเริ่มรวมที่ซ่อนอยู่) แล้วรัน Bellman–Ford และหยุดทันทีที่รอบไหนไม่มีอะไรเปลี่ยน
+files: sol/a64_q3_shortest_start/main.cpp
+tests: both PDF samples and a one-node graph; 300 random graphs (n ≤ 7, negative weights made safe with node potentials so no cycle is negative) against Floyd–Warshall in Python; n = 5,000, m = 100,000 on a DAG with weights −1000..1000 (0.02 s), and a 4,999-edge chain listed in the worst order for Bellman–Ford, so it needs about n rounds (0.16 s).
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และกราฟปมเดียว; สุ่มกราฟ 300 ชุด (n ≤ 7 น้ำหนักติดลบที่ทำให้ปลอดภัยด้วย potential ของปม จึงไม่มีวงลบ) เทียบกับ Floyd–Warshall ใน Python; n = 5,000, m = 100,000 บน DAG น้ำหนัก −1000..1000 (0.02 วินาที) และโซ่ 4,999 เส้นที่เรียงลำดับแย่ที่สุดสำหรับ Bellman–Ford จึงต้องใช้ราว n รอบ (0.16 วินาที)
+==== en
+## 1. What the problem says
+A directed graph has n nodes (0..n−1, n ≤ 5,000) and m weighted edges (m ≤ 100,000). Weights are between −1,000 and 1,000 and **may be negative**, but no cycle has a negative total. You may start at any of k given nodes and want to reach the goal v. Print the **shortest distance from any start to v**. At least one start can reach v.
+
+Input: `n m k`, then v, then the k start nodes, then m lines `a b w` (edge a → b).
+
+Sample 2: goal 5, starts 4 3 0 1 → **−2** (3 → 2 → 5 costs 2 + (−4)). Sample 1 → **2**.
+
+## 2. What it really means
+"Shortest from **any** of several starts" is one shortest-path problem from a single **super-source** S that has a 0-weight edge to every start. There is no need to build S: just set dist = 0 for all starts before the algorithm begins. Because weights can be negative, Dijkstra is not safe; **Bellman–Ford** is.
+
+```text
+starts (distance 0): 0, 1, 3, 4            goal: 5
+
+ 0 ──10──► 1 ──8──► 4
+           │ ╲
+           5   7
+           │     ╲
+           ▼       ▼
+           2 ◄──2── 3
+           │
+          -4
+           ▼
+           5
+
+from 1:  1 → 2 → 5  =  5 − 4  =  1
+from 3:  3 → 2 → 5  =  2 − 4  = −2   ← best
+```
+
+:::hint Hint 1
+How would you handle "start anywhere among these k nodes" if there were only one start? Add one imaginary node that reaches all k starts for free.
+:::
+:::hint Hint 2
+Some edges are negative, so use Bellman–Ford: set dist = 0 for every start, INF elsewhere, then relax all edges round after round. Stop early when a whole round changes nothing; n − 1 rounds is the maximum.
+:::
+
+## 3. What, why, how
+- **What:** multi-source Bellman–Ford with an early stop.
+- **Why initialising all starts to 0 is right:** it is exactly the state after relaxing the edges S → start in the first round of a run from S. Everything after that is ordinary Bellman–Ford, so dist[x] ends as the minimum over starts of the distance start → x.
+- **Why not Dijkstra:** it fixes a node's distance when the node is taken from the queue, assuming no later path can be cheaper. A negative edge breaks that assumption: in sample 2, node 2 would be fixed at 5 (via 1) before 3 → 2 with weight 2 is seen.
+- **How:**
+  - Store edges in an array of (a, b, w).
+  - Repeat up to n − 1 rounds: for every edge with dist[a] ≠ INF, if dist[a] + w < dist[b] then improve dist[b] and remember that something changed. If nothing changed, stop.
+  - Print dist[v].
+- **Why n − 1 rounds suffice:** with no negative cycle a shortest path is simple, so it has at most n − 1 edges, and round r fixes every shortest path of r edges.
+- **Cost:** worst case (n − 1) · m = 5 × 10⁸ simple steps, but the early stop usually ends after a few rounds. Even our worst-order chain (about n rounds) took 0.16 s.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2, edges in input order 0→1 (10), 1→2 (5), 1→3 (7), 2→5 (−4), 3→2 (2), 1→4 (8). Starts 0, 1, 3, 4 begin at 0.
+
+| round | improvements, in order | dist[2] | dist[5] |
+|---|---|---|---|
+| start | | INF | INF |
+| 1 | 1→2: 5; 2→5: 5 − 4 = 1; 3→2: 0 + 2 = 2 | 2 | 1 |
+| 2 | 2→5: 2 − 4 = −2 | 2 | −2 |
+| 3 | nothing changes → stop | 2 | **−2** |
+
+## 5. Traps
+- **Relaxing from INF:** `INF + (−4)` is still "infinite" but smaller than INF, and can spread garbage. Skip edges whose start is unreachable.
+- **Running Bellman–Ford once per start:** k · n · m = 2.5 × 10¹² in the worst case. One multi-source run is enough.
+- **Reversing the graph and starting from v** also works (then take the minimum over the starts), but it is easy to forget to reverse the edge directions.
+- **Dijkstra "because the graph has no negative cycle":** no negative cycle is not the same as no negative edge.
+- **Input size:** 100,000 edge lines; use `ios_base::sync_with_stdio(false)` as the PDF says.
+
+## 6. Background
+Lesson 17. The "super-source" trick turns many problems into one: multi-source BFS in [Pandemic](#a62_q2a_pandemic), multi-source Dijkstra in [Hacking](#a58_q3_p3a_hacking), and here multi-source Bellman–Ford. The same trick is the first step of Johnson's algorithm (all-pairs shortest paths with negative edges), where a Bellman–Ford from a super-source computes node potentials that make every edge non-negative, so Dijkstra can then be used.
+==== th
+## 1. โจทย์บอกอะไร
+กราฟมีทิศทางมี n ปม (0..n−1, n ≤ 5,000) และ m เส้นเชื่อมมีน้ำหนัก (m ≤ 100,000) น้ำหนักอยู่ระหว่าง −1,000 ถึง 1,000 และ **อาจติดลบ** แต่ไม่มีวงไหนที่ผลรวมติดลบ เราเริ่มได้จากปมใดก็ได้ใน k ปมที่กำหนด และต้องการไปถึงปมเป้าหมาย v ให้พิมพ์ **ระยะสั้นที่สุดจากจุดเริ่มใดก็ได้ไป v** รับประกันว่ามีจุดเริ่มอย่างน้อยหนึ่งจุดไปถึง v ได้
+
+input: `n m k` แล้ว v แล้วปมเริ่มทั้ง k ปม แล้วอีก m บรรทัด `a b w` (เส้น a → b)
+
+ตัวอย่างที่ 2: เป้าหมาย 5 จุดเริ่ม 4 3 0 1 → **−2** (3 → 2 → 5 ใช้ 2 + (−4)) ตัวอย่างที่ 1 → **2**
+
+## 2. จริง ๆ แล้วถามอะไร
+"สั้นที่สุดจากจุดเริ่ม **ใดก็ได้** ในหลายจุด" คือปัญหาเส้นทางสั้นสุดปัญหาเดียวจาก **super-source** S ที่มีเส้นน้ำหนัก 0 ไปยังทุกจุดเริ่ม ไม่ต้องสร้าง S จริง แค่ตั้ง dist = 0 ให้ทุกจุดเริ่มก่อนเริ่มอัลกอริทึม และเพราะน้ำหนักติดลบได้ Dijkstra จึงไม่ปลอดภัย ต้องใช้ **Bellman–Ford**
+
+```text
+starts (distance 0): 0, 1, 3, 4            goal: 5
+
+ 0 ──10──► 1 ──8──► 4
+           │ ╲
+           5   7
+           │     ╲
+           ▼       ▼
+           2 ◄──2── 3
+           │
+          -4
+           ▼
+           5
+
+from 1:  1 → 2 → 5  =  5 − 4  =  1
+from 3:  3 → 2 → 5  =  2 − 4  = −2   ← best
+```
+
+:::hint คำใบ้ 1
+ถ้ามีจุดเริ่มเดียวจะจัดการ "เริ่มที่ไหนก็ได้ใน k ปมนี้" อย่างไร ลองเพิ่มปมสมมติหนึ่งปมที่ไปถึงทั้ง k จุดเริ่มได้ฟรี
+:::
+:::hint คำใบ้ 2
+มีเส้นติดลบ จึงใช้ Bellman–Ford: ตั้ง dist = 0 ให้ทุกจุดเริ่ม และ INF ที่อื่น แล้ว relax ทุกเส้นรอบแล้วรอบเล่า หยุดก่อนได้เมื่อทั้งรอบไม่มีอะไรเปลี่ยน มากที่สุด n − 1 รอบ
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Bellman–Ford แบบหลายจุดเริ่ม พร้อมหยุดก่อนกำหนด
+- **ทำไมตั้งทุกจุดเริ่มเป็น 0 ถึงถูก:** มันคือสถานะหลัง relax เส้น S → จุดเริ่ม ในรอบแรกของการรันจาก S พอดี หลังจากนั้นก็เป็น Bellman–Ford ธรรมดา dist[x] ตอนจบจึงเป็นค่าน้อยสุดของระยะ จุดเริ่ม → x ในทุกจุดเริ่ม
+- **ทำไมไม่ใช้ Dijkstra:** Dijkstra ปักระยะของปมตอนดึงออกจากคิว โดยเชื่อว่าไม่มีเส้นทางหลังจากนั้นที่ถูกกว่า เส้นติดลบทำลายความเชื่อนี้: ในตัวอย่างที่ 2 ปม 2 จะถูกปักที่ 5 (ผ่าน 1) ก่อนจะเห็น 3 → 2 น้ำหนัก 2
+- **อย่างไร:**
+  - เก็บเส้นเป็นอาเรย์ของ (a, b, w)
+  - ทำซ้ำไม่เกิน n − 1 รอบ: ทุกเส้นที่ dist[a] ≠ INF ถ้า dist[a] + w < dist[b] ให้ปรับ dist[b] และจำว่ามีการเปลี่ยน ถ้าไม่มีอะไรเปลี่ยนให้หยุด
+  - พิมพ์ dist[v]
+- **ทำไม n − 1 รอบพอ:** เมื่อไม่มีวงลบ เส้นทางสั้นที่สุดเป็น simple path จึงมีไม่เกิน n − 1 เส้น และรอบที่ r ทำให้ทุกเส้นทางสั้นสุดที่มี r เส้นถูกต้อง
+- **ต้นทุน:** แย่สุด (n − 1) · m = 5 × 10⁸ ขั้นง่าย ๆ แต่การหยุดก่อนมักจบในไม่กี่รอบ แม้แต่โซ่ที่เรียงแย่ที่สุดของเรา (ราว n รอบ) ก็ใช้ 0.16 วินาที
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 เส้นตามลำดับ input 0→1 (10), 1→2 (5), 1→3 (7), 2→5 (−4), 3→2 (2), 1→4 (8) จุดเริ่ม 0, 1, 3, 4 เริ่มที่ 0
+
+| รอบ | การปรับค่า ตามลำดับ | dist[2] | dist[5] |
+|---|---|---|---|
+| เริ่ม | | INF | INF |
+| 1 | 1→2: 5; 2→5: 5 − 4 = 1; 3→2: 0 + 2 = 2 | 2 | 1 |
+| 2 | 2→5: 2 − 4 = −2 | 2 | −2 |
+| 3 | ไม่มีอะไรเปลี่ยน → หยุด | 2 | **−2** |
+
+## 5. จุดที่มักพลาด
+- **relax จาก INF:** `INF + (−4)` ยังเป็น "อนันต์" แต่น้อยกว่า INF และอาจกระจายค่าขยะไปทั่ว ให้ข้ามเส้นที่ปมต้นทางยังไปไม่ถึง
+- **รัน Bellman–Ford ทีละจุดเริ่ม:** k · n · m = 2.5 × 10¹² ในกรณีแย่สุด รันแบบหลายจุดเริ่มครั้งเดียวพอ
+- **กลับทิศกราฟแล้วเริ่มจาก v** ก็ใช้ได้ (แล้วเอาค่าน้อยสุดบนจุดเริ่ม) แต่ลืมกลับทิศเส้นได้ง่าย
+- **ใช้ Dijkstra "เพราะกราฟไม่มีวงลบ":** ไม่มีวงลบ ไม่ได้แปลว่าไม่มีเส้นลบ
+- **ขนาด input:** 100,000 บรรทัด ใช้ `ios_base::sync_with_stdio(false)` ตามที่ PDF บอก
+
+## 6. ความรู้พื้นฐาน
+บทที่ 17 เทคนิค "super-source" เปลี่ยนหลายปัญหาเป็นปัญหาเดียว: BFS หลายจุดเริ่มในข้อ [Pandemic](#a62_q2a_pandemic), Dijkstra หลายจุดเริ่มในข้อ [Hacking](#a58_q3_p3a_hacking) และที่นี่ Bellman–Ford หลายจุดเริ่ม เทคนิคเดียวกันเป็นขั้นแรกของอัลกอริทึมของ Johnson (เส้นทางสั้นสุดทุกคู่ที่มีเส้นติดลบ) ซึ่งใช้ Bellman–Ford จาก super-source คำนวณ potential ของปม เพื่อทำให้ทุกเส้นไม่ติดลบ แล้วจึงใช้ Dijkstra ได้

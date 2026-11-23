@@ -61,6 +61,8 @@ for (auto [c, a, b] : edges)
 ## 5. In this chapter
 - [Cable company](#ex06e1_cable): textbook MST on a complete graph, array Prim.
 - [Beautiful roads (XOR)](#a60a_q3_xor_road): a maximum spanning tree with weights computed on the fly.
+
+[Internet provider](#da68_f_internet_provider) in the da68 final is an MST with its K − 1 heaviest edges removed.
 ==== th
 ## 1. ไอเดีย
 **Spanning tree** เชื่อมทุก V ปมด้วยเส้น V − 1 เส้นพอดีโดยไม่มีวงวน **Minimum spanning tree (MST)** คือต้นที่น้ำหนักรวมน้อยที่สุด: วิธีที่ถูกที่สุดในการเชื่อมทุกอย่าง
@@ -123,3 +125,5 @@ for (auto [c, a, b] : edges)
 ## 5. ในบทนี้
 - [บริษัทสายเคเบิล](#ex06e1_cable): MST แบบตำราบนกราฟสมบูรณ์ ด้วย Prim แบบอาร์เรย์
 - [ถนนสวย (XOR)](#a60a_q3_xor_road): maximum spanning tree ที่คำนวณน้ำหนักระหว่างทาง
+
+[Internet provider](#da68_f_internet_provider) ใน da68 final คือ MST ที่ตัดเส้นที่หนักที่สุด K − 1 เส้นออก
