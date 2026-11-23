@@ -1,0 +1,146 @@
+id: ex04m1_sort
+group: sort
+lesson: 09 · Sorting + 13 · Greedy (counting swaps)
+stars: 2
+complexity: O(N)
+kind: program
+tags: minimum swaps, three values, counting, zones, 2-cycles and 3-cycles, greedy
+title: 3 values sort
+title_th: เรียงเลขสามค่าด้วยการสลับน้อยที่สุด (3 Values Sort)
+blurb: An array of 1s, 2s and 3s: find the fewest swaps that sort it. Count how many of each value sit in each value's zone; fix "each other's" pairs with one swap, then the remaining 3-cycles with two swaps per three.
+blurb_th: อาเรย์ที่มีแต่ 1, 2, 3 หาจำนวนการสลับน้อยที่สุดที่ทำให้เรียง นับว่าค่าแต่ละค่าไปอยู่ในโซนของค่าไหนกี่ตัว แก้คู่ที่ "อยู่ที่ของกันและกัน" ด้วยการสลับครั้งเดียว แล้วแก้วงสามตัวที่เหลือด้วยสองครั้งต่อสามตัว
+files: sol/ex04m1_sort/main.cpp
+tests: both PDF samples and the 3-cycle 3 1 2; 300 random arrays (N ≤ 8) against a Python BFS over all arrangements (the true minimum number of swaps); N = 100,000 in under 0.01 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และวงสามตัว 3 1 2; สุ่ม 300 ชุด (N ≤ 8) เทียบกับ BFS ใน Python บนทุกการจัดเรียง (จำนวนการสลับน้อยที่สุดจริง); N = 100,000 ใช้ไม่ถึง 0.01 วินาที
+==== en
+## 1. What the problem says
+An array of N elements (N ≤ 100,000) holds only the values 1, 2 and 3. One **swap** exchanges the elements at any two positions. Print the **smallest number of swaps** that sorts the array.
+
+Sample 1: `2 2 1 3 2 1 3` → **3**. Sample 2: an already sorted array → **0**.
+
+## 2. What it really means
+After sorting, the array is three **zones**: first all the 1s, then the 2s, then the 3s. Their sizes are the counts of each value. Each misplaced element sits in the wrong zone. Count, for every zone z and value v, how many v's are in zone z.
+
+```text
+array:   2 2 1 3 2 1 3          counts: 1 → 2, 2 → 3, 3 → 2
+zones:  |1 1|2 2 2|3 3|         zone of 1 = positions 0-1, of 2 = 2-4, of 3 = 5-6
+        |2 2|1 3 2|1 3|
+
+c[zone][value]     value 1  value 2  value 3
+zone 1                 0        2        0
+zone 2                 1        1        1
+zone 3                 1        0        1
+
+a 2 in zone 1 and a 1 in zone 2: one swap fixes both     → min(2, 1) = 1 swap
+left over: 2 in zone 1, 3 in zone 2, 1 in zone 3         → a 3-cycle: 2 swaps
+total 3
+```
+
+:::hint Hint 1
+You never need to look at the order **inside** a zone. What matters is only how many elements of each value are in each zone. Write that 3 × 3 table.
+:::
+:::hint Hint 2
+A 2 in the 1-zone and a 1 in the 2-zone can be fixed by **one** swap that puts both in place. Do as many of those as possible for each pair of zones. Whatever is left goes around in cycles of three, and three elements in a cycle need two swaps.
+:::
+
+## 3. What, why, how
+- **What:** build c[z][v], then answer = (number of 2-cycles) + 2 × (number of 3-cycles).
+- **Why this is the minimum:**
+  - One swap changes two positions, so it can put **at most two** elements in place. It does that only when the two elements are in each other's zone (a 2-cycle). Using every such pair first is never wrong: each fixes two elements with one swap, the best a swap can do.
+  - After that, for every pair of zones one direction is empty, so the misplaced elements form cycles 1 → 2 → 3 → 1 (or the reverse). In a 3-cycle no swap can fix two elements, so it needs at least two swaps, and two are enough (fix one, then the other two form a 2-cycle).
+- **How:**
+  - Count the values; zone boundaries are cnt[1] and cnt[1] + cnt[2].
+  - `two = min(c[1][2], c[2][1]) + min(c[1][3], c[3][1]) + min(c[2][3], c[3][2])`.
+  - `left` = all misplaced elements − 2 · two. `left` is always a multiple of 3; add `left / 3 * 2`.
+- **Cost:** O(N), one counting pass. No actual swapping is done.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1 (table from section 2).
+
+| step | value |
+|---|---|
+| misplaced elements (off the diagonal) | 2 + 1 + 1 + 1 = 5 |
+| pairs (1,2): min(c[1][2], c[2][1]) = min(2, 1) | 1 |
+| pairs (1,3): min(0, 1) | 0 |
+| pairs (2,3): min(1, 0) | 0 |
+| two | 1 |
+| left = 5 − 2 · 1 | 3 → one 3-cycle → 2 swaps |
+| answer 1 + 2 | **3** |
+
+## 5. Traps
+- **Counting misplaced elements and halving:** 3 1 2 has 3 misplaced elements, but needs 2 swaps, not 1.5 or 1.
+- **Simulating selection sort** with "swap with any element of the right value": the choice matters. A 2 sitting in zone 1 needs a 1; fetching that 1 from zone 3 instead of zone 2 puts one element in place where the same swap could have placed two. The counting formula avoids the choice entirely.
+- **Zone boundaries** come from the counts, not from fixed thirds of the array.
+- **Large N:** use fast input; the answer fits in `int`, but `long long` costs nothing.
+
+## 6. Background
+Lessons 9 and 13. In general, the minimum number of swaps to turn a permutation into another is n − (number of cycles). With repeated values the cycles are not fixed, and the greedy "take every 2-cycle first" is what makes the cycle count as large as possible. The problem is the classic USACO "Sorting a Three-Valued Sequence". With more values the rule is the same, minimum swaps = misplaced elements − the largest possible number of cycles, but finding that largest number takes more care.
+==== th
+## 1. โจทย์บอกอะไร
+อาเรย์ยาว N (N ≤ 100,000) มีแต่ค่า 1, 2 และ 3 การ **สลับ** หนึ่งครั้งคือสลับสมาชิกสองตำแหน่งใดก็ได้ ให้พิมพ์ **จำนวนการสลับน้อยที่สุด** ที่ทำให้อาเรย์เรียง
+
+ตัวอย่างที่ 1: `2 2 1 3 2 1 3` → **3** ตัวอย่างที่ 2: อาเรย์ที่เรียงอยู่แล้ว → **0**
+
+## 2. จริง ๆ แล้วถามอะไร
+หลังเรียงแล้วอาเรย์แบ่งเป็นสาม **โซน**: 1 ทั้งหมดก่อน แล้ว 2 แล้ว 3 ขนาดของแต่ละโซนคือจำนวนของค่านั้น สมาชิกที่อยู่ผิดที่ก็คือที่อยู่ผิดโซน ให้นับว่าในโซน z มีค่า v อยู่กี่ตัว สำหรับทุก z และ v
+
+```text
+array:   2 2 1 3 2 1 3          counts: 1 → 2, 2 → 3, 3 → 2
+zones:  |1 1|2 2 2|3 3|         zone of 1 = positions 0-1, of 2 = 2-4, of 3 = 5-6
+        |2 2|1 3 2|1 3|
+
+c[zone][value]     value 1  value 2  value 3
+zone 1                 0        2        0
+zone 2                 1        1        1
+zone 3                 1        0        1
+
+a 2 in zone 1 and a 1 in zone 2: one swap fixes both     → min(2, 1) = 1 swap
+left over: 2 in zone 1, 3 in zone 2, 1 in zone 3         → a 3-cycle: 2 swaps
+total 3
+```
+
+:::hint คำใบ้ 1
+ไม่ต้องสนใจลำดับ **ภายใน** โซนเลย ที่สำคัญมีแค่ว่าแต่ละโซนมีค่าแต่ละค่ากี่ตัว เขียนตาราง 3 × 3 นั้นออกมา
+:::
+:::hint คำใบ้ 2
+2 ที่อยู่ในโซนของ 1 กับ 1 ที่อยู่ในโซนของ 2 แก้ได้ด้วยการสลับ **ครั้งเดียว** ที่ทำให้ทั้งคู่เข้าที่ ทำแบบนี้ให้มากที่สุดสำหรับทุกคู่โซน ที่เหลือจะวนเป็นวงละสามตัว และสามตัวในวงต้องสลับสองครั้ง
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** สร้าง c[z][v] แล้วคำตอบ = (จำนวนวงสองตัว) + 2 × (จำนวนวงสามตัว)
+- **ทำไมน้อยที่สุด:**
+  - การสลับครั้งหนึ่งเปลี่ยนสองตำแหน่ง จึงทำให้เข้าที่ได้ **ไม่เกินสองตัว** และทำได้เฉพาะเมื่อสองตัวนั้นอยู่ในโซนของกันและกัน (วงสองตัว) การใช้คู่แบบนี้ให้หมดก่อนจึงไม่มีทางผิด: แต่ละคู่แก้สองตัวด้วยการสลับครั้งเดียว ซึ่งดีที่สุดที่การสลับทำได้แล้ว
+  - หลังจากนั้นทุกคู่โซนจะเหลือทิศเดียว สมาชิกที่ผิดที่จึงเป็นวง 1 → 2 → 3 → 1 (หรือกลับทิศ) ในวงสามตัวไม่มีการสลับไหนแก้ได้สองตัว จึงต้องอย่างน้อยสองครั้ง และสองครั้งก็พอ (แก้หนึ่งตัว แล้วอีกสองตัวกลายเป็นวงสองตัว)
+- **อย่างไร:**
+  - นับแต่ละค่า ขอบโซนคือ cnt[1] และ cnt[1] + cnt[2]
+  - `two = min(c[1][2], c[2][1]) + min(c[1][3], c[3][1]) + min(c[2][3], c[3][2])`
+  - `left` = จำนวนตัวที่ผิดที่ทั้งหมด − 2 · two ซึ่งหารด้วย 3 ลงตัวเสมอ แล้วบวก `left / 3 * 2`
+- **ต้นทุน:** O(N) นับรอบเดียว ไม่ต้องสลับจริงเลย
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 (ตารางจากหัวข้อ 2)
+
+| ขั้น | ค่า |
+|---|---|
+| ตัวที่ผิดที่ (นอกแนวทแยง) | 2 + 1 + 1 + 1 = 5 |
+| คู่ (1,2): min(c[1][2], c[2][1]) = min(2, 1) | 1 |
+| คู่ (1,3): min(0, 1) | 0 |
+| คู่ (2,3): min(1, 0) | 0 |
+| two | 1 |
+| left = 5 − 2 · 1 | 3 → วงสามตัวหนึ่งวง → สลับ 2 ครั้ง |
+| คำตอบ 1 + 2 | **3** |
+
+## 5. จุดที่มักพลาด
+- **นับตัวที่ผิดที่แล้วหารสอง:** 3 1 2 มีตัวผิดที่ 3 ตัว แต่ต้องสลับ 2 ครั้ง ไม่ใช่ 1.5 หรือ 1
+- **จำลอง selection sort** แบบ "สลับกับตัวที่มีค่าถูกตัวไหนก็ได้": การเลือกมีผล 2 ที่อยู่ในโซน 1 ต้องการ 1 มาแทน ถ้าไปเอา 1 จากโซน 3 แทนที่จะเอาจากโซน 2 การสลับครั้งนั้นจะทำให้เข้าที่ได้ตัวเดียว ทั้งที่ทำได้สองตัว สูตรนับจำนวนเลี่ยงการเลือกนี้ไปทั้งหมด
+- **ขอบโซน** มาจากจำนวนของแต่ละค่า ไม่ใช่แบ่งอาเรย์เป็นสามส่วนเท่า ๆ กัน
+- **N ใหญ่:** ใช้ input เร็ว คำตอบพอใน `int` แต่ใช้ `long long` ก็ไม่เสียอะไร
+
+## 6. ความรู้พื้นฐาน
+บทที่ 9 และ 13 โดยทั่วไป จำนวนการสลับน้อยที่สุดเพื่อเปลี่ยน permutation หนึ่งเป็นอีกอันคือ n − (จำนวนวง) เมื่อมีค่าซ้ำ วงไม่ได้ถูกกำหนดตายตัว และ greedy "เอาวงสองตัวให้หมดก่อน" คือสิ่งที่ทำให้จำนวนวงมากที่สุด โจทย์นี้คือ USACO คลาสสิก "Sorting a Three-Valued Sequence" ถ้ามีค่ามากกว่านี้ กฎยังเหมือนเดิม คือ การสลับน้อยสุด = จำนวนตัวที่ผิดที่ − จำนวนวงที่มากที่สุดที่เป็นไปได้ แต่การหาจำนวนวงที่มากที่สุดต้องคิดละเอียดขึ้น

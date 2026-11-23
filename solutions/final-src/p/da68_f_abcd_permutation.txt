@@ -1,0 +1,128 @@
+id: da68_f_abcd_permutation
+group: final68
+lesson: 11 · Recursion & backtracking
+stars: 1
+complexity: O(4ᴺ · N) at most
+kind: program
+tags: backtracking, strings with limited letters, lexicographic order, count first, output buffer
+title: ABCD permutation
+title_th: เรียงสับเปลี่ยน ABCD (ABCD Permutation)
+blurb: The da67 ABC permutation with a fourth letter: every string of length N ≤ 9 with at most a A's, b B's, c C's and d D's, count first, then the strings in dictionary order. Same backtracking, a loop over four letters.
+blurb_th: ข้อ ABC permutation ของ da67 ที่เพิ่มตัวอักษรที่สี่: ทุกสตริงยาว N ≤ 9 ที่มี A ไม่เกิน a ตัว B ไม่เกิน b ตัว C ไม่เกิน c ตัว D ไม่เกิน d ตัว พิมพ์จำนวนก่อน แล้วสตริงเรียงตามพจนานุกรม backtracking แบบเดิม แค่วนสี่ตัวอักษร
+files: sol/da68_f_abcd_permutation/main.cpp
+tests: all three PDF samples; 300 random inputs (N ≤ 5) against a Python filter over all 4ᴺ strings; N = 9 with no limits (262,144 lines) in under 0.01 s.
+tests_th: ตัวอย่างทั้งสามชุดใน PDF; สุ่ม 300 ชุด (N ≤ 5) เทียบกับการกรองทุกสตริง 4ᴺ แบบใน Python; N = 9 ไม่จำกัดตัวอักษร (262,144 บรรทัด) ใช้ไม่ถึง 0.01 วินาที
+==== en
+## 1. What the problem says
+Print every string of length N (1 ≤ N ≤ 9) over the letters A, B, C, D that uses **at most** a A's, b B's, c C's and d D's (0 ≤ a, b, c, d ≤ N). First the count P, then the P strings in dictionary order. As in the da67 version, a correct count alone earns 40 % of a test.
+
+Input: one line `N a b c d`.
+
+Samples: `2 2 2 1 0` → 8 (AA AB AC BA BB BC CA CB: no D, and CC is missing because c = 1); `5 3 0 2 0` → 10; `4 1 1 1 1` → 24 (all permutations of ABCD).
+
+## 2. What it really means
+Exactly [ABC permutation](#da67_f_abc_permutation) with one more letter. Fill positions left to right, try A, B, C, D in that order while copies are left; the output is automatically sorted.
+
+```text
+N = 2, at most A:2 B:2 C:1 D:0
+
+          A            B            C (C left 0)
+        / | \        / | \         / \
+      AA  AB  AC   BA  BB  BC    CA   CB          CC: no C left,  _D: no D at all
+count 8
+```
+
+:::hint Hint 1
+Reuse the three-letter recursion. What changes when there are four letters?
+:::
+:::hint Hint 2
+Only the loop bound: `for (c = 0; c < 4; c++)` with `left[4]`. Buffer the lines, print the count, then the buffer.
+:::
+
+## 3. What, why, how
+- **What:** backtracking over positions with `left[0..3]`, letters tried in alphabetical order.
+- **Why sorted:** same argument as before; the first differing position decides, and smaller letters are explored first.
+- **How:** identical to the da67 solution; `cur[pos] = 'A' + c`; at pos = N append `cur` and `'\n'` to `out` and count.
+- **Size:** at most 4⁹ = 262,144 lines of 10 bytes, 2.6 MB.
+- **Cost:** O(P · N).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1, `2 2 2 1 0` (left shown as A/B/C/D).
+
+| first letter | left after it | second letters tried | strings |
+|---|---|---|---|
+| A | 1/2/1/0 | A, B, C (D: none) | AA, AB, AC |
+| B | 2/1/1/0 | A, B, C | BA, BB, BC |
+| C | 2/2/0/0 | A, B (C, D: none) | CA, CB |
+| D | | none left | |
+
+P = **8**.
+
+## 5. Traps
+- **Using next_permutation** on a fixed multiset: works only when the limits add up to exactly N; sample 1 (limits add up to 5, N = 2) needs strings with different letter counts.
+- **Printing in the wrong order** (for example generating by letter counts first): the order must be pure dictionary order.
+- **Forgetting the count line** or printing it last.
+- **`endl` per line:** 262,144 flushes; use `'\n'` and one big write.
+
+## 6. Background
+Lesson 11. Exams reuse problems with small twists; recognising "this is last year's ABC with four letters" saves most of the time. If the alphabet grew to 26 letters, the same code with a loop of 26 works; only the output size limits N.
+==== th
+## 1. โจทย์บอกอะไร
+พิมพ์ทุกสตริงยาว N (1 ≤ N ≤ 9) บนตัวอักษร A, B, C, D ที่ใช้ A **ไม่เกิน** a ตัว B ไม่เกิน b ตัว C ไม่เกิน c ตัว และ D ไม่เกิน d ตัว (0 ≤ a, b, c, d ≤ N) พิมพ์จำนวน P ก่อน แล้วสตริงทั้ง P ตัวเรียงตามพจนานุกรม เหมือนเวอร์ชัน da67 ที่ถ้าจำนวนถูกอย่างเดียวได้ 40 % ของชุดทดสอบ
+
+input: หนึ่งบรรทัด `N a b c d`
+
+ตัวอย่าง: `2 2 2 1 0` → 8 (AA AB AC BA BB BC CA CB: ไม่มี D และไม่มี CC เพราะ c = 1); `5 3 0 2 0` → 10; `4 1 1 1 1` → 24 (ทุก permutation ของ ABCD)
+
+## 2. จริง ๆ แล้วถามอะไร
+เหมือนข้อ [ABC permutation](#da67_f_abc_permutation) ทุกอย่าง แค่มีตัวอักษรเพิ่มอีกตัว เติมตำแหน่งจากซ้ายไปขวา ลอง A, B, C, D ตามลำดับตราบใดที่ยังเหลือ output จะเรียงเอง
+
+```text
+N = 2, at most A:2 B:2 C:1 D:0
+
+          A            B            C (C left 0)
+        / | \        / | \         / \
+      AA  AB  AC   BA  BB  BC    CA   CB          CC: no C left,  _D: no D at all
+count 8
+```
+
+:::hint คำใบ้ 1
+ใช้ recursion แบบสามตัวอักษรซ้ำ มีอะไรเปลี่ยนเมื่อมีสี่ตัวอักษร
+:::
+:::hint คำใบ้ 2
+มีแค่ขอบของลูป: `for (c = 0; c < 4; c++)` กับ `left[4]` เก็บบรรทัดไว้ใน buffer พิมพ์จำนวน แล้วค่อยพิมพ์ buffer
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** backtracking ไล่ตำแหน่งพร้อม `left[0..3]` ลองตัวอักษรตามลำดับ
+- **ทำไมเรียงแล้ว:** เหตุผลเดิม ตำแหน่งแรกที่ต่างกันเป็นตัวตัดสิน และตัวอักษรที่เล็กกว่าถูกสำรวจก่อน
+- **อย่างไร:** เหมือนเฉลยของ da67 ทุกอย่าง `cur[pos] = 'A' + c` เมื่อ pos = N ต่อ `cur` และ `'\n'` เข้า `out` แล้วนับ
+- **ขนาด:** มากสุด 4⁹ = 262,144 บรรทัด บรรทัดละ 10 ไบต์ 2.6 MB
+- **ต้นทุน:** O(P · N)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 `2 2 2 1 0` (left แสดงเป็น A/B/C/D)
+
+| ตัวแรก | left หลังใช้ | ตัวที่สองที่ลอง | สตริง |
+|---|---|---|---|
+| A | 1/2/1/0 | A, B, C (D: ไม่มี) | AA, AB, AC |
+| B | 2/1/1/0 | A, B, C | BA, BB, BC |
+| C | 2/2/0/0 | A, B (C, D: ไม่เหลือ) | CA, CB |
+| D | | ไม่เหลือ | |
+
+P = **8**
+
+## 5. จุดที่มักพลาด
+- **ใช้ next_permutation** กับ multiset ที่ตายตัว: ใช้ได้เฉพาะเมื่อขอบบนรวมกันได้ N พอดี ตัวอย่างที่ 1 (ขอบบนรวมได้ 5, N = 2) ต้องการสตริงที่จำนวนตัวอักษรต่างกัน
+- **พิมพ์ผิดลำดับ** (เช่น สร้างตามจำนวนตัวอักษรก่อน): ลำดับต้องเป็นลำดับพจนานุกรมล้วน ๆ
+- **ลืมบรรทัดจำนวน** หรือพิมพ์ไว้ท้ายสุด
+- **`endl` ทุกบรรทัด:** flush 262,144 ครั้ง ใช้ `'\n'` และเขียนก้อนใหญ่ครั้งเดียว
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11 ข้อสอบมักนำโจทย์เก่ามาดัดแปลงเล็กน้อย การมองออกว่า "นี่คือ ABC ของปีที่แล้วที่มีสี่ตัวอักษร" ช่วยประหยัดเวลาได้เกือบทั้งหมด ถ้าตัวอักษรเพิ่มเป็น 26 ตัว โค้ดเดิมที่วน 26 รอบก็ใช้ได้ มีแค่ขนาดของ output ที่จำกัด N

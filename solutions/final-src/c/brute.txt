@@ -51,10 +51,14 @@ Three parts: a **base case** that records the answer, a **loop over choices** in
 ## 5. In this chapter
 - [Generate barcode](#ex00e4): binary strings with exactly A ones, pruning by "is there still room?".
 - [Consecutive ones](#ex00e5): all n-bit strings in order, carrying the current run length as extra state.
+- [n-Queen](#ex07e1_nqueen): one queen per row, O(1) attack checks with three boolean arrays.
 - [Permutation with constraint](#a64_q1_permu_before): permutations in lexicographic order with "a before b" rules, a used[] array and a local check.
+- [Tower defense](#a65_q1_tower_defense): every tower picks a target; a huge n that does not matter and a tiny k that does.
 - [Day cover](#a66_q1a_day_cover): try every subset of at most 20 students (invite or skip), with bitsets and pruning by the best answer so far.
+- [Path sum](#a64_q4_path_sum): every simple path in a 20-node graph, cut by an upper bound and an early exit.
+- [Graph coloring](#ex07e3_coloring): branch and bound with symmetry breaking and the DSATUR order.
 
-[Map walk](#da66_f1_map_walk), in the final-preparation chapter, is the same technique on a grid.
+[Map walk](#da66_f1_map_walk), [ABC permutation](#da67_f_abc_permutation) and [ABCD permutation](#da68_f_abcd_permutation), in the final chapters, use the same technique.
 ==== th
 ## 1. ไอเดีย
 **Brute force** คือ: แจกแจงทุกคำตอบที่เป็นไปได้แล้วตรวจทีละตัว เป็นวิธีแรกที่ควรนึกถึง และมักเป็นวิธีที่ถูกเมื่อ input เล็ก (n ≤ 10 สำหรับ permutation, n ≤ 20 สำหรับเซตย่อย)
@@ -105,9 +109,13 @@ void gen(int pos) {
 - **ความลึกของ recursion** เท่ากับจำนวนชั้น n ≤ 10⁴ ไม่เป็นไร เกินนั้นอันตราย
 
 ## 5. ในบทนี้
-- [Generate barcode](#ex00e4): สตริงไบนารีที่มีเลข 1 พอดี A ตัว ตัดกิ่งด้วย "ยังมีที่พอไหม"
-- [Consecutive ones](#ex00e5): สตริง n บิตทุกตัวตามลำดับ พกความยาวช่วงเลข 1 ปัจจุบันเป็นสถานะเพิ่ม
-- [Permutation with constraint](#a64_q1_permu_before): permutation ตามลำดับพจนานุกรมพร้อมกฎ "a มาก่อน b" ใช้ used[] และการเช็กเฉพาะจุด
-- [Day cover](#a66_q1a_day_cover): ลองทุกเซตย่อยของนิสิตไม่เกิน 20 คน (ชวนหรือข้าม) ใช้ bitset และตัดกิ่งด้วยคำตอบที่ดีที่สุดที่เจอแล้ว
+- [Generate barcode](#ex00e4): สตริงฐานสองที่มีเลข 1 พอดี A ตัว ตัดกิ่งด้วยคำถาม "ยังมีที่เหลือไหม"
+- [Consecutive ones](#ex00e5): ทุกสตริง n บิตตามลำดับ โดยพกความยาวของช่วงเลข 1 ปัจจุบันเป็น state เพิ่ม
+- [n-Queen](#ex07e1_nqueen): ราชินีแถวละตัว เช็กการโจมตีใน O(1) ด้วยอาเรย์ bool สามตัว
+- [Permutation with constraint](#a64_q1_permu_before): permutation ตามลำดับพจนานุกรมพร้อมกฎ "a มาก่อน b" ใช้อาเรย์ used[] และการเช็กเฉพาะจุด
+- [Tower defense](#a65_q1_tower_defense): ป้อมแต่ละป้อมเลือกเป้า n ที่ใหญ่มากไม่มีผล แต่ k ที่เล็กมากเป็นตัวกำหนด
+- [Day cover](#a66_q1a_day_cover): ลองทุกเซตย่อยของนิสิตไม่เกิน 20 คน (ชวนหรือข้าม) ด้วย bitset และตัดกิ่งด้วยคำตอบที่ดีที่สุดจนถึงตอนนี้
+- [Path sum](#a64_q4_path_sum): ทุก simple path ในกราฟ 20 ปม ตัดด้วยขอบบนและการหยุดก่อน
+- [Graph coloring](#ex07e3_coloring): branch and bound พร้อมการตัดสมมาตรและลำดับ DSATUR
 
-[Map walk](#da66_f1_map_walk) ในบทเตรียมสอบปลายภาคใช้เทคนิคเดียวกันบนตาราง
+[Map walk](#da66_f1_map_walk), [ABC permutation](#da67_f_abc_permutation) และ [ABCD permutation](#da68_f_abcd_permutation) ในบทข้อสอบปลายภาคใช้เทคนิคเดียวกัน

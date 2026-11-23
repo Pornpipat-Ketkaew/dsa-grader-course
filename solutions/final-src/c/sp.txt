@@ -74,8 +74,11 @@ for (int k = 0; k < n; k++)
 - [Columbia](#ex06e3_columbia): heap Dijkstra on a grid with costs on the cells.
 - [Hacking](#a58_q3_p3a_hacking): multi-source Dijkstra with vertex costs.
 - [Shortest path with negative edges](#ex06e2_shortest): Bellman–Ford and negative cycles anywhere.
+- [Shortest start](#a64_q3_shortest_start): Bellman–Ford from many starts at once, with an early stop.
 - [Exchange](#ex06m2_exchange): arbitrage as a negative cycle after −log.
 - [Expressway](#a65_q3a_expressway): reading an answer after every Floyd–Warshall phase.
+
+In the final chapters, [Travelling tourist](#da67_f_travelling_tourist) runs Dijkstra from each site, and [Closed city](#da68_f2_closed_city) deletes closed nodes before Dijkstra.
 ==== th
 ## 1. ไอเดีย
 **เส้นทางสั้นสุด** ทำให้น้ำหนักรวมของเส้นทางน้อยที่สุด จะใช้อัลกอริทึมไหนขึ้นกับสองคำถาม: **มีจุดเริ่มกี่จุด** และ **น้ำหนักติดลบได้ไหม**
@@ -151,5 +154,8 @@ for (int k = 0; k < n; k++)
 - [Columbia](#ex06e3_columbia): Dijkstra แบบ heap บนตารางที่ค่าอยู่บนช่อง
 - [Hacking](#a58_q3_p3a_hacking): Dijkstra หลายจุดเริ่มที่ค่าอยู่บนปม
 - [Shortest path with negative edges](#ex06e2_shortest): Bellman–Ford และวงวนติดลบที่ใดก็ได้
+- [Shortest start](#a64_q3_shortest_start): Bellman–Ford จากหลายจุดเริ่มพร้อมกัน และหยุดก่อนเมื่อไม่มีอะไรเปลี่ยน
 - [Exchange](#ex06m2_exchange): การค้ากำไรเป็นวงวนติดลบหลังใส่ −log
 - [Expressway](#a65_q3a_expressway): อ่านคำตอบหลังทุกเฟสของ Floyd–Warshall
+
+ในบทข้อสอบปลายภาค [Travelling tourist](#da67_f_travelling_tourist) รัน Dijkstra จากทุกสถานที่ และ [Closed city](#da68_f2_closed_city) ลบเมืองปิดออกก่อน Dijkstra

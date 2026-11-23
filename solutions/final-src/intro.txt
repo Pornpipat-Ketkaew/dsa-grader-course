@@ -6,12 +6,13 @@ intro: home
 | "print **all** …", "in lexicographic order", n ≤ 10–20 | backtracking | [1 · Brute force](#ch-brute) |
 | "the k-th smallest", huge input described by groups | sort + prefix sums + binary search | [2 · Sorting](#ch-sort) |
 | sorted data, "largest value ≤ x", n up to 10⁹ with a repeated operation, sizes 2ᵏ | binary search, fast power, recurse on halves | [3 · Divide & conquer](#ch-dc) |
-| "how many ways … mod M", "maximum sum of a route" | dynamic programming | [4 · DP](#ch-dp) |
-| "connected", "spread", "fewest steps", "is there a cycle" | BFS, DFS, union-find | [5 · Graph 1](#ch-graph1) |
-| "connect everything as cheaply as possible" | Prim or Kruskal | [6 · MST](#ch-mst) |
-| "minimum cost from A to B", negative weights, "after each new node" | Dijkstra, Bellman–Ford, Floyd–Warshall | [7 · Shortest paths](#ch-sp) |
+| "choose as many as possible", "fractions allowed", "best order to serve" | sort by a key, take greedily | [4 · Greedy](#ch-greedy) |
+| "how many ways … mod M", "maximum sum of a route" | dynamic programming | [5 · DP](#ch-dp) |
+| "connected", "spread", "fewest steps", "is there a cycle" | BFS, DFS, union-find | [6 · Graph 1](#ch-graph1) |
+| "connect everything as cheaply as possible" | Prim or Kruskal | [7 · MST](#ch-mst) |
+| "minimum cost from A to B", negative weights, "after each new node" | Dijkstra, Bellman–Ford, Floyd–Warshall | [8 · Shortest paths](#ch-sp) |
 
-Start each chapter with its **primer** (the technique, a code template, how to spot it), then work through the problems in order. Try the two hints on each page before you open the code. Chapter 8 mixes everything, exactly like the exam.
+Start each chapter with its **primer** (the technique, a code template, how to spot it), then work through the problems in order. Try the two hints on each page before you open the code. Chapters 9 to 11 are the real da66, da67 and da68 final exams, which mix everything exactly like the exam room.
 ==== th
 ## ใช้เทคนิคไหนดี ลองหาสัญญาณเหล่านี้ในโจทย์
 | โจทย์พูดว่า … | ให้นึกถึง … | บท |
@@ -19,9 +20,10 @@ Start each chapter with its **primer** (the technique, a code template, how to s
 | "พิมพ์ **ทุก** …", "เรียงตามพจนานุกรม", n ≤ 10–20 | backtracking | [1 · Brute force](#ch-brute) |
 | "ตัวที่ k ที่น้อยที่สุด", input ใหญ่ที่บรรยายเป็นกลุ่ม | sort + prefix sum + binary search | [2 · การเรียงลำดับ](#ch-sort) |
 | ข้อมูลเรียงแล้ว, "ค่ามากสุดที่ ≤ x", n ถึง 10⁹ กับการดำเนินการซ้ำ, ขนาด 2ᵏ | binary search, ยกกำลังเร็ว, เรียกซ้ำบนครึ่ง | [3 · แบ่งแยกและเอาชนะ](#ch-dc) |
-| "มีกี่วิธี … mod M", "ผลรวมมากสุดของเส้นทาง" | dynamic programming | [4 · DP](#ch-dp) |
-| "เชื่อมกัน", "แพร่", "ก้าวน้อยที่สุด", "มีวงวนไหม" | BFS, DFS, union-find | [5 · กราฟ 1](#ch-graph1) |
-| "เชื่อมทุกอย่างให้ถูกที่สุด" | Prim หรือ Kruskal | [6 · MST](#ch-mst) |
-| "ค่าใช้จ่ายน้อยสุดจาก A ไป B", น้ำหนักติดลบ, "หลังเพิ่มปมใหม่ทุกครั้ง" | Dijkstra, Bellman–Ford, Floyd–Warshall | [7 · เส้นทางสั้นสุด](#ch-sp) |
+| "เลือกให้ได้มากที่สุด", "แบ่งเป็นเศษส่วนได้", "ลำดับบริการที่ดีที่สุด" | เรียงตามคีย์ แล้วเลือกแบบละโมบ | [4 · Greedy](#ch-greedy) |
+| "มีกี่วิธี … mod M", "ผลรวมมากสุดของเส้นทาง" | dynamic programming | [5 · DP](#ch-dp) |
+| "เชื่อมกัน", "แพร่", "ก้าวน้อยที่สุด", "มีวงวนไหม" | BFS, DFS, union-find | [6 · กราฟ 1](#ch-graph1) |
+| "เชื่อมทุกอย่างให้ถูกที่สุด" | Prim หรือ Kruskal | [7 · MST](#ch-mst) |
+| "ค่าใช้จ่ายน้อยสุดจาก A ไป B", น้ำหนักติดลบ, "หลังเพิ่มปมใหม่ทุกครั้ง" | Dijkstra, Bellman–Ford, Floyd–Warshall | [8 · เส้นทางสั้นสุด](#ch-sp) |
 
-เริ่มแต่ละบทด้วย **บทนำ** (เทคนิค โครงโค้ด และวิธีสังเกต) แล้วทำโจทย์ตามลำดับ ลองคำใบ้สองข้อในแต่ละหน้าก่อนเปิดดูโค้ด บทที่ 8 ผสมทุกอย่างเข้าด้วยกัน เหมือนข้อสอบจริง
+เริ่มแต่ละบทด้วย **บทนำ** (เทคนิค โครงโค้ด และวิธีสังเกต) แล้วทำโจทย์ตามลำดับ ลองคำใบ้สองข้อในแต่ละหน้าก่อนเปิดดูโค้ด บทที่ 9 ถึง 11 คือข้อสอบปลายภาคจริงของ da66, da67 และ da68 ซึ่งผสมทุกเทคนิคเข้าด้วยกันเหมือนในห้องสอบ

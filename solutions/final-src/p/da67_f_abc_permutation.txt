@@ -1,0 +1,138 @@
+id: da67_f_abc_permutation
+group: final67
+lesson: 11 · Recursion & backtracking
+stars: 1
+complexity: O(3ᴺ · N) at most
+kind: program
+tags: backtracking, strings with limited letters, lexicographic order, count first, output buffer
+title: ABC permutation
+title_th: เรียงสับเปลี่ยน ABC (ABC Permutation)
+blurb: Print every string of length N ≤ 12 that uses at most i A's, j B's and k C's, in dictionary order, with the count on the first line. Backtrack position by position trying A, B, C in order with a "letters left" counter, and collect the lines in a buffer so the count can be printed first.
+blurb_th: พิมพ์ทุกสตริงยาว N ≤ 12 ที่ใช้ A ไม่เกิน i ตัว B ไม่เกิน j ตัว C ไม่เกิน k ตัว เรียงตามพจนานุกรม และพิมพ์จำนวนก่อนในบรรทัดแรก ใช้ backtracking ทีละตำแหน่งโดยลอง A, B, C ตามลำดับพร้อมตัวนับ "ตัวอักษรที่เหลือ" และเก็บบรรทัดไว้ใน buffer เพื่อพิมพ์จำนวนก่อนได้
+files: sol/da67_f_abc_permutation/main.cpp
+tests: all five PDF samples and a case with no answer (N = 3 with only 2 C's → 0); 300 random inputs (N ≤ 6) against a Python filter over all 3ᴺ strings; N = 12 with no limits (531,441 lines) in 0.01 s.
+tests_th: ตัวอย่างทั้งห้าชุดใน PDF และกรณีที่ไม่มีคำตอบ (N = 3 แต่มี C แค่ 2 ตัว → 0); สุ่ม 300 ชุด (N ≤ 6) เทียบกับการกรองทุกสตริง 3ᴺ แบบใน Python; N = 12 ไม่จำกัดตัวอักษร (531,441 บรรทัด) ใช้ 0.01 วินาที
+==== en
+## 1. What the problem says
+Print every string of length N (1 ≤ N ≤ 12) made of the letters A, B and C that uses **at most** i A's, j B's and k C's. First print the count P, then the P strings in dictionary order (A < B < C). A correct count with wrong lines still earns 40 % of a test.
+
+Input: one line `N i j k`.
+
+Samples: `2 0 1 3` → 3 (BC, CB, CC); `2 1 1 3` → 7; `4 2 1 1` → 12 (the permutations of AABC); `5 2 3 0` → 10.
+
+The PDF calls it a permutation, but the second sample shows that the letters are an upper limit: with N = 2, i = 1, j = 1, k = 3 the answer includes CC, which uses no A and no B.
+
+## 2. What it really means
+Fill N positions from left to right. At each position try A, then B, then C, as long as that letter has copies left. Because the choices are tried in alphabetical order and all strings have the same length, the strings come out **already in dictionary order**.
+
+```text
+N = 2, at most A:0 B:1 C:3
+
+position 0:     B (B left 0)          C (C left 2)
+position 1:     C → "BC"              B → "CB"    C → "CC"
+                (no A, no B left)     (B left 0)
+count 3
+```
+
+:::hint Hint 1
+This is the [Generate barcode](#ex00e4) recursion with three letters instead of two. What do you need to remember at each step to know whether a letter can still be used?
+:::
+:::hint Hint 2
+Keep left[A], left[B], left[C]. At position pos try the letters in order A, B, C; skip a letter whose left is 0; decrement, recurse, increment. The count is needed **before** the list: store the lines in a string and print it after the count.
+:::
+
+## 3. What, why, how
+- **What:** backtracking `gen(pos)` over positions, letters in alphabetical order, a counter of copies left per letter.
+- **Why the order is automatically right:** two strings first differ at some position; the one with the smaller letter there was generated in an earlier branch, because the loop tries smaller letters first.
+- **How to print the count first:** append each finished string and a newline to `out`, count it in `P`, and print `P` then `out` at the end. (Computing P first with a separate counting pass also works.)
+- **Size:** at most 3¹² = 531,441 lines of 13 bytes, about 7 MB. Building one string and printing it once is fast; `endl` per line would flush 500,000 times.
+- **Cost:** O(P · N) for the output, plus the dead branches, which are at most N levels deep.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1, `2 0 1 3` (left shown as A/B/C).
+
+| call | left before | tried at this position | result |
+|---|---|---|---|
+| gen(0) | 0/1/3 | A: none left | skip |
+| gen(0) | 0/1/3 | B → gen(1) | |
+| gen(1) | 0/0/3 | A, B: none left; C | **BC** |
+| gen(0) | 0/1/3 | C → gen(1) | |
+| gen(1) | 0/1/2 | A: none; B | **CB** |
+| gen(1) | 0/1/2 | C | **CC** |
+
+P = 3, then BC, CB, CC.
+
+## 5. Traps
+- **Reading "permutation" literally** (exactly i A's, j B's, k C's): fails sample 1, where i + j + k = 4 ≠ N = 2.
+- **Printing lines before the count:** the count must come first, so buffer the lines or count first.
+- **Sorting at the end:** unnecessary if the letters are tried in order, and sorting 500,000 strings costs time.
+- **No answer:** print just `0`. With N = 3 and only C's allowed up to 2, nothing fits.
+- **Forgetting to restore** left[c] after the recursive call.
+
+## 6. Background
+Lesson 11. Strings over a small alphabet with per-letter limits are "multiset permutations" when the limits add up to N exactly. The count can also be computed directly as a sum of multinomial coefficients N! / (a! b! c!) over all a ≤ i, b ≤ j, c ≤ k with a + b + c = N, which is how you could print P without generating anything. The da68 final repeats the problem with four letters: [ABCD permutation](#da68_f_abcd_permutation).
+==== th
+## 1. โจทย์บอกอะไร
+พิมพ์ทุกสตริงยาว N (1 ≤ N ≤ 12) ที่ประกอบด้วยตัวอักษร A, B, C โดยใช้ A **ไม่เกิน** i ตัว B ไม่เกิน j ตัว C ไม่เกิน k ตัว พิมพ์จำนวน P ก่อน แล้วพิมพ์สตริงทั้ง P ตัวเรียงตามพจนานุกรม (A < B < C) ถ้าจำนวนถูกแต่บรรทัดอื่นผิดยังได้ 40 % ของชุดทดสอบนั้น
+
+input: หนึ่งบรรทัด `N i j k`
+
+ตัวอย่าง: `2 0 1 3` → 3 (BC, CB, CC); `2 1 1 3` → 7; `4 2 1 1` → 12 (permutation ของ AABC); `5 2 3 0` → 10
+
+PDF เรียกว่า permutation แต่ตัวอย่างที่สองแสดงว่าจำนวนตัวอักษรเป็นแค่ขอบบน: เมื่อ N = 2, i = 1, j = 1, k = 3 คำตอบมี CC ซึ่งไม่ใช้ A และ B เลย
+
+## 2. จริง ๆ แล้วถามอะไร
+เติม N ตำแหน่งจากซ้ายไปขวา แต่ละตำแหน่งลอง A แล้ว B แล้ว C ตราบใดที่ตัวอักษรนั้นยังเหลือ เพราะลองตามลำดับตัวอักษรและทุกสตริงยาวเท่ากัน สตริงจึงออกมา **เรียงตามพจนานุกรมอยู่แล้ว**
+
+```text
+N = 2, at most A:0 B:1 C:3
+
+position 0:     B (B left 0)          C (C left 2)
+position 1:     C → "BC"              B → "CB"    C → "CC"
+                (no A, no B left)     (B left 0)
+count 3
+```
+
+:::hint คำใบ้ 1
+นี่คือ recursion ของข้อ [Generate barcode](#ex00e4) ที่มีสามตัวอักษรแทนสอง ต้องจำอะไรไว้ในแต่ละขั้นจึงจะรู้ว่าตัวอักษรไหนยังใช้ได้
+:::
+:::hint คำใบ้ 2
+เก็บ left[A], left[B], left[C] ที่ตำแหน่ง pos ลองตัวอักษรตามลำดับ A, B, C ข้ามตัวที่ left เป็น 0 ลดค่า เรียกต่อ แล้วเพิ่มคืน จำนวนต้องพิมพ์ **ก่อน** รายการ จึงเก็บบรรทัดไว้ใน string แล้วพิมพ์หลังจำนวน
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** backtracking `gen(pos)` ไล่ตำแหน่ง ลองตัวอักษรตามลำดับ และมีตัวนับจำนวนที่เหลือของแต่ละตัว
+- **ทำไมลำดับถูกเองอัตโนมัติ:** สตริงสองตัวต่างกันครั้งแรกที่ตำแหน่งหนึ่ง ตัวที่ตัวอักษรตรงนั้นเล็กกว่าถูกสร้างในกิ่งก่อน เพราะลูปลองตัวที่เล็กกว่าก่อน
+- **พิมพ์จำนวนก่อนอย่างไร:** ต่อสตริงที่เสร็จแล้วพร้อมขึ้นบรรทัดใหม่เข้า `out` นับใน `P` แล้วพิมพ์ `P` ตามด้วย `out` ตอนจบ (นับ P ก่อนด้วยการไล่อีกรอบหนึ่งก็ได้)
+- **ขนาด:** มากสุด 3¹² = 531,441 บรรทัด บรรทัดละ 13 ไบต์ ราว 7 MB สร้าง string ก้อนเดียวแล้วพิมพ์ครั้งเดียวเร็ว ส่วน `endl` ทุกบรรทัดจะ flush 500,000 ครั้ง
+- **ต้นทุน:** O(P · N) สำหรับ output บวกกิ่งตันซึ่งลึกไม่เกิน N ระดับ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 `2 0 1 3` (left แสดงเป็น A/B/C)
+
+| การเรียก | left ก่อน | ลองที่ตำแหน่งนี้ | ผล |
+|---|---|---|---|
+| gen(0) | 0/1/3 | A: ไม่เหลือ | ข้าม |
+| gen(0) | 0/1/3 | B → gen(1) | |
+| gen(1) | 0/0/3 | A, B: ไม่เหลือ; C | **BC** |
+| gen(0) | 0/1/3 | C → gen(1) | |
+| gen(1) | 0/1/2 | A: ไม่เหลือ; B | **CB** |
+| gen(1) | 0/1/2 | C | **CC** |
+
+P = 3 แล้วตามด้วย BC, CB, CC
+
+## 5. จุดที่มักพลาด
+- **อ่านคำว่า "permutation" ตรงตัว** (A i ตัว B j ตัว C k ตัวพอดี): ตัวอย่างที่ 1 ผิด เพราะ i + j + k = 4 ≠ N = 2
+- **พิมพ์บรรทัดก่อนจำนวน:** จำนวนต้องมาก่อน จึงต้องเก็บบรรทัดไว้หรือนับก่อน
+- **เรียงตอนท้าย:** ไม่จำเป็นถ้าลองตัวอักษรตามลำดับ และการเรียง 500,000 สตริงเสียเวลา
+- **ไม่มีคำตอบ:** พิมพ์แค่ `0` เช่น N = 3 แต่ใช้ได้แค่ C ไม่เกิน 2 ตัว ก็ไม่มีสตริงไหนใช้ได้
+- **ลืมคืนค่า** left[c] หลังเรียก recursion
+
+## 6. ความรู้พื้นฐาน
+บทที่ 11 สตริงบนตัวอักษรชุดเล็กที่จำกัดจำนวนแต่ละตัว คือ "permutation ของ multiset" เมื่อขอบบนรวมกันได้ N พอดี จำนวนคำตอบคำนวณตรง ๆ ได้ด้วยผลรวมของสัมประสิทธิ์พหุนาม N! / (a! b! c!) บนทุก a ≤ i, b ≤ j, c ≤ k ที่ a + b + c = N ซึ่งเป็นวิธีพิมพ์ P โดยไม่ต้องสร้างอะไรเลย ข้อสอบ da68 final นำโจทย์นี้กลับมาอีกครั้งด้วยสี่ตัวอักษร: [ABCD permutation](#da68_f_abcd_permutation)

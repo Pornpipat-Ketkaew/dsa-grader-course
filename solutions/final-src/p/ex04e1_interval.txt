@@ -1,0 +1,138 @@
+id: ex04e1_interval
+group: greedy
+lesson: 13 · Greedy (activity selection)
+stars: 1
+complexity: O(n log n)
+kind: program
+tags: greedy, activity selection, interval scheduling, sort by finish time, exchange argument, a58_m_p4
+title: Class selection (also a58_m_p4)
+title_th: เลือกคาบเรียน (Class Selection, ข้อเดียวกับ a58_m_p4)
+blurb: N classes want one room; class i uses [S, F]. Keep the most classes with no overlap. Sort by finish time and keep every class that starts after the last kept one ends. a58_m_p4 is the same problem with the same PDF.
+blurb_th: มี N คาบอยากใช้ห้องเดียวกัน คาบ i ใช้ช่วง [S, F] ให้เก็บคาบให้มากที่สุดโดยไม่ทับกัน เรียงตามเวลาจบ แล้วเก็บทุกคาบที่เริ่มหลังคาบล่าสุดที่เก็บไว้จบ ข้อ a58_m_p4 คือโจทย์เดียวกันและ PDF เดียวกัน
+files: sol/ex04e1_interval/main.cpp
+tests: both PDF samples and N = 1; 300 random inputs (N ≤ 9, many equal times) against a Python brute force over all 2ᴺ subsets; N = 100,000 in 0.06 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และ N = 1; สุ่ม 300 ชุด (N ≤ 9 มีเวลาซ้ำกันเยอะ) เทียบกับ brute force ใน Python ที่ลองทุกเซตย่อย 2ᴺ แบบ; N = 100,000 ใช้ 0.06 วินาที
+==== en
+## 1. What the problem says
+N classes want the same lecture room. Class i starts at S[i] and ends at F[i] (F[i] ≥ S[i]). Two classes a and b can share the room if they do not overlap: **S[a] ≥ F[b] or S[b] ≥ F[a]**. Print the **largest number of classes** that can use the room.
+
+Input: N, then a line with the N start times, then a line with the N finish times.
+
+Sample 1: S = 1 4 6, F = 5 7 10 → **2**. Sample 2: four back-to-back classes [1,2], [2,3], [3,4], [4,5] → **4** (touching ends are allowed).
+
+The problem **a58_m_p4** in the list uses exactly the same PDF (same file, byte for byte), so this page answers both.
+
+## 2. What it really means
+This is **activity selection**, the textbook greedy problem. Picture the classes as bars on a time line and pick as many bars as possible that do not overlap.
+
+```text
+time:   1   2   3   4   5   6   7   8   9   10
+c1      [───────────────]                        S=1  F=5
+c2                  [───────────]                S=4  F=7
+c3                          [───────────────]    S=6  F=10
+
+by finish time: c1 (5), c2 (7), c3 (10)
+keep c1 → free from 5;  c2 starts at 4 < 5 → skip;  c3 starts at 6 ≥ 5 → keep
+answer 2
+```
+
+:::hint Hint 1
+Which class should be the **first** one in the room? Think about which choice leaves the most time for all the others.
+:::
+:::hint Hint 2
+Sort the classes by finish time. Walk through them once and keep a class whenever its start is at least the finish of the last class you kept.
+:::
+
+## 3. What, why, how
+- **What:** sort by F, then one greedy pass that keeps every class compatible with the last kept one.
+- **Why the earliest finish is safe (exchange argument):** let g be the class that finishes first. Take any optimal schedule and let x be its first class. Because F[g] ≤ F[x], replacing x by g cannot create an overlap with the later classes, and the number of classes stays the same. So some optimal schedule starts with g. Remove g and everything that overlaps it, and repeat the same argument on what is left.
+- **Why not other keys:** earliest start fails (one long class that starts first blocks many short ones). Shortest class fails too: [1,5], [4,7], [6,10] picks [4,7] (length 3) and then nothing else fits, while the answer is 2.
+- **How:** store pairs (F, S) so that `sort` orders by F; keep `lastEnd`, the finish of the last kept class, starting at −1 so the first class is always kept.
+- **Touching is fine:** the condition is S ≥ lastEnd, with ≥, because the statement says S[a] ≥ F[b] is not an overlap.
+- **Cost:** O(N log N) for the sort, O(N) for the pass.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1 after sorting by finish time.
+
+| class (S, F) | S ≥ lastEnd? | kept | lastEnd after |
+|---|---|---|---|
+| (1, 5) | 1 ≥ −1 yes | 1 | 5 |
+| (4, 7) | 4 ≥ 5 no | 1 | 5 |
+| (6, 10) | 6 ≥ 5 yes | **2** | 10 |
+
+Sample 2 keeps all four: each class starts exactly when the previous one ends.
+
+## 5. Traps
+- **Using > instead of ≥:** sample 2 would print 1 instead of 4.
+- **Sorting S and F separately:** the two arrays must move together; sort pairs, or sort indices.
+- **Sorting by start time:** S = 1 2 3, F = 10 3 4 keeps only the first class; the answer is 2.
+- **Reading the input as (S, F) pairs per line:** the input gives all starts first, then all finishes.
+- **Zero-length classes** (S = F) are legal and count; they fit wherever the time point is free.
+
+## 6. Background
+Lesson 13. Activity selection is the first problem in almost every greedy chapter because the exchange argument is so clean. The same "sort by right end, sweep once" idea solves "fewest points that stab every interval" and the [Buffet line](#a60b_mid_p1_buffet) problem next in this chapter. If classes had different values and you wanted the **largest total value**, greedy would stop working and you would need DP over the sorted classes (weighted interval scheduling).
+==== th
+## 1. โจทย์บอกอะไร
+มี N คาบเรียนอยากใช้ห้องบรรยายเดียวกัน คาบ i เริ่มที่ S[i] และจบที่ F[i] (F[i] ≥ S[i]) คาบ a กับ b ใช้ห้องร่วมกันได้ถ้าไม่ทับกัน: **S[a] ≥ F[b] หรือ S[b] ≥ F[a]** ให้พิมพ์ **จำนวนคาบที่มากที่สุด** ที่ใช้ห้องได้
+
+input: N แล้วบรรทัดเวลาเริ่มทั้ง N ค่า แล้วบรรทัดเวลาจบทั้ง N ค่า
+
+ตัวอย่างที่ 1: S = 1 4 6, F = 5 7 10 → **2** ตัวอย่างที่ 2: สี่คาบต่อกันพอดี [1,2], [2,3], [3,4], [4,5] → **4** (ปลายชนกันได้)
+
+โจทย์ **a58_m_p4** ในรายการใช้ PDF เดียวกันทุกไบต์ หน้านี้จึงตอบทั้งสองข้อ
+
+## 2. จริง ๆ แล้วถามอะไร
+นี่คือ **activity selection** โจทย์ greedy ตามตำรา นึกภาพคาบเรียนเป็นแท่งบนเส้นเวลา แล้วเลือกแท่งให้มากที่สุดโดยไม่ทับกัน
+
+```text
+time:   1   2   3   4   5   6   7   8   9   10
+c1      [───────────────]                        S=1  F=5
+c2                  [───────────]                S=4  F=7
+c3                          [───────────────]    S=6  F=10
+
+by finish time: c1 (5), c2 (7), c3 (10)
+keep c1 → free from 5;  c2 starts at 4 < 5 → skip;  c3 starts at 6 ≥ 5 → keep
+answer 2
+```
+
+:::hint คำใบ้ 1
+คาบไหนควรเป็นคาบ **แรก** ในห้อง ลองคิดว่าการเลือกแบบไหนเหลือเวลาให้คาบอื่นมากที่สุด
+:::
+:::hint คำใบ้ 2
+เรียงคาบตามเวลาจบ เดินผ่านรอบเดียว แล้วเก็บคาบทุกครั้งที่เวลาเริ่มไม่น้อยกว่าเวลาจบของคาบล่าสุดที่เก็บไว้
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** เรียงตาม F แล้วเดิน greedy รอบเดียว เก็บทุกคาบที่ไม่ทับกับคาบล่าสุดที่เก็บไว้
+- **ทำไมจบก่อนสุดถึงปลอดภัย (exchange argument):** ให้ g เป็นคาบที่จบเร็วที่สุด หยิบตารางที่ดีที่สุดใด ๆ มา ให้ x เป็นคาบแรกของมัน เพราะ F[g] ≤ F[x] การเอา g ไปแทน x จึงไม่ทำให้ทับกับคาบหลัง ๆ และจำนวนคาบเท่าเดิม แปลว่ามีตารางที่ดีที่สุดที่เริ่มด้วย g เสมอ ตัด g และทุกคาบที่ทับกับมันออก แล้วใช้เหตุผลเดิมซ้ำกับที่เหลือ
+- **ทำไมไม่ใช้เกณฑ์อื่น:** เริ่มก่อนก่อนใช้ไม่ได้ (คาบยาวคาบเดียวที่เริ่มก่อนบังคาบสั้นหลายคาบ) คาบสั้นสุดก่อนก็ใช้ไม่ได้: [1,5], [4,7], [6,10] จะเลือก [4,7] (ยาว 3) แล้วไม่มีคาบไหนใส่ได้อีก แต่คำตอบคือ 2
+- **อย่างไร:** เก็บเป็นคู่ (F, S) เพื่อให้ `sort` เรียงตาม F และเก็บ `lastEnd` คือเวลาจบของคาบล่าสุดที่เก็บไว้ เริ่มที่ −1 เพื่อให้คาบแรกถูกเก็บเสมอ
+- **ชนกันพอดีได้:** เงื่อนไขคือ S ≥ lastEnd ใช้ ≥ เพราะโจทย์บอกว่า S[a] ≥ F[b] ไม่ถือว่าทับ
+- **ต้นทุน:** O(N log N) สำหรับการเรียง และ O(N) สำหรับลูป
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 หลังเรียงตามเวลาจบ
+
+| คาบ (S, F) | S ≥ lastEnd? | เก็บแล้ว | lastEnd หลังจากนั้น |
+|---|---|---|---|
+| (1, 5) | 1 ≥ −1 ใช่ | 1 | 5 |
+| (4, 7) | 4 ≥ 5 ไม่ | 1 | 5 |
+| (6, 10) | 6 ≥ 5 ใช่ | **2** | 10 |
+
+ตัวอย่างที่ 2 เก็บครบทั้งสี่คาบ เพราะแต่ละคาบเริ่มตรงกับที่คาบก่อนจบพอดี
+
+## 5. จุดที่มักพลาด
+- **ใช้ > แทน ≥:** ตัวอย่างที่ 2 จะได้ 1 แทน 4
+- **เรียง S กับ F แยกกัน:** สองอาเรย์ต้องขยับไปด้วยกัน ให้เรียงเป็นคู่ หรือเรียง index
+- **เรียงตามเวลาเริ่ม:** S = 1 2 3, F = 10 3 4 จะเก็บได้แค่คาบแรก แต่คำตอบคือ 2
+- **อ่าน input เป็นคู่ (S, F) ทีละบรรทัด:** input ให้เวลาเริ่มทั้งหมดก่อน แล้วค่อยเวลาจบทั้งหมด
+- **คาบความยาวศูนย์** (S = F) ใช้ได้และนับด้วย ใส่ได้ทุกที่ที่เวลานั้นว่าง
+
+## 6. ความรู้พื้นฐาน
+บทที่ 13 activity selection เป็นโจทย์แรกของบท greedy แทบทุกตำรา เพราะ exchange argument สะอาดมาก ไอเดีย "เรียงตามปลายขวา แล้วกวาดรอบเดียว" เดียวกันนี้แก้ "จุดน้อยที่สุดที่แทงทุกช่วง" และโจทย์ [Buffet line](#a60b_mid_p1_buffet) ข้อต่อไปในบทนี้ ถ้าแต่ละคาบมีค่าต่างกันและต้องการ **ผลรวมค่ามากที่สุด** greedy จะใช้ไม่ได้ ต้องใช้ DP บนคาบที่เรียงแล้ว (weighted interval scheduling)

@@ -1,0 +1,148 @@
+id: da68_f_internet_provider
+group: final68
+lesson: 18 · Minimum spanning tree (Kruskal)
+stars: 2
+complexity: O(M log M)
+kind: program
+tags: Kruskal, minimum spanning tree, union-find, minimum spanning forest with K parts, remove the K-1 heaviest edges, clustering
+title: Internet provider
+title_th: ผู้ให้บริการอินเทอร์เน็ต (Internet Provider)
+blurb: Connect N cities with UTP cable (U baht per metre, only on M given routes) and up to K free modems that link any modem cities directly. Build the MST with Kruskal, then let the modems replace the K − 1 longest MST cables; the answer is U × (the remaining length).
+blurb_th: เชื่อม N เมืองด้วยสาย UTP (เมตรละ U บาท วางได้เฉพาะ M เส้นทางที่กำหนด) และ Modem ฟรีไม่เกิน K เครื่องที่เชื่อมเมืองที่มี Modem ถึงกันได้ตรง ๆ สร้าง MST ด้วย Kruskal แล้วให้ Modem แทนสาย MST ที่ยาวที่สุด K − 1 เส้น คำตอบคือ U × (ความยาวที่เหลือ)
+files: sol/da68_f_internet_provider/main.cpp
+tests: all three PDF samples (K = 0, K = 2 and a tree with K = 3) and N = 2 with K = 1; 300 random connected graphs (N ≤ 6) against a Python brute force over every set of cables and the number of pieces K modems can join; N = 10⁵, M = 2 × 10⁵, K = 500 in 0.05 s.
+tests_th: ตัวอย่างทั้งสามชุดใน PDF (K = 0, K = 2 และต้นไม้ที่ K = 3) และ N = 2 กับ K = 1; สุ่มกราฟเชื่อมกัน 300 ชุด (N ≤ 6) เทียบกับ brute force ใน Python ที่ลองทุกชุดสายและนับว่า Modem K เครื่องเชื่อมได้กี่ชิ้น; N = 10⁵, M = 2 × 10⁵, K = 500 ใช้ 0.05 วินาที
+==== en
+## 1. What the problem says
+A province has N cities (N ≤ 100,000). Cables can be laid only on M given routes (M ≤ 200,000); route (u, v) needs d metres (1 ≤ d ≤ 1,000) and costs U baht per metre (1 ≤ U ≤ 10). There are also up to K **modems**: free, placeable in any city, and every city with a modem talks directly to every other city with a modem. Print the **minimum cost** so that all cities can communicate.
+
+Input: `N M U K`, then M lines `u v d`.
+
+Samples: the same 5-city map with U = 10 → **160** when K = 0, and **100** when K = 2 (cables (1,2), (2,5), (3,4), modems in cities 3 and 5). A 9-city tree with U = 1 and K = 3 → **21**.
+
+## 2. What it really means
+Without modems this is a plain **minimum spanning tree**: the cheapest set of cables that connects everything, times U. With K modems, the cables only need to split the cities into **at most K groups**; one modem per group joins them for free. Removing one cable from a tree splits it into two parts, so K modems can stand in for **K − 1 cables**, and the best ones to drop are the K − 1 **longest** MST cables.
+
+```text
+MST by Kruskal:               3-4 (2)  2-5 (3)  1-2 (5)  2-4 (6)     total 16 m → 160
+K = 2, drop the longest one:  3-4 (2)  2-5 (3)  1-2 (5)              total 10 m → 100
+
+K = 0                         K = 2 (modems in 5 and 3)
+1 ─5─ 2 ─3─ 5                 1 ─5─ 2 ─3─ 5 ┄┄ modem link ┄┄ 3 ─2─ 4
+      │
+      6
+      │
+      4 ─2─ 3
+```
+
+:::hint Hint 1
+First solve K = 0. Then ask: with K modems, how many separate groups of cities may the cables leave, and what is the cheapest way to have that many groups?
+:::
+:::hint Hint 2
+Run Kruskal and record the lengths of the MST edges in the order they are added (shortest first). Modems can replace the K − 1 longest of them, so sum all but the last K − 1 and multiply by U. K ≤ 1 replaces nothing.
+:::
+
+## 3. What, why, how
+- **What:** Kruskal (sort routes by length, union-find), keep the accepted lengths, drop the last K − 1, multiply by U.
+- **Why "MST minus the K − 1 heaviest edges" is optimal:** Kruskal stopped when exactly K components remain builds the cheapest forest with K components (the same cut argument that proves Kruskal). That forest is exactly the MST without its last K − 1 accepted edges, which are the heaviest ones. Fewer than K components is never cheaper, and more than K cannot be joined by K modems.
+- **Why one modem can only save one cable each (beyond the first):** a single modem connects nothing; two modems join two groups; each extra modem joins one more group.
+- **How:**
+  - Store routes as (d, u, v) and sort.
+  - Union-find with path halving; accept a route when its ends are in different sets, push d into `used`.
+  - `drop = max(0, K − 1)`; sum `used[0 .. size − drop − 1]`; print the sum × U as `long long`.
+- **K = 0:** the subtasks mention K = 0 although the constraints say K ≥ 1. `max(0, K − 1)` treats 0 and 1 the same: no cable is replaced.
+- **Cost:** O(M log M) for the sort; union-find is almost O(1) per operation.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 2 (K = 2), routes after sorting by length.
+
+| route (d) | same set already? | action | used |
+|---|---|---|---|
+| 3-4 (2) | no | accept | 2 |
+| 2-5 (3) | no | accept | 2 3 |
+| 1-2 (5) | no | accept | 2 3 5 |
+| 2-4 (6) | no | accept | 2 3 5 6 |
+| 1-5 (7) | yes (1-2-5) | skip | |
+| 4-5 (9) | yes | skip | |
+
+drop = K − 1 = 1 → sum of 2 + 3 + 5 = 10 metres → 10 × 10 = **100**.
+
+## 5. Traps
+- **Dropping K edges instead of K − 1:** K modems join K groups, which needs only K − 1 fewer cables. Sample 2 would print 50.
+- **Dropping the longest edges of the whole graph** instead of the longest **MST** edges: they may not even be in the tree.
+- **Prim instead of Kruskal** also works for the MST, but then you must collect and sort the chosen edges; Kruskal already gives them in order.
+- **Overflow:** at most 99,999 cables × 1,000 m × 10 baht ≈ 10⁹, close to the `int` limit; use `long long` for the product.
+- **Recursive find** without path compression on a chain of 10⁵ nodes: deep recursion and slow; use the iterative version.
+
+## 6. Background
+Lesson 18. "MST minus the k − 1 heaviest edges" is **single-linkage clustering**: it splits points into k clusters so that the closest pair of points in different clusters is as far apart as possible. The same idea answers "connect everything when some connections are free", as in [Cable company](#ex06e1_cable) with a twist, and [Beautiful roads](#a60a_q3_xor_road) for a maximum spanning tree.
+==== th
+## 1. โจทย์บอกอะไร
+จังหวัดหนึ่งมี N เมือง (N ≤ 100,000) วางสายได้เฉพาะ M เส้นทางที่กำหนด (M ≤ 200,000) เส้นทาง (u, v) ใช้สาย d เมตร (1 ≤ d ≤ 1,000) ราคาเมตรละ U บาท (1 ≤ U ≤ 10) และมี **Modem** ไม่เกิน K เครื่อง: ฟรี วางเมืองไหนก็ได้ และทุกเมืองที่มี Modem คุยกับเมืองอื่นที่มี Modem ได้ตรง ๆ ให้พิมพ์ **ค่าใช้จ่ายน้อยที่สุด** ที่ทำให้ทุกเมืองติดต่อกันได้
+
+input: `N M U K` แล้วอีก M บรรทัด `u v d`
+
+ตัวอย่าง: แผนที่ 5 เมืองเดียวกันกับ U = 10 → **160** เมื่อ K = 0 และ **100** เมื่อ K = 2 (สาย (1,2), (2,5), (3,4) และ Modem ที่เมือง 3 กับ 5) ต้นไม้ 9 เมืองกับ U = 1 และ K = 3 → **21**
+
+## 2. จริง ๆ แล้วถามอะไร
+ถ้าไม่มี Modem นี่คือ **ต้นไม้แผ่กว้างน้อยสุด** ธรรมดา: ชุดสายที่ถูกที่สุดที่เชื่อมทุกเมือง คูณ U เมื่อมี Modem K เครื่อง สายแค่ต้องแบ่งเมืองเป็น **ไม่เกิน K กลุ่ม** แล้ว Modem กลุ่มละเครื่องเชื่อมกลุ่มเหล่านั้นให้ฟรี การเอาสายหนึ่งเส้นออกจากต้นไม้แบ่งมันเป็นสองส่วน Modem K เครื่องจึงแทน **สายได้ K − 1 เส้น** และเส้นที่ควรเอาออกคือสาย MST ที่ **ยาวที่สุด** K − 1 เส้น
+
+```text
+MST by Kruskal:               3-4 (2)  2-5 (3)  1-2 (5)  2-4 (6)     total 16 m → 160
+K = 2, drop the longest one:  3-4 (2)  2-5 (3)  1-2 (5)              total 10 m → 100
+
+K = 0                         K = 2 (modems in 5 and 3)
+1 ─5─ 2 ─3─ 5                 1 ─5─ 2 ─3─ 5 ┄┄ modem link ┄┄ 3 ─2─ 4
+      │
+      6
+      │
+      4 ─2─ 3
+```
+
+:::hint คำใบ้ 1
+แก้กรณี K = 0 ก่อน แล้วถามว่าเมื่อมี Modem K เครื่อง สายปล่อยให้เมืองแยกกันได้กี่กลุ่ม และวิธีที่ถูกที่สุดที่จะได้จำนวนกลุ่มเท่านั้นคืออะไร
+:::
+:::hint คำใบ้ 2
+รัน Kruskal แล้วบันทึกความยาวของเส้น MST ตามลำดับที่ถูกเลือก (สั้นไปยาว) Modem แทนเส้นที่ยาวที่สุด K − 1 เส้นได้ จึงรวมทุกเส้นยกเว้น K − 1 เส้นสุดท้ายแล้วคูณ U ถ้า K ≤ 1 ไม่ได้แทนเส้นไหนเลย
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** Kruskal (เรียงเส้นทางตามความยาว ใช้ union-find) เก็บความยาวที่ถูกเลือก ตัด K − 1 ตัวท้ายออก แล้วคูณ U
+- **ทำไม "MST ลบเส้นที่หนักที่สุด K − 1 เส้น" ดีที่สุด:** Kruskal ที่หยุดเมื่อเหลือ K component พอดีสร้างป่าที่ถูกที่สุดที่มี K component (ใช้เหตุผลเรื่อง cut แบบเดียวกับที่พิสูจน์ Kruskal) ป่านั้นก็คือ MST ที่ไม่มีเส้น K − 1 เส้นสุดท้ายที่ถูกเลือก ซึ่งเป็นเส้นที่หนักที่สุดพอดี น้อยกว่า K component ไม่มีทางถูกกว่า และมากกว่า K ก็เชื่อมด้วย Modem K เครื่องไม่ได้
+- **ทำไม Modem ประหยัดได้เครื่องละหนึ่งเส้น (ยกเว้นเครื่องแรก):** Modem เครื่องเดียวไม่เชื่อมอะไร สองเครื่องเชื่อมสองกลุ่ม แต่ละเครื่องที่เพิ่มเชื่อมได้อีกหนึ่งกลุ่ม
+- **อย่างไร:**
+  - เก็บเส้นทางเป็น (d, u, v) แล้วเรียง
+  - union-find แบบ path halving รับเส้นทางเมื่อปลายทั้งสองอยู่คนละเซต แล้วใส่ d ลง `used`
+  - `drop = max(0, K − 1)` รวม `used[0 .. size − drop − 1]` แล้วพิมพ์ผลรวม × U เป็น `long long`
+- **K = 0:** ชุดทดสอบพูดถึง K = 0 แม้ขอบเขตบอกว่า K ≥ 1 `max(0, K − 1)` ทำให้ 0 กับ 1 เหมือนกัน คือไม่แทนสายเส้นไหน
+- **ต้นทุน:** O(M log M) สำหรับการเรียง union-find แทบเป็น O(1) ต่อครั้ง
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 2 (K = 2) เส้นทางหลังเรียงตามความยาว
+
+| เส้นทาง (d) | อยู่เซตเดียวกันแล้ว? | ทำอะไร | used |
+|---|---|---|---|
+| 3-4 (2) | ไม่ | รับ | 2 |
+| 2-5 (3) | ไม่ | รับ | 2 3 |
+| 1-2 (5) | ไม่ | รับ | 2 3 5 |
+| 2-4 (6) | ไม่ | รับ | 2 3 5 6 |
+| 1-5 (7) | ใช่ (1-2-5) | ข้าม | |
+| 4-5 (9) | ใช่ | ข้าม | |
+
+drop = K − 1 = 1 → รวม 2 + 3 + 5 = 10 เมตร → 10 × 10 = **100**
+
+## 5. จุดที่มักพลาด
+- **ตัด K เส้นแทน K − 1:** Modem K เครื่องเชื่อม K กลุ่ม ซึ่งลดสายได้แค่ K − 1 เส้น ตัวอย่างที่ 2 จะพิมพ์ 50
+- **ตัดเส้นที่ยาวที่สุดของทั้งกราฟ** แทนเส้นที่ยาวที่สุดของ **MST**: เส้นพวกนั้นอาจไม่ได้อยู่ในต้นไม้ด้วยซ้ำ
+- **ใช้ Prim แทน Kruskal** ก็หา MST ได้ แต่ต้องเก็บเส้นที่เลือกแล้วเรียงเอง ส่วน Kruskal ให้มาตามลำดับอยู่แล้ว
+- **ล้น:** สายไม่เกิน 99,999 เส้น × 1,000 เมตร × 10 บาท ≈ 10⁹ ใกล้ขีดจำกัดของ `int` ใช้ `long long` สำหรับผลคูณ
+- **find แบบ recursion** ที่ไม่มี path compression บนโซ่ 10⁵ ปม: ลึกมากและช้า ใช้แบบวนลูป
+
+## 6. ความรู้พื้นฐาน
+บทที่ 18 "MST ลบเส้นที่หนักที่สุด k − 1 เส้น" คือ **single-linkage clustering**: แบ่งจุดเป็น k กลุ่มให้คู่จุดที่ใกล้ที่สุดซึ่งอยู่ต่างกลุ่มกันห่างกันมากที่สุด ไอเดียเดียวกันใช้ตอบ "เชื่อมทุกอย่างเมื่อการเชื่อมบางแบบฟรี" เทียบกับข้อ [Cable company](#ex06e1_cable) และข้อ [Beautiful roads](#a60a_q3_xor_road) สำหรับต้นไม้แผ่กว้างมากสุด

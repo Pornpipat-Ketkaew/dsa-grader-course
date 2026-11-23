@@ -1,0 +1,39 @@
+chapter: final67
+==== en
+## 1. How to use this chapter
+These are the four problems of the **da67 final exam**. As in the [da66 final](#ch-final), the chapter title does not tell you the technique. Use the same routine: read the limits, name the objects, name the question type, write the state or graph on paper, then code and test the samples plus one edge case.
+
+The four problems cover four different chapters, and each one is a textbook technique in a light story. The skill being tested is **recognition**: once you see what the problem really is, each solution is 30–60 lines.
+
+## 2. Map of this chapter
+| problem | the signal in the statement | what it really is | technique from |
+|---|---|---|---|
+| [ABC permutation](#da67_f_abc_permutation) | "print all … in dictionary order", N ≤ 12 | strings with at most i A's, j B's, k C's | [Brute force](#ch-brute) |
+| [Border extend](#da67_f_border_extend) | "distance to the nearest land", grid 1000 × 1000 | multi-source BFS limited to k layers | [Graph 1](#ch-graph1) |
+| [One two apart](#da67_f_one_two_apart) | "how many arrays … mod", n ≤ 10⁶ | counting DP, state = last two cells | [DP](#ch-dp) |
+| [Travelling tourist](#da67_f_travelling_tourist) | "visit all k sites", k ≤ 8, n ≤ 500 | k Dijkstra runs + bit-mask TSP | [Shortest paths](#ch-sp) |
+
+## 3. Exam habits for this paper
+- **Read the samples before the story.** ABC permutation says "permutation" but the samples show the counts are upper limits.
+- **Check the modulus digit by digit.** One two apart uses 100,000,007, not 1,000,000,007.
+- **Small numbers are the hint.** k ≤ 8 sites (Travelling tourist) means "try all orders" is affordable after the shortest paths are known.
+- **Big output needs a buffer.** ABC permutation can print half a million lines and Border extend a million numbers: build a string or use `'\n'` with sync turned off.
+==== th
+## 1. วิธีใช้บทนี้
+นี่คือโจทย์ทั้งสี่ข้อของ **ข้อสอบปลายภาค da67** เหมือนบท [da66 final](#ch-final) ชื่อบทไม่ได้บอกเทคนิค ให้ใช้ขั้นตอนเดิม: อ่านขอบเขต ตั้งชื่อสิ่งของ ตั้งชื่อประเภทคำถาม เขียน state หรือกราฟลงกระดาษ แล้วค่อยเขียนโค้ดและทดสอบตัวอย่างพร้อมกรณีขอบหนึ่งกรณี
+
+โจทย์ทั้งสี่ข้อมาจากสี่บทที่ต่างกัน และแต่ละข้อเป็นเทคนิคตามตำราที่ห่อด้วยเรื่องเล่าบาง ๆ ทักษะที่ข้อสอบวัดคือ **การมองออก**: เมื่อเห็นว่าโจทย์จริง ๆ คืออะไร เฉลยแต่ละข้อยาวแค่ 30–60 บรรทัด
+
+## 2. แผนที่ของบทนี้
+| โจทย์ | สัญญาณในโจทย์ | จริง ๆ แล้วคืออะไร | เทคนิคจากบท |
+|---|---|---|---|
+| [ABC permutation](#da67_f_abc_permutation) | "พิมพ์ทุก … ตามลำดับพจนานุกรม", N ≤ 12 | สตริงที่มี A ไม่เกิน i, B ไม่เกิน j, C ไม่เกิน k ตัว | [Brute force](#ch-brute) |
+| [Border extend](#da67_f_border_extend) | "ระยะไปยังดินที่ใกล้ที่สุด", ตาราง 1000 × 1000 | BFS หลายจุดเริ่มที่จำกัด k ชั้น | [กราฟ 1](#ch-graph1) |
+| [One two apart](#da67_f_one_two_apart) | "มีกี่อาเรย์ … mod", n ≤ 10⁶ | DP นับจำนวน state = สองช่องสุดท้าย | [DP](#ch-dp) |
+| [Travelling tourist](#da67_f_travelling_tourist) | "เที่ยวครบ k แห่ง", k ≤ 8, n ≤ 500 | Dijkstra k ครั้ง + TSP แบบ bit-mask | [เส้นทางสั้นสุด](#ch-sp) |
+
+## 3. นิสัยในห้องสอบสำหรับชุดนี้
+- **อ่านตัวอย่างก่อนเรื่องเล่า** ABC permutation บอกว่า "permutation" แต่ตัวอย่างแสดงว่าจำนวนตัวอักษรเป็นแค่ขอบบน
+- **เช็กตัว mod ทีละหลัก** One two apart ใช้ 100,000,007 ไม่ใช่ 1,000,000,007
+- **ตัวเลขเล็กคือคำใบ้** สถานที่ k ≤ 8 แห่ง (Travelling tourist) แปลว่า "ลองทุกลำดับ" ทำได้ หลังรู้เส้นทางสั้นสุดแล้ว
+- **output ใหญ่ต้องมี buffer** ABC permutation พิมพ์ได้ถึงครึ่งล้านบรรทัด และ Border extend พิมพ์ตัวเลขเป็นล้านตัว: สร้าง string หรือใช้ `'\n'` และปิด sync

@@ -75,6 +75,8 @@ bool unite(int a, int b) { a = find(a); b = find(b); if (a == b) return false; p
 - [Connection](#ex05m2_connection): BFS from every node with a depth limit.
 - [Pandemic](#a62_q2a_pandemic): multi-source BFS on a grid, stop at day T.
 - [Cycle in a tree](#a59_q3_cycle): peel leaves until only the cycle is left.
+
+In the final chapters, [Border extend](#da67_f_border_extend) is a multi-source BFS limited to k layers, and [K connected city](#da68_f_k_connected_city) takes the first K cities of a BFS.
 ==== th
 ## 1. ไอเดีย
 **กราฟ** คือปมกับเส้นเชื่อม โจทย์กราฟเกือบทุกข้อเริ่มเหมือนกัน: **เก็บ** กราฟ **เดิน** สำรวจ แล้ว **นับ** สิ่งที่เจอ
@@ -151,3 +153,5 @@ bool unite(int a, int b) { a = find(a); b = find(b); if (a == b) return false; p
 - [Connection](#ex05m2_connection): BFS จากทุกปมพร้อมจำกัดความลึก
 - [Pandemic](#a62_q2a_pandemic): BFS หลายจุดเริ่มบนตาราง หยุดที่วัน T
 - [วงวนในต้นไม้](#a59_q3_cycle): ลอกใบจนเหลือแต่วงวน
+
+ในบทข้อสอบปลายภาค [Border extend](#da67_f_border_extend) คือ BFS หลายจุดเริ่มที่จำกัด k ชั้น และ [K connected city](#da68_f_k_connected_city) ใช้ K เมืองแรกของ BFS

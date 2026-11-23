@@ -1,0 +1,136 @@
+id: da67_f_one_two_apart
+group: final67
+lesson: 15 · DP with states (last two cells)
+stars: 2
+complexity: O(27 · n)
+kind: program
+tags: counting DP, state = last two values, mod 100000007, forbidden patterns, rolling array
+title: One two apart
+title_th: หนึ่งกับสองต้องห่างกัน (One Two Apart)
+blurb: Count arrays of length n ≤ 10⁶ over {0, 1, 2} in which every 1 is at least 3 positions from every 2 (no 1 and 2 at distance 1 or 2), mod 100,000,007. A counting DP whose state is the last two cells: 9 states, 27 transitions per step.
+blurb_th: นับอาเรย์ยาว n ≤ 10⁶ ที่มีค่า {0, 1, 2} ซึ่ง 1 ทุกตัวห่างจาก 2 ทุกตัวอย่างน้อย 3 ตำแหน่ง (1 กับ 2 ห่างกัน 1 หรือ 2 ไม่ได้) mod 100,000,007 ใช้ DP นับที่ state คือสองช่องสุดท้าย: 9 state และ 27 ทางต่อหนึ่งขั้น
+files: sol/da67_f_one_two_apart/main.cpp
+tests: all five PDF samples (1, 3, 15, 214, 545,782) and n = 2 (7, the arrays listed in the PDF); n = 1..12 against a Python brute force over all 3ⁿ arrays; n = 10⁶ in 0.07 s.
+tests_th: ตัวอย่างทั้งห้าชุดใน PDF (1, 3, 15, 214, 545,782) และ n = 2 (7 แบบตามที่ PDF แสดง); n = 1..12 เทียบกับ brute force ใน Python ที่ลองทุกอาเรย์ 3ⁿ แบบ; n = 10⁶ ใช้ 0.07 วินาที
+==== en
+## 1. What the problem says
+Fill an array a of length n (1 ≤ n ≤ 1,000,000) with values 0, 1 or 2 so that **a 1 and a 2 are never 1 or 2 positions apart**: if a[i] = 1, then a[i−2], a[i−1], a[i+1], a[i+2] are not 2. Print the number of valid arrays **mod 100,000,007**.
+
+Samples: n = 1 → **3**; n = 3 → **15**; n = 15 → **198799**; n = 214 → **89208675**; n = 545782 → **8393098**. For n = 2 the PDF lists 7 arrays: 00 01 02 10 11 20 22.
+
+## 2. What it really means
+Building the array left to right, a new value z only conflicts with the **two previous** values x, y. So the number of ways to continue depends only on those two cells: they are the DP state.
+
+```text
+... x y | z       z may be appended if no pair among (x, z), (y, z) is {1, 2}
+                  (the pair (x, y) was already checked when y was added)
+
+f[x][y] = number of valid arrays of the current length ending with x, y
+next:     g[y][z] += f[x][y]   for every x, y, z with (x,y,z) valid
+
+9 states (x, y), at most 27 moves per step, n steps
+```
+
+:::hint Hint 1
+When you write the array from left to right, which earlier cells can a new cell possibly conflict with? Make those cells the state.
+:::
+:::hint Hint 2
+Let f[x][y] count valid prefixes ending in x, y. For each next value z, add f[x][y] into g[y][z] when none of the pairs (x,y), (y,z), (x,z) is a 1 next to a 2. Start at length 2, repeat to length n, sum the 9 entries, take mod after every addition.
+:::
+
+## 3. What, why, how
+- **What:** a counting DP over positions with state (second-to-last value, last value).
+- **Why two cells are enough:** the rule only looks at distances 1 and 2. When z is placed at position i, the cells it must be checked against are i−1 and i−2, which are y and x. Anything earlier is at distance ≥ 3 and cannot conflict.
+- **How:**
+  - `ok3(x, y, z)`: true if none of (x,y), (y,z), (x,z) is {1,2}.
+  - n = 1 is a special case: 3.
+  - Length 2: f[x][y] = 1 if (x, y) is not {1,2}. (Using `ok3(0, x, y)` checks just that, since 0 conflicts with nothing.)
+  - For len = 3..n: g = 0; for all x, y, z with ok3: g[y][z] += f[x][y] (mod); f = g.
+  - Answer: the sum of f (mod).
+- **Cost:** 27 · n ≈ 2.7 × 10⁷ tiny steps for n = 10⁶; memory O(1).
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: the table f[x][y] for lengths 2 to 5 (rows x, columns y; the entries (1,2) and (2,1) are always 0).
+
+| length | 00 | 01 | 02 | 10 | 11 | 20 | 22 | total |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 7 |
+| 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | **15** |
+| 4 | 7 | 5 | 5 | 4 | 4 | 4 | 4 | 33 |
+| 5 | 15 | 11 | 11 | 9 | 9 | 9 | 9 | 73 |
+
+For example f[0][0] at length 3 is 3: the arrays 000, 100 and 200 (from 00, 10, 20; a 0 conflicts with nothing).
+
+## 5. Traps
+- **The modulus is 100,000,007**, not the usual 1,000,000,007. Copying the habit fails every big sample.
+- **State = only the last cell:** misses "1 _ 2" with a gap of one, which is also forbidden. Sample n = 3 would give 17 instead of 15 (1 0 2 and 2 0 1 sneak in).
+- **n = 1** must print 3; a loop that starts at length 2 and sums would print 7.
+- **Overflow:** keep every entry below the modulus; the sum of 3 entries of 10⁸ fits in `long long` easily.
+- **Storing all n rows:** 10⁶ × 9 numbers is fine (72 MB with `long long`), but two rows are enough.
+
+## 6. Background
+Lesson 15. "Strings that avoid a pattern within distance d" are counted with a DP whose state is the last d symbols, which is a walk on a small automaton. The step is a fixed 9 × 9 matrix, so the count for n up to 10¹⁸ could be found with matrix fast power in O(9³ log n), the trick from [Matrix modulo](#a60_q1_matmod) and [Linear recurrence](#da66_f1_linear_recurrence).
+==== th
+## 1. โจทย์บอกอะไร
+เติมอาเรย์ a ยาว n (1 ≤ n ≤ 1,000,000) ด้วยค่า 0, 1 หรือ 2 โดย **1 กับ 2 ห้ามห่างกัน 1 หรือ 2 ตำแหน่ง**: ถ้า a[i] = 1 แล้ว a[i−2], a[i−1], a[i+1], a[i+2] ต้องไม่ใช่ 2 ให้พิมพ์จำนวนอาเรย์ที่ใช้ได้ **mod 100,000,007**
+
+ตัวอย่าง: n = 1 → **3**; n = 3 → **15**; n = 15 → **198799**; n = 214 → **89208675**; n = 545782 → **8393098** สำหรับ n = 2 PDF แสดง 7 แบบ: 00 01 02 10 11 20 22
+
+## 2. จริง ๆ แล้วถามอะไร
+เมื่อสร้างอาเรย์จากซ้ายไปขวา ค่าใหม่ z ขัดกับแค่ **สองค่าก่อนหน้า** x, y เท่านั้น จำนวนวิธีที่จะต่อไปได้จึงขึ้นกับสองช่องนั้นอย่างเดียว ให้สองช่องนี้เป็น state ของ DP
+
+```text
+... x y | z       z may be appended if no pair among (x, z), (y, z) is {1, 2}
+                  (the pair (x, y) was already checked when y was added)
+
+f[x][y] = number of valid arrays of the current length ending with x, y
+next:     g[y][z] += f[x][y]   for every x, y, z with (x,y,z) valid
+
+9 states (x, y), at most 27 moves per step, n steps
+```
+
+:::hint คำใบ้ 1
+เมื่อเขียนอาเรย์จากซ้ายไปขวา ช่องใหม่มีโอกาสขัดกับช่องก่อนหน้าช่องไหนบ้าง ให้ช่องพวกนั้นเป็น state
+:::
+:::hint คำใบ้ 2
+ให้ f[x][y] นับ prefix ที่ใช้ได้และจบด้วย x, y สำหรับค่าถัดไป z ให้บวก f[x][y] เข้า g[y][z] เมื่อไม่มีคู่ไหนใน (x,y), (y,z), (x,z) เป็น 1 ติดกับ 2 เริ่มที่ความยาว 2 ทำซ้ำจนถึงความยาว n รวมทั้ง 9 ช่อง และ mod หลังทุกการบวก
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** DP นับจำนวนไล่ตามตำแหน่ง state คือ (ค่ารองสุดท้าย, ค่าสุดท้าย)
+- **ทำไมสองช่องพอ:** กฎดูแค่ระยะ 1 และ 2 เมื่อวาง z ที่ตำแหน่ง i ช่องที่ต้องเช็กคือ i−1 และ i−2 ซึ่งก็คือ y และ x ช่องที่ก่อนหน้านั้นห่าง ≥ 3 จึงขัดกันไม่ได้
+- **อย่างไร:**
+  - `ok3(x, y, z)`: จริงเมื่อไม่มีคู่ไหนใน (x,y), (y,z), (x,z) เป็น {1,2}
+  - n = 1 เป็นกรณีพิเศษ: 3
+  - ความยาว 2: f[x][y] = 1 ถ้า (x, y) ไม่ใช่ {1,2} (ใช้ `ok3(0, x, y)` เช็กแค่นั้นพอดี เพราะ 0 ไม่ขัดกับอะไร)
+  - สำหรับ len = 3..n: g = 0; สำหรับทุก x, y, z ที่ ok3: g[y][z] += f[x][y] (mod) แล้ว f = g
+  - คำตอบ: ผลรวมของ f (mod)
+- **ต้นทุน:** 27 · n ≈ 2.7 × 10⁷ ขั้นเล็ก ๆ เมื่อ n = 10⁶ หน่วยความจำ O(1)
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตาราง f[x][y] สำหรับความยาว 2 ถึง 5 (ช่อง (1,2) และ (2,1) เป็น 0 เสมอ)
+
+| ความยาว | 00 | 01 | 02 | 10 | 11 | 20 | 22 | รวม |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 7 |
+| 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | **15** |
+| 4 | 7 | 5 | 5 | 4 | 4 | 4 | 4 | 33 |
+| 5 | 15 | 11 | 11 | 9 | 9 | 9 | 9 | 73 |
+
+เช่น f[0][0] ที่ความยาว 3 คือ 3: อาเรย์ 000, 100 และ 200 (มาจาก 00, 10, 20 และ 0 ไม่ขัดกับอะไร)
+
+## 5. จุดที่มักพลาด
+- **ตัว mod คือ 100,000,007** ไม่ใช่ 1,000,000,007 ที่คุ้นเคย ลอกตามความเคยชินจะผิดทุกตัวอย่างที่ใหญ่
+- **state = แค่ช่องสุดท้าย:** พลาดรูปแบบ "1 _ 2" ที่เว้นหนึ่งช่องซึ่งก็ห้ามเหมือนกัน n = 3 จะได้ 17 แทน 15 (1 0 2 และ 2 0 1 หลุดเข้ามา)
+- **n = 1** ต้องพิมพ์ 3 ลูปที่เริ่มที่ความยาว 2 แล้วรวมจะพิมพ์ 7
+- **ล้น:** เก็บทุกช่องให้น้อยกว่าตัว mod ผลรวม 3 ค่าขนาด 10⁸ ใส่ `long long` ได้สบาย
+- **เก็บทั้ง n แถว:** 10⁶ × 9 ตัวก็ไหว (72 MB ถ้าใช้ `long long`) แต่สองแถวก็พอ
+
+## 6. ความรู้พื้นฐาน
+บทที่ 15 "สตริงที่หลีกเลี่ยงรูปแบบภายในระยะ d" นับได้ด้วย DP ที่ state คือ d สัญลักษณ์สุดท้าย ซึ่งก็คือการเดินบน automaton ขนาดเล็ก แต่ละขั้นเป็นเมทริกซ์ 9 × 9 ที่ตายตัว ถ้า n ใหญ่ถึง 10¹⁸ ก็หาได้ด้วยการยกกำลังเมทริกซ์แบบเร็วใน O(9³ log n) ซึ่งเป็นเทคนิคจากข้อ [Matrix modulo](#a60_q1_matmod) และ [Linear recurrence](#da66_f1_linear_recurrence)

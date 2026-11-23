@@ -1,0 +1,128 @@
+id: ex07e2_iss
+group: dp
+lesson: 14 · DP basics (counting)
+stars: 1
+complexity: O(N²)
+kind: program
+tags: integer partitions, counting DP, coin change, order does not matter, non-decreasing sequence
+title: Increasing sequence sum
+title_th: นับลำดับไม่ลดที่รวมได้ N (Increasing Sequence Sum)
+blurb: Count the non-decreasing sequences of positive integers that add up to N ≤ 100 (the partitions of N; p(10) = 42). Coin-change counting: allow parts 1, 2, …, N one at a time, and ways[s] += ways[s − p].
+blurb_th: นับลำดับจำนวนเต็มบวกที่ไม่ลดลงและรวมได้ N ≤ 100 (จำนวนวิธีแบ่งจำนวน N เรียกว่า partition; p(10) = 42) ใช้ DP นับแบบแลกเหรียญ: เปิดให้ใช้ชิ้น 1, 2, …, N ทีละขนาด แล้ว ways[s] += ways[s − p]
+files: sol/ex07e2_iss/main.cpp
+tests: the PDF sample, N = 1, N = 5 and N = 100 (190,569,292, the known value of p(100)); N = 1..30 against a Python recursion that builds every non-decreasing sequence.
+tests_th: ตัวอย่างใน PDF, N = 1, N = 5 และ N = 100 (190,569,292 ซึ่งเป็นค่าที่รู้กันของ p(100)); N = 1..30 เทียบกับ recursion ใน Python ที่สร้างลำดับไม่ลดทุกลำดับจริง
+==== en
+## 1. What the problem says
+An **increasing sequence sum** of N is a sequence a₁ ≤ a₂ ≤ … ≤ aₖ of positive integers whose sum is N. For example ⟨1,1,1,1,1⟩, ⟨1,2,2⟩ and ⟨5⟩ are increasing sequence sums of 5, but ⟨1,3,1⟩ is not (it goes down). Print **how many** there are for a given N (1 ≤ N ≤ 100).
+
+Sample: N = 10 → **42**.
+
+## 2. What it really means
+A non-decreasing sequence is just a **multiset** of parts written in sorted order. So the question is: in how many ways can N be written as a sum of positive integers when the order does not matter? These are the **partitions** of N.
+
+```text
+N = 5, all 7 sequences:
+5        1+4      2+3      1+1+3    1+2+2    1+1+1+2    1+1+1+1+1
+
+same idea as coin change: coins of value 1, 2, 3, 4, 5, unlimited supply,
+count the ways to pay exactly 5 when the order of the coins does not matter
+```
+
+:::hint Hint 1
+A sorted sequence is fixed by **how many times each value appears**. Think of it as paying N with coins of values 1..N.
+:::
+:::hint Hint 2
+Let ways[s] count the ways using only parts up to p. Adding part size p: ways[s] += ways[s − p], with s going upward so the same part can be used again. Do p = 1, 2, …, N in that order.
+:::
+
+## 3. What, why, how
+- **What:** the unbounded coin-change counting DP, with coin values 1..N.
+- **Why the outer loop is over part sizes:** each partition is built by first deciding how many 1s, then how many 2s, and so on. Every multiset is produced exactly once, in sorted order. If the outer loop were over sums, 1+2 and 2+1 would both be counted (that counts compositions, 2ᴺ⁻¹ of them).
+- **Why s goes upward:** when ways[s − p] is read it already includes sequences that use part p, so p can repeat. Going downward would allow each part at most once (that is the 0/1 version).
+- **How:** `ways[0] = 1` (the empty sequence); for p = 1..N, for s = p..N: `ways[s] += ways[s − p]`. Print ways[N].
+- **Size:** p(100) = 190,569,292 fits in `int`; `long long` costs nothing and is safe.
+- **Cost:** O(N²) = 10⁴ steps.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: N = 5, the array ways[0..5] after each part size p is allowed.
+
+| after p | ways[0] | ways[1] | ways[2] | ways[3] | ways[4] | ways[5] |
+|---|---|---|---|---|---|---|
+| start | 1 | 0 | 0 | 0 | 0 | 0 |
+| 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| 2 | 1 | 1 | 2 | 2 | 3 | 3 |
+| 3 | 1 | 1 | 2 | 3 | 4 | 5 |
+| 4 | 1 | 1 | 2 | 3 | 5 | 6 |
+| 5 | 1 | 1 | 2 | 3 | 5 | **7** |
+
+For N = 10 the same table ends with **42**.
+
+## 5. Traps
+- **Swapping the loops** (sums outside, parts inside) counts ordered sums: for N = 5 it gives 16, not 7.
+- **ways[0] = 0:** then everything stays 0. The empty sequence is the one way to make 0.
+- **Recursion without memo** over (rest, smallest allowed part) is fine for N = 100 only with memoization; plain recursion lists all 190 million sequences.
+- **Strictly increasing by mistake:** the statement's "increasing" allows equal neighbours (⟨1,2,2⟩ counts).
+
+## 6. Background
+Lesson 14. Partitions are a classic of number theory: p(n) grows like e^(π√(2n/3)) / (4n√3) (Hardy and Ramanujan). The same DP counts partitions into parts from any allowed set (coin change), and with "s downward" it counts partitions into **distinct** parts. Compare [Binomial coefficient](#ex02e2_cnk), the other "count with a table" problem in this chapter.
+==== th
+## 1. โจทย์บอกอะไร
+**increasing sequence sum** ของ N คือลำดับจำนวนเต็มบวก a₁ ≤ a₂ ≤ … ≤ aₖ ที่รวมกันได้ N เช่น ⟨1,1,1,1,1⟩, ⟨1,2,2⟩ และ ⟨5⟩ เป็นของ 5 แต่ ⟨1,3,1⟩ ไม่ใช่ (มีลดลง) ให้พิมพ์ว่ามี **กี่ลำดับ** สำหรับ N ที่กำหนด (1 ≤ N ≤ 100)
+
+ตัวอย่าง: N = 10 → **42**
+
+## 2. จริง ๆ แล้วถามอะไร
+ลำดับที่ไม่ลดก็คือ **multiset** ของชิ้นส่วนที่เขียนเรียงแล้วนั่นเอง คำถามจึงเป็น: เขียน N เป็นผลบวกของจำนวนเต็มบวกได้กี่วิธี เมื่อไม่สนลำดับ นี่คือ **partition** ของ N
+
+```text
+N = 5, all 7 sequences:
+5        1+4      2+3      1+1+3    1+2+2    1+1+1+2    1+1+1+1+1
+
+same idea as coin change: coins of value 1, 2, 3, 4, 5, unlimited supply,
+count the ways to pay exactly 5 when the order of the coins does not matter
+```
+
+:::hint คำใบ้ 1
+ลำดับที่เรียงแล้วถูกกำหนดด้วย **จำนวนครั้งที่แต่ละค่าปรากฏ** ลองมองเป็นการจ่ายเงิน N ด้วยเหรียญราคา 1..N
+:::
+:::hint คำใบ้ 2
+ให้ ways[s] นับจำนวนวิธีที่ใช้ชิ้นขนาดไม่เกิน p เมื่อเพิ่มชิ้นขนาด p: ways[s] += ways[s − p] โดยให้ s เดินขึ้น ชิ้นเดิมจึงใช้ซ้ำได้ ทำ p = 1, 2, …, N ตามลำดับ
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** DP นับวิธีแลกเหรียญแบบใช้ซ้ำได้ไม่จำกัด เหรียญราคา 1..N
+- **ทำไมลูปนอกเป็นขนาดชิ้น:** ทุก partition ถูกสร้างโดยตัดสินใจว่ามี 1 กี่ตัวก่อน แล้ว 2 กี่ตัว ไปเรื่อย ๆ ทุก multiset จึงถูกสร้างครั้งเดียวพอดีในลำดับที่เรียงแล้ว ถ้าลูปนอกเป็นผลรวม 1+2 กับ 2+1 จะถูกนับทั้งคู่ (นั่นนับ composition ซึ่งมี 2ᴺ⁻¹ แบบ)
+- **ทำไม s เดินขึ้น:** ตอนอ่าน ways[s − p] ค่านั้นรวมลำดับที่ใช้ชิ้น p ไปแล้ว p จึงซ้ำได้ ถ้าเดินลงจะใช้แต่ละชิ้นได้ไม่เกินครั้งเดียว (นั่นคือแบบ 0/1)
+- **อย่างไร:** `ways[0] = 1` (ลำดับว่าง) สำหรับ p = 1..N และ s = p..N: `ways[s] += ways[s − p]` แล้วพิมพ์ ways[N]
+- **ขนาด:** p(100) = 190,569,292 ใส่ `int` ได้ ใช้ `long long` ก็ไม่เสียอะไรและปลอดภัยกว่า
+- **ต้นทุน:** O(N²) = 10⁴ ขั้น
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: N = 5 อาเรย์ ways[0..5] หลังเปิดให้ใช้ชิ้นขนาด p แต่ละขนาด
+
+| หลัง p | ways[0] | ways[1] | ways[2] | ways[3] | ways[4] | ways[5] |
+|---|---|---|---|---|---|---|
+| เริ่ม | 1 | 0 | 0 | 0 | 0 | 0 |
+| 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| 2 | 1 | 1 | 2 | 2 | 3 | 3 |
+| 3 | 1 | 1 | 2 | 3 | 4 | 5 |
+| 4 | 1 | 1 | 2 | 3 | 5 | 6 |
+| 5 | 1 | 1 | 2 | 3 | 5 | **7** |
+
+สำหรับ N = 10 ตารางเดียวกันจบที่ **42**
+
+## 5. จุดที่มักพลาด
+- **สลับลูป** (ผลรวมอยู่นอก ชิ้นอยู่ใน) จะนับผลบวกแบบสนใจลำดับ: N = 5 ได้ 16 ไม่ใช่ 7
+- **ways[0] = 0:** ทุกอย่างจะเป็น 0 ตลอด ลำดับว่างคือหนึ่งวิธีในการได้ 0
+- **recursion ไม่มี memo** บน (ที่เหลือ, ชิ้นเล็กสุดที่ใช้ได้) ใช้กับ N = 100 ได้ก็ต่อเมื่อมี memoization ถ้าไม่มีจะไล่ครบทั้ง 190 ล้านลำดับ
+- **เข้าใจผิดว่าเพิ่มขึ้นอย่างเคร่งครัด:** คำว่า "increasing" ในโจทย์ยอมให้ตัวติดกันเท่ากัน (⟨1,2,2⟩ นับ)
+
+## 6. ความรู้พื้นฐาน
+บทที่ 14 partition เป็นเรื่องคลาสสิกของทฤษฎีจำนวน: p(n) โตประมาณ e^(π√(2n/3)) / (4n√3) (Hardy และ Ramanujan) DP เดียวกันนับ partition ที่ใช้ชิ้นจากเซตใดก็ได้ (แลกเหรียญ) และถ้าให้ "s เดินลง" จะนับ partition ที่ชิ้น **ไม่ซ้ำกัน** เทียบกับ [Binomial coefficient](#ex02e2_cnk) อีกข้อในบทนี้ที่ "นับด้วยตาราง"

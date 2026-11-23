@@ -34,6 +34,8 @@ These are the six problems of the **da66 final exam**. Unlike the earlier chapte
 - **Mod** after every addition and multiplication in counting problems.
 - **No deep recursion** on inputs with 10⁵+ steps: iterate instead.
 - Statements have **mistakes** (swapped labels, wrong line counts). When the text and the samples disagree, trust the samples, and read the warnings on each page here.
+
+After this paper, practise on the next two exams: the [da67 final](#ch-final67) and the [da68 final](#ch-final68).
 ==== th
 ## 1. วิธีใช้บทนี้
 นี่คือโจทย์ทั้งหกข้อของ **ข้อสอบปลายภาค da66** ต่างจากบทก่อน ๆ เพราะ **ไม่มี** ชื่อบทบอกเทคนิค ซึ่งก็คือสถานการณ์จริงในห้องสอบ ก่อนอ่านเฉลย ลองทำตามขั้นตอนนี้กับทุกข้อ:
@@ -69,3 +71,5 @@ These are the six problems of the **da66 final exam**. Unlike the earlier chapte
 - **mod** หลังทุกการบวกและคูณในโจทย์นับจำนวน
 - **ไม่ใช้ recursion ลึก** กับ input ที่มีขั้นตอน 10⁵ ขึ้นไป: ใช้ลูปแทน
 - โจทย์มี **ข้อผิดพลาด** (ป้ายสลับกัน, จำนวนบรรทัดผิด) เมื่อข้อความกับตัวอย่างขัดกัน ให้เชื่อตัวอย่าง และอ่านคำเตือนในแต่ละหน้าของหนังสือนี้
+
+เมื่อทำชุดนี้เสร็จแล้ว ให้ฝึกต่อกับข้อสอบอีกสองชุด: [da67 final](#ch-final67) และ [da68 final](#ch-final68)

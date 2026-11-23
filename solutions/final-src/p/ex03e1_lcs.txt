@@ -1,0 +1,146 @@
+id: ex03e1_lcs
+group: dp
+lesson: 15 · DP with states (two strings)
+stars: 2
+complexity: O(n · m)
+kind: program
+tags: longest common subsequence, LCS, 2-D DP table, prefixes, strings
+title: Longest common subsequence
+title_th: ลำดับย่อยร่วมที่ยาวที่สุด (LCS)
+blurb: Two strings of length ≤ 500: find the length of the longest string that is a subsequence of both. L[i][j] for the first i letters of A and the first j of B: equal last letters give L[i−1][j−1] + 1, otherwise the larger of dropping one last letter.
+blurb_th: สตริงสองตัวยาวไม่เกิน 500 หาความยาวของสตริงที่ยาวที่สุดที่เป็นลำดับย่อยของทั้งคู่ ใช้ L[i][j] สำหรับ i ตัวแรกของ A และ j ตัวแรกของ B: ถ้าตัวสุดท้ายเท่ากันได้ L[i−1][j−1] + 1 ไม่อย่างนั้นเอาค่ามากกว่าระหว่างการทิ้งตัวสุดท้ายของฝั่งใดฝั่งหนึ่ง
+files: sol/ex03e1_lcs/main.cpp
+tests: both PDF samples and two single equal letters; 300 random pairs (length ≤ 9, alphabets of 2, 3 and 8 letters) against a Python brute force that intersects the sets of all subsequences; two random strings of length 500 in under 0.01 s.
+tests_th: ตัวอย่างทั้งสองชุดใน PDF และตัวอักษรเดียวที่เหมือนกัน; สุ่ม 300 คู่ (ยาว ≤ 9 ใช้ตัวอักษร 2, 3 และ 8 แบบ) เทียบกับ brute force ใน Python ที่หาส่วนร่วมของเซตลำดับย่อยทั้งหมด; สตริงสุ่มยาว 500 สองตัวใช้ไม่ถึง 0.01 วินาที
+==== en
+## 1. What the problem says
+A **subsequence** of a string is what remains after deleting zero or more letters without changing the order of the rest. Given two strings A and B of lowercase letters (each length 1..500), print the length of their **longest common subsequence** (LCS).
+
+Samples: `acbdegcedbg` and `begcfeubk` → **6** (one LCS is `begceb`); `aaa` and `bbbbbbbbb` → **0**.
+
+## 2. What it really means
+Trying all 2ⁿ subsequences of A is impossible for n = 500. Instead, look at the **last letters** of two prefixes:
+
+```text
+L[i][j] = LCS length of A[0..i-1] and B[0..j-1]
+
+if A[i-1] == B[j-1]:  both last letters can be matched together
+                      L[i][j] = L[i-1][j-1] + 1
+else:                 at least one of the two last letters is not in the LCS
+                      L[i][j] = max(L[i-1][j], L[i][j-1])
+
+each cell needs only three neighbours:      column j-1      column j
+                                 row i-1    L[i-1][j-1]     L[i-1][j]     (diagonal, up)
+                                 row i      L[i][j-1]       L[i][j]       (left, this cell)
+```
+
+:::hint Hint 1
+Define the problem on **prefixes**: the LCS of the first i letters of A and the first j letters of B. What can you say about the last letters A[i−1] and B[j−1]?
+:::
+:::hint Hint 2
+If they are equal, use them both: 1 + the answer for (i−1, j−1). If not, one of them is useless: take the better of (i−1, j) and (i, j−1). Row 0 and column 0 are 0. Fill row by row.
+:::
+
+## 3. What, why, how
+- **What:** an (n+1) × (m+1) table L, filled row by row, answer L[n][m].
+- **Why the equal case may take both letters:** if A[i−1] = B[j−1] and some LCS does not use them as its last pair, replacing its last matched pair by this pair keeps it a common subsequence of the same length. So matching them is never worse.
+- **Why the unequal case is a max:** the two last letters cannot both be the final matched pair, so the LCS lives entirely in (A without its last letter, B) or in (A, B without its last letter).
+- **How:** `vector<vector<int>> L(n+1, vector<int>(m+1, 0))`; two loops from 1; compare `a[i-1]` with `b[j-1]` (the table is shifted by one so that row 0 is the empty prefix).
+- **Cost:** 501 × 501 ≈ 2.5 × 10⁵ cells, O(1) each. Memory 1 MB; two rows would be enough if memory mattered.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1, A = acbdegcedbg (rows), B = begcfeubk (columns). Row 0 and column 0 (all 0) are left out.
+
+| | b | e | g | c | f | e | u | b | k |
+|---|---|---|---|---|---|---|---|---|---|
+| a | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| c | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 |
+| b | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 |
+| d | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 |
+| e | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
+| g | 1 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
+| c | 1 | 2 | 3 | 4 | 4 | 4 | 4 | 4 | 4 |
+| e | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 5 | 5 |
+| d | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 5 | 5 |
+| b | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 6 | 6 |
+| g | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 6 | **6** |
+
+Walking back from the corner along the "+1" steps gives b, e, g, c, e, b: the LCS **begceb**, length 6.
+
+## 5. Traps
+- **Off by one:** with the table shifted, compare `a[i-1]` and `b[j-1]`, not `a[i]` and `b[j]`.
+- **Substring vs subsequence:** a substring must be contiguous; that is a different DP (reset to 0 on a mismatch).
+- **Greedy matching** (match each letter of A, in order, with the next possible letter of B): for A = `cab`, B = `abc` it matches `c` with the last letter of B, and then `a` and `b` have nothing left, so it finds 1. The LCS is `ab`, length 2. The DP never commits early.
+- **Reading with getline** may keep a `\r` at the end of the line on Windows files; `cin >>` skips whitespace safely.
+
+## 6. Background
+Lesson 15. LCS is the core of `diff`, of DNA alignment (with scores instead of +1), and of the edit distance family. The same "last letters of two prefixes" state solves edit distance, shortest common supersequence and, with B = reverse(A), the longest palindromic subsequence: see [Hidden palindrome](#da68_f_hidden_palindrome) in the da68 final.
+==== th
+## 1. โจทย์บอกอะไร
+**ลำดับย่อย (subsequence)** ของสตริงคือสิ่งที่เหลือหลังลบตัวอักษรออกศูนย์ตัวหรือมากกว่า โดยไม่เปลี่ยนลำดับของที่เหลือ ให้สตริง A และ B ที่เป็นตัวพิมพ์เล็ก (ยาว 1..500 ทั้งคู่) ให้พิมพ์ความยาวของ **ลำดับย่อยร่วมที่ยาวที่สุด** (LCS)
+
+ตัวอย่าง: `acbdegcedbg` กับ `begcfeubk` → **6** (LCS หนึ่งตัวคือ `begceb`); `aaa` กับ `bbbbbbbbb` → **0**
+
+## 2. จริง ๆ แล้วถามอะไร
+ลองทุกลำดับย่อย 2ⁿ แบบของ A เป็นไปไม่ได้เมื่อ n = 500 ให้ดู **ตัวอักษรสุดท้าย** ของ prefix สองตัวแทน:
+
+```text
+L[i][j] = LCS length of A[0..i-1] and B[0..j-1]
+
+if A[i-1] == B[j-1]:  both last letters can be matched together
+                      L[i][j] = L[i-1][j-1] + 1
+else:                 at least one of the two last letters is not in the LCS
+                      L[i][j] = max(L[i-1][j], L[i][j-1])
+
+each cell needs only three neighbours:      column j-1      column j
+                                 row i-1    L[i-1][j-1]     L[i-1][j]     (diagonal, up)
+                                 row i      L[i][j-1]       L[i][j]       (left, this cell)
+```
+
+:::hint คำใบ้ 1
+นิยามปัญหาบน **prefix**: LCS ของ i ตัวแรกของ A กับ j ตัวแรกของ B แล้วพูดอะไรได้บ้างเกี่ยวกับตัวสุดท้าย A[i−1] และ B[j−1]
+:::
+:::hint คำใบ้ 2
+ถ้าเท่ากัน ใช้ทั้งคู่: 1 + คำตอบของ (i−1, j−1) ถ้าไม่เท่า ตัวใดตัวหนึ่งไม่มีประโยชน์: เอาค่าที่ดีกว่าระหว่าง (i−1, j) และ (i, j−1) แถว 0 และคอลัมน์ 0 เป็น 0 เติมทีละแถว
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** ตาราง L ขนาด (n+1) × (m+1) เติมทีละแถว คำตอบคือ L[n][m]
+- **ทำไมกรณีเท่ากันใช้ทั้งสองตัวได้:** ถ้า A[i−1] = B[j−1] และ LCS บางตัวไม่ได้ใช้สองตัวนี้เป็นคู่สุดท้าย การแทนคู่สุดท้ายที่จับคู่ไว้ด้วยคู่นี้ยังเป็นลำดับย่อยร่วมที่ยาวเท่าเดิม การจับคู่สองตัวนี้จึงไม่มีทางแย่กว่า
+- **ทำไมกรณีไม่เท่าเป็น max:** สองตัวสุดท้ายไม่สามารถเป็นคู่ที่จับคู่สุดท้ายพร้อมกันได้ LCS จึงอยู่ทั้งหมดใน (A ที่ไม่มีตัวสุดท้าย, B) หรือใน (A, B ที่ไม่มีตัวสุดท้าย)
+- **อย่างไร:** `vector<vector<int>> L(n+1, vector<int>(m+1, 0))` ลูปสองชั้นเริ่มที่ 1 เทียบ `a[i-1]` กับ `b[j-1]` (ตารางเลื่อนไปหนึ่งเพื่อให้แถว 0 คือ prefix ว่าง)
+- **ต้นทุน:** 501 × 501 ≈ 2.5 × 10⁵ ช่อง ช่องละ O(1) หน่วยความจำ 1 MB ถ้าหน่วยความจำจำกัดใช้แค่สองแถวก็พอ
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1, A = acbdegcedbg (แถว), B = begcfeubk (คอลัมน์) ไม่แสดงแถว 0 และคอลัมน์ 0 (เป็น 0 หมด)
+
+| | b | e | g | c | f | e | u | b | k |
+|---|---|---|---|---|---|---|---|---|---|
+| a | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| c | 0 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 |
+| b | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 |
+| d | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 |
+| e | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
+| g | 1 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
+| c | 1 | 2 | 3 | 4 | 4 | 4 | 4 | 4 | 4 |
+| e | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 5 | 5 |
+| d | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 5 | 5 |
+| b | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 6 | 6 |
+| g | 1 | 2 | 3 | 4 | 4 | 5 | 5 | 6 | **6** |
+
+เดินย้อนจากมุมขวาล่างตามขั้นที่ "+1" ได้ b, e, g, c, e, b: LCS คือ **begceb** ยาว 6
+
+## 5. จุดที่มักพลาด
+- **คลาดไปหนึ่ง:** เมื่อตารางเลื่อนแล้ว ให้เทียบ `a[i-1]` กับ `b[j-1]` ไม่ใช่ `a[i]` กับ `b[j]`
+- **substring กับ subsequence:** substring ต้องติดกัน เป็น DP อีกแบบ (ไม่ตรงกันให้รีเซ็ตเป็น 0)
+- **จับคู่แบบ greedy** (จับตัวอักษรของ A ตามลำดับกับตัวถัดไปที่เป็นไปได้ของ B): A = `cab`, B = `abc` จะจับ `c` กับตัวสุดท้ายของ B แล้ว `a` กับ `b` ไม่เหลืออะไรให้จับ ได้ 1 แต่ LCS คือ `ab` ยาว 2 DP ไม่เคยตัดสินใจเร็วเกินไป
+- **อ่านด้วย getline** อาจติด `\r` ท้ายบรรทัดถ้าไฟล์มาจาก Windows `cin >>` ข้ามช่องว่างให้อย่างปลอดภัย
+
+## 6. ความรู้พื้นฐาน
+บทที่ 15 LCS เป็นแกนของ `diff` ของการเทียบลำดับ DNA (ใช้คะแนนแทน +1) และของตระกูล edit distance state "ตัวสุดท้ายของ prefix สองตัว" เดียวกันนี้แก้ edit distance, shortest common supersequence และถ้าให้ B = A กลับด้าน ก็ได้ลำดับย่อยพาลินโดรมที่ยาวที่สุด: ดูข้อ [Hidden palindrome](#da68_f_hidden_palindrome) ใน da68 final

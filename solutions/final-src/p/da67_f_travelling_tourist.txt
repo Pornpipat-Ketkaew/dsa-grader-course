@@ -1,0 +1,154 @@
+id: da67_f_travelling_tourist
+group: final67
+lesson: 17 · Shortest paths: Dijkstra + 15 · bit-mask DP
+stars: 3
+complexity: O(k · m log n + 2ᵏ · k²)
+kind: program
+tags: Dijkstra from each site, travelling salesman, bit-mask DP, k ≤ 8, open path, any start
+title: Travelling tourist
+title_th: นักท่องเที่ยวนั่งรถไฟฟ้า (Travelling Tourist)
+blurb: n ≤ 500 stations, two-way train lines with fares, and k ≤ 8 sites to visit; start anywhere, end anywhere. Run Dijkstra from each site to get the k × k table of cheapest fares, then solve a small travelling-salesman path over the k sites with a bit-mask DP (or all k! orders).
+blurb_th: มีสถานี n ≤ 500 แห่ง รถไฟฟ้าวิ่งสองทางพร้อมค่าโดยสาร และสถานที่ท่องเที่ยว k ≤ 8 แห่ง เริ่มที่ไหนก็ได้และจบที่ไหนก็ได้ รัน Dijkstra จากแต่ละสถานที่เพื่อได้ตาราง k × k ของค่าโดยสารถูกสุด แล้วแก้ปัญหาพนักงานขายเดินทางแบบเส้นทางเล็ก ๆ บน k สถานที่ด้วย bit-mask DP (หรือลองทุกลำดับ k! แบบ)
+files: sol/da67_f_travelling_tourist/main.cpp
+tests: the four readable PDF samples (the fifth is cut off in the PDF text); 300 random connected graphs (n ≤ 7) against Floyd–Warshall plus every visiting order in Python; n = 500 complete graph (124,750 lines) with k = 8 in 0.02 s.
+tests_th: ตัวอย่างใน PDF สี่ชุดที่อ่านได้ (ชุดที่ห้าถูกตัดในข้อความของ PDF); สุ่มกราฟเชื่อมกัน 300 ชุด (n ≤ 7) เทียบกับ Floyd–Warshall บวกการลองทุกลำดับการเยี่ยมใน Python; กราฟสมบูรณ์ n = 500 (124,750 บรรทัด) กับ k = 8 ใช้ 0.02 วินาที
+==== en
+## 1. What the problem says
+A country has n stations (2 ≤ n ≤ 500) and m train lines (n − 1 ≤ m ≤ n(n−1)/2). Each line runs both ways between two stations with fare c (1 ≤ c ≤ 1,000), and the network is connected. Somchai wants to visit k sites (2 ≤ k ≤ 8), each at a given station. He may start at any station and end anywhere. Passing through a site's station on the way does **not** count as visiting it; he visits the sites one after another, travelling from each to the next. Print the **smallest total fare**.
+
+Input: `n m k`, the k site stations, then m lines `a b c`.
+
+Sample 1: sites 1, 2, 3 with lines 1–2 (15), 1–3 (4), 2–3 (7) → **11** (1 → 3 → 2: 4 + 7). Sample 2: sites 1..4 → **100** (4 → 3 → 2 → 1: 38 + 24 + 38).
+
+## 2. What it really means
+Two layers. Between two consecutive sites he takes the **cheapest route**, whatever stations it passes; that is a shortest-path question. Then he must choose the **order** of the k sites so that the sum of those cheapest fares is smallest; that is a travelling-salesman path on only k ≤ 8 points.
+
+```text
+step 1: shortest fares between the sites (sample 1)
+            1    2    3
+      1     0   11    4        1-2 directly costs 15, but 1-3-2 costs 4 + 7 = 11
+      2    11    0    7
+      3     4    7    0
+
+step 2: best order of the k sites, start and end anywhere
+      1 → 3 → 2 = 4 + 7 = 11     2 → 3 → 1 = 7 + 4 = 11     1 → 2 → 3 = 11 + 7 = 18 …
+answer 11
+```
+
+The rule about passing through a site only says that a site counts once you **choose** it as the next stop; routing between stops is free to use any stations.
+
+:::hint Hint 1
+Split the trip into legs from one site to the next. What is the cost of one leg, and how many different legs can there be?
+:::
+:::hint Hint 2
+Run Dijkstra from each of the k sites (k ≤ 8 runs) to fill a k × k table D. Then best[mask][last] = cheapest way to visit exactly the sites in mask ending at last, with best[{i}][i] = 0, and extend with D[last][next]. The answer is the minimum over last of best[all][last].
+:::
+
+## 3. What, why, how
+- **What:** k Dijkstra runs, then a bit-mask DP over subsets of sites.
+- **Why each leg is a shortest path:** the legs are independent: once the order is fixed, making one leg cheaper never hurts another.
+- **Why the order needs search:** a greedy "go to the nearest unvisited site" fails. In sample 2 starting at 1 it goes 1 → 2 (38) → 3 (24) → 4 (38) = 100, which happens to be optimal, but with other fares nearest-first can be far off. With k ≤ 8, trying every order (8! = 40,320) or the DP (2⁸ · 8 · 8 = 16,384 steps) is instant.
+- **How:**
+  - Dijkstra with a min-heap from `s[i]`; copy the distances to the other sites into `D[i][j]`.
+  - `best[1 << i][i] = 0`. For masks in increasing order, for `last` in the mask with a finite value, for `nxt` not in the mask: relax `best[mask | 1 << nxt][nxt]` with `best[mask][last] + D[last][nxt]`.
+  - Answer: min over `last` of `best[FULL − 1][last]`.
+- **Why masks in increasing order work:** adding a site makes the mask a larger number, so every state is final before it is extended.
+- **Cost:** k · O(m log n) ≈ 8 · 125,000 · 9 for Dijkstra, and 2ᵏ · k² for the DP. Measured 0.02 s on the complete 500-station graph.
+
+## 4. Solution
+{{code}}
+{{tests}}
+
+**Trace**: sample 1, sites 1, 2, 3 (D from step 1). Entries are best[mask][last].
+
+| mask (sites visited) | last = 1 | last = 2 | last = 3 |
+|---|---|---|---|
+| {1} | 0 | | |
+| {2} | | 0 | |
+| {3} | | | 0 |
+| {1,2} | 11 (2 → 1) | 11 (1 → 2) | |
+| {1,3} | 4 (3 → 1) | | 4 (1 → 3) |
+| {2,3} | | 7 (3 → 2) | 7 (2 → 3) |
+| {1,2,3} | min(7 + 4, 7 + 11) = 11 | min(4 + 7, 4 + 11) = 11 | min(11 + 4, 11 + 7) = 15 |
+
+Answer = min(11, 11, 15) = **11**.
+
+## 5. Traps
+- **Using the direct line fare** between two sites instead of the shortest route: in sample 1 the leg 1 → 2 costs 15 on its own line but only 11 through station 3. Every order that contains that leg would be overpriced (2 → 1 → 3 would cost 19 instead of 15).
+- **Returning to the start:** the trip is a path, not a cycle. Adding D[last][first] at the end turns sample 1 into 22.
+- **Fixing the start** at the first site in the input: the best order may start elsewhere (sample 2 starts at 4).
+- **Floyd–Warshall on all n stations:** 500³ = 1.25 × 10⁸ is acceptable but slower than k Dijkstra runs; both are fine here.
+- **Dense input:** up to 124,750 lines, so turn off stdio sync.
+
+## 6. Background
+Lessons 15 and 17. This "shortest paths between a few key points, then a TSP over them" pattern is how real route planners handle a handful of stops. The bit-mask DP (Held–Karp, 1962) solves the TSP in O(2ᵏ · k²), far better than k! for k around 15–20. Compare [Buffet flight](#da66_f1_buffet_flight) for another da66 exam problem that hides a shortest path inside a story.
+==== th
+## 1. โจทย์บอกอะไร
+ประเทศหนึ่งมีสถานี n แห่ง (2 ≤ n ≤ 500) และรถไฟฟ้า m สาย (n − 1 ≤ m ≤ n(n−1)/2) แต่ละสายวิ่งสองทางระหว่างสองสถานีด้วยค่าโดยสาร c (1 ≤ c ≤ 1,000) และเครือข่ายเชื่อมถึงกันทั้งหมด สมชายอยากไปเที่ยว k แห่ง (2 ≤ k ≤ 8) แต่ละแห่งอยู่ที่สถานีที่กำหนด เขาเริ่มได้ที่สถานีไหนก็ได้และจบที่ไหนก็ได้ การนั่งผ่านสถานีของสถานที่เที่ยว **ไม่** นับว่าได้เที่ยว เขาไปเที่ยวทีละแห่งโดยเดินทางจากแห่งหนึ่งไปแห่งถัดไป ให้พิมพ์ **ค่าเดินทางรวมที่น้อยที่สุด**
+
+input: `n m k` แล้วสถานีของสถานที่ทั้ง k แห่ง แล้วอีก m บรรทัด `a b c`
+
+ตัวอย่างที่ 1: สถานที่ 1, 2, 3 สาย 1–2 (15), 1–3 (4), 2–3 (7) → **11** (1 → 3 → 2: 4 + 7) ตัวอย่างที่ 2: สถานที่ 1..4 → **100** (4 → 3 → 2 → 1: 38 + 24 + 38)
+
+## 2. จริง ๆ แล้วถามอะไร
+มีสองชั้น ระหว่างสถานที่สองแห่งที่ไปต่อกัน เขาใช้ **เส้นทางที่ถูกที่สุด** จะผ่านสถานีไหนก็ได้ นั่นคือคำถามเส้นทางสั้นสุด แล้วเขาต้องเลือก **ลำดับ** ของ k สถานที่ให้ผลรวมของค่าเดินทางเหล่านั้นน้อยที่สุด นั่นคือปัญหาพนักงานขายเดินทางแบบเส้นทางบนจุดแค่ k ≤ 8 จุด
+
+```text
+step 1: shortest fares between the sites (sample 1)
+            1    2    3
+      1     0   11    4        1-2 directly costs 15, but 1-3-2 costs 4 + 7 = 11
+      2    11    0    7
+      3     4    7    0
+
+step 2: best order of the k sites, start and end anywhere
+      1 → 3 → 2 = 4 + 7 = 11     2 → 3 → 1 = 7 + 4 = 11     1 → 2 → 3 = 11 + 7 = 18 …
+answer 11
+```
+
+กฎเรื่องนั่งผ่านสถานที่แค่บอกว่าสถานที่จะนับก็ต่อเมื่อเรา **เลือก** มันเป็นจุดหมายถัดไป ส่วนเส้นทางระหว่างจุดหมายใช้สถานีไหนก็ได้
+
+:::hint คำใบ้ 1
+แบ่งการเดินทางเป็นช่วงจากสถานที่หนึ่งไปอีกที่หนึ่ง ค่าของหนึ่งช่วงคือเท่าไร และมีช่วงที่ต่างกันได้กี่แบบ
+:::
+:::hint คำใบ้ 2
+รัน Dijkstra จากสถานที่แต่ละแห่ง (k ≤ 8 ครั้ง) เพื่อเติมตาราง D ขนาด k × k แล้วให้ best[mask][last] = วิธีที่ถูกที่สุดในการเยี่ยมสถานที่ใน mask พอดีและจบที่ last โดย best[{i}][i] = 0 แล้วขยายด้วย D[last][next] คำตอบคือค่าน้อยสุดของ best[ทั้งหมด][last]
+:::
+
+## 3. อะไร ทำไม อย่างไร
+- **อะไร:** รัน Dijkstra k ครั้ง แล้วทำ bit-mask DP บนเซตย่อยของสถานที่
+- **ทำไมแต่ละช่วงคือเส้นทางสั้นสุด:** ช่วงต่าง ๆ เป็นอิสระต่อกัน เมื่อกำหนดลำดับแล้ว การทำให้ช่วงหนึ่งถูกลงไม่ทำให้ช่วงอื่นแย่ลง
+- **ทำไมลำดับต้องค้นหา:** greedy แบบ "ไปสถานที่ที่ยังไม่ไปและใกล้ที่สุด" ใช้ไม่ได้ทั่วไป ในตัวอย่างที่ 2 ถ้าเริ่มที่ 1 จะได้ 1 → 2 (38) → 3 (24) → 4 (38) = 100 ซึ่งบังเอิญดีที่สุด แต่กับค่าโดยสารอื่นอาจห่างไกลมาก เมื่อ k ≤ 8 การลองทุกลำดับ (8! = 40,320) หรือ DP (2⁸ · 8 · 8 = 16,384 ขั้น) ทำได้ทันที
+- **อย่างไร:**
+  - Dijkstra ด้วย min-heap จาก `s[i]` แล้วคัดลอกระยะไปยังสถานที่อื่นลง `D[i][j]`
+  - `best[1 << i][i] = 0` ไล่ mask จากน้อยไปมาก สำหรับ `last` ใน mask ที่มีค่าจำกัด และ `nxt` ที่ไม่อยู่ใน mask: relax `best[mask | 1 << nxt][nxt]` ด้วย `best[mask][last] + D[last][nxt]`
+  - คำตอบ: ค่าน้อยสุดของ `best[FULL − 1][last]` บนทุก `last`
+- **ทำไมไล่ mask จากน้อยไปมากได้:** การเพิ่มสถานที่ทำให้ mask เป็นตัวเลขที่มากขึ้น ทุก state จึงเสร็จก่อนถูกนำไปขยาย
+- **ต้นทุน:** k · O(m log n) ≈ 8 · 125,000 · 9 สำหรับ Dijkstra และ 2ᵏ · k² สำหรับ DP วัดได้ 0.02 วินาทีบนกราฟสมบูรณ์ 500 สถานี
+
+## 4. โค้ดเฉลย
+{{code}}
+{{tests}}
+
+**ไล่ค่า**: ตัวอย่างที่ 1 สถานที่ 1, 2, 3 (D จากขั้นที่ 1) ค่าในตารางคือ best[mask][last]
+
+| mask (สถานที่ที่ไปแล้ว) | last = 1 | last = 2 | last = 3 |
+|---|---|---|---|
+| {1} | 0 | | |
+| {2} | | 0 | |
+| {3} | | | 0 |
+| {1,2} | 11 (2 → 1) | 11 (1 → 2) | |
+| {1,3} | 4 (3 → 1) | | 4 (1 → 3) |
+| {2,3} | | 7 (3 → 2) | 7 (2 → 3) |
+| {1,2,3} | min(7 + 4, 7 + 11) = 11 | min(4 + 7, 4 + 11) = 11 | min(11 + 4, 11 + 7) = 15 |
+
+คำตอบ = min(11, 11, 15) = **11**
+
+## 5. จุดที่มักพลาด
+- **ใช้ค่าโดยสารของสายตรง** ระหว่างสองสถานที่แทนเส้นทางที่ถูกที่สุด: ในตัวอย่างที่ 1 ช่วง 1 → 2 ถ้านั่งสายตรงเสีย 15 แต่ผ่านสถานี 3 เสียแค่ 11 ทุกลำดับที่มีช่วงนี้จะคิดราคาแพงเกินจริง (2 → 1 → 3 จะเป็น 19 แทน 15)
+- **กลับจุดเริ่ม:** การเดินทางเป็นเส้นทาง ไม่ใช่วง ถ้าบวก D[last][first] ตอนท้าย ตัวอย่างที่ 1 จะกลายเป็น 22
+- **ตรึงจุดเริ่ม** ไว้ที่สถานที่แรกใน input: ลำดับที่ดีที่สุดอาจเริ่มที่อื่น (ตัวอย่างที่ 2 เริ่มที่ 4)
+- **Floyd–Warshall บนทุกสถานี n แห่ง:** 500³ = 1.25 × 10⁸ ยังรับได้แต่ช้ากว่ารัน Dijkstra k ครั้ง ข้อนี้ใช้ได้ทั้งคู่
+- **input หนาแน่น:** มากถึง 124,750 บรรทัด จึงควรปิด sync ของ stdio
+
+## 6. ความรู้พื้นฐาน
+บทที่ 15 และ 17 รูปแบบ "หาเส้นทางสั้นสุดระหว่างจุดสำคัญไม่กี่จุด แล้วทำ TSP บนจุดเหล่านั้น" คือวิธีที่ระบบวางแผนเส้นทางจริงใช้กับจุดแวะไม่กี่จุด bit-mask DP (Held–Karp, 1962) แก้ TSP ใน O(2ᵏ · k²) ดีกว่า k! มากเมื่อ k ประมาณ 15–20 เทียบกับข้อ [Buffet flight](#da66_f1_buffet_flight) ข้อสอบ da66 อีกข้อที่ซ่อนเส้นทางสั้นสุดไว้ในเรื่องเล่า
