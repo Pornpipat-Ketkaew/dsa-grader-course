@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>da68_f_hidden_palindrome · Hidden Palindrome</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#db2777}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="on" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch14.html">14 · <span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></div>
+<div class="phead">
+<div class="pidbig">da68_f_hidden_palindrome</div>
+<h1><span class="en">Hidden Palindrome</span><span class="th">Hidden Palindrome (พาลินโดรมที่ซ่อนอยู่)</span></h1>
+<div class="chips"><span class="chip t en">Interval DP (longest palindromic subsequence)</span><span class="chip t en">Two-row memory</span><span class="chip t th">DP บนช่วง (palindromic subsequence ที่ยาวที่สุด)</span><span class="chip t th">ใช้หน่วยความจำสองแถว</span><span class="chip cx">O(N²) time · O(N) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Let best(left, right) be the longest palindromic subsequence inside letters[left..right]. Equal ends wrap the inside: best(left+1, right−1) + 2. Different ends cannot both be used: max(best(left+1, right), best(left, right−1)). Fill left from N−1 down to 0 and keep only two rows.</p><p class="th">ให้ best(left, right) เป็น palindromic subsequence ที่ยาวที่สุดใน letters[left..right] ถ้าปลายทั้งสองเท่ากันให้ครอบข้างใน: best(left+1, right−1) + 2 ถ้าต่างกันใช้ทั้งคู่ไม่ได้: max(best(left+1, right), best(left, right−1)) เติม left จาก N−1 ลงไปถึง 0 และเก็บแค่สองแถว</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\da68_f_hidden_palindrome\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: interval DP</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: DP บนช่วง</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: interval DP</h2>
+<p>When the answer for a sequence depends on what happens at <strong>both ends</strong>, the natural state is an interval <code>[left, right]</code>. Each step removes one or both ends, so every interval depends only on <strong>shorter</strong> intervals inside it. Fill the table so shorter intervals come first.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: state and base</h3>
+<blockquote>
+<p><code>best[left][right]</code> = longest palindromic subsequence of <code>letters[left..right]</code>; <code>best[i][i] = 1</code>.</p>
+</blockquote>
+<h3>Step 2: the two ends</h3>
+<ul>
+<li><code>letters[left] == letters[right]</code>: put them as the outer pair around the best palindrome strictly inside: <code>best[left+1][right−1] + 2</code> (inside is empty, so 0, when <code>right = left + 1</code>).</li>
+<li>different: no palindrome can start with one and end with the other, so at least one end is unused: <code>max(best[left+1][right], best[left][right−1])</code>.</li>
+</ul>
+<pre class="diagram">a b c b d a b        best[0][5] (&quot;abcbda&quot;): &#x27;a&#x27; = &#x27;a&#x27; → best[1][4] (&quot;bcbd&quot;) + 2 = 3 + 2 = 5
+0 1 2 3 4 5 6        → &quot;abcba&quot;</pre>
+<p>(This is also LCS of the string and its reverse, but the interval form is the direct one.)</p>
+<h3>Step 3: order and memory</h3>
+<p><code>best[left][right]</code> reads row <code>left+1</code> (below) and <code>best[left][right−1]</code> (same row, to the left). So rows go from <code>left = N−1</code> <strong>down</strong> to 0 (an <code>int</code> counter), and inside a row <code>right</code> goes up. Only the current row and the row below are ever read, so two arrays of length N replace the N × N table: 2·3000 ints instead of 9·10⁶.</p>
+<div class="viz" data-viz="da68_f_hidden_palindrome"></div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>The chosen letters need not be adjacent: this is a sub<strong>sequence</strong>, not a palindromic substring.</li>
+<li>The <code>right = left + 1</code> equal case must give 2, not read <code>best[left+1][left]</code>.</li>
+<li>After the last <code>swap</code>, the finished row 0 is in <code>below</code>.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/da68_f_hidden_palindrome__main.cpp" download>⬇ .cpp</a><button data-copy="code50">Copy</button></div><pre class="hl"><code id="code50" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    string letters;
+    cin &gt;&gt; n &gt;&gt; letters;
+    // best(left, right) = longest palindromic subsequence of letters[left..right].
+    // Row `left` needs only row left+1, so keep two rows:
+    //   below[right] = best(left + 1, right),  row[right] = best(left, right)
+    vector&lt;int&gt; below(n, 0), row(n, 0);
+    // left = n-1 down to 0 (right to left, int because it counts down past 0)
+    for (int left = n - 1; left &gt;= 0; left--) {
+        row[left] = 1;                                   // a single letter is a palindrome
+        // right = left+1..n-1 (left to right): row[right-1] is needed and already done
+        for (int right = left + 1; right &lt; n; right++) {
+            if (letters[left] == letters[right])         // wrap the inside with both ends
+                row[right] = (right == left + 1 ? 0 : below[right - 1]) + 2;
+            else                                         // drop the left end or the right end
+                row[right] = max(below[right], row[right - 1]);
+        }
+        swap(row, below);                                // this row is &quot;below&quot; for left - 1
+    }
+    cout &lt;&lt; below[n - 1] &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">letters</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">letters</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// best(left, right) = longest palindromic subsequence of letters[left..right].</span></span><span class="ln"><span class="w">    </span><span class="c1">// Row `left` needs only row left+1, so keep two rows:</span></span><span class="ln"><span class="w">    </span><span class="c1">//   below[right] = best(left + 1, right),  row[right] = best(left, right)</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">below</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// left = n-1 down to 0 (right to left, int because it counts down past 0)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">left</span><span class="o">-</span><span class="o">-</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">row</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">                                   </span><span class="c1">// a single letter is a palindrome</span></span><span class="ln"><span class="w">        </span><span class="c1">// right = left+1..n-1 (left to right): row[right-1] is needed and already done</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">right</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">letters</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">letters</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="p">)</span><span class="w">         </span><span class="c1">// wrap the inside with both ends</span></span><span class="ln"><span class="w">                </span><span class="n">row</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">below</span><span class="p">[</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">else</span><span class="w">                                         </span><span class="c1">// drop the left end or the right end</span></span><span class="ln"><span class="w">                </span><span class="n">row</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">below</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="n">below</span><span class="p">)</span><span class="p">;</span><span class="w">                                </span><span class="c1">// this row is &quot;below&quot; for left - 1</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">below</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> N(N−1)/2 cells, O(1) each: <strong>O(N²)</strong> = 4.5·10⁶ for N = 3000. Memory: two rows, <strong>O(N)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, N = 2 (&quot;ab&quot; → 1), 300 random strings against a brute force over subsequences, and N = 3000 in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF, N = 2 (&quot;ab&quot; → 1) สุ่มสตริง 300 ชุดเทียบกับ brute force บน subsequence และ N = 3000 ใช้ 0.01 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: DP บนช่วง</h2>
+<p>เมื่อคำตอบของลำดับขึ้นกับสิ่งที่เกิดที่ <strong>ปลายทั้งสองข้าง</strong> สถานะที่เป็นธรรมชาติคือช่วง <code>[left, right]</code> แต่ละก้าวตัดปลายหนึ่งหรือสองข้าง ทุกช่วงจึงขึ้นกับช่วงที่ <strong>สั้นกว่า</strong> ที่อยู่ข้างในเท่านั้น เติมตารางให้ช่วงที่สั้นกว่ามาก่อน</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: สถานะและกรณีฐาน</h3>
+<blockquote>
+<p><code>best[left][right]</code> = palindromic subsequence ที่ยาวที่สุดของ <code>letters[left..right]</code> และ <code>best[i][i] = 1</code></p>
+</blockquote>
+<h3>ขั้นที่ 2: ปลายทั้งสอง</h3>
+<ul>
+<li><code>letters[left] == letters[right]</code>: ใช้เป็นคู่นอกสุดครอบพาลินโดรมที่ดีที่สุดข้างใน: <code>best[left+1][right−1] + 2</code> (ข้างในว่าง คือ 0 เมื่อ <code>right = left + 1</code>)</li>
+<li>ต่างกัน: ไม่มีพาลินโดรมไหนเริ่มด้วยตัวหนึ่งและจบด้วยอีกตัว อย่างน้อยปลายหนึ่งข้างไม่ถูกใช้: <code>max(best[left+1][right], best[left][right−1])</code></li>
+</ul>
+<pre class="diagram">a b c b d a b        best[0][5] (&quot;abcbda&quot;): &#x27;a&#x27; = &#x27;a&#x27; → best[1][4] (&quot;bcbd&quot;) + 2 = 3 + 2 = 5
+0 1 2 3 4 5 6        → &quot;abcba&quot;</pre>
+<p>(นี่เท่ากับ LCS ของสตริงกับสตริงกลับด้านด้วย แต่รูปแบบช่วงตรงไปตรงมากว่า)</p>
+<h3>ขั้นที่ 3: ลำดับและหน่วยความจำ</h3>
+<p><code>best[left][right]</code> อ่านแถว <code>left+1</code> (ข้างล่าง) และ <code>best[left][right−1]</code> (แถวเดียวกัน ทางซ้าย) แถวจึงไล่จาก <code>left = N−1</code> <strong>ลง</strong> ไปถึง 0 (ตัวนับเป็น <code>int</code>) และภายในแถว <code>right</code> ไล่ขึ้น มีแค่แถวปัจจุบันกับแถวข้างล่างที่ถูกอ่าน อาร์เรย์ยาว N สองตัวจึงแทนตาราง N × N ได้: 2·3000 ตัวแทน 9·10⁶ ตัว</p>
+<div class="viz" data-viz="da68_f_hidden_palindrome"></div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ไม่ต้องติดกัน: นี่คือ sub<strong>sequence</strong> ไม่ใช่ palindromic substring</li>
+<li>กรณีเท่ากันที่ <code>right = left + 1</code> ต้องได้ 2 ไม่ใช่ไปอ่าน <code>best[left+1][left]</code></li>
+<li>หลัง <code>swap</code> ครั้งสุดท้าย แถว 0 ที่เสร็จแล้วอยู่ใน <code>below</code></li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/da68_f_hidden_palindrome__main.cpp" download>⬇ .cpp</a><button data-copy="code50">Copy</button></div><pre class="hl"><code id="code50" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    string letters;
+    cin &gt;&gt; n &gt;&gt; letters;
+    // best(left, right) = longest palindromic subsequence of letters[left..right].
+    // Row `left` needs only row left+1, so keep two rows:
+    //   below[right] = best(left + 1, right),  row[right] = best(left, right)
+    vector&lt;int&gt; below(n, 0), row(n, 0);
+    // left = n-1 down to 0 (right to left, int because it counts down past 0)
+    for (int left = n - 1; left &gt;= 0; left--) {
+        row[left] = 1;                                   // a single letter is a palindrome
+        // right = left+1..n-1 (left to right): row[right-1] is needed and already done
+        for (int right = left + 1; right &lt; n; right++) {
+            if (letters[left] == letters[right])         // wrap the inside with both ends
+                row[right] = (right == left + 1 ? 0 : below[right - 1]) + 2;
+            else                                         // drop the left end or the right end
+                row[right] = max(below[right], row[right - 1]);
+        }
+        swap(row, below);                                // this row is &quot;below&quot; for left - 1
+    }
+    cout &lt;&lt; below[n - 1] &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">letters</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">letters</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// best(left, right) = longest palindromic subsequence of letters[left..right].</span></span><span class="ln"><span class="w">    </span><span class="c1">// Row `left` needs only row left+1, so keep two rows:</span></span><span class="ln"><span class="w">    </span><span class="c1">//   below[right] = best(left + 1, right),  row[right] = best(left, right)</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">below</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// left = n-1 down to 0 (right to left, int because it counts down past 0)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">left</span><span class="o">-</span><span class="o">-</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">row</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">                                   </span><span class="c1">// a single letter is a palindrome</span></span><span class="ln"><span class="w">        </span><span class="c1">// right = left+1..n-1 (left to right): row[right-1] is needed and already done</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">right</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">letters</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">letters</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="p">)</span><span class="w">         </span><span class="c1">// wrap the inside with both ends</span></span><span class="ln"><span class="w">                </span><span class="n">row</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">below</span><span class="p">[</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">else</span><span class="w">                                         </span><span class="c1">// drop the left end or the right end</span></span><span class="ln"><span class="w">                </span><span class="n">row</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">below</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">row</span><span class="p">[</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">swap</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="n">below</span><span class="p">)</span><span class="p">;</span><span class="w">                                </span><span class="c1">// this row is &quot;below&quot; for left - 1</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">below</span><span class="p">[</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> N(N−1)/2 ช่อง ช่องละ O(1): <strong>O(N²)</strong> = 4.5·10⁶ เมื่อ N = 3000 หน่วยความจำ: สองแถว <strong>O(N)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, N = 2 (&quot;ab&quot; → 1), 300 random strings against a brute force over subsequences, and N = 3000 in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF, N = 2 (&quot;ab&quot; → 1) สุ่มสตริง 300 ชุดเทียบกับ brute force บน subsequence และ N = 3000 ใช้ 0.01 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="ex03e1_lcs.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex03e1_lcs</b> · <span class="en">Longest Common Subsequence</span><span class="th">ลำดับย่อยร่วมที่ยาวที่สุด (LCS)</span></a><a class="nx" href="da68_f2_zero_one_subset_sum.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>da68_f2_zero_one_subset_sum</b> · <span class="en">0-1 Subset Sum</span><span class="th">0-1 Subset Sum (แทนเลข 1 ให้ผลรวมพอดี)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/da68_f_hidden_palindrome.js"></script>
+</body>
+</html>

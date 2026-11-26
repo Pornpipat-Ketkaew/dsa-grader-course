@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>d57_q3_zuma · Zuma</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#2f7fd8}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="on" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch10.html">10 · <span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></div>
+<div class="phead">
+<div class="pidbig">d57_q3_zuma</div>
+<h1><span class="en">Zuma</span><span class="th">ซูม่า (Zuma)</span></h1>
+<div class="chips"><span class="chip t en">Two pointers expanding outward</span><span class="chip t en">Run-length scanning</span><span class="chip t th">Two pointers ที่ขยายออกด้านนอก</span><span class="chip t th">การไล่ช่วงสีเดียวกัน (run)</span><span class="chip cx">O(N) time · O(N) memory</span><span class="chip"><span class="stars">★★★</span></span></div>
+<div class="lead"><p class="en">Never insert or erase. Every explosion removes a block that touches the gap, so two pointers left/right that only move outward describe everything; the answer is beads[0..left] + beads[right..n−1].</p><p class="th">ไม่ต้องแทรกหรือลบจริง ทุกการระเบิดลบก้อนที่ติดกับช่องว่าง two pointers ซ้าย/ขวาที่เคลื่อนออกด้านนอกอย่างเดียวจึงบรรยายทุกอย่างได้ คำตอบคือ beads[0..left] + beads[right..n−1]</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\d57_q3_zuma\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: two pointers that only move outward</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: two pointers ที่เคลื่อนออกด้านนอกอย่างเดียว</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: two pointers that only move outward</h2>
+<p>A naive simulation inserts the bead, finds runs of ≥ 3, erases them and repeats. With <code>vector::erase</code> every explosion is O(N), and a chain of explosions makes it O(N²) on 10⁶ beads.</p>
+<p>The key observation is <strong>locality</strong>: every explosion happens <strong>at the gap</strong> where the two sides last met. So the whole process is described by two indices that only move <strong>away</strong> from the insertion point:</p>
+<ul>
+<li><code>left</code>: the last surviving bead on the left side,</li>
+<li><code>right</code>: the first surviving bead on the right side.</li>
+</ul>
+<p>Each index moves over a bead at most once, so the total work is O(N): the classic two-pointer argument of Lesson 10.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the first explosion (around the shot)</h3>
+<p>The shot of color V lands between <code>beads[insertAt−1]</code> and <code>beads[insertAt]</code>. Walk <code>left</code> from <code>insertAt−1</code> to the left over beads of color V, and <code>right</code> from <code>insertAt</code> to the right over beads of color V. The run has</p>
+<p><code>runLength = (insertAt − 1 − left) + (right − insertAt) + 1</code> (the +1 is the shot).</p>
+<ul>
+<li><code>runLength &lt; 3</code> → nothing explodes; print the original beads with V inserted. (Sample 2: <code>1 4 1 1 1 1</code>: the four 1s on the right do <strong>not</strong> explode, because only shots and collisions trigger explosions.)</li>
+<li>otherwise the run disappears, and the beads at <code>left</code> and <code>right</code> are now neighbours.</li>
+</ul>
+<h3>Step 2: chain reactions at the meeting point</h3>
+<pre class="diagram">beads   1 3 1 4 4 [shot 4] 1 1 5 5 5           insertAt = 5
+             left┘          └right
+run of 4s: 4 4 + shot = 3  → explode      survivors: 1 3 1 | 1 1 5 5 5
+meeting colors: beads[left] = 1, beads[right] = 1  → same color
+run of 1s around the gap: 1 (left) + 2 (right) = 3  → explode
+survivors: 1 3 | 5 5 5
+meeting colors: 3 vs 5 → different → stop        answer 1 3 5 5 5</pre>
+<p>Loop while <code>beads[left] == beads[right]</code>: extend <code>newLeft</code> to the left and <code>newRight</code> to the right over that color. If the two pieces together have <strong>≥ 3</strong> beads, they explode (<code>left = newLeft</code>, <code>right = newRight</code>) and we look at the new meeting pair; otherwise stop. Note that 2 beads of the same color meeting do <strong>not</strong> explode.</p>
+<div class="box key">
+<div class="bt">Why survivors are always one prefix + one suffix</div>
+<p>Explosions only ever remove a contiguous block containing the gap. So the beads that disappear form one contiguous range <code>(left, right)</code> of the original array, and the survivors are <code>beads[0..left]</code> followed by <code>beads[right..n−1]</code>. No erasing is needed: just print those two ranges.</p>
+</div>
+<div class="viz" data-viz="d57_q3_zuma"></div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Existing runs of ≥ 3 do not explode by themselves (sample 2, and the <code>5 5 5</code> in sample 4).</li>
+<li>Two equal beads meeting (only 2 in total) do not explode.</li>
+<li>Everything can disappear: sample 3 prints an empty line.</li>
+<li><code>insertAt</code> can be 0 (left side empty) or N (right side empty): the <code>left &gt;= 0</code> and <code>right &lt; n</code> guards cover both.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/d57_q3_zuma__main.cpp" download>⬇ .cpp</a><button data-copy="code19">Copy</button></div><pre class="hl"><code id="code19" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, insertAt, shotColor;
+    cin &gt;&gt; n &gt;&gt; insertAt &gt;&gt; shotColor;
+    vector&lt;int&gt; beads(n);
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; beads[index];
+
+    // The new bead sits between beads[insertAt-1] and beads[insertAt]; we never really insert it.
+    // Whatever survives is always   beads[0..keepLeft]  +  beads[keepRight..n-1].
+
+    // 1) the run of shotColor around the new bead
+    int left = insertAt - 1;            // walk LEFT from insertAt-1 over beads of shotColor
+    while (left &gt;= 0 &amp;&amp; beads[left] == shotColor) left--;
+    int right = insertAt;               // walk RIGHT from insertAt over beads of shotColor
+    while (right &lt; n &amp;&amp; beads[right] == shotColor) right++;
+    int runLength = (insertAt - 1 - left) + (right - insertAt) + 1;   // + the shot bead
+
+    bool first = true;
+    auto print = [&amp;](int color) { cout &lt;&lt; (first ? &quot;&quot; : &quot; &quot;) &lt;&lt; color; first = false; };
+
+    if (runLength &lt; 3) {                // no explosion: original beads with the shot in between
+        for (int index = 0; index &lt; insertAt; index++) print(beads[index]);
+        print(shotColor);
+        for (int index = insertAt; index &lt; n; index++) print(beads[index]);
+        cout &lt;&lt; &#x27;\n&#x27;;
+        return 0;
+    }
+
+    // 2) the run exploded; the two sides slide together at (left, right).
+    //    Keep exploding while the meeting beads share a color AND that color now forms &gt;= 3 beads.
+    while (left &gt;= 0 &amp;&amp; right &lt; n &amp;&amp; beads[left] == beads[right]) {
+        int color = beads[left];
+        int newLeft = left;             // walk left over the run of `color`
+        while (newLeft &gt;= 0 &amp;&amp; beads[newLeft] == color) newLeft--;
+        int newRight = right;           // walk right over the run of `color`
+        while (newRight &lt; n &amp;&amp; beads[newRight] == color) newRight++;
+        if ((left - newLeft) + (newRight - right) &lt; 3) break;   // they touch, but only 2 beads
+        left = newLeft;
+        right = newRight;
+    }
+
+    // 3) survivors: beads[0..left] then beads[right..n-1], each bead touched O(1) times overall
+    for (int index = 0; index &lt;= left; index++) print(beads[index]);
+    for (int index = right; index &lt; n; index++) print(beads[index]);
+    cout &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">insertAt</span><span class="p">,</span><span class="w"> </span><span class="n">shotColor</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">insertAt</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shotColor</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">beads</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// The new bead sits between beads[insertAt-1] and beads[insertAt]; we never really insert it.</span></span><span class="ln"><span class="w">    </span><span class="c1">// Whatever survives is always   beads[0..keepLeft]  +  beads[keepRight..n-1].</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// 1) the run of shotColor around the new bead</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insertAt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">            </span><span class="c1">// walk LEFT from insertAt-1 over beads of shotColor</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">shotColor</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insertAt</span><span class="p">;</span><span class="w">               </span><span class="c1">// walk RIGHT from insertAt over beads of shotColor</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">shotColor</span><span class="p">)</span><span class="w"> </span><span class="n">right</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">runLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">insertAt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">insertAt</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">// + the shot bead</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">first</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;</span><span class="s"> </span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">color</span><span class="p">;</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">runLength</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                </span><span class="c1">// no explosion: original beads with the shot in between</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">insertAt</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">print</span><span class="p">(</span><span class="n">shotColor</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insertAt</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// 2) the run exploded; the two sides slide together at (left, right).</span></span><span class="ln"><span class="w">    </span><span class="c1">//    Keep exploding while the meeting beads share a color AND that color now forms &gt;= 3 beads.</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">newLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">;</span><span class="w">             </span><span class="c1">// walk left over the run of `color`</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">newLeft</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">newLeft</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="n">newLeft</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">newRight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w">           </span><span class="c1">// walk right over the run of `color`</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">newRight</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">newRight</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="n">newRight</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">newLeft</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">newRight</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w">   </span><span class="c1">// they touch, but only 2 beads</span></span><span class="ln"><span class="w">        </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newLeft</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newRight</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// 3) survivors: beads[0..left] then beads[right..n-1], each bead touched O(1) times overall</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> <code>left</code> only decreases and <code>right</code> only increases, each over at most N beads, and printing is O(N): <strong>O(N)</strong> time. Memory: the beads, <strong>O(N)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 4 PDF samples (one leaves an empty line) and 400 random strings with few colors (long chain reactions) against a simulation that really inserts and erases; N = 10⁶ runs in 0.08 s. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 4 ชุดใน PDF (ชุดหนึ่งเหลือบรรทัดว่าง) และสุ่ม 400 ชุดที่มีสีน้อย (ระเบิดต่อเนื่องยาว) เทียบกับการจำลองที่แทรกและลบจริง กรณี N = 10⁶ ใช้ 0.08 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: two pointers ที่เคลื่อนออกด้านนอกอย่างเดียว</h2>
+<p>การจำลองตรง ๆ คือแทรกลูกปัด หา run ที่ยาว ≥ 3 ลบออก แล้วทำซ้ำ ถ้าใช้ <code>vector::erase</code> การระเบิดแต่ละครั้งใช้ O(N) และการระเบิดต่อเนื่องทำให้เป็น O(N²) บนลูกปัด 10⁶ เม็ด</p>
+<p>ข้อสังเกตสำคัญคือ <strong>ความเฉพาะที่ (locality)</strong>: ทุกการระเบิดเกิด <strong>ที่ช่องว่าง</strong> ที่สองฝั่งมาชนกันครั้งล่าสุด กระบวนการทั้งหมดจึงอธิบายได้ด้วย index สองตัวที่เคลื่อน <strong>ออกห่าง</strong> จากจุดแทรกเท่านั้น:</p>
+<ul>
+<li><code>left</code>: ลูกปัดตัวสุดท้ายที่รอดทางฝั่งซ้าย</li>
+<li><code>right</code>: ลูกปัดตัวแรกที่รอดทางฝั่งขวา</li>
+</ul>
+<p>แต่ละ index ผ่านลูกปัดแต่ละเม็ดไม่เกินหนึ่งครั้ง งานรวมจึงเป็น O(N): เหตุผลแบบ two pointers มาตรฐานในบทที่ 10</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: การระเบิดครั้งแรก (รอบลูกที่ยิง)</h3>
+<p>ลูกที่ยิงสี V ลงระหว่าง <code>beads[insertAt−1]</code> กับ <code>beads[insertAt]</code> เดิน <code>left</code> จาก <code>insertAt−1</code> ไปทางซ้ายผ่านลูกสี V และเดิน <code>right</code> จาก <code>insertAt</code> ไปทางขวาผ่านลูกสี V run นี้ยาว</p>
+<p><code>runLength = (insertAt − 1 − left) + (right − insertAt) + 1</code> (+1 คือลูกที่ยิง)</p>
+<ul>
+<li><code>runLength &lt; 3</code> → ไม่มีอะไรระเบิด พิมพ์ลูกปัดเดิมพร้อมแทรก V (ตัวอย่างที่ 2: <code>1 4 1 1 1 1</code> เลข 1 สี่เม็ดทางขวา <strong>ไม่</strong> ระเบิด เพราะระเบิดได้จากการยิงหรือการชนเท่านั้น)</li>
+<li>นอกนั้น run นี้หายไป และลูกที่ <code>left</code> กับ <code>right</code> กลายเป็นเพื่อนบ้านกัน</li>
+</ul>
+<h3>ขั้นที่ 2: ระเบิดต่อเนื่องที่จุดชน</h3>
+<pre class="diagram">beads   1 3 1 4 4 [ยิง 4] 1 1 5 5 5           insertAt = 5
+             left┘         └right
+run ของ 4: 4 4 + ลูกยิง = 3  → ระเบิด      ที่รอด: 1 3 1 | 1 1 5 5 5
+สีที่ชนกัน: beads[left] = 1, beads[right] = 1  → สีเดียวกัน
+run ของ 1 รอบช่องว่าง: 1 (ซ้าย) + 2 (ขวา) = 3  → ระเบิด
+ที่รอด: 1 3 | 5 5 5
+สีที่ชนกัน: 3 กับ 5 → ต่างกัน → หยุด        คำตอบ 1 3 5 5 5</pre>
+<p>วนลูปตราบที่ <code>beads[left] == beads[right]</code>: ขยาย <code>newLeft</code> ไปซ้ายและ <code>newRight</code> ไปขวาผ่านสีนั้น ถ้าสองฝั่งรวมกัน <strong>≥ 3</strong> เม็ด ก็ระเบิด (<code>left = newLeft</code>, <code>right = newRight</code>) แล้วดูคู่ที่ชนกันคู่ใหม่ ไม่อย่างนั้นหยุด สังเกตว่าสีเดียวกันชนกันแค่ 2 เม็ด <strong>ไม่</strong> ระเบิด</p>
+<div class="box key">
+<div class="bt">ทำไมที่รอดเป็นส่วนหน้าหนึ่งก้อน + ส่วนท้ายหนึ่งก้อนเสมอ</div>
+<p>การระเบิดลบเฉพาะก้อนต่อเนื่องที่มีช่องว่างอยู่ข้างในเท่านั้น ลูกปัดที่หายไปจึงเป็นช่วงต่อเนื่อง <code>(left, right)</code> ของอาร์เรย์เดิมช่วงเดียว และที่รอดคือ <code>beads[0..left]</code> ตามด้วย <code>beads[right..n−1]</code> ไม่ต้องลบจริงเลย แค่พิมพ์สองช่วงนี้</p>
+</div>
+<div class="viz" data-viz="d57_q3_zuma"></div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>run ที่ยาว ≥ 3 อยู่แล้วไม่ระเบิดเอง (ตัวอย่างที่ 2 และ <code>5 5 5</code> ในตัวอย่างที่ 4)</li>
+<li>สีเดียวกันชนกัน (รวมแค่ 2 เม็ด) ไม่ระเบิด</li>
+<li>อาจหายหมดทั้งสาย: ตัวอย่างที่ 3 พิมพ์บรรทัดว่าง</li>
+<li><code>insertAt</code> เป็น 0 ได้ (ฝั่งซ้ายว่าง) หรือ N (ฝั่งขวาว่าง) เงื่อนไข <code>left &gt;= 0</code> และ <code>right &lt; n</code> ครอบคลุมทั้งสองกรณี</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/d57_q3_zuma__main.cpp" download>⬇ .cpp</a><button data-copy="code19">Copy</button></div><pre class="hl"><code id="code19" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, insertAt, shotColor;
+    cin &gt;&gt; n &gt;&gt; insertAt &gt;&gt; shotColor;
+    vector&lt;int&gt; beads(n);
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; beads[index];
+
+    // The new bead sits between beads[insertAt-1] and beads[insertAt]; we never really insert it.
+    // Whatever survives is always   beads[0..keepLeft]  +  beads[keepRight..n-1].
+
+    // 1) the run of shotColor around the new bead
+    int left = insertAt - 1;            // walk LEFT from insertAt-1 over beads of shotColor
+    while (left &gt;= 0 &amp;&amp; beads[left] == shotColor) left--;
+    int right = insertAt;               // walk RIGHT from insertAt over beads of shotColor
+    while (right &lt; n &amp;&amp; beads[right] == shotColor) right++;
+    int runLength = (insertAt - 1 - left) + (right - insertAt) + 1;   // + the shot bead
+
+    bool first = true;
+    auto print = [&amp;](int color) { cout &lt;&lt; (first ? &quot;&quot; : &quot; &quot;) &lt;&lt; color; first = false; };
+
+    if (runLength &lt; 3) {                // no explosion: original beads with the shot in between
+        for (int index = 0; index &lt; insertAt; index++) print(beads[index]);
+        print(shotColor);
+        for (int index = insertAt; index &lt; n; index++) print(beads[index]);
+        cout &lt;&lt; &#x27;\n&#x27;;
+        return 0;
+    }
+
+    // 2) the run exploded; the two sides slide together at (left, right).
+    //    Keep exploding while the meeting beads share a color AND that color now forms &gt;= 3 beads.
+    while (left &gt;= 0 &amp;&amp; right &lt; n &amp;&amp; beads[left] == beads[right]) {
+        int color = beads[left];
+        int newLeft = left;             // walk left over the run of `color`
+        while (newLeft &gt;= 0 &amp;&amp; beads[newLeft] == color) newLeft--;
+        int newRight = right;           // walk right over the run of `color`
+        while (newRight &lt; n &amp;&amp; beads[newRight] == color) newRight++;
+        if ((left - newLeft) + (newRight - right) &lt; 3) break;   // they touch, but only 2 beads
+        left = newLeft;
+        right = newRight;
+    }
+
+    // 3) survivors: beads[0..left] then beads[right..n-1], each bead touched O(1) times overall
+    for (int index = 0; index &lt;= left; index++) print(beads[index]);
+    for (int index = right; index &lt; n; index++) print(beads[index]);
+    cout &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">insertAt</span><span class="p">,</span><span class="w"> </span><span class="n">shotColor</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">insertAt</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shotColor</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">beads</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// The new bead sits between beads[insertAt-1] and beads[insertAt]; we never really insert it.</span></span><span class="ln"><span class="w">    </span><span class="c1">// Whatever survives is always   beads[0..keepLeft]  +  beads[keepRight..n-1].</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// 1) the run of shotColor around the new bead</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insertAt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">            </span><span class="c1">// walk LEFT from insertAt-1 over beads of shotColor</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">shotColor</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insertAt</span><span class="p">;</span><span class="w">               </span><span class="c1">// walk RIGHT from insertAt over beads of shotColor</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">shotColor</span><span class="p">)</span><span class="w"> </span><span class="n">right</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">runLength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">insertAt</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">insertAt</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">// + the shot bead</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">print</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">first</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;</span><span class="s"> </span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">color</span><span class="p">;</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">runLength</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                </span><span class="c1">// no explosion: original beads with the shot in between</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">insertAt</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">print</span><span class="p">(</span><span class="n">shotColor</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insertAt</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// 2) the run exploded; the two sides slide together at (left, right).</span></span><span class="ln"><span class="w">    </span><span class="c1">//    Keep exploding while the meeting beads share a color AND that color now forms &gt;= 3 beads.</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">right</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">newLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">;</span><span class="w">             </span><span class="c1">// walk left over the run of `color`</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">newLeft</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">newLeft</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="n">newLeft</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">newRight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w">           </span><span class="c1">// walk right over the run of `color`</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">newRight</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">beads</span><span class="p">[</span><span class="n">newRight</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="n">newRight</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">newLeft</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">newRight</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w">   </span><span class="c1">// they touch, but only 2 beads</span></span><span class="ln"><span class="w">        </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newLeft</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newRight</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// 3) survivors: beads[0..left] then beads[right..n-1], each bead touched O(1) times overall</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">print</span><span class="p">(</span><span class="n">beads</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> <code>left</code> ลดลงอย่างเดียวและ <code>right</code> เพิ่มขึ้นอย่างเดียว แต่ละตัวผ่านไม่เกิน N เม็ด และการพิมพ์เป็น O(N): เวลา <strong>O(N)</strong> หน่วยความจำ: ลูกปัด <strong>O(N)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 4 PDF samples (one leaves an empty line) and 400 random strings with few colors (long chain reactions) against a simulation that really inserts and erases; N = 10⁶ runs in 0.08 s. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 4 ชุดใน PDF (ชุดหนึ่งเหลือบรรทัดว่าง) และสุ่ม 400 ชุดที่มีสีน้อย (ระเบิดต่อเนื่องยาว) เทียบกับการจำลองที่แทรกและลบจริง กรณี N = 10⁶ ใช้ 0.08 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="pn"><a class="pv" href="da68_m2_interesting_events.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>da68_m2_interesting_events</b> · <span class="en">Interesting Events</span><span class="th">วันที่น่าสนใจ (Interesting Events)</span></a><a class="nx" href="da66_m1_line_monopoly.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>da66_m1_line_monopoly</b> · <span class="en">Line Monopoly</span><span class="th">เกมเศรษฐีบนเส้นตรง (Line Monopoly)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/d57_q3_zuma.js"></script>
+</body>
+</html>

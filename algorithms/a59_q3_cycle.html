@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a59_q3_cycle · Cycle in a Tree</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="on" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch16.html">16 · <span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></div>
+<div class="phead">
+<div class="pidbig">a59_q3_cycle</div>
+<h1><span class="en">Cycle in a Tree</span><span class="th">วงวนในต้นไม้</span></h1>
+<div class="chips"><span class="chip t en">Leaf peeling (repeatedly removing degree-1 nodes)</span><span class="chip t en">Unicyclic graphs</span><span class="chip t th">ลอกใบ (ลบปม degree 1 ซ้ำ ๆ)</span><span class="chip t th">กราฟที่มีวงรอบเดียว</span><span class="chip cx">O(n) time and memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">A connected graph with n nodes and n edges has exactly one cycle, with trees hanging off it. A leaf (degree 1) cannot be on the cycle; removing it can only create new leaves. Peel leaves until none remain: the survivors all have degree 2 and are exactly the cycle, whose size equals their count.</p><p class="th">กราฟที่เชื่อมกันซึ่งมี n ปมและ n เส้นมีวงรอบเดียวพอดี และมีต้นไม้ห้อยออกจากวงรอบ ใบ (degree 1) อยู่บนวงรอบไม่ได้ การลบใบทำได้แค่สร้างใบใหม่ ลอกใบไปเรื่อย ๆ จนไม่เหลือ ปมที่รอดมีทุกปม degree 2 และคือวงรอบพอดี ขนาดของวงรอบเท่ากับจำนวนปมที่เหลือ</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a59_q3_cycle\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: peel off what cannot matter</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: ลอกส่วนที่ไม่มีผลออก</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: peel off what cannot matter</h2>
+<p>Some structure in a graph can be found by <strong>removing everything that provably is not part of it</strong>. For cycles the removable things are leaves: a node with only one edge is a dead end, and a cycle needs two edges at every node. Removing a leaf lowers its neighbour's degree, which may make that neighbour a leaf too, so the peeling continues inward, like a BFS from all leaves at once (it is the same idea as Kahn's topological sort, on undirected degrees).</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the shape of the graph</h3>
+<p>n nodes, n edges, connected: a spanning tree uses n − 1 edges, so there is exactly one extra edge and exactly one cycle. Everything else is trees hanging off cycle nodes.</p>
+<pre class="diagram">sample:   3 – 1 – 0 – 2 – 6        cycle 0-1-4-5-2-0
+              |       | \          hanging trees: 3 (on 1), 8 (on 5), 6 and 7 (on 2)
+              4 ––––– 5   7
+                      |
+                      8</pre>
+<h3>Step 2: peel</h3>
+<p>Put all degree-1 nodes in a list. Repeatedly take one out, remove it, and decrease the degree of its single remaining neighbour; if that neighbour now has degree 1, it becomes a leaf too.</p>
+<div class="viz" data-viz="a59_q3_cycle"></div>
+<h3>Step 3: what is left is the cycle</h3>
+<p>Peeling stops when no node has degree 1. Every survivor has degree ≥ 2 within the survivors, and a hanging tree always has a leaf, so no tree part can survive; the cycle nodes keep their two cycle edges forever, so none of them is removed. Hence the survivors are exactly the cycle, and a cycle has as many edges as nodes: the answer is <code>remaining</code>.</p>
+<div class="box idea">
+<div class="bt">Alternative: DFS back edge</div>
+<p>A DFS that records depths finds the single non-tree edge u–w (w an ancestor of u); the cycle size is <code>depth[u] − depth[w] + 1</code>. It needs a true DFS order (recursion or a careful stack) and recursion would be 100 000 deep on the ring tests, which is why peeling is the safer choice here.</p>
+</div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Answering with the number of edges or nodes in total: only the cycle counts.</li>
+<li>A recursive DFS on the 100 000-node ring or path tests overflows small stacks.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a59_q3_cycle__main.cpp" download>⬇ .cpp</a><button data-copy="code65">Copy</button></div><pre class="hl"><code id="code65" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+    vector&lt;int&gt; degree(n, 0);
+    // edge = 0..n-1: n nodes and n edges = a tree plus one extra edge = one cycle
+    for (int edge = 0; edge &lt; n; edge++) {
+        int x, y;
+        cin &gt;&gt; x &gt;&gt; y;
+        neighbors[x].push_back(y);
+        neighbors[y].push_back(x);
+        degree[x]++;
+        degree[y]++;
+    }
+
+    // Peel the leaves. A node of degree 1 is a dead end and cannot lie on the
+    // cycle; removing it may turn its neighbour into a new leaf. When no leaf
+    // is left, every remaining node has degree 2: exactly the cycle.
+    vector&lt;int&gt; leaves;
+    // node = 0..n-1: collect the leaves of the original graph
+    for (int node = 0; node &lt; n; node++)
+        if (degree[node] == 1) leaves.push_back(node);
+
+    int remaining = n;
+    // keep removing leaves until none are left (order does not matter)
+    while (!leaves.empty()) {
+        int leaf = leaves.back();
+        leaves.pop_back();
+        degree[leaf] = 0;                    // degree 0 = removed
+        remaining--;
+        for (int next : neighbors[leaf])
+            if (degree[next] &gt; 0 &amp;&amp; --degree[next] == 1) leaves.push_back(next);
+    }
+    // a cycle has as many edges as nodes
+    cout &lt;&lt; remaining &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..n-1: n nodes and n edges = a tree plus one extra edge = one cycle</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Peel the leaves. A node of degree 1 is a dead end and cannot lie on the</span></span><span class="ln"><span class="w">    </span><span class="c1">// cycle; removing it may turn its neighbour into a new leaf. When no leaf</span></span><span class="ln"><span class="w">    </span><span class="c1">// is left, every remaining node has degree 2: exactly the cycle.</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">leaves</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// node = 0..n-1: collect the leaves of the original graph</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">leaves</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// keep removing leaves until none are left (order does not matter)</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">leaves</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leaves</span><span class="p">.</span><span class="n">back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">leaves</span><span class="p">.</span><span class="n">pop_back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">leaf</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">                    </span><span class="c1">// degree 0 = removed</span></span><span class="ln"><span class="w">        </span><span class="n">remaining</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">leaf</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="o">-</span><span class="o">-</span><span class="n">degree</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">leaves</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// a cycle has as many edges as nodes</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Each node is removed at most once and each adjacency entry is touched once: <strong>O(n)</strong>. Memory: <strong>O(n)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample and a triangle, 300 random unicyclic graphs against a brute force, a 100 000-node ring, a path closed into a ring, and a 100 000-node path ending in a triangle (answer 3) in 0.03 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF และสามเหลี่ยม กราฟวงรอบเดียวแบบสุ่ม 300 ชุดเทียบกับ brute force วงแหวน 100 000 ปม path ที่ปิดเป็นวง และ path 100 000 ปมที่ปลายเป็นสามเหลี่ยม (คำตอบ 3) ใช้ 0.03 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: ลอกส่วนที่ไม่มีผลออก</h2>
+<p>โครงสร้างบางอย่างในกราฟหาได้ด้วยการ <strong>ลบทุกอย่างที่พิสูจน์ได้ว่าไม่ใช่ส่วนของมัน</strong> สำหรับวงรอบ สิ่งที่ลบได้คือใบ: ปมที่มีเส้นเดียวเป็นทางตัน แต่วงรอบต้องมีสองเส้นที่ทุกปม การลบใบลด degree ของเพื่อนบ้าน ซึ่งอาจทำให้เพื่อนบ้านกลายเป็นใบด้วย การลอกจึงดำเนินเข้าด้านในต่อไป เหมือน BFS จากทุกใบพร้อมกัน (เป็นแนวคิดเดียวกับ topological sort แบบ Kahn แต่ใช้ degree แบบไม่มีทิศทาง)</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: รูปร่างของกราฟ</h3>
+<p>n ปม n เส้น เชื่อมกัน: ต้นไม้ทอดข้ามใช้ n − 1 เส้น จึงมีเส้นเกินมาหนึ่งเส้นพอดี และมีวงรอบหนึ่งวงพอดี ส่วนอื่นคือต้นไม้ที่ห้อยจากปมบนวงรอบ</p>
+<pre class="diagram">ตัวอย่าง:  3 – 1 – 0 – 2 – 6        วงรอบ 0-1-4-5-2-0
+              |       | \          ต้นไม้ที่ห้อย: 3 (ที่ 1), 8 (ที่ 5), 6 และ 7 (ที่ 2)
+              4 ––––– 5   7
+                      |
+                      8</pre>
+<h3>ขั้นที่ 2: ลอก</h3>
+<p>ใส่ทุกปมที่ degree 1 ลงในรายการ หยิบออกทีละตัว ลบมัน แล้วลด degree ของเพื่อนบ้านตัวเดียวที่เหลือ ถ้าเพื่อนบ้านนั้นเหลือ degree 1 ก็กลายเป็นใบด้วย</p>
+<div class="viz" data-viz="a59_q3_cycle"></div>
+<h3>ขั้นที่ 3: ที่เหลือคือวงรอบ</h3>
+<p>การลอกหยุดเมื่อไม่มีปมที่ degree 1 ทุกปมที่รอดมี degree ≥ 2 ในกลุ่มที่รอด และต้นไม้ที่ห้อยอยู่มีใบเสมอ ส่วนที่เป็นต้นไม้จึงรอดไม่ได้ ส่วนปมบนวงรอบมีเส้นของวงรอบสองเส้นตลอด จึงไม่มีปมไหนถูกลบ ปมที่รอดจึงคือวงรอบพอดี และวงรอบมีเส้นเท่ากับจำนวนปม: คำตอบคือ <code>remaining</code></p>
+<div class="box idea">
+<div class="bt">อีกทาง: back edge ของ DFS</div>
+<p>DFS ที่จดความลึกจะเจอเส้นนอกต้นไม้เส้นเดียว u–w (w เป็นบรรพบุรุษของ u) ขนาดวงรอบคือ <code>depth[u] − depth[w] + 1</code> แต่ต้องใช้ลำดับ DFS จริง (recursion หรือ stack ที่จัดการอย่างระวัง) และ recursion จะลึก 100 000 ชั้นในชุดทดสอบวงแหวน การลอกใบจึงปลอดภัยกว่าในข้อนี้</p>
+</div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ตอบด้วยจำนวนเส้นหรือปมทั้งหมด: นับแค่วงรอบ</li>
+<li>DFS แบบ recursive บนชุดทดสอบวงแหวนหรือ path 100 000 ปมทำ stack เล็กล้น</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a59_q3_cycle__main.cpp" download>⬇ .cpp</a><button data-copy="code65">Copy</button></div><pre class="hl"><code id="code65" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+    vector&lt;int&gt; degree(n, 0);
+    // edge = 0..n-1: n nodes and n edges = a tree plus one extra edge = one cycle
+    for (int edge = 0; edge &lt; n; edge++) {
+        int x, y;
+        cin &gt;&gt; x &gt;&gt; y;
+        neighbors[x].push_back(y);
+        neighbors[y].push_back(x);
+        degree[x]++;
+        degree[y]++;
+    }
+
+    // Peel the leaves. A node of degree 1 is a dead end and cannot lie on the
+    // cycle; removing it may turn its neighbour into a new leaf. When no leaf
+    // is left, every remaining node has degree 2: exactly the cycle.
+    vector&lt;int&gt; leaves;
+    // node = 0..n-1: collect the leaves of the original graph
+    for (int node = 0; node &lt; n; node++)
+        if (degree[node] == 1) leaves.push_back(node);
+
+    int remaining = n;
+    // keep removing leaves until none are left (order does not matter)
+    while (!leaves.empty()) {
+        int leaf = leaves.back();
+        leaves.pop_back();
+        degree[leaf] = 0;                    // degree 0 = removed
+        remaining--;
+        for (int next : neighbors[leaf])
+            if (degree[next] &gt; 0 &amp;&amp; --degree[next] == 1) leaves.push_back(next);
+    }
+    // a cycle has as many edges as nodes
+    cout &lt;&lt; remaining &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..n-1: n nodes and n edges = a tree plus one extra edge = one cycle</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">y</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Peel the leaves. A node of degree 1 is a dead end and cannot lie on the</span></span><span class="ln"><span class="w">    </span><span class="c1">// cycle; removing it may turn its neighbour into a new leaf. When no leaf</span></span><span class="ln"><span class="w">    </span><span class="c1">// is left, every remaining node has degree 2: exactly the cycle.</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">leaves</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// node = 0..n-1: collect the leaves of the original graph</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">leaves</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">node</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// keep removing leaves until none are left (order does not matter)</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">leaves</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">leaf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">leaves</span><span class="p">.</span><span class="n">back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">leaves</span><span class="p">.</span><span class="n">pop_back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">leaf</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">                    </span><span class="c1">// degree 0 = removed</span></span><span class="ln"><span class="w">        </span><span class="n">remaining</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">leaf</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degree</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="o">-</span><span class="o">-</span><span class="n">degree</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">leaves</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// a cycle has as many edges as nodes</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> แต่ละปมถูกลบไม่เกินครั้งเดียว และแต่ละรายการเพื่อนบ้านถูกแตะครั้งเดียว: <strong>O(n)</strong> หน่วยความจำ: <strong>O(n)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample and a triangle, 300 random unicyclic graphs against a brute force, a 100 000-node ring, a path closed into a ring, and a 100 000-node path ending in a triangle (answer 3) in 0.03 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF และสามเหลี่ยม กราฟวงรอบเดียวแบบสุ่ม 300 ชุดเทียบกับ brute force วงแหวน 100 000 ปม path ที่ปิดเป็นวง และ path 100 000 ปมที่ปลายเป็นสามเหลี่ยม (คำตอบ 3) ใช้ 0.03 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="ex05m2_connection.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex05m2_connection</b> · <span class="en">Connection</span><span class="th">Connection (เพื่อนระดับ K)</span></a><a class="nx" href="a62_q2a_pandemic.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a62_q2a_pandemic</b> · <span class="en">Pandemic</span><span class="th">โรคระบาด</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a59_q3_cycle.js"></script>
+</body>
+</html>

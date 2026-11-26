@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>14 · Dynamic programming I</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#db2777}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class="on"><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 14</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 14</span></div>
+<h1><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></h1>
+<p class="en">Name the sub-problem, write the recurrence, fill the table in dependency order.</p><p class="th">ตั้งชื่อปัญหาย่อย เขียนความสัมพันธ์เวียนเกิด แล้วเติมตารางตามลำดับที่ถูก</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span><span class="pt"><span class="en">Fibonacci</span><span class="th">ฟีโบนัชชี (Fibonacci)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">The recursive definition calls the same F(i) exponentially many times. There are only N + 1 different subproblems, so compute each once, from small to large, in a table.</span><span class="th">นิยามแบบ recursive เรียก F(i) ตัวเดิมซ้ำเป็นจำนวนเลขชี้กำลัง แต่มีปัญหาย่อยต่างกันแค่ N + 1 ตัว จึงคำนวณแต่ละตัวครั้งเดียว จากเล็กไปใหญ่ ในตาราง</span></span></a><a href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span><span class="pt"><span class="en">Binomial Coefficient</span><span class="th">สัมประสิทธิ์ทวินาม (Binomial Coefficient)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">The given recurrence C(n,k) = C(n−1,k−1) + C(n−1,k) only looks one row up, so fill Pascal&#x27;s triangle row by row; every entry is computed once from two entries that are already there.</span><span class="th">สูตรเวียนเกิด C(n,k) = C(n−1,k−1) + C(n−1,k) ดูแค่แถวข้างบนหนึ่งแถว จึงเติมสามเหลี่ยมปาสคาลทีละแถว ทุกช่องคำนวณครั้งเดียวจากสองช่องที่มีอยู่แล้ว</span></span></a><a href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span><span class="pt"><span class="en">Number Triangle</span><span class="th">สามเหลี่ยมตัวเลข (Number Triangle)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">The best route from a cell is the cell&#x27;s number plus the better of the best routes from its two children. Compute that from the bottom level upward; the answer is the value at the top. One row array is enough because each entry is overwritten only after it has been read.</span><span class="th">เส้นทางที่ดีที่สุดจากช่องหนึ่งคือตัวเลขของช่องนั้นบวกกับเส้นทางที่ดีที่สุดของลูกที่ดีกว่าในสองตัว คำนวณจากระดับล่างสุดขึ้นไป คำตอบคือค่าที่ยอด อาร์เรย์แถวเดียวก็พอเพราะแต่ละช่องถูกเขียนทับหลังจากถูกอ่านแล้วเท่านั้น</span></span></a><a href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span><span class="pt"><span class="en">Linear Recurrence</span><span class="th">Linear Recurrence (ความสัมพันธ์เวียนเกิดเชิงเส้น)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">R(n) depends on the k values before it, so fill R(k), R(k+1), …, R(n) in increasing order, each as the sum of c_j · R(index − j) taken mod 32717 after every step. With n, k ≤ 1000 that is at most 10^6 multiply-adds.</span><span class="th">R(n) ขึ้นกับ k ค่าก่อนหน้า จึงเติม R(k), R(k+1), …, R(n) ตามลำดับจากน้อยไปมาก แต่ละตัวเป็นผลรวมของ c_j · R(index − j) โดย mod 32717 ทุกก้าว เมื่อ n, k ≤ 1000 ใช้การคูณบวกไม่เกิน 10^6 ครั้ง</span></span></a><a href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span><span class="pt"><span class="en">Chocolate</span><span class="th">ช็อกโกแลต (Chocolate)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Split all eating plans of a bar of length L by what was eaten on the last day: if it was s pieces, the earlier days ate a bar of length L − s in any valid way. So ways[L] = Σ ways[L − s] over allowed s ≤ L, with ways[0] = 1, filled for L = 1..n.</span><span class="th">แบ่งทุกแผนการกินแท่งยาว L ตามจำนวนที่กินในวันสุดท้าย: ถ้ากิน s ชิ้น วันก่อนหน้าก็กินแท่งยาว L − s ด้วยวิธีที่ถูกต้องใดก็ได้ ดังนั้น ways[L] = Σ ways[L − s] สำหรับ s ที่ยอมได้และ ≤ L โดย ways[0] = 1 เติมสำหรับ L = 1..n</span></span></a><a href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span><span class="pt"><span class="en">Increasing Sequence Sum</span><span class="th">Increasing Sequence Sum (นับการแบ่งจำนวน)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A non-decreasing sequence is a partition of N written in sorted order, so order must NOT create new answers. Allow part sizes 1, 2, …, N one at a time in the outer loop and update ways[sum] += ways[sum − part] for increasing sums: every sequence is then built only in its sorted order.</span><span class="th">ลำดับที่ไม่ลดคือการแบ่งจำนวน N ที่เขียนเรียงแล้ว ลำดับจึง **ต้องไม่** สร้างคำตอบใหม่ อนุญาตขนาดชิ้น 1, 2, …, N ทีละขนาดในลูปนอก และอัปเดต ways[sum] += ways[sum − part] สำหรับ sum ที่เพิ่มขึ้น แล้วทุกลำดับจะถูกสร้างแค่ในลำดับที่เรียงแล้วเท่านั้น</span></span></a><a href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span><span class="pt"><span class="en">Longest Common Subsequence</span><span class="th">ลำดับย่อยร่วมที่ยาวที่สุด (LCS)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Let lcs[i][j] be the answer for the first i letters of A and the first j letters of B. If their last letters match, use them: lcs[i−1][j−1] + 1. Otherwise one of the two last letters is not in the LCS: max(lcs[i−1][j], lcs[i][j−1]).</span><span class="th">ให้ lcs[i][j] เป็นคำตอบของ i ตัวแรกของ A และ j ตัวแรกของ B ถ้าตัวสุดท้ายตรงกันให้ใช้มัน: lcs[i−1][j−1] + 1 ไม่อย่างนั้นตัวสุดท้ายตัวใดตัวหนึ่งไม่อยู่ใน LCS: max(lcs[i−1][j], lcs[i][j−1])</span></span></a><a href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span><span class="pt"><span class="en">Hidden Palindrome</span><span class="th">Hidden Palindrome (พาลินโดรมที่ซ่อนอยู่)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Let best(left, right) be the longest palindromic subsequence inside letters[left..right]. Equal ends wrap the inside: best(left+1, right−1) + 2. Different ends cannot both be used: max(best(left+1, right), best(left, right−1)). Fill left from N−1 down to 0 and keep only two rows.</span><span class="th">ให้ best(left, right) เป็น palindromic subsequence ที่ยาวที่สุดใน letters[left..right] ถ้าปลายทั้งสองเท่ากันให้ครอบข้างใน: best(left+1, right−1) + 2 ถ้าต่างกันใช้ทั้งคู่ไม่ได้: max(best(left+1, right), best(left, right−1)) เติม left จาก N−1 ลงไปถึง 0 และเก็บแค่สองแถว</span></span></a><a href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span><span class="pt"><span class="en">0-1 Subset Sum</span><span class="th">0-1 Subset Sum (แทนเลข 1 ให้ผลรวมพอดี)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Zeros contribute nothing and positions of the 1s do not matter, so the question is: in how many ways can `ones` values, each 1..K, add up to S? Fill the 1s one at a time: ways after f ones at sum s = Σ_{x=1..K} ways after f−1 ones at sum s − x.</span><span class="th">เลข 0 ไม่มีผลและตำแหน่งของเลข 1 ไม่สำคัญ คำถามจึงเป็น: ค่า `ones` ตัว ตัวละ 1..K รวมกันได้ S กี่วิธี? แทนเลข 1 ทีละตัว: จำนวนวิธีหลังแทน f ตัวที่ผลรวม s = Σ_{x=1..K} จำนวนวิธีหลังแทน f−1 ตัวที่ผลรวม s − x</span></span></a><a href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span><span class="pt"><span class="en">SackKnap</span><span class="th">SackKnap (เป้น้ำหนักพอดี ราคาน้อยที่สุด)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">cheapest[w] = lowest price of a set of items weighing exactly w (or impossible). Add the items one by one; for each, walk w from V down to its weight and try cheapest[w − weight] + price. Walking down guarantees each item is used at most once. Answer cheapest[V] or −1.</span><span class="th">cheapest[w] = ราคาต่ำสุดของชุดของที่หนักรวม w พอดี (หรือเป็นไปไม่ได้) เพิ่มของทีละชิ้น สำหรับแต่ละชิ้นไล่ w จาก V ลงไปถึงน้ำหนักของมัน แล้วลอง cheapest[w − weight] + price การไล่ลงรับประกันว่าแต่ละชิ้นถูกใช้ไม่เกินครั้งเดียว คำตอบคือ cheapest[V] หรือ −1</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>Five questions for every DP</h3>
+<ol>
+<li><strong>State</strong>: what does <code>dp[i]</code> (or <code>dp[i][j]</code>) mean, in one sentence?</li>
+<li><strong>Recurrence</strong>: how is it built from smaller states? Usually "look at the last step / last item / last letters".</li>
+<li><strong>Base cases</strong>: the smallest states, filled by hand.</li>
+<li><strong>Order</strong>: fill so every state's dependencies are already final (increasing i, or increasing interval length).</li>
+<li><strong>Answer</strong>: which state (or max over states) is the result?</li>
+</ol>
+<h3>Common shapes</h3>
+<table>
+<thead>
+<tr>
+<th>shape</th>
+<th>state</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1-D sequence</td>
+<td>dp[i] = answer for the first i</td>
+<td>Fibonacci, Linear Recurrence, Chocolate</td>
+</tr>
+<tr>
+<td>two sequences</td>
+<td>dp[i][j] = answer for prefixes i and j</td>
+<td>LCS</td>
+</tr>
+<tr>
+<td>intervals</td>
+<td>dp[l][r] = answer for the substring l..r</td>
+<td>Hidden Palindrome</td>
+</tr>
+<tr>
+<td>items × capacity</td>
+<td>dp[w] = best / count with total w</td>
+<td>0-1 Subset Sum, SackKnap</td>
+</tr>
+<tr>
+<td>grid / triangle</td>
+<td>dp[row][col] from the cells it comes from</td>
+<td>Number Triangle</td>
+</tr>
+</tbody>
+</table>
+<h3>Counting order matters</h3>
+<ul>
+<li><strong>Ordered</strong> compositions (1+2 ≠ 2+1): loop the total outside, the part size inside.</li>
+<li><strong>Unordered</strong> (coin change): loop the part size outside, the total inside.</li>
+<li><strong>Each item at most once</strong> (0/1 knapsack, one array): loop the capacity <strong>downwards</strong>.</li>
+</ul>
+<h3>Memory</h3>
+<p>If row i only needs row i − 1, keep two rows (or one, with the right loop direction).</p></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>ห้าคำถามสำหรับ DP ทุกข้อ</h3>
+<ol>
+<li><strong>สถานะ</strong>: <code>dp[i]</code> (หรือ <code>dp[i][j]</code>) หมายถึงอะไร ในหนึ่งประโยค?</li>
+<li><strong>ความสัมพันธ์เวียนเกิด</strong>: สร้างจากสถานะที่เล็กกว่าอย่างไร? มักเป็น "ดูก้าวสุดท้าย / ชิ้นสุดท้าย / ตัวอักษรตัวสุดท้าย"</li>
+<li><strong>กรณีฐาน</strong>: สถานะที่เล็กที่สุด เติมด้วยมือ</li>
+<li><strong>ลำดับ</strong>: เติมให้ทุกสถานะที่ต้องใช้เสร็จแล้วก่อน (i เพิ่มขึ้น หรือความยาวช่วงเพิ่มขึ้น)</li>
+<li><strong>คำตอบ</strong>: สถานะไหน (หรือ max ของสถานะใด) คือผลลัพธ์?</li>
+</ol>
+<h3>รูปแบบที่พบบ่อย</h3>
+<table>
+<thead>
+<tr>
+<th>รูปแบบ</th>
+<th>สถานะ</th>
+<th>ตัวอย่าง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ลำดับหนึ่งมิติ</td>
+<td>dp[i] = คำตอบของ i ตัวแรก</td>
+<td>Fibonacci, Linear Recurrence, Chocolate</td>
+</tr>
+<tr>
+<td>สองลำดับ</td>
+<td>dp[i][j] = คำตอบของ prefix i และ j</td>
+<td>LCS</td>
+</tr>
+<tr>
+<td>ช่วง</td>
+<td>dp[l][r] = คำตอบของสตริงย่อย l..r</td>
+<td>Hidden Palindrome</td>
+</tr>
+<tr>
+<td>ชิ้น × ความจุ</td>
+<td>dp[w] = ดีที่สุด / จำนวนวิธี ที่ผลรวม w</td>
+<td>0-1 Subset Sum, SackKnap</td>
+</tr>
+<tr>
+<td>ตาราง / สามเหลี่ยม</td>
+<td>dp[row][col] จากช่องที่มาถึงมัน</td>
+<td>Number Triangle</td>
+</tr>
+</tbody>
+</table>
+<h3>ลำดับของลูปสำคัญในการนับ</h3>
+<ul>
+<li><strong>นับแบบสนลำดับ</strong> (1+2 ≠ 2+1): ลูปผลรวมอยู่นอก ขนาดชิ้นอยู่ใน</li>
+<li><strong>นับแบบไม่สนลำดับ</strong> (แลกเหรียญ): ลูปขนาดชิ้นอยู่นอก ผลรวมอยู่ใน</li>
+<li><strong>แต่ละชิ้นใช้ได้ครั้งเดียว</strong> (0/1 knapsack อาร์เรย์เดียว): ลูปความจุ <strong>จากมากไปน้อย</strong></li>
+</ul>
+<h3>หน่วยความจำ</h3>
+<p>ถ้าแถว i ใช้แค่แถว i − 1 ให้เก็บสองแถว (หรือแถวเดียว ถ้าทิศของลูปถูก)</p></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

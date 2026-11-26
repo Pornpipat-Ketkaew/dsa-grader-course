@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex07e3_coloring · Graph Coloring</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#8b46d9}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="on" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch11.html">11 · <span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></div>
+<div class="phead">
+<div class="pidbig">ex07e3_coloring</div>
+<h1><span class="en">Graph Coloring</span><span class="th">ระบายสีกราฟ (Graph Coloring)</span></h1>
+<div class="chips"><span class="chip t en">Branch and bound</span><span class="chip t en">Symmetry breaking (one new color)</span><span class="chip t en">Most-constrained-vertex order (DSATUR)</span><span class="chip t th">Branch and bound</span><span class="chip t th">ตัดความสมมาตร (สีใหม่ลองสีเดียว)</span><span class="chip t th">เลือกจุดที่ถูกบังคับมากที่สุดก่อน (DSATUR)</span><span class="chip cx">exponential worst case; every N = 50 test under 0.04 s · O(N²) memory</span><span class="chip"><span class="stars">★★★</span></span></div>
+<div class="lead"><p class="en">Color one vertex per level. Reuse any color no neighbor has, or open exactly one new color, since unused colors are interchangeable. Always color next the vertex that already sees the most different colors, and cut any branch that uses as many colors as the best coloring found.</p><p class="th">ระบายจุดละหนึ่งระดับ ใช้สีเดิมที่ไม่มีเพื่อนบ้านใช้ หรือเปิดสีใหม่เพียงสีเดียว เพราะสีที่ยังไม่ใช้ทุกสีเหมือนกัน เลือกระบายจุดที่เห็นสีต่างกันมากที่สุดก่อนเสมอ และตัดทุกกิ่งที่ใช้สีเท่ากับการระบายที่ดีที่สุดที่เจอแล้ว</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex07e3_coloring\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: branch and bound with a smart order</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: branch and bound พร้อมลำดับที่ฉลาด</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: branch and bound with a smart order</h2>
+<p>Minimum coloring is NP-hard, so there is no polynomial formula; we search. A plain search ("vertex 0, 1, 2, … each try colors 1..k") is far too slow for N = 50. Three ideas turn it into a fast search:</p>
+<table>
+<thead>
+<tr>
+<th>idea</th>
+<th>what it does</th>
+<th>why it is correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>bound</strong></td>
+<td>stop a branch already using ≥ <code>bestColors</code> colors</td>
+<td>colors are never removed further down, so the branch cannot end below that</td>
+</tr>
+<tr>
+<td><strong>symmetry breaking</strong></td>
+<td>a vertex may take any color in use, or <strong>one</strong> new color</td>
+<td>renaming unused colors gives the same coloring; trying "color 5" and "color 6" as new is duplicate work</td>
+</tr>
+<tr>
+<td><strong>variable order</strong></td>
+<td>color next the uncolored vertex with the most distinct neighbor colors (its <em>saturation</em>)</td>
+<td>any order is complete; this one fails early on bad branches</td>
+</tr>
+</tbody>
+</table>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: state and levels</h3>
+<p>One level = one vertex. The state is <code>color[vertex]</code> (0 = not colored) plus <code>colorsUsed</code>; colors in use are always exactly 1..colorsUsed, because new colors are opened in order.</p>
+<h3>Step 2: keeping saturation up to date in O(N)</h3>
+<p>To choose the next vertex quickly, keep for every vertex <code>neighborsWithColor[vertex][c]</code>, the number of colored neighbors having color c, and <code>distinctNeighborColors[vertex]</code>, the number of c with a non-zero count.</p>
+<ul>
+<li><code>paint(vertex, c)</code>: for each neighbor, increase its count for c; if that count went 0 → 1, its saturation grows by 1.</li>
+<li><code>erase(vertex)</code>: the exact reverse; if a count drops 1 → 0, the saturation shrinks.</li>
+</ul>
+<p>With these, "may vertex take color c?" is <code>neighborsWithColor[vertex][c] == 0</code>, an O(1) test.</p>
+<h3>Step 3: the search</h3>
+<pre class="diagram">search(colored, colorsUsed):
+  colorsUsed &gt;= bestColors      → cut
+  colored == N                  → bestColors = colorsUsed
+  vertex = max saturation (ties: max degree)
+  for c = 1..colorsUsed with no neighbor of color c:   paint, search(colored+1, colorsUsed), erase
+  paint new color colorsUsed+1,                         search(colored+1, colorsUsed+1), erase</pre>
+<p>On the 5-cycle: vertex 0 gets 1, vertex 1 (sees {1}) gets 2, vertex 2 (sees {2}) gets 1, vertex 3 (sees {1}) gets 2, and vertex 4 sees {1, 2}, so it needs color 3. The bound then cuts every other branch that would reach 3 colors.</p>
+<div class="viz" data-viz="ex07e3_coloring"></div>
+<h3>Step 4: why the order matters</h3>
+<p>A vertex with high saturation has the fewest legal colors. Coloring it first means a doomed branch runs out of options near the top of the tree, instead of after many levels of wasted work. Breaking ties by degree picks the vertex that will constrain the most others. Together with a good first answer (found by the very first descent), the bound prunes almost everything on random graphs with N = 50.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Trying every unused color as "new" multiplies the work by up to N! for no gain.</li>
+<li><code>neighborsWithColor</code> needs N + 1 columns (colors 1..N).</li>
+<li>The input may repeat an edge or contain a self-loop: skip them so degrees stay right.</li>
+<li>N = 1 with no edges needs 1 color, not 0.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex07e3_coloring__main.cpp" download>⬇ .cpp</a><button data-copy="code30">Copy</button></div><pre class="hl"><code id="code30" hidden>#include &lt;iostream&gt;
+using namespace std;
+
+int vertexCount;
+bool adjacent[50][50];
+int degree[50];
+int color[50];                  // 0 = not colored yet, otherwise 1..colorsUsed
+int neighborsWithColor[50][51]; // [vertex][c] = colored neighbors of vertex that have color c
+int distinctNeighborColors[50]; // how many different colors touch vertex (&quot;saturation&quot;)
+int bestColors;                 // fewest colors of a complete coloring found so far
+
+void paint(int vertex, int c) {
+    color[vertex] = c;
+    // other = 0..vertexCount-1: every neighbor now has color c next to it
+    for (int other = 0; other &lt; vertexCount; other++)
+        if (adjacent[vertex][other] &amp;&amp; neighborsWithColor[other][c]++ == 0)
+            distinctNeighborColors[other]++;
+}
+
+void erase(int vertex) {
+    int c = color[vertex];
+    color[vertex] = 0;
+    // other = 0..vertexCount-1: take color c back from every neighbor
+    for (int other = 0; other &lt; vertexCount; other++)
+        if (adjacent[vertex][other] &amp;&amp; --neighborsWithColor[other][c] == 0)
+            distinctNeighborColors[other]--;
+}
+
+// colored = vertices colored so far, colorsUsed = colors 1..colorsUsed are in use
+void search(int colored, int colorsUsed) {
+    if (colorsUsed &gt;= bestColors) return;               // bound: cannot beat the best
+    if (colored == vertexCount) { bestColors = colorsUsed; return; }
+    // pick the most constrained uncolored vertex: most distinct neighbor colors,
+    // ties broken by larger degree (other = 0..vertexCount-1, a linear scan)
+    int vertex = -1;
+    for (int other = 0; other &lt; vertexCount; other++) {
+        if (color[other]) continue;
+        if (vertex == -1 || distinctNeighborColors[other] &gt; distinctNeighborColors[vertex] ||
+            (distinctNeighborColors[other] == distinctNeighborColors[vertex] &amp;&amp; degree[other] &gt; degree[vertex]))
+            vertex = other;
+    }
+    // c = 1..colorsUsed: reuse any existing color that no neighbor has
+    for (int c = 1; c &lt;= colorsUsed; c++) {
+        if (neighborsWithColor[vertex][c]) continue;
+        paint(vertex, c);
+        search(colored + 1, colorsUsed);
+        erase(vertex);
+    }
+    // or open one new color: all unused colors are interchangeable, so one try is enough
+    paint(vertex, colorsUsed + 1);
+    search(colored + 1, colorsUsed + 1);
+    erase(vertex);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int edgeCount;
+    cin &gt;&gt; vertexCount &gt;&gt; edgeCount;
+    // edge = 0..edgeCount-1: read each edge once, skipping self-loops and repeats
+    for (int edge = 0; edge &lt; edgeCount; edge++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        if (a == b || adjacent[a][b]) continue;
+        adjacent[a][b] = adjacent[b][a] = true;
+        degree[a]++;
+        degree[b]++;
+    }
+    bestColors = vertexCount + 1;                       // worse than any real coloring
+    search(0, 0);
+    cout &lt;&lt; bestColors &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="n">adjacent</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">degree</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">color</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 0 = not colored yet, otherwise 1..colorsUsed</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">[</span><span class="mi">51</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// [vertex][c] = colored neighbors of vertex that have color c</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// how many different colors touch vertex (&quot;saturation&quot;)</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">bestColors</span><span class="p">;</span><span class="w">                 </span><span class="c1">// fewest colors of a complete coloring found so far</span></span><span class="ln"></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">color</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// other = 0..vertexCount-1: every neighbor now has color c next to it</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">adjacent</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">erase</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">color</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// other = 0..vertexCount-1: take color c back from every neighbor</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">adjacent</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="o">-</span><span class="o">-</span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="c1">// colored = vertices colored so far, colorsUsed = colors 1..colorsUsed are in use</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">colored</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">colorsUsed</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">bestColors</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">               </span><span class="c1">// bound: cannot beat the best</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">colored</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bestColors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// pick the most constrained uncolored vertex: most distinct neighbor colors,</span></span><span class="ln"><span class="w">    </span><span class="c1">// ties broken by larger degree (other = 0..vertexCount-1, a linear scan)</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="o">|</span></span><span class="ln"><span class="w">            </span><span class="p">(</span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">degree</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">)</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// c = 1..colorsUsed: reuse any existing color that no neighbor has</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">paint</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">search</span><span class="p">(</span><span class="n">colored</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">erase</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// or open one new color: all unused colors are interchangeable, so one try is enough</span></span><span class="ln"><span class="w">    </span><span class="n">paint</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span><span class="w"> </span><span class="n">colorsUsed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">search</span><span class="p">(</span><span class="n">colored</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">colorsUsed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">erase</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">edgeCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edgeCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..edgeCount-1: read each edge once, skipping self-loops and repeats</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">edgeCount</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">adjacent</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">adjacent</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adjacent</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">bestColors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertexCount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">                       </span><span class="c1">// worse than any real coloring</span></span><span class="ln"><span class="w">    </span><span class="n">search</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">bestColors</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Exponential in the worst case (the problem is NP-hard); each node costs O(N) for the vertex choice plus O(N) per paint/erase. Every N = 50 test runs in under 0.04 s. Memory: the adjacency matrix and the count table: <strong>O(N²)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample (K₄), one vertex, the 5-cycle and 300 random graphs (N ≤ 8) against a brute force that tries k = 1, 2, … colors; N = 50 random graphs with edge density 10–90 % (answers 4, 6, 10, 13, 21, each under 0.04 s) and the Mycielski graph M₅ (23 vertices, no triangle, needs 5 colors).</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (K₄), จุดเดียว, วง 5 จุด และกราฟสุ่ม 300 ชุด (N ≤ 8) เทียบกับ brute force ที่ลอง k = 1, 2, … สี กราฟสุ่ม N = 50 ความหนาแน่น 10–90 % (คำตอบ 4, 6, 10, 13, 21 แต่ละชุดไม่ถึง 0.04 วินาที) และกราฟ Mycielski M₅ (23 จุด ไม่มีสามเหลี่ยม แต่ต้องใช้ 5 สี)</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: branch and bound พร้อมลำดับที่ฉลาด</h2>
+<p>การระบายสีน้อยที่สุดเป็นปัญหา NP-hard ไม่มีสูตรเวลาพหุนาม เราจึงต้องค้นหา การค้นหาธรรมดา ("จุด 0, 1, 2, … แต่ละจุดลองสี 1..k") ช้าเกินไปมากสำหรับ N = 50 มีสามแนวคิดที่ทำให้เร็ว:</p>
+<table>
+<thead>
+<tr>
+<th>แนวคิด</th>
+<th>ทำอะไร</th>
+<th>ทำไมถูกต้อง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ขอบเขต</strong></td>
+<td>หยุดกิ่งที่ใช้สีไปแล้ว ≥ <code>bestColors</code> สี</td>
+<td>ลึกลงไปไม่มีการลดจำนวนสี กิ่งนี้จึงจบต่ำกว่านั้นไม่ได้</td>
+</tr>
+<tr>
+<td><strong>ตัดความสมมาตร</strong></td>
+<td>จุดหนึ่งใช้สีที่มีอยู่แล้วสีใดก็ได้ หรือสีใหม่ <strong>หนึ่ง</strong> สี</td>
+<td>การเปลี่ยนชื่อสีที่ยังไม่ใช้ให้ผลเหมือนเดิม การลอง "สี 5" และ "สี 6" เป็นสีใหม่คืองานซ้ำ</td>
+</tr>
+<tr>
+<td><strong>ลำดับการเลือกจุด</strong></td>
+<td>ระบายจุดที่เพื่อนบ้านมีสีต่างกันมากที่สุด (<em>saturation</em>) ก่อน</td>
+<td>ลำดับใดก็ครบถ้วน แต่ลำดับนี้ทำให้กิ่งที่แย่ล้มเหลวเร็ว</td>
+</tr>
+</tbody>
+</table>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: สถานะและระดับ</h3>
+<p>หนึ่งระดับ = หนึ่งจุด สถานะคือ <code>color[vertex]</code> (0 = ยังไม่ระบาย) และ <code>colorsUsed</code> สีที่ใช้อยู่คือ 1..colorsUsed พอดีเสมอ เพราะเปิดสีใหม่ตามลำดับ</p>
+<h3>ขั้นที่ 2: อัปเดต saturation ใน O(N)</h3>
+<p>เพื่อเลือกจุดถัดไปได้เร็ว เก็บสำหรับทุกจุด <code>neighborsWithColor[vertex][c]</code> คือจำนวนเพื่อนบ้านที่ระบายแล้วและมีสี c และ <code>distinctNeighborColors[vertex]</code> คือจำนวน c ที่นับได้ไม่เป็นศูนย์</p>
+<ul>
+<li><code>paint(vertex, c)</code>: เพื่อนบ้านแต่ละจุดเพิ่มตัวนับของสี c ถ้าตัวนับเปลี่ยนจาก 0 → 1 saturation ของมันเพิ่ม 1</li>
+<li><code>erase(vertex)</code>: ทำย้อนกลับพอดี ถ้าตัวนับลดจาก 1 → 0 saturation ลดลง</li>
+</ul>
+<p>ด้วยข้อมูลนี้ "จุดนี้ใช้สี c ได้ไหม?" คือ <code>neighborsWithColor[vertex][c] == 0</code> ตรวจได้ใน O(1)</p>
+<h3>ขั้นที่ 3: การค้นหา</h3>
+<pre class="diagram">search(colored, colorsUsed):
+  colorsUsed &gt;= bestColors      → ตัด
+  colored == N                  → bestColors = colorsUsed
+  vertex = saturation มากสุด (เสมอ: degree มากสุด)
+  for c = 1..colorsUsed ที่ไม่มีเพื่อนบ้านสี c:   paint, search(colored+1, colorsUsed), erase
+  paint สีใหม่ colorsUsed+1,                     search(colored+1, colorsUsed+1), erase</pre>
+<p>บนวง 5 จุด: จุด 0 ได้สี 1 จุด 1 (เห็น {1}) ได้สี 2 จุด 2 (เห็น {2}) ได้สี 1 จุด 3 (เห็น {1}) ได้สี 2 และจุด 4 เห็น {1, 2} จึงต้องใช้สี 3 จากนั้นขอบเขตตัดทุกกิ่งอื่นที่จะใช้ถึง 3 สี</p>
+<div class="viz" data-viz="ex07e3_coloring"></div>
+<h3>ขั้นที่ 4: ทำไมลำดับจึงสำคัญ</h3>
+<p>จุดที่ saturation สูงมีสีที่ใช้ได้น้อยที่สุด การระบายมันก่อนทำให้กิ่งที่ไปไม่รอดหมดทางเลือกตั้งแต่ใกล้ยอดต้นไม้ แทนที่จะเสียงานไปหลายระดับก่อน การตัดสินเสมอด้วย degree เลือกจุดที่จะบังคับจุดอื่นมากที่สุด เมื่อรวมกับคำตอบแรกที่ดี (ได้จากการลงลึกครั้งแรก) ขอบเขตก็ตัดเกือบทั้งหมดบนกราฟสุ่ม N = 50</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ลองทุกสีที่ยังไม่ใช้เป็น "สีใหม่" ทำให้งานเพิ่มถึง N! เท่าโดยไม่ได้อะไร</li>
+<li><code>neighborsWithColor</code> ต้องมี N + 1 คอลัมน์ (สี 1..N)</li>
+<li>อินพุตอาจมีเส้นซ้ำหรือ self-loop: ข้ามไปเพื่อให้ degree ถูกต้อง</li>
+<li>N = 1 ไม่มีเส้นใช้ 1 สี ไม่ใช่ 0</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex07e3_coloring__main.cpp" download>⬇ .cpp</a><button data-copy="code30">Copy</button></div><pre class="hl"><code id="code30" hidden>#include &lt;iostream&gt;
+using namespace std;
+
+int vertexCount;
+bool adjacent[50][50];
+int degree[50];
+int color[50];                  // 0 = not colored yet, otherwise 1..colorsUsed
+int neighborsWithColor[50][51]; // [vertex][c] = colored neighbors of vertex that have color c
+int distinctNeighborColors[50]; // how many different colors touch vertex (&quot;saturation&quot;)
+int bestColors;                 // fewest colors of a complete coloring found so far
+
+void paint(int vertex, int c) {
+    color[vertex] = c;
+    // other = 0..vertexCount-1: every neighbor now has color c next to it
+    for (int other = 0; other &lt; vertexCount; other++)
+        if (adjacent[vertex][other] &amp;&amp; neighborsWithColor[other][c]++ == 0)
+            distinctNeighborColors[other]++;
+}
+
+void erase(int vertex) {
+    int c = color[vertex];
+    color[vertex] = 0;
+    // other = 0..vertexCount-1: take color c back from every neighbor
+    for (int other = 0; other &lt; vertexCount; other++)
+        if (adjacent[vertex][other] &amp;&amp; --neighborsWithColor[other][c] == 0)
+            distinctNeighborColors[other]--;
+}
+
+// colored = vertices colored so far, colorsUsed = colors 1..colorsUsed are in use
+void search(int colored, int colorsUsed) {
+    if (colorsUsed &gt;= bestColors) return;               // bound: cannot beat the best
+    if (colored == vertexCount) { bestColors = colorsUsed; return; }
+    // pick the most constrained uncolored vertex: most distinct neighbor colors,
+    // ties broken by larger degree (other = 0..vertexCount-1, a linear scan)
+    int vertex = -1;
+    for (int other = 0; other &lt; vertexCount; other++) {
+        if (color[other]) continue;
+        if (vertex == -1 || distinctNeighborColors[other] &gt; distinctNeighborColors[vertex] ||
+            (distinctNeighborColors[other] == distinctNeighborColors[vertex] &amp;&amp; degree[other] &gt; degree[vertex]))
+            vertex = other;
+    }
+    // c = 1..colorsUsed: reuse any existing color that no neighbor has
+    for (int c = 1; c &lt;= colorsUsed; c++) {
+        if (neighborsWithColor[vertex][c]) continue;
+        paint(vertex, c);
+        search(colored + 1, colorsUsed);
+        erase(vertex);
+    }
+    // or open one new color: all unused colors are interchangeable, so one try is enough
+    paint(vertex, colorsUsed + 1);
+    search(colored + 1, colorsUsed + 1);
+    erase(vertex);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int edgeCount;
+    cin &gt;&gt; vertexCount &gt;&gt; edgeCount;
+    // edge = 0..edgeCount-1: read each edge once, skipping self-loops and repeats
+    for (int edge = 0; edge &lt; edgeCount; edge++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        if (a == b || adjacent[a][b]) continue;
+        adjacent[a][b] = adjacent[b][a] = true;
+        degree[a]++;
+        degree[b]++;
+    }
+    bestColors = vertexCount + 1;                       // worse than any real coloring
+    search(0, 0);
+    cout &lt;&lt; bestColors &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="n">adjacent</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">degree</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">color</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span><span class="w">                  </span><span class="c1">// 0 = not colored yet, otherwise 1..colorsUsed</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">[</span><span class="mi">51</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// [vertex][c] = colored neighbors of vertex that have color c</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="mi">50</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="c1">// how many different colors touch vertex (&quot;saturation&quot;)</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">bestColors</span><span class="p">;</span><span class="w">                 </span><span class="c1">// fewest colors of a complete coloring found so far</span></span><span class="ln"></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">paint</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">color</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// other = 0..vertexCount-1: every neighbor now has color c next to it</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">adjacent</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">erase</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">color</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// other = 0..vertexCount-1: take color c back from every neighbor</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">adjacent</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="o">-</span><span class="o">-</span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="o">-</span><span class="o">-</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="c1">// colored = vertices colored so far, colorsUsed = colors 1..colorsUsed are in use</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">colored</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">colorsUsed</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">bestColors</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">               </span><span class="c1">// bound: cannot beat the best</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">colored</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bestColors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// pick the most constrained uncolored vertex: most distinct neighbor colors,</span></span><span class="ln"><span class="w">    </span><span class="c1">// ties broken by larger degree (other = 0..vertexCount-1, a linear scan)</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="p">;</span><span class="w"> </span><span class="n">other</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">color</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="o">|</span></span><span class="ln"><span class="w">            </span><span class="p">(</span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">distinctNeighborColors</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">degree</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">degree</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">)</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// c = 1..colorsUsed: reuse any existing color that no neighbor has</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">;</span><span class="w"> </span><span class="n">c</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">neighborsWithColor</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">paint</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">search</span><span class="p">(</span><span class="n">colored</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">colorsUsed</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">erase</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// or open one new color: all unused colors are interchangeable, so one try is enough</span></span><span class="ln"><span class="w">    </span><span class="n">paint</span><span class="p">(</span><span class="n">vertex</span><span class="p">,</span><span class="w"> </span><span class="n">colorsUsed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">search</span><span class="p">(</span><span class="n">colored</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">colorsUsed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">erase</span><span class="p">(</span><span class="n">vertex</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">edgeCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vertexCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edgeCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..edgeCount-1: read each edge once, skipping self-loops and repeats</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">edgeCount</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">adjacent</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">adjacent</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">adjacent</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">degree</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">bestColors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vertexCount</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">                       </span><span class="c1">// worse than any real coloring</span></span><span class="ln"><span class="w">    </span><span class="n">search</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">bestColors</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> เป็นเลขชี้กำลังในกรณีแย่สุด (ปัญหาเป็น NP-hard) แต่ละโหนดใช้ O(N) ในการเลือกจุด และ O(N) ต่อการ paint/erase ทุกชุดทดสอบ N = 50 ใช้ไม่ถึง 0.04 วินาที หน่วยความจำ: เมทริกซ์ประชิดและตารางตัวนับ: <strong>O(N²)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample (K₄), one vertex, the 5-cycle and 300 random graphs (N ≤ 8) against a brute force that tries k = 1, 2, … colors; N = 50 random graphs with edge density 10–90 % (answers 4, 6, 10, 13, 21, each under 0.04 s) and the Mycielski graph M₅ (23 vertices, no triangle, needs 5 colors).</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (K₄), จุดเดียว, วง 5 จุด และกราฟสุ่ม 300 ชุด (N ≤ 8) เทียบกับ brute force ที่ลอง k = 1, 2, … สี กราฟสุ่ม N = 50 ความหนาแน่น 10–90 % (คำตอบ 4, 6, 10, 13, 21 แต่ละชุดไม่ถึง 0.04 วินาที) และกราฟ Mycielski M₅ (23 จุด ไม่มีสามเหลี่ยม แต่ต้องใช้ 5 สี)</span></div></div></div>
+<div class="pn"><a class="pv" href="a66_q1a_day_cover.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>a66_q1a_day_cover</b> · <span class="en">Day Cover</span><span class="th">Day Cover (ครอบคลุมทุกวัน)</span></a><a class="nx" href="a64_q4_path_sum.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a64_q4_path_sum</b> · <span class="en">Path Sum</span><span class="th">ผลรวมบนเส้นทาง (Path Sum)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex07e3_coloring.js"></script>
+</body>
+</html>

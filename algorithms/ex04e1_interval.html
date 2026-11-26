@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex04e1_interval · Class Selection</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#d97706}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="on" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch13.html">13 · <span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></div>
+<div class="phead">
+<div class="pidbig">ex04e1_interval</div>
+<h1><span class="en">Class Selection</span><span class="th">เลือกวิชาเรียน (Class Selection)</span></h1>
+<div class="chips"><span class="chip t en">Greedy (interval scheduling)</span><span class="chip t en">Earliest finish time first</span><span class="chip t en">Exchange argument</span><span class="chip t th">Greedy (interval scheduling)</span><span class="chip t th">เลือกที่จบเร็วที่สุดก่อน</span><span class="chip t th">การพิสูจน์แบบสลับ (exchange argument)</span><span class="chip cx">O(N log N) time (the sort) · O(N) memory</span><span class="chip"><span class="stars">★☆☆</span></span></div>
+<div class="lead"><p class="en">Sort the classes by finish time and scan once, keeping a class whenever it starts at or after the finish of the last kept class. Finishing as early as possible leaves the most room for everything after it, and an exchange argument proves no other choice can do better.</p><p class="th">เรียงวิชาตามเวลาจบแล้วไล่ครั้งเดียว เก็บวิชาที่เริ่มตอนหรือหลังเวลาจบของวิชาที่เก็บล่าสุด การจบให้เร็วที่สุดเหลือเวลาให้วิชาหลังจากนั้นมากที่สุด และ exchange argument พิสูจน์ว่าไม่มีทางเลือกอื่นดีกว่า</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex04e1_interval\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: greedy, with a proof</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: greedy พร้อมการพิสูจน์</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: greedy, with a proof</h2>
+<p>A <strong>greedy algorithm</strong> builds the answer one irrevocable choice at a time, always taking the choice that looks best right now. It is fast (usually a sort plus one scan) but only correct when we can <strong>prove</strong> that the local choice never hurts. The usual proof tool is the <strong>exchange argument</strong>: take any optimal answer, swap one of its choices for the greedy one, and show it stays valid and no worse.</p>
+<p>Interval scheduling ("choose the most non-overlapping intervals") is the textbook case, and its correct rule is <strong>earliest finish time first</strong>.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the rule</h3>
+<p>Sort classes by <code>F</code>. Keep a running <code>lastFinish</code> (the finish of the last chosen class, −∞ at first). Walk the sorted list: if <code>S ≥ lastFinish</code> the class fits after everything chosen, so take it and set <code>lastFinish = F</code>; otherwise skip it.</p>
+<p>The statement says classes <code>a</code> and <code>b</code> are compatible when <code>S[a] ≥ F[b]</code>, so touching is allowed: the test is <code>≥</code>, not <code>&gt;</code>.</p>
+<div class="viz" data-viz="ex04e1_interval"></div>
+<h3>Step 2: why it is optimal (exchange argument)</h3>
+<p>Let <code>g</code> be the class with the earliest finish, and take any optimal schedule <code>O</code>. Let <code>o</code> be the class in <code>O</code> that finishes first.</p>
+<ul>
+<li><code>F[g] ≤ F[o]</code> by the choice of <code>g</code>.</li>
+<li>Every other class in <code>O</code> starts at or after <code>F[o]</code>, hence at or after <code>F[g]</code>.</li>
+<li>So replacing <code>o</code> by <code>g</code> in <code>O</code> gives a valid schedule of the same size.</li>
+</ul>
+<p>So some optimal schedule starts with <code>g</code>. Remove <code>g</code> and everything overlapping it; what remains is the same problem on the classes starting at or after <code>F[g]</code>, and the same argument applies again. The greedy therefore builds an optimal schedule step by step.</p>
+<h3>Step 3: other "natural" rules are wrong</h3>
+<p>Earliest start, shortest class, fewest overlaps: each has a counterexample (see the <a href="a58_m_p4.html">midterm version</a> of this problem, where all four rules race on the same input).</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Use <code>≥</code> when comparing start with <code>lastFinish</code> (sample 2 chains 1–2, 2–3, 3–4, 4–5 → 4).</li>
+<li>Sort pairs <code>(finish, start)</code>: sorting by start time is the classic wrong rule.</li>
+<li>Start times and finish times come on <strong>two separate lines</strong>, all starts first.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex04e1_interval__main.cpp" download>⬇ .cpp</a><button data-copy="code37">Copy</button></div><pre class="hl"><code id="code37" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;climits&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;pair&lt;int, int&gt;&gt; classes(n);       // (finish, start): sorting orders by finish time
+    // index = 0..n-1: the n start times
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; classes[index].second;
+    // index = 0..n-1: the n finish times
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; classes[index].first;
+    sort(classes.begin(), classes.end());    // earliest finish first
+
+    int chosen = 0;
+    int lastFinish = INT_MIN;                // finish time of the last chosen class (none yet)
+    // index = 0..n-1 in order of finish time: keep a class if it starts after the last kept one ends
+    for (int index = 0; index &lt; n; index++) {
+        if (classes[index].second &gt;= lastFinish) {
+            chosen++;
+            lastFinish = classes[index].first;
+        }
+    }
+    cout &lt;&lt; chosen &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;climits&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">classes</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span><span class="w">       </span><span class="c1">// (finish, start): sorting orders by finish time</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1: the n start times</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">second</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1: the n finish times</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">first</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">classes</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">classes</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span><span class="w">    </span><span class="c1">// earliest finish first</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">chosen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">lastFinish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">;</span><span class="w">                </span><span class="c1">// finish time of the last chosen class (none yet)</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1 in order of finish time: keep a class if it starts after the last kept one ends</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">second</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">lastFinish</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">chosen</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">lastFinish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">first</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">chosen</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Sorting dominates: <strong>O(N log N)</strong>; the scan is O(N). Memory: <strong>O(N)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples, a single class, 300 random cases against a brute force over all subsets, and N = 100 000 in well under the limit.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF กรณีวิชาเดียว สุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกเซตย่อย และ N = 100 000 ใช้เวลาน้อยกว่าเวลาจำกัดมาก</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: greedy พร้อมการพิสูจน์</h2>
+<p><strong>อัลกอริทึม greedy</strong> สร้างคำตอบทีละการตัดสินใจที่ย้อนกลับไม่ได้ โดยเลือกสิ่งที่ดูดีที่สุดในตอนนั้นเสมอ มันเร็ว (มักเป็นการเรียงหนึ่งครั้งกับการไล่หนึ่งรอบ) แต่จะถูกก็ต่อเมื่อเรา <strong>พิสูจน์</strong> ได้ว่าการเลือกเฉพาะหน้านั้นไม่ทำให้เสียหาย เครื่องมือพิสูจน์ที่ใช้บ่อยคือ <strong>exchange argument</strong>: นำคำตอบที่ดีที่สุดใด ๆ มาสลับการเลือกหนึ่งอย่างให้เป็นของ greedy แล้วแสดงว่ายังถูกต้องและไม่แย่ลง</p>
+<p>Interval scheduling ("เลือกช่วงที่ไม่ทับกันให้ได้มากที่สุด") คือตัวอย่างตามตำรา และกฎที่ถูกต้องคือ <strong>เลือกที่จบเร็วที่สุดก่อน</strong></p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: กฎ</h3>
+<p>เรียงวิชาตาม <code>F</code> เก็บค่า <code>lastFinish</code> (เวลาจบของวิชาที่เลือกล่าสุด เริ่มที่ −∞) ไล่รายการที่เรียงแล้ว: ถ้า <code>S ≥ lastFinish</code> วิชานี้ต่อท้ายทุกวิชาที่เลือกได้ จึงเลือกและตั้ง <code>lastFinish = F</code> ไม่อย่างนั้นข้าม</p>
+<p>โจทย์บอกว่าวิชา <code>a</code> และ <code>b</code> ใช้ห้องร่วมกันได้เมื่อ <code>S[a] ≥ F[b]</code> การชนกันพอดีจึงยอมได้: ใช้ <code>≥</code> ไม่ใช่ <code>&gt;</code></p>
+<div class="viz" data-viz="ex04e1_interval"></div>
+<h3>ขั้นที่ 2: ทำไมดีที่สุด (exchange argument)</h3>
+<p>ให้ <code>g</code> เป็นวิชาที่จบเร็วที่สุด และให้ <code>O</code> เป็นตารางที่ดีที่สุดใด ๆ ให้ <code>o</code> เป็นวิชาใน <code>O</code> ที่จบก่อนวิชาอื่น</p>
+<ul>
+<li><code>F[g] ≤ F[o]</code> เพราะวิธีเลือก <code>g</code></li>
+<li>วิชาอื่นทุกวิชาใน <code>O</code> เริ่มตอนหรือหลัง <code>F[o]</code> จึงเริ่มตอนหรือหลัง <code>F[g]</code> ด้วย</li>
+<li>ดังนั้นการแทน <code>o</code> ด้วย <code>g</code> ใน <code>O</code> ได้ตารางที่ถูกต้องและขนาดเท่าเดิม</li>
+</ul>
+<p>แปลว่ามีตารางที่ดีที่สุดที่เริ่มด้วย <code>g</code> เอา <code>g</code> และทุกวิชาที่ทับมันออก ที่เหลือคือโจทย์เดิมบนวิชาที่เริ่มตอนหรือหลัง <code>F[g]</code> และใช้เหตุผลเดิมซ้ำได้ greedy จึงสร้างตารางที่ดีที่สุดทีละขั้น</p>
+<h3>ขั้นที่ 3: กฎที่ "ดูเป็นธรรมชาติ" อื่น ๆ ผิด</h3>
+<p>เริ่มเร็วที่สุด, วิชาสั้นที่สุด, ทับน้อยที่สุด: ทุกกฎมีตัวอย่างค้าน (ดู <a href="a58_m_p4.html">ข้อสอบกลางภาค</a> ของโจทย์เดียวกันนี้ ที่ให้ทั้งสี่กฎแข่งกันบนอินพุตเดียวกัน)</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ใช้ <code>≥</code> เมื่อเทียบเวลาเริ่มกับ <code>lastFinish</code> (ตัวอย่าง 2 ต่อกัน 1–2, 2–3, 3–4, 4–5 → 4)</li>
+<li>เรียงคู่ <code>(finish, start)</code>: การเรียงตามเวลาเริ่มคือกฎผิดคลาสสิก</li>
+<li>เวลาเริ่มและเวลาจบมาใน <strong>สองบรรทัดแยกกัน</strong> เวลาเริ่มทั้งหมดมาก่อน</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex04e1_interval__main.cpp" download>⬇ .cpp</a><button data-copy="code37">Copy</button></div><pre class="hl"><code id="code37" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;climits&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;pair&lt;int, int&gt;&gt; classes(n);       // (finish, start): sorting orders by finish time
+    // index = 0..n-1: the n start times
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; classes[index].second;
+    // index = 0..n-1: the n finish times
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; classes[index].first;
+    sort(classes.begin(), classes.end());    // earliest finish first
+
+    int chosen = 0;
+    int lastFinish = INT_MIN;                // finish time of the last chosen class (none yet)
+    // index = 0..n-1 in order of finish time: keep a class if it starts after the last kept one ends
+    for (int index = 0; index &lt; n; index++) {
+        if (classes[index].second &gt;= lastFinish) {
+            chosen++;
+            lastFinish = classes[index].first;
+        }
+    }
+    cout &lt;&lt; chosen &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;climits&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">classes</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span><span class="w">       </span><span class="c1">// (finish, start): sorting orders by finish time</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1: the n start times</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">second</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1: the n finish times</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">first</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">classes</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">classes</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span><span class="w">    </span><span class="c1">// earliest finish first</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">chosen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">lastFinish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">INT_MIN</span><span class="p">;</span><span class="w">                </span><span class="c1">// finish time of the last chosen class (none yet)</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1 in order of finish time: keep a class if it starts after the last kept one ends</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">second</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">lastFinish</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">chosen</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">lastFinish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">classes</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">first</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">chosen</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> การเรียงเป็นส่วนหลัก: <strong>O(N log N)</strong> การไล่เป็น O(N) หน่วยความจำ: <strong>O(N)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples, a single class, 300 random cases against a brute force over all subsets, and N = 100 000 in well under the limit.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF กรณีวิชาเดียว สุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกเซตย่อย และ N = 100 000 ใช้เวลาน้อยกว่าเวลาจำกัดมาก</span></div></div></div>
+<div class="pn"><a class="pv" href="da68_f2_remaining_merge.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>da68_f2_remaining_merge</b> · <span class="en">Remaining Merge</span><span class="th">Remaining Merge (นับส่วนที่เหลือของ merge)</span></a><a class="nx" href="a58_m_p4.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a58_m_p4</b> · <span class="en">Class Selection (midterm version)</span><span class="th">เลือกวิชาเรียน (ฉบับข้อสอบกลางภาค)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex04e1_interval.js"></script>
+</body>
+</html>

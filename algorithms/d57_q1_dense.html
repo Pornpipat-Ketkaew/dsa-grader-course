@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>d57_q1_dense · Dense Graph</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="on" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch16.html">16 · <span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></div>
+<div class="phead">
+<div class="pidbig">d57_q1_dense</div>
+<h1><span class="en">Dense Graph</span><span class="th">Dense Graph (กราฟแบบเมทริกซ์)</span></h1>
+<div class="chips"><span class="chip t en">Adjacency matrix</span><span class="chip t en">Graph representation</span><span class="chip t th">เมทริกซ์ประชิด (adjacency matrix)</span><span class="chip t th">การเก็บกราฟ</span><span class="chip cx">O(1) per add / remove / query · O(n²) transpose and memory</span><span class="chip"><span class="stars">★☆☆</span></span></div>
+<div class="lead"><p class="en">With up to n² edges, store the graph as an n × n table of booleans. Each edge is one cell, so add, remove and query are single reads or writes, duplicates are impossible, and the transpose is the mirrored matrix.</p><p class="th">เมื่อมีเส้นได้ถึง n² เส้น ให้เก็บกราฟเป็นตาราง boolean ขนาด n × n เส้นหนึ่งเส้นคือช่องหนึ่งช่อง การเพิ่ม ลบ และถามจึงเป็นการอ่านหรือเขียนครั้งเดียว เส้นซ้ำเกิดไม่ได้ และ transpose คือเมทริกซ์ที่สะท้อนตามแนวทแยง</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\d57_q1_dense\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: choosing a graph representation</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: เลือกวิธีเก็บกราฟ</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: choosing a graph representation</h2>
+<p>Every graph algorithm in this chapter starts by storing the graph. There are two classic choices, and the right one depends on how many edges there can be:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>adjacency matrix</th>
+<th>adjacency list / set</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>memory</td>
+<td>n²</td>
+<td>n + |E|</td>
+</tr>
+<tr>
+<td>"is a → b an edge?"</td>
+<td>O(1)</td>
+<td>O(degree) list, O(log degree) set</td>
+</tr>
+<tr>
+<td>visit all neighbours of a</td>
+<td>O(n)</td>
+<td>O(degree)</td>
+</tr>
+<tr>
+<td>fits when</td>
+<td>|E| can be close to n²</td>
+<td>|E| much smaller than n²</td>
+</tr>
+</tbody>
+</table>
+<p>This problem promises n ≤ 1 000 and up to n² edges: a <strong>dense</strong> graph. A matrix of 10⁶ booleans is small, and it makes every operation a single cell. The sister problem <a href="d57_q1_sparse.html">Sparse Graph</a> has n ≤ 100 000, where the matrix would need 10¹⁰ cells.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the data</h3>
+<p><code>hasEdge[a][b]</code> is true exactly when the edge a → b exists. It is a directed graph, so <code>hasEdge[a][b]</code> and <code>hasEdge[b][a]</code> are independent, and a self-loop is the diagonal cell <code>hasEdge[a][a]</code>.</p>
+<h3>Step 2: the operations are one cell each</h3>
+<ul>
+<li><code>AddEdge(a, b)</code>: <code>hasEdge[a][b] = true</code>. Adding twice writes true twice: duplicates handle themselves.</li>
+<li><code>RemoveEdge(a, b)</code>: <code>hasEdge[a][b] = false</code>. Removing a missing edge writes false again: nothing changes, as required.</li>
+<li><code>DoesEdgeExist(a, b)</code>: return the cell.</li>
+</ul>
+<div class="viz" data-viz="d57_q1_dense"></div>
+<h3>Step 3: copy and transpose</h3>
+<p><code>vector</code> copies itself deeply, so the copy constructor just copies <code>n</code> and the matrix. The same holds for the assignment <code>g = g2</code> in the tests: the compiler-generated assignment copies the vector.</p>
+<p>The transpose reverses every edge: a → b becomes b → a, so cell [a][b] moves to [b][a]. That is the matrix mirrored over its diagonal. Build it in a new <code>DenseGraph</code> and return it; the original is only read (the method is <code>const</code>).</p>
+<div class="box key">
+<div class="bt">Why vector&amp;lt;vector&amp;lt;bool&amp;gt;&amp;gt;</div>
+<p><code>vector&lt;bool&gt;</code> packs 8 cells per byte, so even n = 1 000 costs only 125 KB, and copying is cheap. A raw <code>bool hasEdge[1000][1000]</code> member would work too, but every copy (and the tests make several) would move 1 MB regardless of n.</p>
+</div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li><code>DenseGraph()</code> must create <strong>3</strong> vertices, not 0.</li>
+<li>The transpose must not change the original graph: build a new one.</li>
+<li><code>DoesEdgeExist(a, b)</code> is directional: 0 → 1 does not mean 1 → 0.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<p>Only <code>densegraph.h</code> is submitted; the grader's <code>main_dense.cpp</code> runs the tests.</p>
+<div class="codebox"><div class="cbar"><span>densegraph.h</span><span class="sp"></span><a href="code/d57_q1_dense__densegraph.h" download>⬇ .cpp</a><button data-copy="code57">Copy</button></div><pre class="hl"><code id="code57" hidden>#ifndef __DENSE_GRAPH_H__
+#define __DENSE_GRAPH_H__
+
+#include &lt;vector&gt;
+using namespace std;
+
+// Adjacency matrix: hasEdge[a][b] is true when the edge a -&gt; b exists.
+// Every query and update is O(1); the matrix costs n * n bits.
+class DenseGraph {
+public:
+    DenseGraph() : DenseGraph(3) {}
+
+    DenseGraph(int n_in) : n(n_in), hasEdge(n_in, vector&lt;bool&gt;(n_in, false)) {}
+
+    DenseGraph(const DenseGraph&amp; G) : n(G.n), hasEdge(G.hasEdge) {}
+
+    void AddEdge(int a, int b) {
+        hasEdge[a][b] = true;     // adding an existing edge changes nothing
+    }
+
+    void RemoveEdge(int a, int b) {
+        hasEdge[a][b] = false;    // removing a missing edge changes nothing
+    }
+
+    bool DoesEdgeExist(int a, int b) const {
+        return hasEdge[a][b];
+    }
+
+    DenseGraph Transpose() const {
+        DenseGraph transposed(n);
+        // from = 0..n-1, to = 0..n-1 (both upward): visit every cell once,
+        // the edge from -&gt; to becomes to -&gt; from (the matrix is mirrored)
+        for (int from = 0; from &lt; n; from++)
+            for (int to = 0; to &lt; n; to++)
+                if (hasEdge[from][to]) transposed.hasEdge[to][from] = true;
+        return transposed;
+    }
+
+protected:
+    int n;
+    vector&lt;vector&lt;bool&gt;&gt; hasEdge;
+};
+#endif // __DENSE_GRAPH_H__
+</code><span class="ln"><span class="cp">#</span><span class="cp">ifndef __DENSE_GRAPH_H__</span></span><span class="ln"><span class="cp">#</span><span class="cp">define __DENSE_GRAPH_H__</span></span><span class="ln"></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Adjacency matrix: hasEdge[a][b] is true when the edge a -&gt; b exists.</span></span><span class="ln"><span class="c1">// Every query and update is O(1); the matrix costs n * n bits.</span></span><span class="ln"><span class="k">class</span><span class="w"> </span><span class="nc">DenseGraph</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="k">public</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">DenseGraph</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n_in</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">n_in</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">(</span><span class="n">n_in</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n_in</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">DenseGraph</span><span class="o">&amp;</span><span class="w"> </span><span class="n">G</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">n</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">hasEdge</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">hasEdge</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">     </span><span class="c1">// adding an existing edge changes nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">RemoveEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">hasEdge</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">    </span><span class="c1">// removing a missing edge changes nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">DoesEdgeExist</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="w"> </span><span class="n">Transpose</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">DenseGraph</span><span class="w"> </span><span class="nf">transposed</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// from = 0..n-1, to = 0..n-1 (both upward): visit every cell once,</span></span><span class="ln"><span class="w">        </span><span class="c1">// the edge from -&gt; to becomes to -&gt; from (the matrix is mirrored)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">to</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hasEdge</span><span class="p">[</span><span class="n">from</span><span class="p">]</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="n">transposed</span><span class="p">.</span><span class="n">hasEdge</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">[</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">transposed</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">protected</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="cp">#</span><span class="cp">endif </span><span class="c1">// __DENSE_GRAPH_H__</span></span></pre></div>
+<p><strong>Complexity.</strong> Add, remove, query: <strong>O(1)</strong>. Copy and transpose: <strong>O(n²)</strong>. Memory: <strong>n²</strong> bits.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 10 cases of the official main_dense.cpp (including n = 1 000 with 100 000 and 200 000 edges, 0.04 s), and 4 000 random graphs with mixed add / remove / copy / assign / double transpose checked against a set of pairs. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ทั้ง 10 กรณีของ main_dense.cpp ที่ให้มา (รวม n = 1 000 ที่มี 100 000 และ 200 000 เส้น ใช้ 0.04 วินาที) และกราฟสุ่ม 4 000 กราฟที่ผสมการเพิ่ม ลบ คัดลอก กำหนดค่า และ transpose สองครั้ง ตรวจเทียบกับเซตของคู่ ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: เลือกวิธีเก็บกราฟ</h2>
+<p>อัลกอริทึมกราฟทุกตัวในบทนี้เริ่มจากการเก็บกราฟ มีสองทางเลือกคลาสสิก และทางที่ถูกขึ้นกับว่าเส้นมีได้มากแค่ไหน:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>เมทริกซ์ประชิด</th>
+<th>รายการ / เซตประชิด</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>หน่วยความจำ</td>
+<td>n²</td>
+<td>n + |E|</td>
+</tr>
+<tr>
+<td>"a → b เป็นเส้นไหม?"</td>
+<td>O(1)</td>
+<td>O(degree) แบบรายการ, O(log degree) แบบเซต</td>
+</tr>
+<tr>
+<td>เยี่ยมเพื่อนบ้านทั้งหมดของ a</td>
+<td>O(n)</td>
+<td>O(degree)</td>
+</tr>
+<tr>
+<td>เหมาะเมื่อ</td>
+<td>|E| ใกล้ n² ได้</td>
+<td>|E| น้อยกว่า n² มาก</td>
+</tr>
+</tbody>
+</table>
+<p>ข้อนี้รับประกัน n ≤ 1 000 และเส้นได้ถึง n²: กราฟ <strong>หนาแน่น</strong> เมทริกซ์ boolean 10⁶ ช่องถือว่าเล็ก และทำให้ทุกคำสั่งเป็นช่องเดียว ข้อพี่น้อง <a href="d57_q1_sparse.html">Sparse Graph</a> มี n ≤ 100 000 ซึ่งเมทริกซ์จะต้องใช้ 10¹⁰ ช่อง</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: ข้อมูล</h3>
+<p><code>hasEdge[a][b]</code> เป็นจริงก็ต่อเมื่อมีเส้น a → b เป็นกราฟมีทิศทาง <code>hasEdge[a][b]</code> และ <code>hasEdge[b][a]</code> จึงเป็นอิสระต่อกัน และวงวนตัวเองคือช่องบนแนวทแยง <code>hasEdge[a][a]</code></p>
+<h3>ขั้นที่ 2: ทุกคำสั่งคือช่องเดียว</h3>
+<ul>
+<li><code>AddEdge(a, b)</code>: <code>hasEdge[a][b] = true</code> เพิ่มสองครั้งก็แค่เขียน true สองครั้ง: เส้นซ้ำจัดการตัวเอง</li>
+<li><code>RemoveEdge(a, b)</code>: <code>hasEdge[a][b] = false</code> ลบเส้นที่ไม่มีก็แค่เขียน false ซ้ำ: ไม่มีอะไรเปลี่ยนตามที่โจทย์ต้องการ</li>
+<li><code>DoesEdgeExist(a, b)</code>: คืนค่าช่องนั้น</li>
+</ul>
+<div class="viz" data-viz="d57_q1_dense"></div>
+<h3>ขั้นที่ 3: คัดลอกและ transpose</h3>
+<p><code>vector</code> คัดลอกตัวเองแบบลึก copy constructor จึงแค่คัดลอก <code>n</code> และเมทริกซ์ การกำหนดค่า <code>g = g2</code> ในชุดทดสอบก็เช่นกัน: assignment ที่คอมไพเลอร์สร้างให้คัดลอก vector เอง</p>
+<p>Transpose กลับทิศทุกเส้น: a → b กลายเป็น b → a ช่อง [a][b] จึงย้ายไป [b][a] ซึ่งคือเมทริกซ์ที่สะท้อนตามแนวทแยง สร้างใน <code>DenseGraph</code> ตัวใหม่แล้วคืนค่า กราฟเดิมถูกอ่านอย่างเดียว (เมธอดเป็น <code>const</code>)</p>
+<div class="box key">
+<div class="bt">ทำไมใช้ vector&amp;lt;vector&amp;lt;bool&amp;gt;&amp;gt;</div>
+<p><code>vector&lt;bool&gt;</code> อัด 8 ช่องต่อไบต์ แม้ n = 1 000 ก็ใช้แค่ 125 KB และคัดลอกได้เร็ว สมาชิก <code>bool hasEdge[1000][1000]</code> แบบดิบก็ใช้ได้ แต่ทุกการคัดลอก (ซึ่งชุดทดสอบทำหลายครั้ง) จะย้าย 1 MB ไม่ว่า n เท่าไร</p>
+</div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li><code>DenseGraph()</code> ต้องสร้าง <strong>3</strong> จุด ไม่ใช่ 0</li>
+<li>Transpose ห้ามเปลี่ยนกราฟเดิม: สร้างกราฟใหม่</li>
+<li><code>DoesEdgeExist(a, b)</code> มีทิศทาง: 0 → 1 ไม่ได้แปลว่า 1 → 0</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<p>ส่งแค่ <code>densegraph.h</code> ส่วน <code>main_dense.cpp</code> ของ grader เป็นตัวทดสอบ</p>
+<div class="codebox"><div class="cbar"><span>densegraph.h</span><span class="sp"></span><a href="code/d57_q1_dense__densegraph.h" download>⬇ .cpp</a><button data-copy="code57">Copy</button></div><pre class="hl"><code id="code57" hidden>#ifndef __DENSE_GRAPH_H__
+#define __DENSE_GRAPH_H__
+
+#include &lt;vector&gt;
+using namespace std;
+
+// Adjacency matrix: hasEdge[a][b] is true when the edge a -&gt; b exists.
+// Every query and update is O(1); the matrix costs n * n bits.
+class DenseGraph {
+public:
+    DenseGraph() : DenseGraph(3) {}
+
+    DenseGraph(int n_in) : n(n_in), hasEdge(n_in, vector&lt;bool&gt;(n_in, false)) {}
+
+    DenseGraph(const DenseGraph&amp; G) : n(G.n), hasEdge(G.hasEdge) {}
+
+    void AddEdge(int a, int b) {
+        hasEdge[a][b] = true;     // adding an existing edge changes nothing
+    }
+
+    void RemoveEdge(int a, int b) {
+        hasEdge[a][b] = false;    // removing a missing edge changes nothing
+    }
+
+    bool DoesEdgeExist(int a, int b) const {
+        return hasEdge[a][b];
+    }
+
+    DenseGraph Transpose() const {
+        DenseGraph transposed(n);
+        // from = 0..n-1, to = 0..n-1 (both upward): visit every cell once,
+        // the edge from -&gt; to becomes to -&gt; from (the matrix is mirrored)
+        for (int from = 0; from &lt; n; from++)
+            for (int to = 0; to &lt; n; to++)
+                if (hasEdge[from][to]) transposed.hasEdge[to][from] = true;
+        return transposed;
+    }
+
+protected:
+    int n;
+    vector&lt;vector&lt;bool&gt;&gt; hasEdge;
+};
+#endif // __DENSE_GRAPH_H__
+</code><span class="ln"><span class="cp">#</span><span class="cp">ifndef __DENSE_GRAPH_H__</span></span><span class="ln"><span class="cp">#</span><span class="cp">define __DENSE_GRAPH_H__</span></span><span class="ln"></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Adjacency matrix: hasEdge[a][b] is true when the edge a -&gt; b exists.</span></span><span class="ln"><span class="c1">// Every query and update is O(1); the matrix costs n * n bits.</span></span><span class="ln"><span class="k">class</span><span class="w"> </span><span class="nc">DenseGraph</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="k">public</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">DenseGraph</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n_in</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">n_in</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">(</span><span class="n">n_in</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n_in</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">DenseGraph</span><span class="o">&amp;</span><span class="w"> </span><span class="n">G</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">n</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">hasEdge</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">hasEdge</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">     </span><span class="c1">// adding an existing edge changes nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">RemoveEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">hasEdge</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w">    </span><span class="c1">// removing a missing edge changes nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">DoesEdgeExist</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">DenseGraph</span><span class="w"> </span><span class="n">Transpose</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">DenseGraph</span><span class="w"> </span><span class="nf">transposed</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// from = 0..n-1, to = 0..n-1 (both upward): visit every cell once,</span></span><span class="ln"><span class="w">        </span><span class="c1">// the edge from -&gt; to becomes to -&gt; from (the matrix is mirrored)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">to</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hasEdge</span><span class="p">[</span><span class="n">from</span><span class="p">]</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="n">transposed</span><span class="p">.</span><span class="n">hasEdge</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">[</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">transposed</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">protected</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hasEdge</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="cp">#</span><span class="cp">endif </span><span class="c1">// __DENSE_GRAPH_H__</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> เพิ่ม ลบ ถาม: <strong>O(1)</strong> คัดลอกและ transpose: <strong>O(n²)</strong> หน่วยความจำ: <strong>n²</strong> บิต</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 10 cases of the official main_dense.cpp (including n = 1 000 with 100 000 and 200 000 edges, 0.04 s), and 4 000 random graphs with mixed add / remove / copy / assign / double transpose checked against a set of pairs. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ทั้ง 10 กรณีของ main_dense.cpp ที่ให้มา (รวม n = 1 000 ที่มี 100 000 และ 200 000 เส้น ใช้ 0.04 วินาที) และกราฟสุ่ม 4 000 กราฟที่ผสมการเพิ่ม ลบ คัดลอก กำหนดค่า และ transpose สองครั้ง ตรวจเทียบกับเซตของคู่ ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="pn"><a class="pv" href="da67_f_travelling_tourist.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>da67_f_travelling_tourist</b> · <span class="en">Travelling Tourist</span><span class="th">Travelling Tourist (เที่ยวให้ครบ k ที่)</span></a><a class="nx" href="d57_q1_sparse.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>d57_q1_sparse</b> · <span class="en">Sparse Graph</span><span class="th">Sparse Graph (กราฟแบบรายการประชิด)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/d57_q1_dense.js"></script>
+</body>
+</html>

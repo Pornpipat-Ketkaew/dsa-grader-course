@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex06e1_cable · Cable Company</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0891b2}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="on" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch18.html">18 · <span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></div>
+<div class="phead">
+<div class="pidbig">ex06e1_cable</div>
+<h1><span class="en">Cable Company</span><span class="th">Cable Company (วางสายไฟเบอร์ให้ถูกที่สุด)</span></h1>
+<div class="chips"><span class="chip t en">Minimum spanning tree</span><span class="chip t en">Prim&#x27;s algorithm (O(N²) array version for a complete graph)</span><span class="chip t th">ต้นไม้ทอดข้ามที่น้อยที่สุด</span><span class="chip t th">อัลกอริทึมของ Prim (แบบอาร์เรย์ O(N²) สำหรับกราฟสมบูรณ์)</span><span class="chip cx">O(N²) time and memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">The cheapest set of cables that connects every centre is a minimum spanning tree. Every pair of centres has a price, so the graph is complete; Prim&#x27;s array version (pick the outside centre with the cheapest link, then update all links) runs in O(N²), the same as reading the input.</p><p class="th">ชุดสายที่ถูกที่สุดที่เชื่อมทุกศูนย์คือต้นไม้ทอดข้ามที่น้อยที่สุด ทุกคู่ของศูนย์มีราคา กราฟจึงสมบูรณ์ Prim แบบอาร์เรย์ (เลือกศูนย์นอกต้นไม้ที่สายเชื่อมถูกที่สุด แล้วปรับสายเชื่อมของทุกศูนย์) ใช้ O(N²) เท่ากับการอ่านข้อมูล</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex06e1_cable\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: minimum spanning tree with Prim</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: ต้นไม้ทอดข้ามที่น้อยที่สุดด้วย Prim</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: minimum spanning tree with Prim</h2>
+<p>"Connect everything as cheaply as possible" asks for a <strong>minimum spanning tree (MST)</strong>: a cheapest set of edges that connects all vertices. It never contains a cycle (dropping a cycle edge keeps everything connected and saves money), so it has exactly N − 1 edges.</p>
+<p><strong>Prim</strong> grows one tree from any vertex. At every step it adds the cheapest edge between the tree and the outside. This is safe by the <strong>cut property</strong>: for any split of the vertices into two sides, the cheapest edge crossing the split belongs to some MST.</p>
+<p>Like Dijkstra, Prim has two implementations: an array scan (O(N²)) or a heap (O(E log N)). On a complete graph E ≈ N²/2, so the array version wins.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the triangle input</h3>
+<p>Line i (i = 0..N−2) lists the prices from centre i to centres i+1, i+2, …, N−1. Store each price in both <code>cost[i][j]</code> and <code>cost[j][i]</code>.</p>
+<h3>Step 2: Prim with <code>cheapestLink</code></h3>
+<p>Keep <code>cheapestLink[v]</code> = cheapest cable from v to any centre already in the tree. Each round:</p>
+<ol>
+<li>pick the outside centre with the smallest <code>cheapestLink</code> and add it (pay that link);</li>
+<li>for every outside centre, <code>cheapestLink[v] = min(cheapestLink[v], cost[new][v])</code>.</li>
+</ol>
+<div class="viz" data-viz="ex06e1_cable"></div>
+<pre class="diagram">sample 1:  0-1 = 1, 0-2 = 3, 0-3 = 4, 1-2 = 2, 1-3 = 7, 2-3 = 6
+tree: 0 → 1 (1) → 2 (2) → 3 (min(4, 7, 6) = 4)     total 7</pre>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Reading the triangle as a full matrix, or as "cost to centre k" with k counted from 0 on every line: the k-th number on line i is the cable to centre i + 1 + k.</li>
+<li>Using shortest paths (Dijkstra from 0): that minimises each centre's distance to 0, not the total cable cost.</li>
+<li>Prices can be 0; that is fine for Prim.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex06e1_cable__main.cpp" download>⬇ .cpp</a><button data-copy="code79">Copy</button></div><pre class="hl"><code id="code79" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    // cost[a][b] = price of a cable between centres a and b: a complete graph
+    vector&lt;vector&lt;int&gt;&gt; cost(n, vector&lt;int&gt;(n, 0));
+    // a = 0..n-2: line a lists the cables a-(a+1), a-(a+2), ..., a-(n-1)
+    for (int a = 0; a &lt; n - 1; a++)
+        for (int b = a + 1; b &lt; n; b++) {
+            cin &gt;&gt; cost[a][b];
+            cost[b][a] = cost[a][b];
+        }
+
+    // Prim&#x27;s algorithm, array version: on a complete graph every centre has
+    // n - 1 cables anyway, so O(n^2) is optimal and needs no heap.
+    // cheapestLink[v] = cheapest cable from v to any centre already in the tree.
+    const int NONE = 1000000000;
+    vector&lt;int&gt; cheapestLink(n, NONE);
+    vector&lt;bool&gt; inTree(n, false);
+    cheapestLink[0] = 0;                     // centre 0 starts the tree for free
+    long long total = 0;
+    // round = 0..n-1: each round brings exactly one centre into the tree
+    for (int round = 0; round &lt; n; round++) {
+        int next = -1;
+        // centre = 0..n-1: pick the outside centre with the cheapest link
+        for (int centre = 0; centre &lt; n; centre++)
+            if (!inTree[centre] &amp;&amp; (next == -1 || cheapestLink[centre] &lt; cheapestLink[next])) next = centre;
+        inTree[next] = true;
+        total += cheapestLink[next];
+        // centre = 0..n-1: &quot;next&quot; is in the tree now, its cables may be cheaper links
+        for (int centre = 0; centre &lt; n; centre++)
+            if (!inTree[centre] &amp;&amp; cost[next][centre] &lt; cheapestLink[centre]) cheapestLink[centre] = cost[next][centre];
+    }
+    cout &lt;&lt; total &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// cost[a][b] = price of a cable between centres a and b: a complete graph</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cost</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// a = 0..n-2: line a lists the cables a-(a+1), a-(a+2), ..., a-(n-1)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">a</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">cost</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Prim&#x27;s algorithm, array version: on a complete graph every centre has</span></span><span class="ln"><span class="w">    </span><span class="c1">// n - 1 cables anyway, so O(n^2) is optimal and needs no heap.</span></span><span class="ln"><span class="w">    </span><span class="c1">// cheapestLink[v] = cheapest cable from v to any centre already in the tree.</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">NONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000000</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">NONE</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inTree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cheapestLink</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">                     </span><span class="c1">// centre 0 starts the tree for free</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// round = 0..n-1: each round brings exactly one centre into the tree</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// centre = 0..n-1: pick the outside centre with the cheapest link</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">inTree</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">centre</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">inTree</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// centre = 0..n-1: &quot;next&quot; is in the tree now, its cables may be cheaper links</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">inTree</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> N rounds of two O(N) scans: <strong>O(N²)</strong>. Memory: <strong>O(N²)</strong> for the prices.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples and N = 2, 300 random price tables against a brute force that tries every set of N − 1 cables, and N = 1 000 in 0.03 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF และ N = 2, ตารางราคาสุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกชุดของสาย N − 1 เส้น และ N = 1 000 ใช้ 0.03 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: ต้นไม้ทอดข้ามที่น้อยที่สุดด้วย Prim</h2>
+<p>"เชื่อมทุกอย่างให้ถูกที่สุด" คือการหา <strong>ต้นไม้ทอดข้ามที่น้อยที่สุด (MST)</strong>: ชุดเส้นที่ถูกที่สุดที่เชื่อมทุกจุด มันไม่มีวงรอบ (ถอดเส้นหนึ่งในวงยังเชื่อมกันครบและประหยัดเงิน) จึงมี N − 1 เส้นพอดี</p>
+<p><strong>Prim</strong> ขยายต้นไม้ต้นเดียวจากจุดไหนก็ได้ ทุกขั้นเพิ่มเส้นที่ถูกที่สุดระหว่างต้นไม้กับข้างนอก ซึ่งปลอดภัยด้วย <strong>cut property</strong>: ไม่ว่าแบ่งจุดเป็นสองฝั่งแบบไหน เส้นที่ถูกที่สุดที่ข้ามรอยแบ่งอยู่ใน MST สักต้นเสมอ</p>
+<p>เหมือน Dijkstra, Prim เขียนได้สองแบบ: ไล่หาในอาร์เรย์ (O(N²)) หรือ heap (O(E log N)) บนกราฟสมบูรณ์ E ≈ N²/2 แบบอาร์เรย์จึงชนะ</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: ข้อมูลรูปสามเหลี่ยม</h3>
+<p>บรรทัด i (i = 0..N−2) ให้ราคาจากศูนย์ i ไปศูนย์ i+1, i+2, …, N−1 เก็บแต่ละราคาทั้งใน <code>cost[i][j]</code> และ <code>cost[j][i]</code></p>
+<h3>ขั้นที่ 2: Prim ด้วย <code>cheapestLink</code></h3>
+<p>เก็บ <code>cheapestLink[v]</code> = สายที่ถูกที่สุดจาก v ไปยังศูนย์ใดก็ได้ที่อยู่ในต้นไม้แล้ว แต่ละรอบ:</p>
+<ol>
+<li>เลือกศูนย์นอกต้นไม้ที่ <code>cheapestLink</code> น้อยที่สุด แล้วเพิ่มเข้าไป (จ่ายสายนั้น)</li>
+<li>สำหรับทุกศูนย์นอกต้นไม้ <code>cheapestLink[v] = min(cheapestLink[v], cost[ใหม่][v])</code></li>
+</ol>
+<div class="viz" data-viz="ex06e1_cable"></div>
+<pre class="diagram">ตัวอย่าง 1: 0-1 = 1, 0-2 = 3, 0-3 = 4, 1-2 = 2, 1-3 = 7, 2-3 = 6
+ต้นไม้: 0 → 1 (1) → 2 (2) → 3 (min(4, 7, 6) = 4)     รวม 7</pre>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>อ่านสามเหลี่ยมเป็นเมทริกซ์เต็ม หรืออ่านเป็น "ราคาไปศูนย์ k" ที่ k เริ่มนับจาก 0 ทุกบรรทัด: ตัวเลขตัวที่ k บนบรรทัด i คือสายไปศูนย์ i + 1 + k</li>
+<li>ใช้เส้นทางสั้นที่สุด (Dijkstra จาก 0): นั่นทำให้ระยะของแต่ละศูนย์ถึง 0 น้อยที่สุด ไม่ใช่ราคาสายรวม</li>
+<li>ราคาเป็น 0 ได้ Prim รับได้</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex06e1_cable__main.cpp" download>⬇ .cpp</a><button data-copy="code79">Copy</button></div><pre class="hl"><code id="code79" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    // cost[a][b] = price of a cable between centres a and b: a complete graph
+    vector&lt;vector&lt;int&gt;&gt; cost(n, vector&lt;int&gt;(n, 0));
+    // a = 0..n-2: line a lists the cables a-(a+1), a-(a+2), ..., a-(n-1)
+    for (int a = 0; a &lt; n - 1; a++)
+        for (int b = a + 1; b &lt; n; b++) {
+            cin &gt;&gt; cost[a][b];
+            cost[b][a] = cost[a][b];
+        }
+
+    // Prim&#x27;s algorithm, array version: on a complete graph every centre has
+    // n - 1 cables anyway, so O(n^2) is optimal and needs no heap.
+    // cheapestLink[v] = cheapest cable from v to any centre already in the tree.
+    const int NONE = 1000000000;
+    vector&lt;int&gt; cheapestLink(n, NONE);
+    vector&lt;bool&gt; inTree(n, false);
+    cheapestLink[0] = 0;                     // centre 0 starts the tree for free
+    long long total = 0;
+    // round = 0..n-1: each round brings exactly one centre into the tree
+    for (int round = 0; round &lt; n; round++) {
+        int next = -1;
+        // centre = 0..n-1: pick the outside centre with the cheapest link
+        for (int centre = 0; centre &lt; n; centre++)
+            if (!inTree[centre] &amp;&amp; (next == -1 || cheapestLink[centre] &lt; cheapestLink[next])) next = centre;
+        inTree[next] = true;
+        total += cheapestLink[next];
+        // centre = 0..n-1: &quot;next&quot; is in the tree now, its cables may be cheaper links
+        for (int centre = 0; centre &lt; n; centre++)
+            if (!inTree[centre] &amp;&amp; cost[next][centre] &lt; cheapestLink[centre]) cheapestLink[centre] = cost[next][centre];
+    }
+    cout &lt;&lt; total &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// cost[a][b] = price of a cable between centres a and b: a complete graph</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cost</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// a = 0..n-2: line a lists the cables a-(a+1), a-(a+2), ..., a-(n-1)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">a</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">b</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">cost</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Prim&#x27;s algorithm, array version: on a complete graph every centre has</span></span><span class="ln"><span class="w">    </span><span class="c1">// n - 1 cables anyway, so O(n^2) is optimal and needs no heap.</span></span><span class="ln"><span class="w">    </span><span class="c1">// cheapestLink[v] = cheapest cable from v to any centre already in the tree.</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">NONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000000</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">NONE</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inTree</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cheapestLink</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">                     </span><span class="c1">// centre 0 starts the tree for free</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// round = 0..n-1: each round brings exactly one centre into the tree</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// centre = 0..n-1: pick the outside centre with the cheapest link</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">inTree</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">centre</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">inTree</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">total</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// centre = 0..n-1: &quot;next&quot; is in the tree now, its cables may be cheaper links</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">centre</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">inTree</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="n">cheapestLink</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cost</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">[</span><span class="n">centre</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> N รอบ รอบละสองการไล่ O(N): <strong>O(N²)</strong> หน่วยความจำ: <strong>O(N²)</strong> สำหรับราคา</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples and N = 2, 300 random price tables against a brute force that tries every set of N − 1 cables, and N = 1 000 in 0.03 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF และ N = 2, ตารางราคาสุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกชุดของสาย N − 1 เส้น และ N = 1 000 ใช้ 0.03 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="a65_q3a_expressway.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>a65_q3a_expressway</b> · <span class="en">Expressway</span><span class="th">Expressway (ทางด่วนเพิ่มทุกปี)</span></a><a class="nx" href="a60a_q3_xor_road.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a60a_q3_xor_road</b> · <span class="en">Beautiful Roads (XOR)</span><span class="th">ถนนสวย</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex06e1_cable.js"></script>
+</body>
+</html>

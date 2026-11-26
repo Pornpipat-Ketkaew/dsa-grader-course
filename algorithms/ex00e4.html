@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex00e4 · Generate Barcode</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#8b46d9}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="on" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch11.html">11 · <span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></div>
+<div class="phead">
+<div class="pidbig">ex00e4</div>
+<h1><span class="en">Generate Barcode</span><span class="th">สร้างบาร์โค้ด (Generate Barcode)</span></h1>
+<div class="chips"><span class="chip t en">Backtracking (combinations)</span><span class="chip t en">Feasibility pruning</span><span class="chip t th">Backtracking (การจัดหมู่)</span><span class="chip t th">ตัดกิ่งที่เป็นไปไม่ได้</span><span class="chip cx">O(C(B, A) · B) time · O(B) memory (+ output)</span><span class="chip"><span class="stars">★☆☆</span></span></div>
+<div class="lead"><p class="en">Decide the B characters left to right; at each position try &#x27;0&#x27; and &#x27;1&#x27;, but only if the remaining positions can still end with exactly A ones. Every leaf of the pruned tree is a valid barcode.</p><p class="th">ตัดสินใจตัวอักษร B ตัวจากซ้ายไปขวา ที่แต่ละตำแหน่งลอง &#x27;0&#x27; และ &#x27;1&#x27; แต่เฉพาะเมื่อตำแหน่งที่เหลือยังจบด้วย 1 จำนวน A ตัวพอดีได้ ทุกใบของต้นไม้ที่ตัดกิ่งแล้วคือบาร์โค้ดที่ถูกต้อง</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex00e4\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: backtracking with a feasibility test</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: backtracking พร้อมการตรวจว่ายังเป็นไปได้</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: backtracking with a feasibility test</h2>
+<p><strong>Backtracking</strong> builds an answer one decision at a time. The recursion depth is "how many decisions are made"; each call tries every choice for the next decision, recurses, and the choice is overwritten (undone) by the next try.</p>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">answer</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">choice</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">still</span><span class="w"> </span><span class="n">lead</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">answer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">apply</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">position</span><span class="p">;</span>
+<span class="w">        </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">after</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// the next loop iteration overwrites c: that is the &quot;undo&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<p>The art is the condition "<strong>can still lead to an answer</strong>". If it is exact, the recursion never enters a dead branch, and the running time is proportional to the number of answers.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>The decision tree</h3>
+<p>A barcode is B characters. Decide them left to right: depth <code>position</code> = number of characters fixed. The state we need is just <code>onesUsed</code> (how many '1's so far).</p>
+<h3>The exact pruning rule</h3>
+<p>With <code>placesLeft = B − position</code> cells still empty and <code>onesLeft = A − onesUsed</code> ones still to place:</p>
+<table>
+<thead>
+<tr>
+<th>choice</th>
+<th>allowed when</th>
+<th>why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'0'</code></td>
+<td><code>onesLeft ≤ placesLeft − 1</code></td>
+<td>after this '0', the other placesLeft − 1 cells must hold all remaining ones</td>
+</tr>
+<tr>
+<td><code>'1'</code></td>
+<td><code>onesLeft &gt; 0</code></td>
+<td>do not exceed A ones</td>
+</tr>
+</tbody>
+</table>
+<p>Both conditions are <strong>necessary and sufficient</strong>: if a choice is allowed, some completion exists (fill the rest with exactly the needed ones). So every branch we enter ends in a valid barcode, there are <strong>no dead ends</strong>, and no final check is needed at the leaf.</p>
+<pre class="diagram">A = 1, B = 3                    root  (position 0, onesUsed 0)
+                         ┌────────┴────────┐
+                        &#x27;0&#x27;               &#x27;1&#x27;
+                   ┌─────┴─────┐            │ onesLeft = 0 → only &#x27;0&#x27;
+                  &#x27;0&#x27;         &#x27;1&#x27;          &#x27;0&#x27;
+                   │ need 1 in 1 cell       │
+                  &#x27;1&#x27;          &#x27;0&#x27;         &#x27;0&#x27;
+                  001          010         100</pre>
+<p>Because '0' is tried before '1', the codes come out in <strong>increasing</strong> binary order. The statement accepts any order, but a deterministic order is easier to check.</p>
+<div class="viz" data-viz="ex00e4"></div>
+<h3>Output</h3>
+<p>C(20, 10) = 184 756 lines of 21 characters ≈ 3.9 MB. Append everything to one <code>string</code> and print it once (or use fast I/O and <code>'\n'</code>).</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Generating all 2^B strings and filtering by popcount: 2²⁰ ≈ 10⁶ strings × 20 bits works here, but it is the habit the pruning teaches you to avoid (it explodes for "A of 40").</li>
+<li>A = 0 must print one line of B zeros, and A = B = 0 prints one empty line.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex00e4__main.cpp" download>⬇ .cpp</a><button data-copy="code21">Copy</button></div><pre class="hl"><code id="code21" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int onesWanted, length;
+string barcode;      // the code being built; position p is decided at recursion depth p
+string output;       // every answer, printed once at the end
+
+// position = number of characters already decided (barcode[0..position-1])
+// onesUsed = how many of them are &#x27;1&#x27;
+void generate(int position, int onesUsed) {
+    if (position == length) {            // a full code; the pruning guarantees onesUsed == onesWanted
+        output += barcode;
+        output += &#x27;\n&#x27;;
+        return;
+    }
+    int placesLeft = length - position;
+    int onesLeft = onesWanted - onesUsed;
+    // choice &#x27;0&#x27;: allowed only if the remaining placesLeft-1 cells can still hold every needed &#x27;1&#x27;
+    if (onesLeft &lt;= placesLeft - 1) {
+        barcode[position] = &#x27;0&#x27;;
+        generate(position + 1, onesUsed);
+    }
+    // choice &#x27;1&#x27;: allowed only if a &#x27;1&#x27; is still needed
+    if (onesLeft &gt; 0) {
+        barcode[position] = &#x27;1&#x27;;
+        generate(position + 1, onesUsed + 1);
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin &gt;&gt; onesWanted &gt;&gt; length;
+    barcode.assign(length, &#x27;0&#x27;);
+    generate(0, 0);
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">onesWanted</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">barcode</span><span class="p">;</span><span class="w">      </span><span class="c1">// the code being built; position p is decided at recursion depth p</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span><span class="w">       </span><span class="c1">// every answer, printed once at the end</span></span><span class="ln"></span><span class="ln"><span class="c1">// position = number of characters already decided (barcode[0..position-1])</span></span><span class="ln"><span class="c1">// onesUsed = how many of them are &#x27;1&#x27;</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">onesUsed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">            </span><span class="c1">// a full code; the pruning guarantees onesUsed == onesWanted</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">barcode</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">placesLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">position</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">onesLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onesWanted</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">onesUsed</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// choice &#x27;0&#x27;: allowed only if the remaining placesLeft-1 cells can still hold every needed &#x27;1&#x27;</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">onesLeft</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">placesLeft</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">barcode</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">onesUsed</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// choice &#x27;1&#x27;: allowed only if a &#x27;1&#x27; is still needed</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">onesLeft</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">barcode</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">1</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">onesUsed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">onesWanted</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">barcode</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> No dead branches: the tree has C(B, A) leaves and depth B, so at most B · C(B, A) calls, plus the output itself. Memory: recursion depth B plus the output buffer.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> 12 (A, B) pairs including 0 0, 0 5, 5 5, 10 20, compared as sorted sets with a brute force (and checked for duplicates); line counts for every A with B = 20 equal C(20, A). The largest case C(20,10) = 184 756 lines runs in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> 12 คู่ (A, B) รวม 0 0, 0 5, 5 5, 10 20 เทียบแบบเรียงแล้วกับ brute force (และตรวจว่าไม่มีบรรทัดซ้ำ) จำนวนบรรทัดของทุก A เมื่อ B = 20 เท่ากับ C(20, A) กรณีใหญ่สุด C(20,10) = 184 756 บรรทัดใช้ 0.01 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: backtracking พร้อมการตรวจว่ายังเป็นไปได้</h2>
+<p><strong>Backtracking</strong> สร้างคำตอบทีละการตัดสินใจ ความลึกของ recursion คือ "ตัดสินใจไปแล้วกี่ครั้ง" แต่ละการเรียกลองทุกตัวเลือกของการตัดสินใจถัดไป เรียกตัวเองลึกลงไป แล้วตัวเลือกนั้นจะถูกเขียนทับ (ย้อนกลับ) ด้วยการลองครั้งถัดไป</p>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">record</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">answer</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">choice</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">still</span><span class="w"> </span><span class="n">lead</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">answer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">apply</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">position</span><span class="p">;</span>
+<span class="w">        </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="n">after</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="p">;</span>
+<span class="w">        </span><span class="c1">// the next loop iteration overwrites c: that is the &quot;undo&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<p>ศิลปะอยู่ที่เงื่อนไข "<strong>ยังไปถึงคำตอบได้</strong>" ถ้าเงื่อนไขแม่นยำ recursion จะไม่เข้ากิ่งตายเลย และเวลาที่ใช้จะแปรผันตามจำนวนคำตอบ</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ต้นไม้การตัดสินใจ</h3>
+<p>บาร์โค้ดมี B ตัวอักษร ตัดสินใจจากซ้ายไปขวา: ความลึก <code>position</code> = จำนวนตัวที่กำหนดแล้ว สถานะที่ต้องรู้มีแค่ <code>onesUsed</code> (ใช้ '1' ไปแล้วกี่ตัว)</p>
+<h3>กฎตัดกิ่งที่แม่นยำ</h3>
+<p>เมื่อยังเหลือช่องว่าง <code>placesLeft = B − position</code> ช่อง และต้องวางเลข 1 อีก <code>onesLeft = A − onesUsed</code> ตัว:</p>
+<table>
+<thead>
+<tr>
+<th>ตัวเลือก</th>
+<th>อนุญาตเมื่อ</th>
+<th>เหตุผล</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'0'</code></td>
+<td><code>onesLeft ≤ placesLeft − 1</code></td>
+<td>หลังวาง '0' นี้ ช่องที่เหลือ placesLeft − 1 ช่องต้องรับเลข 1 ที่เหลือทั้งหมด</td>
+</tr>
+<tr>
+<td><code>'1'</code></td>
+<td><code>onesLeft &gt; 0</code></td>
+<td>ไม่ให้เกิน A ตัว</td>
+</tr>
+</tbody>
+</table>
+<p>ทั้งสองเงื่อนไข <strong>จำเป็นและเพียงพอ</strong>: ถ้าตัวเลือกใดผ่าน ย่อมมีวิธีเติมที่เหลือให้ครบ (เติมเลข 1 เท่าที่ต้องการพอดี) ทุกกิ่งที่เข้าไปจึงจบด้วยบาร์โค้ดที่ถูกต้อง <strong>ไม่มีทางตัน</strong> และไม่ต้องตรวจซ้ำที่ใบ</p>
+<pre class="diagram">A = 1, B = 3                    root  (position 0, onesUsed 0)
+                         ┌────────┴────────┐
+                        &#x27;0&#x27;               &#x27;1&#x27;
+                   ┌─────┴─────┐            │ onesLeft = 0 → ได้แค่ &#x27;0&#x27;
+                  &#x27;0&#x27;         &#x27;1&#x27;          &#x27;0&#x27;
+                   │ ต้องมี 1 ใน 1 ช่อง      │
+                  &#x27;1&#x27;          &#x27;0&#x27;         &#x27;0&#x27;
+                  001          010         100</pre>
+<p>เพราะลอง '0' ก่อน '1' รหัสจึงออกมาเรียงจาก <strong>น้อยไปมาก</strong> ในฐานสอง โจทย์รับลำดับใดก็ได้ แต่ลำดับที่แน่นอนตรวจง่ายกว่า</p>
+<div class="viz" data-viz="ex00e4"></div>
+<h3>การพิมพ์ผล</h3>
+<p>C(20, 10) = 184 756 บรรทัด บรรทัดละ 21 ตัวอักษร ≈ 3.9 MB ต่อทุกอย่างลง <code>string</code> เดียวแล้วพิมพ์ครั้งเดียว (หรือใช้ fast I/O กับ <code>'\n'</code>)</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>สร้างทั้ง 2^B สตริงแล้วกรองด้วยจำนวนบิต 1: 2²⁰ ≈ 10⁶ สตริง × 20 บิตยังผ่านในข้อนี้ แต่เป็นนิสัยที่การตัดกิ่งสอนให้เลี่ยง (ระเบิดทันทีถ้าเป็น "A จาก 40")</li>
+<li>A = 0 ต้องพิมพ์ศูนย์ B ตัวหนึ่งบรรทัด และ A = B = 0 พิมพ์บรรทัดว่างหนึ่งบรรทัด</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex00e4__main.cpp" download>⬇ .cpp</a><button data-copy="code21">Copy</button></div><pre class="hl"><code id="code21" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int onesWanted, length;
+string barcode;      // the code being built; position p is decided at recursion depth p
+string output;       // every answer, printed once at the end
+
+// position = number of characters already decided (barcode[0..position-1])
+// onesUsed = how many of them are &#x27;1&#x27;
+void generate(int position, int onesUsed) {
+    if (position == length) {            // a full code; the pruning guarantees onesUsed == onesWanted
+        output += barcode;
+        output += &#x27;\n&#x27;;
+        return;
+    }
+    int placesLeft = length - position;
+    int onesLeft = onesWanted - onesUsed;
+    // choice &#x27;0&#x27;: allowed only if the remaining placesLeft-1 cells can still hold every needed &#x27;1&#x27;
+    if (onesLeft &lt;= placesLeft - 1) {
+        barcode[position] = &#x27;0&#x27;;
+        generate(position + 1, onesUsed);
+    }
+    // choice &#x27;1&#x27;: allowed only if a &#x27;1&#x27; is still needed
+    if (onesLeft &gt; 0) {
+        barcode[position] = &#x27;1&#x27;;
+        generate(position + 1, onesUsed + 1);
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin &gt;&gt; onesWanted &gt;&gt; length;
+    barcode.assign(length, &#x27;0&#x27;);
+    generate(0, 0);
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">onesWanted</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">barcode</span><span class="p">;</span><span class="w">      </span><span class="c1">// the code being built; position p is decided at recursion depth p</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span><span class="w">       </span><span class="c1">// every answer, printed once at the end</span></span><span class="ln"></span><span class="ln"><span class="c1">// position = number of characters already decided (barcode[0..position-1])</span></span><span class="ln"><span class="c1">// onesUsed = how many of them are &#x27;1&#x27;</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">onesUsed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">            </span><span class="c1">// a full code; the pruning guarantees onesUsed == onesWanted</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">barcode</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">placesLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">position</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">onesLeft</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onesWanted</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">onesUsed</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// choice &#x27;0&#x27;: allowed only if the remaining placesLeft-1 cells can still hold every needed &#x27;1&#x27;</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">onesLeft</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">placesLeft</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">barcode</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">onesUsed</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// choice &#x27;1&#x27;: allowed only if a &#x27;1&#x27; is still needed</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">onesLeft</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">barcode</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">1</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">onesUsed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">onesWanted</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">barcode</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> ไม่มีกิ่งตาย: ต้นไม้มีใบ C(B, A) ใบและลึก B จึงเรียกไม่เกิน B · C(B, A) ครั้ง บวกขนาดผลลัพธ์ หน่วยความจำ: ความลึก recursion B บวกบัฟเฟอร์ผลลัพธ์</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> 12 (A, B) pairs including 0 0, 0 5, 5 5, 10 20, compared as sorted sets with a brute force (and checked for duplicates); line counts for every A with B = 20 equal C(20, A). The largest case C(20,10) = 184 756 lines runs in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> 12 คู่ (A, B) รวม 0 0, 0 5, 5 5, 10 20 เทียบแบบเรียงแล้วกับ brute force (และตรวจว่าไม่มีบรรทัดซ้ำ) จำนวนบรรทัดของทุก A เมื่อ B = 20 เท่ากับ C(20, A) กรณีใหญ่สุด C(20,10) = 184 756 บรรทัดใช้ 0.01 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="da66_m1_line_monopoly.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>da66_m1_line_monopoly</b> · <span class="en">Line Monopoly</span><span class="th">เกมเศรษฐีบนเส้นตรง (Line Monopoly)</span></a><a class="nx" href="ex00e5.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex00e5</b> · <span class="en">Consecutive Ones</span><span class="th">เลข 1 ติดกัน (Consecutive Ones)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex00e4.js"></script>
+</body>
+</html>

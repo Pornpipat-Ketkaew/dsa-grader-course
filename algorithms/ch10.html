@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10 · Sweep, two pointers &amp; Kadane</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#2f7fd8}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class="on"><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 10</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 10</span></div>
+<h1><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></h1>
+<p class="en">Walk the data once, keeping a small summary of what you have seen.</p><p class="th">เดินผ่านข้อมูลรอบเดียว พร้อมเก็บสรุปสั้น ๆ ของสิ่งที่ผ่านมา</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span><span class="pt"><span class="en">Diagonal Sum</span><span class="th">ผลรวมแนวทแยง</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Each down-right diagonal is just a 1-D array, and a &quot;diagonal sum&quot; is a contiguous piece of it. Run Kadane on each of the 2n−1 diagonals: O(n²), better than the O(n³) the PDF hints at.</span><span class="th">เส้นทแยงลงขวาแต่ละเส้นคืออาร์เรย์ 1 มิติ และ &quot;ผลรวมแนวทแยง&quot; คือช่วงต่อเนื่องของมัน รัน Kadane บนเส้นทแยงทั้ง 2n−1 เส้น: O(n²) ดีกว่า O(n³) ที่ PDF แนะนำ</span></span></a><a href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span><span class="pt"><span class="en">Interesting Events</span><span class="th">วันที่น่าสนใจ (Interesting Events)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Turn each booth into +1 at l and −1 at r+1, sweep the sorted events, and record the stretches of days where the open count is ≥ k. Each query is then a binary search among those stretches.</span><span class="th">เปลี่ยนแต่ละบูธเป็น +1 ที่วัน l และ −1 ที่วัน r+1 กวาด (sweep) เหตุการณ์ที่เรียงแล้ว แล้วจดช่วงวันที่จำนวนบูธที่เปิด ≥ k จากนั้นตอบแต่ละคำถามด้วย binary search บนช่วงเหล่านั้น</span></span></a><a href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span><span class="pt"><span class="en">Zuma</span><span class="th">ซูม่า (Zuma)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Never insert or erase. Every explosion removes a block that touches the gap, so two pointers left/right that only move outward describe everything; the answer is beads[0..left] + beads[right..n−1].</span><span class="th">ไม่ต้องแทรกหรือลบจริง ทุกการระเบิดลบก้อนที่ติดกับช่องว่าง two pointers ซ้าย/ขวาที่เคลื่อนออกด้านนอกอย่างเดียวจึงบรรยายทุกอย่างได้ คำตอบคือ beads[0..left] + beads[right..n−1]</span></span></a><a href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span><span class="pt"><span class="en">Line Monopoly</span><span class="th">เกมเศรษฐีบนเส้นตรง (Line Monopoly)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Keep the bought cells as a map start → end of disjoint, non-touching blocks. A purchase swallows every block it overlaps or touches and inserts one merged block; the answer to a query is the map&#x27;s size.</span><span class="th">เก็บช่องที่ซื้อแล้วเป็น map start → end ของก้อนที่ไม่ซ้อนทับและไม่ติดกัน การซื้อแต่ละครั้งกลืนทุกก้อนที่ทับหรือแตะ แล้วใส่ก้อนที่รวมแล้วหนึ่งก้อน คำตอบของการถามคือขนาดของ map</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<p>All four techniques walk the data <strong>once</strong> (or once per line) while keeping a tiny summary of what was seen.</p>
+<h3>Kadane (maximum subarray)</h3>
+<pre class="snip hl"><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">INF</span><span class="p">;</span><span class="w"> </span><span class="n">endingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">endingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">endingHere</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">endingHere</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></pre>
+<p><code>endingHere</code> = best sum of a subarray that ends at the current element: either extend the previous one or start fresh. Apply it to any 1-D line, for example each diagonal of a matrix.</p>
+<h3>Sweep line</h3>
+<p>Turn intervals into <strong>events</strong> (+1 at a start, −1 after an end), sort the events, and walk them in order keeping a counter. Questions about "how many intervals cover a point" or "where does the count change" become prefix sums over the events, and queries become binary searches over event positions.</p>
+<h3>Two pointers</h3>
+<p>Two indices that only move in one direction each (both forward, or outward from a centre). Each moves at most n times, so the whole scan is O(n) even though it looks nested. Zuma expands outward from a run while the ends match.</p>
+<h3>Ordered map of disjoint intervals</h3>
+<p>Keep non-overlapping intervals in a <code>map&lt;start, end&gt;</code>. A new interval finds its neighbours with <code>lower_bound</code> / <code>upper_bound</code>, swallows everything it overlaps, and is inserted once. Each interval is inserted once and erased at most once: amortised O(log n).</p>
+<h3>How to recognise these problems</h3>
+<ul>
+<li>"Best contiguous segment" → Kadane.</li>
+<li>Intervals, events, "at any moment" → sweep.</li>
+<li>"Expand while…" or "shrink while…" with monotone moves → two pointers.</li>
+<li>Painting / claiming ranges with merges → ordered map of intervals.</li>
+</ul></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<p>ทั้งสี่เทคนิคเดินผ่านข้อมูล <strong>รอบเดียว</strong> (หรือรอบเดียวต่อแนว) พร้อมเก็บสรุปเล็ก ๆ ของสิ่งที่ผ่านมา</p>
+<h3>Kadane (subarray ที่ผลรวมมากที่สุด)</h3>
+<pre class="snip hl"><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">INF</span><span class="p">;</span><span class="w"> </span><span class="n">endingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">endingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">endingHere</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">endingHere</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></pre>
+<p><code>endingHere</code> = ผลรวมที่ดีที่สุดของ subarray ที่จบที่ตัวปัจจุบัน: ต่อจากอันก่อนหน้า หรือเริ่มใหม่ ใช้กับแนวหนึ่งมิติใดก็ได้ เช่นแต่ละแนวทแยงของเมทริกซ์</p>
+<h3>Sweep line</h3>
+<p>เปลี่ยนช่วงเป็น <strong>เหตุการณ์</strong> (+1 ที่จุดเริ่ม, −1 หลังจุดจบ) เรียงเหตุการณ์ แล้วเดินตามลำดับพร้อมตัวนับ คำถามเรื่อง "มีกี่ช่วงครอบจุดนี้" หรือ "จำนวนเปลี่ยนที่ไหน" กลายเป็นผลรวมสะสมบนเหตุการณ์ และคำถามกลายเป็น binary search บนตำแหน่งเหตุการณ์</p>
+<h3>Two pointers</h3>
+<p>ดัชนีสองตัวที่แต่ละตัวขยับทางเดียว (ไปข้างหน้าทั้งคู่ หรือออกจากจุดกลาง) แต่ละตัวขยับไม่เกิน n ครั้ง การไล่ทั้งหมดจึงเป็น O(n) แม้ดูเหมือนซ้อนกัน Zuma ขยายออกจากก้อนตราบที่ปลายทั้งสองเข้ากัน</p>
+<h3>Ordered map ของช่วงที่ไม่ทับกัน</h3>
+<p>เก็บช่วงที่ไม่ทับกันใน <code>map&lt;start, end&gt;</code> ช่วงใหม่หาเพื่อนบ้านด้วย <code>lower_bound</code> / <code>upper_bound</code> กลืนทุกช่วงที่ทับ แล้วถูกใส่ครั้งเดียว แต่ละช่วงถูกใส่ครั้งเดียวและลบไม่เกินครั้งเดียว: เฉลี่ย O(log n)</p>
+<h3>วิธีสังเกตโจทย์แบบนี้</h3>
+<ul>
+<li>"ช่วงต่อเนื่องที่ดีที่สุด" → Kadane</li>
+<li>ช่วง เหตุการณ์ "ณ เวลาใด ๆ" → sweep</li>
+<li>"ขยายตราบที่…" หรือ "หดตราบที่…" ที่ขยับทางเดียว → two pointers</li>
+<li>การจอง/ระบายช่วงที่ต้องรวมกัน → ordered map ของช่วง</li>
+</ul></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

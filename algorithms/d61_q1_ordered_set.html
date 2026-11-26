@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>d61_q1_ordered_set · Union / Intersection of Ordered Set</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0e9f8e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="on" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch09.html">09 · <span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></div>
+<div class="phead">
+<div class="pidbig">d61_q1_ordered_set</div>
+<h1><span class="en">Union / Intersection of Ordered Set</span><span class="th">Union / Intersection ของเซตแบบมีลำดับ</span></h1>
+<div class="chips"><span class="chip t en">Membership by sort + binary search</span><span class="chip t en">Order-preserving filter</span><span class="chip t th">ตรวจสมาชิกด้วย sort + binary search</span><span class="chip t th">กรองโดยรักษาลำดับ</span><span class="chip cx">O((|A| + |B|) log n) time · O(|A| + |B|) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Both answers are &quot;walk one list in its own order and keep the items that pass a membership test on the other list&quot;. Make the test O(log n) by sorting a copy once.</p><p class="th">คำตอบทั้งสองคือ &quot;เดินรายการหนึ่งตามลำดับของมัน แล้วเก็บตัวที่ผ่านการตรวจว่าเป็นสมาชิกของอีกรายการ&quot; ทำให้การตรวจเป็น O(log n) ด้วยการเรียงสำเนาครั้งเดียว</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\d61_q1_ordered_set\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: a filter pass with a fast membership test</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: เดินกรองรายการพร้อมการตรวจสมาชิกที่เร็ว</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: a filter pass with a fast membership test</h2>
+<p>Many "set" questions on <em>ordered</em> data reduce to the same loop:</p>
+<pre class="snip hl"><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">P</span><span class="err">&#x27;</span><span class="n">s</span><span class="w"> </span><span class="n">order</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">Q</span><span class="p">)</span><span class="w"> </span><span class="n">keep</span><span class="w"> </span><span class="n">x</span><span class="p">;</span></pre>
+<p>The loop itself is O(|P|). The only design decision is <strong>how to answer "is x in Q?"</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>membership structure</th>
+<th>build</th>
+<th>one query</th>
+<th>needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>linear scan of Q</td>
+<td>0</td>
+<td>O(</td>
+<td>Q</td>
+</tr>
+<tr>
+<td><code>unordered_set&lt;T&gt;</code></td>
+<td>O(</td>
+<td>Q</td>
+<td>)</td>
+</tr>
+<tr>
+<td><code>set&lt;T&gt;</code></td>
+<td>O(</td>
+<td>Q</td>
+<td>log</td>
+</tr>
+<tr>
+<td><strong>sorted copy + <code>binary_search</code></strong></td>
+<td>O(</td>
+<td>Q</td>
+<td>log</td>
+</tr>
+</tbody>
+</table>
+<p>A linear scan gives O(|A|·|B|) = 10¹⁰ for 10⁵ elements: too slow. The function is a <strong>template</strong>, and the grader may call it with a type that has <code>operator&lt;</code> but no hash, so a hash set is risky. A sorted vector with <code>binary_search</code> needs only <code>&lt;</code>, uses one contiguous array (cache-friendly), and is typically faster than <code>std::set</code>.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Union(A, B): "A first, then what only B has"</h3>
+<p>The required order is: every element of A in A's order, then the elements of B that are <strong>not</strong> in A, in B's order.</p>
+<pre class="diagram">A = &lt;4 6 9 0 7&gt;        B = &lt;0 3 2 4 5&gt;
+result starts as a copy of A:      4 6 9 0 7
+walk B:  0 in A? yes → skip
+         3 in A? no  → append      4 6 9 0 7 3
+         2 in A? no  → append      4 6 9 0 7 3 2
+         4 in A? yes → skip
+         5 in A? no  → append      4 6 9 0 7 3 2 5</pre>
+<p>So: <code>result = A</code>, sort a copy of A, then <strong>filter B</strong> with "not in A".</p>
+<h3>Intersect(A, B): "A's order, only what B has"</h3>
+<p>The answer must follow A's order, so we walk <strong>A</strong> and keep x when x is in B. The membership structure is therefore built from <strong>B</strong>.</p>
+<pre class="diagram">A = &lt;3 9 0 1 6&gt;   B = &lt;4 6 9 1 7&gt;   sorted B = 1 4 6 7 9
+3 → no   9 → yes   0 → no   1 → yes   6 → yes      result &lt;9 1 6&gt;</pre>
+<div class="box key">
+<div class="bt">Which list do you walk, which do you sort?</div>
+<p>Walk the list whose <strong>order the answer must keep</strong>; sort the <strong>other</strong> list for lookups. Union walks B (A is already copied in front), Intersect walks A.</p>
+</div>
+<div class="box proof">
+<div class="bt">Why no duplicates appear</div>
+<p>A and B are sets (no repeats inside each). Union appends a B element only if A lacks it, and B lists each value once, so no value is added twice. Intersect keeps a subset of A, which has no repeats.</p>
+</div>
+<div class="viz" data-viz="d61_q1_ordered_set"></div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Sorting <strong>A or B themselves</strong> destroys the order the answer needs. Sort a <strong>copy</strong>.</li>
+<li><code>find</code> on a vector inside the loop is linear: O(n²) in total.</li>
+<li>Using <code>unordered_set&lt;T&gt;</code> in a template compiles only if <code>std::hash&lt;T&gt;</code> exists.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<p>Only <code>student.h</code> is submitted.</p>
+<div class="codebox"><div class="cbar"><span>student.h</span><span class="sp"></span><a href="code/d61_q1_ordered_set__student.h" download>⬇ .cpp</a><button data-copy="code14">Copy</button></div><pre class="hl"><code id="code14" hidden>#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// Membership test for a whole vector: sort a copy once (O(n log n)),
+// then every &quot;is value inside?&quot; question is a binary search (O(log n)).
+// Only operator&lt; is needed, so it works for any T the grader may use.
+template &lt;typename T&gt;
+vector&lt;T&gt; sortedCopy(const vector&lt;T&gt;&amp; values) {
+    vector&lt;T&gt; sorted(values);
+    sort(sorted.begin(), sorted.end());
+    return sorted;
+}
+
+template &lt;typename T&gt;
+vector&lt;T&gt; Union(const vector&lt;T&gt;&amp; A, const vector&lt;T&gt;&amp; B) {
+    vector&lt;T&gt; result(A);                         // everything of A comes first, in A&#x27;s order
+    vector&lt;T&gt; sortedA = sortedCopy(A);
+
+    // index = 0, 1, ..., B.size()-1 (B&#x27;s own order): append B[index] when A lacks it.
+    // B has no repeats, so nothing is appended twice.
+    for (size_t index = 0; index &lt; B.size(); index++) {
+        if (!binary_search(sortedA.begin(), sortedA.end(), B[index])) result.push_back(B[index]);
+    }
+    return result;
+}
+
+template &lt;typename T&gt;
+vector&lt;T&gt; Intersect(const vector&lt;T&gt;&amp; A, const vector&lt;T&gt;&amp; B) {
+    vector&lt;T&gt; result;
+    vector&lt;T&gt; sortedB = sortedCopy(B);
+
+    // index = 0, 1, ..., A.size()-1 (A&#x27;s order, which the answer must keep):
+    // keep A[index] when B also contains it.
+    for (size_t index = 0; index &lt; A.size(); index++) {
+        if (binary_search(sortedB.begin(), sortedB.end(), A[index])) result.push_back(A[index]);
+    }
+    return result;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Membership test for a whole vector: sort a copy once (O(n log n)),</span></span><span class="ln"><span class="c1">// then every &quot;is value inside?&quot; question is a binary search (O(log n)).</span></span><span class="ln"><span class="c1">// Only operator&lt; is needed, so it works for any T the grader may use.</span></span><span class="ln"><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sortedCopy</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">sorted</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">sorted</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sorted</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Union</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="p">;</span><span class="w">                         </span><span class="c1">// everything of A comes first, in A&#x27;s order</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sortedA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sortedCopy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0, 1, ..., B.size()-1 (B&#x27;s own order): append B[index] when A lacks it.</span></span><span class="ln"><span class="w">    </span><span class="c1">// B has no repeats, so nothing is appended twice.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">binary_search</span><span class="p">(</span><span class="n">sortedA</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">sortedA</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Intersect</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sortedB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sortedCopy</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0, 1, ..., A.size()-1 (A&#x27;s order, which the answer must keep):</span></span><span class="ln"><span class="w">    </span><span class="c1">// keep A[index] when B also contains it.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">A</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">binary_search</span><span class="p">(</span><span class="n">sortedB</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">sortedB</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Sorting a copy: O(n log n). Each of the ≤ n filter steps does one binary search: O(log n). Total <strong>O((|A| + |B|) log n)</strong>, at most a few million comparisons for 10⁵ elements. Memory: the sorted copy and the result, <strong>O(|A| + |B|)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF example (built with the official main.cpp) and 300 random pairs of sets up to 60 elements against a brute force, plus a std::string instantiation to make sure the template only needs operator&lt;. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (คอมไพล์กับ main.cpp ที่ให้มา) และสุ่ม 300 คู่ของเซตขนาดไม่เกิน 60 เทียบกับ brute force พร้อมทดสอบกับ std::string เพื่อยืนยันว่า template ต้องการแค่ operator&lt; ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: เดินกรองรายการพร้อมการตรวจสมาชิกที่เร็ว</h2>
+<p>คำถามเรื่อง "เซต" บนข้อมูลที่ <em>มีลำดับ</em> หลายข้อลดรูปเป็นลูปเดียวกัน:</p>
+<pre class="snip hl"><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">P</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">P</span><span class="err">&#x27;</span><span class="n">s</span><span class="w"> </span><span class="n">order</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">Q</span><span class="p">)</span><span class="w"> </span><span class="n">keep</span><span class="w"> </span><span class="n">x</span><span class="p">;</span></pre>
+<p>ตัวลูปใช้ O(|P|) สิ่งเดียวที่ต้องออกแบบคือ <strong>จะตอบ "x อยู่ใน Q ไหม?" อย่างไร</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>โครงสร้างตรวจสมาชิก</th>
+<th>สร้าง</th>
+<th>ถามหนึ่งครั้ง</th>
+<th>ต้องมี</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ไล่ Q ทีละตัว</td>
+<td>0</td>
+<td>O(</td>
+<td>Q</td>
+</tr>
+<tr>
+<td><code>unordered_set&lt;T&gt;</code></td>
+<td>O(</td>
+<td>Q</td>
+<td>)</td>
+</tr>
+<tr>
+<td><code>set&lt;T&gt;</code></td>
+<td>O(</td>
+<td>Q</td>
+<td>log</td>
+</tr>
+<tr>
+<td><strong>สำเนาที่เรียงแล้ว + <code>binary_search</code></strong></td>
+<td>O(</td>
+<td>Q</td>
+<td>log</td>
+</tr>
+</tbody>
+</table>
+<p>การไล่ทีละตัวให้ O(|A|·|B|) = 10¹⁰ เมื่อมี 10⁵ ตัว ช้าเกินไป ฟังก์ชันนี้เป็น <strong>template</strong> และ grader อาจเรียกด้วยชนิดข้อมูลที่มี <code>operator&lt;</code> แต่ไม่มี hash การใช้ hash set จึงเสี่ยง ส่วนเวกเตอร์ที่เรียงแล้วกับ <code>binary_search</code> ต้องการแค่ <code>&lt;</code> ใช้อาร์เรย์ต่อเนื่องก้อนเดียว (เป็นมิตรกับ cache) และมักเร็วกว่า <code>std::set</code></p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>Union(A, B): "A มาก่อน แล้วตามด้วยสิ่งที่มีแต่ใน B"</h3>
+<p>ลำดับที่ต้องการคือ: สมาชิกทุกตัวของ A ตามลำดับของ A แล้วต่อด้วยสมาชิกของ B ที่ <strong>ไม่อยู่</strong> ใน A ตามลำดับของ B</p>
+<pre class="diagram">A = &lt;4 6 9 0 7&gt;        B = &lt;0 3 2 4 5&gt;
+result เริ่มจากสำเนาของ A:       4 6 9 0 7
+เดิน B:  0 อยู่ใน A? ใช่    → ข้าม
+         3 อยู่ใน A? ไม่    → ต่อท้าย   4 6 9 0 7 3
+         2 อยู่ใน A? ไม่    → ต่อท้าย   4 6 9 0 7 3 2
+         4 อยู่ใน A? ใช่    → ข้าม
+         5 อยู่ใน A? ไม่    → ต่อท้าย   4 6 9 0 7 3 2 5</pre>
+<p>ดังนั้น: <code>result = A</code> เรียงสำเนาของ A แล้ว <strong>กรอง B</strong> ด้วยเงื่อนไข "ไม่อยู่ใน A"</p>
+<h3>Intersect(A, B): "ลำดับของ A เฉพาะตัวที่ B มี"</h3>
+<p>คำตอบต้องเรียงตาม A เราจึงเดิน <strong>A</strong> และเก็บ x เมื่อ x อยู่ใน B โครงสร้างตรวจสมาชิกจึงสร้างจาก <strong>B</strong></p>
+<pre class="diagram">A = &lt;3 9 0 1 6&gt;   B = &lt;4 6 9 1 7&gt;   B ที่เรียงแล้ว = 1 4 6 7 9
+3 → ไม่   9 → ใช่   0 → ไม่   1 → ใช่   6 → ใช่      ผลลัพธ์ &lt;9 1 6&gt;</pre>
+<div class="box key">
+<div class="bt">เดินรายการไหน เรียงรายการไหน?</div>
+<p>เดินรายการที่ <strong>คำตอบต้องรักษาลำดับ</strong> และเรียง <strong>อีกรายการ</strong> ไว้สำหรับค้นหา Union เดิน B (A ถูกคัดลอกไว้ข้างหน้าแล้ว) ส่วน Intersect เดิน A</p>
+</div>
+<div class="box proof">
+<div class="bt">ทำไมไม่มีค่าซ้ำ</div>
+<p>A และ B เป็นเซต (ภายในแต่ละตัวไม่มีค่าซ้ำ) Union จะต่อท้ายสมาชิกของ B ก็ต่อเมื่อ A ไม่มีค่านั้น และ B มีแต่ละค่าครั้งเดียว จึงไม่มีค่าถูกเพิ่มสองครั้ง Intersect เก็บเพียงบางส่วนของ A ซึ่งไม่มีค่าซ้ำอยู่แล้ว</p>
+</div>
+<div class="viz" data-viz="d61_q1_ordered_set"></div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>เรียง <strong>A หรือ B ตัวจริง</strong> จะทำลายลำดับที่คำตอบต้องใช้ ให้เรียง <strong>สำเนา</strong></li>
+<li>ใช้ <code>find</code> บนเวกเตอร์ในลูป เป็นการไล่เชิงเส้น รวมเป็น O(n²)</li>
+<li>ใช้ <code>unordered_set&lt;T&gt;</code> ใน template จะคอมไพล์ผ่านก็ต่อเมื่อมี <code>std::hash&lt;T&gt;</code></li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<p>ส่งเฉพาะไฟล์ <code>student.h</code></p>
+<div class="codebox"><div class="cbar"><span>student.h</span><span class="sp"></span><a href="code/d61_q1_ordered_set__student.h" download>⬇ .cpp</a><button data-copy="code14">Copy</button></div><pre class="hl"><code id="code14" hidden>#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+// Membership test for a whole vector: sort a copy once (O(n log n)),
+// then every &quot;is value inside?&quot; question is a binary search (O(log n)).
+// Only operator&lt; is needed, so it works for any T the grader may use.
+template &lt;typename T&gt;
+vector&lt;T&gt; sortedCopy(const vector&lt;T&gt;&amp; values) {
+    vector&lt;T&gt; sorted(values);
+    sort(sorted.begin(), sorted.end());
+    return sorted;
+}
+
+template &lt;typename T&gt;
+vector&lt;T&gt; Union(const vector&lt;T&gt;&amp; A, const vector&lt;T&gt;&amp; B) {
+    vector&lt;T&gt; result(A);                         // everything of A comes first, in A&#x27;s order
+    vector&lt;T&gt; sortedA = sortedCopy(A);
+
+    // index = 0, 1, ..., B.size()-1 (B&#x27;s own order): append B[index] when A lacks it.
+    // B has no repeats, so nothing is appended twice.
+    for (size_t index = 0; index &lt; B.size(); index++) {
+        if (!binary_search(sortedA.begin(), sortedA.end(), B[index])) result.push_back(B[index]);
+    }
+    return result;
+}
+
+template &lt;typename T&gt;
+vector&lt;T&gt; Intersect(const vector&lt;T&gt;&amp; A, const vector&lt;T&gt;&amp; B) {
+    vector&lt;T&gt; result;
+    vector&lt;T&gt; sortedB = sortedCopy(B);
+
+    // index = 0, 1, ..., A.size()-1 (A&#x27;s order, which the answer must keep):
+    // keep A[index] when B also contains it.
+    for (size_t index = 0; index &lt; A.size(); index++) {
+        if (binary_search(sortedB.begin(), sortedB.end(), A[index])) result.push_back(A[index]);
+    }
+    return result;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Membership test for a whole vector: sort a copy once (O(n log n)),</span></span><span class="ln"><span class="c1">// then every &quot;is value inside?&quot; question is a binary search (O(log n)).</span></span><span class="ln"><span class="c1">// Only operator&lt; is needed, so it works for any T the grader may use.</span></span><span class="ln"><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sortedCopy</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">values</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">values</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">sorted</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">sorted</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">sorted</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Union</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="p">;</span><span class="w">                         </span><span class="c1">// everything of A comes first, in A&#x27;s order</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sortedA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sortedCopy</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0, 1, ..., B.size()-1 (B&#x27;s own order): append B[index] when A lacks it.</span></span><span class="ln"><span class="w">    </span><span class="c1">// B has no repeats, so nothing is appended twice.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">B</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">binary_search</span><span class="p">(</span><span class="n">sortedA</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">sortedA</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">B</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">template</span><span class="w"> </span><span class="o">&lt;</span><span class="k">typename</span><span class="w"> </span><span class="nc">T</span><span class="o">&gt;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Intersect</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">B</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">result</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sortedB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sortedCopy</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0, 1, ..., A.size()-1 (A&#x27;s order, which the answer must keep):</span></span><span class="ln"><span class="w">    </span><span class="c1">// keep A[index] when B also contains it.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">A</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">binary_search</span><span class="p">(</span><span class="n">sortedB</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">sortedB</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">A</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> เรียงสำเนา: O(n log n) การกรองไม่เกิน n ขั้น ขั้นละหนึ่ง binary search: O(log n) รวม <strong>O((|A| + |B|) log n)</strong> ไม่เกินไม่กี่ล้านการเปรียบเทียบเมื่อมี 10⁵ ตัว หน่วยความจำ: สำเนาที่เรียงและผลลัพธ์ <strong>O(|A| + |B|)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF example (built with the official main.cpp) and 300 random pairs of sets up to 60 elements against a brute force, plus a std::string instantiation to make sure the template only needs operator&lt;. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (คอมไพล์กับ main.cpp ที่ให้มา) และสุ่ม 300 คู่ของเซตขนาดไม่เกิน 60 เทียบกับ brute force พร้อมทดสอบกับ std::string เพื่อยืนยันว่า template ต้องการแค่ operator&lt; ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="pn"><a class="pv" href="d62_q1b_grandfather.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>d62_q1b_grandfather</b> · <span class="en">Grandfather</span><span class="th">ปู่ (Grandfather)</span></a><a class="nx" href="a66_q2a_insertion_count.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a66_q2a_insertion_count</b> · <span class="en">Insertion Sort Count</span><span class="th">นับการเลื่อนใน Insertion Sort</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/d61_q1_ordered_set.js"></script>
+</body>
+</html>

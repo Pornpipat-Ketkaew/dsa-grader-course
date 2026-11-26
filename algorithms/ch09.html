@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>09 · Sorting, hashing &amp; counting</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0e9f8e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class="on"><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 09</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 09</span></div>
+<h1><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></h1>
+<p class="en">Sort, count or hash first; then the question becomes easy.</p><p class="th">เรียง นับ หรือแฮชก่อน แล้วคำถามจะง่ายขึ้นทันที</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="ex00e3.html"><span class="pid">ex00e3</span><span class="pt"><span class="en">Check Mapping</span><span class="th">ตรวจสอบการส่ง (Check Mapping)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">A permutation of 1..n = every value lies in 1..n and no value repeats. One boolean array indexed by value checks both in a single pass.</span><span class="th">การเรียงสับเปลี่ยนของ 1..n = ทุกค่าอยู่ใน 1..n และไม่มีค่าซ้ำ อาร์เรย์ boolean ที่ใช้ค่าเป็นดัชนีตรวจได้ทั้งสองข้อในรอบเดียว</span></span></a><a href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span><span class="pt"><span class="en">Election Winner</span><span class="th">หาผู้ชนะเลือกตั้ง</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">Count ballots per name in a hash map, keep only the totals, and select the K-th largest total. Ties never change that number.</span><span class="th">นับคะแนนของแต่ละชื่อด้วย hash map เก็บไว้แค่ยอดรวม แล้วเลือกยอดที่มากเป็นอันดับ K ผู้ที่คะแนนเท่ากันไม่ทำให้ตัวเลขนี้เปลี่ยน</span></span></a><a href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span><span class="pt"><span class="en">Grandfather</span><span class="th">ปู่ (Grandfather)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Store fatherOf[son] in a hash map keyed by the 13-digit id. A grandfather is two look-ups away; two people are cousins iff they differ and both grandfathers exist and are equal.</span><span class="th">เก็บ fatherOf[son] ใน hash map โดยใช้เลขบัตร 13 หลักเป็นคีย์ ปู่อยู่ห่างไปสองครั้งของการค้นหา สองคนเป็นลูกพี่ลูกน้องเมื่อเป็นคนละคน ปู่ของทั้งคู่มีจริงและเป็นคนเดียวกัน</span></span></a><a href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span><span class="pt"><span class="en">Union / Intersection of Ordered Set</span><span class="th">Union / Intersection ของเซตแบบมีลำดับ</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Both answers are &quot;walk one list in its own order and keep the items that pass a membership test on the other list&quot;. Make the test O(log n) by sorting a copy once.</span><span class="th">คำตอบทั้งสองคือ &quot;เดินรายการหนึ่งตามลำดับของมัน แล้วเก็บตัวที่ผ่านการตรวจว่าเป็นสมาชิกของอีกรายการ&quot; ทำให้การตรวจเป็น O(log n) ด้วยการเรียงสำเนาครั้งเดียว</span></span></a><a href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span><span class="pt"><span class="en">Insertion Sort Count</span><span class="th">นับการเลื่อนใน Insertion Sort</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Value k is shifted by line 07 once for every LARGER value on its LEFT. Count that for all values in one left-to-right scan with a Fenwick tree over the values, then answer each query from a table.</span><span class="th">ค่า k ถูกบรรทัด 07 เลื่อนหนึ่งครั้งต่อค่าที่ใหญ่กว่าซึ่งอยู่ทางซ้ายของมัน นับสิ่งนี้ให้ทุกค่าในการสแกนซ้ายไปขวารอบเดียวด้วย Fenwick tree บนค่า แล้วตอบทุกคำถามจากตาราง</span></span></a><a href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span><span class="pt"><span class="en">3 Values Sort</span><span class="th">เรียงสามค่าด้วยการสลับน้อยที่สุด</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">The sorted array is three zones. Count misplaced[zone][value]. Every pair of elements sitting in each other&#x27;s zone costs one swap; whatever is left forms 3-cycles that cost two swaps per three elements.</span><span class="th">อาร์เรย์ที่เรียงแล้วแบ่งเป็นสามโซน นับ misplaced[zone][value] คู่ที่อยู่ในโซนของกันและกันใช้การสลับครั้งเดียว ที่เหลือเป็นวงสามตัว ใช้สองครั้งต่อสามตัว</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>Why sort, count or hash first</h3>
+<p>Many questions are hard on raw data and trivial once equal things are <strong>together</strong> or <strong>looked up in O(1)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>tool</th>
+<th>use when</th>
+<th>cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sort</td>
+<td>you need order, neighbours, groups of equal values, or binary search later</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>counting array <code>count[value]</code></td>
+<td>values are small integers (≤ 10⁶ or so)</td>
+<td>O(n + range)</td>
+</tr>
+<tr>
+<td>hash map <code>unordered_map</code></td>
+<td>keys are large or sparse, only equality matters</td>
+<td>O(1) average per operation</td>
+</tr>
+<tr>
+<td>ordered set / map</td>
+<td>you need order <strong>and</strong> updates</td>
+<td>O(log n) per operation</td>
+</tr>
+</tbody>
+</table>
+<h3>Counting tricks</h3>
+<ul>
+<li><strong>Pigeonhole</strong>: n values in the range 1..n are all different iff every count is exactly 1.</li>
+<li><strong>Inversions</strong> (pairs out of order) = number of swaps insertion sort makes; count them with a Fenwick tree in O(n log n).</li>
+<li><strong>Cycle decomposition</strong>: the minimum swaps to sort is (elements out of place) − (number of cycles); with 3 values, fix 2-cycles first (one swap each), then 3-cycles (two swaps each).</li>
+</ul>
+<h3>How to recognise these problems</h3>
+<ul>
+<li>"How many times / which appears most / are they all different" → count.</li>
+<li>"Is x in the set" with many queries → sort + binary search, or hash.</li>
+<li>"Sort with the fewest swaps / count the moves of a sort" → inversions or cycles.</li>
+</ul></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>ทำไมต้องเรียง นับ หรือแฮชก่อน</h3>
+<p>หลายคำถามยากบนข้อมูลดิบ แต่ง่ายมากเมื่อสิ่งที่เท่ากัน <strong>อยู่ด้วยกัน</strong> หรือ <strong>ค้นได้ใน O(1)</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>เครื่องมือ</th>
+<th>ใช้เมื่อ</th>
+<th>ต้นทุน</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>เรียง</td>
+<td>ต้องการลำดับ เพื่อนบ้าน กลุ่มของค่าที่เท่ากัน หรือ binary search ภายหลัง</td>
+<td>O(n log n)</td>
+</tr>
+<tr>
+<td>อาร์เรย์นับ <code>count[value]</code></td>
+<td>ค่าเป็นจำนวนเต็มเล็ก (ราว ≤ 10⁶)</td>
+<td>O(n + ช่วง)</td>
+</tr>
+<tr>
+<td>hash map <code>unordered_map</code></td>
+<td>คีย์ใหญ่หรือกระจาย และสนใจแค่การเท่ากัน</td>
+<td>O(1) โดยเฉลี่ยต่อครั้ง</td>
+</tr>
+<tr>
+<td>ordered set / map</td>
+<td>ต้องการลำดับ <strong>และ</strong> การแก้ไข</td>
+<td>O(log n) ต่อครั้ง</td>
+</tr>
+</tbody>
+</table>
+<h3>เทคนิคการนับ</h3>
+<ul>
+<li><strong>หลักรังนกพิราบ</strong>: ค่า n ตัวในช่วง 1..n ต่างกันทั้งหมดก็ต่อเมื่อทุกค่านับได้ 1 พอดี</li>
+<li><strong>Inversion</strong> (คู่ที่สลับลำดับ) = จำนวนการสลับที่ insertion sort ทำ นับด้วย Fenwick tree ใน O(n log n)</li>
+<li><strong>แยกเป็นวงรอบ</strong>: จำนวนการสลับน้อยที่สุดเพื่อเรียง = (ตัวที่อยู่ผิดที่) − (จำนวนวงรอบ) เมื่อมี 3 ค่า แก้วงรอบขนาด 2 ก่อน (สลับครั้งเดียว) แล้วค่อยวงรอบขนาด 3 (สลับสองครั้ง)</li>
+</ul>
+<h3>วิธีสังเกตโจทย์แบบนี้</h3>
+<ul>
+<li>"กี่ครั้ง / อะไรปรากฏมากที่สุด / ต่างกันทั้งหมดไหม" → นับ</li>
+<li>"x อยู่ในเซตไหม" หลายคำถาม → เรียง + binary search หรือแฮช</li>
+<li>"เรียงด้วยการสลับน้อยที่สุด / นับการย้ายของการเรียง" → inversion หรือวงรอบ</li>
+</ul></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

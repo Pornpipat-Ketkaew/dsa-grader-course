@@ -1,0 +1,5 @@
+import random,sys; random.seed(int(sys.argv[1])); n=random.randint(1,8); r=random.random()
+a=list(range(1,n+1)); random.shuffle(a)
+if r<0.4: a[random.randrange(n)]=random.randint(-2,n+2)
+if r<0.15: a[random.randrange(n)]=random.choice([-2*10**9,2*10**9])
+print(n); print(*a)

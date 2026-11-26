@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>d57_q1_sparse · Sparse Graph</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="on" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch16.html">16 · <span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></div>
+<div class="phead">
+<div class="pidbig">d57_q1_sparse</div>
+<h1><span class="en">Sparse Graph</span><span class="th">Sparse Graph (กราฟแบบรายการประชิด)</span></h1>
+<div class="chips"><span class="chip t en">Adjacency sets (one std::set per vertex)</span><span class="chip t en">Graph representation</span><span class="chip t th">เซตประชิด (std::set ต่อหนึ่งจุด)</span><span class="chip t th">การเก็บกราฟ</span><span class="chip cx">O(log degree) per add / remove / query · O(n + |E|) transpose and memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">n can be 100 000, so an n × n matrix is impossible; store only the edges that exist. One set of out-neighbours per vertex keeps memory at O(n + |E|), rejects duplicates by itself, and answers &quot;does a → b exist&quot; in O(log degree).</p><p class="th">n มีได้ถึง 100 000 เมทริกซ์ n × n จึงเป็นไปไม่ได้ ให้เก็บแค่เส้นที่มีอยู่จริง เซตของเพื่อนบ้านขาออกหนึ่งเซตต่อหนึ่งจุดใช้หน่วยความจำ O(n + |E|) กันเส้นซ้ำได้เอง และตอบ &quot;มี a → b ไหม&quot; ใน O(log degree)</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\d57_q1_sparse\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: adjacency lists, kept as sets</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: รายการประชิด เก็บเป็นเซต</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: adjacency lists, kept as sets</h2>
+<p>When |E| is far below n², a matrix wastes almost all of its cells. An <strong>adjacency list</strong> stores, for every vertex, only the neighbours it actually has: memory n + |E|. (The comparison table is on <a href="d57_q1_dense.html">Dense Graph</a>.)</p>
+<p>The list can be a <code>vector&lt;int&gt;</code> or a <code>set&lt;int&gt;</code>. The choice follows from the operations the problem asks for:</p>
+<ul>
+<li>BFS / DFS only walk neighbours: a <code>vector</code> is the fastest.</li>
+<li>This class must also <strong>find</strong> and <strong>delete</strong> one specific edge, and ignore duplicates. A <code>set&lt;int&gt;</code> does all three in O(log degree), and a vertex with 100 000 out-edges cannot slow it down.</li>
+</ul>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the data</h3>
+<p><code>outgoing[a]</code> = the set of all b with an edge a → b. Only the vertex count <code>n</code> and these n sets are stored: n = 100 000 empty sets plus 500 000 entries is a few tens of MB, compared with 10¹⁰ cells for a matrix.</p>
+<h3>Step 2: the operations</h3>
+<ul>
+<li><code>AddEdge(a, b)</code>: <code>outgoing[a].insert(b)</code>; a set keeps one copy, so a second add does nothing.</li>
+<li><code>RemoveEdge(a, b)</code>: <code>outgoing[a].erase(b)</code>; erasing a missing value is allowed and does nothing.</li>
+<li><code>DoesEdgeExist(a, b)</code>: <code>outgoing[a].count(b) &gt; 0</code>. It looks only inside a's set, so the direction is respected.</li>
+</ul>
+<div class="viz" data-viz="d57_q1_sparse"></div>
+<h3>Step 3: copy and transpose</h3>
+<p>Copying <code>n</code> and the <code>vector&lt;set&lt;int&gt;&gt;</code> makes a deep copy, which is all the copy constructor needs.</p>
+<p>The transpose visits every stored edge once: for each <code>from</code> (upward) and each <code>to</code> in <code>outgoing[from]</code>, insert <code>from</code> into <code>transposed.outgoing[to]</code>.</p>
+<div class="box idea">
+<div class="bt">A free speed-up: insert with a hint</div>
+<p><code>from</code> only grows during the loop, so each value inserted into <code>transposed.outgoing[to]</code> is larger than everything already there. <code>insert(set.end(), from)</code> tells the set where it belongs, and the insertion becomes amortized O(1) instead of O(log degree). The whole transpose is then O(n + |E|).</p>
+</div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>An <code>n × n</code> array: 10¹⁰ cells, far over any memory limit.</li>
+<li>A plain <code>vector&lt;int&gt;</code> per vertex with a linear scan for duplicates: a vertex with 100 000 out-edges makes every add O(100 000).</li>
+<li><code>SparseGraph()</code> must create <strong>3</strong> vertices.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<p>Only <code>sparsegraph.h</code> is submitted; the grader's <code>main_sparse.cpp</code> runs the tests.</p>
+<div class="codebox"><div class="cbar"><span>sparsegraph.h</span><span class="sp"></span><a href="code/d57_q1_sparse__sparsegraph.h" download>⬇ .cpp</a><button data-copy="code58">Copy</button></div><pre class="hl"><code id="code58" hidden>#ifndef __SPARSE_GRAPH_H__
+#define __SPARSE_GRAPH_H__
+
+#include &lt;vector&gt;
+#include &lt;set&gt;
+using namespace std;
+
+// Adjacency &quot;lists&quot; kept as sets: outgoing[a] holds every b with an edge a -&gt; b.
+// Memory is O(n + |E|); a set gives O(log degree) add / remove / lookup
+// and ignores duplicates for free.
+class SparseGraph {
+public:
+    SparseGraph() : SparseGraph(3) {}
+
+    SparseGraph(int n_in) : n(n_in), outgoing(n_in) {}
+
+    SparseGraph(const SparseGraph&amp; G) : n(G.n), outgoing(G.outgoing) {}
+
+    void AddEdge(int a, int b) {
+        outgoing[a].insert(b);    // already there -&gt; insert does nothing
+    }
+
+    void RemoveEdge(int a, int b) {
+        outgoing[a].erase(b);     // not there -&gt; erase does nothing
+    }
+
+    bool DoesEdgeExist(int a, int b) const {
+        return outgoing[a].count(b) &gt; 0;
+    }
+
+    SparseGraph Transpose() const {
+        SparseGraph transposed(n);
+        // from = 0..n-1 (upward), then each stored neighbour: every edge is
+        // visited exactly once and stored reversed. Because &quot;from&quot; only grows,
+        // it is always the largest value in transposed.outgoing[to], so the
+        // hint end() makes each insert amortized O(1): O(n + |E|) in total.
+        for (int from = 0; from &lt; n; from++)
+            for (int to : outgoing[from])
+                transposed.outgoing[to].insert(transposed.outgoing[to].end(), from);
+        return transposed;
+    }
+
+protected:
+    int n;
+    vector&lt;set&lt;int&gt;&gt; outgoing;
+};
+#endif // __SPARSE_GRAPH_H__
+</code><span class="ln"><span class="cp">#</span><span class="cp">ifndef __SPARSE_GRAPH_H__</span></span><span class="ln"><span class="cp">#</span><span class="cp">define __SPARSE_GRAPH_H__</span></span><span class="ln"></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;set&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Adjacency &quot;lists&quot; kept as sets: outgoing[a] holds every b with an edge a -&gt; b.</span></span><span class="ln"><span class="c1">// Memory is O(n + |E|); a set gives O(log degree) add / remove / lookup</span></span><span class="ln"><span class="c1">// and ignores duplicates for free.</span></span><span class="ln"><span class="k">class</span><span class="w"> </span><span class="nc">SparseGraph</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="k">public</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SparseGraph</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n_in</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">n_in</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">outgoing</span><span class="p">(</span><span class="n">n_in</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SparseGraph</span><span class="o">&amp;</span><span class="w"> </span><span class="n">G</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">n</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">outgoing</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">outgoing</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">outgoing</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span><span class="w">    </span><span class="c1">// already there -&gt; insert does nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">RemoveEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">outgoing</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span><span class="w">     </span><span class="c1">// not there -&gt; erase does nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">DoesEdgeExist</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">outgoing</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="w"> </span><span class="n">Transpose</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">SparseGraph</span><span class="w"> </span><span class="nf">transposed</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// from = 0..n-1 (upward), then each stored neighbour: every edge is</span></span><span class="ln"><span class="w">        </span><span class="c1">// visited exactly once and stored reversed. Because &quot;from&quot; only grows,</span></span><span class="ln"><span class="w">        </span><span class="c1">// it is always the largest value in transposed.outgoing[to], so the</span></span><span class="ln"><span class="w">        </span><span class="c1">// hint end() makes each insert amortized O(1): O(n + |E|) in total.</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">outgoing</span><span class="p">[</span><span class="n">from</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="n">transposed</span><span class="p">.</span><span class="n">outgoing</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">transposed</span><span class="p">.</span><span class="n">outgoing</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">transposed</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">protected</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outgoing</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="cp">#</span><span class="cp">endif </span><span class="c1">// __SPARSE_GRAPH_H__</span></span></pre></div>
+<p><strong>Complexity.</strong> Add, remove, query: <strong>O(log degree)</strong>. Copy and transpose: <strong>O(n + |E|)</strong>. Memory: <strong>O(n + |E|)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 10 cases of the official main_sparse.cpp (n ≈ 100 000 with 500 000 edges and three transposes in case 10, 0.78 s), and 4 000 random graphs with mixed add / remove / copy / assign / double transpose checked against a set of pairs. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ทั้ง 10 กรณีของ main_sparse.cpp ที่ให้มา (n ≈ 100 000 กับ 500 000 เส้นและ transpose สามครั้งในกรณี 10 ใช้ 0.78 วินาที) และกราฟสุ่ม 4 000 กราฟที่ผสมการเพิ่ม ลบ คัดลอก กำหนดค่า และ transpose สองครั้ง ตรวจเทียบกับเซตของคู่ ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: รายการประชิด เก็บเป็นเซต</h2>
+<p>เมื่อ |E| น้อยกว่า n² มาก เมทริกซ์จะเปลืองช่องเกือบทั้งหมด <strong>รายการประชิด</strong> (adjacency list) เก็บเฉพาะเพื่อนบ้านที่มีจริงของแต่ละจุด: หน่วยความจำ n + |E| (ตารางเปรียบเทียบอยู่ที่ <a href="d57_q1_dense.html">Dense Graph</a>)</p>
+<p>รายการเป็น <code>vector&lt;int&gt;</code> หรือ <code>set&lt;int&gt;</code> ก็ได้ ทางเลือกมาจากคำสั่งที่โจทย์ต้องการ:</p>
+<ul>
+<li>BFS / DFS แค่เดินไปตามเพื่อนบ้าน: <code>vector</code> เร็วที่สุด</li>
+<li>คลาสนี้ต้อง <strong>ค้นหา</strong> และ <strong>ลบ</strong> เส้นที่ระบุได้ด้วย และต้องไม่เก็บเส้นซ้ำ <code>set&lt;int&gt;</code> ทำได้ทั้งสามอย่างใน O(log degree) และจุดที่มีเส้นขาออก 100 000 เส้นก็ทำให้ช้าไม่ได้</li>
+</ul>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: ข้อมูล</h3>
+<p><code>outgoing[a]</code> = เซตของทุก b ที่มีเส้น a → b เก็บแค่จำนวนจุด <code>n</code> กับเซต n เซตนี้: เซตว่าง 100 000 เซตบวก 500 000 สมาชิกใช้หน่วยความจำไม่กี่สิบ MB เทียบกับ 10¹⁰ ช่องของเมทริกซ์</p>
+<h3>ขั้นที่ 2: คำสั่งต่าง ๆ</h3>
+<ul>
+<li><code>AddEdge(a, b)</code>: <code>outgoing[a].insert(b)</code> เซตเก็บแค่ชุดเดียว การเพิ่มครั้งที่สองจึงไม่ทำอะไร</li>
+<li><code>RemoveEdge(a, b)</code>: <code>outgoing[a].erase(b)</code> การลบค่าที่ไม่มีทำได้และไม่ทำอะไร</li>
+<li><code>DoesEdgeExist(a, b)</code>: <code>outgoing[a].count(b) &gt; 0</code> ดูแค่ในเซตของ a ทิศทางจึงถูกต้อง</li>
+</ul>
+<div class="viz" data-viz="d57_q1_sparse"></div>
+<h3>ขั้นที่ 3: คัดลอกและ transpose</h3>
+<p>การคัดลอก <code>n</code> และ <code>vector&lt;set&lt;int&gt;&gt;</code> เป็นการคัดลอกแบบลึก ซึ่งคือทั้งหมดที่ copy constructor ต้องทำ</p>
+<p>Transpose เยี่ยมทุกเส้นที่เก็บไว้ครั้งเดียว: สำหรับแต่ละ <code>from</code> (จากน้อยไปมาก) และแต่ละ <code>to</code> ใน <code>outgoing[from]</code> ใส่ <code>from</code> ลงใน <code>transposed.outgoing[to]</code></p>
+<div class="box idea">
+<div class="bt">เร็วขึ้นฟรี: insert พร้อม hint</div>
+<p><code>from</code> มีแต่เพิ่มขึ้นระหว่างลูป ค่าที่ใส่ลงใน <code>transposed.outgoing[to]</code> จึงมากกว่าทุกค่าที่อยู่ในนั้นแล้ว <code>insert(set.end(), from)</code> บอกเซตว่าค่านี้อยู่ตรงไหน การใส่จึงเป็น amortized O(1) แทน O(log degree) transpose ทั้งหมดจึงเป็น O(n + |E|)</p>
+</div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>อาร์เรย์ <code>n × n</code>: 10¹⁰ ช่อง เกินหน่วยความจำทุกขีดจำกัด</li>
+<li><code>vector&lt;int&gt;</code> ธรรมดาต่อจุดที่ไล่หาเส้นซ้ำแบบเชิงเส้น: จุดที่มีเส้นขาออก 100 000 เส้นทำให้ทุกการเพิ่มเป็น O(100 000)</li>
+<li><code>SparseGraph()</code> ต้องสร้าง <strong>3</strong> จุด</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<p>ส่งแค่ <code>sparsegraph.h</code> ส่วน <code>main_sparse.cpp</code> ของ grader เป็นตัวทดสอบ</p>
+<div class="codebox"><div class="cbar"><span>sparsegraph.h</span><span class="sp"></span><a href="code/d57_q1_sparse__sparsegraph.h" download>⬇ .cpp</a><button data-copy="code58">Copy</button></div><pre class="hl"><code id="code58" hidden>#ifndef __SPARSE_GRAPH_H__
+#define __SPARSE_GRAPH_H__
+
+#include &lt;vector&gt;
+#include &lt;set&gt;
+using namespace std;
+
+// Adjacency &quot;lists&quot; kept as sets: outgoing[a] holds every b with an edge a -&gt; b.
+// Memory is O(n + |E|); a set gives O(log degree) add / remove / lookup
+// and ignores duplicates for free.
+class SparseGraph {
+public:
+    SparseGraph() : SparseGraph(3) {}
+
+    SparseGraph(int n_in) : n(n_in), outgoing(n_in) {}
+
+    SparseGraph(const SparseGraph&amp; G) : n(G.n), outgoing(G.outgoing) {}
+
+    void AddEdge(int a, int b) {
+        outgoing[a].insert(b);    // already there -&gt; insert does nothing
+    }
+
+    void RemoveEdge(int a, int b) {
+        outgoing[a].erase(b);     // not there -&gt; erase does nothing
+    }
+
+    bool DoesEdgeExist(int a, int b) const {
+        return outgoing[a].count(b) &gt; 0;
+    }
+
+    SparseGraph Transpose() const {
+        SparseGraph transposed(n);
+        // from = 0..n-1 (upward), then each stored neighbour: every edge is
+        // visited exactly once and stored reversed. Because &quot;from&quot; only grows,
+        // it is always the largest value in transposed.outgoing[to], so the
+        // hint end() makes each insert amortized O(1): O(n + |E|) in total.
+        for (int from = 0; from &lt; n; from++)
+            for (int to : outgoing[from])
+                transposed.outgoing[to].insert(transposed.outgoing[to].end(), from);
+        return transposed;
+    }
+
+protected:
+    int n;
+    vector&lt;set&lt;int&gt;&gt; outgoing;
+};
+#endif // __SPARSE_GRAPH_H__
+</code><span class="ln"><span class="cp">#</span><span class="cp">ifndef __SPARSE_GRAPH_H__</span></span><span class="ln"><span class="cp">#</span><span class="cp">define __SPARSE_GRAPH_H__</span></span><span class="ln"></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;set&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Adjacency &quot;lists&quot; kept as sets: outgoing[a] holds every b with an edge a -&gt; b.</span></span><span class="ln"><span class="c1">// Memory is O(n + |E|); a set gives O(log degree) add / remove / lookup</span></span><span class="ln"><span class="c1">// and ignores duplicates for free.</span></span><span class="ln"><span class="k">class</span><span class="w"> </span><span class="nc">SparseGraph</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="k">public</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SparseGraph</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n_in</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">n_in</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">outgoing</span><span class="p">(</span><span class="n">n_in</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">SparseGraph</span><span class="o">&amp;</span><span class="w"> </span><span class="n">G</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">n</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">n</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">outgoing</span><span class="p">(</span><span class="n">G</span><span class="p">.</span><span class="n">outgoing</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">AddEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">outgoing</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span><span class="w">    </span><span class="c1">// already there -&gt; insert does nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">RemoveEdge</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">outgoing</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span><span class="w">     </span><span class="c1">// not there -&gt; erase does nothing</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">DoesEdgeExist</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">outgoing</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">SparseGraph</span><span class="w"> </span><span class="n">Transpose</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">SparseGraph</span><span class="w"> </span><span class="nf">transposed</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// from = 0..n-1 (upward), then each stored neighbour: every edge is</span></span><span class="ln"><span class="w">        </span><span class="c1">// visited exactly once and stored reversed. Because &quot;from&quot; only grows,</span></span><span class="ln"><span class="w">        </span><span class="c1">// it is always the largest value in transposed.outgoing[to], so the</span></span><span class="ln"><span class="w">        </span><span class="c1">// hint end() makes each insert amortized O(1): O(n + |E|) in total.</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">from</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">outgoing</span><span class="p">[</span><span class="n">from</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="n">transposed</span><span class="p">.</span><span class="n">outgoing</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">transposed</span><span class="p">.</span><span class="n">outgoing</span><span class="p">[</span><span class="n">to</span><span class="p">]</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">from</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">transposed</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="k">protected</span><span class="o">:</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outgoing</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="cp">#</span><span class="cp">endif </span><span class="c1">// __SPARSE_GRAPH_H__</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> เพิ่ม ลบ ถาม: <strong>O(log degree)</strong> คัดลอกและ transpose: <strong>O(n + |E|)</strong> หน่วยความจำ: <strong>O(n + |E|)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 10 cases of the official main_sparse.cpp (n ≈ 100 000 with 500 000 edges and three transposes in case 10, 0.78 s), and 4 000 random graphs with mixed add / remove / copy / assign / double transpose checked against a set of pairs. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ทั้ง 10 กรณีของ main_sparse.cpp ที่ให้มา (n ≈ 100 000 กับ 500 000 เส้นและ transpose สามครั้งในกรณี 10 ใช้ 0.78 วินาที) และกราฟสุ่ม 4 000 กราฟที่ผสมการเพิ่ม ลบ คัดลอก กำหนดค่า และ transpose สองครั้ง ตรวจเทียบกับเซตของคู่ ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="pn"><a class="pv" href="d57_q1_dense.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>d57_q1_dense</b> · <span class="en">Dense Graph</span><span class="th">Dense Graph (กราฟแบบเมทริกซ์)</span></a><a class="nx" href="a65_q0_degrees.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a65_q0_degrees</b> · <span class="en">Degrees</span><span class="th">Degrees (นับปมตาม degree)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/d57_q1_sparse.js"></script>
+</body>
+</html>

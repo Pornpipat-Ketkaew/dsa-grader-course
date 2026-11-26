@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a60b_q1_diagsum · Diagonal Sum</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#2f7fd8}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="on" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch10.html">10 · <span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></div>
+<div class="phead">
+<div class="pidbig">a60b_q1_diagsum</div>
+<h1><span class="en">Diagonal Sum</span><span class="th">ผลรวมแนวทแยง</span></h1>
+<div class="chips"><span class="chip t en">Kadane&#x27;s algorithm (maximum subarray)</span><span class="chip t en">Diagonal indexing</span><span class="chip t th">อัลกอริทึมของ Kadane (maximum subarray)</span><span class="chip t th">การไล่ดัชนีแนวทแยง</span><span class="chip cx">O(n²) time · O(n²) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Each down-right diagonal is just a 1-D array, and a &quot;diagonal sum&quot; is a contiguous piece of it. Run Kadane on each of the 2n−1 diagonals: O(n²), better than the O(n³) the PDF hints at.</p><p class="th">เส้นทแยงลงขวาแต่ละเส้นคืออาร์เรย์ 1 มิติ และ &quot;ผลรวมแนวทแยง&quot; คือช่วงต่อเนื่องของมัน รัน Kadane บนเส้นทแยงทั้ง 2n−1 เส้น: O(n²) ดีกว่า O(n³) ที่ PDF แนะนำ</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a60b_q1_diagsum\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: Kadane&#x27;s maximum subarray</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: maximum subarray ของ Kadane</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: Kadane's maximum subarray</h2>
+<p><strong>Kadane's algorithm</strong> finds the largest sum of a contiguous piece of an array in one pass. Keep one number:</p>
+<blockquote>
+<p><code>bestEndingHere</code> = the largest sum of a piece that <strong>ends exactly at the current element</strong>.</p>
+</blockquote>
+<p>When the next element x arrives, a piece ending at x either is x alone, or is the best piece ending at the previous element plus x:</p>
+<p><code>bestEndingHere = max(x, bestEndingHere + x)</code></p>
+<p>The answer is the largest <code>bestEndingHere</code> ever seen. One pass, O(length), O(1) extra memory. It is a tiny DP: the state is "best piece ending here", and the recurrence above has only two choices.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: a diagonal sum is a subarray</h3>
+<p>"Sum of A[i+p][j+p] for p = 0..k−1" walks <strong>down-right</strong> from (i, j). All those cells lie on the same diagonal, the one where <code>column − row = j − i</code>. Cutting at the table edge (the PDF's third example) just means the piece cannot go past the diagonal's last cell. So:</p>
+<div class="box key">
+<div class="bt">The reduction</div>
+<p>Every diagonal sum = a contiguous piece of one diagonal. The best diagonal sum = the maximum over all diagonals of that diagonal's <strong>maximum subarray</strong>.</p>
+</div>
+<h3>Step 2: enumerate the diagonals</h3>
+<p>Label a diagonal by <code>shift = column − row</code>, from −(n−1) (bottom-left corner) to n−1 (top-right corner): <strong>2n − 1 diagonals</strong>. The top-left end of diagonal <code>shift</code> is <code>row = max(0, −shift)</code>, <code>column = row + shift</code>.</p>
+<pre class="diagram">shift:   0   1   2   3              column - row
+       ┌───┬───┬───┬───┐
+row 0  │ 1 │ 2 │ 3 │ 4 │            shift = 1 : 2, 2, 1          (cells (0,1) (1,2) (2,3))
+row 1  │-2 │-5 │ 2 │-5 │            shift = -1: -2, 3, 7         (cells (1,0) (2,1) (3,2))
+row 2  │ 6 │ 3 │-7 │ 1 │                        └───┘ best piece 3 + 7 = 10
+row 3  │ 3 │-2 │ 7 │-9 │
+       └───┴───┴───┴───┘</pre>
+<h3>Step 3: Kadane along each diagonal</h3>
+<p>Walk (row, column) → (row+1, column+1) until either index reaches n, updating <code>bestEndingHere</code> and the global <code>best</code>.</p>
+<div class="viz" data-viz="a60b_q1_diagsum"></div>
+<div class="box proof">
+<div class="bt">Why &quot;start fresh&quot; is right</div>
+<p>If <code>bestEndingHere</code> (ending at the previous cell) is negative, adding it can only make a piece ending at x smaller, so the best piece ending at x is x alone. If it is non-negative, extending it is at least as good. <code>max(x, bestEndingHere + x)</code> makes exactly that choice.</p>
+</div>
+<h3>Step 4: all-negative tables</h3>
+<p>The answer must use <strong>k ≥ 1</strong> cells. Initialise <code>best</code> with a real cell (<code>table[0][0]</code>), and start every diagonal's <code>bestEndingHere</code> with its first cell, never with 0. Then a table full of −1 correctly answers −1, not 0.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Starting <code>best = 0</code>: wrong whenever every cell is negative.</li>
+<li>O(n³) (fix the start, extend) or O(n⁴) (fix start and length) are what the PDF suggests; Kadane makes it O(n²), the size of the input.</li>
+<li>The PDF's third sample says n = 3 but prints a 4×4 block. Reading exactly n·n numbers (as the code does) handles it.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a60b_q1_diagsum__main.cpp" download>⬇ .cpp</a><button data-copy="code17">Copy</button></div><pre class="hl"><code id="code17" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;vector&lt;int&gt;&gt; table(n, vector&lt;int&gt;(n));
+    // row = 0..n-1 (top to bottom), column = 0..n-1 (left to right)
+    for (int row = 0; row &lt; n; row++)
+        for (int column = 0; column &lt; n; column++) cin &gt;&gt; table[row][column];
+
+    // A &quot;diagonal sum&quot; is a contiguous piece of one down-right diagonal.
+    // Every cell on a diagonal has the same shift = column - row, from -(n-1) to n-1.
+    // For each diagonal, the best piece is a maximum subarray: Kadane&#x27;s algorithm.
+    int best = table[0][0];
+
+    // shift = -(n-1), ..., n-1: one iteration per diagonal (bottom-left corner to top-right corner)
+    for (int shift = -(n - 1); shift &lt;= n - 1; shift++) {
+        int row = max(0, -shift);               // top-left end of this diagonal
+        int column = row + shift;
+        int bestEndingHere = table[row][column];   // best piece that ENDS at the current cell
+        best = max(best, bestEndingHere);
+
+        // walk down-right: (row+1, column+1), ... while both stay inside the table
+        for (row++, column++; row &lt; n &amp;&amp; column &lt; n; row++, column++) {
+            // extend the best piece ending at the previous cell, or start a new piece here
+            bestEndingHere = max(table[row][column], bestEndingHere + table[row][column]);
+            best = max(best, bestEndingHere);
+        }
+    }
+    cout &lt;&lt; best &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">table</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// row = 0..n-1 (top to bottom), column = 0..n-1 (left to right)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// A &quot;diagonal sum&quot; is a contiguous piece of one down-right diagonal.</span></span><span class="ln"><span class="w">    </span><span class="c1">// Every cell on a diagonal has the same shift = column - row, from -(n-1) to n-1.</span></span><span class="ln"><span class="w">    </span><span class="c1">// For each diagonal, the best piece is a maximum subarray: Kadane&#x27;s algorithm.</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// shift = -(n-1), ..., n-1: one iteration per diagonal (bottom-left corner to top-right corner)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">shift</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">shift</span><span class="p">)</span><span class="p">;</span><span class="w">               </span><span class="c1">// top-left end of this diagonal</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">shift</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">;</span><span class="w">   </span><span class="c1">// best piece that ENDS at the current cell</span></span><span class="ln"><span class="w">        </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">        </span><span class="c1">// walk down-right: (row+1, column+1), ... while both stay inside the table</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">,</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">,</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="c1">// extend the best piece ending at the previous cell, or start a new piece here</span></span><span class="ln"><span class="w">            </span><span class="n">bestEndingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Every cell belongs to exactly one diagonal and is visited once: <strong>O(n²)</strong> = 10⁶ steps for n = 1000, which is the size of the input itself. Memory: the table, <strong>O(n²)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all PDF samples (including the third one whose table has more numbers than n²) plus n = 1, and 300 random tables against an O(n⁴) brute force over every (i, j, k); n = 1000 runs in 0.06 s. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทุกชุดใน PDF (รวมชุดที่ 3 ที่มีตัวเลขเกิน n²) และ n = 1 และสุ่ม 300 ตารางเทียบกับ brute force O(n⁴) ที่ลองทุก (i, j, k) กรณี n = 1000 ใช้ 0.06 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: maximum subarray ของ Kadane</h2>
+<p><strong>อัลกอริทึมของ Kadane</strong> หาผลรวมมากที่สุดของช่วงต่อเนื่องในอาร์เรย์ได้ในรอบเดียว โดยเก็บตัวเลขเพียงตัวเดียว:</p>
+<blockquote>
+<p><code>bestEndingHere</code> = ผลรวมมากที่สุดของช่วงที่ <strong>จบที่สมาชิกปัจจุบันพอดี</strong></p>
+</blockquote>
+<p>เมื่อสมาชิกถัดไป x มาถึง ช่วงที่จบที่ x มีได้สองแบบ: x ตัวเดียว หรือช่วงที่ดีที่สุดที่จบที่ตัวก่อนหน้าแล้วต่อด้วย x:</p>
+<p><code>bestEndingHere = max(x, bestEndingHere + x)</code></p>
+<p>คำตอบคือ <code>bestEndingHere</code> ที่มากที่สุดที่เคยเห็น ใช้รอบเดียว O(ความยาว) หน่วยความจำเพิ่ม O(1) มันคือ DP ขนาดจิ๋ว: สถานะคือ "ช่วงที่ดีที่สุดที่จบตรงนี้" และความสัมพันธ์มีแค่สองทางเลือก</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: ผลรวมแนวทแยงคือ subarray</h3>
+<p>"ผลรวม A[i+p][j+p] สำหรับ p = 0..k−1" เดิน <strong>ลงขวา</strong> จาก (i, j) ทุกช่องเหล่านั้นอยู่บนเส้นทแยงเดียวกัน คือเส้นที่ <code>column − row = j − i</code> การถูกตัดที่ขอบตาราง (ตัวอย่างที่สามใน PDF) แปลว่าช่วงนั้นเลยช่องสุดท้ายของเส้นทแยงไม่ได้เท่านั้น ดังนั้น:</p>
+<div class="box key">
+<div class="bt">การลดรูปปัญหา</div>
+<p>ผลรวมแนวทแยงทุกแบบ = ช่วงต่อเนื่องบนเส้นทแยงเส้นหนึ่ง ผลรวมแนวทแยงที่ดีที่สุด = ค่ามากสุดของ <strong>maximum subarray</strong> ของทุกเส้นทแยง</p>
+</div>
+<h3>ขั้นที่ 2: ไล่ทุกเส้นทแยง</h3>
+<p>ตั้งชื่อเส้นทแยงด้วย <code>shift = column − row</code> ตั้งแต่ −(n−1) (มุมล่างซ้าย) ถึง n−1 (มุมบนขวา): <strong>2n − 1 เส้น</strong> ปลายบนซ้ายของเส้น <code>shift</code> คือ <code>row = max(0, −shift)</code>, <code>column = row + shift</code></p>
+<pre class="diagram">shift:   0   1   2   3              column - row
+       ┌───┬───┬───┬───┐
+row 0  │ 1 │ 2 │ 3 │ 4 │            shift = 1 : 2, 2, 1          (ช่อง (0,1) (1,2) (2,3))
+row 1  │-2 │-5 │ 2 │-5 │            shift = -1: -2, 3, 7         (ช่อง (1,0) (2,1) (3,2))
+row 2  │ 6 │ 3 │-7 │ 1 │                        └───┘ ช่วงที่ดีที่สุด 3 + 7 = 10
+row 3  │ 3 │-2 │ 7 │-9 │
+       └───┴───┴───┴───┘</pre>
+<h3>ขั้นที่ 3: Kadane ไปตามแต่ละเส้นทแยง</h3>
+<p>เดิน (row, column) → (row+1, column+1) จนกว่า index ใดถึง n พร้อมอัปเดต <code>bestEndingHere</code> และ <code>best</code> รวม</p>
+<div class="viz" data-viz="a60b_q1_diagsum"></div>
+<div class="box proof">
+<div class="bt">ทำไม &quot;เริ่มใหม่&quot; ถึงถูก</div>
+<p>ถ้า <code>bestEndingHere</code> (ที่จบที่ช่องก่อนหน้า) เป็นลบ การต่อเข้าไปมีแต่ทำให้ช่วงที่จบที่ x เล็กลง ช่วงที่ดีที่สุดที่จบที่ x จึงเป็น x ตัวเดียว ถ้าไม่เป็นลบ การต่อก็ดีอย่างน้อยเท่ากัน <code>max(x, bestEndingHere + x)</code> เลือกตามนี้พอดี</p>
+</div>
+<h3>ขั้นที่ 4: ตารางที่ติดลบทั้งหมด</h3>
+<p>คำตอบต้องใช้ <strong>k ≥ 1</strong> ช่อง ให้ตั้งค่าเริ่ม <code>best</code> เป็นช่องจริง (<code>table[0][0]</code>) และเริ่ม <code>bestEndingHere</code> ของแต่ละเส้นด้วยช่องแรกของเส้นนั้น ไม่ใช่ 0 ตารางที่เป็น −1 ทั้งหมดจึงตอบ −1 ได้ถูก ไม่ใช่ 0</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>เริ่ม <code>best = 0</code>: ผิดเมื่อทุกช่องเป็นลบ</li>
+<li>O(n³) (กำหนดจุดเริ่มแล้วยืด) หรือ O(n⁴) (กำหนดจุดเริ่มและความยาว) คือสิ่งที่ PDF แนะนำ Kadane ทำให้เหลือ O(n²) ซึ่งเท่ากับขนาดข้อมูลนำเข้า</li>
+<li>ตัวอย่างที่สามใน PDF บอก n = 3 แต่พิมพ์ตาราง 4×4 การอ่านตัวเลข n·n ตัวพอดี (อย่างที่โค้ดทำ) รับมือได้</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a60b_q1_diagsum__main.cpp" download>⬇ .cpp</a><button data-copy="code17">Copy</button></div><pre class="hl"><code id="code17" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    vector&lt;vector&lt;int&gt;&gt; table(n, vector&lt;int&gt;(n));
+    // row = 0..n-1 (top to bottom), column = 0..n-1 (left to right)
+    for (int row = 0; row &lt; n; row++)
+        for (int column = 0; column &lt; n; column++) cin &gt;&gt; table[row][column];
+
+    // A &quot;diagonal sum&quot; is a contiguous piece of one down-right diagonal.
+    // Every cell on a diagonal has the same shift = column - row, from -(n-1) to n-1.
+    // For each diagonal, the best piece is a maximum subarray: Kadane&#x27;s algorithm.
+    int best = table[0][0];
+
+    // shift = -(n-1), ..., n-1: one iteration per diagonal (bottom-left corner to top-right corner)
+    for (int shift = -(n - 1); shift &lt;= n - 1; shift++) {
+        int row = max(0, -shift);               // top-left end of this diagonal
+        int column = row + shift;
+        int bestEndingHere = table[row][column];   // best piece that ENDS at the current cell
+        best = max(best, bestEndingHere);
+
+        // walk down-right: (row+1, column+1), ... while both stay inside the table
+        for (row++, column++; row &lt; n &amp;&amp; column &lt; n; row++, column++) {
+            // extend the best piece ending at the previous cell, or start a new piece here
+            bestEndingHere = max(table[row][column], bestEndingHere + table[row][column]);
+            best = max(best, bestEndingHere);
+        }
+    }
+    cout &lt;&lt; best &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">table</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// row = 0..n-1 (top to bottom), column = 0..n-1 (left to right)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// A &quot;diagonal sum&quot; is a contiguous piece of one down-right diagonal.</span></span><span class="ln"><span class="w">    </span><span class="c1">// Every cell on a diagonal has the same shift = column - row, from -(n-1) to n-1.</span></span><span class="ln"><span class="w">    </span><span class="c1">// For each diagonal, the best piece is a maximum subarray: Kadane&#x27;s algorithm.</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// shift = -(n-1), ..., n-1: one iteration per diagonal (bottom-left corner to top-right corner)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">shift</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">shift</span><span class="p">)</span><span class="p">;</span><span class="w">               </span><span class="c1">// top-left end of this diagonal</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">shift</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">;</span><span class="w">   </span><span class="c1">// best piece that ENDS at the current cell</span></span><span class="ln"><span class="w">        </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">        </span><span class="c1">// walk down-right: (row+1, column+1), ... while both stay inside the table</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">,</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">,</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="c1">// extend the best piece ending at the previous cell, or start a new piece here</span></span><span class="ln"><span class="w">            </span><span class="n">bestEndingHere</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">table</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">bestEndingHere</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> ทุกช่องอยู่บนเส้นทแยงเส้นเดียวและถูกเยี่ยมครั้งเดียว: <strong>O(n²)</strong> = 10⁶ ขั้นเมื่อ n = 1000 เท่ากับขนาดข้อมูลนำเข้า หน่วยความจำ: ตาราง <strong>O(n²)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all PDF samples (including the third one whose table has more numbers than n²) plus n = 1, and 300 random tables against an O(n⁴) brute force over every (i, j, k); n = 1000 runs in 0.06 s. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทุกชุดใน PDF (รวมชุดที่ 3 ที่มีตัวเลขเกิน n²) และ n = 1 และสุ่ม 300 ตารางเทียบกับ brute force O(n⁴) ที่ลองทุก (i, j, k) กรณี n = 1000 ใช้ 0.06 วินาที ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="pn"><a class="pv" href="ex04m1_sort.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex04m1_sort</b> · <span class="en">3 Values Sort</span><span class="th">เรียงสามค่าด้วยการสลับน้อยที่สุด</span></a><a class="nx" href="da68_m2_interesting_events.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>da68_m2_interesting_events</b> · <span class="en">Interesting Events</span><span class="th">วันที่น่าสนใจ (Interesting Events)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a60b_q1_diagsum.js"></script>
+</body>
+</html>

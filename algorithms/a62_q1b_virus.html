@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a62_q1b_virus · Virus Check (DIVOC)</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#c2410c}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="on" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch12.html">12 · <span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></div>
+<div class="phead">
+<div class="pidbig">a62_q1b_virus</div>
+<h1><span class="en">Virus Check (DIVOC)</span><span class="th">ตรวจไวรัส (DIVOC)</span></h1>
+<div class="chips"><span class="chip t en">Divide and conquer recognition</span><span class="chip t en">Mutual recursion (virus / reversed virus)</span><span class="chip t th">ตรวจสอบแบบ divide and conquer</span><span class="chip t th">recursion ไขว้กัน (ไวรัส / ไวรัสกลับด้าน)</span><span class="chip cx">O(L^1.59) per code, L = 2^k ≤ 256 · O(k) stack</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Read the building rule backwards: a code of length L is a virus iff its right half is a virus and its left half is a virus or a reversed virus. &quot;Reversed virus&quot; needs its own test, and reversing a + b gives reverse(b) + reverse(a), which yields a second rule of the same shape.</p><p class="th">อ่านกฎการสร้างย้อนกลับ: รหัสยาว L เป็นไวรัสก็ต่อเมื่อครึ่งขวาเป็นไวรัส และครึ่งซ้ายเป็นไวรัสหรือไวรัสกลับด้าน &quot;ไวรัสกลับด้าน&quot; ต้องมีฟังก์ชันตรวจของตัวเอง และการกลับ a + b ได้ reverse(b) + reverse(a) ซึ่งให้กฎที่สองที่มีรูปแบบเดียวกัน</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a62_q1b_virus\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: recognize a recursive structure by splitting in the middle</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: ตรวจโครงสร้าง recursive โดยแบ่งตรงกลาง</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: recognize a recursive structure by splitting in the middle</h2>
+<p>When an object of size 2^k is <strong>defined</strong> as two objects of size 2^(k−1) joined together, checking it is divide and conquer:</p>
+<ol>
+<li>split the range <code>left .. right−1</code> at <code>middle</code>;</li>
+<li>check each half recursively;</li>
+<li>combine the two answers by the joining rule.</li>
+</ol>
+<p>The base case is the smallest size in the definition. The recursion depth is k and the ranges are index pairs, so nothing is copied.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the rule, read backwards</h3>
+<p>A virus of length L is <code>a' + b</code> where <code>a</code> and <code>b</code> are viruses of length L/2 and <code>a'</code> is <code>a</code> or <code>reverse(a)</code>. So</p>
+<blockquote>
+<p><strong>isVirus(range)</strong> = isVirus(right half) AND (isVirus(left half) OR isReversedVirus(left half)), and for length 2 it must be exactly <code>0 1</code>.</p>
+</blockquote>
+<h3>Step 2: what is a "reversed virus"?</h3>
+<p><code>isReversedVirus(range)</code> means "this range read backwards is a virus". Reverse the definition:</p>
+<pre class="diagram">virus          =  a&#x27;           +  b
+reversed virus =  reverse(b)   +  reverse(a&#x27;)
+                  ^ left half     ^ right half
+left  half: reverse(b)  → must be a REVERSED virus
+right half: reverse(a&#x27;) → a&#x27; was a or reverse(a), so this is reverse(a) or a:
+                          a reversed virus OR a virus</pre>
+<blockquote>
+<p><strong>isReversedVirus(range)</strong> = isReversedVirus(left half) AND (isVirus(right half) OR isReversedVirus(right half)), and for length 2 it must be exactly <code>1 0</code>.</p>
+</blockquote>
+<p>The two functions call each other: <strong>mutual recursion</strong>. C++ needs a declaration of the second function before the first one uses it.</p>
+<div class="viz" data-viz="a62_q1b_virus"></div>
+<h3>Step 3: cost</h3>
+<p>Each call makes at most 3 recursive calls on half the length (the <code>&amp;&amp;</code> and <code>||</code> short-circuit often make it fewer), so T(L) = 3·T(L/2) + O(1) = O(L^log₂3) ≈ O(L^1.59). For L = 256 that is at most 3^8 = 6 561 calls per code.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Mutation applies only to the <strong>left</strong> part <code>a</code>. Allowing the right half to be reversed accepts codes that are not viruses (for example <code>0 1 1 0</code>).</li>
+<li>The reversed check is not "reverse the array and call isVirus" on every level; that would copy arrays. The rule above works on the same ranges.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a62_q1b_virus__main.cpp" download>⬇ .cpp</a><button data-copy="code34">Copy</button></div><pre class="hl"><code id="code34" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; code;   // the genetic code being checked
+
+bool isReversedVirus(int left, int right);
+
+// Is code[left .. right-1] a virus?
+//   length 2: it must be exactly 0 1
+//   longer  : code = a + b (two halves); b must be a virus,
+//             and a must be a virus or a reversed virus (the mutation)
+bool isVirus(int left, int right) {
+    if (right - left == 2) return code[left] == 0 &amp;&amp; code[left + 1] == 1;
+    int middle = (left + right) / 2;
+    return isVirus(middle, right) &amp;&amp;
+           (isVirus(left, middle) || isReversedVirus(left, middle));
+}
+
+// Is code[left .. right-1] a virus read backwards?
+// reverse(a + b) = reverse(b) + reverse(a), so
+//   first half  = reverse(b): must be a reversed virus,
+//   second half = reverse(a) where a may itself be mutated: a virus or a reversed virus
+bool isReversedVirus(int left, int right) {
+    if (right - left == 2) return code[left] == 1 &amp;&amp; code[left + 1] == 0;
+    int middle = (left + right) / 2;
+    return isReversedVirus(left, middle) &amp;&amp;
+           (isVirus(middle, right) || isReversedVirus(middle, right));
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int testCount, k;
+    cin &gt;&gt; testCount &gt;&gt; k;
+    int length = 1 &lt;&lt; k;
+    code.resize(length);
+    // test = 0..testCount-1: check the codes one by one
+    for (int test = 0; test &lt; testCount; test++) {
+        // index = 0..length-1: read the 2^k digits
+        for (int index = 0; index &lt; length; index++) cin &gt;&gt; code[index];
+        cout &lt;&lt; (isVirus(0, length) ? &quot;yes&quot; : &quot;no&quot;) &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">code</span><span class="p">;</span><span class="w">   </span><span class="c1">// the genetic code being checked</span></span><span class="ln"></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">isReversedVirus</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Is code[left .. right-1] a virus?</span></span><span class="ln"><span class="c1">//   length 2: it must be exactly 0 1</span></span><span class="ln"><span class="c1">//   longer  : code = a + b (two halves); b must be a virus,</span></span><span class="ln"><span class="c1">//             and a must be a virus or a reversed virus (the mutation)</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">isVirus</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isVirus</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span></span><span class="ln"><span class="w">           </span><span class="p">(</span><span class="n">isVirus</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">middle</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">isReversedVirus</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="c1">// Is code[left .. right-1] a virus read backwards?</span></span><span class="ln"><span class="c1">// reverse(a + b) = reverse(b) + reverse(a), so</span></span><span class="ln"><span class="c1">//   first half  = reverse(b): must be a reversed virus,</span></span><span class="ln"><span class="c1">//   second half = reverse(a) where a may itself be mutated: a virus or a reversed virus</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">isReversedVirus</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isReversedVirus</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">middle</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span></span><span class="ln"><span class="w">           </span><span class="p">(</span><span class="n">isVirus</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">isReversedVirus</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">testCount</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">testCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">code</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// test = 0..testCount-1: check the codes one by one</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">testCount</span><span class="p">;</span><span class="w"> </span><span class="n">test</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="c1">// index = 0..length-1: read the 2^k digits</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">isVirus</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">yes</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;</span><span class="s">no</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> O(L^1.59) per code with L = 2^k ≤ 256, at most 10 codes. Memory: the code plus a recursion of depth k: <strong>O(L)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 4 PDF samples, the PDF table (exactly 6 viruses of length 8), 300 random codes (k ≤ 5) against a brute force that generates every virus, and 10 random viruses with k = 8, all accepted.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 4 ใน PDF ตารางใน PDF (ไวรัสยาว 8 มี 6 แบบพอดี) สุ่มรหัส 300 ชุด (k ≤ 5) เทียบกับ brute force ที่สร้างไวรัสทุกแบบ และไวรัสสุ่ม 10 ตัวที่ k = 8 ต้องตอบ yes ทั้งหมด</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: ตรวจโครงสร้าง recursive โดยแบ่งตรงกลาง</h2>
+<p>เมื่อวัตถุขนาด 2^k ถูก <strong>นิยาม</strong> ว่าเป็นวัตถุขนาด 2^(k−1) สองตัวต่อกัน การตรวจมันก็คือ divide and conquer:</p>
+<ol>
+<li>แบ่งช่วง <code>left .. right−1</code> ที่ <code>middle</code></li>
+<li>ตรวจแต่ละครึ่งแบบ recursive</li>
+<li>รวมคำตอบทั้งสองด้วยกฎการต่อ</li>
+</ol>
+<p>กรณีฐานคือขนาดเล็กที่สุดในนิยาม ความลึกของ recursion คือ k และช่วงเป็นคู่ดัชนี จึงไม่มีการคัดลอกอะไรเลย</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: อ่านกฎย้อนกลับ</h3>
+<p>ไวรัสยาว L คือ <code>a' + b</code> โดย <code>a</code> และ <code>b</code> เป็นไวรัสยาว L/2 และ <code>a'</code> คือ <code>a</code> หรือ <code>reverse(a)</code> ดังนั้น</p>
+<blockquote>
+<p><strong>isVirus(ช่วง)</strong> = isVirus(ครึ่งขวา) AND (isVirus(ครึ่งซ้าย) OR isReversedVirus(ครึ่งซ้าย)) และเมื่อยาว 2 ต้องเป็น <code>0 1</code> พอดี</p>
+</blockquote>
+<h3>ขั้นที่ 2: "ไวรัสกลับด้าน" คืออะไร?</h3>
+<p><code>isReversedVirus(ช่วง)</code> หมายถึง "ช่วงนี้อ่านย้อนหลังแล้วเป็นไวรัส" กลับนิยาม:</p>
+<pre class="diagram">ไวรัส          =  a&#x27;           +  b
+ไวรัสกลับด้าน  =  reverse(b)   +  reverse(a&#x27;)
+                  ^ ครึ่งซ้าย      ^ ครึ่งขวา
+ครึ่งซ้าย: reverse(b)  → ต้องเป็นไวรัสกลับด้าน
+ครึ่งขวา: reverse(a&#x27;) → a&#x27; คือ a หรือ reverse(a) อันนี้จึงเป็น reverse(a) หรือ a:
+                        ไวรัสกลับด้าน หรือ ไวรัส</pre>
+<blockquote>
+<p><strong>isReversedVirus(ช่วง)</strong> = isReversedVirus(ครึ่งซ้าย) AND (isVirus(ครึ่งขวา) OR isReversedVirus(ครึ่งขวา)) และเมื่อยาว 2 ต้องเป็น <code>1 0</code> พอดี</p>
+</blockquote>
+<p>ฟังก์ชันทั้งสองเรียกกันไปมา: <strong>mutual recursion</strong> ใน C++ ต้องประกาศฟังก์ชันที่สองก่อนที่ฟังก์ชันแรกจะใช้</p>
+<div class="viz" data-viz="a62_q1b_virus"></div>
+<h3>ขั้นที่ 3: ค่าใช้จ่าย</h3>
+<p>แต่ละการเรียกเรียกตัวเองไม่เกิน 3 ครั้งบนความยาวครึ่งหนึ่ง (<code>&amp;&amp;</code> และ <code>||</code> แบบ short-circuit มักทำให้น้อยกว่านั้น) T(L) = 3·T(L/2) + O(1) = O(L^log₂3) ≈ O(L^1.59) เมื่อ L = 256 ไม่เกิน 3^8 = 6 561 การเรียกต่อรหัส</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>การกลายพันธุ์เกิดกับส่วน <strong>ซ้าย</strong> <code>a</code> เท่านั้น ถ้ายอมให้ครึ่งขวากลับด้านได้ จะรับรหัสที่ไม่ใช่ไวรัส (เช่น <code>0 1 1 0</code>)</li>
+<li>การตรวจกลับด้านไม่ใช่ "กลับอาร์เรย์แล้วเรียก isVirus" ในทุกระดับ เพราะต้องคัดลอกอาร์เรย์ กฎด้านบนทำงานบนช่วงเดิมได้เลย</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a62_q1b_virus__main.cpp" download>⬇ .cpp</a><button data-copy="code34">Copy</button></div><pre class="hl"><code id="code34" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;int&gt; code;   // the genetic code being checked
+
+bool isReversedVirus(int left, int right);
+
+// Is code[left .. right-1] a virus?
+//   length 2: it must be exactly 0 1
+//   longer  : code = a + b (two halves); b must be a virus,
+//             and a must be a virus or a reversed virus (the mutation)
+bool isVirus(int left, int right) {
+    if (right - left == 2) return code[left] == 0 &amp;&amp; code[left + 1] == 1;
+    int middle = (left + right) / 2;
+    return isVirus(middle, right) &amp;&amp;
+           (isVirus(left, middle) || isReversedVirus(left, middle));
+}
+
+// Is code[left .. right-1] a virus read backwards?
+// reverse(a + b) = reverse(b) + reverse(a), so
+//   first half  = reverse(b): must be a reversed virus,
+//   second half = reverse(a) where a may itself be mutated: a virus or a reversed virus
+bool isReversedVirus(int left, int right) {
+    if (right - left == 2) return code[left] == 1 &amp;&amp; code[left + 1] == 0;
+    int middle = (left + right) / 2;
+    return isReversedVirus(left, middle) &amp;&amp;
+           (isVirus(middle, right) || isReversedVirus(middle, right));
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int testCount, k;
+    cin &gt;&gt; testCount &gt;&gt; k;
+    int length = 1 &lt;&lt; k;
+    code.resize(length);
+    // test = 0..testCount-1: check the codes one by one
+    for (int test = 0; test &lt; testCount; test++) {
+        // index = 0..length-1: read the 2^k digits
+        for (int index = 0; index &lt; length; index++) cin &gt;&gt; code[index];
+        cout &lt;&lt; (isVirus(0, length) ? &quot;yes&quot; : &quot;no&quot;) &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">code</span><span class="p">;</span><span class="w">   </span><span class="c1">// the genetic code being checked</span></span><span class="ln"></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">isReversedVirus</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Is code[left .. right-1] a virus?</span></span><span class="ln"><span class="c1">//   length 2: it must be exactly 0 1</span></span><span class="ln"><span class="c1">//   longer  : code = a + b (two halves); b must be a virus,</span></span><span class="ln"><span class="c1">//             and a must be a virus or a reversed virus (the mutation)</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">isVirus</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isVirus</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span></span><span class="ln"><span class="w">           </span><span class="p">(</span><span class="n">isVirus</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">middle</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">isReversedVirus</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="c1">// Is code[left .. right-1] a virus read backwards?</span></span><span class="ln"><span class="c1">// reverse(a + b) = reverse(b) + reverse(a), so</span></span><span class="ln"><span class="c1">//   first half  = reverse(b): must be a reversed virus,</span></span><span class="ln"><span class="c1">//   second half = reverse(a) where a may itself be mutated: a virus or a reversed virus</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">isReversedVirus</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">isReversedVirus</span><span class="p">(</span><span class="n">left</span><span class="p">,</span><span class="w"> </span><span class="n">middle</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span></span><span class="ln"><span class="w">           </span><span class="p">(</span><span class="n">isVirus</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">isReversedVirus</span><span class="p">(</span><span class="n">middle</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">testCount</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">testCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">code</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// test = 0..testCount-1: check the codes one by one</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">testCount</span><span class="p">;</span><span class="w"> </span><span class="n">test</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="c1">// index = 0..length-1: read the 2^k digits</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">length</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">code</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">isVirus</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">yes</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;</span><span class="s">no</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> O(L^1.59) ต่อรหัส โดย L = 2^k ≤ 256 ไม่เกิน 10 รหัส หน่วยความจำ: รหัสและ recursion ลึก k: <strong>O(L)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 4 PDF samples, the PDF table (exactly 6 viruses of length 8), 300 random codes (k ≤ 5) against a brute force that generates every virus, and 10 random viruses with k = 8, all accepted.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 4 ใน PDF ตารางใน PDF (ไวรัสยาว 8 มี 6 แบบพอดี) สุ่มรหัส 300 ชุด (k ≤ 5) เทียบกับ brute force ที่สร้างไวรัสทุกแบบ และไวรัสสุ่ม 10 ตัวที่ k = 8 ต้องตอบ yes ทั้งหมด</span></div></div></div>
+<div class="pn"><a class="pv" href="a60_q1_matmod.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>a60_q1_matmod</b> · <span class="en">Matrix Modulo</span><span class="th">เมทริกซ์มอดุโล (Matrix Modulo)</span></a><a class="nx" href="a63_q1b_virus2.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a63_q1b_virus2</b> · <span class="en">Virus Outbreak 2 (DIVOC-20)</span><span class="th">ไวรัสระบาด 2 (DIVOC-20)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a62_q1b_virus.js"></script>
+</body>
+</html>

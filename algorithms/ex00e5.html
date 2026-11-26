@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex00e5 · Consecutive Ones</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#8b46d9}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="on" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch11.html">11 · <span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></div>
+<div class="phead">
+<div class="pidbig">ex00e5</div>
+<h1><span class="en">Consecutive Ones</span><span class="th">เลข 1 ติดกัน (Consecutive Ones)</span></h1>
+<div class="chips"><span class="chip t en">Backtracking over bit strings</span><span class="chip t en">State carried in parameters</span><span class="chip t th">Backtracking บนสตริงบิต</span><span class="chip t th">ส่งสถานะผ่านพารามิเตอร์</span><span class="chip cx">O(2ⁿ) time · O(n) memory (+ output)</span><span class="chip"><span class="stars">★☆☆</span></span></div>
+<div class="lead"><p class="en">Enumerate all n-bit strings in increasing order (&#x27;0&#x27; before &#x27;1&#x27; at every depth) and carry two small facts down the recursion: the length of the current run of 1s and whether a run of k was already seen.</p><p class="th">ไล่ทุกสตริง n บิตตามลำดับจากน้อยไปมาก (&#x27;0&#x27; ก่อน &#x27;1&#x27; ทุกระดับ) และส่งข้อมูลเล็ก ๆ สองอย่างลงไปใน recursion: ความยาวของเลข 1 ที่ติดกันอยู่ตอนนี้ และเคยเจอ 1 ติดกัน k ตัวแล้วหรือยัง</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex00e5\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: enumerate in order, carry the state down</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: ไล่ตามลำดับ แล้วส่งสถานะลงไป</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: enumerate in order, carry the state down</h2>
+<p>Two backtracking habits:</p>
+<ol>
+<li><strong>Order for free.</strong> If every level tries <code>'0'</code> before <code>'1'</code>, the leaves come out in increasing numeric order (that is just how binary counting works). No sorting is needed.</li>
+<li><strong>Carry state as parameters.</strong> Instead of re-scanning the finished string at the leaf (O(n) per leaf), pass down what the check needs, updated in O(1) per step.</li>
+</ol>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>What the check needs</h3>
+<p>"Contains at least k consecutive 1s" can be decided left to right with two numbers:</p>
+<ul>
+<li><code>currentRun</code> = length of the block of 1s that ends at the last decided bit;</li>
+<li><code>found</code> = whether some block already reached length k.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>next bit</th>
+<th>new <code>currentRun</code></th>
+<th>new <code>found</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'0'</code></td>
+<td>0</td>
+<td>unchanged</td>
+</tr>
+<tr>
+<td><code>'1'</code></td>
+<td>currentRun + 1</td>
+<td>found <strong>or</strong> currentRun + 1 ≥ k</td>
+</tr>
+</tbody>
+</table>
+<p>Once <code>found</code> becomes true it stays true, and at the leaf we print the string iff <code>found</code>.</p>
+<pre class="diagram">n = 4, k = 2      bits   run  found
+                  0      0    no
+                  01     1    no
+                  011    2    YES  ← reached k: every extension of 011 qualifies
+                  0110   0    yes  → printed</pre>
+<div class="box key">
+<div class="bt">k = 0</div>
+<p>"At least 0 consecutive ones" is always true, so <code>found</code> starts as <code>k == 0</code>. Then even n = 0 prints one (empty) line.</p>
+</div>
+<div class="viz" data-viz="ex00e5"></div>
+<h3>Could we prune?</h3>
+<p>Unlike the barcode problem, there is no dead end to cut: any prefix can still be extended with k ones if enough positions remain, and once <code>found</code> is true every extension is printed. A pruning like "not found and fewer than k − currentRun positions left → stop" is valid and saves some calls, but the output itself can be close to 2ⁿ lines, so the enumeration is already proportional to the answer in the worst case.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Printing in the wrong order: the statement requires increasing values. Try '0' first.</li>
+<li>Checking only the <strong>final</strong> run (<code>currentRun ≥ k</code> at the leaf) misses strings like 1100.</li>
+<li>The PDF's third sample is missing 11100; trust the definition.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex00e5__main.cpp" download>⬇ .cpp</a><button data-copy="code22">Copy</button></div><pre class="hl"><code id="code22" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int length, runNeeded;
+string bits;         // the n-bit string being built
+string output;       // up to 2^20 lines, printed once at the end
+
+// position   = number of bits already decided (bits[0..position-1])
+// currentRun = length of the block of &#x27;1&#x27;s ending at position-1 (0 if that bit is &#x27;0&#x27;)
+// found      = did bits[0..position-1] already contain runNeeded consecutive &#x27;1&#x27;s?
+void generate(int position, int currentRun, bool found) {
+    if (position == length) {
+        if (found) { output += bits; output += &#x27;\n&#x27;; }
+        return;
+    }
+    // &#x27;0&#x27; before &#x27;1&#x27; at every position = increasing numeric order of the whole string
+    bits[position] = &#x27;0&#x27;;
+    generate(position + 1, 0, found);                       // a &#x27;0&#x27; breaks the run
+    bits[position] = &#x27;1&#x27;;
+    generate(position + 1, currentRun + 1, found || currentRun + 1 &gt;= runNeeded);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin &gt;&gt; length &gt;&gt; runNeeded;
+    bits.assign(length, &#x27;0&#x27;);
+    generate(0, 0, runNeeded == 0);      // k = 0: every string qualifies
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">runNeeded</span><span class="p">;</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">bits</span><span class="p">;</span><span class="w">         </span><span class="c1">// the n-bit string being built</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span><span class="w">       </span><span class="c1">// up to 2^20 lines, printed once at the end</span></span><span class="ln"></span><span class="ln"><span class="c1">// position   = number of bits already decided (bits[0..position-1])</span></span><span class="ln"><span class="c1">// currentRun = length of the block of &#x27;1&#x27;s ending at position-1 (0 if that bit is &#x27;0&#x27;)</span></span><span class="ln"><span class="c1">// found      = did bits[0..position-1] already contain runNeeded consecutive &#x27;1&#x27;s?</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">currentRun</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">found</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">bits</span><span class="p">;</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// &#x27;0&#x27; before &#x27;1&#x27; at every position = increasing numeric order of the whole string</span></span><span class="ln"><span class="w">    </span><span class="n">bits</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">found</span><span class="p">)</span><span class="p">;</span><span class="w">                       </span><span class="c1">// a &#x27;0&#x27; breaks the run</span></span><span class="ln"><span class="w">    </span><span class="n">bits</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">1</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">currentRun</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">found</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">currentRun</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">runNeeded</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runNeeded</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">bits</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">runNeeded</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span><span class="w">      </span><span class="c1">// k = 0: every string qualifies</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> The full binary tree has 2ⁿ leaves and 2ⁿ⁺¹ − 1 calls, O(1) each: <strong>O(2ⁿ)</strong> ≈ 2·10⁶ for n = 20, plus the output. Memory: depth n.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the three PDF samples (the PDF&#x27;s third sample omits 11100, which does contain three consecutive ones; the brute force agrees with including it) and 12 more (n, k) pairs including 0 0, 20 20 and 20 7 against a brute force. The largest output runs in 0.05 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสามใน PDF (ตัวอย่างที่สามใน PDF ตก 11100 ไป ทั้งที่มีเลข 1 ติดกันสามตัว brute force ยืนยันว่าต้องมี) และอีก 12 คู่ (n, k) รวม 0 0, 20 20 และ 20 7 เทียบกับ brute force ผลลัพธ์ใหญ่สุดใช้ 0.05 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: ไล่ตามลำดับ แล้วส่งสถานะลงไป</h2>
+<p>นิสัยสองอย่างของ backtracking:</p>
+<ol>
+<li><strong>ได้ลำดับฟรี</strong> ถ้าทุกระดับลอง <code>'0'</code> ก่อน <code>'1'</code> ใบจะออกมาเรียงจากน้อยไปมาก (นั่นคือวิธีนับเลขฐานสองนั่นเอง) ไม่ต้องเรียงทีหลัง</li>
+<li><strong>ส่งสถานะเป็นพารามิเตอร์</strong> แทนที่จะสแกนสตริงที่เสร็จแล้วที่ใบ (O(n) ต่อใบ) ให้ส่งสิ่งที่การตรวจต้องใช้ลงไป และอัปเดตด้วย O(1) ต่อขั้น</li>
+</ol>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>การตรวจต้องรู้อะไร</h3>
+<p>"มีเลข 1 ติดกันอย่างน้อย k ตัว" ตัดสินได้จากซ้ายไปขวาด้วยตัวเลขสองตัว:</p>
+<ul>
+<li><code>currentRun</code> = ความยาวก้อนเลข 1 ที่จบที่บิตล่าสุดที่ตัดสินแล้ว</li>
+<li><code>found</code> = เคยมีก้อนที่ยาวถึง k แล้วหรือยัง</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>บิตถัดไป</th>
+<th><code>currentRun</code> ใหม่</th>
+<th><code>found</code> ใหม่</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'0'</code></td>
+<td>0</td>
+<td>เท่าเดิม</td>
+</tr>
+<tr>
+<td><code>'1'</code></td>
+<td>currentRun + 1</td>
+<td>found <strong>หรือ</strong> currentRun + 1 ≥ k</td>
+</tr>
+</tbody>
+</table>
+<p>เมื่อ <code>found</code> เป็นจริงแล้วจะจริงตลอดไป และที่ใบเราพิมพ์สตริงเมื่อ <code>found</code> เป็นจริงเท่านั้น</p>
+<pre class="diagram">n = 4, k = 2      bits   run  found
+                  0      0    ไม่
+                  01     1    ไม่
+                  011    2    ใช่  ← ถึง k แล้ว: ทุกการต่อจาก 011 ผ่านหมด
+                  0110   0    ใช่  → พิมพ์</pre>
+<div class="box key">
+<div class="bt">k = 0</div>
+<p>"มีเลข 1 ติดกันอย่างน้อย 0 ตัว" จริงเสมอ <code>found</code> จึงเริ่มเป็น <code>k == 0</code> แม้ n = 0 ก็พิมพ์หนึ่งบรรทัด (ว่าง)</p>
+</div>
+<div class="viz" data-viz="ex00e5"></div>
+<h3>ตัดกิ่งได้ไหม?</h3>
+<p>ต่างจากโจทย์บาร์โค้ด ข้อนี้ไม่มีทางตันให้ตัด: prefix ใดก็ยังต่อด้วยเลข 1 k ตัวได้ถ้าเหลือตำแหน่งพอ และเมื่อ <code>found</code> จริงแล้วทุกการต่อจะถูกพิมพ์ การตัดแบบ "ยังไม่เจอและเหลือตำแหน่งน้อยกว่า k − currentRun → หยุด" ถูกต้องและลดการเรียกได้บ้าง แต่ผลลัพธ์เองอาจใกล้ 2ⁿ บรรทัด การไล่ทั้งหมดจึงแปรผันตามขนาดคำตอบอยู่แล้วในกรณีแย่สุด</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>พิมพ์ผิดลำดับ: โจทย์ต้องการเรียงจากน้อยไปมาก ให้ลอง '0' ก่อน</li>
+<li>ตรวจเฉพาะก้อน <strong>สุดท้าย</strong> (<code>currentRun ≥ k</code> ที่ใบ) จะพลาดสตริงอย่าง 1100</li>
+<li>ตัวอย่างที่สามใน PDF ขาด 11100 ให้เชื่อนิยาม</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex00e5__main.cpp" download>⬇ .cpp</a><button data-copy="code22">Copy</button></div><pre class="hl"><code id="code22" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int length, runNeeded;
+string bits;         // the n-bit string being built
+string output;       // up to 2^20 lines, printed once at the end
+
+// position   = number of bits already decided (bits[0..position-1])
+// currentRun = length of the block of &#x27;1&#x27;s ending at position-1 (0 if that bit is &#x27;0&#x27;)
+// found      = did bits[0..position-1] already contain runNeeded consecutive &#x27;1&#x27;s?
+void generate(int position, int currentRun, bool found) {
+    if (position == length) {
+        if (found) { output += bits; output += &#x27;\n&#x27;; }
+        return;
+    }
+    // &#x27;0&#x27; before &#x27;1&#x27; at every position = increasing numeric order of the whole string
+    bits[position] = &#x27;0&#x27;;
+    generate(position + 1, 0, found);                       // a &#x27;0&#x27; breaks the run
+    bits[position] = &#x27;1&#x27;;
+    generate(position + 1, currentRun + 1, found || currentRun + 1 &gt;= runNeeded);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin &gt;&gt; length &gt;&gt; runNeeded;
+    bits.assign(length, &#x27;0&#x27;);
+    generate(0, 0, runNeeded == 0);      // k = 0: every string qualifies
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">runNeeded</span><span class="p">;</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">bits</span><span class="p">;</span><span class="w">         </span><span class="c1">// the n-bit string being built</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span><span class="w">       </span><span class="c1">// up to 2^20 lines, printed once at the end</span></span><span class="ln"></span><span class="ln"><span class="c1">// position   = number of bits already decided (bits[0..position-1])</span></span><span class="ln"><span class="c1">// currentRun = length of the block of &#x27;1&#x27;s ending at position-1 (0 if that bit is &#x27;0&#x27;)</span></span><span class="ln"><span class="c1">// found      = did bits[0..position-1] already contain runNeeded consecutive &#x27;1&#x27;s?</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">generate</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">currentRun</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">found</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">found</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">bits</span><span class="p">;</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// &#x27;0&#x27; before &#x27;1&#x27; at every position = increasing numeric order of the whole string</span></span><span class="ln"><span class="w">    </span><span class="n">bits</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">found</span><span class="p">)</span><span class="p">;</span><span class="w">                       </span><span class="c1">// a &#x27;0&#x27; breaks the run</span></span><span class="ln"><span class="w">    </span><span class="n">bits</span><span class="p">[</span><span class="n">position</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">1</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">currentRun</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">found</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">currentRun</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">runNeeded</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">runNeeded</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">bits</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">0</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">generate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">runNeeded</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span><span class="w">      </span><span class="c1">// k = 0: every string qualifies</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> ต้นไม้ไบนารีเต็มมีใบ 2ⁿ ใบและการเรียก 2ⁿ⁺¹ − 1 ครั้ง ครั้งละ O(1): <strong>O(2ⁿ)</strong> ≈ 2·10⁶ เมื่อ n = 20 บวกขนาดผลลัพธ์ หน่วยความจำ: ความลึก n</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the three PDF samples (the PDF&#x27;s third sample omits 11100, which does contain three consecutive ones; the brute force agrees with including it) and 12 more (n, k) pairs including 0 0, 20 20 and 20 7 against a brute force. The largest output runs in 0.05 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสามใน PDF (ตัวอย่างที่สามใน PDF ตก 11100 ไป ทั้งที่มีเลข 1 ติดกันสามตัว brute force ยืนยันว่าต้องมี) และอีก 12 คู่ (n, k) รวม 0 0, 20 20 และ 20 7 เทียบกับ brute force ผลลัพธ์ใหญ่สุดใช้ 0.05 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="ex00e4.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex00e4</b> · <span class="en">Generate Barcode</span><span class="th">สร้างบาร์โค้ด (Generate Barcode)</span></a><a class="nx" href="da67_f_abc_permutation.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>da67_f_abc_permutation</b> · <span class="en">ABC Permutation</span><span class="th">เรียงสับเปลี่ยน ABC</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex00e5.js"></script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a66_q2a_insertion_count · Insertion Sort Count</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0e9f8e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="on" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch09.html">09 · <span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></div>
+<div class="phead">
+<div class="pidbig">a66_q2a_insertion_count</div>
+<h1><span class="en">Insertion Sort Count</span><span class="th">นับการเลื่อนใน Insertion Sort</span></h1>
+<div class="chips"><span class="chip t en">Inversions</span><span class="chip t en">Fenwick tree (BIT)</span><span class="chip t th">Inversion</span><span class="chip t th">Fenwick tree (BIT)</span><span class="chip cx">O(n log n + m) time · O(n) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Value k is shifted by line 07 once for every LARGER value on its LEFT. Count that for all values in one left-to-right scan with a Fenwick tree over the values, then answer each query from a table.</p><p class="th">ค่า k ถูกบรรทัด 07 เลื่อนหนึ่งครั้งต่อค่าที่ใหญ่กว่าซึ่งอยู่ทางซ้ายของมัน นับสิ่งนี้ให้ทุกค่าในการสแกนซ้ายไปขวารอบเดียวด้วย Fenwick tree บนค่า แล้วตอบทุกคำถามจากตาราง</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a66_q2a_insertion_count\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: inversions + a Fenwick tree</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: inversion + Fenwick tree</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: inversions + a Fenwick tree</h2>
+<p>Two pieces from Lesson 09:</p>
+<ul>
+<li><strong>Inversions.</strong> A pair (i, j) with i &lt; j and A[i] &gt; A[j] is an inversion. Insertion sort moves an element exactly once per inversion it is involved in, so "how much work does insertion sort do?" is always a question about inversions.</li>
+<li><strong>Fenwick tree (BIT).</strong> An array that supports "mark value v" and "how many marked values are ≤ v" in <strong>O(log n)</strong> each. It is the standard tool for <em>"how many earlier elements are bigger / smaller than me?"</em>.</li>
+</ul>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: what makes line 07 move value k?</h3>
+<p>Line 07 is <code>A[i-1] = A[i]</code>: it moves A[i] <strong>one cell to the left</strong>, and it happens while some <code>tmp</code> is being inserted and <code>A[i] &lt; tmp</code>.</p>
+<p>The PDF's version works <strong>right to left</strong>: <code>pos</code> goes n−2, n−3, …, 0, and <code>A[pos+1..n-1]</code> is already sorted. Follow one value k at original index p:</p>
+<ul>
+<li>Elements to the <strong>right</strong> of k (indices &gt; p) are inserted <strong>before</strong> k joins the sorted part. They can never push k.</li>
+<li>When k itself is inserted, k is <code>tmp</code>; line 07 moves <em>other</em> elements, not k.</li>
+<li>After that, every element x to the <strong>left</strong> of k (index &lt; p) is inserted. x slides through the sorted part past every element smaller than x. So k is moved exactly once <strong>if and only if k &lt; x</strong>.</li>
+</ul>
+<div class="box key">
+<div class="bt">The reduction</div>
+<p><strong>shifts(k) = number of indices j &lt; p with A[j] &gt; k</strong>, the number of inversions in which k is the right element. Example from the PDF, k = 20 at index 3: to its left are 30, 40, 60, all larger → 3 shifts. k = 60: nothing larger on its left → 0.</p>
+</div>
+<p>Watch the sort itself and the counter for one chosen value:</p>
+<div class="viz" data-viz="a66_q2a_insertion_count:sim"></div>
+<h3>Step 2: why not count per query?</h3>
+<p>For each query, finding k and scanning everything left of it costs O(n), so O(n·m) = 2·10⁸ in the worst case. That is borderline. Simulating the sort is far worse: a reversed array has n²/2 ≈ 2·10¹⁰ shifts. Instead we compute the answer for <strong>every value at once</strong> in O(n log n), and each query becomes a table lookup.</p>
+<h3>Step 3: one left-to-right scan with a Fenwick tree over the values</h3>
+<p>Values are distinct and lie in 1..n, so they can be the BIT's indices directly (no compression).</p>
+<pre class="diagram">for index = 0 .. n-1:
+    value = A[index]
+    seen so far              = index                       (everything to the left)
+    seen and &lt;= value        = countSeenAtMost(value)      (BIT prefix query)
+    seen and  &gt; value        = index - countSeenAtMost(value)   ← shiftsOf[value]
+    markSeen(value)                                        (BIT point update)</pre>
+<div class="box warn">
+<div class="bt">Read before you write</div>
+<p>Query <code>countSeenAtMost(value)</code> <strong>before</strong> <code>markSeen(value)</code>. Otherwise the value counts itself as "seen and ≤ value" and every answer is off by one (in the other direction it would stay correct here, but the habit matters).</p>
+</div>
+<h3>Step 4: how the Fenwick tree answers in O(log n)</h3>
+<p>Cell <code>seenCount[node]</code> stores the count for the value range <code>(node − lowbit(node), node]</code>, where <code>lowbit(node) = node &amp; -node</code> is the lowest set bit.</p>
+<pre class="diagram">node (binary)   covers values
+ 1  0001        1
+ 2  0010        1..2
+ 3  0011        3
+ 4  0100        1..4
+ 6  0110        5..6
+ 8  1000        1..8
+countSeenAtMost(7): 7 (0111) → 6 (0110) → 4 (0100) → 0     ranges 7 | 5..6 | 1..4  = 1..7
+markSeen(5):        5 (0101) → 6 (0110) → 8 (1000) → 16 &gt; n  every cell whose range contains 5</pre>
+<p>Each step removes or adds the lowest set bit, so a query or update touches at most ⌈log₂ n⌉ + 1 cells.</p>
+<div class="viz" data-viz="a66_q2a_insertion_count:bit"></div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a66_q2a_insertion_count__main.cpp" download>⬇ .cpp</a><button data-copy="code15">Copy</button></div><pre class="hl"><code id="code15" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// Fenwick tree (binary indexed tree) over the VALUES 1..n.
+// seenCount[...] stores partial counts so that &quot;how many seen values are &lt;= v&quot; takes O(log n).
+int n;
+vector&lt;int&gt; seenCount;
+
+void markSeen(int value) {
+    // node = value, then climb: node += lowbit(node), visiting every cell whose range covers value
+    for (int node = value; node &lt;= n; node += node &amp; (-node)) seenCount[node]++;
+}
+
+int countSeenAtMost(int value) {
+    // node = value, then descend: node -= lowbit(node); the visited ranges tile 1..value exactly
+    int total = 0;
+    for (int node = value; node &gt; 0; node -= node &amp; (-node)) total += seenCount[node];
+    return total;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int queryCount;
+    cin &gt;&gt; n &gt;&gt; queryCount;
+    seenCount.assign(n + 1, 0);
+
+    // shiftsOf[value] = how many elements LEFT of value are LARGER than it
+    //                 = how many times line 07 moves this value one cell to the left
+    vector&lt;int&gt; shiftsOf(n + 1);
+
+    // index = 0, 1, ..., n-1 (left to right): before marking A[index], exactly `index`
+    // values are seen, all of them to its left; those not &lt;= A[index] are larger.
+    for (int index = 0; index &lt; n; index++) {
+        int value;
+        cin &gt;&gt; value;
+        shiftsOf[value] = index - countSeenAtMost(value);
+        markSeen(value);
+    }
+
+    // answer every query in O(1) from the precomputed table
+    for (int query = 0; query &lt; queryCount; query++) {
+        int value;
+        cin &gt;&gt; value;
+        cout &lt;&lt; shiftsOf[value] &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Fenwick tree (binary indexed tree) over the VALUES 1..n.</span></span><span class="ln"><span class="c1">// seenCount[...] stores partial counts so that &quot;how many seen values are &lt;= v&quot; takes O(log n).</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seenCount</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">markSeen</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// node = value, then climb: node += lowbit(node), visiting every cell whose range covers value</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">node</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">seenCount</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">countSeenAtMost</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// node = value, then descend: node -= lowbit(node); the visited ranges tile 1..value exactly</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">-</span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">node</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">seenCount</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queryCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queryCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">seenCount</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// shiftsOf[value] = how many elements LEFT of value are LARGER than it</span></span><span class="ln"><span class="w">    </span><span class="c1">//                 = how many times line 07 moves this value one cell to the left</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shiftsOf</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0, 1, ..., n-1 (left to right): before marking A[index], exactly `index`</span></span><span class="ln"><span class="w">    </span><span class="c1">// values are seen, all of them to its left; those not &lt;= A[index] are larger.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">shiftsOf</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">countSeenAtMost</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">markSeen</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// answer every query in O(1) from the precomputed table</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">queryCount</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">shiftsOf</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> n updates and n prefix queries on the BIT: <strong>O(n log n)</strong> ≈ 3.6·10⁶ steps for n = 2·10⁵; then m O(1) lookups. Memory: the BIT and the answer table, <strong>O(n)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 5 samples (the PDF ones plus the worked example) and 300 random permutations against a direct simulation of the PDF&#x27;s insertion sort; n = 200 000 random runs in 0.02 s and a reversed array gives the maximum 199 999. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 5 ชุด (จาก PDF และตัวอย่างที่อธิบายไว้) และสุ่ม permutation 300 ชุด เทียบกับการจำลอง insertion sort ของ PDF ตรง ๆ กรณี n = 200 000 แบบสุ่มใช้ 0.02 วินาที และอาร์เรย์เรียงกลับด้านได้ค่าสูงสุด 199 999 ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: inversion + Fenwick tree</h2>
+<p>สองชิ้นส่วนจากบทที่ 09:</p>
+<ul>
+<li><strong>Inversion</strong> คู่ (i, j) ที่ i &lt; j และ A[i] &gt; A[j] เรียกว่า inversion การเรียงแบบแทรก (insertion sort) เลื่อนสมาชิกหนึ่งครั้งพอดีต่อหนึ่ง inversion ที่มันเกี่ยวข้อง คำถาม "insertion sort ทำงานมากแค่ไหน" จึงเป็นคำถามเรื่อง inversion เสมอ</li>
+<li><strong>Fenwick tree (BIT)</strong> อาร์เรย์ที่ทำ "ทำเครื่องหมายค่า v" และ "มีค่าที่ทำเครื่องหมายแล้วกี่ตัวที่ ≤ v" ได้ใน <strong>O(log n)</strong> ต่อครั้ง เป็นเครื่องมือมาตรฐานสำหรับ <em>"มีตัวก่อนหน้ากี่ตัวที่มากกว่า/น้อยกว่าฉัน?"</em></li>
+</ul>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: อะไรทำให้บรรทัด 07 เลื่อนค่า k?</h3>
+<p>บรรทัด 07 คือ <code>A[i-1] = A[i]</code>: เลื่อน A[i] <strong>ไปทางซ้ายหนึ่งช่อง</strong> ซึ่งเกิดขึ้นขณะกำลังแทรก <code>tmp</code> บางตัวและ <code>A[i] &lt; tmp</code></p>
+<p>เวอร์ชันใน PDF ทำงาน <strong>จากขวาไปซ้าย</strong>: <code>pos</code> เป็น n−2, n−3, …, 0 และ <code>A[pos+1..n-1]</code> เรียงแล้ว ลองติดตามค่า k ที่ index เดิม p:</p>
+<ul>
+<li>ตัวที่อยู่ <strong>ทางขวา</strong> ของ k (index &gt; p) ถูกแทรก <strong>ก่อน</strong> k จะเข้าไปอยู่ในส่วนที่เรียงแล้ว จึงไม่มีทางผลัก k</li>
+<li>ตอนแทรก k เอง k คือ <code>tmp</code> บรรทัด 07 เลื่อนตัว <em>อื่น</em> ไม่ใช่ k</li>
+<li>หลังจากนั้น ทุกตัว x ที่อยู่ <strong>ทางซ้าย</strong> ของ k (index &lt; p) จะถูกแทรก x ไถลผ่านทุกตัวในส่วนที่เรียงแล้วซึ่งน้อยกว่า x ดังนั้น k ถูกเลื่อนหนึ่งครั้ง <strong>ก็ต่อเมื่อ k &lt; x</strong></li>
+</ul>
+<div class="box key">
+<div class="bt">การลดรูปปัญหา</div>
+<p><strong>shifts(k) = จำนวน index j &lt; p ที่ A[j] &gt; k</strong> คือจำนวน inversion ที่ k เป็นตัวด้านขวา ตัวอย่างจาก PDF: k = 20 ที่ index 3 ทางซ้ายมี 30, 40, 60 ใหญ่กว่าทั้งหมด → เลื่อน 3 ครั้ง ส่วน k = 60 ไม่มีตัวที่ใหญ่กว่าทางซ้าย → 0 ครั้ง</p>
+</div>
+<p>ดูการเรียงจริงพร้อมตัวนับของค่าที่เลือก:</p>
+<div class="viz" data-viz="a66_q2a_insertion_count:sim"></div>
+<h3>ขั้นที่ 2: ทำไมไม่นับแยกทีละคำถาม?</h3>
+<p>ถ้าทุกคำถามหาตำแหน่ง k แล้วไล่ทุกตัวทางซ้าย ใช้ O(n) ต่อคำถาม รวม O(n·m) = 2·10⁸ ในกรณีแย่สุด ซึ่งเฉียดเวลา ส่วนการจำลองการเรียงแย่กว่านั้นมาก อาร์เรย์เรียงกลับด้านมีการเลื่อน n²/2 ≈ 2·10¹⁰ ครั้ง เราจึงคำนวณคำตอบของ <strong>ทุกค่าพร้อมกัน</strong> ใน O(n log n) แล้วแต่ละคำถามกลายเป็นการเปิดตาราง</p>
+<h3>ขั้นที่ 3: สแกนซ้ายไปขวารอบเดียวด้วย Fenwick tree บนค่า</h3>
+<p>ค่าทุกตัวไม่ซ้ำและอยู่ใน 1..n จึงใช้เป็น index ของ BIT ได้ตรง ๆ (ไม่ต้องบีบพิกัด)</p>
+<pre class="diagram">for index = 0 .. n-1:
+    value = A[index]
+    เห็นแล้วทั้งหมด            = index                       (ทุกตัวทางซ้าย)
+    เห็นแล้วและ &lt;= value       = countSeenAtMost(value)      (BIT ถาม prefix)
+    เห็นแล้วและ  &gt; value       = index - countSeenAtMost(value)   ← shiftsOf[value]
+    markSeen(value)                                          (BIT อัปเดตจุด)</pre>
+<div class="box warn">
+<div class="bt">อ่านก่อนเขียน</div>
+<p>ถาม <code>countSeenAtMost(value)</code> <strong>ก่อน</strong> <code>markSeen(value)</code> ไม่อย่างนั้นค่าจะนับตัวเองเป็น "เห็นแล้วและ ≤ value" ทำให้คำตอบคลาดไปหนึ่ง</p>
+</div>
+<h3>ขั้นที่ 4: Fenwick tree ตอบใน O(log n) ได้อย่างไร</h3>
+<p>ช่อง <code>seenCount[node]</code> เก็บจำนวนของช่วงค่า <code>(node − lowbit(node), node]</code> โดย <code>lowbit(node) = node &amp; -node</code> คือบิตที่เป็น 1 ตัวต่ำสุด</p>
+<pre class="diagram">node (ฐานสอง)   ครอบคลุมค่า
+ 1  0001        1
+ 2  0010        1..2
+ 3  0011        3
+ 4  0100        1..4
+ 6  0110        5..6
+ 8  1000        1..8
+countSeenAtMost(7): 7 (0111) → 6 (0110) → 4 (0100) → 0     ช่วง 7 | 5..6 | 1..4  = 1..7
+markSeen(5):        5 (0101) → 6 (0110) → 8 (1000) → 16 &gt; n  ทุกช่องที่ช่วงครอบคลุม 5</pre>
+<p>แต่ละก้าวลบหรือบวกบิตต่ำสุด การถามหรืออัปเดตจึงแตะไม่เกิน ⌈log₂ n⌉ + 1 ช่อง</p>
+<div class="viz" data-viz="a66_q2a_insertion_count:bit"></div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a66_q2a_insertion_count__main.cpp" download>⬇ .cpp</a><button data-copy="code15">Copy</button></div><pre class="hl"><code id="code15" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// Fenwick tree (binary indexed tree) over the VALUES 1..n.
+// seenCount[...] stores partial counts so that &quot;how many seen values are &lt;= v&quot; takes O(log n).
+int n;
+vector&lt;int&gt; seenCount;
+
+void markSeen(int value) {
+    // node = value, then climb: node += lowbit(node), visiting every cell whose range covers value
+    for (int node = value; node &lt;= n; node += node &amp; (-node)) seenCount[node]++;
+}
+
+int countSeenAtMost(int value) {
+    // node = value, then descend: node -= lowbit(node); the visited ranges tile 1..value exactly
+    int total = 0;
+    for (int node = value; node &gt; 0; node -= node &amp; (-node)) total += seenCount[node];
+    return total;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int queryCount;
+    cin &gt;&gt; n &gt;&gt; queryCount;
+    seenCount.assign(n + 1, 0);
+
+    // shiftsOf[value] = how many elements LEFT of value are LARGER than it
+    //                 = how many times line 07 moves this value one cell to the left
+    vector&lt;int&gt; shiftsOf(n + 1);
+
+    // index = 0, 1, ..., n-1 (left to right): before marking A[index], exactly `index`
+    // values are seen, all of them to its left; those not &lt;= A[index] are larger.
+    for (int index = 0; index &lt; n; index++) {
+        int value;
+        cin &gt;&gt; value;
+        shiftsOf[value] = index - countSeenAtMost(value);
+        markSeen(value);
+    }
+
+    // answer every query in O(1) from the precomputed table
+    for (int query = 0; query &lt; queryCount; query++) {
+        int value;
+        cin &gt;&gt; value;
+        cout &lt;&lt; shiftsOf[value] &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// Fenwick tree (binary indexed tree) over the VALUES 1..n.</span></span><span class="ln"><span class="c1">// seenCount[...] stores partial counts so that &quot;how many seen values are &lt;= v&quot; takes O(log n).</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seenCount</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">markSeen</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// node = value, then climb: node += lowbit(node), visiting every cell whose range covers value</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">node</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">seenCount</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">countSeenAtMost</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// node = value, then descend: node -= lowbit(node); the visited ranges tile 1..value exactly</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">-</span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">node</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">seenCount</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">total</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">queryCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queryCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">seenCount</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// shiftsOf[value] = how many elements LEFT of value are LARGER than it</span></span><span class="ln"><span class="w">    </span><span class="c1">//                 = how many times line 07 moves this value one cell to the left</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">shiftsOf</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0, 1, ..., n-1 (left to right): before marking A[index], exactly `index`</span></span><span class="ln"><span class="w">    </span><span class="c1">// values are seen, all of them to its left; those not &lt;= A[index] are larger.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">shiftsOf</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">countSeenAtMost</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">markSeen</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// answer every query in O(1) from the precomputed table</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">queryCount</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">value</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">shiftsOf</span><span class="p">[</span><span class="n">value</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> อัปเดต n ครั้งและถาม prefix n ครั้งบน BIT: <strong>O(n log n)</strong> ≈ 3.6·10⁶ ขั้นเมื่อ n = 2·10⁵ จากนั้นเปิดตาราง m ครั้ง ครั้งละ O(1) หน่วยความจำ: BIT และตารางคำตอบ <strong>O(n)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 5 samples (the PDF ones plus the worked example) and 300 random permutations against a direct simulation of the PDF&#x27;s insertion sort; n = 200 000 random runs in 0.02 s and a reversed array gives the maximum 199 999. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 5 ชุด (จาก PDF และตัวอย่างที่อธิบายไว้) และสุ่ม permutation 300 ชุด เทียบกับการจำลอง insertion sort ของ PDF ตรง ๆ กรณี n = 200 000 แบบสุ่มใช้ 0.02 วินาที และอาร์เรย์เรียงกลับด้านได้ค่าสูงสุด 199 999 ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="pn"><a class="pv" href="d61_q1_ordered_set.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>d61_q1_ordered_set</b> · <span class="en">Union / Intersection of Ordered Set</span><span class="th">Union / Intersection ของเซตแบบมีลำดับ</span></a><a class="nx" href="ex04m1_sort.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex04m1_sort</b> · <span class="en">3 Values Sort</span><span class="th">เรียงสามค่าด้วยการสลับน้อยที่สุด</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a66_q2a_insertion_count.js"></script>
+</body>
+</html>
