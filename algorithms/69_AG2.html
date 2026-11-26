@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>69_AG2 · Eternal Merit (3 × N dominoes)</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#475569}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="on" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch19.html">19 · <span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></div>
+<div class="phead">
+<div class="pidbig">69_AG2</div>
+<h1><span class="en">Eternal Merit (3 × N dominoes)</span><span class="th">Eternal Merit (ปูกระเบื้อง 3 × N)</span></h1>
+<div class="chips"><span class="chip t en">Dynamic programming with an extra state for a broken edge</span><span class="chip t en">Case analysis on the last column</span><span class="chip t en">Rolling variables (O(1) memory)</span><span class="chip t th">Dynamic programming ที่มีสถานะเพิ่มสำหรับขอบที่แหว่ง</span><span class="chip t th">แยกกรณีที่คอลัมน์สุดท้าย</span><span class="chip t th">เก็บแค่ค่าล่าสุด (หน่วยความจำ O(1))</span><span class="chip cx">O(N) time · O(1) memory</span><span class="chip"><span class="stars">★★★</span></span></div>
+<div class="lead"><p class="en">A full 3 × w board cannot always be split into smaller full boards: dominoes can stick out. So count two shapes: F(w) = full 3 × w board, G(w) = 3 × w board with its top-right cell missing. Looking at how the last column is covered gives F(w) = F(w − 2) + 2·G(w − 1) and G(w) = F(w − 1) + G(w − 2).</p><p class="th">กระดาน 3 × w ที่เต็มไม่ได้แบ่งเป็นกระดานเต็มที่เล็กกว่าได้เสมอ: โดมิโนอาจยื่นออกมา จึงนับสองรูปแบบ: F(w) = กระดาน 3 × w ที่เต็ม, G(w) = กระดาน 3 × w ที่ขาดช่องมุมขวาบน ดูว่าคอลัมน์สุดท้ายถูกปูอย่างไร จะได้ F(w) = F(w − 2) + 2·G(w − 1) และ G(w) = F(w − 1) + G(w − 2)</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\69_AG2\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: DP over shapes, with a helper state</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: DP บนรูปทรง พร้อมสถานะช่วย</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: DP over shapes, with a helper state</h2>
+<p>Counting tilings is a DP: express the count for a big board through counts for smaller boards, by looking at <strong>how one fixed cell is covered</strong> (usually the last column). Every tiling falls into exactly one case, so the cases add up.</p>
+<p>The usual difficulty: removing the dominoes that cover the last column does <strong>not</strong> always leave a board of the same shape. When that happens, give the new shape its own name and its own recurrence. That is the whole trick here.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: odd N is impossible</h3>
+<p>3 × N cells with N odd is an odd number of cells; dominoes cover 2 cells each. Answer 0. (The recurrence below gives that too, but there is no need to run it.)</p>
+<h3>Step 2: the two shapes</h3>
+<ul>
+<li><strong>F(w)</strong>: tilings of a full 3 × w board.</li>
+<li><strong>G(w)</strong>: tilings of a 3 × w board whose <strong>top-right</strong> cell is missing. By mirror symmetry, a board missing its <strong>bottom-right</strong> cell has the same count.</li>
+</ul>
+<h3>Step 3: F, by the top-right cell</h3>
+<pre class="diagram">case a                 case b                 case c
+. . . ━ ━              . . . ━ ━              . . . . ┃
+. . . ━ ━              . . . . ┃              . . . . ┃
+. . . ━ ━              . . . . ┃              . . . ━ ━
+left: F(w − 2)         left: G(w − 1)         left: G(w − 1) (mirrored)</pre>
+<ul>
+<li>The top-right cell takes a horizontal domino. If the middle cell is horizontal too, the bottom cell must also be horizontal: <strong>case a</strong>. If the middle cell is vertical (paired with the bottom cell): <strong>case b</strong>.</li>
+<li>The top-right cell takes a vertical domino (paired with the middle cell). The bottom cell must then go horizontal: <strong>case c</strong>.</li>
+</ul>
+<blockquote>
+<p><strong>F(w) = F(w − 2) + 2·G(w − 1)</strong></p>
+</blockquote>
+<h3>Step 4: G, by the last column's two cells</h3>
+<pre class="diagram">case 1                 case 2
+. . . . x              . . ━ ━ x              x = the missing cell
+. . . . ┃              . . . ━ ━
+. . . . ┃              . . . ━ ━
+left: F(w − 1)         left: G(w − 2)</pre>
+<ul>
+<li>1: the two cells take one vertical domino.</li>
+<li>2: they take two horizontals. Now the top cell of column w − 1 can only go left: one more horizontal. What remains is again a board missing its top-right cell.</li>
+</ul>
+<blockquote>
+<p><strong>G(w) = F(w − 1) + G(w − 2)</strong></p>
+</blockquote>
+<p>Start values: F(0) = 1 (the empty board has one tiling: place nothing), G(−1) = 0. Then G(1) = 1, F(2) = 3, G(3) = 4, F(4) = 11, … matching the samples.</p>
+<div class="viz" data-viz="69_AG2"></div>
+<h3>Step 5: memory and the modulus</h3>
+<p>Each step only needs the latest F and G, so two variables replace the arrays. Reduce modulo 10⁹ + 7 after every step; <code>full + 2 * notch</code> is below 3·10⁹, so use <code>long long</code>.</p>
+<div class="box key">
+<div class="bt">Another form of the same recurrence</div>
+<p>Eliminating G gives F(w) = 4·F(w − 2) − F(w − 4). It is shorter, but the two-state version is the one you can <strong>derive</strong> in an exam, and it shows how to handle any "board with a notch" problem.</p>
+</div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Recursion without memo: exponential. Plain recursion with memo to N = 10⁶: stack overflow. Use a loop.</li>
+<li><code>int</code> for <code>full + 2 * notch</code>: overflows before the modulo.</li>
+<li>Forgetting the mirrored case (factor 2) gives F(2) = 2 instead of 3.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/69_AG2__main.cpp" download>⬇ .cpp</a><button data-copy="code84">Copy</button></div><pre class="hl"><code id="code84" hidden>#include &lt;iostream&gt;
+using namespace std;
+
+const long long MOD = 1000000007;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    if (n % 2 == 1) {                       // 3 * n cells is odd: dominoes cannot cover it
+        cout &lt;&lt; 0 &lt;&lt; &#x27;\n&#x27;;
+        return 0;
+    }
+    // full  = F(width) : ways to tile a full 3 x width board
+    // notch = G(width) : ways to tile a 3 x width board whose top-right cell is
+    //                    missing (the bottom-right one gives the same count)
+    // F(w) = F(w - 2) + 2 * G(w - 1)   last column: three horizontals, or a vertical
+    //                                  in the top or bottom two cells (see the page)
+    // G(w) = F(w - 1) + G(w - 2)       last column&#x27;s two cells: one vertical, or
+    //                                  two horizontals (forcing one more on top)
+    long long full = 1, notch = 0;          // F(0) = 1 (empty board), G(-1) = 0
+    // width = 2, 4, ..., n (left to right): only even widths can be full
+    for (int width = 2; width &lt;= n; width += 2) {
+        notch = (full + notch) % MOD;       // G(width - 1) = F(width - 2) + G(width - 3)
+        full = (full + 2 * notch) % MOD;    // F(width)     = F(width - 2) + 2 G(width - 1)
+    }
+    cout &lt;&lt; full &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">MOD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000007</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                       </span><span class="c1">// 3 * n cells is odd: dominoes cannot cover it</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// full  = F(width) : ways to tile a full 3 x width board</span></span><span class="ln"><span class="w">    </span><span class="c1">// notch = G(width) : ways to tile a 3 x width board whose top-right cell is</span></span><span class="ln"><span class="w">    </span><span class="c1">//                    missing (the bottom-right one gives the same count)</span></span><span class="ln"><span class="w">    </span><span class="c1">// F(w) = F(w - 2) + 2 * G(w - 1)   last column: three horizontals, or a vertical</span></span><span class="ln"><span class="w">    </span><span class="c1">//                                  in the top or bottom two cells (see the page)</span></span><span class="ln"><span class="w">    </span><span class="c1">// G(w) = F(w - 1) + G(w - 2)       last column&#x27;s two cells: one vertical, or</span></span><span class="ln"><span class="w">    </span><span class="c1">//                                  two horizontals (forcing one more on top)</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">notch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">          </span><span class="c1">// F(0) = 1 (empty board), G(-1) = 0</span></span><span class="ln"><span class="w">    </span><span class="c1">// width = 2, 4, ..., n (left to right): only even widths can be full</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">notch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">full</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">notch</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MOD</span><span class="p">;</span><span class="w">       </span><span class="c1">// G(width - 1) = F(width - 2) + G(width - 3)</span></span><span class="ln"><span class="w">        </span><span class="n">full</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">full</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">notch</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MOD</span><span class="p">;</span><span class="w">    </span><span class="c1">// F(width)     = F(width - 2) + 2 G(width - 1)</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> N / 2 iterations of O(1): <strong>O(N)</strong>. Memory: <strong>O(1)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 6 PDF samples, N = 3 and N = 999 999 (odd → 0), every N up to 3 000 in 200 random runs against an independent broken-profile DP over column masks, and N = 1 000 000 against the same DP (0.01 s).</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 6 ใน PDF, N = 3 และ N = 999 999 (คี่ → 0), N สุ่มไม่เกิน 3 000 จำนวน 200 ครั้งเทียบกับ DP แบบ broken profile บน mask ของคอลัมน์ที่เขียนแยกต่างหาก และ N = 1 000 000 เทียบกับ DP เดียวกัน (0.01 วินาที)</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: DP บนรูปทรง พร้อมสถานะช่วย</h2>
+<p>การนับวิธีปูคือ DP: เขียนจำนวนวิธีของกระดานใหญ่ด้วยจำนวนวิธีของกระดานที่เล็กกว่า โดยดูว่า <strong>ช่องที่กำหนดช่องหนึ่งถูกปูอย่างไร</strong> (มักเป็นคอลัมน์สุดท้าย) ทุกวิธีปูตกอยู่ในกรณีเดียวพอดี จึงบวกกรณีต่าง ๆ ได้</p>
+<p>ความยากที่พบบ่อย: เมื่อเอาโดมิโนที่ปูคอลัมน์สุดท้ายออก <strong>ไม่ได้</strong> เหลือกระดานรูปทรงเดิมเสมอ เมื่อเกิดแบบนั้น ให้ตั้งชื่อรูปทรงใหม่และหาความสัมพันธ์เวียนเกิดของมันเอง นี่คือเคล็ดลับทั้งหมดของข้อนี้</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: N คี่เป็นไปไม่ได้</h3>
+<p>3 × N ช่องเมื่อ N คี่เป็นจำนวนคี่ โดมิโนปูได้ตัวละ 2 ช่อง คำตอบ 0 (ความสัมพันธ์ข้างล่างก็ให้ 0 เช่นกัน แต่ไม่ต้องคำนวณ)</p>
+<h3>ขั้นที่ 2: สองรูปทรง</h3>
+<ul>
+<li><strong>F(w)</strong>: จำนวนวิธีปูกระดาน 3 × w ที่เต็ม</li>
+<li><strong>G(w)</strong>: จำนวนวิธีปูกระดาน 3 × w ที่ขาดช่อง <strong>มุมขวาบน</strong> โดยสมมาตรแบบกระจก กระดานที่ขาดช่อง <strong>มุมขวาล่าง</strong> มีจำนวนเท่ากัน</li>
+</ul>
+<h3>ขั้นที่ 3: F ดูจากช่องมุมขวาบน</h3>
+<pre class="diagram">กรณี a                กรณี b                กรณี c
+. . . ━ ━              . . . ━ ━              . . . . ┃
+. . . ━ ━              . . . . ┃              . . . . ┃
+. . . ━ ━              . . . . ┃              . . . ━ ━
+เหลือ: F(w − 2)        เหลือ: G(w − 1)        เหลือ: G(w − 1) (กลับด้าน)</pre>
+<ul>
+<li>ช่องบนขวาเป็นแนวนอน: ถ้าช่องกลางเป็นแนวนอนด้วย ช่องล่างก็ต้องเป็นแนวนอน: <strong>กรณี a</strong> ถ้าช่องกลางเป็นแนวตั้ง (คู่กับช่องล่าง): <strong>กรณี b</strong></li>
+<li>ช่องบนขวาเป็นแนวตั้ง (คู่กับช่องกลาง): ช่องล่างต้องเป็นแนวนอน: <strong>กรณี c</strong></li>
+</ul>
+<blockquote>
+<p><strong>F(w) = F(w − 2) + 2·G(w − 1)</strong></p>
+</blockquote>
+<h3>ขั้นที่ 4: G ดูจากสองช่องของคอลัมน์สุดท้าย</h3>
+<pre class="diagram">กรณี 1                กรณี 2
+. . . . x              . . ━ ━ x              x = ช่องที่ขาด
+. . . . ┃              . . . ━ ━
+. . . . ┃              . . . ━ ━
+เหลือ: F(w − 1)        เหลือ: G(w − 2)</pre>
+<ul>
+<li>1: สองช่องเป็นโดมิโนแนวตั้งหนึ่งตัว</li>
+<li>2: สองช่องเป็นแนวนอนสองตัว ช่องบนของคอลัมน์ w − 1 จึงไปได้แค่ทางซ้าย: แนวนอนอีกหนึ่งตัว ที่เหลือคือกระดานที่ขาดมุมขวาบนอีกครั้ง</li>
+</ul>
+<blockquote>
+<p><strong>G(w) = F(w − 1) + G(w − 2)</strong></p>
+</blockquote>
+<p>ค่าเริ่มต้น: F(0) = 1 (กระดานว่างมีหนึ่งวิธี: ไม่วางอะไร), G(−1) = 0 จากนั้น G(1) = 1, F(2) = 3, G(3) = 4, F(4) = 11, … ตรงกับตัวอย่าง</p>
+<div class="viz" data-viz="69_AG2"></div>
+<h3>ขั้นที่ 5: หน่วยความจำและการ mod</h3>
+<p>แต่ละขั้นใช้แค่ F และ G ล่าสุด ตัวแปรสองตัวจึงแทนอาร์เรย์ได้ mod 10⁹ + 7 ทุกขั้น <code>full + 2 * notch</code> น้อยกว่า 3·10⁹ จึงใช้ <code>long long</code></p>
+<div class="box key">
+<div class="bt">อีกรูปของความสัมพันธ์เดียวกัน</div>
+<p>กำจัด G ออกจะได้ F(w) = 4·F(w − 2) − F(w − 4) ซึ่งสั้นกว่า แต่แบบสองสถานะคือแบบที่ <strong>หาได้เอง</strong> ในห้องสอบ และใช้ได้กับโจทย์ "กระดานที่มีรอยแหว่ง" ทุกแบบ</p>
+</div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>recursion ไม่มี memo: exponential ส่วน recursion มี memo ถึง N = 10⁶: stack ล้น ใช้ลูป</li>
+<li><code>int</code> สำหรับ <code>full + 2 * notch</code>: ล้นก่อน mod</li>
+<li>ลืมกรณีกลับด้าน (คูณ 2) ได้ F(2) = 2 แทน 3</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/69_AG2__main.cpp" download>⬇ .cpp</a><button data-copy="code84">Copy</button></div><pre class="hl"><code id="code84" hidden>#include &lt;iostream&gt;
+using namespace std;
+
+const long long MOD = 1000000007;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin &gt;&gt; n;
+    if (n % 2 == 1) {                       // 3 * n cells is odd: dominoes cannot cover it
+        cout &lt;&lt; 0 &lt;&lt; &#x27;\n&#x27;;
+        return 0;
+    }
+    // full  = F(width) : ways to tile a full 3 x width board
+    // notch = G(width) : ways to tile a 3 x width board whose top-right cell is
+    //                    missing (the bottom-right one gives the same count)
+    // F(w) = F(w - 2) + 2 * G(w - 1)   last column: three horizontals, or a vertical
+    //                                  in the top or bottom two cells (see the page)
+    // G(w) = F(w - 1) + G(w - 2)       last column&#x27;s two cells: one vertical, or
+    //                                  two horizontals (forcing one more on top)
+    long long full = 1, notch = 0;          // F(0) = 1 (empty board), G(-1) = 0
+    // width = 2, 4, ..., n (left to right): only even widths can be full
+    for (int width = 2; width &lt;= n; width += 2) {
+        notch = (full + notch) % MOD;       // G(width - 1) = F(width - 2) + G(width - 3)
+        full = (full + 2 * notch) % MOD;    // F(width)     = F(width - 2) + 2 G(width - 1)
+    }
+    cout &lt;&lt; full &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">MOD</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000000007</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                       </span><span class="c1">// 3 * n cells is odd: dominoes cannot cover it</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// full  = F(width) : ways to tile a full 3 x width board</span></span><span class="ln"><span class="w">    </span><span class="c1">// notch = G(width) : ways to tile a 3 x width board whose top-right cell is</span></span><span class="ln"><span class="w">    </span><span class="c1">//                    missing (the bottom-right one gives the same count)</span></span><span class="ln"><span class="w">    </span><span class="c1">// F(w) = F(w - 2) + 2 * G(w - 1)   last column: three horizontals, or a vertical</span></span><span class="ln"><span class="w">    </span><span class="c1">//                                  in the top or bottom two cells (see the page)</span></span><span class="ln"><span class="w">    </span><span class="c1">// G(w) = F(w - 1) + G(w - 2)       last column&#x27;s two cells: one vertical, or</span></span><span class="ln"><span class="w">    </span><span class="c1">//                                  two horizontals (forcing one more on top)</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">notch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">          </span><span class="c1">// F(0) = 1 (empty board), G(-1) = 0</span></span><span class="ln"><span class="w">    </span><span class="c1">// width = 2, 4, ..., n (left to right): only even widths can be full</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">notch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">full</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">notch</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MOD</span><span class="p">;</span><span class="w">       </span><span class="c1">// G(width - 1) = F(width - 2) + G(width - 3)</span></span><span class="ln"><span class="w">        </span><span class="n">full</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">full</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">notch</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">MOD</span><span class="p">;</span><span class="w">    </span><span class="c1">// F(width)     = F(width - 2) + 2 G(width - 1)</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> N / 2 รอบ รอบละ O(1): <strong>O(N)</strong> หน่วยความจำ: <strong>O(1)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 6 PDF samples, N = 3 and N = 999 999 (odd → 0), every N up to 3 000 in 200 random runs against an independent broken-profile DP over column masks, and N = 1 000 000 against the same DP (0.01 s).</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 6 ใน PDF, N = 3 และ N = 999 999 (คี่ → 0), N สุ่มไม่เกิน 3 000 จำนวน 200 ครั้งเทียบกับ DP แบบ broken profile บน mask ของคอลัมน์ที่เขียนแยกต่างหาก และ N = 1 000 000 เทียบกับ DP เดียวกัน (0.01 วินาที)</span></div></div></div>
+<div class="pn"><a class="pv" href="69_AG1.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>69_AG1</b> · <span class="en">Bracelet</span><span class="th">Bracelet (สร้อยข้อมือ)</span></a><a class="nx" href="69_AG3.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>69_AG3</b> · <span class="en">Zipline</span><span class="th">Zipline (ซิปไลน์)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/69_AG2.js"></script>
+</body>
+</html>

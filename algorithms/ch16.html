@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>16 · Graphs: BFS &amp; DFS</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class="on"><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 16</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 16</span></div>
+<h1><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></h1>
+<p class="en">Store the graph, walk it level by level or branch by branch, count what you meet.</p><p class="th">เก็บกราฟ เดินทีละชั้นหรือทีละกิ่ง แล้วนับสิ่งที่พบ</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span><span class="pt"><span class="en">Dense Graph</span><span class="th">Dense Graph (กราฟแบบเมทริกซ์)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">With up to n² edges, store the graph as an n × n table of booleans. Each edge is one cell, so add, remove and query are single reads or writes, duplicates are impossible, and the transpose is the mirrored matrix.</span><span class="th">เมื่อมีเส้นได้ถึง n² เส้น ให้เก็บกราฟเป็นตาราง boolean ขนาด n × n เส้นหนึ่งเส้นคือช่องหนึ่งช่อง การเพิ่ม ลบ และถามจึงเป็นการอ่านหรือเขียนครั้งเดียว เส้นซ้ำเกิดไม่ได้ และ transpose คือเมทริกซ์ที่สะท้อนตามแนวทแยง</span></span></a><a href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span><span class="pt"><span class="en">Sparse Graph</span><span class="th">Sparse Graph (กราฟแบบรายการประชิด)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">n can be 100 000, so an n × n matrix is impossible; store only the edges that exist. One set of out-neighbours per vertex keeps memory at O(n + |E|), rejects duplicates by itself, and answers &quot;does a → b exist&quot; in O(log degree).</span><span class="th">n มีได้ถึง 100 000 เมทริกซ์ n × n จึงเป็นไปไม่ได้ ให้เก็บแค่เส้นที่มีอยู่จริง เซตของเพื่อนบ้านขาออกหนึ่งเซตต่อหนึ่งจุดใช้หน่วยความจำ O(n + |E|) กันเส้นซ้ำได้เอง และตอบ &quot;มี a → b ไหม&quot; ใน O(log degree)</span></span></a><a href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span><span class="pt"><span class="en">Degrees</span><span class="th">Degrees (นับปมตาม degree)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">In an undirected adjacency matrix, row i lists the neighbours of node i, so degree(i) is the number of 1s in row i. Then count how many nodes have each degree 0..k. The matrix itself is never stored; with n = 5 000 the real cost is reading 25 million cells, so count the &#x27;1&#x27; characters of each line.</span><span class="th">ในเมทริกซ์ประชิดของกราฟไม่มีทิศทาง แถว i คือรายชื่อเพื่อนบ้านของปม i degree(i) จึงเป็นจำนวนเลข 1 ในแถว i จากนั้นนับว่ามีกี่ปมที่มี degree แต่ละค่า 0..k ไม่ต้องเก็บเมทริกซ์ไว้เลย เมื่อ n = 5 000 ต้นทุนจริงคือการอ่าน 25 ล้านช่อง จึงนับตัวอักษร &#x27;1&#x27; ของแต่ละบรรทัด</span></span></a><a href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span><span class="pt"><span class="en">Component Count</span><span class="th">Component Count (นับส่วนประกอบเชื่อมโยง)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">Scan the nodes in order. Every node that no earlier search has reached belongs to a new component: count it, then run one DFS from it to mark its whole component. Each node and edge is handled once.</span><span class="th">ไล่ปมตามลำดับ ทุกปมที่การค้นหาก่อนหน้ายังไปไม่ถึงคือ component ใหม่: นับเพิ่ม แล้วรัน DFS หนึ่งครั้งจากปมนั้นเพื่อทำเครื่องหมายทั้ง component ทุกปมและทุกเส้นถูกจัดการครั้งเดียว</span></span></a><a href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span><span class="pt"><span class="en">K Connected City</span><span class="th">K Connected City (เลือก K เมืองที่เชื่อมกัน)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">In any BFS (or DFS) order, each newly discovered city is adjacent to a city discovered before it. So the first K cities of the order form a connected set by themselves. Run BFS from any city and print the first K.</span><span class="th">ในลำดับ BFS (หรือ DFS) ใด ๆ เมืองที่เพิ่งถูกค้นพบจะติดกับเมืองที่ถูกค้นพบก่อนหน้าเสมอ K เมืองแรกของลำดับจึงเป็นเซตที่เชื่อมกันเอง รัน BFS จากเมืองไหนก็ได้แล้วพิมพ์ K เมืองแรก</span></span></a><a href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span><span class="pt"><span class="en">Detecting a Cycle</span><span class="th">Detecting a Cycle (ตรวจหาวงรอบ)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A search builds a spanning forest; each vertex enters it through exactly one tree edge (to its parent). In an undirected simple graph, any edge u–w where w is already discovered and is not u&#x27;s parent is a second route between them: a cycle. If no such edge appears, the graph is a forest.</span><span class="th">การค้นหาสร้างป่าทอดข้าม แต่ละจุดเข้ามาผ่านเส้นของต้นไม้หนึ่งเส้นพอดี (ไปหา parent) ในกราฟไม่มีทิศทางแบบ simple เส้น u–w ที่ w ถูกค้นพบแล้วและไม่ใช่ parent ของ u คือเส้นทางที่สองระหว่างทั้งคู่: วงรอบ ถ้าไม่มีเส้นแบบนี้เลย กราฟเป็นป่า</span></span></a><a href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span><span class="pt"><span class="en">Count Line Graphs</span><span class="th">นับกราฟเส้นตรง</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A &quot;line&quot; is a path. A connected component is a path exactly when no node has degree above 2 and it has no cycle, i.e. its edge count is nodes − 1. One iterative DFS per component gathers the node count, the largest degree and the degree sum (= 2 × edges).</span><span class="th">&quot;กราฟเส้นตรง&quot; คือ path component ที่เชื่อมกันเป็น path ก็ต่อเมื่อไม่มีปมที่ degree เกิน 2 และไม่มีวงรอบ คือจำนวนเส้นเท่ากับปม − 1 DFS แบบวนลูปหนึ่งครั้งต่อ component เก็บจำนวนปม degree สูงสุด และผลรวม degree (= 2 × จำนวนเส้น)</span></span></a><a href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span><span class="pt"><span class="en">Connection</span><span class="th">Connection (เพื่อนระดับ K)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">&quot;Degree K friends&quot; are the vertices at distance ≤ K. In an unweighted graph BFS discovers vertices in order of distance, so a BFS from each student that does not expand vertices at distance K counts exactly them. Take the maximum over all N students.</span><span class="th">&quot;เพื่อนระดับ K&quot; คือจุดที่ระยะ ≤ K ในกราฟไม่มีน้ำหนัก BFS ค้นพบจุดเรียงตามระยะ BFS จากนักเรียนแต่ละคนที่ไม่ขยายจุดที่ระยะ K จึงนับได้พอดี แล้วเอาค่ามากที่สุดจากทั้ง N คน</span></span></a><a href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span><span class="pt"><span class="en">Cycle in a Tree</span><span class="th">วงวนในต้นไม้</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A connected graph with n nodes and n edges has exactly one cycle, with trees hanging off it. A leaf (degree 1) cannot be on the cycle; removing it can only create new leaves. Peel leaves until none remain: the survivors all have degree 2 and are exactly the cycle, whose size equals their count.</span><span class="th">กราฟที่เชื่อมกันซึ่งมี n ปมและ n เส้นมีวงรอบเดียวพอดี และมีต้นไม้ห้อยออกจากวงรอบ ใบ (degree 1) อยู่บนวงรอบไม่ได้ การลบใบทำได้แค่สร้างใบใหม่ ลอกใบไปเรื่อย ๆ จนไม่เหลือ ปมที่รอดมีทุกปม degree 2 และคือวงรอบพอดี ขนาดของวงรอบเท่ากับจำนวนปมที่เหลือ</span></span></a><a href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span><span class="pt"><span class="en">Pandemic</span><span class="th">โรคระบาด</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">The day a province gets infected is its BFS distance from the nearest initially infected province. Put all day-0 provinces in the queue at the start and run one BFS over the grid (4 neighbours, mountains blocked), never expanding a province infected on day T. Every province that enters the queue is infected by day T.</span><span class="th">วันที่จังหวัดหนึ่งติดเชื้อคือระยะ BFS จากจังหวัดที่ติดเชื้อตั้งแต่แรกที่ใกล้ที่สุด ใส่ทุกจังหวัดวันที่ 0 ลงในคิวตั้งแต่เริ่ม แล้วรัน BFS ครั้งเดียวบนตาราง (เพื่อนบ้าน 4 ทิศ ภูเขาผ่านไม่ได้) โดยไม่ขยายจังหวัดที่ติดเชื้อในวันที่ T ทุกจังหวัดที่เข้าคิวติดเชื้อภายในวันที่ T</span></span></a><a href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span><span class="pt"><span class="en">Border Extend</span><span class="th">Border Extend (ถมที่รอบเกาะ)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">&quot;Distance from land&quot; of a water cell is its BFS distance from the set of all land cells. Start one BFS with every land cell in the queue at distance 0, stop expanding at distance k, and mark every water cell the BFS reaches as 2.</span><span class="th">&quot;ระยะห่างจากพื้นดิน&quot; ของช่องน้ำคือระยะ BFS จากเซตของช่องดินทั้งหมด เริ่ม BFS ครั้งเดียวโดยใส่ทุกช่องดินลงในคิวที่ระยะ 0 หยุดขยายที่ระยะ k แล้วทำเครื่องหมาย 2 ให้ทุกช่องน้ำที่ BFS ไปถึง</span></span></a><a href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span><span class="pt"><span class="en">Sea Bridge</span><span class="th">Sea Bridge (สร้างถนนเชื่อมสองประเทศ)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">The cheapest connected road is a shortest grid path from some country-1 cell to some country-2 cell (counting cells). BFS from all country-1 cells at once, one layer per extra road cell, avoiding volcanoes; the first layer that touches a country-2 cell gives the answer.</span><span class="th">ถนนที่เชื่อมกันและสั้นที่สุดคือเส้นทางสั้นที่สุดบนตารางจากช่องประเทศ 1 สักช่องไปยังช่องประเทศ 2 สักช่อง (นับเป็นช่อง) BFS จากทุกช่องประเทศ 1 พร้อมกัน ทีละชั้นต่อหนึ่งช่องถนนที่เพิ่ม หลบภูเขาไฟ ชั้นแรกที่แตะช่องประเทศ 2 คือคำตอบ</span></span></a><a href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span><span class="pt"><span class="en">Grid Loop</span><span class="th">Grid Loop (นับถนนวงวน)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Join two neighbouring cells when each one&#x27;s road opens toward the other. Every cell has two exits, so every cell has at most two connections, and each component is either a path or a loop. It is a loop exactly when every exit of every cell in it is connected; its length is its number of cells.</span><span class="th">เชื่อมช่องสองช่องที่ติดกันเมื่อถนนของแต่ละช่องเปิดหากัน ทุกช่องมีทางออกสองทาง จึงเชื่อมได้ไม่เกินสองทาง แต่ละ component จึงเป็น path หรือวงวน เป็นวงวนก็ต่อเมื่อทุกทางออกของทุกช่องในนั้นต่อถึงกัน ความยาวคือจำนวนช่อง</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>Storing a graph</h3>
+<table>
+<thead>
+<tr>
+<th>structure</th>
+<th>edge test</th>
+<th>list neighbours</th>
+<th>memory</th>
+<th>use when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>adjacency matrix <code>bool[n][n]</code></td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>O(n²)</td>
+<td>n ≤ a few thousand, dense</td>
+</tr>
+<tr>
+<td>adjacency lists <code>vector&lt;int&gt;[n]</code></td>
+<td>O(degree)</td>
+<td>O(degree)</td>
+<td>O(n + m)</td>
+<td>the default for traversal</td>
+</tr>
+<tr>
+<td>adjacency sets <code>set&lt;int&gt;[n]</code></td>
+<td>O(log)</td>
+<td>O(degree)</td>
+<td>O(n + m)</td>
+<td>edges are added and removed</td>
+</tr>
+<tr>
+<td>implicit (grid)</td>
+<td>compute</td>
+<td>compute</td>
+<td>none</td>
+<td>cells with 4 neighbours</td>
+</tr>
+</tbody>
+</table>
+<h3>BFS (queue) and DFS (stack)</h3>
+<pre class="snip hl"><span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">queue</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">front</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<ul>
+<li>Mark when <strong>pushing</strong>, so nothing enters twice.</li>
+<li>BFS gives <strong>shortest distances in edges</strong> and visits by layers; DFS (the same code with a stack) is enough for reachability and components.</li>
+<li><strong>Multi-source BFS</strong>: push all sources at distance 0 first; every cell then gets its distance to the nearest source.</li>
+<li><strong>Depth limit</strong>: stop expanding at distance k (Pandemic, Border Extend, Connection).</li>
+</ul>
+<h3>What a traversal can tell you</h3>
+<table>
+<thead>
+<tr>
+<th>question</th>
+<th>how</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number of components</td>
+<td>start a traversal from every unvisited vertex, count starts</td>
+</tr>
+<tr>
+<td>is there a cycle (undirected)</td>
+<td>a visited neighbour that is not your BFS parent</td>
+</tr>
+<tr>
+<td>is a component a path</td>
+<td>all degrees ≤ 2 and edges = vertices − 1</td>
+</tr>
+<tr>
+<td>the cycle of a unicyclic graph</td>
+<td>peel leaves (degree 1) until none remain</td>
+</tr>
+<tr>
+<td>shortest path between two regions</td>
+<td>multi-source BFS from one region until the other is touched</td>
+</tr>
+</tbody>
+</table></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>การเก็บกราฟ</h3>
+<table>
+<thead>
+<tr>
+<th>โครงสร้าง</th>
+<th>ตรวจเส้น</th>
+<th>ไล่เพื่อนบ้าน</th>
+<th>หน่วยความจำ</th>
+<th>ใช้เมื่อ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>เมทริกซ์ประชิด <code>bool[n][n]</code></td>
+<td>O(1)</td>
+<td>O(n)</td>
+<td>O(n²)</td>
+<td>n ไม่เกินหลักพัน กราฟหนาแน่น</td>
+</tr>
+<tr>
+<td>รายการประชิด <code>vector&lt;int&gt;[n]</code></td>
+<td>O(degree)</td>
+<td>O(degree)</td>
+<td>O(n + m)</td>
+<td>ค่าเริ่มต้นสำหรับการท่องกราฟ</td>
+</tr>
+<tr>
+<td>เซตประชิด <code>set&lt;int&gt;[n]</code></td>
+<td>O(log)</td>
+<td>O(degree)</td>
+<td>O(n + m)</td>
+<td>มีการเพิ่มและลบเส้น</td>
+</tr>
+<tr>
+<td>แบบแฝง (ตาราง)</td>
+<td>คำนวณ</td>
+<td>คำนวณ</td>
+<td>ไม่ต้องเก็บ</td>
+<td>ช่องที่มีเพื่อนบ้าน 4 ช่อง</td>
+</tr>
+</tbody>
+</table>
+<h3>BFS (คิว) และ DFS (stack)</h3>
+<pre class="snip hl"><span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">queue</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">front</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">adj</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<ul>
+<li>ทำเครื่องหมายตอน <strong>push</strong> ไม่มีอะไรเข้าซ้ำ</li>
+<li>BFS ให้ <strong>ระยะทางสั้นที่สุดเป็นจำนวนเส้น</strong> และไปทีละชั้น DFS (โค้ดเดียวกันแต่ใช้ stack) พอสำหรับการไปถึงและ component</li>
+<li><strong>BFS หลายจุดเริ่ม</strong>: push ทุกจุดเริ่มที่ระยะ 0 ก่อน ทุกช่องจะได้ระยะถึงจุดเริ่มที่ใกล้ที่สุด</li>
+<li><strong>จำกัดความลึก</strong>: หยุดขยายที่ระยะ k (Pandemic, Border Extend, Connection)</li>
+</ul>
+<h3>สิ่งที่การท่องกราฟบอกได้</h3>
+<table>
+<thead>
+<tr>
+<th>คำถาม</th>
+<th>วิธี</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>จำนวน component</td>
+<td>เริ่มท่องจากทุกจุดที่ยังไม่ไป นับจำนวนครั้งที่เริ่ม</td>
+</tr>
+<tr>
+<td>มีวงรอบไหม (ไม่มีทิศ)</td>
+<td>เพื่อนบ้านที่ไปแล้วซึ่งไม่ใช่ parent ใน BFS</td>
+</tr>
+<tr>
+<td>component เป็นเส้นตรงไหม</td>
+<td>ทุก degree ≤ 2 และจำนวนเส้น = จำนวนจุด − 1</td>
+</tr>
+<tr>
+<td>วงรอบของกราฟที่มีวงเดียว</td>
+<td>ลอกใบ (degree 1) ออกจนหมด</td>
+</tr>
+<tr>
+<td>ทางที่สั้นที่สุดระหว่างสองพื้นที่</td>
+<td>BFS หลายจุดเริ่มจากพื้นที่หนึ่งจนแตะอีกพื้นที่</td>
+</tr>
+</tbody>
+</table></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex05m2_connection · Connection</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="on" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch16.html">16 · <span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></div>
+<div class="phead">
+<div class="pidbig">ex05m2_connection</div>
+<h1><span class="en">Connection</span><span class="th">Connection (เพื่อนระดับ K)</span></h1>
+<div class="chips"><span class="chip t en">BFS distances</span><span class="chip t en">Depth-limited BFS from every vertex</span><span class="chip t en">Resetting only what was touched</span><span class="chip t th">ระยะทางด้วย BFS</span><span class="chip t th">BFS จำกัดความลึกจากทุกจุด</span><span class="chip t th">รีเซ็ตเฉพาะส่วนที่แตะ</span><span class="chip cx">O(N · (N + E)) worst case, much less in practice · O(N + E) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">&quot;Degree K friends&quot; are the vertices at distance ≤ K. In an unweighted graph BFS discovers vertices in order of distance, so a BFS from each student that does not expand vertices at distance K counts exactly them. Take the maximum over all N students.</p><p class="th">&quot;เพื่อนระดับ K&quot; คือจุดที่ระยะ ≤ K ในกราฟไม่มีน้ำหนัก BFS ค้นพบจุดเรียงตามระยะ BFS จากนักเรียนแต่ละคนที่ไม่ขยายจุดที่ระยะ K จึงนับได้พอดี แล้วเอาค่ามากที่สุดจากทั้ง N คน</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex05m2_connection\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: BFS = shortest distances in an unweighted graph</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: BFS = ระยะทางสั้นที่สุดในกราฟไม่มีน้ำหนัก</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: BFS = shortest distances in an unweighted graph</h2>
+<p>BFS processes vertices in <strong>layers</strong>: first the source (distance 0), then all its neighbours (distance 1), then their new neighbours (distance 2), and so on. The first time a vertex is discovered, <code>distance[v]</code> is already its shortest distance. Two consequences used here:</p>
+<ul>
+<li>"everyone within K steps" is the union of layers 0..K;</li>
+<li>the search can stop growing at layer K: a vertex at distance K is counted but not expanded.</li>
+</ul>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: one BFS per student</h3>
+<p>The answer depends on the starting student, so run a BFS from each of the N ≤ 1 000 students. The number of vertices that enter the queue is that student's count (the student is their own degree-0 friend, so the count starts at 1).</p>
+<h3>Step 2: the depth limit</h3>
+<p>When popping a vertex with <code>distance == K</code>, skip its neighbours. Everything pushed has distance ≤ K, so the queue size at the end is exactly the count.</p>
+<pre class="diagram">sample, BFS from 6 (K = 2):   layer 0: 6   layer 1: 0 1 5   layer 2: 4      → 5 friends
+         BFS from 4 (K = 2):   layer 0: 4   layer 1: 1 3 5   layer 2: 6 2    → 6 friends (the answer)</pre>
+<div class="viz" data-viz="ex05m2_connection"></div>
+<h3>Step 3: make N BFS runs cheap</h3>
+<ul>
+<li>The queue is a plain array with <code>read</code> and <code>write</code> indices, reused for every student.</li>
+<li>After a BFS, only the vertices in <code>queue[0..write)</code> have a distance set, so reset just those instead of all N. With a small K a BFS often touches few vertices.</li>
+</ul>
+<p>The worst case is N full BFS runs: 1 000 × (1 000 + 200 000 adjacency entries) ≈ 2·10⁸ simple steps, which the tests run in 0.21 s.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Counting only vertices at distance exactly K: the statement says "at most K".</li>
+<li>Forgetting the student themself.</li>
+<li>Using DFS: DFS does not give shortest distances, so its depth limit would cut paths that are actually short.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex05m2_connection__main.cpp" download>⬇ .cpp</a><button data-copy="code64">Copy</button></div><pre class="hl"><code id="code64" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, e, k;
+    cin &gt;&gt; n &gt;&gt; e &gt;&gt; k;
+    vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+    // edge = 0..e-1: friendship is mutual, store both directions
+    for (int edge = 0; edge &lt; e; edge++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        neighbors[a].push_back(b);
+        neighbors[b].push_back(a);
+    }
+
+    vector&lt;int&gt; distance(n, -1);         // -1 = not reached in the current BFS
+    vector&lt;int&gt; queue(n);
+    int best = 0;
+    // student = 0..n-1: one BFS per student, cut off at depth k
+    for (int student = 0; student &lt; n; student++) {
+        int write = 0;
+        queue[write++] = student;
+        distance[student] = 0;
+        // read moves forward while write appends: BFS pops students in order of
+        // distance 0, 1, 2, ..., so everything in the queue is within distance k
+        for (int read = 0; read &lt; write; read++) {
+            int person = queue[read];
+            if (distance[person] == k) continue;          // do not step beyond k
+            for (int other : neighbors[person])
+                if (distance[other] == -1) {
+                    distance[other] = distance[person] + 1;
+                    queue[write++] = other;
+                }
+        }
+        best = max(best, write);                          // write = friends within k, self included
+        // reset only the students this BFS touched: O(reached) instead of O(n)
+        for (int index = 0; index &lt; write; index++) distance[queue[index]] = -1;
+    }
+    cout &lt;&lt; best &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..e-1: friendship is mutual, store both directions</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="p">;</span><span class="w">         </span><span class="c1">// -1 = not reached in the current BFS</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// student = 0..n-1: one BFS per student, cut off at depth k</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">student</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">queue</span><span class="p">[</span><span class="n">write</span><span class="o">+</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">student</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">distance</span><span class="p">[</span><span class="n">student</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// read moves forward while write appends: BFS pops students in order of</span></span><span class="ln"><span class="w">        </span><span class="c1">// distance 0, 1, 2, ..., so everything in the queue is within distance k</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">write</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">read</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">person</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">          </span><span class="c1">// do not step beyond k</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">person</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                    </span><span class="n">distance</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">person</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">                    </span><span class="n">queue</span><span class="p">[</span><span class="n">write</span><span class="o">+</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">write</span><span class="p">)</span><span class="p">;</span><span class="w">                          </span><span class="c1">// write = friends within k, self included</span></span><span class="ln"><span class="w">        </span><span class="c1">// reset only the students this BFS touched: O(reached) instead of O(n)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">write</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">queue</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Each BFS is O(N + E) at most: <strong>O(N · (N + E))</strong> in the worst case. Memory: <strong>O(N + E)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample, 300 random graphs against a Floyd–Warshall brute force, and N = 1 000, E = 100 000, K = 4 in 0.21 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF กราฟสุ่ม 300 ชุดเทียบกับ brute force แบบ Floyd–Warshall และ N = 1 000, E = 100 000, K = 4 ใช้ 0.21 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: BFS = ระยะทางสั้นที่สุดในกราฟไม่มีน้ำหนัก</h2>
+<p>BFS ประมวลผลจุดเป็น <strong>ชั้น</strong>: ต้นทางก่อน (ระยะ 0) แล้วเพื่อนบ้านทั้งหมดของมัน (ระยะ 1) แล้วเพื่อนบ้านใหม่ของพวกนั้น (ระยะ 2) ไปเรื่อย ๆ ครั้งแรกที่จุดหนึ่งถูกค้นพบ <code>distance[v]</code> ก็คือระยะสั้นที่สุดแล้ว ผลที่ใช้ในข้อนี้มีสองข้อ:</p>
+<ul>
+<li>"ทุกคนที่อยู่ภายใน K ก้าว" คือการรวมชั้น 0..K</li>
+<li>การค้นหาหยุดขยายที่ชั้น K ได้: จุดที่ระยะ K ถูกนับแต่ไม่ถูกขยาย</li>
+</ul>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: BFS หนึ่งครั้งต่อนักเรียน</h3>
+<p>คำตอบขึ้นกับนักเรียนที่เริ่ม จึงรัน BFS จากนักเรียนแต่ละคนในทั้ง N ≤ 1 000 คน จำนวนจุดที่เข้าคิวคือจำนวนเพื่อนของนักเรียนคนนั้น (นักเรียนเป็นเพื่อนระดับ 0 ของตัวเอง การนับจึงเริ่มที่ 1)</p>
+<h3>ขั้นที่ 2: จำกัดความลึก</h3>
+<p>เมื่อ pop จุดที่ <code>distance == K</code> ให้ข้ามเพื่อนบ้านของมัน ทุกจุดที่ถูก push มีระยะ ≤ K ขนาดคิวตอนจบจึงเท่ากับจำนวนที่ต้องการพอดี</p>
+<pre class="diagram">ตัวอย่าง BFS จาก 6 (K = 2):   ชั้น 0: 6   ชั้น 1: 0 1 5   ชั้น 2: 4      → เพื่อน 5 คน
+         BFS จาก 4 (K = 2):   ชั้น 0: 4   ชั้น 1: 1 3 5   ชั้น 2: 6 2    → เพื่อน 6 คน (คำตอบ)</pre>
+<div class="viz" data-viz="ex05m2_connection"></div>
+<h3>ขั้นที่ 3: ทำให้ BFS N ครั้งถูกลง</h3>
+<ul>
+<li>คิวเป็นอาร์เรย์ธรรมดาที่มีดัชนี <code>read</code> และ <code>write</code> ใช้ซ้ำกับนักเรียนทุกคน</li>
+<li>หลัง BFS มีแค่จุดใน <code>queue[0..write)</code> ที่ถูกตั้งระยะ จึงรีเซ็ตแค่พวกนั้นแทนทั้ง N จุด เมื่อ K เล็ก BFS มักแตะจุดไม่กี่จุด</li>
+</ul>
+<p>กรณีแย่สุดคือ BFS เต็ม N ครั้ง: 1 000 × (1 000 + 200 000 รายการเพื่อนบ้าน) ≈ 2·10⁸ ขั้นง่าย ๆ ซึ่งชุดทดสอบใช้ 0.21 วินาที</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>นับแค่จุดที่ระยะ K พอดี: โจทย์บอกว่า "ไม่เกิน K"</li>
+<li>ลืมนับตัวนักเรียนเอง</li>
+<li>ใช้ DFS: DFS ไม่ได้ให้ระยะสั้นที่สุด การจำกัดความลึกจะตัดเส้นทางที่จริง ๆ แล้วสั้น</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex05m2_connection__main.cpp" download>⬇ .cpp</a><button data-copy="code64">Copy</button></div><pre class="hl"><code id="code64" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, e, k;
+    cin &gt;&gt; n &gt;&gt; e &gt;&gt; k;
+    vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+    // edge = 0..e-1: friendship is mutual, store both directions
+    for (int edge = 0; edge &lt; e; edge++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        neighbors[a].push_back(b);
+        neighbors[b].push_back(a);
+    }
+
+    vector&lt;int&gt; distance(n, -1);         // -1 = not reached in the current BFS
+    vector&lt;int&gt; queue(n);
+    int best = 0;
+    // student = 0..n-1: one BFS per student, cut off at depth k
+    for (int student = 0; student &lt; n; student++) {
+        int write = 0;
+        queue[write++] = student;
+        distance[student] = 0;
+        // read moves forward while write appends: BFS pops students in order of
+        // distance 0, 1, 2, ..., so everything in the queue is within distance k
+        for (int read = 0; read &lt; write; read++) {
+            int person = queue[read];
+            if (distance[person] == k) continue;          // do not step beyond k
+            for (int other : neighbors[person])
+                if (distance[other] == -1) {
+                    distance[other] = distance[person] + 1;
+                    queue[write++] = other;
+                }
+        }
+        best = max(best, write);                          // write = friends within k, self included
+        // reset only the students this BFS touched: O(reached) instead of O(n)
+        for (int index = 0; index &lt; write; index++) distance[queue[index]] = -1;
+    }
+    cout &lt;&lt; best &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..e-1: friendship is mutual, store both directions</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="p">;</span><span class="w">         </span><span class="c1">// -1 = not reached in the current BFS</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// student = 0..n-1: one BFS per student, cut off at depth k</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">student</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">queue</span><span class="p">[</span><span class="n">write</span><span class="o">+</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">student</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">distance</span><span class="p">[</span><span class="n">student</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// read moves forward while write appends: BFS pops students in order of</span></span><span class="ln"><span class="w">        </span><span class="c1">// distance 0, 1, 2, ..., so everything in the queue is within distance k</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">write</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">read</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">person</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">          </span><span class="c1">// do not step beyond k</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">person</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                    </span><span class="n">distance</span><span class="p">[</span><span class="n">other</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">person</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">                    </span><span class="n">queue</span><span class="p">[</span><span class="n">write</span><span class="o">+</span><span class="o">+</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">best</span><span class="p">,</span><span class="w"> </span><span class="n">write</span><span class="p">)</span><span class="p">;</span><span class="w">                          </span><span class="c1">// write = friends within k, self included</span></span><span class="ln"><span class="w">        </span><span class="c1">// reset only the students this BFS touched: O(reached) instead of O(n)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">write</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">queue</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> BFS แต่ละครั้งไม่เกิน O(N + E): <strong>O(N · (N + E))</strong> ในกรณีแย่สุด หน่วยความจำ: <strong>O(N + E)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample, 300 random graphs against a Floyd–Warshall brute force, and N = 1 000, E = 100 000, K = 4 in 0.21 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF กราฟสุ่ม 300 ชุดเทียบกับ brute force แบบ Floyd–Warshall และ N = 1 000, E = 100 000, K = 4 ใช้ 0.21 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="a62_q2a_line_graph.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>a62_q2a_line_graph</b> · <span class="en">Count Line Graphs</span><span class="th">นับกราฟเส้นตรง</span></a><a class="nx" href="a59_q3_cycle.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a59_q3_cycle</b> · <span class="en">Cycle in a Tree</span><span class="th">วงวนในต้นไม้</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex05m2_connection.js"></script>
+</body>
+</html>

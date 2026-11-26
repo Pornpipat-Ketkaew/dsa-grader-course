@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>13 · Greedy</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#d97706}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class="on"><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 13</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 13</span></div>
+<h1><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></h1>
+<p class="en">Sort by the right key, commit to the locally best choice, prove it by exchange.</p><p class="th">เรียงตามคีย์ที่ถูก เลือกสิ่งที่ดีที่สุดตอนนี้ และพิสูจน์ด้วยการสลับ</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span><span class="pt"><span class="en">Class Selection</span><span class="th">เลือกวิชาเรียน (Class Selection)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">Sort the classes by finish time and scan once, keeping a class whenever it starts at or after the finish of the last kept class. Finishing as early as possible leaves the most room for everything after it, and an exchange argument proves no other choice can do better.</span><span class="th">เรียงวิชาตามเวลาจบแล้วไล่ครั้งเดียว เก็บวิชาที่เริ่มตอนหรือหลังเวลาจบของวิชาที่เก็บล่าสุด การจบให้เร็วที่สุดเหลือเวลาให้วิชาหลังจากนั้นมากที่สุด และ exchange argument พิสูจน์ว่าไม่มีทางเลือกอื่นดีกว่า</span></span></a><a href="a58_m_p4.html"><span class="pid">a58_m_p4</span><span class="pt"><span class="en">Class Selection (midterm version)</span><span class="th">เลือกวิชาเรียน (ฉบับข้อสอบกลางภาค)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">This exam problem is the same task as Class Selection, so the same earliest-finish greedy solves it. The real lesson is how to reject the other tempting rules: each of earliest start, shortest duration and fewest overlaps has a small input where it loses.</span><span class="th">ข้อสอบข้อนี้เป็นโจทย์เดียวกับ Class Selection จึงแก้ด้วย greedy แบบจบเร็วที่สุดก่อนเหมือนกัน บทเรียนจริงคือวิธีปฏิเสธกฎอื่นที่ดูน่าใช้: เริ่มเร็วที่สุด สั้นที่สุด และทับน้อยที่สุด ต่างก็มีอินพุตเล็ก ๆ ที่ทำให้แพ้</span></span></a><a href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span><span class="pt"><span class="en">Fractional Knapsack</span><span class="th">Fractional Knapsack (เป้แบบแบ่งของได้)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">When items can be cut, every unit of weight should carry as much value as possible. Sort by price/weight, take whole items while they fit, then a fraction of the next one to fill the bag exactly, and stop.</span><span class="th">เมื่อแบ่งของได้ น้ำหนักทุกหน่วยควรให้มูลค่ามากที่สุด เรียงตาม price/weight หยิบทั้งชิ้นตราบใดที่ใส่ได้ แล้วหยิบบางส่วนของชิ้นถัดไปให้เต็มกระเป๋าพอดี แล้วหยุด</span></span></a><a href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span><span class="pt"><span class="en">Buffet Line</span><span class="th">Buffet Line (ไฟส่องโต๊ะบุฟเฟต์)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">The leftmost dark food must be lit by some lamp within w of it. Of all such lamps, the one at food + w lights everything the others light to the right, so place it there, skip all food it covers, and repeat.</span><span class="th">อาหารที่มืดซ้ายสุดต้องถูกหลอดไฟสักดวงที่อยู่ห่างไม่เกิน w ส่อง ในบรรดาหลอดไฟเหล่านั้น ดวงที่ตำแหน่ง food + w ส่องทุกอย่างทางขวาที่ดวงอื่นส่องได้ จึงวางที่นั่น ข้ามอาหารทั้งหมดที่มันส่องถึง แล้วทำซ้ำ</span></span></a><a href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span><span class="pt"><span class="en">Welcome to the Dungeon</span><span class="th">Welcome to the Dungeon (ดันเจียน)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Bosses must be beaten in order and every item vanishes after one boss, so each needed item costs one new dungeon of that type. Paying the cheapest unexplored dungeon of the type is never worse, so sort each type&#x27;s costs once and walk a pointer; stop at the first item you cannot afford or cannot find.</span><span class="th">ต้องปราบจอมมารตามลำดับ และไอเท็มทุกชิ้นสลายหลังใช้กับจอมมารหนึ่งตน ไอเท็มที่ต้องใช้แต่ละชิ้นจึงต้องสำรวจดันเจียนชนิดนั้นใหม่หนึ่งแห่ง การจ่ายดันเจียนที่ถูกที่สุดที่ยังไม่สำรวจไม่มีทางแย่กว่า จึงเรียงค่าของแต่ละชนิดครั้งเดียวแล้วเลื่อนตัวชี้ หยุดที่ไอเท็มแรกที่จ่ายไม่ไหวหรือหาไม่ได้</span></span></a><a href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span><span class="pt"><span class="en">Game of Trade</span><span class="th">Game of Trade (เกมซื้อขาย)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Each unit bought is independent, so its best profit is (highest buy price among NPCs other than the seller) − (sell price). Keeping the best and second-best buyer per item answers &quot;best other than the seller&quot; in O(1). Bucket units by profit (1..999) and take the K most profitable.</span><span class="th">แต่ละหน่วยที่ซื้อเป็นอิสระต่อกัน กำไรที่ดีที่สุดของมันจึงเป็น (ราคารับซื้อสูงสุดในบรรดา NPC ที่ไม่ใช่ผู้ขาย) − (ราคาขาย) การเก็บผู้ซื้อที่ดีที่สุดและอันดับสองของแต่ละสินค้าตอบ &quot;ดีที่สุดที่ไม่ใช่ผู้ขาย&quot; ได้ใน O(1) แยกหน่วยเป็นถังตามกำไร (1..999) แล้วเลือก K หน่วยที่กำไรสูงที่สุด</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>The greedy recipe</h3>
+<ol>
+<li>Find a <strong>key</strong> to sort by.</li>
+<li>Walk in that order and <strong>commit</strong> to the locally best choice, never undoing it.</li>
+<li><strong>Prove</strong> it with an exchange argument: take any optimal solution that differs from the greedy one at the first point; swap in the greedy choice and show the solution does not get worse. Repeating the swap turns the optimal solution into the greedy one.</li>
+</ol>
+<h3>Classic keys</h3>
+<table>
+<thead>
+<tr>
+<th>problem shape</th>
+<th>key</th>
+<th>why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>most non-overlapping intervals</td>
+<td>earliest <strong>finish</strong></td>
+<td>leaves the most room for the rest</td>
+</tr>
+<tr>
+<td>cover points with fixed-length intervals</td>
+<td>leftmost uncovered point, interval pushed right</td>
+<td>covers as much to the right as possible</td>
+</tr>
+<tr>
+<td>fractional knapsack</td>
+<td>value per weight, highest first</td>
+<td>each unit of capacity earns the most</td>
+</tr>
+<tr>
+<td>independent choices per item</td>
+<td>best (or best and second best) per item</td>
+<td>nothing interacts</td>
+</tr>
+</tbody>
+</table>
+<h3>Test before you trust</h3>
+<p>Greedy rules that "feel right" are often wrong (start earliest, shortest first, …). Before coding, try to break the rule with a 3-item counterexample; the midterm version of Class Selection is built around this.</p></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>สูตรของ greedy</h3>
+<ol>
+<li>หา <strong>คีย์</strong> ที่ใช้เรียง</li>
+<li>เดินตามลำดับนั้น และ <strong>ตัดสินใจ</strong> เลือกสิ่งที่ดีที่สุดตอนนี้ โดยไม่ย้อนกลับ</li>
+<li><strong>พิสูจน์</strong> ด้วยเหตุผลแลกเปลี่ยน: เอาคำตอบที่ดีที่สุดใด ๆ ที่ต่างจาก greedy ตั้งแต่จุดแรก สลับเอาตัวเลือกของ greedy เข้าไป แล้วแสดงว่าคำตอบไม่แย่ลง ทำซ้ำจนคำตอบที่ดีที่สุดกลายเป็นคำตอบของ greedy</li>
+</ol>
+<h3>คีย์คลาสสิก</h3>
+<table>
+<thead>
+<tr>
+<th>รูปแบบโจทย์</th>
+<th>คีย์</th>
+<th>เหตุผล</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ช่วงที่ไม่ทับกันมากที่สุด</td>
+<td><strong>จบ</strong> เร็วที่สุด</td>
+<td>เหลือที่ให้ช่วงอื่นมากที่สุด</td>
+</tr>
+<tr>
+<td>ครอบจุดด้วยช่วงความยาวคงที่</td>
+<td>จุดซ้ายสุดที่ยังไม่ถูกครอบ แล้วดันช่วงไปทางขวา</td>
+<td>ครอบไปทางขวาได้มากที่สุด</td>
+</tr>
+<tr>
+<td>fractional knapsack</td>
+<td>มูลค่าต่อน้ำหนัก มากไปน้อย</td>
+<td>ความจุแต่ละหน่วยได้มากที่สุด</td>
+</tr>
+<tr>
+<td>ตัวเลือกที่ไม่ขึ้นต่อกันในแต่ละชิ้น</td>
+<td>ดีที่สุด (หรือดีที่สุดและรองลงมา) ต่อชิ้น</td>
+<td>ไม่มีอะไรส่งผลต่อกัน</td>
+</tr>
+</tbody>
+</table>
+<h3>ทดสอบก่อนเชื่อ</h3>
+<p>กฎ greedy ที่ "รู้สึกว่าถูก" มักผิด (เริ่มเร็วที่สุด, สั้นที่สุดก่อน, …) ก่อนเขียนโค้ด ลองหาตัวอย่างค้าน 3 ชิ้น Class Selection ฉบับกลางภาคสร้างขึ้นจากเรื่องนี้</p></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

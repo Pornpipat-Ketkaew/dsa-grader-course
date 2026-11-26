@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 · Divide &amp; conquer</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#c2410c}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class="on"><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 12</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 12</span></div>
+<h1><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></h1>
+<p class="en">Split into halves, solve each half the same way, combine.</p><p class="th">แบ่งเป็นครึ่ง แก้แต่ละครึ่งด้วยวิธีเดิม แล้วรวมผล</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span><span class="pt"><span class="en">Recur Matrix</span><span class="th">Matrix ประหลาด (Recur Matrix)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">The definition already is a divide-and-conquer recipe: H(a, b) is four copies of H(a−1, ·) with values b, b−1, b+1, b. Write one recursive function that fills a block of the final matrix given its corner (top, left), so no sub-matrix is ever copied.</span><span class="th">นิยามของโจทย์คือสูตร divide and conquer อยู่แล้ว: H(a, b) คือ H(a−1, ·) สี่ชุดที่มีค่า b, b−1, b+1, b เขียนฟังก์ชัน recursive ตัวเดียวที่เติมบล็อกหนึ่งของเมทริกซ์คำตอบโดยรู้มุม (top, left) จึงไม่ต้องคัดลอกเมทริกซ์ย่อยเลย</span></span></a><a href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span><span class="pt"><span class="en">Matrix Modulo</span><span class="th">เมทริกซ์มอดุโล (Matrix Modulo)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A^n = (A^(n/2))² when n is even and (A^(n/2))²·A when n is odd. Solve the half problem once, reuse it twice, so n ≤ 2^30 needs about 30 levels instead of 10^9 multiplications. Reduce every entry mod k after each multiplication so numbers stay below 10^8.</span><span class="th">A^n = (A^(n/2))² เมื่อ n เป็นเลขคู่ และ (A^(n/2))²·A เมื่อ n เป็นเลขคี่ แก้ปัญหาครึ่งหนึ่งครั้งเดียวแล้วใช้ซ้ำสองครั้ง n ≤ 2^30 จึงใช้แค่ราว 30 ระดับแทนการคูณ 10^9 ครั้ง ลดทุกช่องด้วย mod k หลังการคูณทุกครั้งเพื่อให้ตัวเลขไม่เกิน 10^8</span></span></a><a href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span><span class="pt"><span class="en">Virus Check (DIVOC)</span><span class="th">ตรวจไวรัส (DIVOC)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Read the building rule backwards: a code of length L is a virus iff its right half is a virus and its left half is a virus or a reversed virus. &quot;Reversed virus&quot; needs its own test, and reversing a + b gives reverse(b) + reverse(a), which yields a second rule of the same shape.</span><span class="th">อ่านกฎการสร้างย้อนกลับ: รหัสยาว L เป็นไวรัสก็ต่อเมื่อครึ่งขวาเป็นไวรัส และครึ่งซ้ายเป็นไวรัสหรือไวรัสกลับด้าน &quot;ไวรัสกลับด้าน&quot; ต้องมีฟังก์ชันตรวจของตัวเอง และการกลับ a + b ได้ reverse(b) + reverse(a) ซึ่งให้กฎที่สองที่มีรูปแบบเดียวกัน</span></span></a><a href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span><span class="pt"><span class="en">Virus Outbreak 2 (DIVOC-20)</span><span class="th">ไวรัสระบาด 2 (DIVOC-20)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A code is valid iff both halves are valid and their counts of 1s differ by at most 1. Let the recursive check return the count of 1s (or INVALID), so the parent gets both facts it needs from one call per half.</span><span class="th">รหัสถูกต้องก็ต่อเมื่อทั้งสองครึ่งถูกต้องและจำนวนเลข 1 ของสองครึ่งต่างกันไม่เกิน 1 ให้ฟังก์ชันตรวจคืนจำนวนเลข 1 (หรือ INVALID) ตัวแม่จึงได้ข้อมูลที่ต้องการทั้งสองอย่างจากการเรียกครึ่งละครั้งเดียว</span></span></a><a href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span><span class="pt"><span class="en">Remaining Merge</span><span class="th">Remaining Merge (นับส่วนที่เหลือของ merge)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">The question is about one specific algorithm, so run that algorithm exactly as written and count. Merge sort is O(N log N), fast enough for N = 200 000; the only care is to keep the pseudocode&#x27;s tie rule (A[i] ≤ A[j] takes the left) because it decides which half runs out first.</span><span class="th">โจทย์ถามถึงอัลกอริทึมตัวหนึ่งโดยเฉพาะ จึงรันอัลกอริทึมนั้นตามที่เขียนไว้ทุกบรรทัดแล้วนับ merge sort เป็น O(N log N) เร็วพอสำหรับ N = 200 000 สิ่งเดียวที่ต้องระวังคือใช้กฎเสมอตาม pseudocode (A[i] ≤ A[j] หยิบซ้าย) เพราะมันเป็นตัวกำหนดว่าครึ่งไหนหมดก่อน</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>The pattern</h3>
+<ol>
+<li><strong>Divide</strong> the input into parts of the same shape (halves, quarters).</li>
+<li><strong>Conquer</strong> each part with the same function (recursion).</li>
+<li><strong>Combine</strong> the parts' answers.</li>
+</ol>
+<p>The recursion depth is log n, and the running time follows from "how many sub-calls, how big, how costly is the combine":</p>
+<table>
+<thead>
+<tr>
+<th>recurrence</th>
+<th>time</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T(n) = T(n/2) + O(1)</td>
+<td>O(log n)</td>
+<td>fast power (Matrix Modulo)</td>
+</tr>
+<tr>
+<td>T(n) = 2T(n/2) + O(n)</td>
+<td>O(n log n)</td>
+<td>merge sort (Remaining Merge)</td>
+</tr>
+<tr>
+<td>T(n) = 4T(n/4)… on a grid</td>
+<td>O(output)</td>
+<td>Recur Matrix</td>
+</tr>
+<tr>
+<td>T(n) = 2T(n/2) + O(1) with extra info returned</td>
+<td>O(n)</td>
+<td>Virus 2</td>
+</tr>
+</tbody>
+</table>
+<h3>Tips</h3>
+<ul>
+<li>Pass <strong>offsets</strong> (top, left, start, length) instead of copying sub-arrays.</li>
+<li>Let the function <strong>return more than the yes/no</strong> you need when the parent needs it (a count, a sum): it avoids re-scanning (Virus 2 returns the number of 1s).</li>
+<li>Fast power: xⁿ = (x^{n/2})² · (x if n is odd); works for matrices and under a modulus.</li>
+</ul></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>รูปแบบ</h3>
+<ol>
+<li><strong>แบ่ง</strong> ข้อมูลเป็นส่วนที่รูปร่างเหมือนกัน (ครึ่ง, สี่ส่วน)</li>
+<li><strong>เอาชนะ</strong> แต่ละส่วนด้วยฟังก์ชันเดิม (recursion)</li>
+<li><strong>รวม</strong> คำตอบของแต่ละส่วน</li>
+</ol>
+<p>ความลึกของ recursion คือ log n และเวลาที่ใช้มาจาก "เรียกย่อยกี่ครั้ง ขนาดเท่าไร การรวมแพงแค่ไหน":</p>
+<table>
+<thead>
+<tr>
+<th>ความสัมพันธ์เวียนเกิด</th>
+<th>เวลา</th>
+<th>ตัวอย่าง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T(n) = T(n/2) + O(1)</td>
+<td>O(log n)</td>
+<td>ยกกำลังเร็ว (Matrix Modulo)</td>
+</tr>
+<tr>
+<td>T(n) = 2T(n/2) + O(n)</td>
+<td>O(n log n)</td>
+<td>merge sort (Remaining Merge)</td>
+</tr>
+<tr>
+<td>T(n) = 4T(n/4)… บนตาราง</td>
+<td>O(ขนาดผลลัพธ์)</td>
+<td>Recur Matrix</td>
+</tr>
+<tr>
+<td>T(n) = 2T(n/2) + O(1) พร้อมคืนข้อมูลเพิ่ม</td>
+<td>O(n)</td>
+<td>Virus 2</td>
+</tr>
+</tbody>
+</table>
+<h3>เคล็ดลับ</h3>
+<ul>
+<li>ส่ง <strong>offset</strong> (top, left, start, length) แทนการคัดลอกอาร์เรย์ย่อย</li>
+<li>ให้ฟังก์ชัน <strong>คืนค่ามากกว่าใช่/ไม่ใช่</strong> เมื่อตัวแม่ต้องใช้ (จำนวน, ผลรวม): ไม่ต้องไล่ซ้ำ (Virus 2 คืนจำนวนเลข 1)</li>
+<li>ยกกำลังเร็ว: xⁿ = (x^{n/2})² · (x ถ้า n คี่) ใช้ได้กับเมทริกซ์และภายใต้ mod</li>
+</ul></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

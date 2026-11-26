@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a64_q3_shortest_start · Shortest Start</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#3d5afe}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="on" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch17.html">17 · <span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></div>
+<div class="phead">
+<div class="pidbig">a64_q3_shortest_start</div>
+<h1><span class="en">Shortest Start</span><span class="th">Shortest Start (เลือกจุดเริ่มที่ดีที่สุด)</span></h1>
+<div class="chips"><span class="chip t en">Bellman–Ford (negative weights)</span><span class="chip t en">Multi-source by a virtual source</span><span class="chip t en">Early termination</span><span class="chip t th">Bellman–Ford (น้ำหนักติดลบ)</span><span class="chip t th">หลายต้นทางด้วยต้นทางสมมุติ</span><span class="chip t th">หยุดก่อนกำหนด</span><span class="chip cx">O(n · m) worst case, usually far fewer rounds · O(n + m) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Negative weights rule out Dijkstra, and there is no negative cycle, so Bellman–Ford works. &quot;Start from any of k nodes&quot; = a virtual source with 0-weight edges to each of them, which just means all k starts begin at distance 0. Relax all edges in rounds until nothing changes, then print distance[v].</p><p class="th">น้ำหนักติดลบทำให้ใช้ Dijkstra ไม่ได้ และไม่มีวงรอบติดลบ Bellman–Ford จึงใช้ได้ &quot;เริ่มจากจุดใดก็ได้ใน k จุด&quot; = ต้นทางสมมุติที่มีเส้นน้ำหนัก 0 ไปยังทุกจุด ซึ่งก็คือให้ทั้ง k จุดเริ่มที่ระยะ 0 ผ่อนคลายทุกเส้นเป็นรอบ ๆ จนไม่มีอะไรเปลี่ยน แล้วพิมพ์ distance[v]</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a64_q3_shortest_start\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: Bellman–Ford</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: Bellman–Ford</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: Bellman–Ford</h2>
+<p>Dijkstra's "the closest vertex is final" argument breaks with negative edges: a longer-looking route may later get cheaper. <strong>Bellman–Ford</strong> makes no such assumption:</p>
+<pre class="diagram">repeat n − 1 times:
+    for every edge a → b with weight w:
+        distance[b] = min(distance[b], distance[a] + w)</pre>
+<p>After round r, every vertex whose shortest path uses at most r edges is correct. Without negative cycles a shortest path has at most n − 1 edges, so n − 1 rounds suffice. If a whole round changes nothing, no later round can either: stop early.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: many starts = one virtual source</h3>
+<p>Add an imaginary vertex S with a 0-weight edge to each allowed start. The best start for v is then the shortest path from S to v. Running Bellman–Ford from S is the same as setting <strong>distance = 0 for every start</strong> before round 1; the virtual vertex never needs to exist.</p>
+<h3>Step 2: rounds of relaxation</h3>
+<p>Store the edges in one array (Bellman–Ford does not need adjacency lists). Skip edges whose tail is still unreached, so that "∞ + negative" never sneaks in.</p>
+<pre class="diagram">sample 2: starts 0 1 3 4, goal 5     all starts at 0
+round 1:  1→2: 0+5 = 5   2→5: 5−4 = 1   3→2: 0+2 = 2
+round 2:  2→5: 2−4 = −2               round 3: no change → stop</pre>
+<div class="viz" data-viz="a64_q3_shortest_start"></div>
+<h3>Step 3: answer</h3>
+<p>Print <code>distance[v]</code>. The statement guarantees some start reaches v.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Using Dijkstra: wrong with negative weights (sample 2 needs the route through the −4 edge found after a cheaper value of node 2 appears).</li>
+<li>Running k separate Bellman–Fords: k up to 5 000 times slower.</li>
+<li>Relaxing from unreached vertices with a sentinel like INT_MAX: <code>INT_MAX + (−4)</code> looks like a real distance.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a64_q3_shortest_start__main.cpp" download>⬇ .cpp</a><button data-copy="code75">Copy</button></div><pre class="hl"><code id="code75" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Edge {
+    int from, to, weight;
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, k, goal;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k &gt;&gt; goal;
+    // Weights can be negative (no negative cycle), so Dijkstra is out:
+    // Bellman-Ford. Several possible starts = one imaginary source joined to
+    // each start by a 0-weight edge, i.e. every start simply begins at 0.
+    const long long UNREACHED = (long long)4e18;
+    vector&lt;long long&gt; distance(n, UNREACHED);
+    // index = 0..k-1: every allowed start begins at distance 0
+    for (int index = 0; index &lt; k; index++) {
+        int start;
+        cin &gt;&gt; start;
+        distance[start] = 0;
+    }
+    vector&lt;Edge&gt; edges(m);
+    // index = 0..m-1: read the directed edges
+    for (int index = 0; index &lt; m; index++) cin &gt;&gt; edges[index].from &gt;&gt; edges[index].to &gt;&gt; edges[index].weight;
+
+    // round = 1..n-1: a shortest path has at most n-1 edges, and after round r
+    // every path of at most r edges has been relaxed. Stop early when a full
+    // round changes nothing: then nothing will ever change again.
+    for (int round = 1; round &lt; n; round++) {
+        bool changed = false;
+        // every edge once per round
+        for (const Edge&amp; edge : edges) {
+            if (distance[edge.from] == UNREACHED) continue;
+            long long through = distance[edge.from] + edge.weight;
+            if (through &lt; distance[edge.to]) {
+                distance[edge.to] = through;
+                changed = true;
+            }
+        }
+        if (!changed) break;
+    }
+    cout &lt;&lt; distance[goal] &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">struct</span><span class="w"> </span><span class="nc">Edge</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">goal</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">goal</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// Weights can be negative (no negative cycle), so Dijkstra is out:</span></span><span class="ln"><span class="w">    </span><span class="c1">// Bellman-Ford. Several possible starts = one imaginary source joined to</span></span><span class="ln"><span class="w">    </span><span class="c1">// each start by a 0-weight edge, i.e. every start simply begins at 0.</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">UNREACHED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="mf">4e18</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..k-1: every allowed start begins at distance 0</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">start</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">distance</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..m-1: read the directed edges</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">from</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">to</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// round = 1..n-1: a shortest path has at most n-1 edges, and after round r</span></span><span class="ln"><span class="w">    </span><span class="c1">// every path of at most r edges has been relaxed. Stop early when a full</span></span><span class="ln"><span class="w">    </span><span class="c1">// round changes nothing: then nothing will ever change again.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// every edge once per round</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Edge</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">edges</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">through</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">through</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">changed</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">goal</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> At most n − 1 rounds of m relaxations: <strong>O(n · m)</strong> = 5·10⁸ simple steps in the very worst case, usually stopping after a few rounds. Memory: <strong>O(n + m)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples and n = 1, 300 random graphs without negative cycles against a brute force, and two worst-case graphs with n = 5 000, m = 100 000 (a DAG and a reversed chain that improves one node per round) in 0.05 s and 0.27 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF และ n = 1, กราฟสุ่มที่ไม่มีวงรอบติดลบ 300 ชุดเทียบกับ brute force และกราฟแย่สุดสองชุดที่ n = 5 000, m = 100 000 (DAG และสายโซ่กลับทิศที่ดีขึ้นทีละจุดต่อรอบ) ใช้ 0.05 และ 0.27 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: Bellman–Ford</h2>
+<p>เหตุผลของ Dijkstra ที่ว่า "จุดที่ใกล้ที่สุดเป็นค่าสุดท้าย" ใช้ไม่ได้เมื่อมีเส้นติดลบ: เส้นทางที่ดูยาวกว่าอาจถูกลงทีหลัง <strong>Bellman–Ford</strong> ไม่ได้สมมุติแบบนั้น:</p>
+<pre class="diagram">ทำซ้ำ n − 1 ครั้ง:
+    for ทุกเส้น a → b น้ำหนัก w:
+        distance[b] = min(distance[b], distance[a] + w)</pre>
+<p>หลังรอบที่ r ทุกจุดที่เส้นทางสั้นที่สุดใช้ไม่เกิน r เส้นจะถูกต้อง เมื่อไม่มีวงรอบติดลบ เส้นทางสั้นที่สุดมีไม่เกิน n − 1 เส้น จึงพอที่ n − 1 รอบ ถ้าทั้งรอบไม่มีอะไรเปลี่ยน รอบถัดไปก็ไม่เปลี่ยน: หยุดได้เลย</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: หลายจุดเริ่ม = ต้นทางสมมุติหนึ่งจุด</h3>
+<p>เพิ่มจุดสมมุติ S ที่มีเส้นน้ำหนัก 0 ไปยังจุดเริ่มที่อนุญาตทุกจุด จุดเริ่มที่ดีที่สุดสำหรับ v ก็คือเส้นทางสั้นที่สุดจาก S ไป v การรัน Bellman–Ford จาก S เหมือนกับการตั้ง <strong>distance = 0 ให้ทุกจุดเริ่ม</strong> ก่อนรอบแรก จุดสมมุติไม่ต้องมีอยู่จริง</p>
+<h3>ขั้นที่ 2: ผ่อนคลายเป็นรอบ</h3>
+<p>เก็บเส้นไว้ในอาร์เรย์เดียว (Bellman–Ford ไม่ต้องใช้รายการเพื่อนบ้าน) ข้ามเส้นที่ต้นเส้นยังไปไม่ถึง เพื่อไม่ให้ "∞ + ค่าติดลบ" แอบเข้ามา</p>
+<pre class="diagram">ตัวอย่าง 2: จุดเริ่ม 0 1 3 4, เป้าหมาย 5     ทุกจุดเริ่มเป็น 0
+รอบ 1:  1→2: 0+5 = 5   2→5: 5−4 = 1   3→2: 0+2 = 2
+รอบ 2:  2→5: 2−4 = −2                 รอบ 3: ไม่เปลี่ยน → หยุด</pre>
+<div class="viz" data-viz="a64_q3_shortest_start"></div>
+<h3>ขั้นที่ 3: คำตอบ</h3>
+<p>พิมพ์ <code>distance[v]</code> โจทย์รับประกันว่ามีจุดเริ่มที่ไปถึง v</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ใช้ Dijkstra: ผิดเมื่อมีน้ำหนักติดลบ (ตัวอย่าง 2 ต้องใช้เส้นทางผ่านเส้น −4 หลังจากจุด 2 ได้ค่าที่ถูกลง)</li>
+<li>รัน Bellman–Ford แยก k ครั้ง: ช้าลงได้ถึง 5 000 เท่า</li>
+<li>ผ่อนคลายจากจุดที่ยังไปไม่ถึงโดยใช้ค่าเฝ้าเช่น INT_MAX: <code>INT_MAX + (−4)</code> จะดูเหมือนระยะจริง</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a64_q3_shortest_start__main.cpp" download>⬇ .cpp</a><button data-copy="code75">Copy</button></div><pre class="hl"><code id="code75" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Edge {
+    int from, to, weight;
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, k, goal;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k &gt;&gt; goal;
+    // Weights can be negative (no negative cycle), so Dijkstra is out:
+    // Bellman-Ford. Several possible starts = one imaginary source joined to
+    // each start by a 0-weight edge, i.e. every start simply begins at 0.
+    const long long UNREACHED = (long long)4e18;
+    vector&lt;long long&gt; distance(n, UNREACHED);
+    // index = 0..k-1: every allowed start begins at distance 0
+    for (int index = 0; index &lt; k; index++) {
+        int start;
+        cin &gt;&gt; start;
+        distance[start] = 0;
+    }
+    vector&lt;Edge&gt; edges(m);
+    // index = 0..m-1: read the directed edges
+    for (int index = 0; index &lt; m; index++) cin &gt;&gt; edges[index].from &gt;&gt; edges[index].to &gt;&gt; edges[index].weight;
+
+    // round = 1..n-1: a shortest path has at most n-1 edges, and after round r
+    // every path of at most r edges has been relaxed. Stop early when a full
+    // round changes nothing: then nothing will ever change again.
+    for (int round = 1; round &lt; n; round++) {
+        bool changed = false;
+        // every edge once per round
+        for (const Edge&amp; edge : edges) {
+            if (distance[edge.from] == UNREACHED) continue;
+            long long through = distance[edge.from] + edge.weight;
+            if (through &lt; distance[edge.to]) {
+                distance[edge.to] = through;
+                changed = true;
+            }
+        }
+        if (!changed) break;
+    }
+    cout &lt;&lt; distance[goal] &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">struct</span><span class="w"> </span><span class="nc">Edge</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">goal</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">goal</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// Weights can be negative (no negative cycle), so Dijkstra is out:</span></span><span class="ln"><span class="w">    </span><span class="c1">// Bellman-Ford. Several possible starts = one imaginary source joined to</span></span><span class="ln"><span class="w">    </span><span class="c1">// each start by a 0-weight edge, i.e. every start simply begins at 0.</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">UNREACHED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="mf">4e18</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..k-1: every allowed start begins at distance 0</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">start</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">distance</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..m-1: read the directed edges</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">from</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">to</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// round = 1..n-1: a shortest path has at most n-1 edges, and after round r</span></span><span class="ln"><span class="w">    </span><span class="c1">// every path of at most r edges has been relaxed. Stop early when a full</span></span><span class="ln"><span class="w">    </span><span class="c1">// round changes nothing: then nothing will ever change again.</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// every edge once per round</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Edge</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">edges</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">through</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">through</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">changed</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">goal</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> ไม่เกิน n − 1 รอบ รอบละ m การผ่อนคลาย: <strong>O(n · m)</strong> = 5·10⁸ ขั้นง่าย ๆ ในกรณีแย่ที่สุดจริง ๆ ปกติหยุดหลังไม่กี่รอบ หน่วยความจำ: <strong>O(n + m)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples and n = 1, 300 random graphs without negative cycles against a brute force, and two worst-case graphs with n = 5 000, m = 100 000 (a DAG and a reversed chain that improves one node per round) in 0.05 s and 0.27 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF และ n = 1, กราฟสุ่มที่ไม่มีวงรอบติดลบ 300 ชุดเทียบกับ brute force และกราฟแย่สุดสองชุดที่ n = 5 000, m = 100 000 (DAG และสายโซ่กลับทิศที่ดีขึ้นทีละจุดต่อรอบ) ใช้ 0.05 และ 0.27 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="da68_f2_closed_city.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>da68_f2_closed_city</b> · <span class="en">Closed City</span><span class="th">เมืองปิด</span></a><a class="nx" href="ex06e2_shortest.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex06e2_shortest</b> · <span class="en">Shortest Path with Negative Edge</span><span class="th">Shortest Path with Negative Edge (เส้นทางสั้นที่สุดที่มีเส้นติดลบ)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a64_q3_shortest_start.js"></script>
+</body>
+</html>

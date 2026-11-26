@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>11 · Recursion &amp; backtracking</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#8b46d9}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class="on"><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 11</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 11</span></div>
+<h1><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></h1>
+<p class="en">Build the answer one choice at a time; undo the choice; prune dead branches.</p><p class="th">สร้างคำตอบทีละตัวเลือก ย้อนกลับเมื่อเสร็จ และตัดกิ่งที่ไปต่อไม่ได้</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="ex00e4.html"><span class="pid">ex00e4</span><span class="pt"><span class="en">Generate Barcode</span><span class="th">สร้างบาร์โค้ด (Generate Barcode)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">Decide the B characters left to right; at each position try &#x27;0&#x27; and &#x27;1&#x27;, but only if the remaining positions can still end with exactly A ones. Every leaf of the pruned tree is a valid barcode.</span><span class="th">ตัดสินใจตัวอักษร B ตัวจากซ้ายไปขวา ที่แต่ละตำแหน่งลอง &#x27;0&#x27; และ &#x27;1&#x27; แต่เฉพาะเมื่อตำแหน่งที่เหลือยังจบด้วย 1 จำนวน A ตัวพอดีได้ ทุกใบของต้นไม้ที่ตัดกิ่งแล้วคือบาร์โค้ดที่ถูกต้อง</span></span></a><a href="ex00e5.html"><span class="pid">ex00e5</span><span class="pt"><span class="en">Consecutive Ones</span><span class="th">เลข 1 ติดกัน (Consecutive Ones)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">Enumerate all n-bit strings in increasing order (&#x27;0&#x27; before &#x27;1&#x27; at every depth) and carry two small facts down the recursion: the length of the current run of 1s and whether a run of k was already seen.</span><span class="th">ไล่ทุกสตริง n บิตตามลำดับจากน้อยไปมาก (&#x27;0&#x27; ก่อน &#x27;1&#x27; ทุกระดับ) และส่งข้อมูลเล็ก ๆ สองอย่างลงไปใน recursion: ความยาวของเลข 1 ที่ติดกันอยู่ตอนนี้ และเคยเจอ 1 ติดกัน k ตัวแล้วหรือยัง</span></span></a><a href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span><span class="pt"><span class="en">ABC Permutation</span><span class="th">เรียงสับเปลี่ยน ABC</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Fill the N positions left to right; at each position try A, B, C in alphabetical order if that letter still has copies left. Alphabetical order at every level gives dictionary order of the whole strings, and the count is known only at the end, so buffer the lines.</span><span class="th">เติม N ตำแหน่งจากซ้ายไปขวา ที่แต่ละตำแหน่งลอง A, B, C ตามลำดับตัวอักษรถ้าตัวนั้นยังมีเหลือ การเรียงตามตัวอักษรทุกระดับให้ลำดับพจนานุกรมของทั้งสตริง และรู้จำนวนตอนจบเท่านั้น จึงเก็บบรรทัดไว้ก่อน</span></span></a><a href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span><span class="pt"><span class="en">ABCD Permutation</span><span class="th">เรียงสับเปลี่ยน ABCD</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Same skeleton as ABC Permutation with four letters: at each of the N positions try A, B, C, D in order while that letter has copies left (at most a, b, c, d). Buffer the strings, then print the count and the buffer.</span><span class="th">โครงเดียวกับ ABC Permutation แต่มีสี่ตัวอักษร: ที่แต่ละตำแหน่งจาก N ตำแหน่ง ลอง A, B, C, D ตามลำดับตราบที่ตัวนั้นยังเหลือ (ไม่เกิน a, b, c, d) เก็บสตริงไว้ แล้วพิมพ์จำนวนตามด้วยบัฟเฟอร์</span></span></a><a href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span><span class="pt"><span class="en">Map Walk</span><span class="th">เดินบนแผนที่ (Map Walk)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Depth-first search from (1,1) that tries the moves in the order A (right), B (down), C (up), marks a cell visited on entry and unmarks it on return. Every arrival at (R,C) prints the current command string, already in alphabetical order.</span><span class="th">DFS จาก (1,1) ที่ลองการเดินตามลำดับ A (ขวา), B (ลง), C (ขึ้น) ทำเครื่องหมายช่องเมื่อเข้าและลบเมื่อกลับ ทุกครั้งที่ถึง (R,C) ให้พิมพ์สตริงคำสั่งปัจจุบัน ซึ่งเรียงตามตัวอักษรอยู่แล้ว</span></span></a><a href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span><span class="pt"><span class="en">n-Queen</span><span class="th">n ราชินี (n-Queen)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Put exactly one queen per row, so rows never clash. Columns and both diagonal directions are tracked by three boolean arrays indexed by column, row+column and row−column+n−1, making &quot;is this square attacked?&quot; O(1).</span><span class="th">วางราชินีแถวละหนึ่งตัวพอดี แถวจึงไม่มีทางชนกัน ส่วนคอลัมน์และแนวทแยงทั้งสองทิศติดตามด้วยอาร์เรย์ boolean สามตัวที่ใช้ดัชนี column, row+column และ row−column+n−1 ทำให้ &quot;ช่องนี้ถูกโจมตีไหม?&quot; เป็น O(1)</span></span></a><a href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span><span class="pt"><span class="en">Permutation with Constraint</span><span class="th">การเรียงสับเปลี่ยนที่มีเงื่อนไขก่อนหลัง</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Generate permutations in lexicographic order by trying values 0..n−1 at each position, and refuse to place b while its required predecessor a is not yet placed. The rule is checked the moment it could break, so no dead branch survives a single step.</span><span class="th">สร้าง permutation ตามลำดับพจนานุกรมโดยลองค่า 0..n−1 ที่แต่ละตำแหน่ง และไม่ยอมวาง b ถ้าตัวที่ต้องมาก่อน (a) ยังไม่ถูกวาง กฎถูกตรวจทันทีที่มีโอกาสผิด กิ่งที่ผิดจึงไม่รอดเกินหนึ่งก้าว</span></span></a><a href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span><span class="pt"><span class="en">Tower Defense</span><span class="th">Tower Defense (ป้อมปืน)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Each useful hit lowers the total power by exactly 1, so the task is &quot;maximize useful hits&quot;. Give every tower a target in turn (any monster in range that still has power, or no useful hit) and cut a branch as soon as hits + remaining towers cannot beat the best found.</span><span class="th">การยิงที่มีผลแต่ละครั้งลดพลังรวมได้ 1 พอดี โจทย์จึงกลายเป็น &quot;ทำให้ยิงได้ผลมากที่สุด&quot; ให้ป้อมแต่ละป้อมเลือกเป้าทีละป้อม (มอนสเตอร์ในระยะที่ยังมีพลัง หรือไม่ยิงโดนอะไรที่มีผล) และตัดกิ่งทันทีที่ hits + จำนวนป้อมที่เหลือ ไม่มีทางชนะค่าที่ดีที่สุดที่เจอแล้ว</span></span></a><a href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span><span class="pt"><span class="en">Day Cover</span><span class="th">Day Cover (ครอบคลุมทุกวัน)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Each student is either invited or skipped, so the search tree is the 2^m subsets. Cut a branch once it already uses as many students as the best answer, and stop a branch the moment every day is covered. A bitset per student makes &quot;add this student&#x27;s days&quot; one OR.</span><span class="th">นิสิตแต่ละคนถูกเชิญหรือถูกข้าม ต้นไม้ค้นหาจึงเป็นเซตย่อยทั้ง 2^m แบบ ตัดกิ่งเมื่อจำนวนคนที่ใช้เท่ากับคำตอบที่ดีที่สุดแล้ว และหยุดกิ่งทันทีที่ครอบคลุมทุกวัน bitset ของนิสิตแต่ละคนทำให้ &quot;เพิ่มวันของนิสิตคนนี้&quot; เป็นการ OR ครั้งเดียว</span></span></a><a href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span><span class="pt"><span class="en">Graph Coloring</span><span class="th">ระบายสีกราฟ (Graph Coloring)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Color one vertex per level. Reuse any color no neighbor has, or open exactly one new color, since unused colors are interchangeable. Always color next the vertex that already sees the most different colors, and cut any branch that uses as many colors as the best coloring found.</span><span class="th">ระบายจุดละหนึ่งระดับ ใช้สีเดิมที่ไม่มีเพื่อนบ้านใช้ หรือเปิดสีใหม่เพียงสีเดียว เพราะสีที่ยังไม่ใช้ทุกสีเหมือนกัน เลือกระบายจุดที่เห็นสีต่างกันมากที่สุดก่อนเสมอ และตัดทุกกิ่งที่ใช้สีเท่ากับการระบายที่ดีที่สุดที่เจอแล้ว</span></span></a><a href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span><span class="pt"><span class="en">Path Sum</span><span class="th">ผลรวมบนเส้นทาง (Path Sum)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Enumerate simple paths from every start node by DFS with an onPath mark, answering all 8 queries in the same search. A path&#x27;s weight only grows and can grow by at most the sum of the heaviest edges of the nodes not on it, so cut as soon as no open query lies in that range; stop everything once all 8 are YES.</span><span class="th">แจกแจง simple path จากทุกจุดเริ่มด้วย DFS ที่มีเครื่องหมาย onPath และตอบทั้ง 8 คำถามในการค้นหาเดียวกัน น้ำหนักของเส้นทางมีแต่เพิ่มขึ้น และเพิ่มได้ไม่เกินผลรวมเส้นที่หนักที่สุดของจุดที่ยังไม่อยู่บนเส้นทาง จึงตัดทันทีที่ไม่มีคำถามที่ยังเปิดอยู่ในช่วงนั้น และหยุดทั้งหมดเมื่อทั้ง 8 ข้อเป็น YES</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>The backtracking template</h3>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">report</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">          </span><span class="c1">// a complete answer</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">choice</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">increasing</span><span class="w"> </span><span class="n">order</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">allowed</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">               </span><span class="c1">// prune as early as possible</span>
+<span class="w">        </span><span class="n">apply</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span><span class="p">;</span><span class="w">                                </span><span class="c1">// choose</span>
+<span class="w">        </span><span class="n">search</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">                         </span><span class="c1">// explore</span>
+<span class="w">        </span><span class="n">undo</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span><span class="p">;</span><span class="w">                                 </span><span class="c1">// un-choose</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<ul>
+<li><strong>Trying choices in increasing order</strong> produces answers in dictionary order for free.</li>
+<li><strong>State in arrays</strong> (<code>used[]</code>, <code>remaining[]</code>, column/diagonal flags) makes <code>allowed</code> O(1).</li>
+<li><strong>Undo exactly what apply did</strong>, so the state is clean for the next choice.</li>
+</ul>
+<h3>Kinds of search trees</h3>
+<table>
+<thead>
+<tr>
+<th>what is built</th>
+<th>one level decides</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>subsets / combinations</td>
+<td>take or skip item i</td>
+<td>Barcode, Day Cover</td>
+</tr>
+<tr>
+<td>strings over an alphabet</td>
+<td>the letter at position i</td>
+<td>Consecutive Ones, ABC Permutation</td>
+</tr>
+<tr>
+<td>permutations</td>
+<td>which unused value goes at position i</td>
+<td>Permutation with Constraint</td>
+</tr>
+<tr>
+<td>placements</td>
+<td>where the i-th object goes</td>
+<td>n-Queen, Tower Defense</td>
+</tr>
+<tr>
+<td>paths</td>
+<td>the next vertex</td>
+<td>Map Walk, Path Sum</td>
+</tr>
+</tbody>
+</table>
+<h3>Making it fast</h3>
+<ul>
+<li><strong>Feasibility pruning</strong>: stop when the partial answer can no longer become valid (not enough positions left, a rule already broken).</li>
+<li><strong>Branch and bound</strong> (optimisation): keep the best answer so far; stop a branch when even an optimistic estimate cannot beat it.</li>
+<li><strong>Good order</strong>: try the most constrained decision first, and the most promising value first; break symmetries (for example, a new colour only as "the next unused one").</li>
+</ul></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>แม่แบบ backtracking</h3>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">position</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">report</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">          </span><span class="c1">// คำตอบครบหนึ่งชุด</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">แต</span><span class="err">่</span><span class="n">ละต</span><span class="err">ั</span><span class="n">วเล</span><span class="err">ื</span><span class="n">อก</span><span class="w"> </span><span class="n">เร</span><span class="err">ี</span><span class="n">ยงจากน</span><span class="err">้</span><span class="n">อยไปมาก</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">allowed</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">               </span><span class="c1">// ตัดกิ่งให้เร็วที่สุด</span>
+<span class="w">        </span><span class="n">apply</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span><span class="p">;</span><span class="w">                                </span><span class="c1">// เลือก</span>
+<span class="w">        </span><span class="n">search</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">                         </span><span class="c1">// สำรวจ</span>
+<span class="w">        </span><span class="n">undo</span><span class="p">(</span><span class="n">choice</span><span class="p">)</span><span class="p">;</span><span class="w">                                 </span><span class="c1">// ยกเลิก</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<ul>
+<li><strong>ลองตัวเลือกจากน้อยไปมาก</strong> ได้คำตอบตามลำดับพจนานุกรมฟรี</li>
+<li><strong>เก็บสถานะในอาร์เรย์</strong> (<code>used[]</code>, <code>remaining[]</code>, ธงคอลัมน์/แนวทแยง) ทำให้ <code>allowed</code> เป็น O(1)</li>
+<li><strong>ยกเลิกให้ตรงกับที่ apply ทำ</strong> สถานะจึงสะอาดสำหรับตัวเลือกถัดไป</li>
+</ul>
+<h3>ชนิดของต้นไม้ค้นหา</h3>
+<table>
+<thead>
+<tr>
+<th>สิ่งที่สร้าง</th>
+<th>หนึ่งชั้นตัดสิน</th>
+<th>ตัวอย่าง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>เซตย่อย / combination</td>
+<td>เอาหรือไม่เอาชิ้นที่ i</td>
+<td>Barcode, Day Cover</td>
+</tr>
+<tr>
+<td>สตริงบนชุดตัวอักษร</td>
+<td>ตัวอักษรที่ตำแหน่ง i</td>
+<td>Consecutive Ones, ABC Permutation</td>
+</tr>
+<tr>
+<td>permutation</td>
+<td>ค่าที่ยังไม่ใช้ตัวไหนอยู่ตำแหน่ง i</td>
+<td>Permutation with Constraint</td>
+</tr>
+<tr>
+<td>การวาง</td>
+<td>ของชิ้นที่ i ไปอยู่ที่ไหน</td>
+<td>n-Queen, Tower Defense</td>
+</tr>
+<tr>
+<td>เส้นทาง</td>
+<td>จุดถัดไป</td>
+<td>Map Walk, Path Sum</td>
+</tr>
+</tbody>
+</table>
+<h3>ทำให้เร็ว</h3>
+<ul>
+<li><strong>ตัดกิ่งที่เป็นไปไม่ได้</strong>: หยุดเมื่อคำตอบบางส่วนไม่มีทางถูกได้อีก (ตำแหน่งเหลือไม่พอ กฎถูกละเมิดแล้ว)</li>
+<li><strong>Branch and bound</strong> (หาค่าดีที่สุด): เก็บคำตอบที่ดีที่สุดไว้ หยุดกิ่งเมื่อแม้ประมาณการแบบมองโลกในแง่ดีก็ยังชนะไม่ได้</li>
+<li><strong>ลำดับที่ดี</strong>: ลองการตัดสินใจที่ถูกจำกัดมากที่สุดก่อน และค่าที่น่าจะดีที่สุดก่อน ตัดความสมมาตร (เช่น สีใหม่ใช้ได้แค่ "สีถัดไปที่ยังไม่ใช้")</li>
+</ul></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>08 · Binary search &amp; prefix sums</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0f766e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class="on"><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 08</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 08</span></div>
+<h1><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></h1>
+<p class="en">Precompute running totals, keep things sorted, and find any boundary in O(log n).</p><p class="th">คำนวณผลรวมสะสมไว้ก่อน เก็บข้อมูลให้เรียง แล้วหารอยต่อใด ๆ ได้ใน O(log n)</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="ex01e3.html"><span class="pid">ex01e3</span><span class="pt"><span class="en">Binary Search Near</span><span class="th">Binary Search Near (ค้นหาค่าที่ใกล้ที่สุดไม่เกิน x)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">The array splits into a left part (values ≤ x) and a right part (values &gt; x). Keep left inside the first part and right inside the second, starting from the imaginary positions −1 and n; halve the gap until they are neighbours. The answer is A[left], or −1 when left never moved.</span><span class="th">อาร์เรย์แบ่งเป็นส่วนซ้าย (ค่า ≤ x) และส่วนขวา (ค่า &gt; x) ให้ left อยู่ในส่วนแรกและ right อยู่ในส่วนที่สอง เริ่มจากตำแหน่งสมมติ −1 และ n แล้วแบ่งครึ่งช่องว่างจนทั้งสองติดกัน คำตอบคือ A[left] หรือ −1 ถ้า left ไม่เคยขยับ</span></span></a><a href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span><span class="pt"><span class="en">Binary Search Near Repeat</span><span class="th">Binary Search Near Repeat (ค่าซ้ำได้ ตอบดัชนี)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">Same boundary search as Binary Search Near, but now values repeat and the answer is an index. Because &quot;A[i] ≤ x&quot; puts every copy of x on the yes side, left ends on the last copy automatically; −1 comes out by itself when nothing is ≤ x.</span><span class="th">การค้นหารอยต่อเหมือน Binary Search Near แต่ค่าซ้ำได้และคำตอบเป็นดัชนี เพราะ &quot;A[i] ≤ x&quot; ทำให้สำเนาของ x ทุกตัวอยู่ฝั่งใช่ left จึงจบที่สำเนาตัวสุดท้ายเอง และได้ −1 เองเมื่อไม่มีค่าใด ≤ x</span></span></a><a href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span><span class="pt"><span class="en">Interval Count</span><span class="th">Interval Count (นับจำนวนในช่วง)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">After sorting, the numbers inside [p − k, p + k] form one contiguous block. Its first index is lower_bound(p − k) (first value ≥ p − k) and the index just past it is upper_bound(p + k) (first value &gt; p + k); the count is their difference.</span><span class="th">หลังเรียง ตัวเลขที่อยู่ใน [p − k, p + k] เป็นก้อนเดียวที่ติดกัน ดัชนีแรกของก้อนคือ lower_bound(p − k) (ค่าแรกที่ ≥ p − k) และดัชนีถัดจากก้อนคือ upper_bound(p + k) (ค่าแรกที่ &gt; p + k) จำนวนคือผลต่างของทั้งสอง</span></span></a><a href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span><span class="pt"><span class="en">Hiatus</span><span class="th">Hiatus (ตอนล่าสุดก่อนเดือนที่ถาม)</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">Turn (year, month) into the single number year·12 + (month − 1), which orders months in time. Sort the published months; for a query, upper_bound gives the first published month after it, and the cell just before is the latest month ≤ the query: equal means 0 0, none means −1 −1.</span><span class="th">เปลี่ยน (ปี, เดือน) เป็นตัวเลขเดียว year·12 + (month − 1) ซึ่งเรียงเดือนตามเวลา เรียงเดือนที่ตีพิมพ์ แล้วสำหรับแต่ละคำถาม upper_bound ให้เดือนที่ตีพิมพ์ตัวแรกที่หลังเดือนนั้น ช่องก่อนหน้าคือเดือนล่าสุดที่ ≤ คำถาม: ถ้าเท่ากันตอบ 0 0 ถ้าไม่มีตอบ −1 −1</span></span></a><a href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span><span class="pt"><span class="en">Count Value in Map</span><span class="th">Count Value in Map (นับค่าใน map ตามช่วง)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A map is sorted by key, but the queries ask about values, so the map&#x27;s order is useless. Copy the N values into a vector, sort it once, and answer each [A, B] with upper_bound(B) − lower_bound(A), clamped at 0 when A &gt; B.</span><span class="th">map เรียงตาม key แต่คำถามถามถึง value ลำดับของ map จึงใช้ไม่ได้ คัดลอก value N ตัวลง vector เรียงครั้งเดียว แล้วตอบแต่ละ [A, B] ด้วย upper_bound(B) − lower_bound(A) โดยให้เป็น 0 เมื่อ A &gt; B</span></span></a><a href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span><span class="pt"><span class="en">Huge Array</span><span class="th">Huge Array (อาร์เรย์ขนาดมหึมา)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">The array can have 2·10⁹ elements, so never build it. Sort the N runs (value, copies) by value; the sorted huge array is those runs back to back. The running total of copies gives the last position of each run, and the run holding position P is the first one whose last position is ≥ P: a lower_bound.</span><span class="th">อาร์เรย์มีได้ถึง 2·10⁹ ตัว จึงห้ามสร้างจริง เรียง N ชุด (ค่า, จำนวน) ตามค่า อาร์เรย์ใหญ่ที่เรียงแล้วก็คือชุดเหล่านั้นต่อกัน ผลรวมสะสมของจำนวนให้ตำแหน่งสุดท้ายของแต่ละชุด และชุดที่มีตำแหน่ง P คือชุดแรกที่ตำแหน่งสุดท้าย ≥ P: lower_bound</span></span></a><a href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span><span class="pt"><span class="en">Chocolate Truffle</span><span class="th">Chocolate Truffle (ช็อกโกแลตชิ้นที่ชอบถัดไป)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Somchai eats in reading order and wraps around, so number each cell (p − 1)·C + (q − 1): the walk is just 0, 1, 2, … modulo R·C. Sort the favourites&#x27; numbers; from start s the next favourite is lower_bound(s) and the wait is f − s, or, if none is ≥ s, the first favourite of the next round: f₀ + R·C − s.</span><span class="th">สมชายกินตามลำดับการอ่านแล้ววนรอบ จึงให้เลขช่อง (p − 1)·C + (q − 1): การเดินคือ 0, 1, 2, … mod R·C เรียงเลขของชิ้นที่ชอบ จากจุดเริ่ม s ชิ้นถัดไปคือ lower_bound(s) และรอ f − s วัน หรือถ้าไม่มีตัวที่ ≥ s คือชิ้นแรกของรอบถัดไป: f₀ + R·C − s</span></span></a><a href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span><span class="pt"><span class="en">Lawn Mowing</span><span class="th">Lawn Mowing (ตัดหญ้าตามงบ)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Mowing l..r costs Σ(A[i] + k) over the range, so build two prefix sums: costBefore (with the k per cell folded in) and grassBefore. costBefore never decreases, so the farthest affordable end is the last e with costBefore[e] ≤ costBefore[l] + budget: an upper_bound. The answer is grassBefore[e] − grassBefore[l].</span><span class="th">การตัด l..r เสีย Σ(A[i] + k) ในช่วงนั้น จึงสร้างผลรวมสะสมสองชุด: costBefore (รวม k ต่อช่องเข้าไป) และ grassBefore costBefore ไม่ลดลง จุดจบที่ไกลที่สุดที่จ่ายไหวจึงเป็น e ตัวสุดท้ายที่ costBefore[e] ≤ costBefore[l] + งบ: upper_bound คำตอบคือ grassBefore[e] − grassBefore[l]</span></span></a><a href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span><span class="pt"><span class="en">Saving for Ice Cream</span><span class="th">Saving for Ice Cream (เก็บเงินซื้อไอศกรีม)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Build savedBy[day] once (a prefix sum of the daily rate). For a query (P, x): if savedBy[x] ≥ P he buys before the scam and the target is P; otherwise the savedBy[x] baht are lost and he needs savedBy ≥ P + savedBy[x]. savedBy strictly increases, so the first day reaching the target is a lower_bound.</span><span class="th">สร้าง savedBy[day] ครั้งเดียว (ผลรวมสะสมของอัตรารายวัน) สำหรับคำถาม (P, x): ถ้า savedBy[x] ≥ P เขาซื้อก่อนโดนหลอก เป้าคือ P ไม่เช่นนั้นเงิน savedBy[x] บาทหายไป และต้องมี savedBy ≥ P + savedBy[x] savedBy เพิ่มขึ้นเสมอ วันแรกที่ถึงเป้าจึงเป็น lower_bound</span></span></a><a href="ex01m3.html"><span class="pid">ex01m3</span><span class="pt"><span class="en">Restaurant</span><span class="th">Restaurant (เวลาที่ลูกค้าได้นั่ง)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Simulating 10¹² customers is impossible, but counting is easy: by time t, chef i has seated ⌊t / Tᵢ⌋ + 1 people. That count never decreases in t, so the seating time of customer c is the smallest t with seatedBy(t) ≥ c: binary search over t between −1 and (c − 1)·min T.</span><span class="th">จำลองลูกค้า 10¹² คนเป็นไปไม่ได้ แต่การนับง่าย: ภายในเวลา t เชฟ i รับลูกค้าไปแล้ว ⌊t / Tᵢ⌋ + 1 คน จำนวนนี้ไม่ลดลงเมื่อ t เพิ่ม เวลาที่ลูกค้า c ได้นั่งจึงเป็น t ที่น้อยที่สุดที่ seatedBy(t) ≥ c: binary search บน t ระหว่าง −1 กับ (c − 1)·min T</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>1. One binary search template for everything</h3>
+<p>Every search here looks for a <strong>boundary</strong>: a yes/no question that is "yes, yes, …, yes, no, …, no" (or the reverse) along a sorted range. Keep two indices with an invariant:</p>
+<pre class="snip hl"><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">              </span><span class="c1">// imaginary ends: left is &quot;yes&quot;, right is &quot;no&quot;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">yes</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// left = last &quot;yes&quot;, right = first &quot;no&quot;</span></pre>
+<p>No <code>±1</code>, no special case for "not found": left = −1 or right = n say it.</p>
+<h3>2. Which comparison? (duplicates)</h3>
+<table>
+<thead>
+<tr>
+<th>you want</th>
+<th>question</th>
+<th>library</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>first value ≥ x</td>
+<td>A[i] &lt; x</td>
+<td><code>lower_bound(x)</code></td>
+</tr>
+<tr>
+<td>first value &gt; x</td>
+<td>A[i] ≤ x</td>
+<td><code>upper_bound(x)</code></td>
+</tr>
+<tr>
+<td>last value ≤ x</td>
+<td>A[i] ≤ x, take left</td>
+<td><code>upper_bound(x) − 1</code></td>
+</tr>
+<tr>
+<td>how many in [lo, hi]</td>
+<td></td>
+<td><code>upper_bound(hi) − lower_bound(lo)</code></td>
+</tr>
+</tbody>
+</table>
+<h3>3. Binary search on the answer</h3>
+<p>If you cannot compute the answer but can <strong>check</strong> a guess, and the check is monotone ("if t works, every bigger t works"), search over the answer values. Cost = check × log(range). See Restaurant.</p>
+<h3>4. Prefix sums</h3>
+<p><code>before[i] = A[0] + … + A[i−1]</code> makes any range sum O(1): <code>before[r+1] − before[l]</code>. With non-negative terms, <code>before</code> is sorted, so "how far until the sum passes a limit" is itself a binary search (Lawn Mowing, Saving for Ice Cream, Huge Array).</p>
+<h3>How to recognise these problems</h3>
+<ul>
+<li>Many queries about one fixed set → sort once (or build prefix sums once), then O(log n) per query.</li>
+<li>Huge sizes (10⁹, 10¹², 10¹⁸) that cannot be simulated → count instead, then search.</li>
+<li>"Next / previous / latest before" → successor / predecessor search, often after encoding the key as one number.</li>
+</ul></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>1. แม่แบบ binary search เดียวใช้ได้ทุกข้อ</h3>
+<p>การค้นหาทุกข้อในบทนี้หา <strong>รอยต่อ</strong>: คำถามใช่/ไม่ใช่ที่เป็น "ใช่, ใช่, …, ใช่, ไม่, …, ไม่" (หรือกลับกัน) ตามช่วงที่เรียงแล้ว ใช้ดัชนีสองตัวกับเงื่อนไขคงที่:</p>
+<pre class="snip hl"><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w">              </span><span class="c1">// ปลายสมมติ: left คือ &quot;ใช่&quot;, right คือ &quot;ไม่&quot;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">yes</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// left = &quot;ใช่&quot; ตัวสุดท้าย, right = &quot;ไม่&quot; ตัวแรก</span></pre>
+<p>ไม่มี <code>±1</code> ไม่มีกรณีพิเศษ "หาไม่เจอ": left = −1 หรือ right = n บอกเอง</p>
+<h3>2. ใช้การเปรียบเทียบแบบไหน? (ค่าซ้ำ)</h3>
+<table>
+<thead>
+<tr>
+<th>ต้องการ</th>
+<th>คำถาม</th>
+<th>ไลบรารี</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ค่าแรกที่ ≥ x</td>
+<td>A[i] &lt; x</td>
+<td><code>lower_bound(x)</code></td>
+</tr>
+<tr>
+<td>ค่าแรกที่ &gt; x</td>
+<td>A[i] ≤ x</td>
+<td><code>upper_bound(x)</code></td>
+</tr>
+<tr>
+<td>ค่าสุดท้ายที่ ≤ x</td>
+<td>A[i] ≤ x แล้วเอา left</td>
+<td><code>upper_bound(x) − 1</code></td>
+</tr>
+<tr>
+<td>มีกี่ตัวใน [lo, hi]</td>
+<td></td>
+<td><code>upper_bound(hi) − lower_bound(lo)</code></td>
+</tr>
+</tbody>
+</table>
+<h3>3. Binary search บนคำตอบ</h3>
+<p>ถ้าคำนวณคำตอบตรง ๆ ไม่ได้ แต่ <strong>ตรวจ</strong> ค่าที่เดาได้ และการตรวจเป็นทางเดียว ("ถ้า t ใช้ได้ ทุก t ที่มากกว่าก็ใช้ได้") ให้ค้นบนค่าของคำตอบ ต้นทุน = การตรวจ × log(ช่วง) ดู Restaurant</p>
+<h3>4. ผลรวมสะสม</h3>
+<p><code>before[i] = A[0] + … + A[i−1]</code> ทำให้ผลรวมช่วงใด ๆ เป็น O(1): <code>before[r+1] − before[l]</code> เมื่อพจน์ไม่ติดลบ <code>before</code> เรียงอยู่แล้ว "ไปได้ไกลแค่ไหนก่อนผลรวมเกินขีด" จึงเป็น binary search อีกที (Lawn Mowing, Saving for Ice Cream, Huge Array)</p>
+<h3>วิธีสังเกตโจทย์แบบนี้</h3>
+<ul>
+<li>คำถามจำนวนมากบนเซตเดียว → เรียงครั้งเดียว (หรือสร้างผลรวมสะสมครั้งเดียว) แล้ว O(log n) ต่อคำถาม</li>
+<li>ขนาดมหาศาล (10⁹, 10¹², 10¹⁸) ที่จำลองไม่ได้ → นับแทน แล้วค้นหา</li>
+<li>"ถัดไป / ก่อนหน้า / ล่าสุดก่อน" → หาตัวถัดไป / ตัวก่อนหน้า มักหลังเข้ารหัสคีย์เป็นตัวเลขเดียว</li>
+</ul></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>18 · Minimum spanning tree &amp; DSU</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0891b2}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class="on"><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 18</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 18</span></div>
+<h1><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></h1>
+<p class="en">Connect everything with the cheapest (or richest) set of edges: Prim and Kruskal.</p><p class="th">เชื่อมทุกจุดด้วยชุดเส้นที่ถูกที่สุด (หรือมากที่สุด) ด้วย Prim และ Kruskal</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span><span class="pt"><span class="en">Cable Company</span><span class="th">Cable Company (วางสายไฟเบอร์ให้ถูกที่สุด)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">The cheapest set of cables that connects every centre is a minimum spanning tree. Every pair of centres has a price, so the graph is complete; Prim&#x27;s array version (pick the outside centre with the cheapest link, then update all links) runs in O(N²), the same as reading the input.</span><span class="th">ชุดสายที่ถูกที่สุดที่เชื่อมทุกศูนย์คือต้นไม้ทอดข้ามที่น้อยที่สุด ทุกคู่ของศูนย์มีราคา กราฟจึงสมบูรณ์ Prim แบบอาร์เรย์ (เลือกศูนย์นอกต้นไม้ที่สายเชื่อมถูกที่สุด แล้วปรับสายเชื่อมของทุกศูนย์) ใช้ O(N²) เท่ากับการอ่านข้อมูล</span></span></a><a href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span><span class="pt"><span class="en">Beautiful Roads (XOR)</span><span class="th">ถนนสวย</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Choose n − 1 roads that connect all districts with the largest total beauty: a maximum spanning tree of the complete graph with weight x XOR y. MST algorithms work for &quot;maximum&quot; by reversing every comparison. Prim&#x27;s array version needs no stored weights: x ^ y is computed when needed.</span><span class="th">เลือกถนน n − 1 เส้นที่เชื่อมทุกอำเภอและมีความสวยรวมมากที่สุด: ต้นไม้ทอดข้ามที่มากที่สุดของกราฟสมบูรณ์ที่น้ำหนักเป็น x XOR y อัลกอริทึม MST ใช้กับ &quot;มากที่สุด&quot; ได้โดยกลับทุกการเปรียบเทียบ Prim แบบอาร์เรย์ไม่ต้องเก็บน้ำหนัก: คำนวณ x ^ y ตอนใช้</span></span></a><a href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span><span class="pt"><span class="en">Internet Provider</span><span class="th">Internet Provider (สาย UTP กับ Modem)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">K modems connect K separate pieces for free, so the cables only need to form a forest with K trees. The cheapest such forest is the MST without its K − 1 longest edges. Run Kruskal, sum all tree edges except the K − 1 longest, multiply by U.</span><span class="th">modem K เครื่องเชื่อม K ชิ้นที่แยกกันได้ฟรี สายจึงต้องเป็นแค่ป่าที่มี K ต้น ป่าแบบนั้นที่ถูกที่สุดคือ MST ที่ตัดเส้นที่ยาวที่สุด K − 1 เส้นออก รัน Kruskal รวมความยาวเส้นในต้นไม้ยกเว้น K − 1 เส้นที่ยาวที่สุด แล้วคูณ U</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>Minimum spanning tree</h3>
+<p>A spanning tree connects all n vertices with n − 1 edges and no cycle. The cheapest one is found greedily, justified by the <strong>cut property</strong>: for any split of the vertices into two sides, the cheapest edge across the split belongs to some MST.</p>
+<table>
+<thead>
+<tr>
+<th>algorithm</th>
+<th>idea</th>
+<th>time</th>
+<th>best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prim, array</td>
+<td>grow one tree; add the cheapest edge leaving it</td>
+<td>O(n²)</td>
+<td>dense or complete graphs, weights computed on the fly</td>
+</tr>
+<tr>
+<td>Kruskal + DSU</td>
+<td>sort edges; take each unless it closes a cycle</td>
+<td>O(m log m)</td>
+<td>edge lists</td>
+</tr>
+</tbody>
+</table>
+<h3>Union-find (DSU)</h3>
+<pre class="snip hl"><span class="kt">int</span><span class="w"> </span><span class="nf">findRoot</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// path halving</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// join: parent[findRoot(a)] = findRoot(b);</span></pre>
+<p>"Are a and b already connected?" = <code>findRoot(a) == findRoot(b)</code>, in almost O(1).</p>
+<h3>Variations in this chapter</h3>
+<ul>
+<li><strong>Maximum</strong> spanning tree: reverse every comparison (sort decreasing, pick the largest link).</li>
+<li><strong>K pieces</strong> instead of one tree: the cheapest forest with K trees is the MST without its K − 1 heaviest edges (stop Kruskal early).</li>
+<li><strong>Implicit complete graph</strong>: when every pair is an edge with a formula weight, Prim's array version needs no stored weights.</li>
+</ul></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>ต้นไม้ทอดข้ามที่น้อยที่สุด</h3>
+<p>ต้นไม้ทอดข้ามเชื่อมทั้ง n จุดด้วย n − 1 เส้นและไม่มีวงรอบ ต้นที่ถูกที่สุดหาได้แบบโลภ โดยอาศัย <strong>cut property</strong>: ไม่ว่าแบ่งจุดเป็นสองฝั่งแบบไหน เส้นที่ถูกที่สุดที่ข้ามรอยแบ่งอยู่ใน MST สักต้นเสมอ</p>
+<table>
+<thead>
+<tr>
+<th>อัลกอริทึม</th>
+<th>แนวคิด</th>
+<th>เวลา</th>
+<th>เหมาะกับ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prim แบบอาร์เรย์</td>
+<td>ขยายต้นไม้ต้นเดียว เพิ่มเส้นที่ถูกที่สุดที่ออกจากต้นไม้</td>
+<td>O(n²)</td>
+<td>กราฟหนาแน่นหรือสมบูรณ์ น้ำหนักคำนวณตอนใช้</td>
+</tr>
+<tr>
+<td>Kruskal + DSU</td>
+<td>เรียงเส้น เลือกทีละเส้นยกเว้นเส้นที่ปิดวงรอบ</td>
+<td>O(m log m)</td>
+<td>รายการเส้น</td>
+</tr>
+</tbody>
+</table>
+<h3>Union-find (DSU)</h3>
+<pre class="snip hl"><span class="kt">int</span><span class="w"> </span><span class="nf">findRoot</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// path halving</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// รวม: parent[findRoot(a)] = findRoot(b);</span></pre>
+<p>"a กับ b เชื่อมกันแล้วหรือยัง?" = <code>findRoot(a) == findRoot(b)</code> เกือบ O(1)</p>
+<h3>รูปแบบที่ต่างไปในบทนี้</h3>
+<ul>
+<li>ต้นไม้ทอดข้าม <strong>ที่มากที่สุด</strong>: กลับทุกการเปรียบเทียบ (เรียงจากมากไปน้อย เลือกเส้นเชื่อมที่ใหญ่ที่สุด)</li>
+<li><strong>K ชิ้น</strong> แทนต้นไม้ต้นเดียว: ป่า K ต้นที่ถูกที่สุดคือ MST ที่ตัดเส้นที่หนักที่สุด K − 1 เส้นออก (หยุด Kruskal ก่อน)</li>
+<li><strong>กราฟสมบูรณ์แฝง</strong>: เมื่อทุกคู่เป็นเส้นที่น้ำหนักมาจากสูตร Prim แบบอาร์เรย์ไม่ต้องเก็บน้ำหนัก</li>
+</ul></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

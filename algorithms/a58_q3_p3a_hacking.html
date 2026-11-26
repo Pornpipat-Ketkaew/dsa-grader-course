@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a58_q3_p3a_hacking · Hacking</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#3d5afe}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="on" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch17.html">17 · <span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></div>
+<div class="phead">
+<div class="pidbig">a58_q3_p3a_hacking</div>
+<h1><span class="en">Hacking</span><span class="th">Hacking (ไวรัสบุกเครือข่าย)</span></h1>
+<div class="chips"><span class="chip t en">Multi-source Dijkstra</span><span class="chip t en">Vertex weights as edge weights</span><span class="chip t en">Maximum of shortest distances</span><span class="chip t th">Dijkstra หลายต้นทาง</span><span class="chip t th">น้ำหนักบนจุดเป็นน้ำหนักบนเส้น</span><span class="chip t th">ค่ามากที่สุดของระยะสั้นที่สุด</span><span class="chip cx">O((n + m) log n) time · O(n + m) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">A server falls at (the time its attacker fell) + c[server], so the earliest fall time is a shortest path where entering server v costs c[v]. Start Dijkstra with all k first targets in the heap at time c[s], and answer the largest fall time, the moment the last server is hacked.</p><p class="th">เซิร์ฟเวอร์ถูกแฮกที่ (เวลาที่ผู้โจมตีถูกแฮก) + c[เซิร์ฟเวอร์] เวลาถูกแฮกเร็วสุดจึงเป็นเส้นทางสั้นที่สุดที่การเข้าเซิร์ฟเวอร์ v เสีย c[v] เริ่ม Dijkstra โดยใส่เป้าแรกทั้ง k ตัวลงใน heap ที่เวลา c[s] แล้วตอบเวลาที่มากที่สุด คือตอนที่เซิร์ฟเวอร์ตัวสุดท้ายถูกแฮก</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a58_q3_p3a_hacking\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: Dijkstra with several sources and weights on vertices</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: Dijkstra หลายต้นทางและน้ำหนักบนจุด</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: Dijkstra with several sources and weights on vertices</h2>
+<p>Two variations of Dijkstra meet here:</p>
+<ul>
+<li><strong>Several sources.</strong> Put every source in the heap at its starting value before the loop. The algorithm is unchanged; each vertex ends with the best value over all sources.</li>
+<li><strong>Weights on vertices.</strong> If entering vertex v costs <code>c[v]</code> no matter where you come from, every edge u → v simply weighs <code>c[v]</code>.</li>
+</ul>
+<p>And the answer is not one distance but the <strong>maximum</strong> of all shortest distances: the time at which the slowest server falls.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the fall time is a shortest distance</h3>
+<p>Server v falls at <code>fall[u] + c[v]</code> once a neighbour u has fallen, and the virus takes the earliest option. That is exactly <code>fall[v] = min over neighbours u of fall[u] + c[v]</code>: a shortest-path equation with positive weights.</p>
+<h3>Step 2: the first targets</h3>
+<p>A first target s needs c[s] seconds from time 0, so it starts with <code>fall[s] = c[s]</code> (not 0). All k of them enter the heap together.</p>
+<pre class="diagram">sample 2:  c = 2 5 3 1,  first target 0
+0 falls at 2 → 1 at 2+5 = 7, 2 at 2+3 = 5 → 3 at 5+1 = 6 (via 2)
+all hacked at max(2, 7, 5, 6) = 7</pre>
+<div class="viz" data-viz="a58_q3_p3a_hacking"></div>
+<h3>Step 3: answer</h3>
+<p>The network is fully hacked when the last server falls: print <code>max fall[v]</code>. The statement guarantees a connected network, so every server falls eventually.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Starting the first targets at 0 instead of c[s] (sample 1 would print 3 instead of 8).</li>
+<li>The PDF says "n − 1 lines" of cables but the samples have m lines: read m.</li>
+<li>The output paragraph in the PDF (about "choke points") is copy-paste noise: print one number.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a58_q3_p3a_hacking__main.cpp" download>⬇ .cpp</a><button data-copy="code73">Copy</button></div><pre class="hl"><code id="code73" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+    vector&lt;int&gt; firstTargets(k);
+    // target = 0..k-1: the servers attacked at time 0
+    for (int target = 0; target &lt; k; target++) cin &gt;&gt; firstTargets[target];
+    vector&lt;int&gt; hackTime(n);                     // c[i]: seconds to break into server i
+    // server = 0..n-1
+    for (int server = 0; server &lt; n; server++) cin &gt;&gt; hackTime[server];
+    vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+    // cable = 0..m-1 (the samples list m cables)
+    for (int cable = 0; cable &lt; m; cable++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        neighbors[a].push_back(b);
+        neighbors[b].push_back(a);
+    }
+
+    // hackedAt[v] = earliest moment server v falls. A first target falls at
+    // c[target]; from a hacked server u, a neighbour v falls at hackedAt[u] + c[v].
+    // That is Dijkstra with the weight on the server being entered, started from
+    // all k first targets at once (multi-source).
+    const int NOT_YET = -1;
+    vector&lt;int&gt; hackedAt(n, NOT_YET);
+    priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt; heap;   // (time, server)
+    for (int server : firstTargets) {
+        hackedAt[server] = hackTime[server];
+        heap.push({hackedAt[server], server});
+    }
+    // pop servers in the order they fall
+    while (!heap.empty()) {
+        auto [time, server] = heap.top();
+        heap.pop();
+        if (time &gt; hackedAt[server]) continue;   // outdated entry
+        for (int next : neighbors[server]) {
+            int fallsAt = time + hackTime[next];
+            if (hackedAt[next] == NOT_YET || fallsAt &lt; hackedAt[next]) {
+                hackedAt[next] = fallsAt;
+                heap.push({fallsAt, next});
+            }
+        }
+    }
+
+    int allHacked = 0;
+    // server = 0..n-1: the network is fully hacked when the LAST server falls
+    for (int server = 0; server &lt; n; server++) allHacked = max(allHacked, hackedAt[server]);
+    cout &lt;&lt; allHacked &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;queue&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">firstTargets</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// target = 0..k-1: the servers attacked at time 0</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span><span class="n">target</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">firstTargets</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackTime</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span><span class="w">                     </span><span class="c1">// c[i]: seconds to break into server i</span></span><span class="ln"><span class="w">    </span><span class="c1">// server = 0..n-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackTime</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// cable = 0..m-1 (the samples list m cables)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">cable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">cable</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">cable</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// hackedAt[v] = earliest moment server v falls. A first target falls at</span></span><span class="ln"><span class="w">    </span><span class="c1">// c[target]; from a hacked server u, a neighbour v falls at hackedAt[u] + c[v].</span></span><span class="ln"><span class="w">    </span><span class="c1">// That is Dijkstra with the weight on the server being entered, started from</span></span><span class="ln"><span class="w">    </span><span class="c1">// all k first targets at once (multi-source).</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">NOT_YET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">NOT_YET</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">greater</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">heap</span><span class="p">;</span><span class="w">   </span><span class="c1">// (time, server)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">firstTargets</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hackTime</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="p">{</span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">server</span><span class="p">}</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// pop servers in the order they fall</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">heap</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">server</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">heap</span><span class="p">.</span><span class="n">top</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">heap</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">   </span><span class="c1">// outdated entry</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">fallsAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">hackTime</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hackedAt</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">NOT_YET</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">fallsAt</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fallsAt</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="p">{</span><span class="n">fallsAt</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="p">}</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">allHacked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// server = 0..n-1: the network is fully hacked when the LAST server falls</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">allHacked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">allHacked</span><span class="p">,</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">allHacked</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Each server is finalized once and each cable relaxed twice, with heap operations: <strong>O((n + m) log n)</strong>. Memory: <strong>O(n + m)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, 300 random networks against a brute force that simulates the attack second by second, and n = 10 000, m = 40 000 in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF เครือข่ายสุ่ม 300 ชุดเทียบกับ brute force ที่จำลองการโจมตีทีละวินาที และ n = 10 000, m = 40 000 ใช้ 0.01 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: Dijkstra หลายต้นทางและน้ำหนักบนจุด</h2>
+<p>Dijkstra สองแบบมาเจอกันในข้อนี้:</p>
+<ul>
+<li><strong>หลายต้นทาง</strong> ใส่ทุกต้นทางลงใน heap ด้วยค่าเริ่มต้นของมันก่อนเริ่มลูป อัลกอริทึมเหมือนเดิม ทุกจุดได้ค่าดีที่สุดจากทุกต้นทาง</li>
+<li><strong>น้ำหนักบนจุด</strong> ถ้าการเข้าจุด v เสีย <code>c[v]</code> ไม่ว่ามาจากไหน ทุกเส้น u → v ก็มีน้ำหนัก <code>c[v]</code></li>
+</ul>
+<p>และคำตอบไม่ใช่ระยะเดียว แต่เป็น <strong>ค่ามากที่สุด</strong> ของระยะสั้นที่สุดทั้งหมด: เวลาที่เซิร์ฟเวอร์ที่ช้าที่สุดถูกแฮก</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: เวลาถูกแฮกคือระยะสั้นที่สุด</h3>
+<p>เซิร์ฟเวอร์ v ถูกแฮกที่ <code>fall[u] + c[v]</code> เมื่อเพื่อนบ้าน u ถูกแฮกแล้ว และไวรัสเลือกทางที่เร็วที่สุด จึงได้ <code>fall[v] = min ของ fall[u] + c[v] จากเพื่อนบ้าน u</code> ซึ่งคือสมการเส้นทางสั้นที่สุดที่น้ำหนักเป็นบวก</p>
+<h3>ขั้นที่ 2: เป้าแรก</h3>
+<p>เป้าแรก s ใช้ c[s] วินาทีตั้งแต่เวลา 0 จึงเริ่มที่ <code>fall[s] = c[s]</code> (ไม่ใช่ 0) ทั้ง k ตัวเข้า heap พร้อมกัน</p>
+<pre class="diagram">ตัวอย่าง 2: c = 2 5 3 1, เป้าแรก 0
+0 ถูกแฮกที่ 2 → 1 ที่ 2+5 = 7, 2 ที่ 2+3 = 5 → 3 ที่ 5+1 = 6 (ผ่าน 2)
+ถูกแฮกครบที่ max(2, 7, 5, 6) = 7</pre>
+<div class="viz" data-viz="a58_q3_p3a_hacking"></div>
+<h3>ขั้นที่ 3: คำตอบ</h3>
+<p>เครือข่ายถูกแฮกครบเมื่อเครื่องสุดท้ายถูกแฮก: พิมพ์ <code>max fall[v]</code> โจทย์รับประกันว่าเครือข่ายเชื่อมกัน ทุกเครื่องจึงถูกแฮกในที่สุด</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ให้เป้าแรกเริ่มที่ 0 แทน c[s] (ตัวอย่าง 1 จะได้ 3 แทน 8)</li>
+<li>PDF บอกว่าสายมี "n − 1 บรรทัด" แต่ตัวอย่างมี m บรรทัด: อ่าน m</li>
+<li>ย่อหน้าผลลัพธ์ใน PDF (เรื่อง "choke point") ถูกคัดลอกมาผิด: พิมพ์ตัวเลขเดียว</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a58_q3_p3a_hacking__main.cpp" download>⬇ .cpp</a><button data-copy="code73">Copy</button></div><pre class="hl"><code id="code73" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m, k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+    vector&lt;int&gt; firstTargets(k);
+    // target = 0..k-1: the servers attacked at time 0
+    for (int target = 0; target &lt; k; target++) cin &gt;&gt; firstTargets[target];
+    vector&lt;int&gt; hackTime(n);                     // c[i]: seconds to break into server i
+    // server = 0..n-1
+    for (int server = 0; server &lt; n; server++) cin &gt;&gt; hackTime[server];
+    vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+    // cable = 0..m-1 (the samples list m cables)
+    for (int cable = 0; cable &lt; m; cable++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        neighbors[a].push_back(b);
+        neighbors[b].push_back(a);
+    }
+
+    // hackedAt[v] = earliest moment server v falls. A first target falls at
+    // c[target]; from a hacked server u, a neighbour v falls at hackedAt[u] + c[v].
+    // That is Dijkstra with the weight on the server being entered, started from
+    // all k first targets at once (multi-source).
+    const int NOT_YET = -1;
+    vector&lt;int&gt; hackedAt(n, NOT_YET);
+    priority_queue&lt;pair&lt;int, int&gt;, vector&lt;pair&lt;int, int&gt;&gt;, greater&lt;pair&lt;int, int&gt;&gt;&gt; heap;   // (time, server)
+    for (int server : firstTargets) {
+        hackedAt[server] = hackTime[server];
+        heap.push({hackedAt[server], server});
+    }
+    // pop servers in the order they fall
+    while (!heap.empty()) {
+        auto [time, server] = heap.top();
+        heap.pop();
+        if (time &gt; hackedAt[server]) continue;   // outdated entry
+        for (int next : neighbors[server]) {
+            int fallsAt = time + hackTime[next];
+            if (hackedAt[next] == NOT_YET || fallsAt &lt; hackedAt[next]) {
+                hackedAt[next] = fallsAt;
+                heap.push({fallsAt, next});
+            }
+        }
+    }
+
+    int allHacked = 0;
+    // server = 0..n-1: the network is fully hacked when the LAST server falls
+    for (int server = 0; server &lt; n; server++) allHacked = max(allHacked, hackedAt[server]);
+    cout &lt;&lt; allHacked &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;queue&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">firstTargets</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// target = 0..k-1: the servers attacked at time 0</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"> </span><span class="n">target</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">firstTargets</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackTime</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span><span class="w">                     </span><span class="c1">// c[i]: seconds to break into server i</span></span><span class="ln"><span class="w">    </span><span class="c1">// server = 0..n-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackTime</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// cable = 0..m-1 (the samples list m cables)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">cable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">cable</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">cable</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// hackedAt[v] = earliest moment server v falls. A first target falls at</span></span><span class="ln"><span class="w">    </span><span class="c1">// c[target]; from a hacked server u, a neighbour v falls at hackedAt[u] + c[v].</span></span><span class="ln"><span class="w">    </span><span class="c1">// That is Dijkstra with the weight on the server being entered, started from</span></span><span class="ln"><span class="w">    </span><span class="c1">// all k first targets at once (multi-source).</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">NOT_YET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">NOT_YET</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">greater</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">heap</span><span class="p">;</span><span class="w">   </span><span class="c1">// (time, server)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">firstTargets</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hackTime</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="p">{</span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">server</span><span class="p">}</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// pop servers in the order they fall</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">heap</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="p">[</span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">server</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">heap</span><span class="p">.</span><span class="n">top</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">heap</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">time</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">   </span><span class="c1">// outdated entry</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">fallsAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">hackTime</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hackedAt</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">NOT_YET</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">fallsAt</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fallsAt</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="p">{</span><span class="n">fallsAt</span><span class="p">,</span><span class="w"> </span><span class="n">next</span><span class="p">}</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">allHacked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// server = 0..n-1: the network is fully hacked when the LAST server falls</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">server</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">allHacked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">max</span><span class="p">(</span><span class="n">allHacked</span><span class="p">,</span><span class="w"> </span><span class="n">hackedAt</span><span class="p">[</span><span class="n">server</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">allHacked</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> แต่ละเซิร์ฟเวอร์ถูกยืนยันครั้งเดียว และแต่ละสายถูกผ่อนคลายสองครั้ง พร้อมงาน heap: <strong>O((n + m) log n)</strong> หน่วยความจำ: <strong>O(n + m)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, 300 random networks against a brute force that simulates the attack second by second, and n = 10 000, m = 40 000 in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF เครือข่ายสุ่ม 300 ชุดเทียบกับ brute force ที่จำลองการโจมตีทีละวินาที และ n = 10 000, m = 40 000 ใช้ 0.01 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="ex06e3_columbia.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex06e3_columbia</b> · <span class="en">Columbia</span><span class="th">Columbia (ค่าผ่านเมืองบนตาราง)</span></a><a class="nx" href="da68_f2_closed_city.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>da68_f2_closed_city</b> · <span class="en">Closed City</span><span class="th">เมืองปิด</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a58_q3_p3a_hacking.js"></script>
+</body>
+</html>

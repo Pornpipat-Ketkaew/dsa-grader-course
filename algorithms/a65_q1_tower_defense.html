@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a65_q1_tower_defense · Tower Defense</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#8b46d9}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="on" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch11.html">11 · <span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></div>
+<div class="phead">
+<div class="pidbig">a65_q1_tower_defense</div>
+<h1><span class="en">Tower Defense</span><span class="th">Tower Defense (ป้อมปืน)</span></h1>
+<div class="chips"><span class="chip t en">Backtracking over choices</span><span class="chip t en">Branch and bound</span><span class="chip t th">Backtracking เลือกทางเลือก</span><span class="chip t th">Branch and bound (ตัดกิ่งด้วยขอบเขต)</span><span class="chip cx">O((m+1)^k) worst case, far less with the bound · O(m + k) memory</span><span class="chip"><span class="stars">★★★</span></span></div>
+<div class="lead"><p class="en">Each useful hit lowers the total power by exactly 1, so the task is &quot;maximize useful hits&quot;. Give every tower a target in turn (any monster in range that still has power, or no useful hit) and cut a branch as soon as hits + remaining towers cannot beat the best found.</p><p class="th">การยิงที่มีผลแต่ละครั้งลดพลังรวมได้ 1 พอดี โจทย์จึงกลายเป็น &quot;ทำให้ยิงได้ผลมากที่สุด&quot; ให้ป้อมแต่ละป้อมเลือกเป้าทีละป้อม (มอนสเตอร์ในระยะที่ยังมีพลัง หรือไม่ยิงโดนอะไรที่มีผล) และตัดกิ่งทันทีที่ hits + จำนวนป้อมที่เหลือ ไม่มีทางชนะค่าที่ดีที่สุดที่เจอแล้ว</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a65_q1_tower_defense\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: backtracking with branch and bound</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: backtracking พร้อม branch and bound</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: backtracking with branch and bound</h2>
+<p>Backtracking makes one decision per level: here, <strong>level = tower</strong>, and the choices are the targets of that tower. A leaf is a full plan for all k towers.</p>
+<p>When we <strong>optimize</strong> instead of listing, a second tool becomes available: <strong>branch and bound</strong>. At every node compute an optimistic bound on the best value any leaf below can reach. If that bound cannot beat the best leaf already found, the whole subtree is skipped.</p>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bestPossibleGain</span><span class="p">(</span><span class="n">level</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">best</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">   </span><span class="c1">// bound</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">choice</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">apply</span><span class="p">;</span><span class="w"> </span><span class="n">search</span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">gain</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">undo</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: turn "minimum remaining power" into "maximum useful hits"</h3>
+<p>A hit on a monster with power &gt; 0 lowers the total by exactly 1. A hit on a monster already at 0 changes nothing. So</p>
+<blockquote>
+<p>remaining power = total power − (number of useful hits)</p>
+</blockquote>
+<p>and minimizing the left side is the same as maximizing <code>hits</code>. The answer is <code>totalPower − bestHits</code>.</p>
+<h3>Step 2: the choices of one tower</h3>
+<p>Tower <code>tower</code> may shoot any monster <code>monster</code> with <code>|monsterAt[monster] − towerAt[tower]| ≤ reach</code> and <code>power[monster] &gt; 0</code>. Choose it by <code>power[monster]--</code>, recurse to <code>tower + 1</code> with <code>hits + 1</code>, then undo with <code>power[monster]++</code>.</p>
+<p>There is always one more option: <strong>no useful hit</strong>. It covers a tower with nothing in range, and a tower whose monsters are all at 0. Skipping it would make such inputs lose whole branches.</p>
+<div class="box warn">
+<div class="bt">Why not greedy?</div>
+<p>Towers T0 and T1, monsters M0 and M1 with power 1. T0 reaches both, T1 reaches only M0. Greedy "shoot the first monster in range" sends T0 to M0, and T1 is left with nothing: 1 hit. The best plan (T0 → M1, T1 → M0) makes 2. A tower's choice changes what later towers can do, so every choice must be tried.</p>
+</div>
+<h3>Step 3: the bound</h3>
+<p>At the call for <code>tower</code> there are <code>towerCount − tower</code> towers left, and each can add at most one useful hit. So</p>
+<blockquote>
+<p>if <code>hits + (towerCount − tower) ≤ bestHits</code>, nothing below can be strictly better: return.</p>
+</blockquote>
+<p>Because <code>bestHits</code> starts at 0 and the first leaf reached is the "everyone shoots something" branch tried first, a good <code>bestHits</code> appears early and cuts many later branches. Once some plan hits with every tower (<code>bestHits = towerCount</code>), every remaining call is cut immediately.</p>
+<div class="viz" data-viz="a65_q1_tower_defense"></div>
+<h3>Step 4: is it fast enough?</h3>
+<p>Each tower has at most m + 1 choices, so the tree has at most (m+1)^k = 9⁸ ≈ 4.3·10⁷ leaves for m = k = 8. The bound and the <code>power &gt; 0</code> test remove most of them; the hardest test (only 7 useful hits exist, so no branch ever reaches 8) still finishes far inside 1 second.</p>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a65_q1_tower_defense__main.cpp" download>⬇ .cpp</a><button data-copy="code28">Copy</button></div><pre class="hl"><code id="code28" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+
+int monsterCount, towerCount, reach;
+vector&lt;int&gt; monsterAt, power, towerAt;   // power[j] = power monster j still has
+int bestHits;                            // most useful hits found so far (global: starts at 0)
+
+// Decide the target of towers tower, tower+1, ..., towerCount-1.
+// hits = useful hits made by towers 0..tower-1 (a hit is useful if the monster still has power).
+void shoot(int tower, int hits) {
+    // bound: even if every remaining tower makes a useful hit we cannot beat bestHits
+    if (hits + (towerCount - tower) &lt;= bestHits) return;
+    if (tower == towerCount) { bestHits = hits; return; }
+    // monster = 0..monsterCount-1: tower shoots a monster in range that still has power
+    for (int monster = 0; monster &lt; monsterCount; monster++) {
+        if (power[monster] &gt; 0 &amp;&amp; abs(monsterAt[monster] - towerAt[tower]) &lt;= reach) {
+            power[monster]--;                 // choose
+            shoot(tower + 1, hits + 1);       // explore
+            power[monster]++;                 // un-choose
+        }
+    }
+    // last option: this tower makes no useful hit (nothing in range, or everything is at 0)
+    shoot(tower + 1, hits);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int roadLength;
+    cin &gt;&gt; roadLength &gt;&gt; monsterCount &gt;&gt; towerCount &gt;&gt; reach;
+    monsterAt.resize(monsterCount);
+    power.resize(monsterCount);
+    towerAt.resize(towerCount);
+    long long totalPower = 0;
+    for (int monster = 0; monster &lt; monsterCount; monster++) cin &gt;&gt; monsterAt[monster];
+    for (int monster = 0; monster &lt; monsterCount; monster++) {
+        cin &gt;&gt; power[monster];
+        totalPower += power[monster];
+    }
+    for (int tower = 0; tower &lt; towerCount; tower++) cin &gt;&gt; towerAt[tower];
+    shoot(0, 0);
+    cout &lt;&lt; totalPower - bestHits &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">,</span><span class="w"> </span><span class="n">towerCount</span><span class="p">,</span><span class="w"> </span><span class="n">reach</span><span class="p">;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">monsterAt</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="p">,</span><span class="w"> </span><span class="n">towerAt</span><span class="p">;</span><span class="w">   </span><span class="c1">// power[j] = power monster j still has</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">bestHits</span><span class="p">;</span><span class="w">                            </span><span class="c1">// most useful hits found so far (global: starts at 0)</span></span><span class="ln"></span><span class="ln"><span class="c1">// Decide the target of towers tower, tower+1, ..., towerCount-1.</span></span><span class="ln"><span class="c1">// hits = useful hits made by towers 0..tower-1 (a hit is useful if the monster still has power).</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">shoot</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tower</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">hits</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// bound: even if every remaining tower makes a useful hit we cannot beat bestHits</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hits</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">towerCount</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tower</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">bestHits</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tower</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">towerCount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bestHits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hits</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// monster = 0..monsterCount-1: tower shoots a monster in range that still has power</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="n">monsterAt</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">towerAt</span><span class="p">[</span><span class="n">tower</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">reach</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="o">-</span><span class="o">-</span><span class="p">;</span><span class="w">                 </span><span class="c1">// choose</span></span><span class="ln"><span class="w">            </span><span class="n">shoot</span><span class="p">(</span><span class="n">tower</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">hits</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">       </span><span class="c1">// explore</span></span><span class="ln"><span class="w">            </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span><span class="w">                 </span><span class="c1">// un-choose</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// last option: this tower makes no useful hit (nothing in range, or everything is at 0)</span></span><span class="ln"><span class="w">    </span><span class="n">shoot</span><span class="p">(</span><span class="n">tower</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">hits</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">roadLength</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">roadLength</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">towerCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">reach</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">monsterAt</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">monsterCount</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">power</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">monsterCount</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">towerAt</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">towerCount</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">totalPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">monsterAt</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">totalPower</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">tower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">towerCount</span><span class="p">;</span><span class="w"> </span><span class="n">tower</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">towerAt</span><span class="p">[</span><span class="n">tower</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">shoot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">totalPower</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bestHits</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> At most (m+1)^k leaves with O(m) work per node in the worst case, usually far fewer thanks to the bound; with m, k ≤ 8 that is safe. Memory: the arrays plus a recursion of depth k: <strong>O(m + k)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples and 300 random cases (m, k ≤ 6) against a brute force that tries every assignment; three m = k = 8, w = n worst cases (power 1000, power 1, and only 7 useful hits possible) each well under the time limit.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF และสุ่ม 300 ชุด (m, k ≤ 6) เทียบกับ brute force ที่ลองทุกการกำหนดเป้า และกรณีแย่สุด m = k = 8, w = n สามแบบ (พลัง 1000, พลัง 1 และยิงได้ผลแค่ 7 ครั้ง) แต่ละกรณีใช้เวลาต่ำกว่าเวลาจำกัดมาก</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: backtracking พร้อม branch and bound</h2>
+<p>Backtracking ตัดสินใจหนึ่งเรื่องต่อหนึ่งระดับ ในข้อนี้ <strong>ระดับ = ป้อม</strong> และทางเลือกคือเป้าของป้อมนั้น ใบหนึ่งใบคือแผนที่ครบทั้ง k ป้อม</p>
+<p>เมื่อเรา <strong>หาค่าที่ดีที่สุด</strong> แทนการแจกแจง จะมีเครื่องมือที่สองให้ใช้: <strong>branch and bound</strong> ที่ทุกโหนดคำนวณขอบเขตแบบมองโลกในแง่ดีของค่าที่ดีที่สุดที่ใบใต้โหนดนี้ทำได้ ถ้าขอบเขตนั้นชนะใบที่ดีที่สุดที่เจอแล้วไม่ได้ ก็ข้ามทั้งกิ่งย่อย</p>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">bestPossibleGain</span><span class="p">(</span><span class="n">level</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">best</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w">   </span><span class="c1">// ขอบเขต</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">last</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">best</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">value</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">choice</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">apply</span><span class="p">;</span><span class="w"> </span><span class="n">search</span><span class="p">(</span><span class="n">level</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">gain</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">undo</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: เปลี่ยน "พลังเหลือน้อยที่สุด" เป็น "ยิงได้ผลมากที่สุด"</h3>
+<p>การยิงมอนสเตอร์ที่มีพลัง &gt; 0 ลดพลังรวมได้ 1 พอดี การยิงมอนสเตอร์ที่เหลือ 0 แล้วไม่เปลี่ยนอะไร ดังนั้น</p>
+<blockquote>
+<p>พลังที่เหลือ = พลังรวม − (จำนวนการยิงที่มีผล)</p>
+</blockquote>
+<p>การทำให้ฝั่งซ้ายน้อยที่สุดจึงเหมือนกับการทำให้ <code>hits</code> มากที่สุด คำตอบคือ <code>totalPower − bestHits</code></p>
+<h3>ขั้นที่ 2: ทางเลือกของป้อมหนึ่งป้อม</h3>
+<p>ป้อม <code>tower</code> ยิงมอนสเตอร์ <code>monster</code> ใดก็ได้ที่ <code>|monsterAt[monster] − towerAt[tower]| ≤ reach</code> และ <code>power[monster] &gt; 0</code> เลือกด้วย <code>power[monster]--</code> เรียกต่อที่ <code>tower + 1</code> พร้อม <code>hits + 1</code> แล้วยกเลิกด้วย <code>power[monster]++</code></p>
+<p>มีอีกทางเลือกหนึ่งเสมอ: <strong>ไม่ยิงโดนอะไรที่มีผล</strong> ครอบคลุมป้อมที่ไม่มีอะไรในระยะ และป้อมที่มอนสเตอร์ในระยะเหลือ 0 หมดแล้ว ถ้าข้ามทางเลือกนี้ อินพุตแบบนั้นจะเสียทั้งกิ่งไป</p>
+<div class="box warn">
+<div class="bt">ทำไมไม่ใช้ greedy?</div>
+<p>ป้อม T0 และ T1 มอนสเตอร์ M0 และ M1 พลัง 1 T0 ยิงถึงทั้งคู่ T1 ยิงถึงแค่ M0 greedy แบบ "ยิงตัวแรกที่อยู่ในระยะ" ส่ง T0 ไปยิง M0 แล้ว T1 ไม่เหลืออะไรให้ยิง: ได้ 1 ครั้ง แผนที่ดีที่สุด (T0 → M1, T1 → M0) ได้ 2 ครั้ง ทางเลือกของป้อมหนึ่งเปลี่ยนสิ่งที่ป้อมถัดไปทำได้ จึงต้องลองทุกทางเลือก</p>
+</div>
+<h3>ขั้นที่ 3: ขอบเขต</h3>
+<p>ตอนเรียกสำหรับ <code>tower</code> ยังเหลือ <code>towerCount − tower</code> ป้อม และแต่ละป้อมเพิ่มการยิงที่มีผลได้ไม่เกินหนึ่งครั้ง ดังนั้น</p>
+<blockquote>
+<p>ถ้า <code>hits + (towerCount − tower) ≤ bestHits</code> ไม่มีอะไรข้างล่างดีกว่าได้จริง: return</p>
+</blockquote>
+<p>เพราะ <code>bestHits</code> เริ่มที่ 0 และใบแรกที่ไปถึงคือกิ่ง "ทุกป้อมยิงอะไรสักอย่าง" ที่ถูกลองก่อน ค่า <code>bestHits</code> ที่ดีจึงปรากฏเร็วและตัดกิ่งหลัง ๆ ได้มาก เมื่อมีแผนที่ทุกป้อมยิงได้ผล (<code>bestHits = towerCount</code>) ทุกการเรียกที่เหลือจะถูกตัดทันที</p>
+<div class="viz" data-viz="a65_q1_tower_defense"></div>
+<h3>ขั้นที่ 4: เร็วพอไหม?</h3>
+<p>ป้อมแต่ละป้อมมีทางเลือกไม่เกิน m + 1 ทาง ต้นไม้จึงมีใบไม่เกิน (m+1)^k = 9⁸ ≈ 4.3·10⁷ ใบเมื่อ m = k = 8 ขอบเขตและการตรวจ <code>power &gt; 0</code> ตัดส่วนใหญ่ออก ชุดทดสอบที่ยากที่สุด (ยิงได้ผลแค่ 7 ครั้ง ไม่มีกิ่งใดถึง 8) ก็ยังเสร็จภายใน 1 วินาทีได้สบาย</p>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a65_q1_tower_defense__main.cpp" download>⬇ .cpp</a><button data-copy="code28">Copy</button></div><pre class="hl"><code id="code28" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;cstdlib&gt;
+using namespace std;
+
+int monsterCount, towerCount, reach;
+vector&lt;int&gt; monsterAt, power, towerAt;   // power[j] = power monster j still has
+int bestHits;                            // most useful hits found so far (global: starts at 0)
+
+// Decide the target of towers tower, tower+1, ..., towerCount-1.
+// hits = useful hits made by towers 0..tower-1 (a hit is useful if the monster still has power).
+void shoot(int tower, int hits) {
+    // bound: even if every remaining tower makes a useful hit we cannot beat bestHits
+    if (hits + (towerCount - tower) &lt;= bestHits) return;
+    if (tower == towerCount) { bestHits = hits; return; }
+    // monster = 0..monsterCount-1: tower shoots a monster in range that still has power
+    for (int monster = 0; monster &lt; monsterCount; monster++) {
+        if (power[monster] &gt; 0 &amp;&amp; abs(monsterAt[monster] - towerAt[tower]) &lt;= reach) {
+            power[monster]--;                 // choose
+            shoot(tower + 1, hits + 1);       // explore
+            power[monster]++;                 // un-choose
+        }
+    }
+    // last option: this tower makes no useful hit (nothing in range, or everything is at 0)
+    shoot(tower + 1, hits);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int roadLength;
+    cin &gt;&gt; roadLength &gt;&gt; monsterCount &gt;&gt; towerCount &gt;&gt; reach;
+    monsterAt.resize(monsterCount);
+    power.resize(monsterCount);
+    towerAt.resize(towerCount);
+    long long totalPower = 0;
+    for (int monster = 0; monster &lt; monsterCount; monster++) cin &gt;&gt; monsterAt[monster];
+    for (int monster = 0; monster &lt; monsterCount; monster++) {
+        cin &gt;&gt; power[monster];
+        totalPower += power[monster];
+    }
+    for (int tower = 0; tower &lt; towerCount; tower++) cin &gt;&gt; towerAt[tower];
+    shoot(0, 0);
+    cout &lt;&lt; totalPower - bestHits &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">,</span><span class="w"> </span><span class="n">towerCount</span><span class="p">,</span><span class="w"> </span><span class="n">reach</span><span class="p">;</span></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">monsterAt</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="p">,</span><span class="w"> </span><span class="n">towerAt</span><span class="p">;</span><span class="w">   </span><span class="c1">// power[j] = power monster j still has</span></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">bestHits</span><span class="p">;</span><span class="w">                            </span><span class="c1">// most useful hits found so far (global: starts at 0)</span></span><span class="ln"></span><span class="ln"><span class="c1">// Decide the target of towers tower, tower+1, ..., towerCount-1.</span></span><span class="ln"><span class="c1">// hits = useful hits made by towers 0..tower-1 (a hit is useful if the monster still has power).</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">shoot</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tower</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">hits</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// bound: even if every remaining tower makes a useful hit we cannot beat bestHits</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hits</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">towerCount</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tower</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">bestHits</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tower</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">towerCount</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">bestHits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hits</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// monster = 0..monsterCount-1: tower shoots a monster in range that still has power</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="n">monsterAt</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">towerAt</span><span class="p">[</span><span class="n">tower</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">reach</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="o">-</span><span class="o">-</span><span class="p">;</span><span class="w">                 </span><span class="c1">// choose</span></span><span class="ln"><span class="w">            </span><span class="n">shoot</span><span class="p">(</span><span class="n">tower</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">hits</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span><span class="w">       </span><span class="c1">// explore</span></span><span class="ln"><span class="w">            </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span><span class="w">                 </span><span class="c1">// un-choose</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// last option: this tower makes no useful hit (nothing in range, or everything is at 0)</span></span><span class="ln"><span class="w">    </span><span class="n">shoot</span><span class="p">(</span><span class="n">tower</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">hits</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">roadLength</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">roadLength</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">towerCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">reach</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">monsterAt</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">monsterCount</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">power</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">monsterCount</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">towerAt</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">towerCount</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">totalPower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">monsterAt</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">monsterCount</span><span class="p">;</span><span class="w"> </span><span class="n">monster</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">totalPower</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">power</span><span class="p">[</span><span class="n">monster</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">tower</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">towerCount</span><span class="p">;</span><span class="w"> </span><span class="n">tower</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">towerAt</span><span class="p">[</span><span class="n">tower</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">shoot</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">totalPower</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">bestHits</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> ใบไม่เกิน (m+1)^k ใบ โหนดละ O(m) ในกรณีแย่สุด และน้อยกว่านั้นมากด้วยขอบเขต เมื่อ m, k ≤ 8 ปลอดภัย หน่วยความจำ: อาร์เรย์และ recursion ลึก k: <strong>O(m + k)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples and 300 random cases (m, k ≤ 6) against a brute force that tries every assignment; three m = k = 8, w = n worst cases (power 1000, power 1, and only 7 useful hits possible) each well under the time limit.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF และสุ่ม 300 ชุด (m, k ≤ 6) เทียบกับ brute force ที่ลองทุกการกำหนดเป้า และกรณีแย่สุด m = k = 8, w = n สามแบบ (พลัง 1000, พลัง 1 และยิงได้ผลแค่ 7 ครั้ง) แต่ละกรณีใช้เวลาต่ำกว่าเวลาจำกัดมาก</span></div></div></div>
+<div class="pn"><a class="pv" href="a64_q1_permu_before.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>a64_q1_permu_before</b> · <span class="en">Permutation with Constraint</span><span class="th">การเรียงสับเปลี่ยนที่มีเงื่อนไขก่อนหลัง</span></a><a class="nx" href="a66_q1a_day_cover.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a66_q1a_day_cover</b> · <span class="en">Day Cover</span><span class="th">Day Cover (ครอบคลุมทุกวัน)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a65_q1_tower_defense.js"></script>
+</body>
+</html>

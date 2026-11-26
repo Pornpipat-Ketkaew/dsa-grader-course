@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>da66_f1_map_walk · Map Walk</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#8b46d9}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="on" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch11.html">11 · <span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></div>
+<div class="phead">
+<div class="pidbig">da66_f1_map_walk</div>
+<h1><span class="en">Map Walk</span><span class="th">เดินบนแผนที่ (Map Walk)</span></h1>
+<div class="chips"><span class="chip t en">DFS enumeration of simple paths</span><span class="chip t en">Backtracking on a visited grid</span><span class="chip t th">DFS ไล่ทุกเส้นทางที่ไม่ซ้ำช่อง</span><span class="chip t th">Backtracking บนตาราง visited</span><span class="chip cx">O(number of paths · path length) time · O(R·C) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Depth-first search from (1,1) that tries the moves in the order A (right), B (down), C (up), marks a cell visited on entry and unmarks it on return. Every arrival at (R,C) prints the current command string, already in alphabetical order.</p><p class="th">DFS จาก (1,1) ที่ลองการเดินตามลำดับ A (ขวา), B (ลง), C (ขึ้น) ทำเครื่องหมายช่องเมื่อเข้าและลบเมื่อกลับ ทุกครั้งที่ถึง (R,C) ให้พิมพ์สตริงคำสั่งปัจจุบัน ซึ่งเรียงตามตัวอักษรอยู่แล้ว</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\da66_f1_map_walk\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: DFS that enumerates simple paths</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: DFS ที่ไล่ทุกเส้นทางที่ไม่ซ้ำช่อง</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: DFS that enumerates simple paths</h2>
+<p>Shortest-path problems use BFS and visit each cell <strong>once overall</strong>. Counting or listing <strong>all</strong> paths is different: a cell may appear in many paths, just never twice in the <strong>same</strong> path. The tool is <strong>backtracking DFS</strong>:</p>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cell</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">goal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">report</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">required</span><span class="w"> </span><span class="n">order</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">next</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">inside</span><span class="p">,</span><span class="w"> </span><span class="n">free</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">mark</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="n">visited</span><span class="p">;</span><span class="w">   </span><span class="n">append</span><span class="w"> </span><span class="n">move</span><span class="p">;</span><span class="w">     </span><span class="c1">// choose</span>
+<span class="w">            </span><span class="n">walk</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span><span class="w">                           </span><span class="c1">// explore</span>
+<span class="w">            </span><span class="n">remove</span><span class="w"> </span><span class="n">move</span><span class="p">;</span><span class="w">         </span><span class="n">unmark</span><span class="w"> </span><span class="n">next</span><span class="p">;</span><span class="w">     </span><span class="c1">// un-choose</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<p><code>visited</code> here means "on the <strong>current</strong> path", not "ever seen". Unmarking on return is what lets the next branch use the cell again.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>The four rules become four checks</h3>
+<table>
+<thead>
+<tr>
+<th>rule in the statement</th>
+<th>check in the loop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. stay inside the map</td>
+<td><code>1 ≤ nextRow ≤ R</code>, <code>1 ≤ nextColumn ≤ C</code></td>
+</tr>
+<tr>
+<td>2. never revisit a cell</td>
+<td><code>!visited[nextRow][nextColumn]</code></td>
+</tr>
+<tr>
+<td>3. the game ends at (R, C)</td>
+<td><code>return</code> right after printing (no move out of the goal)</td>
+</tr>
+<tr>
+<td>4. no-entry cells</td>
+<td><code>!blocked[nextRow][nextColumn]</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Alphabetical output for free</h3>
+<p>The commands are letters A &lt; B &lt; C, and the output must be in alphabetical order. Trying the moves at every cell in the order <strong>A, B, C</strong> makes the DFS produce paths in exactly that order (the same argument as for dictionary-order permutations). No sorting, no storing.</p>
+<pre class="diagram">2 × 3 map, no walls          paths in the order DFS finds them
+(1,1) → (1,2) → (1,3)        A A B
+  │       │       │          A B A
+(2,1) → (2,2) → (2,3)        B A A
+                             B A C A B   ← goes up again: allowed, since (1,2),(1,3) are not on the path yet</pre>
+<div class="viz" data-viz="da66_f1_map_walk"></div>
+<h3>Why print immediately (32 MB)</h3>
+<p>The number of paths in a 10 × 10 map can be enormous, and the memory limit is only 32 MB. Never collect the paths in a vector: print each one the moment it is found. <code>cout</code> with <code>ios_base::sync_with_stdio(false)</code> buffers the output efficiently. The current path itself is one <code>string</code> used as a stack (<code>push_back</code> / <code>pop_back</code>).</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Marking (1,1) visited is required: otherwise a path could come back up into the start cell.</li>
+<li>Continuing past (R, C): rule 3 says the game ends there, so <code>return</code> after printing.</li>
+<li>Using BFS-style "visited forever" marks: you would find only one path.</li>
+<li>A 1 × 1 map: the start is the goal, so print one empty line, then DONE.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/da66_f1_map_walk__main.cpp" download>⬇ .cpp</a><button data-copy="code25">Copy</button></div><pre class="hl"><code id="code25" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int rows, columns;
+bool blocked[12][12];     // &quot;no entry&quot; cells (1-based)
+bool visited[12][12];     // cells on the current path
+string commands;          // the commands that led to the current cell
+
+// The three commands in ALPHABETICAL order: A = right, B = down, C = up.
+const char LETTER[3] = {&#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;};
+const int ROW_STEP[3] = {0, +1, -1};
+const int COLUMN_STEP[3] = {+1, 0, 0};
+
+// We stand on (row, column) with `commands` describing the path from (1,1).
+void walk(int row, int column) {
+    if (row == rows &amp;&amp; column == columns) {     // the game ends as soon as we reach (R, C)
+        cout &lt;&lt; commands &lt;&lt; &#x27;\n&#x27;;                // print now: storing every path could break 32 MB
+        return;
+    }
+    // move = 0, 1, 2 -&gt; A, B, C: alphabetical order of the letters = sorted output
+    for (int move = 0; move &lt; 3; move++) {
+        int nextRow = row + ROW_STEP[move];
+        int nextColumn = column + COLUMN_STEP[move];
+        if (nextRow &lt; 1 || nextRow &gt; rows || nextColumn &lt; 1 || nextColumn &gt; columns) continue; // rule 1
+        if (visited[nextRow][nextColumn] || blocked[nextRow][nextColumn]) continue;         // rules 2, 4
+        visited[nextRow][nextColumn] = true;     // choose
+        commands.push_back(LETTER[move]);
+        walk(nextRow, nextColumn);               // explore
+        commands.pop_back();                     // un-choose
+        visited[nextRow][nextColumn] = false;
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin &gt;&gt; rows &gt;&gt; columns;
+    // row = 1..rows (top to bottom), column = 1..columns (left to right)
+    for (int row = 1; row &lt;= rows; row++)
+        for (int column = 1; column &lt;= columns; column++) cin &gt;&gt; blocked[row][column];
+    visited[1][1] = true;
+    walk(1, 1);
+    cout &lt;&lt; &quot;DONE\n&quot;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">columns</span><span class="p">;</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="n">blocked</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">;</span><span class="w">     </span><span class="c1">// &quot;no entry&quot; cells (1-based)</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="n">visited</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">;</span><span class="w">     </span><span class="c1">// cells on the current path</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">commands</span><span class="p">;</span><span class="w">          </span><span class="c1">// the commands that led to the current cell</span></span><span class="ln"></span><span class="ln"><span class="c1">// The three commands in ALPHABETICAL order: A = right, B = down, C = up.</span></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">LETTER</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#x27;</span><span class="sc">A</span><span class="sc">&#x27;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">B</span><span class="sc">&#x27;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">C</span><span class="sc">&#x27;</span><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ROW_STEP</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">COLUMN_STEP</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// We stand on (row, column) with `commands` describing the path from (1,1).</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">columns</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">     </span><span class="c1">// the game ends as soon as we reach (R, C)</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">commands</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span><span class="w">                </span><span class="c1">// print now: storing every path could break 32 MB</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// move = 0, 1, 2 -&gt; A, B, C: alphabetical order of the letters = sorted output</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="n">move</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ROW_STEP</span><span class="p">[</span><span class="n">move</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">nextColumn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">COLUMN_STEP</span><span class="p">[</span><span class="n">move</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nextRow</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextColumn</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextColumn</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">columns</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w"> </span><span class="c1">// rule 1</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">blocked</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">         </span><span class="c1">// rules 2, 4</span></span><span class="ln"><span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">     </span><span class="c1">// choose</span></span><span class="ln"><span class="w">        </span><span class="n">commands</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">LETTER</span><span class="p">[</span><span class="n">move</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">walk</span><span class="p">(</span><span class="n">nextRow</span><span class="p">,</span><span class="w"> </span><span class="n">nextColumn</span><span class="p">)</span><span class="p">;</span><span class="w">               </span><span class="c1">// explore</span></span><span class="ln"><span class="w">        </span><span class="n">commands</span><span class="p">.</span><span class="n">pop_back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">                     </span><span class="c1">// un-choose</span></span><span class="ln"><span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">columns</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// row = 1..rows (top to bottom), column = 1..columns (left to right)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">columns</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">blocked</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">visited</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">walk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="s">DONE</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Each DFS call does 3 checks; the work is proportional to the number of partial paths explored, which is exponential in the worst case, but the statement's tests are built so the answer is printable. Memory: the R·C grids and a recursion depth of at most R·C.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the 3 PDF samples, 3 hand-made mazes (a single long winding path, 1×1) and 300 random small maps against an independent brute force; a 10×10 random map with 5 509 paths runs in 0.007 s, well inside 32 MB because nothing is stored.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF เขาวงกตที่ทำเอง 3 แบบ (ทางเดียวคดเคี้ยวยาว, 1×1) และสุ่ม 300 แผนที่เล็กเทียบกับ brute force อีกตัว แผนที่สุ่ม 10×10 ที่มี 5 509 เส้นทางใช้ 0.007 วินาที และอยู่ใน 32 MB สบายเพราะไม่เก็บอะไรไว้</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: DFS ที่ไล่ทุกเส้นทางที่ไม่ซ้ำช่อง</h2>
+<p>โจทย์เส้นทางสั้นที่สุดใช้ BFS และเยี่ยมแต่ละช่อง <strong>ครั้งเดียวตลอดการทำงาน</strong> แต่การนับหรือแสดง <strong>ทุก</strong> เส้นทางต่างออกไป: ช่องหนึ่งอยู่ได้ในหลายเส้นทาง แต่ห้ามซ้ำในเส้นทาง <strong>เดียวกัน</strong> เครื่องมือคือ <strong>DFS แบบ backtracking</strong>:</p>
+<pre class="snip hl"><span class="kt">void</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cell</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">goal</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">report</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">each</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">required</span><span class="w"> </span><span class="n">order</span><span class="p">)</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">next</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">inside</span><span class="p">,</span><span class="w"> </span><span class="n">free</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">current</span><span class="w"> </span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">mark</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="n">visited</span><span class="p">;</span><span class="w">   </span><span class="n">append</span><span class="w"> </span><span class="n">move</span><span class="p">;</span><span class="w">     </span><span class="c1">// choose</span>
+<span class="w">            </span><span class="n">walk</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span><span class="w">                           </span><span class="c1">// explore</span>
+<span class="w">            </span><span class="n">remove</span><span class="w"> </span><span class="n">move</span><span class="p">;</span><span class="w">         </span><span class="n">unmark</span><span class="w"> </span><span class="n">next</span><span class="p">;</span><span class="w">     </span><span class="c1">// un-choose</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="p">}</span></pre>
+<p><code>visited</code> ในที่นี้แปลว่า "อยู่บนเส้นทาง <strong>ปัจจุบัน</strong>" ไม่ใช่ "เคยเห็นแล้ว" การลบเครื่องหมายตอนกลับคือสิ่งที่ทำให้กิ่งถัดไปใช้ช่องนั้นได้อีก</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>กฎสี่ข้อกลายเป็นการตรวจสี่อย่าง</h3>
+<table>
+<thead>
+<tr>
+<th>กฎในโจทย์</th>
+<th>การตรวจในลูป</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. ห้ามออกนอกตาราง</td>
+<td><code>1 ≤ nextRow ≤ R</code>, <code>1 ≤ nextColumn ≤ C</code></td>
+</tr>
+<tr>
+<td>2. ห้ามเดินซ้ำช่อง</td>
+<td><code>!visited[nextRow][nextColumn]</code></td>
+</tr>
+<tr>
+<td>3. เกมจบที่ (R, C)</td>
+<td><code>return</code> ทันทีหลังพิมพ์ (ไม่เดินออกจากเป้าหมาย)</td>
+</tr>
+<tr>
+<td>4. ช่องห้ามเข้า</td>
+<td><code>!blocked[nextRow][nextColumn]</code></td>
+</tr>
+</tbody>
+</table>
+<h3>ได้ลำดับตัวอักษรฟรี</h3>
+<p>คำสั่งเป็นตัวอักษร A &lt; B &lt; C และต้องแสดงตามลำดับตัวอักษร การลองการเดินที่ทุกช่องตามลำดับ <strong>A, B, C</strong> ทำให้ DFS สร้างเส้นทางตามลำดับนั้นพอดี (เหตุผลเดียวกับการเรียงสับเปลี่ยนตามพจนานุกรม) ไม่ต้องเรียงและไม่ต้องเก็บ</p>
+<pre class="diagram">แผนที่ 2 × 3 ไม่มีกำแพง       เส้นทางตามลำดับที่ DFS พบ
+(1,1) → (1,2) → (1,3)        A A B
+  │       │       │          A B A
+(2,1) → (2,2) → (2,3)        B A A
+                             B A C A B   ← ขึ้นกลับไปได้ เพราะ (1,2),(1,3) ยังไม่อยู่บนเส้นทาง</pre>
+<div class="viz" data-viz="da66_f1_map_walk"></div>
+<h3>ทำไมต้องพิมพ์ทันที (32 MB)</h3>
+<p>จำนวนเส้นทางในแผนที่ 10 × 10 อาจมหาศาล และหน่วยความจำจำกัดแค่ 32 MB ห้ามเก็บเส้นทางลงเวกเตอร์ ให้พิมพ์ทันทีที่พบ <code>cout</code> พร้อม <code>ios_base::sync_with_stdio(false)</code> จัดบัฟเฟอร์ให้อย่างมีประสิทธิภาพ ส่วนเส้นทางปัจจุบันเป็น <code>string</code> ตัวเดียวที่ใช้เหมือนสแตก (<code>push_back</code> / <code>pop_back</code>)</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ต้องทำเครื่องหมาย (1,1) ว่าเยี่ยมแล้ว ไม่อย่างนั้นเส้นทางอาจย้อนกลับขึ้นมาที่ช่องเริ่ม</li>
+<li>เดินต่อหลัง (R, C): กฎข้อ 3 บอกว่าเกมจบที่นั่น ให้ <code>return</code> หลังพิมพ์</li>
+<li>ใช้เครื่องหมาย "เยี่ยมแล้วตลอดไป" แบบ BFS: จะได้เส้นทางเดียว</li>
+<li>แผนที่ 1 × 1: จุดเริ่มคือเป้าหมาย พิมพ์บรรทัดว่างหนึ่งบรรทัดแล้วตามด้วย DONE</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/da66_f1_map_walk__main.cpp" download>⬇ .cpp</a><button data-copy="code25">Copy</button></div><pre class="hl"><code id="code25" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int rows, columns;
+bool blocked[12][12];     // &quot;no entry&quot; cells (1-based)
+bool visited[12][12];     // cells on the current path
+string commands;          // the commands that led to the current cell
+
+// The three commands in ALPHABETICAL order: A = right, B = down, C = up.
+const char LETTER[3] = {&#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;};
+const int ROW_STEP[3] = {0, +1, -1};
+const int COLUMN_STEP[3] = {+1, 0, 0};
+
+// We stand on (row, column) with `commands` describing the path from (1,1).
+void walk(int row, int column) {
+    if (row == rows &amp;&amp; column == columns) {     // the game ends as soon as we reach (R, C)
+        cout &lt;&lt; commands &lt;&lt; &#x27;\n&#x27;;                // print now: storing every path could break 32 MB
+        return;
+    }
+    // move = 0, 1, 2 -&gt; A, B, C: alphabetical order of the letters = sorted output
+    for (int move = 0; move &lt; 3; move++) {
+        int nextRow = row + ROW_STEP[move];
+        int nextColumn = column + COLUMN_STEP[move];
+        if (nextRow &lt; 1 || nextRow &gt; rows || nextColumn &lt; 1 || nextColumn &gt; columns) continue; // rule 1
+        if (visited[nextRow][nextColumn] || blocked[nextRow][nextColumn]) continue;         // rules 2, 4
+        visited[nextRow][nextColumn] = true;     // choose
+        commands.push_back(LETTER[move]);
+        walk(nextRow, nextColumn);               // explore
+        commands.pop_back();                     // un-choose
+        visited[nextRow][nextColumn] = false;
+    }
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cin &gt;&gt; rows &gt;&gt; columns;
+    // row = 1..rows (top to bottom), column = 1..columns (left to right)
+    for (int row = 1; row &lt;= rows; row++)
+        for (int column = 1; column &lt;= columns; column++) cin &gt;&gt; blocked[row][column];
+    visited[1][1] = true;
+    walk(1, 1);
+    cout &lt;&lt; &quot;DONE\n&quot;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">columns</span><span class="p">;</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="n">blocked</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">;</span><span class="w">     </span><span class="c1">// &quot;no entry&quot; cells (1-based)</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="n">visited</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span><span class="p">;</span><span class="w">     </span><span class="c1">// cells on the current path</span></span><span class="ln"><span class="n">string</span><span class="w"> </span><span class="n">commands</span><span class="p">;</span><span class="w">          </span><span class="c1">// the commands that led to the current cell</span></span><span class="ln"></span><span class="ln"><span class="c1">// The three commands in ALPHABETICAL order: A = right, B = down, C = up.</span></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">LETTER</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="sc">&#x27;</span><span class="sc">A</span><span class="sc">&#x27;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">B</span><span class="sc">&#x27;</span><span class="p">,</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">C</span><span class="sc">&#x27;</span><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ROW_STEP</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">COLUMN_STEP</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// We stand on (row, column) with `commands` describing the path from (1,1).</span></span><span class="ln"><span class="kt">void</span><span class="w"> </span><span class="nf">walk</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">columns</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">     </span><span class="c1">// the game ends as soon as we reach (R, C)</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">commands</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span><span class="w">                </span><span class="c1">// print now: storing every path could break 32 MB</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// move = 0, 1, 2 -&gt; A, B, C: alphabetical order of the letters = sorted output</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="n">move</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ROW_STEP</span><span class="p">[</span><span class="n">move</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">nextColumn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">COLUMN_STEP</span><span class="p">[</span><span class="n">move</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nextRow</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextColumn</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextColumn</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">columns</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w"> </span><span class="c1">// rule 1</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">blocked</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">         </span><span class="c1">// rules 2, 4</span></span><span class="ln"><span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">     </span><span class="c1">// choose</span></span><span class="ln"><span class="w">        </span><span class="n">commands</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">LETTER</span><span class="p">[</span><span class="n">move</span><span class="p">]</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">walk</span><span class="p">(</span><span class="n">nextRow</span><span class="p">,</span><span class="w"> </span><span class="n">nextColumn</span><span class="p">)</span><span class="p">;</span><span class="w">               </span><span class="c1">// explore</span></span><span class="ln"><span class="w">        </span><span class="n">commands</span><span class="p">.</span><span class="n">pop_back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w">                     </span><span class="c1">// un-choose</span></span><span class="ln"><span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">nextRow</span><span class="p">]</span><span class="p">[</span><span class="n">nextColumn</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">columns</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// row = 1..rows (top to bottom), column = 1..columns (left to right)</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="p">;</span><span class="w"> </span><span class="n">row</span><span class="o">+</span><span class="o">+</span><span class="p">)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">columns</span><span class="p">;</span><span class="w"> </span><span class="n">column</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">blocked</span><span class="p">[</span><span class="n">row</span><span class="p">]</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">visited</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">walk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="s">DONE</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> แต่ละการเรียก DFS ตรวจ 3 ทิศ งานแปรผันตามจำนวนเส้นทางบางส่วนที่สำรวจ ซึ่งเป็นเลขชี้กำลังในกรณีแย่สุด แต่ชุดทดสอบของโจทย์ออกแบบให้คำตอบพิมพ์ได้ หน่วยความจำ: ตาราง R·C และความลึก recursion ไม่เกิน R·C</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the 3 PDF samples, 3 hand-made mazes (a single long winding path, 1×1) and 300 random small maps against an independent brute force; a 10×10 random map with 5 509 paths runs in 0.007 s, well inside 32 MB because nothing is stored.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF เขาวงกตที่ทำเอง 3 แบบ (ทางเดียวคดเคี้ยวยาว, 1×1) และสุ่ม 300 แผนที่เล็กเทียบกับ brute force อีกตัว แผนที่สุ่ม 10×10 ที่มี 5 509 เส้นทางใช้ 0.007 วินาที และอยู่ใน 32 MB สบายเพราะไม่เก็บอะไรไว้</span></div></div></div>
+<div class="pn"><a class="pv" href="da68_f_abcd_permutation.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>da68_f_abcd_permutation</b> · <span class="en">ABCD Permutation</span><span class="th">เรียงสับเปลี่ยน ABCD</span></a><a class="nx" href="ex07e1_nqueen.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex07e1_nqueen</b> · <span class="en">n-Queen</span><span class="th">n ราชินี (n-Queen)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/da66_f1_map_walk.js"></script>
+</body>
+</html>

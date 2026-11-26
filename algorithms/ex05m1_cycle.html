@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex05m1_cycle · Detecting a Cycle</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="on" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch16.html">16 · <span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></div>
+<div class="phead">
+<div class="pidbig">ex05m1_cycle</div>
+<h1><span class="en">Detecting a Cycle</span><span class="th">Detecting a Cycle (ตรวจหาวงรอบ)</span></h1>
+<div class="chips"><span class="chip t en">BFS with parent pointers</span><span class="chip t en">Tree edges vs non-tree edges</span><span class="chip t en">Forest test</span><span class="chip t th">BFS พร้อม parent</span><span class="chip t th">เส้นของต้นไม้กับเส้นนอกต้นไม้</span><span class="chip t th">ตรวจว่าเป็นป่า</span><span class="chip cx">O(N + E) per graph · O(N + E) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">A search builds a spanning forest; each vertex enters it through exactly one tree edge (to its parent). In an undirected simple graph, any edge u–w where w is already discovered and is not u&#x27;s parent is a second route between them: a cycle. If no such edge appears, the graph is a forest.</p><p class="th">การค้นหาสร้างป่าทอดข้าม แต่ละจุดเข้ามาผ่านเส้นของต้นไม้หนึ่งเส้นพอดี (ไปหา parent) ในกราฟไม่มีทิศทางแบบ simple เส้น u–w ที่ w ถูกค้นพบแล้วและไม่ใช่ parent ของ u คือเส้นทางที่สองระหว่างทั้งคู่: วงรอบ ถ้าไม่มีเส้นแบบนี้เลย กราฟเป็นป่า</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex05m1_cycle\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: classify edges during a graph search</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: แยกประเภทเส้นระหว่างการค้นหาในกราฟ</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: classify edges during a graph search</h2>
+<p>When BFS or DFS discovers a vertex w from u, the edge u–w becomes a <strong>tree edge</strong>. The tree edges form a spanning forest (one tree per component), and a forest has no cycles. Every other edge of the graph is a <strong>non-tree edge</strong>, and adding any edge to a tree creates exactly one cycle:</p>
+<blockquote>
+<p>the graph has a cycle ⇔ the search meets at least one non-tree edge.</p>
+</blockquote>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: recognise a non-tree edge</h3>
+<p>Keep <code>parent[v]</code> for every discovered vertex (−1 for a root, −2 for undiscovered). While expanding u, for each neighbour w:</p>
+<ul>
+<li>w undiscovered → tree edge, <code>parent[w] = u</code>;</li>
+<li>w == <code>parent[u]</code> → this is u's own tree edge seen from the other side: ignore;</li>
+<li>otherwise → w was discovered through another route: <strong>non-tree edge, cycle</strong>.</li>
+</ul>
+<pre class="diagram">0 – 1 – 2 – 3          BFS from 0: tree edges 0-1, 0-4, 1-2, 4-5, 2-3
+ \           |         then 5 looks at 3: discovered, parent[5] = 4 ≠ 3
+  4 – 5 –––––          → second path 3…0…5: cycle</pre>
+<div class="viz" data-viz="ex05m1_cycle"></div>
+<h3>Step 2: why "not my parent" is exact</h3>
+<p>The graph is simple (no repeated edges), so the edge back to the parent appears exactly once in u's list, and the rule skips exactly that one. A child w of u is discovered by u itself during this same scan and is never seen twice. Every other discovered neighbour must be a non-tree edge.</p>
+<h3>Step 3: every component, every graph</h3>
+<p>Start a BFS from every undiscovered vertex, because a cycle can sit in any component (sample graph 3 has an isolated vertex 3). Read all E edges of a graph before answering, so the next graph starts at the right place.</p>
+<div class="box idea">
+<div class="bt">A counting cross-check</div>
+<p>A forest with C trees on N vertices has exactly N − C edges. So "cycle ⇔ E &gt; N − C", where C comes from the same BFS. In particular E ≥ N always means YES.</p>
+</div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Treating the edge back to the parent as a cycle: every edge would look like one.</li>
+<li>Searching only from vertex 0: the cycle may be in another component.</li>
+<li>Stopping input early when a cycle is found inside the reading loop: the next graph is then read from the wrong line. (The solution stores all edges first, then searches.)</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex05m1_cycle__main.cpp" download>⬇ .cpp</a><button data-copy="code62">Copy</button></div><pre class="hl"><code id="code62" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// BFS over one graph. In a BFS tree every node except a root has exactly one
+// tree edge to its parent. When node u looks at a neighbour w that is already
+// discovered and w is not u&#x27;s parent, the edge u-w is not a tree edge: there
+// are now two different paths between u and w, which means a cycle.
+bool hasCycle(int n, const vector&lt;vector&lt;int&gt;&gt;&amp; neighbors) {
+    vector&lt;int&gt; parent(n, -2);          // -2 = not discovered, -1 = BFS root
+    vector&lt;int&gt; queue;
+    queue.reserve(n);
+    // start = 0..n-1: every undiscovered vertex roots a BFS of its component
+    for (int start = 0; start &lt; n; start++) {
+        if (parent[start] != -2) continue;
+        parent[start] = -1;
+        queue.push_back(start);
+        // read moves forward through the queue array while write (push_back) appends
+        for (size_t read = queue.size() - 1; read &lt; queue.size(); read++) {
+            int u = queue[read];
+            for (int w : neighbors[u]) {
+                if (parent[w] == -2) {          // tree edge: discover w through u
+                    parent[w] = u;
+                    queue.push_back(w);
+                } else if (w != parent[u]) {
+                    return true;                // non-tree edge closes a cycle
+                }
+            }
+        }
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int graphs;
+    cin &gt;&gt; graphs;
+    // graph = 0..T-1: answer each graph in input order
+    for (int graph = 0; graph &lt; graphs; graph++) {
+        int n, e;
+        cin &gt;&gt; n &gt;&gt; e;
+        vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+        // edge = 0..e-1: read every edge (even if a cycle is obvious early,
+        // the next graph starts after the last one)
+        for (int edge = 0; edge &lt; e; edge++) {
+            int a, b;
+            cin &gt;&gt; a &gt;&gt; b;
+            neighbors[a].push_back(b);
+            neighbors[b].push_back(a);
+        }
+        cout &lt;&lt; (hasCycle(n, neighbors) ? &quot;YES&quot; : &quot;NO&quot;) &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// BFS over one graph. In a BFS tree every node except a root has exactly one</span></span><span class="ln"><span class="c1">// tree edge to its parent. When node u looks at a neighbour w that is already</span></span><span class="ln"><span class="c1">// discovered and w is not u&#x27;s parent, the edge u-w is not a tree edge: there</span></span><span class="ln"><span class="c1">// are now two different paths between u and w, which means a cycle.</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">hasCycle</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">)</span><span class="p">;</span><span class="w">          </span><span class="c1">// -2 = not discovered, -1 = BFS root</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">queue</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// start = 0..n-1: every undiscovered vertex roots a BFS of its component</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">parent</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// read moves forward through the queue array while write (push_back) appends</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">read</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// tree edge: discover w through u</span></span><span class="ln"><span class="w">                    </span><span class="n">parent</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span></span><span class="ln"><span class="w">                    </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">                </span><span class="c1">// non-tree edge closes a cycle</span></span><span class="ln"><span class="w">                </span><span class="p">}</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">graphs</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">graphs</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// graph = 0..T-1: answer each graph in input order</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">graphs</span><span class="p">;</span><span class="w"> </span><span class="n">graph</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// edge = 0..e-1: read every edge (even if a cycle is obvious early,</span></span><span class="ln"><span class="w">        </span><span class="c1">// the next graph starts after the last one)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">hasCycle</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">neighbors</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">YES</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;</span><span class="s">NO</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Each vertex is queued once and each adjacency entry is read once: <strong>O(N + E)</strong> per graph, at most 100 × 21 000 steps in total. Memory: <strong>O(N + E)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample (4 graphs), 300 random inputs of up to 5 graphs against a brute force, and 100 graphs with N = 1 000, E = 10 000 in 0.11 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (4 กราฟ) ข้อมูลสุ่ม 300 ชุด ชุดละไม่เกิน 5 กราฟ เทียบกับ brute force และ 100 กราฟที่ N = 1 000, E = 10 000 ใช้ 0.11 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: แยกประเภทเส้นระหว่างการค้นหาในกราฟ</h2>
+<p>เมื่อ BFS หรือ DFS ค้นพบจุด w จาก u เส้น u–w จะเป็น <strong>เส้นของต้นไม้</strong> เส้นของต้นไม้รวมกันเป็นป่าทอดข้าม (หนึ่งต้นต่อ component) และป่าไม่มีวงรอบ เส้นอื่นทุกเส้นในกราฟเป็น <strong>เส้นนอกต้นไม้</strong> และการเพิ่มเส้นใด ๆ ลงในต้นไม้จะเกิดวงรอบหนึ่งวงพอดี:</p>
+<blockquote>
+<p>กราฟมีวงรอบ ⇔ การค้นหาเจอเส้นนอกต้นไม้อย่างน้อยหนึ่งเส้น</p>
+</blockquote>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: จำเส้นนอกต้นไม้ให้ได้</h3>
+<p>เก็บ <code>parent[v]</code> ของทุกจุดที่ค้นพบ (−1 สำหรับราก, −2 สำหรับยังไม่ค้นพบ) ขณะขยาย u สำหรับเพื่อนบ้าน w แต่ละตัว:</p>
+<ul>
+<li>w ยังไม่ถูกค้นพบ → เส้นของต้นไม้ <code>parent[w] = u</code></li>
+<li>w == <code>parent[u]</code> → คือเส้นของต้นไม้ของ u เองที่มองจากอีกฝั่ง: ข้าม</li>
+<li>นอกนั้น → w ถูกค้นพบผ่านเส้นทางอื่น: <strong>เส้นนอกต้นไม้ มีวงรอบ</strong></li>
+</ul>
+<pre class="diagram">0 – 1 – 2 – 3          BFS จาก 0: เส้นของต้นไม้ 0-1, 0-4, 1-2, 4-5, 2-3
+ \           |         แล้ว 5 มองไปที่ 3: ค้นพบแล้ว parent[5] = 4 ≠ 3
+  4 – 5 –––––          → เส้นทางที่สอง 3…0…5: วงรอบ</pre>
+<div class="viz" data-viz="ex05m1_cycle"></div>
+<h3>ขั้นที่ 2: ทำไม "ไม่ใช่ parent ของฉัน" จึงแม่นยำ</h3>
+<p>กราฟเป็น simple (ไม่มีเส้นซ้ำ) เส้นกลับไปหา parent จึงปรากฏในรายการของ u ครั้งเดียวพอดี และกฎนี้ข้ามเส้นนั้นเส้นเดียว ลูก w ของ u ถูก u ค้นพบเองในการไล่รอบเดียวกันนี้ และไม่ถูกเห็นซ้ำ เพื่อนบ้านที่ถูกค้นพบแล้วตัวอื่นทั้งหมดจึงต้องเป็นเส้นนอกต้นไม้</p>
+<h3>ขั้นที่ 3: ทุก component ทุกกราฟ</h3>
+<p>เริ่ม BFS จากทุกจุดที่ยังไม่ถูกค้นพบ เพราะวงรอบอยู่ใน component ไหนก็ได้ (กราฟตัวอย่างที่ 3 มีจุด 3 ที่โดดเดี่ยว) อ่านเส้นครบทั้ง E เส้นของกราฟก่อนตอบ กราฟถัดไปจึงเริ่มอ่านถูกที่</p>
+<div class="box idea">
+<div class="bt">ตรวจซ้ำด้วยการนับ</div>
+<p>ป่าที่มี C ต้นบน N จุดมีเส้นพอดี N − C เส้น ดังนั้น "มีวงรอบ ⇔ E &gt; N − C" โดย C ได้จาก BFS เดียวกัน และโดยเฉพาะ E ≥ N แปลว่า YES เสมอ</p>
+</div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>นับเส้นกลับไปหา parent ว่าเป็นวงรอบ: ทุกเส้นจะดูเหมือนวงรอบ</li>
+<li>ค้นหาจากจุด 0 จุดเดียว: วงรอบอาจอยู่ใน component อื่น</li>
+<li>หยุดอ่านข้อมูลทันทีที่เจอวงรอบในลูปอ่าน: กราฟถัดไปจะถูกอ่านผิดบรรทัด (โค้ดเฉลยเก็บเส้นทั้งหมดก่อนแล้วค่อยค้นหา)</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex05m1_cycle__main.cpp" download>⬇ .cpp</a><button data-copy="code62">Copy</button></div><pre class="hl"><code id="code62" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+// BFS over one graph. In a BFS tree every node except a root has exactly one
+// tree edge to its parent. When node u looks at a neighbour w that is already
+// discovered and w is not u&#x27;s parent, the edge u-w is not a tree edge: there
+// are now two different paths between u and w, which means a cycle.
+bool hasCycle(int n, const vector&lt;vector&lt;int&gt;&gt;&amp; neighbors) {
+    vector&lt;int&gt; parent(n, -2);          // -2 = not discovered, -1 = BFS root
+    vector&lt;int&gt; queue;
+    queue.reserve(n);
+    // start = 0..n-1: every undiscovered vertex roots a BFS of its component
+    for (int start = 0; start &lt; n; start++) {
+        if (parent[start] != -2) continue;
+        parent[start] = -1;
+        queue.push_back(start);
+        // read moves forward through the queue array while write (push_back) appends
+        for (size_t read = queue.size() - 1; read &lt; queue.size(); read++) {
+            int u = queue[read];
+            for (int w : neighbors[u]) {
+                if (parent[w] == -2) {          // tree edge: discover w through u
+                    parent[w] = u;
+                    queue.push_back(w);
+                } else if (w != parent[u]) {
+                    return true;                // non-tree edge closes a cycle
+                }
+            }
+        }
+    }
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int graphs;
+    cin &gt;&gt; graphs;
+    // graph = 0..T-1: answer each graph in input order
+    for (int graph = 0; graph &lt; graphs; graph++) {
+        int n, e;
+        cin &gt;&gt; n &gt;&gt; e;
+        vector&lt;vector&lt;int&gt;&gt; neighbors(n);
+        // edge = 0..e-1: read every edge (even if a cycle is obvious early,
+        // the next graph starts after the last one)
+        for (int edge = 0; edge &lt; e; edge++) {
+            int a, b;
+            cin &gt;&gt; a &gt;&gt; b;
+            neighbors[a].push_back(b);
+            neighbors[b].push_back(a);
+        }
+        cout &lt;&lt; (hasCycle(n, neighbors) ? &quot;YES&quot; : &quot;NO&quot;) &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="c1">// BFS over one graph. In a BFS tree every node except a root has exactly one</span></span><span class="ln"><span class="c1">// tree edge to its parent. When node u looks at a neighbour w that is already</span></span><span class="ln"><span class="c1">// discovered and w is not u&#x27;s parent, the edge u-w is not a tree edge: there</span></span><span class="ln"><span class="c1">// are now two different paths between u and w, which means a cycle.</span></span><span class="ln"><span class="kt">bool</span><span class="w"> </span><span class="nf">hasCycle</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">-2</span><span class="p">)</span><span class="p">;</span><span class="w">          </span><span class="c1">// -2 = not discovered, -1 = BFS root</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">queue</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// start = 0..n-1: every undiscovered vertex roots a BFS of its component</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">parent</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// read moves forward through the queue array while write (push_back) appends</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">read</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">w</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// tree edge: discover w through u</span></span><span class="ln"><span class="w">                    </span><span class="n">parent</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u</span><span class="p">;</span></span><span class="ln"><span class="w">                    </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">u</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w">                </span><span class="c1">// non-tree edge closes a cycle</span></span><span class="ln"><span class="w">                </span><span class="p">}</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">graphs</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">graphs</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// graph = 0..T-1: answer each graph in input order</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">graph</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">graphs</span><span class="p">;</span><span class="w"> </span><span class="n">graph</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// edge = 0..e-1: read every edge (even if a cycle is obvious early,</span></span><span class="ln"><span class="w">        </span><span class="c1">// the next graph starts after the last one)</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">hasCycle</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">neighbors</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">YES</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;</span><span class="s">NO</span><span class="s">&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> ทุกจุดเข้าคิวครั้งเดียว และทุกรายการเพื่อนบ้านถูกอ่านครั้งเดียว: <strong>O(N + E)</strong> ต่อกราฟ รวมไม่เกิน 100 × 21 000 ขั้น หน่วยความจำ: <strong>O(N + E)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample (4 graphs), 300 random inputs of up to 5 graphs against a brute force, and 100 graphs with N = 1 000, E = 10 000 in 0.11 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (4 กราฟ) ข้อมูลสุ่ม 300 ชุด ชุดละไม่เกิน 5 กราฟ เทียบกับ brute force และ 100 กราฟที่ N = 1 000, E = 10 000 ใช้ 0.11 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="da68_f_k_connected_city.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>da68_f_k_connected_city</b> · <span class="en">K Connected City</span><span class="th">K Connected City (เลือก K เมืองที่เชื่อมกัน)</span></a><a class="nx" href="a62_q2a_line_graph.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>a62_q2a_line_graph</b> · <span class="en">Count Line Graphs</span><span class="th">นับกราฟเส้นตรง</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex05m1_cycle.js"></script>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a62_q2a_line_graph · Count Line Graphs</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="on" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch16.html">16 · <span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></div>
+<div class="phead">
+<div class="pidbig">a62_q2a_line_graph</div>
+<h1><span class="en">Count Line Graphs</span><span class="th">นับกราฟเส้นตรง</span></h1>
+<div class="chips"><span class="chip t en">Connected components by DFS</span><span class="chip t en">Path test (degree ≤ 2 and edges = nodes − 1)</span><span class="chip t en">Handshake lemma</span><span class="chip t th">หา component ด้วย DFS</span><span class="chip t th">ตรวจ path (degree ≤ 2 และเส้น = ปม − 1)</span><span class="chip t th">handshake lemma</span><span class="chip cx">O(v + e) time and memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">A &quot;line&quot; is a path. A connected component is a path exactly when no node has degree above 2 and it has no cycle, i.e. its edge count is nodes − 1. One iterative DFS per component gathers the node count, the largest degree and the degree sum (= 2 × edges).</p><p class="th">&quot;กราฟเส้นตรง&quot; คือ path component ที่เชื่อมกันเป็น path ก็ต่อเมื่อไม่มีปมที่ degree เกิน 2 และไม่มีวงรอบ คือจำนวนเส้นเท่ากับปม − 1 DFS แบบวนลูปหนึ่งครั้งต่อ component เก็บจำนวนปม degree สูงสุด และผลรวม degree (= 2 × จำนวนเส้น)</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a62_q2a_line_graph\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: per-component properties from one traversal</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: เก็บคุณสมบัติของแต่ละ component จากการท่องครั้งเดียว</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: per-component properties from one traversal</h2>
+<p>"For every connected component, decide whether it has property P" is solved by the component-counting loop: each unvisited node starts a traversal, and while the traversal visits the component it also <strong>collects whatever P needs</strong>. Here P is "is a path", and a path is characterised by two numbers:</p>
+<blockquote>
+<p>a connected graph is a path ⇔ every degree ≤ 2 <strong>and</strong> edges = nodes − 1.</p>
+</blockquote>
+<p>Why: degrees ≤ 2 leave only paths and rings (cycles). A connected graph with nodes − 1 edges is a tree, which rules out the ring. A single node (0 edges) is a path of length 0.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: what to collect</h3>
+<p>While popping each node of the component:
+- <code>nodes++</code>;
+- <code>degreeSum += degree(node)</code>;
+- <code>degreesOk = false</code> if some degree exceeds 2.</p>
+<p>Every edge has two ends inside the component, so <strong>edges = degreeSum / 2</strong> (the handshake lemma). No edge needs to be counted separately.</p>
+<h3>Step 2: decide</h3>
+<p>The component is a line when <code>degreesOk &amp;&amp; edges == nodes − 1</code>.</p>
+<div class="viz" data-viz="a62_q2a_line_graph"></div>
+<h3>Step 3: shape does not matter</h3>
+<p>The PDF's second picture looks like a small binary tree (0 with children 1 and 2), but 1 – 0 – 2 is a path: every degree ≤ 2 and 2 edges on 3 nodes. The test only looks at degrees and counts, never at how the graph is drawn or rooted.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li><strong>Sample 4 vs the grader.</strong> The PDF prints 2 for <code>0-1</code> plus the ring <code>2-3-4</code>, as if a ring were a line. A degree-only check reproduces that sample but scored 40/100 on the real grader; the strict path definition above is the one the statement describes ("a tree where every node has one child"), and a ring is not a tree.</li>
+<li>A recursive DFS on a 100 000-node path is 100 000 calls deep. Use an explicit stack.</li>
+<li>Isolated nodes are lines (sample 3: <code>3 0</code> → 3).</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a62_q2a_line_graph__main.cpp" download>⬇ .cpp</a><button data-copy="code63">Copy</button></div><pre class="hl"><code id="code63" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int v, e;
+    cin &gt;&gt; v &gt;&gt; e;
+    vector&lt;vector&lt;int&gt;&gt; neighbors(v);
+    // edge = 0..e-1: an undirected edge goes into both lists
+    for (int edge = 0; edge &lt; e; edge++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        neighbors[a].push_back(b);
+        neighbors[b].push_back(a);
+    }
+
+    // A component is a line (a path) exactly when
+    //   1. every node in it has degree &lt;= 2, and
+    //   2. it is a tree: edges = nodes - 1 (this rules out a ring).
+    // One traversal per component collects both facts.
+    vector&lt;bool&gt; visited(v, false);
+    vector&lt;int&gt; stack;
+    int lineComponents = 0;
+    // start = 0..v-1: an unvisited node opens a new component
+    for (int start = 0; start &lt; v; start++) {
+        if (visited[start]) continue;
+        long long nodes = 0, degreeSum = 0;
+        bool degreesOk = true;
+        visited[start] = true;
+        stack.push_back(start);
+        // iterative DFS (a path of 100 000 nodes would be too deep for recursion):
+        // pop a node, record its degree, push its unvisited neighbours
+        while (!stack.empty()) {
+            int node = stack.back();
+            stack.pop_back();
+            nodes++;
+            degreeSum += neighbors[node].size();
+            if (neighbors[node].size() &gt; 2) degreesOk = false;
+            for (int next : neighbors[node])
+                if (!visited[next]) {
+                    visited[next] = true;
+                    stack.push_back(next);
+                }
+        }
+        long long edges = degreeSum / 2;     // every edge was counted from both ends
+        if (degreesOk &amp;&amp; edges == nodes - 1) lineComponents++;
+    }
+    cout &lt;&lt; lineComponents &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..e-1: an undirected edge goes into both lists</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// A component is a line (a path) exactly when</span></span><span class="ln"><span class="w">    </span><span class="c1">//   1. every node in it has degree &lt;= 2, and</span></span><span class="ln"><span class="w">    </span><span class="c1">//   2. it is a tree: edges = nodes - 1 (this rules out a ring).</span></span><span class="ln"><span class="w">    </span><span class="c1">// One traversal per component collects both facts.</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">visited</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">stack</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">lineComponents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// start = 0..v-1: an unvisited node opens a new component</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">degreeSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">degreesOk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">stack</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// iterative DFS (a path of 100 000 nodes would be too deep for recursion):</span></span><span class="ln"><span class="w">        </span><span class="c1">// pop a node, record its degree, push its unvisited neighbours</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stack</span><span class="p">.</span><span class="n">back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">stack</span><span class="p">.</span><span class="n">pop_back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">nodes</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">degreeSum</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">neighbors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">degreesOk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                    </span><span class="n">visited</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">                    </span><span class="n">stack</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">degreeSum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">     </span><span class="c1">// every edge was counted from both ends</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degreesOk</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">lineComponents</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">lineComponents</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Each node is pushed once and each adjacency entry read once: <strong>O(v + e)</strong>. Memory: <strong>O(v + e)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF samples (sample 4 under the strict rule, see Traps), 300 random graphs against a brute force that tries every node ordering, a 100 000-node path (no recursion) and v = 100 000, e = 200 000 in 0.08 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (ตัวอย่าง 4 ใช้กฎแบบเข้มงวด ดูกับดัก) กราฟสุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกลำดับปม path ยาว 100 000 ปม (ไม่ใช้ recursion) และ v = 100 000, e = 200 000 ใช้ 0.08 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: เก็บคุณสมบัติของแต่ละ component จากการท่องครั้งเดียว</h2>
+<p>"ตัดสินว่าแต่ละ component มีคุณสมบัติ P ไหม" แก้ได้ด้วยลูปนับ component: ปมที่ยังไม่ถูกเยี่ยมเริ่มการท่องหนึ่งครั้ง และระหว่างที่การท่องเยี่ยม component นั้นก็ <strong>เก็บทุกอย่างที่ P ต้องใช้</strong> ไปด้วย ในข้อนี้ P คือ "เป็น path" และ path ถูกระบุได้ด้วยตัวเลขสองตัว:</p>
+<blockquote>
+<p>กราฟที่เชื่อมกันเป็น path ⇔ ทุก degree ≤ 2 <strong>และ</strong> เส้น = ปม − 1</p>
+</blockquote>
+<p>เพราะ: degree ≤ 2 เหลือแค่ path กับวงแหวน (cycle) กราฟที่เชื่อมกันและมีเส้น ปม − 1 เส้นคือต้นไม้ จึงตัดวงแหวนทิ้ง ปมเดี่ยว (0 เส้น) คือ path ยาว 0</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: เก็บอะไรบ้าง</h3>
+<p>ขณะ pop แต่ละปมของ component:
+- <code>nodes++</code>
+- <code>degreeSum += degree(node)</code>
+- <code>degreesOk = false</code> ถ้ามี degree เกิน 2</p>
+<p>ทุกเส้นมีปลายสองข้างอยู่ใน component <strong>เส้น = degreeSum / 2</strong> (handshake lemma) ไม่ต้องนับเส้นแยก</p>
+<h3>ขั้นที่ 2: ตัดสิน</h3>
+<p>component เป็นเส้นตรงเมื่อ <code>degreesOk &amp;&amp; edges == nodes − 1</code></p>
+<div class="viz" data-viz="a62_q2a_line_graph"></div>
+<h3>ขั้นที่ 3: รูปร่างที่วาดไม่สำคัญ</h3>
+<p>รูปที่สองใน PDF ดูเหมือน binary tree เล็ก ๆ (0 มีลูก 1 และ 2) แต่ 1 – 0 – 2 คือ path: ทุก degree ≤ 2 และมี 2 เส้นบน 3 ปม การตรวจดูแค่ degree และจำนวน ไม่สนว่ากราฟวาดหรือเลือกรากอย่างไร</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li><strong>ตัวอย่าง 4 กับ grader</strong> PDF พิมพ์ 2 สำหรับ <code>0-1</code> บวกวงแหวน <code>2-3-4</code> เหมือนนับวงแหวนเป็นเส้นตรง การตรวจแค่ degree ได้ตัวอย่างนี้ตรง แต่ได้ 40/100 บน grader จริง นิยาม path แบบเข้มงวดข้างบนคือสิ่งที่โจทย์บรรยาย ("ต้นไม้ที่ทุกปมมีลูกปมเดียว") และวงแหวนไม่ใช่ต้นไม้</li>
+<li>DFS แบบ recursive บน path 100 000 ปมลึก 100 000 ชั้น ใช้ stack ที่สร้างเอง</li>
+<li>ปมโดดเดี่ยวเป็นเส้นตรง (ตัวอย่าง 3: <code>3 0</code> → 3)</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a62_q2a_line_graph__main.cpp" download>⬇ .cpp</a><button data-copy="code63">Copy</button></div><pre class="hl"><code id="code63" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int v, e;
+    cin &gt;&gt; v &gt;&gt; e;
+    vector&lt;vector&lt;int&gt;&gt; neighbors(v);
+    // edge = 0..e-1: an undirected edge goes into both lists
+    for (int edge = 0; edge &lt; e; edge++) {
+        int a, b;
+        cin &gt;&gt; a &gt;&gt; b;
+        neighbors[a].push_back(b);
+        neighbors[b].push_back(a);
+    }
+
+    // A component is a line (a path) exactly when
+    //   1. every node in it has degree &lt;= 2, and
+    //   2. it is a tree: edges = nodes - 1 (this rules out a ring).
+    // One traversal per component collects both facts.
+    vector&lt;bool&gt; visited(v, false);
+    vector&lt;int&gt; stack;
+    int lineComponents = 0;
+    // start = 0..v-1: an unvisited node opens a new component
+    for (int start = 0; start &lt; v; start++) {
+        if (visited[start]) continue;
+        long long nodes = 0, degreeSum = 0;
+        bool degreesOk = true;
+        visited[start] = true;
+        stack.push_back(start);
+        // iterative DFS (a path of 100 000 nodes would be too deep for recursion):
+        // pop a node, record its degree, push its unvisited neighbours
+        while (!stack.empty()) {
+            int node = stack.back();
+            stack.pop_back();
+            nodes++;
+            degreeSum += neighbors[node].size();
+            if (neighbors[node].size() &gt; 2) degreesOk = false;
+            for (int next : neighbors[node])
+                if (!visited[next]) {
+                    visited[next] = true;
+                    stack.push_back(next);
+                }
+        }
+        long long edges = degreeSum / 2;     // every edge was counted from both ends
+        if (degreesOk &amp;&amp; edges == nodes - 1) lineComponents++;
+    }
+    cout &lt;&lt; lineComponents &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">neighbors</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// edge = 0..e-1: an undirected edge goes into both lists</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">edge</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">neighbors</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// A component is a line (a path) exactly when</span></span><span class="ln"><span class="w">    </span><span class="c1">//   1. every node in it has degree &lt;= 2, and</span></span><span class="ln"><span class="w">    </span><span class="c1">//   2. it is a tree: edges = nodes - 1 (this rules out a ring).</span></span><span class="ln"><span class="w">    </span><span class="c1">// One traversal per component collects both facts.</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">visited</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">stack</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">lineComponents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// start = 0..v-1: an unvisited node opens a new component</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">;</span><span class="w"> </span><span class="n">start</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">degreeSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">degreesOk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">visited</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">stack</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// iterative DFS (a path of 100 000 nodes would be too deep for recursion):</span></span><span class="ln"><span class="w">        </span><span class="c1">// pop a node, record its degree, push its unvisited neighbours</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">stack</span><span class="p">.</span><span class="n">empty</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stack</span><span class="p">.</span><span class="n">back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">stack</span><span class="p">.</span><span class="n">pop_back</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">nodes</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">degreeSum</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">neighbors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">degreesOk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">neighbors</span><span class="p">[</span><span class="n">node</span><span class="p">]</span><span class="p">)</span></span><span class="ln"><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                    </span><span class="n">visited</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">                    </span><span class="n">stack</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">degreeSum</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">     </span><span class="c1">// every edge was counted from both ends</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">degreesOk</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edges</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">lineComponents</span><span class="o">+</span><span class="o">+</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">lineComponents</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> ทุกปมถูก push ครั้งเดียว และทุกรายการเพื่อนบ้านถูกอ่านครั้งเดียว: <strong>O(v + e)</strong> หน่วยความจำ: <strong>O(v + e)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF samples (sample 4 under the strict rule, see Traps), 300 random graphs against a brute force that tries every node ordering, a 100 000-node path (no recursion) and v = 100 000, e = 200 000 in 0.08 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF (ตัวอย่าง 4 ใช้กฎแบบเข้มงวด ดูกับดัก) กราฟสุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกลำดับปม path ยาว 100 000 ปม (ไม่ใช้ recursion) และ v = 100 000, e = 200 000 ใช้ 0.08 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="ex05m1_cycle.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex05m1_cycle</b> · <span class="en">Detecting a Cycle</span><span class="th">Detecting a Cycle (ตรวจหาวงรอบ)</span></a><a class="nx" href="ex05m2_connection.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex05m2_connection</b> · <span class="en">Connection</span><span class="th">Connection (เพื่อนระดับ K)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a62_q2a_line_graph.js"></script>
+</body>
+</html>

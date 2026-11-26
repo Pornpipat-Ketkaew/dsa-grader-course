@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>17 · Shortest paths</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#3d5afe}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class="on"><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › 17</div>
+<div class="pidbig phead"><span class="pidbig"><span class="en">Chapter</span><span class="th">บทที่</span> 17</span></div>
+<h1><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></h1>
+<p class="en">Relax edges in a clever order: Dijkstra, Bellman-Ford, Floyd-Warshall.</p><p class="th">ผ่อนคลายเส้นเชื่อม (relax) ตามลำดับที่ฉลาด: Dijkstra, Bellman-Ford, Floyd-Warshall</p>
+<h2><span class="sn">★</span><span class="en">Problems in this chapter</span><span class="th">โจทย์ในบทนี้</span></h2>
+<div class="plist"><a href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span><span class="pt"><span class="en">Farthest City</span><span class="th">เมืองไกลสุด</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Compute the shortest distance from city 1 to every city with Dijkstra, then print the largest one, or −1 if some city cannot be reached. The input is a full matrix, so the simple O(N²) Dijkstra (scan for the closest city, relax its row) is already optimal.</span><span class="th">หาระยะสั้นที่สุดจากเมือง 1 ไปทุกเมืองด้วย Dijkstra แล้วพิมพ์ค่าที่มากที่สุด หรือ −1 ถ้ามีเมืองที่ไปไม่ถึง ข้อมูลเข้าเป็นเมทริกซ์เต็ม Dijkstra แบบง่าย O(N²) (หาเมืองที่ใกล้ที่สุด แล้วผ่อนคลายแถวของมัน) จึงดีที่สุดแล้ว</span></span></a><a href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span><span class="pt"><span class="en">Buffet Flight</span><span class="th">Buffet Flight (บินฟรี จ่ายแค่ค่าสนามบิน)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Each flight a → b always costs co[a] + ci[b], whatever happened before, so put that number on the edge. All weights are positive: Dijkstra from airport 0. With up to n² − n flights the graph is dense, so the O(n²) array version is the right one.</span><span class="th">เที่ยวบิน a → b เสีย co[a] + ci[b] เสมอไม่ว่าก่อนหน้าจะเป็นอย่างไร จึงเขียนค่านี้ไว้บนเส้น น้ำหนักทุกเส้นเป็นบวก: Dijkstra จากสนามบิน 0 เมื่อมีเที่ยวบินได้ถึง n² − n เส้น กราฟจึงหนาแน่น Dijkstra แบบอาร์เรย์ O(n²) จึงเหมาะที่สุด</span></span></a><a href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span><span class="pt"><span class="en">Columbia</span><span class="th">Columbia (ค่าผ่านเมืองบนตาราง)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Moving into a block costs that block&#x27;s fee, so the grid is a graph whose edge u → v weighs fee[v] ≥ 0. Run Dijkstra from the top-left block (cost 0) with a priority queue, skipping outdated heap entries, and print every block&#x27;s cost.</span><span class="th">การเดินเข้าช่องเสียค่าผ่านของช่องนั้น ตารางจึงเป็นกราฟที่เส้น u → v มีน้ำหนัก fee[v] ≥ 0 รัน Dijkstra จากช่องบนซ้าย (cost 0) ด้วย priority queue ข้ามรายการใน heap ที่ล้าสมัย แล้วพิมพ์ค่าของทุกช่อง</span></span></a><a href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span><span class="pt"><span class="en">Hacking</span><span class="th">Hacking (ไวรัสบุกเครือข่าย)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">A server falls at (the time its attacker fell) + c[server], so the earliest fall time is a shortest path where entering server v costs c[v]. Start Dijkstra with all k first targets in the heap at time c[s], and answer the largest fall time, the moment the last server is hacked.</span><span class="th">เซิร์ฟเวอร์ถูกแฮกที่ (เวลาที่ผู้โจมตีถูกแฮก) + c[เซิร์ฟเวอร์] เวลาถูกแฮกเร็วสุดจึงเป็นเส้นทางสั้นที่สุดที่การเข้าเซิร์ฟเวอร์ v เสีย c[v] เริ่ม Dijkstra โดยใส่เป้าแรกทั้ง k ตัวลงใน heap ที่เวลา c[s] แล้วตอบเวลาที่มากที่สุด คือตอนที่เซิร์ฟเวอร์ตัวสุดท้ายถูกแฮก</span></span></a><a href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span><span class="pt"><span class="en">Closed City</span><span class="th">เมืองปิด</span></span><span class="stars">★☆☆</span><span class="pk"><span class="en">&quot;The path may not pass through closed cities&quot; means those cities, and every road touching them, are simply not in the graph. Skip such roads while reading, then run a normal Dijkstra from city 1 and stop when city N is popped.</span><span class="th">&quot;เส้นทางห้ามผ่านเมืองปิด&quot; แปลว่าเมืองเหล่านั้นและถนนทุกเส้นที่แตะมันไม่อยู่ในกราฟเลย ข้ามถนนแบบนั้นตอนอ่าน แล้วรัน Dijkstra ธรรมดาจากเมือง 1 และหยุดเมื่อ pop เมือง N</span></span></a><a href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span><span class="pt"><span class="en">Shortest Start</span><span class="th">Shortest Start (เลือกจุดเริ่มที่ดีที่สุด)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Negative weights rule out Dijkstra, and there is no negative cycle, so Bellman–Ford works. &quot;Start from any of k nodes&quot; = a virtual source with 0-weight edges to each of them, which just means all k starts begin at distance 0. Relax all edges in rounds until nothing changes, then print distance[v].</span><span class="th">น้ำหนักติดลบทำให้ใช้ Dijkstra ไม่ได้ และไม่มีวงรอบติดลบ Bellman–Ford จึงใช้ได้ &quot;เริ่มจากจุดใดก็ได้ใน k จุด&quot; = ต้นทางสมมุติที่มีเส้นน้ำหนัก 0 ไปยังทุกจุด ซึ่งก็คือให้ทั้ง k จุดเริ่มที่ระยะ 0 ผ่อนคลายทุกเส้นเป็นรอบ ๆ จนไม่มีอะไรเปลี่ยน แล้วพิมพ์ distance[v]</span></span></a><a href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span><span class="pt"><span class="en">Shortest Path with Negative Edge</span><span class="th">Shortest Path with Negative Edge (เส้นทางสั้นที่สุดที่มีเส้นติดลบ)</span></span><span class="stars">★★☆</span><span class="pk"><span class="en">Bellman–Ford settles every shortest path within N − 1 rounds when no negative cycle exists, so an improvement in round N proves one. The samples want −1 for a negative cycle anywhere, even one s cannot reach, so the check starts every vertex at 0 (a virtual source to all vertices). If it passes, a normal Bellman–Ford from s gives the distances.</span><span class="th">Bellman–Ford ทำให้ทุกเส้นทางสั้นที่สุดนิ่งภายใน N − 1 รอบเมื่อไม่มีวงรอบติดลบ การดีขึ้นในรอบที่ N จึงพิสูจน์ว่ามี ตัวอย่างต้องการ −1 เมื่อมีวงรอบติดลบที่ไหนก็ได้ แม้ s ไปไม่ถึง การตรวจจึงให้ทุกจุดเริ่มที่ 0 (ต้นทางสมมุติที่เชื่อมทุกจุด) ถ้าผ่าน ก็รัน Bellman–Ford ธรรมดาจาก s</span></span></a><a href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span><span class="pt"><span class="en">Exchange</span><span class="th">Exchange (แลกเงินได้กำไรไม่จำกัด)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">Money multiplies along a route, and a loop is profitable when its product of rates exceeds 1. With weight −log(rate) products become sums and &quot;product &gt; 1&quot; becomes &quot;sum &lt; 0&quot;: infinite money is exactly a negative cycle. Detect it with Bellman–Ford from a virtual source (all potentials 0), stopping as soon as the improvement pointers form a loop.</span><span class="th">เงินคูณกันไปตามเส้นทาง และวงหนึ่งได้กำไรเมื่อผลคูณของอัตราเกิน 1 เมื่อใช้น้ำหนัก −log(อัตรา) ผลคูณจะกลายเป็นผลรวม และ &quot;ผลคูณ &gt; 1&quot; กลายเป็น &quot;ผลรวม &lt; 0&quot;: เงินไม่จำกัดคือวงรอบติดลบพอดี ตรวจด้วย Bellman–Ford จากต้นทางสมมุติ (potential ทั้งหมดเป็น 0) และหยุดทันทีที่ตัวชี้การปรับเป็นวง</span></span></a><a href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span><span class="pt"><span class="en">Expressway</span><span class="th">Expressway (ทางด่วนเพิ่มทุกปี)</span></span><span class="stars">★★★</span><span class="pk"><span class="en">After phase k of Floyd–Warshall, cost[a][b] is the cheapest route whose stop-overs are all ≤ k. A 1 → 2 route with stop-overs ≤ k uses only provinces 1..k, which is exactly the network after year k. So run Floyd–Warshall once with k = 1, 2, …, n and print cost[1][2] after each phase k ≥ 3.</span><span class="th">หลังเฟส k ของ Floyd–Warshall cost[a][b] คือเส้นทางที่ถูกที่สุดที่จุดแวะทั้งหมด ≤ k เส้นทาง 1 → 2 ที่จุดแวะ ≤ k ใช้แค่จังหวัด 1..k ซึ่งคือเครือข่ายหลังปีที่ k พอดี จึงรัน Floyd–Warshall ครั้งเดียวด้วย k = 1, 2, …, n แล้วพิมพ์ cost[1][2] หลังแต่ละเฟส k ≥ 3</span></span></a></div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Toolkit for this chapter</h2>
+<h3>Which algorithm?</h3>
+<table>
+<thead>
+<tr>
+<th>graph</th>
+<th>algorithm</th>
+<th>time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>unweighted</td>
+<td>BFS</td>
+<td>O(n + m)</td>
+</tr>
+<tr>
+<td>weights ≥ 0, dense (matrix, n ≤ ~3 000)</td>
+<td>Dijkstra, array version</td>
+<td>O(n²)</td>
+</tr>
+<tr>
+<td>weights ≥ 0, sparse</td>
+<td>Dijkstra with a binary heap</td>
+<td>O(m log n)</td>
+</tr>
+<tr>
+<td>negative weights, or negative-cycle test</td>
+<td>Bellman–Ford</td>
+<td>O(n · m)</td>
+</tr>
+<tr>
+<td>all pairs, n ≤ ~400</td>
+<td>Floyd–Warshall</td>
+<td>O(n³)</td>
+</tr>
+</tbody>
+</table>
+<h3>The ideas behind them</h3>
+<ul>
+<li><strong>Relaxation</strong>: <code>if (dist[u] + w &lt; dist[v]) dist[v] = dist[u] + w</code>. Every algorithm here is relaxation in a clever order.</li>
+<li><strong>Dijkstra</strong>: the unfinished vertex with the smallest distance is final. With a heap use <strong>lazy deletion</strong>: push duplicates, skip a popped entry whose distance is outdated.</li>
+<li><strong>Bellman–Ford</strong>: n − 1 rounds of relaxing every edge; stop early when a round changes nothing. If round n still improves something, there is a <strong>negative cycle</strong>.</li>
+<li><strong>Floyd–Warshall</strong>: after phase k, <code>dist[i][j]</code> is the best path using only stop-overs 1..k.</li>
+</ul>
+<h3>Modelling tricks</h3>
+<table>
+<thead>
+<tr>
+<th>trick</th>
+<th>example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vertex costs → edge weights (pay for the vertex you enter)</td>
+<td>Columbia, Hacking, Buffet Flight</td>
+</tr>
+<tr>
+<td>many sources → push all at distance 0 (a virtual source)</td>
+<td>Hacking, Shortest Start</td>
+</tr>
+<tr>
+<td>forbidden vertices → just do not add their edges</td>
+<td>Closed City</td>
+</tr>
+<tr>
+<td>products → sums with −log</td>
+<td>Exchange</td>
+</tr>
+<tr>
+<td>stop as soon as the target is popped (Dijkstra)</td>
+<td>Closed City</td>
+</tr>
+</tbody>
+</table></div><div class="md th"><h2 id="th-s1"><span class="sn">1</span>ชุดเครื่องมือของบทนี้</h2>
+<h3>ใช้อัลกอริทึมไหน?</h3>
+<table>
+<thead>
+<tr>
+<th>กราฟ</th>
+<th>อัลกอริทึม</th>
+<th>เวลา</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ไม่มีน้ำหนัก</td>
+<td>BFS</td>
+<td>O(n + m)</td>
+</tr>
+<tr>
+<td>น้ำหนัก ≥ 0, หนาแน่น (เมทริกซ์, n ≤ ราว 3 000)</td>
+<td>Dijkstra แบบอาร์เรย์</td>
+<td>O(n²)</td>
+</tr>
+<tr>
+<td>น้ำหนัก ≥ 0, เบาบาง</td>
+<td>Dijkstra ด้วย binary heap</td>
+<td>O(m log n)</td>
+</tr>
+<tr>
+<td>น้ำหนักติดลบ หรือตรวจวงรอบติดลบ</td>
+<td>Bellman–Ford</td>
+<td>O(n · m)</td>
+</tr>
+<tr>
+<td>ทุกคู่, n ≤ ราว 400</td>
+<td>Floyd–Warshall</td>
+<td>O(n³)</td>
+</tr>
+</tbody>
+</table>
+<h3>แนวคิดเบื้องหลัง</h3>
+<ul>
+<li><strong>Relaxation</strong>: <code>if (dist[u] + w &lt; dist[v]) dist[v] = dist[u] + w</code> ทุกอัลกอริทึมในบทนี้คือ relaxation ในลำดับที่ฉลาด</li>
+<li><strong>Dijkstra</strong>: จุดที่ยังไม่เสร็จซึ่งระยะน้อยที่สุดคือค่าสุดท้ายแล้ว เมื่อใช้ heap ให้ <strong>ลบแบบช้า</strong>: push ซ้ำได้ แล้วข้ามรายการที่ pop ออกมาแต่ระยะล้าสมัย</li>
+<li><strong>Bellman–Ford</strong>: n − 1 รอบ แต่ละรอบ relax ทุกเส้น หยุดก่อนเมื่อรอบไหนไม่เปลี่ยนอะไร ถ้ารอบที่ n ยังปรับได้ แปลว่ามี <strong>วงรอบติดลบ</strong></li>
+<li><strong>Floyd–Warshall</strong>: หลังเฟส k ค่า <code>dist[i][j]</code> คือเส้นทางที่ดีที่สุดที่แวะได้แค่จุด 1..k</li>
+</ul>
+<h3>เทคนิคการแปลงโจทย์</h3>
+<table>
+<thead>
+<tr>
+<th>เทคนิค</th>
+<th>ตัวอย่าง</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ค่าของจุด → น้ำหนักเส้น (จ่ายค่าจุดที่เดินเข้าไป)</td>
+<td>Columbia, Hacking, Buffet Flight</td>
+</tr>
+<tr>
+<td>หลายจุดเริ่ม → push ทุกจุดที่ระยะ 0 (จุดเริ่มเสมือน)</td>
+<td>Hacking, Shortest Start</td>
+</tr>
+<tr>
+<td>จุดต้องห้าม → ไม่ต้องใส่เส้นของมัน</td>
+<td>Closed City</td>
+</tr>
+<tr>
+<td>ผลคูณ → ผลบวกด้วย −log</td>
+<td>Exchange</td>
+</tr>
+<tr>
+<td>หยุดทันทีที่ pop เป้าหมาย (Dijkstra)</td>
+<td>Closed City</td>
+</tr>
+</tbody>
+</table></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script>
+</body>
+</html>

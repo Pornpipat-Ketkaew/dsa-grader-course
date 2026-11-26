@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>a62_q2a_pandemic · Pandemic</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#1f9d55}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="on" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch16.html">16 · <span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></div>
+<div class="phead">
+<div class="pidbig">a62_q2a_pandemic</div>
+<h1><span class="en">Pandemic</span><span class="th">โรคระบาด</span></h1>
+<div class="chips"><span class="chip t en">Multi-source BFS on a grid</span><span class="chip t en">Distance limit (day T)</span><span class="chip t en">Grid as a graph</span><span class="chip t th">BFS หลายต้นทางบนตาราง</span><span class="chip t th">จำกัดระยะ (วันที่ T)</span><span class="chip t th">มองตารางเป็นกราฟ</span><span class="chip cx">O(r · c) time and memory, independent of T</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">The day a province gets infected is its BFS distance from the nearest initially infected province. Put all day-0 provinces in the queue at the start and run one BFS over the grid (4 neighbours, mountains blocked), never expanding a province infected on day T. Every province that enters the queue is infected by day T.</p><p class="th">วันที่จังหวัดหนึ่งติดเชื้อคือระยะ BFS จากจังหวัดที่ติดเชื้อตั้งแต่แรกที่ใกล้ที่สุด ใส่ทุกจังหวัดวันที่ 0 ลงในคิวตั้งแต่เริ่ม แล้วรัน BFS ครั้งเดียวบนตาราง (เพื่อนบ้าน 4 ทิศ ภูเขาผ่านไม่ได้) โดยไม่ขยายจังหวัดที่ติดเชื้อในวันที่ T ทุกจังหวัดที่เข้าคิวติดเชื้อภายในวันที่ T</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\a62_q2a_pandemic\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: multi-source BFS</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: BFS หลายต้นทาง</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: multi-source BFS</h2>
+<p>BFS from one source gives every vertex its distance from that source. With <strong>several</strong> sources, put them all in the queue at distance 0 before starting. The BFS then expands all of them layer by layer together, and each vertex gets its distance to the <strong>nearest</strong> source, in one pass. (Equivalently: add an imaginary super-source joined to every real source.)</p>
+<p>A grid is a graph: each cell is a vertex, joined to its up / down / left / right neighbours, with blocked cells removed.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: infection day = BFS distance</h3>
+<p>On day x + 1 every neighbour of a day-x province gets infected. That is exactly the BFS layering: <code>infectedDay[next] = infectedDay[current] + 1</code> the first time <code>next</code> is reached. A province is reached first by its nearest source, so the BFS day is the true infection day.</p>
+<h3>Step 2: stop at T</h3>
+<p>Do not expand a province with <code>infectedDay == T</code>: its neighbours would only be infected on day T + 1. Everything that ever enters the queue has day ≤ T, so the answer is the number of provinces that entered the queue.</p>
+<div class="viz" data-viz="a62_q2a_pandemic"></div>
+<h3>Step 3: why T up to 10⁶ is harmless</h3>
+<p>Simulating day by day costs O(r · c) per day, up to 10⁶ days. BFS touches each province once no matter how large T is, and it stops by itself when nothing new can be reached (after at most r · c layers).</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>One BFS <strong>per source</strong>: up to 250 000 sources × 250 000 cells.</li>
+<li>Day-by-day simulation over T days: far too slow for T = 10⁶ (and pointless once the spread stops).</li>
+<li>T = 0: the answer is the number of 1s (no province is expanded).</li>
+<li>Mountains are never infected and never pass the virus on.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a62_q2a_pandemic__main.cpp" download>⬇ .cpp</a><button data-copy="code66">Copy</button></div><pre class="hl"><code id="code66" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int rows, cols, days;
+    cin &gt;&gt; rows &gt;&gt; cols &gt;&gt; days;
+    const int MOUNTAIN = 2;
+    vector&lt;int&gt; cell(rows * cols);            // cell[row * cols + col]
+    vector&lt;int&gt; infectedDay(rows * cols, -1); // -1 = never infected
+    vector&lt;int&gt; queue;
+    queue.reserve(rows * cols);
+    // index = 0..rows*cols-1 in reading order: every 1 is a source on day 0
+    for (int index = 0; index &lt; rows * cols; index++) {
+        cin &gt;&gt; cell[index];
+        if (cell[index] == 1) {
+            infectedDay[index] = 0;
+            queue.push_back(index);
+        }
+    }
+
+    const int rowStep[4] = {-1, 1, 0, 0}, colStep[4] = {0, 0, -1, 1};
+    // multi-source BFS: read moves forward through the queue, so provinces
+    // come out in order of infection day 0, 1, 2, ...
+    for (size_t read = 0; read &lt; queue.size(); read++) {
+        int index = queue[read];
+        if (infectedDay[index] == days) continue;   // its neighbours would fall on day T+1: too late
+        int row = index / cols, col = index % cols;
+        // direction = up, down, left, right
+        for (int direction = 0; direction &lt; 4; direction++) {
+            int nextRow = row + rowStep[direction], nextCol = col + colStep[direction];
+            if (nextRow &lt; 0 || nextRow &gt;= rows || nextCol &lt; 0 || nextCol &gt;= cols) continue;
+            int next = nextRow * cols + nextCol;
+            if (cell[next] == MOUNTAIN || infectedDay[next] != -1) continue;
+            infectedDay[next] = infectedDay[index] + 1;
+            queue.push_back(next);
+        }
+    }
+    // every province that entered the queue is infected by day T
+    cout &lt;&lt; queue.size() &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">days</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">days</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MOUNTAIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cell</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="p">;</span><span class="w">            </span><span class="c1">// cell[row * cols + col]</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">infectedDay</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="c1">// -1 = never infected</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">queue</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..rows*cols-1 in reading order: every 1 is a source on day 0</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cell</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">rowStep</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span><span class="p">,</span><span class="w"> </span><span class="n">colStep</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// multi-source BFS: read moves forward through the queue, so provinces</span></span><span class="ln"><span class="w">    </span><span class="c1">// come out in order of infection day 0, 1, 2, ...</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">read</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">infectedDay</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">days</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">   </span><span class="c1">// its neighbours would fall on day T+1: too late</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">cols</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// direction = up, down, left, right</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">direction</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rowStep</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">nextCol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">colStep</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nextRow</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextCol</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextCol</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nextCol</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">MOUNTAIN</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// every province that entered the queue is infected by day T</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Each province enters the queue at most once and checks 4 neighbours: <strong>O(r · c)</strong> time and memory, independent of T.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, 300 random maps against a day-by-day simulation, and a 500 × 500 map with T = 1 000 000 in 0.02 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF แผนที่สุ่ม 300 ชุดเทียบกับการจำลองทีละวัน และแผนที่ 500 × 500 ที่ T = 1 000 000 ใช้ 0.02 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: BFS หลายต้นทาง</h2>
+<p>BFS จากต้นทางเดียวให้ระยะจากต้นทางนั้นแก่ทุกจุด เมื่อมี <strong>หลาย</strong> ต้นทาง ให้ใส่ทุกต้นทางลงในคิวที่ระยะ 0 ก่อนเริ่ม BFS จะขยายทุกต้นทางไปพร้อมกันทีละชั้น และทุกจุดได้ระยะไปยังต้นทางที่ <strong>ใกล้ที่สุด</strong> ในรอบเดียว (เทียบเท่ากับเพิ่มต้นทางสมมุติที่เชื่อมกับต้นทางจริงทุกตัว)</p>
+<p>ตารางคือกราฟ: แต่ละช่องคือจุด เชื่อมกับเพื่อนบ้านบน / ล่าง / ซ้าย / ขวา โดยตัดช่องที่ผ่านไม่ได้ออก</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: วันติดเชื้อ = ระยะ BFS</h3>
+<p>ในวันที่ x + 1 เพื่อนบ้านทุกจังหวัดของจังหวัดวันที่ x จะติดเชื้อ นี่คือการแบ่งชั้นของ BFS พอดี: <code>infectedDay[next] = infectedDay[current] + 1</code> ในครั้งแรกที่ไปถึง <code>next</code> จังหวัดถูกไปถึงก่อนโดยต้นทางที่ใกล้ที่สุด วันจาก BFS จึงเป็นวันติดเชื้อจริง</p>
+<h3>ขั้นที่ 2: หยุดที่ T</h3>
+<p>ไม่ขยายจังหวัดที่ <code>infectedDay == T</code>: เพื่อนบ้านของมันจะติดในวันที่ T + 1 ทุกจังหวัดที่เคยเข้าคิวมีวัน ≤ T คำตอบจึงเป็นจำนวนจังหวัดที่เข้าคิว</p>
+<div class="viz" data-viz="a62_q2a_pandemic"></div>
+<h3>ขั้นที่ 3: ทำไม T ถึง 10⁶ จึงไม่เป็นปัญหา</h3>
+<p>การจำลองทีละวันใช้ O(r · c) ต่อวัน ได้ถึง 10⁶ วัน BFS แตะแต่ละจังหวัดครั้งเดียวไม่ว่า T จะใหญ่แค่ไหน และหยุดเองเมื่อไปถึงที่ใหม่ไม่ได้แล้ว (ไม่เกิน r · c ชั้น)</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>BFS <strong>หนึ่งครั้งต่อต้นทาง</strong>: ต้นทางได้ถึง 250 000 จุด × 250 000 ช่อง</li>
+<li>จำลองทีละวันไป T วัน: ช้าเกินไปมากเมื่อ T = 10⁶ (และไม่มีประโยชน์เมื่อการระบาดหยุดแล้ว)</li>
+<li>T = 0: คำตอบคือจำนวนเลข 1 (ไม่มีจังหวัดถูกขยาย)</li>
+<li>ภูเขาไม่ติดเชื้อ และไม่ส่งต่อไวรัส</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/a62_q2a_pandemic__main.cpp" download>⬇ .cpp</a><button data-copy="code66">Copy</button></div><pre class="hl"><code id="code66" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int rows, cols, days;
+    cin &gt;&gt; rows &gt;&gt; cols &gt;&gt; days;
+    const int MOUNTAIN = 2;
+    vector&lt;int&gt; cell(rows * cols);            // cell[row * cols + col]
+    vector&lt;int&gt; infectedDay(rows * cols, -1); // -1 = never infected
+    vector&lt;int&gt; queue;
+    queue.reserve(rows * cols);
+    // index = 0..rows*cols-1 in reading order: every 1 is a source on day 0
+    for (int index = 0; index &lt; rows * cols; index++) {
+        cin &gt;&gt; cell[index];
+        if (cell[index] == 1) {
+            infectedDay[index] = 0;
+            queue.push_back(index);
+        }
+    }
+
+    const int rowStep[4] = {-1, 1, 0, 0}, colStep[4] = {0, 0, -1, 1};
+    // multi-source BFS: read moves forward through the queue, so provinces
+    // come out in order of infection day 0, 1, 2, ...
+    for (size_t read = 0; read &lt; queue.size(); read++) {
+        int index = queue[read];
+        if (infectedDay[index] == days) continue;   // its neighbours would fall on day T+1: too late
+        int row = index / cols, col = index % cols;
+        // direction = up, down, left, right
+        for (int direction = 0; direction &lt; 4; direction++) {
+            int nextRow = row + rowStep[direction], nextCol = col + colStep[direction];
+            if (nextRow &lt; 0 || nextRow &gt;= rows || nextCol &lt; 0 || nextCol &gt;= cols) continue;
+            int next = nextRow * cols + nextCol;
+            if (cell[next] == MOUNTAIN || infectedDay[next] != -1) continue;
+            infectedDay[next] = infectedDay[index] + 1;
+            queue.push_back(next);
+        }
+    }
+    // every province that entered the queue is infected by day T
+    cout &lt;&lt; queue.size() &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rows</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">days</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">days</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">MOUNTAIN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cell</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="p">;</span><span class="w">            </span><span class="c1">// cell[row * cols + col]</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">infectedDay</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="c1">// -1 = never infected</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">queue</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">queue</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..rows*cols-1 in reading order: every 1 is a source on day 0</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">cell</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">index</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">rowStep</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span><span class="p">,</span><span class="w"> </span><span class="n">colStep</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// multi-source BFS: read moves forward through the queue, so provinces</span></span><span class="ln"><span class="w">    </span><span class="c1">// come out in order of infection day 0, 1, 2, ...</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">;</span><span class="w"> </span><span class="n">read</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">queue</span><span class="p">[</span><span class="n">read</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">infectedDay</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">days</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span><span class="w">   </span><span class="c1">// its neighbours would fall on day T+1: too late</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">cols</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">cols</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// direction = up, down, left, right</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">direction</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rowStep</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span><span class="p">,</span><span class="w"> </span><span class="n">nextCol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">colStep</span><span class="p">[</span><span class="n">direction</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nextRow</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">rows</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextCol</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">nextCol</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">cols</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nextRow</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nextCol</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">MOUNTAIN</span><span class="w"> </span><span class="o">|</span><span class="o">|</span><span class="w"> </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">next</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">infectedDay</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="n">queue</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">next</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// every province that entered the queue is infected by day T</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">queue</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> แต่ละจังหวัดเข้าคิวไม่เกินครั้งเดียวและตรวจเพื่อนบ้าน 4 ทิศ: <strong>O(r · c)</strong> ทั้งเวลาและหน่วยความจำ ไม่ขึ้นกับ T</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, 300 random maps against a day-by-day simulation, and a 500 × 500 map with T = 1 000 000 in 0.02 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF แผนที่สุ่ม 300 ชุดเทียบกับการจำลองทีละวัน และแผนที่ 500 × 500 ที่ T = 1 000 000 ใช้ 0.02 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="a59_q3_cycle.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>a59_q3_cycle</b> · <span class="en">Cycle in a Tree</span><span class="th">วงวนในต้นไม้</span></a><a class="nx" href="da67_f_border_extend.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>da67_f_border_extend</b> · <span class="en">Border Extend</span><span class="th">Border Extend (ถมที่รอบเกาะ)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/a62_q2a_pandemic.js"></script>
+</body>
+</html>

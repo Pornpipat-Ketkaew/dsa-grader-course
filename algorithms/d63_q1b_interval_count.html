@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>d63_q1b_interval_count · Interval Count</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0f766e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="on" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch08.html">08 · <span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></div>
+<div class="phead">
+<div class="pidbig">d63_q1b_interval_count</div>
+<h1><span class="en">Interval Count</span><span class="th">Interval Count (นับจำนวนในช่วง)</span></h1>
+<div class="chips"><span class="chip t en">Sort once</span><span class="chip t en">answer many range-count queries</span><span class="chip t en">lower_bound and upper_bound</span><span class="chip t th">เรียงครั้งเดียว ตอบคำถามนับในช่วงได้หลายครั้ง</span><span class="chip t th">lower_bound และ upper_bound</span><span class="chip cx">O((n + m) log n) time · O(n) memory</span><span class="chip"><span class="stars">★☆☆</span></span></div>
+<div class="lead"><p class="en">After sorting, the numbers inside [p − k, p + k] form one contiguous block. Its first index is lower_bound(p − k) (first value ≥ p − k) and the index just past it is upper_bound(p + k) (first value &gt; p + k); the count is their difference.</p><p class="th">หลังเรียง ตัวเลขที่อยู่ใน [p − k, p + k] เป็นก้อนเดียวที่ติดกัน ดัชนีแรกของก้อนคือ lower_bound(p − k) (ค่าแรกที่ ≥ p − k) และดัชนีถัดจากก้อนคือ upper_bound(p + k) (ค่าแรกที่ &gt; p + k) จำนวนคือผลต่างของทั้งสอง</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\d63_q1b_interval_count\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: range counting with two boundaries</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: นับในช่วงด้วยรอยต่อสองข้าง</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: range counting with two boundaries</h2>
+<p>"How many values lie in [lo, hi]?" asked many times about the <strong>same</strong> set: sort the set once, then each question is two binary searches.</p>
+<p>In a sorted array the values in [lo, hi] are one block:</p>
+<ul>
+<li><strong>first</strong> = <code>lower_bound(lo)</code>: first index with value ≥ lo (equal values are inside, so they must not be skipped);</li>
+<li><strong>pastLast</strong> = <code>upper_bound(hi)</code>: first index with value &gt; hi (equal values are inside, so stop after them).</li>
+</ul>
+<p>Count = pastLast − first. This "half-open" pair [first, pastLast) is the standard way to describe a block: an empty block simply has first = pastLast.</p>
+<pre class="diagram">sorted: 1 3 5 9 10        p = 3, k = 1 → [2, 4]
+        ↑ ↑               first = index 1 (3 is the first ≥ 2)
+            ↑             pastLast = index 2 (5 is the first &gt; 4)        count 1</pre>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: sort the list</h3>
+<p>The list comes unsorted (sample 3 gives 4 8 2), so sort it once: O(n log n).</p>
+<h3>Step 2: each query</h3>
+<p>lo = p − k, hi = p + k. Both can leave the 0 … 10⁹ range: p − k can be negative (fine: then first = 0), and p + k can reach 2·10⁹, which does <strong>not</strong> fit in <code>int</code>. Keep p, k and the values in <code>long long</code>.</p>
+<div class="viz" data-viz="d63_q1b_interval_count"></div>
+<h3>Step 3: output</h3>
+<p>All answers go on one line, separated by spaces. With 200 000 answers, build one string and print it once.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>p + k in <code>int</code>: overflow at 2·10⁹ gives a negative bound and a wrong count.</li>
+<li><code>upper_bound(p − k)</code> or <code>lower_bound(p + k)</code>: off by the values that are exactly on the ends.</li>
+<li>Counting by scanning: 4·10¹⁰ steps.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/d63_q1b_interval_count__main.cpp" download>⬇ .cpp</a><button data-copy="code3">Copy</button></div><pre class="hl"><code id="code3" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    long long k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+    vector&lt;long long&gt; values(n);
+    // index = 0..n-1
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; values[index];
+    sort(values.begin(), values.end());
+
+    string output;
+    // query = 0..m-1
+    for (int query = 0; query &lt; m; query++) {
+        long long p;
+        cin &gt;&gt; p;
+        // In sorted order the values inside [p - k, p + k] are one block:
+        // from the first value &gt;= p - k up to (not including) the first value &gt; p + k.
+        auto first = lower_bound(values.begin(), values.end(), p - k);
+        auto pastLast = upper_bound(values.begin(), values.end(), p + k);
+        output += to_string(pastLast - first);
+        output += (query + 1 &lt; m ? &#x27; &#x27; : &#x27;\n&#x27;);
+    }
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// query = 0..m-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">p</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// In sorted order the values inside [p - k, p + k] are one block:</span></span><span class="ln"><span class="w">        </span><span class="c1">// from the first value &gt;= p - k up to (not including) the first value &gt; p + k.</span></span><span class="ln"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lower_bound</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">pastLast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">upper_bound</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">to_string</span><span class="p">(</span><span class="n">pastLast</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">first</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">query</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc"> </span><span class="sc">&#x27;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Sorting O(n log n) and two O(log n) searches per query: <strong>O((n + m) log n)</strong>. Memory: <strong>O(n)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, a case where p + k = 2·10⁹ overflows int, 300 random cases against a direct count, and n = m = 200 000 in 0.09 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF กรณี p + k = 2·10⁹ ที่ล้น int สุ่ม 300 ชุดเทียบกับการนับตรง ๆ และ n = m = 200 000 ใช้ 0.09 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: นับในช่วงด้วยรอยต่อสองข้าง</h2>
+<p>"มีค่ากี่ตัวใน [lo, hi]?" ถามหลายครั้งกับเซต <strong>เดียวกัน</strong>: เรียงเซตครั้งเดียว แล้วแต่ละคำถามคือ binary search สองครั้ง</p>
+<p>ในอาร์เรย์ที่เรียงแล้ว ค่าใน [lo, hi] เป็นก้อนเดียว:</p>
+<ul>
+<li><strong>first</strong> = <code>lower_bound(lo)</code>: ดัชนีแรกที่ค่า ≥ lo (ค่าที่เท่ากันอยู่ในช่วง จึงต้องไม่ข้าม)</li>
+<li><strong>pastLast</strong> = <code>upper_bound(hi)</code>: ดัชนีแรกที่ค่า &gt; hi (ค่าที่เท่ากันอยู่ในช่วง จึงหยุดหลังพวกมัน)</li>
+</ul>
+<p>จำนวน = pastLast − first คู่แบบ "ครึ่งเปิด" [first, pastLast) คือวิธีมาตรฐานในการบอกก้อน: ก้อนว่างคือ first = pastLast พอดี</p>
+<pre class="diagram">เรียงแล้ว: 1 3 5 9 10     p = 3, k = 1 → [2, 4]
+           ↑ ↑            first = ดัชนี 1 (3 คือตัวแรกที่ ≥ 2)
+               ↑          pastLast = ดัชนี 2 (5 คือตัวแรกที่ &gt; 4)        จำนวน 1</pre>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: เรียงรายการ</h3>
+<p>รายการมาแบบไม่เรียง (ตัวอย่าง 3 ให้ 4 8 2) จึงเรียงครั้งเดียว: O(n log n)</p>
+<h3>ขั้นที่ 2: แต่ละคำถาม</h3>
+<p>lo = p − k, hi = p + k ทั้งสองค่าหลุดช่วง 0 … 10⁹ ได้: p − k ติดลบได้ (ไม่เป็นไร: first = 0) และ p + k สูงถึง 2·10⁹ ซึ่ง <strong>ไม่</strong> พอดีกับ <code>int</code> เก็บ p, k และค่าต่าง ๆ เป็น <code>long long</code></p>
+<div class="viz" data-viz="d63_q1b_interval_count"></div>
+<h3>ขั้นที่ 3: ผลลัพธ์</h3>
+<p>คำตอบทั้งหมดอยู่บรรทัดเดียว คั่นด้วยช่องว่าง เมื่อมี 200 000 คำตอบ ให้สร้าง string เดียวแล้วพิมพ์ครั้งเดียว</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>p + k เป็น <code>int</code>: ล้นที่ 2·10⁹ ได้ขอบติดลบและนับผิด</li>
+<li><code>upper_bound(p − k)</code> หรือ <code>lower_bound(p + k)</code>: ผิดไปเท่าจำนวนค่าที่อยู่ตรงขอบพอดี</li>
+<li>นับด้วยการไล่: 4·10¹⁰ ขั้น</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/d63_q1b_interval_count__main.cpp" download>⬇ .cpp</a><button data-copy="code3">Copy</button></div><pre class="hl"><code id="code3" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    long long k;
+    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;
+    vector&lt;long long&gt; values(n);
+    // index = 0..n-1
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; values[index];
+    sort(values.begin(), values.end());
+
+    string output;
+    // query = 0..m-1
+    for (int query = 0; query &lt; m; query++) {
+        long long p;
+        cin &gt;&gt; p;
+        // In sorted order the values inside [p - k, p + k] are one block:
+        // from the first value &gt;= p - k up to (not including) the first value &gt; p + k.
+        auto first = lower_bound(values.begin(), values.end(), p - k);
+        auto pastLast = upper_bound(values.begin(), values.end(), p + k);
+        output += to_string(pastLast - first);
+        output += (query + 1 &lt; m ? &#x27; &#x27; : &#x27;\n&#x27;);
+    }
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">k</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// query = 0..m-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">p</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">p</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// In sorted order the values inside [p - k, p + k] are one block:</span></span><span class="ln"><span class="w">        </span><span class="c1">// from the first value &gt;= p - k up to (not including) the first value &gt; p + k.</span></span><span class="ln"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lower_bound</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">pastLast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">upper_bound</span><span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">to_string</span><span class="p">(</span><span class="n">pastLast</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">first</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">query</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc"> </span><span class="sc">&#x27;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> เรียง O(n log n) และค้นหา O(log n) สองครั้งต่อคำถาม: <strong>O((n + m) log n)</strong> หน่วยความจำ: <strong>O(n)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, a case where p + k = 2·10⁹ overflows int, 300 random cases against a direct count, and n = m = 200 000 in 0.09 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF กรณี p + k = 2·10⁹ ที่ล้น int สุ่ม 300 ชุดเทียบกับการนับตรง ๆ และ n = m = 200 000 ใช้ 0.09 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="ex02e3_bs.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex02e3_bs</b> · <span class="en">Binary Search Near Repeat</span><span class="th">Binary Search Near Repeat (ค่าซ้ำได้ ตอบดัชนี)</span></a><a class="nx" href="d63_q1a_hiatus.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>d63_q1a_hiatus</b> · <span class="en">Hiatus</span><span class="th">Hiatus (ตอนล่าสุดก่อนเดือนที่ถาม)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/d63_q1b_interval_count.js"></script>
+</body>
+</html>

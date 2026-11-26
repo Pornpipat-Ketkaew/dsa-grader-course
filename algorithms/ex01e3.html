@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex01e3 · Binary Search Near</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0f766e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="on" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch08.html">08 · <span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></div>
+<div class="phead">
+<div class="pidbig">ex01e3</div>
+<h1><span class="en">Binary Search Near</span><span class="th">Binary Search Near (ค้นหาค่าที่ใกล้ที่สุดไม่เกิน x)</span></h1>
+<div class="chips"><span class="chip t en">Binary search with an invariant (left ≤ x &lt; right)</span><span class="chip t en">Imaginary ends −1 and n</span><span class="chip t th">Binary search ด้วยเงื่อนไขคงที่ (left ≤ x &lt; right)</span><span class="chip t th">ปลายสมมติ −1 และ n</span><span class="chip cx">O(N + M log N) time · O(N) memory</span><span class="chip"><span class="stars">★☆☆</span></span></div>
+<div class="lead"><p class="en">The array splits into a left part (values ≤ x) and a right part (values &gt; x). Keep left inside the first part and right inside the second, starting from the imaginary positions −1 and n; halve the gap until they are neighbours. The answer is A[left], or −1 when left never moved.</p><p class="th">อาร์เรย์แบ่งเป็นส่วนซ้าย (ค่า ≤ x) และส่วนขวา (ค่า &gt; x) ให้ left อยู่ในส่วนแรกและ right อยู่ในส่วนที่สอง เริ่มจากตำแหน่งสมมติ −1 และ n แล้วแบ่งครึ่งช่องว่างจนทั้งสองติดกัน คำตอบคือ A[left] หรือ −1 ถ้า left ไม่เคยขยับ</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex01e3\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: binary search on a boundary, with an invariant</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: binary search หารอยต่อ ด้วยเงื่อนไขคงที่</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: binary search on a boundary, with an invariant</h2>
+<p>Every binary search in this course is the same idea: a <strong>monotone yes/no question</strong> over a sorted range ("is A[i] ≤ x?" answers yes, yes, …, yes, no, no, …, no), and we want the <strong>boundary</strong> between the yes part and the no part.</p>
+<p>Write it with two indices and an invariant that never breaks:</p>
+<blockquote>
+<p>everything at index ≤ <strong>left</strong> is "yes"; everything at index ≥ <strong>right</strong> is "no".</p>
+</blockquote>
+<p>Start with <strong>left = −1</strong> and <strong>right = n</strong>: imaginary cells outside the array, so the invariant holds before looking at anything, and the empty cases need no special code. Each step tests the middle and moves one end there. When <code>right − left == 1</code> the boundary lies between them: <strong>left</strong> is the last "yes", <strong>right</strong> is the first "no".</p>
+<pre class="snip hl"><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">yes</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span>
+<span class="p">}</span></pre>
+<p>The loop runs about log₂ n times (17 for n = 100 000), and <code>middle</code> is always a real index between them.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the question</h3>
+<p>"Largest member of A not exceeding x" is the <strong>last</strong> index with A[i] ≤ x. The question "A[i] ≤ x?" is yes then no along the sorted array, so it is the template with <code>yes(i) = A[i] &lt;= x</code>.</p>
+<h3>Step 2: reading the answer</h3>
+<ul>
+<li>left ≥ 0: the answer is A[left].</li>
+<li>left = −1: even A[0] is bigger than x; print −1.</li>
+</ul>
+<div class="viz" data-viz="ex01e3"></div>
+<h3>Step 3: the queries are real numbers</h3>
+<p>The statement says the queries are <strong>real</strong> numbers (for example 14.5). Read them as <code>double</code>: comparing an <code>int</code> with a <code>double</code> converts the <code>int</code> exactly, so A[i] ≤ x is still the right test. Reading them as <code>int</code> would stop at the decimal point and break the rest of the input.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>The statement forbids library binary search (<code>lower_bound</code>, <code>upper_bound</code>, <code>binary_search</code>): write the loop.</li>
+<li><code>while (left &lt;= right)</code> versions with <code>mid ± 1</code> are easy to get off by one; the invariant version has no ±1 at all.</li>
+<li>Linear scanning per query: 10¹⁰ steps.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex01e3__main.cpp" download>⬇ .cpp</a><button data-copy="code1">Copy</button></div><pre class="hl"><code id="code1" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    vector&lt;int&gt; sorted(n);
+    // index = 0..n-1: the array is already strictly increasing
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; sorted[index];
+
+    string output;
+    // query = 0..m-1: each query is answered on its own
+    for (int query = 0; query &lt; m; query++) {
+        double x;                               // the queries may be real numbers
+        cin &gt;&gt; x;
+        // Invariant: sorted[left] &lt;= x is still possible, sorted[right] &gt; x is known.
+        // Treat left = -1 as &quot;nothing &lt;= x&quot; and right = n as &quot;past the end&quot;.
+        int left = -1, right = n;
+        // halve [left, right] until they are neighbours
+        while (right - left &gt; 1) {
+            int middle = left + (right - left) / 2;
+            if (sorted[middle] &lt;= x) left = middle;   // middle is a candidate: move up
+            else right = middle;                      // too big: answer is below middle
+        }
+        output += (left == -1 ? &quot;-1&quot; : to_string(sorted[left]));
+        output += &#x27;\n&#x27;;
+    }
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1: the array is already strictly increasing</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sorted</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// query = 0..m-1: each query is answered on its own</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">                               </span><span class="c1">// the queries may be real numbers</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// Invariant: sorted[left] &lt;= x is still possible, sorted[right] &gt; x is known.</span></span><span class="ln"><span class="w">        </span><span class="c1">// Treat left = -1 as &quot;nothing &lt;= x&quot; and right = n as &quot;past the end&quot;.</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// halve [left, right] until they are neighbours</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sorted</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w">   </span><span class="c1">// middle is a candidate: move up</span></span><span class="ln"><span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w">                      </span><span class="c1">// too big: answer is below middle</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">-1</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">to_string</span><span class="p">(</span><span class="n">sorted</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> O(log N) per query: <strong>O(N + M log N)</strong>. Memory: <strong>O(N)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample, real-valued queries such as 4.99 and 5.5, 300 random cases against a linear scan, and N = M = 100 000 with real queries in 0.05 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF คำถามเป็นจำนวนจริงเช่น 4.99 และ 5.5 สุ่ม 300 ชุดเทียบกับการไล่ทีละตัว และ N = M = 100 000 ที่คำถามเป็นจำนวนจริง ใช้ 0.05 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: binary search หารอยต่อ ด้วยเงื่อนไขคงที่</h2>
+<p>binary search ทุกข้อในคอร์สนี้คือแนวคิดเดียวกัน: <strong>คำถามใช่/ไม่ใช่ที่เป็นทางเดียว (monotone)</strong> บนช่วงที่เรียงแล้ว ("A[i] ≤ x ไหม?" ตอบ ใช่, ใช่, …, ใช่, ไม่, ไม่, …, ไม่) และเราต้องการ <strong>รอยต่อ</strong> ระหว่างส่วนที่ใช่กับส่วนที่ไม่ใช่</p>
+<p>เขียนด้วยดัชนีสองตัวและเงื่อนไขคงที่ที่ไม่มีวันผิด:</p>
+<blockquote>
+<p>ทุกดัชนี ≤ <strong>left</strong> ตอบ "ใช่" และทุกดัชนี ≥ <strong>right</strong> ตอบ "ไม่"</p>
+</blockquote>
+<p>เริ่มที่ <strong>left = −1</strong> และ <strong>right = n</strong>: ช่องสมมตินอกอาร์เรย์ เงื่อนไขจึงจริงตั้งแต่ก่อนดูข้อมูลใด ๆ และกรณีว่างไม่ต้องเขียนโค้ดพิเศษ แต่ละขั้นตรวจตรงกลางแล้วย้ายปลายข้างหนึ่งมาที่นั่น เมื่อ <code>right − left == 1</code> รอยต่ออยู่ระหว่างทั้งสอง: <strong>left</strong> คือ "ใช่" ตัวสุดท้าย และ <strong>right</strong> คือ "ไม่" ตัวแรก</p>
+<pre class="snip hl"><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">yes</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span>
+<span class="p">}</span></pre>
+<p>ลูปทำงานราว log₂ n รอบ (17 รอบเมื่อ n = 100 000) และ <code>middle</code> เป็นดัชนีจริงระหว่างทั้งสองเสมอ</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: คำถาม</h3>
+<p>"สมาชิกที่มากที่สุดของ A ที่ไม่เกิน x" คือดัชนี <strong>สุดท้าย</strong> ที่ A[i] ≤ x คำถาม "A[i] ≤ x?" เป็น ใช่ แล้ว ไม่ ตามอาร์เรย์ที่เรียง จึงเป็นแม่แบบโดยใช้ <code>yes(i) = A[i] &lt;= x</code></p>
+<h3>ขั้นที่ 2: อ่านคำตอบ</h3>
+<ul>
+<li>left ≥ 0: คำตอบคือ A[left]</li>
+<li>left = −1: แม้แต่ A[0] ก็มากกว่า x พิมพ์ −1</li>
+</ul>
+<div class="viz" data-viz="ex01e3"></div>
+<h3>ขั้นที่ 3: คำถามเป็นจำนวนจริง</h3>
+<p>โจทย์บอกว่าคำถามเป็นจำนวน <strong>จริง</strong> (เช่น 14.5) จึงอ่านเป็น <code>double</code>: การเทียบ <code>int</code> กับ <code>double</code> แปลง <code>int</code> ได้แม่นยำ A[i] ≤ x จึงยังถูกต้อง ถ้าอ่านเป็น <code>int</code> จะหยุดที่จุดทศนิยมและทำให้ข้อมูลที่เหลืออ่านผิดหมด</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>โจทย์ห้ามใช้ binary search ของไลบรารี (<code>lower_bound</code>, <code>upper_bound</code>, <code>binary_search</code>): ต้องเขียนลูปเอง</li>
+<li>แบบ <code>while (left &lt;= right)</code> ที่มี <code>mid ± 1</code> พลาดทีละหนึ่งได้ง่าย แบบเงื่อนไขคงที่ไม่มี ±1 เลย</li>
+<li>ไล่ทีละตัวทุกคำถาม: 10¹⁰ ขั้น</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex01e3__main.cpp" download>⬇ .cpp</a><button data-copy="code1">Copy</button></div><pre class="hl"><code id="code1" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    vector&lt;int&gt; sorted(n);
+    // index = 0..n-1: the array is already strictly increasing
+    for (int index = 0; index &lt; n; index++) cin &gt;&gt; sorted[index];
+
+    string output;
+    // query = 0..m-1: each query is answered on its own
+    for (int query = 0; query &lt; m; query++) {
+        double x;                               // the queries may be real numbers
+        cin &gt;&gt; x;
+        // Invariant: sorted[left] &lt;= x is still possible, sorted[right] &gt; x is known.
+        // Treat left = -1 as &quot;nothing &lt;= x&quot; and right = n as &quot;past the end&quot;.
+        int left = -1, right = n;
+        // halve [left, right] until they are neighbours
+        while (right - left &gt; 1) {
+            int middle = left + (right - left) / 2;
+            if (sorted[middle] &lt;= x) left = middle;   // middle is a candidate: move up
+            else right = middle;                      // too big: answer is below middle
+        }
+        output += (left == -1 ? &quot;-1&quot; : to_string(sorted[left]));
+        output += &#x27;\n&#x27;;
+    }
+    cout &lt;&lt; output;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..n-1: the array is already strictly increasing</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">sorted</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">string</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// query = 0..m-1: each query is answered on its own</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">query</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">                               </span><span class="c1">// the queries may be real numbers</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// Invariant: sorted[left] &lt;= x is still possible, sorted[right] &gt; x is known.</span></span><span class="ln"><span class="w">        </span><span class="c1">// Treat left = -1 as &quot;nothing &lt;= x&quot; and right = n as &quot;past the end&quot;.</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// halve [left, right] until they are neighbours</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">int</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">right</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">left</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sorted</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w">   </span><span class="c1">// middle is a candidate: move up</span></span><span class="ln"><span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w">                      </span><span class="c1">// too big: answer is below middle</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">left</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;</span><span class="s">-1</span><span class="s">&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">to_string</span><span class="p">(</span><span class="n">sorted</span><span class="p">[</span><span class="n">left</span><span class="p">]</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">output</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">output</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> O(log N) ต่อคำถาม: <strong>O(N + M log N)</strong> หน่วยความจำ: <strong>O(N)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample, real-valued queries such as 4.99 and 5.5, 300 random cases against a linear scan, and N = M = 100 000 with real queries in 0.05 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF คำถามเป็นจำนวนจริงเช่น 4.99 และ 5.5 สุ่ม 300 ชุดเทียบกับการไล่ทีละตัว และ N = M = 100 000 ที่คำถามเป็นจำนวนจริง ใช้ 0.05 วินาที</span></div></div></div>
+<div class="pn"><span style='flex:1'></span><a class="nx" href="ex02e3_bs.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex02e3_bs</b> · <span class="en">Binary Search Near Repeat</span><span class="th">Binary Search Near Repeat (ค่าซ้ำได้ ตอบดัชนี)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex01e3.js"></script>
+</body>
+</html>

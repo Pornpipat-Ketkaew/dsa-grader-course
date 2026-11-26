@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex01m3 · Restaurant</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0f766e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="on" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch08.html">08 · <span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></div>
+<div class="phead">
+<div class="pidbig">ex01m3</div>
+<h1><span class="en">Restaurant</span><span class="th">Restaurant (เวลาที่ลูกค้าได้นั่ง)</span></h1>
+<div class="chips"><span class="chip t en">Binary search on the answer</span><span class="chip t en">Monotone counting function (seated by time t)</span><span class="chip t en">64-bit bounds</span><span class="chip t th">Binary search บนคำตอบ</span><span class="chip t th">ฟังก์ชันนับที่เป็นทางเดียว (จำนวนที่ได้นั่งภายในเวลา t)</span><span class="chip t th">ขอบเขต 64 บิต</span><span class="chip cx">O(A · N · log(c · T)) time ≈ 10⁷ · O(N) memory</span><span class="chip"><span class="stars">★★★</span></span></div>
+<div class="lead"><p class="en">Simulating 10¹² customers is impossible, but counting is easy: by time t, chef i has seated ⌊t / Tᵢ⌋ + 1 people. That count never decreases in t, so the seating time of customer c is the smallest t with seatedBy(t) ≥ c: binary search over t between −1 and (c − 1)·min T.</p><p class="th">จำลองลูกค้า 10¹² คนเป็นไปไม่ได้ แต่การนับง่าย: ภายในเวลา t เชฟ i รับลูกค้าไปแล้ว ⌊t / Tᵢ⌋ + 1 คน จำนวนนี้ไม่ลดลงเมื่อ t เพิ่ม เวลาที่ลูกค้า c ได้นั่งจึงเป็น t ที่น้อยที่สุดที่ seatedBy(t) ≥ c: binary search บน t ระหว่าง −1 กับ (c − 1)·min T</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex01m3\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: binary search on the answer</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: binary search บนคำตอบ</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: binary search on the answer</h2>
+<p>Sometimes computing the answer directly is hard, but <strong>checking a guess</strong> is easy, and the check is monotone: if guess t works, every larger t works too. Then binary search over the <strong>answer values</strong> instead of over an array:</p>
+<pre class="snip hl"><span class="c1">// low fails, high works</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">works</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// high = smallest value that works</span></pre>
+<p>The cost is (cost of one check) × log₂(range of answers). Ranges like 10¹⁵ need only 50 steps.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the check</h3>
+<p>"Customer c is seated by time t" ⇔ "at least c customers are seated by time t". Chef i, starting at time 0 and taking exactly Tᵢ per customer, seats someone at 0, Tᵢ, 2Tᵢ, …: that is ⌊t / Tᵢ⌋ + 1 customers by time t. So</p>
+<blockquote>
+<p>seatedBy(t) = Σᵢ (⌊t / Tᵢ⌋ + 1),   and c is seated at the smallest t with seatedBy(t) ≥ c.</p>
+</blockquote>
+<p>seatedBy grows with t, which is all binary search needs. Which seat customer c takes does not matter, only when.</p>
+<pre class="diagram">T = 2 2 5        t:          0  1  2  3  4
+seatedBy(t):                 3  3  5  5  7
+customer 4 → first t with ≥ 4 is 2;   customer 6 → first t with ≥ 6 is 4</pre>
+<h3>Step 2: the bounds</h3>
+<ul>
+<li>low = −1: before opening nobody is seated (always fails).</li>
+<li>high = (c − 1)·min T: the fastest chef alone has seated c people by then (always works).</li>
+</ul>
+<p>With c ≤ 10¹² and T ≤ 1 000, high ≤ 10¹⁵ and seatedBy ≤ 1 000 · 10¹⁵ = 10¹⁸, still inside <code>long long</code>.</p>
+<div class="viz" data-viz="ex01m3"></div>
+<h3>Step 3: cost</h3>
+<p>200 queries × 50 steps × 1 000 chefs = 10⁷ divisions.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Simulating with a heap: correct (it is the brute force in the tests) but 10¹² steps.</li>
+<li>Forgetting the "+ 1" (everyone seated at time 0): the first N customers would come out wrong.</li>
+<li><code>int</code> for t or the count: both exceed 2³¹ immediately.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex01m3__main.cpp" download>⬇ .cpp</a><button data-copy="code10">Copy</button></div><pre class="hl"><code id="code10" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, asked;
+    cin &gt;&gt; n &gt;&gt; asked;
+    vector&lt;int&gt; mealTime(n);
+    // chef = 0..n-1
+    for (int chef = 0; chef &lt; n; chef++) cin &gt;&gt; mealTime[chef];
+    int fastest = *min_element(mealTime.begin(), mealTime.end());
+
+    // seatedBy(t) = customers seated at time &lt;= t. Chef i seats someone at
+    // 0, T, 2T, ..., so t / T + 1 customers. It never decreases as t grows,
+    // which is exactly what binary search on the answer needs.
+    auto seatedBy = [&amp;](long long t) {
+        long long seated = 0;
+        // chef = 0..n-1: add up every seat
+        for (int chef = 0; chef &lt; n; chef++) seated += t / mealTime[chef] + 1;
+        return seated;
+    };
+
+    // question = 0..asked-1: each customer label is answered on its own
+    for (int question = 0; question &lt; asked; question++) {
+        long long customer;
+        cin &gt;&gt; customer;
+        // Smallest t with seatedBy(t) &gt;= customer.
+        // Invariant: seatedBy(low) &lt; customer (low = -1 means &quot;before opening&quot;),
+        // seatedBy(high) &gt;= customer: the fastest chef alone seats customer people
+        // by time (customer - 1) * fastest, so that is a safe high.
+        long long low = -1, high = (customer - 1) * fastest;
+        // halve (low, high] until they are neighbours
+        while (high - low &gt; 1) {
+            long long middle = low + (high - low) / 2;
+            if (seatedBy(middle) &gt;= customer) high = middle;
+            else low = middle;
+        }
+        cout &lt;&lt; high &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">asked</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">asked</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mealTime</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// chef = 0..n-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mealTime</span><span class="p">[</span><span class="n">chef</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fastest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">min_element</span><span class="p">(</span><span class="n">mealTime</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">mealTime</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// seatedBy(t) = customers seated at time &lt;= t. Chef i seats someone at</span></span><span class="ln"><span class="w">    </span><span class="c1">// 0, T, 2T, ..., so t / T + 1 customers. It never decreases as t grows,</span></span><span class="ln"><span class="w">    </span><span class="c1">// which is exactly what binary search on the answer needs.</span></span><span class="ln"><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">seatedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">seated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// chef = 0..n-1: add up every seat</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">seated</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mealTime</span><span class="p">[</span><span class="n">chef</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">seated</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// question = 0..asked-1: each customer label is answered on its own</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">asked</span><span class="p">;</span><span class="w"> </span><span class="n">question</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">customer</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">customer</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// Smallest t with seatedBy(t) &gt;= customer.</span></span><span class="ln"><span class="w">        </span><span class="c1">// Invariant: seatedBy(low) &lt; customer (low = -1 means &quot;before opening&quot;),</span></span><span class="ln"><span class="w">        </span><span class="c1">// seatedBy(high) &gt;= customer: the fastest chef alone seats customer people</span></span><span class="ln"><span class="w">        </span><span class="c1">// by time (customer - 1) * fastest, so that is a safe high.</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">customer</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fastest</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// halve (low, high] until they are neighbours</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">seatedBy</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">customer</span><span class="p">)</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> O(N) per check, about 50 checks per query: <strong>O(A · N · log(c · T))</strong> ≈ 10⁷. Memory: <strong>O(N)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample, one chef with c = 10¹², 300 random cases against a heap simulation of the queue, and N = 1 000, A = 200 with labels up to 10¹² in 0.03 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF เชฟคนเดียวกับ c = 10¹² สุ่ม 300 ชุดเทียบกับการจำลองคิวด้วย heap และ N = 1 000, A = 200 ที่ลำดับถึง 10¹² ใช้ 0.03 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: binary search บนคำตอบ</h2>
+<p>บางครั้งการคำนวณคำตอบตรง ๆ ยาก แต่ <strong>การตรวจค่าที่เดา</strong> ง่าย และการตรวจเป็นทางเดียว: ถ้าค่า t ใช้ได้ ทุก t ที่มากกว่าก็ใช้ได้ด้วย จึง binary search บน <strong>ค่าของคำตอบ</strong> แทนบนอาร์เรย์:</p>
+<pre class="snip hl"><span class="c1">// low ใช้ไม่ได้, high ใช้ได้</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">works</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c1">// high = ค่าที่น้อยที่สุดที่ใช้ได้</span></pre>
+<p>ต้นทุนคือ (ต้นทุนการตรวจหนึ่งครั้ง) × log₂(ช่วงของคำตอบ) ช่วงขนาด 10¹⁵ ใช้แค่ 50 ขั้น</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: การตรวจ</h3>
+<p>"ลูกค้า c ได้นั่งภายในเวลา t" ⇔ "มีลูกค้าได้นั่งอย่างน้อย c คนภายในเวลา t" เชฟ i เริ่มที่เวลา 0 และใช้เวลา Tᵢ ต่อคนพอดี จึงให้คนนั่งที่ 0, Tᵢ, 2Tᵢ, …: เท่ากับ ⌊t / Tᵢ⌋ + 1 คนภายในเวลา t ดังนั้น</p>
+<blockquote>
+<p>seatedBy(t) = Σᵢ (⌊t / Tᵢ⌋ + 1) และลูกค้า c ได้นั่งที่ t ที่น้อยที่สุดที่ seatedBy(t) ≥ c</p>
+</blockquote>
+<p>seatedBy เพิ่มตาม t ซึ่งคือทั้งหมดที่ binary search ต้องการ ลูกค้า c ได้ที่นั่งไหนไม่สำคัญ สำคัญแค่เมื่อไหร่</p>
+<pre class="diagram">T = 2 2 5        t:          0  1  2  3  4
+seatedBy(t):                 3  3  5  5  7
+ลูกค้า 4 → t แรกที่ ≥ 4 คือ 2;   ลูกค้า 6 → t แรกที่ ≥ 6 คือ 4</pre>
+<h3>ขั้นที่ 2: ขอบเขต</h3>
+<ul>
+<li>low = −1: ก่อนเปิดร้านยังไม่มีใครนั่ง (ใช้ไม่ได้เสมอ)</li>
+<li>high = (c − 1)·min T: เชฟที่เร็วที่สุดคนเดียวก็รับครบ c คนในเวลานั้น (ใช้ได้เสมอ)</li>
+</ul>
+<p>เมื่อ c ≤ 10¹² และ T ≤ 1 000 จะได้ high ≤ 10¹⁵ และ seatedBy ≤ 1 000 · 10¹⁵ = 10¹⁸ ยังอยู่ใน <code>long long</code></p>
+<div class="viz" data-viz="ex01m3"></div>
+<h3>ขั้นที่ 3: ต้นทุน</h3>
+<p>200 คำถาม × 50 ขั้น × เชฟ 1 000 คน = การหาร 10⁷ ครั้ง</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>จำลองด้วย heap: ถูก (เป็น brute force ในการทดสอบ) แต่ 10¹² ขั้น</li>
+<li>ลืม "+ 1" (ทุกคนได้นั่งที่เวลา 0): ลูกค้า N คนแรกจะผิด</li>
+<li>t หรือจำนวนเป็น <code>int</code>: เกิน 2³¹ ทันที</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex01m3__main.cpp" download>⬇ .cpp</a><button data-copy="code10">Copy</button></div><pre class="hl"><code id="code10" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, asked;
+    cin &gt;&gt; n &gt;&gt; asked;
+    vector&lt;int&gt; mealTime(n);
+    // chef = 0..n-1
+    for (int chef = 0; chef &lt; n; chef++) cin &gt;&gt; mealTime[chef];
+    int fastest = *min_element(mealTime.begin(), mealTime.end());
+
+    // seatedBy(t) = customers seated at time &lt;= t. Chef i seats someone at
+    // 0, T, 2T, ..., so t / T + 1 customers. It never decreases as t grows,
+    // which is exactly what binary search on the answer needs.
+    auto seatedBy = [&amp;](long long t) {
+        long long seated = 0;
+        // chef = 0..n-1: add up every seat
+        for (int chef = 0; chef &lt; n; chef++) seated += t / mealTime[chef] + 1;
+        return seated;
+    };
+
+    // question = 0..asked-1: each customer label is answered on its own
+    for (int question = 0; question &lt; asked; question++) {
+        long long customer;
+        cin &gt;&gt; customer;
+        // Smallest t with seatedBy(t) &gt;= customer.
+        // Invariant: seatedBy(low) &lt; customer (low = -1 means &quot;before opening&quot;),
+        // seatedBy(high) &gt;= customer: the fastest chef alone seats customer people
+        // by time (customer - 1) * fastest, so that is a safe high.
+        long long low = -1, high = (customer - 1) * fastest;
+        // halve (low, high] until they are neighbours
+        while (high - low &gt; 1) {
+            long long middle = low + (high - low) / 2;
+            if (seatedBy(middle) &gt;= customer) high = middle;
+            else low = middle;
+        }
+        cout &lt;&lt; high &lt;&lt; &#x27;\n&#x27;;
+    }
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">asked</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">asked</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mealTime</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// chef = 0..n-1</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">mealTime</span><span class="p">[</span><span class="n">chef</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">fastest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="n">min_element</span><span class="p">(</span><span class="n">mealTime</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">mealTime</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// seatedBy(t) = customers seated at time &lt;= t. Chef i seats someone at</span></span><span class="ln"><span class="w">    </span><span class="c1">// 0, T, 2T, ..., so t / T + 1 customers. It never decreases as t grows,</span></span><span class="ln"><span class="w">    </span><span class="c1">// which is exactly what binary search on the answer needs.</span></span><span class="ln"><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">seatedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">]</span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">seated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// chef = 0..n-1: add up every seat</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">chef</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">seated</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">mealTime</span><span class="p">[</span><span class="n">chef</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">seated</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// question = 0..asked-1: each customer label is answered on its own</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">asked</span><span class="p">;</span><span class="w"> </span><span class="n">question</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">customer</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">customer</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// Smallest t with seatedBy(t) &gt;= customer.</span></span><span class="ln"><span class="w">        </span><span class="c1">// Invariant: seatedBy(low) &lt; customer (low = -1 means &quot;before opening&quot;),</span></span><span class="ln"><span class="w">        </span><span class="c1">// seatedBy(high) &gt;= customer: the fastest chef alone seats customer people</span></span><span class="ln"><span class="w">        </span><span class="c1">// by time (customer - 1) * fastest, so that is a safe high.</span></span><span class="ln"><span class="w">        </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">customer</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">fastest</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="c1">// halve (low, high] until they are neighbours</span></span><span class="ln"><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">middle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">low</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">seatedBy</span><span class="p">(</span><span class="n">middle</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="o">=</span><span class="w"> </span><span class="n">customer</span><span class="p">)</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">middle</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> O(N) ต่อการตรวจ ราว 50 ครั้งต่อคำถาม: <strong>O(A · N · log(c · T))</strong> ≈ 10⁷ หน่วยความจำ: <strong>O(N)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> the PDF sample, one chef with c = 10¹², 300 random cases against a heap simulation of the queue, and N = 1 000, A = 200 with labels up to 10¹² in 0.03 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างใน PDF เชฟคนเดียวกับ c = 10¹² สุ่ม 300 ชุดเทียบกับการจำลองคิวด้วย heap และ N = 1 000, A = 200 ที่ลำดับถึง 10¹² ใช้ 0.03 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="d65_q1c_ice_cream.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>d65_q1c_ice_cream</b> · <span class="en">Saving for Ice Cream</span><span class="th">Saving for Ice Cream (เก็บเงินซื้อไอศกรีม)</span></a><a class="nx" href="ex00e3.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex00e3</b> · <span class="en">Check Mapping</span><span class="th">ตรวจสอบการส่ง (Check Mapping)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex01m3.js"></script>
+</body>
+</html>

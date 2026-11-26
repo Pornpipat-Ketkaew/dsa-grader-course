@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>d62_q1a_vote · Election Winner</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#0e9f8e}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="on" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch09.html">09 · <span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></div>
+<div class="phead">
+<div class="pidbig">d62_q1a_vote</div>
+<h1><span class="en">Election Winner</span><span class="th">หาผู้ชนะเลือกตั้ง</span></h1>
+<div class="chips"><span class="chip t en">Hash map counting</span><span class="chip t en">Selection (nth_element)</span><span class="chip t th">นับด้วย hash map</span><span class="chip t th">การเลือกอันดับ (nth_element)</span><span class="chip cx">O(N · L) time · O(N) memory</span><span class="chip"><span class="stars">★☆☆</span></span></div>
+<div class="lead"><p class="en">Count ballots per name in a hash map, keep only the totals, and select the K-th largest total. Ties never change that number.</p><p class="th">นับคะแนนของแต่ละชื่อด้วย hash map เก็บไว้แค่ยอดรวม แล้วเลือกยอดที่มากเป็นอันดับ K ผู้ที่คะแนนเท่ากันไม่ทำให้ตัวเลขนี้เปลี่ยน</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\d62_q1a_vote\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: count with a hash map, then select a rank</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: นับด้วย hash map แล้วเลือกอันดับ</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: count with a hash map, then select a rank</h2>
+<p>Two textbook tools from Lesson 09:</p>
+<ol>
+<li><strong>Counting by key.</strong> When items are identified by a <em>name</em> rather than a small integer, a hash map <code>unordered_map&lt;string,int&gt;</code> plays the role of the counting array: <code>votesOf[name]++</code> is O(1) on average (plus O(L) to hash a name of length L).</li>
+<li><strong>Selection.</strong> "The K-th largest value" does not need a full sort. <code>nth_element</code> rearranges a vector so that position k holds exactly the element a full sort would put there, in <strong>O(m)</strong> average time.</li>
+</ol>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: turn ballots into totals</h3>
+<p>Every ballot adds one vote to one name. After the reading loop, the map holds one entry per candidate who got at least one vote. Candidates with zero votes never appear, which is exactly what the statement wants ("an elected person must have at least 1 vote").</p>
+<h3>Step 2: the names do not matter any more</h3>
+<p>The question asks for a <strong>number of votes</strong>, not a name. So copy the map's values into a plain <code>vector&lt;int&gt; totals</code> and forget the names.</p>
+<h3>Step 3: which rank do we need?</h3>
+<p>Sort the totals from most to fewest in your head:</p>
+<pre class="diagram">sample 1: somchai 3, adisak 2, yingyos 2, direk 1     K = 2
+
+rank (0-based)   0    1    2    3
+totals         [ 3 ][ 2 ][ 2 ][ 1 ]
+                      ▲
+                      K-th place = index K-1 = 1  →  answer 2</pre>
+<div class="box key">
+<div class="bt">Why ties are harmless</div>
+<p>The rule "everyone tied with the K-th place is also elected" adds more winners, but every added winner has <strong>the same total</strong> as the K-th place. The smallest winning total is therefore still <code>totals[K-1]</code> in descending order.</p>
+</div>
+<div class="box key">
+<div class="bt">Fewer than K candidates</div>
+<p>If only m &lt; K names received votes, all m win and the weakest is the last one, index m − 1. Both cases are covered by <code>lastPlace = min(K, m) − 1</code>.</p>
+</div>
+<h3>Step 4: select instead of sort</h3>
+<p><code>nth_element(begin, begin + lastPlace, end, greater&lt;int&gt;())</code> puts the (lastPlace+1)-th largest value at <code>totals[lastPlace]</code>, with bigger values to its left and smaller ones to its right (in no particular order). That is all we need.</p>
+<div class="viz" data-viz="d62_q1a_vote"></div>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Printing a <strong>name</strong> or the <strong>count of winners</strong> instead of the vote total.</li>
+<li>Indexing <code>totals[K-1]</code> when there are fewer than K candidates (out of range).</li>
+<li>Forgetting that the same name can appear on many lines: you must aggregate first, then rank.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/d62_q1a_vote__main.cpp" download>⬇ .cpp</a><button data-copy="code12">Copy</button></div><pre class="hl"><code id="code12" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int voterCount, seatCount;
+    cin &gt;&gt; voterCount &gt;&gt; seatCount;
+
+    // votesOf[name] = number of ballots carrying that name (hash table: O(1) per ballot)
+    unordered_map&lt;string, int&gt; votesOf;
+    // ballot = 0, 1, ..., voterCount-1: read every ballot once and add one vote
+    for (int ballot = 0; ballot &lt; voterCount; ballot++) {
+        string name;
+        cin &gt;&gt; name;
+        votesOf[name]++;                          // a new name starts at 0
+    }
+
+    // keep only the vote totals; the names are no longer needed
+    vector&lt;int&gt; totals;
+    totals.reserve(votesOf.size());
+    for (const auto&amp; entry : votesOf) totals.push_back(entry.second);
+
+    // fewer than seatCount candidates with votes -&gt; everybody is elected
+    int lastPlace = min(seatCount, (int)totals.size()) - 1;   // 0-based rank of the weakest winner
+
+    // put the (lastPlace+1)-th largest total at index lastPlace in O(m) on average
+    nth_element(totals.begin(), totals.begin() + lastPlace, totals.end(), greater&lt;int&gt;());
+
+    // ties with the K-th place are also elected, but they have the same total: print it
+    cout &lt;&lt; totals[lastPlace] &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;unordered_map&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">voterCount</span><span class="p">,</span><span class="w"> </span><span class="n">seatCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">voterCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seatCount</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// votesOf[name] = number of ballots carrying that name (hash table: O(1) per ballot)</span></span><span class="ln"><span class="w">    </span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">votesOf</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// ballot = 0, 1, ..., voterCount-1: read every ballot once and add one vote</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ballot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ballot</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">voterCount</span><span class="p">;</span><span class="w"> </span><span class="n">ballot</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">name</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">votesOf</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span><span class="w">                          </span><span class="c1">// a new name starts at 0</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// keep only the vote totals; the names are no longer needed</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">totals</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">totals</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">votesOf</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">votesOf</span><span class="p">)</span><span class="w"> </span><span class="n">totals</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">second</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// fewer than seatCount candidates with votes -&gt; everybody is elected</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">lastPlace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">seatCount</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">totals</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">// 0-based rank of the weakest winner</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// put the (lastPlace+1)-th largest total at index lastPlace in O(m) on average</span></span><span class="ln"><span class="w">    </span><span class="n">nth_element</span><span class="p">(</span><span class="n">totals</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">totals</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">lastPlace</span><span class="p">,</span><span class="w"> </span><span class="n">totals</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// ties with the K-th place are also elected, but they have the same total: print it</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">totals</span><span class="p">[</span><span class="n">lastPlace</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Reading and hashing N names of length ≤ 20: O(N·L). The vector has m ≤ N totals and <code>nth_element</code> is O(m) on average. Memory O(N). With N ≤ 1000 any correct method is fast; this one is also the asymptotically best.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples and 300 random elections (ties, K larger than the number of candidates, one candidate) against a brute force that sorts all totals. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 2 ชุดใน PDF และสุ่ม 300 ชุด (คะแนนเสมอ, K มากกว่าจำนวนผู้สมัคร, ผู้สมัครคนเดียว) เทียบกับ brute force ที่เรียงยอดทั้งหมด ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: นับด้วย hash map แล้วเลือกอันดับ</h2>
+<p>ใช้เครื่องมือมาตรฐานสองอย่างจากบทที่ 09:</p>
+<ol>
+<li><strong>การนับตามคีย์</strong> เมื่อสิ่งที่นับระบุด้วย <em>ชื่อ</em> แทนที่จะเป็นจำนวนเต็มเล็ก ๆ ให้ใช้ hash map <code>unordered_map&lt;string,int&gt;</code> แทนอาร์เรย์นับ <code>votesOf[name]++</code> ใช้เวลาเฉลี่ย O(1) (บวก O(L) สำหรับแฮชชื่อยาว L)</li>
+<li><strong>การเลือกอันดับ (selection)</strong> "ค่าที่มากเป็นอันดับ K" ไม่จำเป็นต้องเรียงทั้งหมด <code>nth_element</code> จัดเวกเตอร์ใหม่ให้ตำแหน่ง k มีค่าเดียวกับที่การเรียงเต็มจะวางไว้ ใช้เวลาเฉลี่ย <strong>O(m)</strong></li>
+</ol>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: เปลี่ยนบัตรลงคะแนนเป็นยอดรวม</h3>
+<p>บัตรแต่ละใบเพิ่มหนึ่งคะแนนให้หนึ่งชื่อ หลังวนอ่านเสร็จ map จะมีหนึ่งรายการต่อผู้สมัครหนึ่งคนที่ได้อย่างน้อยหนึ่งคะแนน ผู้สมัครที่ได้ศูนย์คะแนนจะไม่ปรากฏเลย ซึ่งตรงกับเงื่อนไขของโจทย์ ("ผู้ได้รับเลือกต้องได้อย่างน้อย 1 คะแนน") พอดี</p>
+<h3>ขั้นที่ 2: ชื่อไม่สำคัญอีกต่อไป</h3>
+<p>คำถามต้องการ <strong>จำนวนคะแนน</strong> ไม่ใช่ชื่อ จึงคัดลอกค่าจาก map ลง <code>vector&lt;int&gt; totals</code> ธรรมดาแล้วทิ้งชื่อไป</p>
+<h3>ขั้นที่ 3: ต้องการอันดับไหน?</h3>
+<p>ลองนึกภาพเรียงยอดจากมากไปน้อย:</p>
+<pre class="diagram">ตัวอย่าง 1: somchai 3, adisak 2, yingyos 2, direk 1     K = 2
+
+อันดับ (เริ่ม 0)  0    1    2    3
+totals         [ 3 ][ 2 ][ 2 ][ 1 ]
+                      ▲
+                      อันดับที่ K = index K-1 = 1  →  คำตอบ 2</pre>
+<div class="box key">
+<div class="bt">ทำไมคะแนนเสมอไม่มีผล</div>
+<p>กฎ "ทุกคนที่คะแนนเท่ากับอันดับ K ได้รับเลือกด้วย" ทำให้มีผู้ชนะเพิ่ม แต่ผู้ชนะที่เพิ่มมาทุกคนมี <strong>คะแนนเท่ากับอันดับ K</strong> คะแนนต่ำสุดของผู้ชนะจึงยังเป็น <code>totals[K-1]</code> ในลำดับจากมากไปน้อย</p>
+</div>
+<div class="box key">
+<div class="bt">ผู้สมัครน้อยกว่า K คน</div>
+<p>ถ้ามีเพียง m &lt; K ชื่อที่ได้คะแนน ทั้ง m คนชนะ และคนที่อ่อนที่สุดอยู่ index m − 1 ทั้งสองกรณีรวมเป็นสูตรเดียวคือ <code>lastPlace = min(K, m) − 1</code></p>
+</div>
+<h3>ขั้นที่ 4: เลือก ไม่ต้องเรียง</h3>
+<p><code>nth_element(begin, begin + lastPlace, end, greater&lt;int&gt;())</code> วางค่าที่มากเป็นอันดับ (lastPlace+1) ไว้ที่ <code>totals[lastPlace]</code> โดยค่าที่มากกว่าอยู่ทางซ้ายและค่าที่น้อยกว่าอยู่ทางขวา (ไม่เรียงกันภายใน) แค่นี้ก็พอแล้ว</p>
+<div class="viz" data-viz="d62_q1a_vote"></div>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>พิมพ์ <strong>ชื่อ</strong> หรือ <strong>จำนวนผู้ชนะ</strong> แทนจำนวนคะแนน</li>
+<li>เข้าถึง <code>totals[K-1]</code> เมื่อผู้สมัครมีน้อยกว่า K คน (เกินขอบเขต)</li>
+<li>ลืมว่าชื่อเดียวกันปรากฏได้หลายบรรทัด ต้องรวมคะแนนก่อนแล้วค่อยจัดอันดับ</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/d62_q1a_vote__main.cpp" download>⬇ .cpp</a><button data-copy="code12">Copy</button></div><pre class="hl"><code id="code12" hidden>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;unordered_map&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int voterCount, seatCount;
+    cin &gt;&gt; voterCount &gt;&gt; seatCount;
+
+    // votesOf[name] = number of ballots carrying that name (hash table: O(1) per ballot)
+    unordered_map&lt;string, int&gt; votesOf;
+    // ballot = 0, 1, ..., voterCount-1: read every ballot once and add one vote
+    for (int ballot = 0; ballot &lt; voterCount; ballot++) {
+        string name;
+        cin &gt;&gt; name;
+        votesOf[name]++;                          // a new name starts at 0
+    }
+
+    // keep only the vote totals; the names are no longer needed
+    vector&lt;int&gt; totals;
+    totals.reserve(votesOf.size());
+    for (const auto&amp; entry : votesOf) totals.push_back(entry.second);
+
+    // fewer than seatCount candidates with votes -&gt; everybody is elected
+    int lastPlace = min(seatCount, (int)totals.size()) - 1;   // 0-based rank of the weakest winner
+
+    // put the (lastPlace+1)-th largest total at index lastPlace in O(m) on average
+    nth_element(totals.begin(), totals.begin() + lastPlace, totals.end(), greater&lt;int&gt;());
+
+    // ties with the K-th place are also elected, but they have the same total: print it
+    cout &lt;&lt; totals[lastPlace] &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;unordered_map&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;functional&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios_base</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">voterCount</span><span class="p">,</span><span class="w"> </span><span class="n">seatCount</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">voterCount</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">seatCount</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// votesOf[name] = number of ballots carrying that name (hash table: O(1) per ballot)</span></span><span class="ln"><span class="w">    </span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">votesOf</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// ballot = 0, 1, ..., voterCount-1: read every ballot once and add one vote</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">ballot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">ballot</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">voterCount</span><span class="p">;</span><span class="w"> </span><span class="n">ballot</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">string</span><span class="w"> </span><span class="n">name</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">name</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">votesOf</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">+</span><span class="o">+</span><span class="p">;</span><span class="w">                          </span><span class="c1">// a new name starts at 0</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// keep only the vote totals; the names are no longer needed</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">totals</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">totals</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">votesOf</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">votesOf</span><span class="p">)</span><span class="w"> </span><span class="n">totals</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">entry</span><span class="p">.</span><span class="n">second</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// fewer than seatCount candidates with votes -&gt; everybody is elected</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">lastPlace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">min</span><span class="p">(</span><span class="n">seatCount</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">totals</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">   </span><span class="c1">// 0-based rank of the weakest winner</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// put the (lastPlace+1)-th largest total at index lastPlace in O(m) on average</span></span><span class="ln"><span class="w">    </span><span class="n">nth_element</span><span class="p">(</span><span class="n">totals</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">totals</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">lastPlace</span><span class="p">,</span><span class="w"> </span><span class="n">totals</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// ties with the K-th place are also elected, but they have the same total: print it</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">totals</span><span class="p">[</span><span class="n">lastPlace</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> อ่านและแฮชชื่อ N ชื่อ ยาวไม่เกิน 20: O(N·L) เวกเตอร์มียอดรวม m ≤ N ค่า และ <code>nth_element</code> เฉลี่ย O(m) หน่วยความจำ O(N) เมื่อ N ≤ 1000 วิธีที่ถูกต้องทุกวิธีเร็วพอ แต่วิธีนี้ดีที่สุดในเชิงอะซิมโทติกด้วย</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples and 300 random elections (ties, K larger than the number of candidates, one candidate) against a brute force that sorts all totals. ASan + UBSan clean.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 2 ชุดใน PDF และสุ่ม 300 ชุด (คะแนนเสมอ, K มากกว่าจำนวนผู้สมัคร, ผู้สมัครคนเดียว) เทียบกับ brute force ที่เรียงยอดทั้งหมด ไม่พบข้อผิดพลาดจาก ASan + UBSan</span></div></div></div>
+<div class="pn"><a class="pv" href="ex00e3.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>ex00e3</b> · <span class="en">Check Mapping</span><span class="th">ตรวจสอบการส่ง (Check Mapping)</span></a><a class="nx" href="d62_q1b_grandfather.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>d62_q1b_grandfather</b> · <span class="en">Grandfather</span><span class="th">ปู่ (Grandfather)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/d62_q1a_vote.js"></script>
+</body>
+</html>

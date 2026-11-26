@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ex06e2_shortest · Shortest Path with Negative Edge</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#3d5afe}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="on" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch17.html">17 · <span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></div>
+<div class="phead">
+<div class="pidbig">ex06e2_shortest</div>
+<h1><span class="en">Shortest Path with Negative Edge</span><span class="th">Shortest Path with Negative Edge (เส้นทางสั้นที่สุดที่มีเส้นติดลบ)</span></h1>
+<div class="chips"><span class="chip t en">Bellman–Ford</span><span class="chip t en">Negative-cycle detection (round n still improves)</span><span class="chip t en">Virtual source</span><span class="chip t th">Bellman–Ford</span><span class="chip t th">ตรวจวงรอบติดลบ (รอบที่ n ยังดีขึ้น)</span><span class="chip t th">ต้นทางสมมุติ</span><span class="chip cx">O(N · E) time · O(N + E) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">Bellman–Ford settles every shortest path within N − 1 rounds when no negative cycle exists, so an improvement in round N proves one. The samples want −1 for a negative cycle anywhere, even one s cannot reach, so the check starts every vertex at 0 (a virtual source to all vertices). If it passes, a normal Bellman–Ford from s gives the distances.</p><p class="th">Bellman–Ford ทำให้ทุกเส้นทางสั้นที่สุดนิ่งภายใน N − 1 รอบเมื่อไม่มีวงรอบติดลบ การดีขึ้นในรอบที่ N จึงพิสูจน์ว่ามี ตัวอย่างต้องการ −1 เมื่อมีวงรอบติดลบที่ไหนก็ได้ แม้ s ไปไม่ถึง การตรวจจึงให้ทุกจุดเริ่มที่ 0 (ต้นทางสมมุติที่เชื่อมทุกจุด) ถ้าผ่าน ก็รัน Bellman–Ford ธรรมดาจาก s</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\ex06e2_shortest\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: Bellman–Ford and the round-N test</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: Bellman–Ford และการตรวจรอบที่ N</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: Bellman–Ford and the round-N test</h2>
+<p>Bellman–Ford relaxes <strong>every</strong> edge in rounds. After round r, every vertex whose shortest path has at most r edges holds its correct distance. A shortest path never repeats a vertex when there is no negative cycle, so it has at most N − 1 edges:</p>
+<blockquote>
+<p>no negative cycle ⇒ nothing changes in round N.</p>
+</blockquote>
+<p>Read backwards: <strong>if round N still lowers some value, a negative cycle exists.</strong> Around such a cycle values can be lowered forever, so "shortest distance" is undefined.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: which negative cycles count?</h3>
+<p>Sample 2 has the cycle 1 → 2 → 3 → 1 of weight −3, which s = 0 cannot reach, and the expected output is still −1. So the check must find negative cycles <strong>anywhere</strong> in the graph. A Bellman–Ford from s only sees what s reaches. The fix is a virtual source joined to every vertex by a 0-weight edge: in practice, start <strong>every</strong> value at 0 and run up to N rounds.</p>
+<h3>Step 2: distances from s</h3>
+<p>If the check found no cycle, run ordinary Bellman–Ford from s (<code>distance[s] = 0</code>, others ∞; skip edges from unreached vertices), at most N − 1 rounds, stopping early when a round changes nothing.</p>
+<div class="viz" data-viz="ex06e2_shortest"></div>
+<h3>Step 3: print</h3>
+<p>N numbers for vertices 0..N−1, or the single number −1.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Checking for a negative cycle only from s: sample 2 would print <code>0 ∞ ∞ ∞</code> instead of −1.</li>
+<li>Treating "unreachable" as ∞ + w: the <code>UNREACHED</code> check before relaxing prevents a fake improvement.</li>
+<li>The PDF does not say what to print for an unreachable vertex; the test data never has one (every vertex is reachable from s in the tests we built to match the samples).</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex06e2_shortest__main.cpp" download>⬇ .cpp</a><button data-copy="code76">Copy</button></div><pre class="hl"><code id="code76" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Edge {
+    int from, to, weight;
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, e, source;
+    cin &gt;&gt; n &gt;&gt; e &gt;&gt; source;
+    vector&lt;Edge&gt; edges(e);
+    // index = 0..e-1: read the directed edges
+    for (int index = 0; index &lt; e; index++) cin &gt;&gt; edges[index].from &gt;&gt; edges[index].to &gt;&gt; edges[index].weight;
+
+    // Step 1: is there a negative cycle ANYWHERE? (Sample 2 answers -1 for a
+    // cycle the source cannot even reach.) A hidden source with 0-weight edges
+    // to every vertex reaches everything: start all potentials at 0.
+    // Without a negative cycle, n - 1 rounds settle every value, so a change
+    // in round n proves a negative cycle.
+    vector&lt;long long&gt; potential(n, 0);
+    bool changed = true;
+    // round = 1..n, stopping early once a round changes nothing
+    for (int round = 1; round &lt;= n &amp;&amp; changed; round++) {
+        changed = false;
+        for (const Edge&amp; edge : edges)
+            if (potential[edge.from] + edge.weight &lt; potential[edge.to]) {
+                potential[edge.to] = potential[edge.from] + edge.weight;
+                changed = true;
+            }
+    }
+    if (changed) {
+        cout &lt;&lt; -1 &lt;&lt; &#x27;\n&#x27;;
+        return 0;
+    }
+
+    // Step 2: ordinary Bellman-Ford from the source; n - 1 rounds are enough.
+    const long long UNREACHED = (long long)4e18;
+    vector&lt;long long&gt; distance(n, UNREACHED);
+    distance[source] = 0;
+    // round = 1..n-1: after round r, every shortest path of at most r edges is known
+    for (int round = 1; round &lt; n; round++) {
+        bool improved = false;
+        for (const Edge&amp; edge : edges) {
+            if (distance[edge.from] == UNREACHED) continue;
+            if (distance[edge.from] + edge.weight &lt; distance[edge.to]) {
+                distance[edge.to] = distance[edge.from] + edge.weight;
+                improved = true;
+            }
+        }
+        if (!improved) break;
+    }
+    // vertex = 0..n-1 in order
+    for (int vertex = 0; vertex &lt; n; vertex++) cout &lt;&lt; distance[vertex] &lt;&lt; (vertex + 1 &lt; n ? &#x27; &#x27; : &#x27;\n&#x27;);
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">struct</span><span class="w"> </span><span class="nc">Edge</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..e-1: read the directed edges</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">from</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">to</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Step 1: is there a negative cycle ANYWHERE? (Sample 2 answers -1 for a</span></span><span class="ln"><span class="w">    </span><span class="c1">// cycle the source cannot even reach.) A hidden source with 0-weight edges</span></span><span class="ln"><span class="w">    </span><span class="c1">// to every vertex reaches everything: start all potentials at 0.</span></span><span class="ln"><span class="w">    </span><span class="c1">// Without a negative cycle, n - 1 rounds settle every value, so a change</span></span><span class="ln"><span class="w">    </span><span class="c1">// in round n proves a negative cycle.</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">potential</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// round = 1..n, stopping early once a round changes nothing</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">changed</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Edge</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">edges</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">changed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Step 2: ordinary Bellman-Ford from the source; n - 1 rounds are enough.</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">UNREACHED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="mf">4e18</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">distance</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// round = 1..n-1: after round r, every shortest path of at most r edges is known</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">improved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Edge</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">edges</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">improved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">improved</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// vertex = 0..n-1 in order</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">vertex</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">vertex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc"> </span><span class="sc">&#x27;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Two Bellman–Ford runs of at most N rounds × E edges: <strong>O(N · E)</strong>. Memory: <strong>O(N + E)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples, a graph where s reaches a vertex only through a negative edge, N = 1, 300 random graphs (with and without negative cycles) against a Floyd–Warshall brute force, and a dense N = 100 graph in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF กราฟที่ s ไปถึงจุดหนึ่งได้ผ่านเส้นติดลบเท่านั้น N = 1 กราฟสุ่ม 300 ชุด (มีและไม่มีวงรอบติดลบ) เทียบกับ brute force แบบ Floyd–Warshall และกราฟหนาแน่น N = 100 ใช้ 0.01 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: Bellman–Ford และการตรวจรอบที่ N</h2>
+<p>Bellman–Ford ผ่อนคลาย <strong>ทุก</strong> เส้นเป็นรอบ ๆ หลังรอบที่ r ทุกจุดที่เส้นทางสั้นที่สุดมีไม่เกิน r เส้นจะมีระยะที่ถูกต้อง เมื่อไม่มีวงรอบติดลบ เส้นทางสั้นที่สุดไม่ผ่านจุดซ้ำ จึงมีไม่เกิน N − 1 เส้น:</p>
+<blockquote>
+<p>ไม่มีวงรอบติดลบ ⇒ รอบที่ N ไม่มีอะไรเปลี่ยน</p>
+</blockquote>
+<p>อ่านกลับด้าน: <strong>ถ้ารอบที่ N ยังลดค่าได้ แปลว่ามีวงรอบติดลบ</strong> รอบวงนั้นลดค่าได้ไม่สิ้นสุด "ระยะสั้นที่สุด" จึงไม่มีนิยาม</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: วงรอบติดลบแบบไหนที่นับ?</h3>
+<p>ตัวอย่าง 2 มีวง 1 → 2 → 3 → 1 น้ำหนัก −3 ซึ่ง s = 0 ไปไม่ถึง แต่คำตอบยังเป็น −1 การตรวจจึงต้องหาวงรอบติดลบ <strong>ที่ไหนก็ได้</strong> ในกราฟ Bellman–Ford จาก s เห็นแค่ส่วนที่ s ไปถึง วิธีแก้คือต้นทางสมมุติที่เชื่อมทุกจุดด้วยเส้นน้ำหนัก 0: ในทางปฏิบัติคือให้ <strong>ทุก</strong> ค่าเริ่มที่ 0 แล้วรันไม่เกิน N รอบ</p>
+<h3>ขั้นที่ 2: ระยะจาก s</h3>
+<p>ถ้าไม่เจอวงรอบ ให้รัน Bellman–Ford ธรรมดาจาก s (<code>distance[s] = 0</code> ที่เหลือ ∞; ข้ามเส้นที่ออกจากจุดที่ยังไปไม่ถึง) ไม่เกิน N − 1 รอบ และหยุดก่อนเมื่อรอบไหนไม่มีอะไรเปลี่ยน</p>
+<div class="viz" data-viz="ex06e2_shortest"></div>
+<h3>ขั้นที่ 3: พิมพ์</h3>
+<p>N ตัวเลขของจุด 0..N−1 หรือตัวเลขเดียว −1</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ตรวจวงรอบติดลบจาก s เท่านั้น: ตัวอย่าง 2 จะพิมพ์ <code>0 ∞ ∞ ∞</code> แทน −1</li>
+<li>ปล่อยให้ "ไปไม่ถึง" กลายเป็น ∞ + w: การตรวจ <code>UNREACHED</code> ก่อนผ่อนคลายกันการดีขึ้นปลอม</li>
+<li>PDF ไม่ได้บอกว่าจุดที่ไปไม่ถึงให้พิมพ์อะไร ข้อมูลทดสอบไม่มีกรณีนี้ (ทุกจุดไปถึงได้จาก s ในชุดทดสอบที่สร้างให้ตรงกับตัวอย่าง)</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/ex06e2_shortest__main.cpp" download>⬇ .cpp</a><button data-copy="code76">Copy</button></div><pre class="hl"><code id="code76" hidden>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+struct Edge {
+    int from, to, weight;
+};
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, e, source;
+    cin &gt;&gt; n &gt;&gt; e &gt;&gt; source;
+    vector&lt;Edge&gt; edges(e);
+    // index = 0..e-1: read the directed edges
+    for (int index = 0; index &lt; e; index++) cin &gt;&gt; edges[index].from &gt;&gt; edges[index].to &gt;&gt; edges[index].weight;
+
+    // Step 1: is there a negative cycle ANYWHERE? (Sample 2 answers -1 for a
+    // cycle the source cannot even reach.) A hidden source with 0-weight edges
+    // to every vertex reaches everything: start all potentials at 0.
+    // Without a negative cycle, n - 1 rounds settle every value, so a change
+    // in round n proves a negative cycle.
+    vector&lt;long long&gt; potential(n, 0);
+    bool changed = true;
+    // round = 1..n, stopping early once a round changes nothing
+    for (int round = 1; round &lt;= n &amp;&amp; changed; round++) {
+        changed = false;
+        for (const Edge&amp; edge : edges)
+            if (potential[edge.from] + edge.weight &lt; potential[edge.to]) {
+                potential[edge.to] = potential[edge.from] + edge.weight;
+                changed = true;
+            }
+    }
+    if (changed) {
+        cout &lt;&lt; -1 &lt;&lt; &#x27;\n&#x27;;
+        return 0;
+    }
+
+    // Step 2: ordinary Bellman-Ford from the source; n - 1 rounds are enough.
+    const long long UNREACHED = (long long)4e18;
+    vector&lt;long long&gt; distance(n, UNREACHED);
+    distance[source] = 0;
+    // round = 1..n-1: after round r, every shortest path of at most r edges is known
+    for (int round = 1; round &lt; n; round++) {
+        bool improved = false;
+        for (const Edge&amp; edge : edges) {
+            if (distance[edge.from] == UNREACHED) continue;
+            if (distance[edge.from] + edge.weight &lt; distance[edge.to]) {
+                distance[edge.to] = distance[edge.from] + edge.weight;
+                improved = true;
+            }
+        }
+        if (!improved) break;
+    }
+    // vertex = 0..n-1 in order
+    for (int vertex = 0; vertex &lt; n; vertex++) cout &lt;&lt; distance[vertex] &lt;&lt; (vertex + 1 &lt; n ? &#x27; &#x27; : &#x27;\n&#x27;);
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">struct</span><span class="w"> </span><span class="nc">Edge</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">source</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">source</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Edge</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..e-1: read the directed edges</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">e</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">from</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">to</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">edges</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Step 1: is there a negative cycle ANYWHERE? (Sample 2 answers -1 for a</span></span><span class="ln"><span class="w">    </span><span class="c1">// cycle the source cannot even reach.) A hidden source with 0-weight edges</span></span><span class="ln"><span class="w">    </span><span class="c1">// to every vertex reaches everything: start all potentials at 0.</span></span><span class="ln"><span class="w">    </span><span class="c1">// Without a negative cycle, n - 1 rounds settle every value, so a change</span></span><span class="ln"><span class="w">    </span><span class="c1">// in round n proves a negative cycle.</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">potential</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// round = 1..n, stopping early once a round changes nothing</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&amp;</span><span class="o">&amp;</span><span class="w"> </span><span class="n">changed</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Edge</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">edges</span><span class="p">)</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">potential</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">changed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">changed</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="mi">-1</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="c1">// Step 2: ordinary Bellman-Ford from the source; n - 1 rounds are enough.</span></span><span class="ln"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="w"> </span><span class="n">UNREACHED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="p">)</span><span class="mf">4e18</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="w"> </span><span class="kt">long</span><span class="o">&gt;</span><span class="w"> </span><span class="n">distance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">distance</span><span class="p">[</span><span class="n">source</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// round = 1..n-1: after round r, every shortest path of at most r edges is known</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">round</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">bool</span><span class="w"> </span><span class="n">improved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Edge</span><span class="o">&amp;</span><span class="w"> </span><span class="n">edge</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">edges</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">UNREACHED</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">                </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">to</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">edge</span><span class="p">.</span><span class="n">from</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">edge</span><span class="p">.</span><span class="n">weight</span><span class="p">;</span></span><span class="ln"><span class="w">                </span><span class="n">improved</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span></span><span class="ln"><span class="w">            </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="p">}</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">improved</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// vertex = 0..n-1 in order</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">vertex</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">vertex</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">distance</span><span class="p">[</span><span class="n">vertex</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">vertex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc"> </span><span class="sc">&#x27;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> Bellman–Ford สองครั้ง ไม่เกิน N รอบ × E เส้น: <strong>O(N · E)</strong> หน่วยความจำ: <strong>O(N + E)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> both PDF samples, a graph where s reaches a vertex only through a negative edge, N = 1, 300 random graphs (with and without negative cycles) against a Floyd–Warshall brute force, and a dense N = 100 graph in 0.01 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้งสองใน PDF กราฟที่ s ไปถึงจุดหนึ่งได้ผ่านเส้นติดลบเท่านั้น N = 1 กราฟสุ่ม 300 ชุด (มีและไม่มีวงรอบติดลบ) เทียบกับ brute force แบบ Floyd–Warshall และกราฟหนาแน่น N = 100 ใช้ 0.01 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="a64_q3_shortest_start.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>a64_q3_shortest_start</b> · <span class="en">Shortest Start</span><span class="th">Shortest Start (เลือกจุดเริ่มที่ดีที่สุด)</span></a><a class="nx" href="ex06m2_exchange.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>ex06m2_exchange</b> · <span class="en">Exchange</span><span class="th">Exchange (แลกเงินได้กำไรไม่จำกัด)</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/ex06e2_shortest.js"></script>
+</body>
+</html>

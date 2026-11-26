@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>69_AG3 · Zipline</title>
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var l=localStorage.getItem('alg-lang'),t=localStorage.getItem('alg-theme');var h=document.documentElement;if(l)h.dataset.lang=l;h.dataset.theme=t||((window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');}catch(e){}})();</script>
+<style>:root{--chc:#475569}</style>
+</head>
+<body>
+<header class="top">
+  <button id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="index.html"><span class="logo">A</span><span><span class="en">Algorithm Grader · How &amp; Solution</span><span class="th">อัลกอริทึม · วิธีคิดและโค้ดเฉลย</span></span></a>
+  <span class="sp"></span>
+  <a class="btn" href="../index.html"><span class="en">Course home</span><span class="th">หน้าหลักคอร์ส</span></a>
+  <span class="seg"><button data-setlang="en">EN</button><button data-setlang="th">ไทย</button></span>
+  <button id="themeBtn" title="dark / light">◐</button>
+</header>
+<div class="wrap">
+<nav class="side"><input id="search" class="search" placeholder="Search problems… / ค้นหา…">
+<ul><li><a href="index.html" class=""><span class="en">🏠 Home</span><span class="th">🏠 หน้าแรก</span></a></li></ul>
+<h4 style="--chc:#0f766e"><span class="num">08</span><a href="ch08.html" class=""><span class="en">Binary search &amp; prefix sums</span><span class="th">Binary search และผลรวมสะสม</span></a></h4><ul>
+<li><a class="" href="ex01e3.html"><span class="pid">ex01e3</span></a></li>
+<li><a class="" href="ex02e3_bs.html"><span class="pid">ex02e3_bs</span></a></li>
+<li><a class="" href="d63_q1b_interval_count.html"><span class="pid">d63_q1b_interval_count</span></a></li>
+<li><a class="" href="d63_q1a_hiatus.html"><span class="pid">d63_q1a_hiatus</span></a></li>
+<li><a class="" href="da68_m_count_value.html"><span class="pid">da68_m_count_value</span></a></li>
+<li><a class="" href="a65_q2a_huge_array.html"><span class="pid">a65_q2a_huge_array</span></a></li>
+<li><a class="" href="da67_m_chocolate_truffle.html"><span class="pid">da67_m_chocolate_truffle</span></a></li>
+<li><a class="" href="a64_q1_lawn_mowing.html"><span class="pid">a64_q1_lawn_mowing</span></a></li>
+<li><a class="" href="d65_q1c_ice_cream.html"><span class="pid">d65_q1c_ice_cream</span></a></li>
+<li><a class="" href="ex01m3.html"><span class="pid">ex01m3</span></a></li>
+</ul>
+<h4 style="--chc:#0e9f8e"><span class="num">09</span><a href="ch09.html" class=""><span class="en">Sorting, hashing &amp; counting</span><span class="th">การเรียง แฮช และการนับ</span></a></h4><ul>
+<li><a class="" href="ex00e3.html"><span class="pid">ex00e3</span></a></li>
+<li><a class="" href="d62_q1a_vote.html"><span class="pid">d62_q1a_vote</span></a></li>
+<li><a class="" href="d62_q1b_grandfather.html"><span class="pid">d62_q1b_grandfather</span></a></li>
+<li><a class="" href="d61_q1_ordered_set.html"><span class="pid">d61_q1_ordered_set</span></a></li>
+<li><a class="" href="a66_q2a_insertion_count.html"><span class="pid">a66_q2a_insertion_count</span></a></li>
+<li><a class="" href="ex04m1_sort.html"><span class="pid">ex04m1_sort</span></a></li>
+</ul>
+<h4 style="--chc:#2f7fd8"><span class="num">10</span><a href="ch10.html" class=""><span class="en">Sweep, two pointers &amp; Kadane</span><span class="th">Sweep line, two pointers และ Kadane</span></a></h4><ul>
+<li><a class="" href="a60b_q1_diagsum.html"><span class="pid">a60b_q1_diagsum</span></a></li>
+<li><a class="" href="da68_m2_interesting_events.html"><span class="pid">da68_m2_interesting_events</span></a></li>
+<li><a class="" href="d57_q3_zuma.html"><span class="pid">d57_q3_zuma</span></a></li>
+<li><a class="" href="da66_m1_line_monopoly.html"><span class="pid">da66_m1_line_monopoly</span></a></li>
+</ul>
+<h4 style="--chc:#8b46d9"><span class="num">11</span><a href="ch11.html" class=""><span class="en">Recursion &amp; backtracking</span><span class="th">Recursion และ Backtracking</span></a></h4><ul>
+<li><a class="" href="ex00e4.html"><span class="pid">ex00e4</span></a></li>
+<li><a class="" href="ex00e5.html"><span class="pid">ex00e5</span></a></li>
+<li><a class="" href="da67_f_abc_permutation.html"><span class="pid">da67_f_abc_permutation</span></a></li>
+<li><a class="" href="da68_f_abcd_permutation.html"><span class="pid">da68_f_abcd_permutation</span></a></li>
+<li><a class="" href="da66_f1_map_walk.html"><span class="pid">da66_f1_map_walk</span></a></li>
+<li><a class="" href="ex07e1_nqueen.html"><span class="pid">ex07e1_nqueen</span></a></li>
+<li><a class="" href="a64_q1_permu_before.html"><span class="pid">a64_q1_permu_before</span></a></li>
+<li><a class="" href="a65_q1_tower_defense.html"><span class="pid">a65_q1_tower_defense</span></a></li>
+<li><a class="" href="a66_q1a_day_cover.html"><span class="pid">a66_q1a_day_cover</span></a></li>
+<li><a class="" href="ex07e3_coloring.html"><span class="pid">ex07e3_coloring</span></a></li>
+<li><a class="" href="a64_q4_path_sum.html"><span class="pid">a64_q4_path_sum</span></a></li>
+</ul>
+<h4 style="--chc:#c2410c"><span class="num">12</span><a href="ch12.html" class=""><span class="en">Divide &amp; conquer</span><span class="th">แบ่งแยกและเอาชนะ (Divide &amp; Conquer)</span></a></h4><ul>
+<li><a class="" href="a62_q1a_recur.html"><span class="pid">a62_q1a_recur</span></a></li>
+<li><a class="" href="a60_q1_matmod.html"><span class="pid">a60_q1_matmod</span></a></li>
+<li><a class="" href="a62_q1b_virus.html"><span class="pid">a62_q1b_virus</span></a></li>
+<li><a class="" href="a63_q1b_virus2.html"><span class="pid">a63_q1b_virus2</span></a></li>
+<li><a class="" href="da68_f2_remaining_merge.html"><span class="pid">da68_f2_remaining_merge</span></a></li>
+</ul>
+<h4 style="--chc:#d97706"><span class="num">13</span><a href="ch13.html" class=""><span class="en">Greedy</span><span class="th">อัลกอริทึมละโมบ (Greedy)</span></a></h4><ul>
+<li><a class="" href="ex04e1_interval.html"><span class="pid">ex04e1_interval</span></a></li>
+<li><a class="" href="a58_m_p4.html"><span class="pid">a58_m_p4</span></a></li>
+<li><a class="" href="ex04e2_fknapsack.html"><span class="pid">ex04e2_fknapsack</span></a></li>
+<li><a class="" href="a60b_mid_p1_buffet.html"><span class="pid">a60b_mid_p1_buffet</span></a></li>
+<li><a class="" href="da67_m2_dungeon.html"><span class="pid">da67_m2_dungeon</span></a></li>
+<li><a class="" href="da68_f_game_of_trades.html"><span class="pid">da68_f_game_of_trades</span></a></li>
+</ul>
+<h4 style="--chc:#db2777"><span class="num">14</span><a href="ch14.html" class=""><span class="en">Dynamic programming I</span><span class="th">กำหนดการพลวัต (DP) ภาค 1</span></a></h4><ul>
+<li><a class="" href="ex02e1_fibo.html"><span class="pid">ex02e1_fibo</span></a></li>
+<li><a class="" href="ex02e2_cnk.html"><span class="pid">ex02e2_cnk</span></a></li>
+<li><a class="" href="ex02m1_triangle.html"><span class="pid">ex02m1_triangle</span></a></li>
+<li><a class="" href="da66_f1_linear_recurrence.html"><span class="pid">da66_f1_linear_recurrence</span></a></li>
+<li><a class="" href="a62_q1b_chocolate.html"><span class="pid">a62_q1b_chocolate</span></a></li>
+<li><a class="" href="ex07e2_iss.html"><span class="pid">ex07e2_iss</span></a></li>
+<li><a class="" href="ex03e1_lcs.html"><span class="pid">ex03e1_lcs</span></a></li>
+<li><a class="" href="da68_f_hidden_palindrome.html"><span class="pid">da68_f_hidden_palindrome</span></a></li>
+<li><a class="" href="da68_f2_zero_one_subset_sum.html"><span class="pid">da68_f2_zero_one_subset_sum</span></a></li>
+<li><a class="" href="da68_f2_sackknap.html"><span class="pid">da68_f2_sackknap</span></a></li>
+</ul>
+<h4 style="--chc:#be185d"><span class="num">15</span><a href="ch15.html" class=""><span class="en">Dynamic programming II: states</span><span class="th">DP ภาค 2: การออกแบบสถานะ</span></a></h4><ul>
+<li><a class="" href="a64_q2_table_no_11.html"><span class="pid">a64_q2_table_no_11</span></a></li>
+<li><a class="" href="da67_f_one_two_apart.html"><span class="pid">da67_f_one_two_apart</span></a></li>
+<li><a class="" href="da66_f2_new_game_plus.html"><span class="pid">da66_f2_new_game_plus</span></a></li>
+<li><a class="" href="da67_f_travelling_tourist.html"><span class="pid">da67_f_travelling_tourist</span></a></li>
+</ul>
+<h4 style="--chc:#1f9d55"><span class="num">16</span><a href="ch16.html" class=""><span class="en">Graphs: BFS &amp; DFS</span><span class="th">กราฟ: BFS และ DFS</span></a></h4><ul>
+<li><a class="" href="d57_q1_dense.html"><span class="pid">d57_q1_dense</span></a></li>
+<li><a class="" href="d57_q1_sparse.html"><span class="pid">d57_q1_sparse</span></a></li>
+<li><a class="" href="a65_q0_degrees.html"><span class="pid">a65_q0_degrees</span></a></li>
+<li><a class="" href="a60a_q3_component.html"><span class="pid">a60a_q3_component</span></a></li>
+<li><a class="" href="da68_f_k_connected_city.html"><span class="pid">da68_f_k_connected_city</span></a></li>
+<li><a class="" href="ex05m1_cycle.html"><span class="pid">ex05m1_cycle</span></a></li>
+<li><a class="" href="a62_q2a_line_graph.html"><span class="pid">a62_q2a_line_graph</span></a></li>
+<li><a class="" href="ex05m2_connection.html"><span class="pid">ex05m2_connection</span></a></li>
+<li><a class="" href="a59_q3_cycle.html"><span class="pid">a59_q3_cycle</span></a></li>
+<li><a class="" href="a62_q2a_pandemic.html"><span class="pid">a62_q2a_pandemic</span></a></li>
+<li><a class="" href="da67_f_border_extend.html"><span class="pid">da67_f_border_extend</span></a></li>
+<li><a class="" href="da66_f1_sea_bridge.html"><span class="pid">da66_f1_sea_bridge</span></a></li>
+<li><a class="" href="da66_f2_grid_loop.html"><span class="pid">da66_f2_grid_loop</span></a></li>
+</ul>
+<h4 style="--chc:#3d5afe"><span class="num">17</span><a href="ch17.html" class=""><span class="en">Shortest paths</span><span class="th">เส้นทางสั้นที่สุด</span></a></h4><ul>
+<li><a class="" href="a61_q2_farthest.html"><span class="pid">a61_q2_farthest</span></a></li>
+<li><a class="" href="da66_f1_buffet_flight.html"><span class="pid">da66_f1_buffet_flight</span></a></li>
+<li><a class="" href="ex06e3_columbia.html"><span class="pid">ex06e3_columbia</span></a></li>
+<li><a class="" href="a58_q3_p3a_hacking.html"><span class="pid">a58_q3_p3a_hacking</span></a></li>
+<li><a class="" href="da68_f2_closed_city.html"><span class="pid">da68_f2_closed_city</span></a></li>
+<li><a class="" href="a64_q3_shortest_start.html"><span class="pid">a64_q3_shortest_start</span></a></li>
+<li><a class="" href="ex06e2_shortest.html"><span class="pid">ex06e2_shortest</span></a></li>
+<li><a class="" href="ex06m2_exchange.html"><span class="pid">ex06m2_exchange</span></a></li>
+<li><a class="" href="a65_q3a_expressway.html"><span class="pid">a65_q3a_expressway</span></a></li>
+</ul>
+<h4 style="--chc:#0891b2"><span class="num">18</span><a href="ch18.html" class=""><span class="en">Minimum spanning tree &amp; DSU</span><span class="th">ต้นไม้แผ่ทั่วน้อยสุด (MST) และ DSU</span></a></h4><ul>
+<li><a class="" href="ex06e1_cable.html"><span class="pid">ex06e1_cable</span></a></li>
+<li><a class="" href="a60a_q3_xor_road.html"><span class="pid">a60a_q3_xor_road</span></a></li>
+<li><a class="" href="da68_f_internet_provider.html"><span class="pid">da68_f_internet_provider</span></a></li>
+</ul>
+<h4 style="--chc:#475569"><span class="num">19</span><a href="ch19.html" class=""><span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></h4><ul>
+<li><a class="" href="69_AGWARM.html"><span class="pid">69_AGWARM</span></a></li>
+<li><a class="" href="69_AG1.html"><span class="pid">69_AG1</span></a></li>
+<li><a class="" href="69_AG2.html"><span class="pid">69_AG2</span></a></li>
+<li><a class="on" href="69_AG3.html"><span class="pid">69_AG3</span></a></li>
+<li><a class="" href="69_AG4.html"><span class="pid">69_AG4</span></a></li>
+</ul></nav>
+<main><div class="page">
+
+<div class="crumb"><a href="index.html"><span class="en">Home</span><span class="th">หน้าแรก</span></a> › <a href="ch19.html">19 · <span class="en">Mock exam 69</span><span class="th">ข้อสอบเสมือนจริง 69</span></a></div>
+<div class="phead">
+<div class="pidbig">69_AG3</div>
+<h1><span class="en">Zipline</span><span class="th">Zipline (ซิปไลน์)</span></h1>
+<div class="chips"><span class="chip t en">Maximum spanning tree</span><span class="chip t en">Kruskal with union-find (longest first)</span><span class="chip t en">Edge weights from geometry (3-D length)</span><span class="chip t th">ต้นไม้ทอดข้ามที่มากที่สุด</span><span class="chip t th">Kruskal ด้วย union-find (ยาวที่สุดก่อน)</span><span class="chip t th">น้ำหนักเส้นจากเรขาคณิต (ความยาวสามมิติ)</span><span class="chip cx">O(M log M) time · O(N + M) memory</span><span class="chip"><span class="stars">★★☆</span></span></div>
+<div class="lead"><p class="en">One connected network with no loop is a spanning tree, and the longest total wire is a maximum spanning tree. Each wire&#x27;s length is √(D² + (Hᵢ − Hⱼ)²). Kruskal with the edges sorted longest first builds it.</p><p class="th">เครือข่ายเดียวที่เชื่อมกันและไม่มีวงวนคือต้นไม้ทอดข้าม และลวดรวมยาวที่สุดคือต้นไม้ทอดข้ามที่มากที่สุด ความยาวลวดแต่ละเส้นคือ √(D² + (Hᵢ − Hⱼ)²) Kruskal ที่เรียงเส้นจากยาวไปสั้นสร้างมันได้</p></div>
+<div class="pdfnote"><span class="en">📄 Statement: read the PDF</span><span class="th">📄 โจทย์: อ่านจาก PDF</span> <code>C:\dataAlgoGraderProblems\69_AG3\problem.pdf</code></div>
+<div class="toc en"><a href="#en-s1">1. Technique: maximum spanning tree with Kruskal</a><a href="#en-s2">2. How it maps onto this problem</a><a href="#en-s3">3. Solution</a></div><div class="toc th"><a href="#th-s1">1. เทคนิค: ต้นไม้ทอดข้ามที่มากที่สุดด้วย Kruskal</a><a href="#th-s2">2. นำมาใช้กับโจทย์นี้อย่างไร</a><a href="#th-s3">3. โค้ดเฉลย</a></div>
+</div>
+<div class="md en"><h2 id="en-s1"><span class="sn">1</span>Technique: maximum spanning tree with Kruskal</h2>
+<p>"Connect everything into one network" + "no way to come back to where you started" = a <strong>spanning tree</strong> (connected, no cycle, N − 1 edges). "Longest total" makes it a <strong>maximum</strong> spanning tree.</p>
+<p><strong>Kruskal</strong> builds it greedily: sort the edges from longest to shortest, and take each edge unless its two ends are already connected (that edge would close a cycle). A <strong>union-find</strong> answers "already connected?" in almost O(1). The proof is the MST cut property with every comparison reversed: the longest edge across any cut is safe to take.</p>
+<h2 id="en-s2"><span class="sn">2</span>How it maps onto this problem</h2>
+<h3>Step 1: the weight of each line</h3>
+<p>The wire hangs between two anchor points at different heights, so its length is the straight 3-D distance:</p>
+<pre class="diagram">          Hᵢ ●
+             |\
+       ΔH    | \   wire = √(D² + ΔH²)
+             |  \
+             +---● Hⱼ
+               D
+sample 1: D = 60, ΔH = 45 − 20 = 25  →  √(3600 + 625) = 65.00</pre>
+<p>Compute it once, while reading, and store it with the edge.</p>
+<h3>Step 2: Kruskal, longest first</h3>
+<p>Sort the M lines by length <strong>decreasing</strong>, start with every tree in its own set, and take a line when <code>findRoot(a) != findRoot(b)</code>. After N − 1 taken lines everything is one network (the input guarantees it is possible).</p>
+<div class="viz" data-viz="69_AG3"></div>
+<h3>Step 3: output</h3>
+<p><code>fixed &lt;&lt; setprecision(2)</code>, exactly as the statement suggests. Using <code>double</code> for the lengths is precise enough: the total is at most 99 lines of about 2 236 m.</p>
+<div class="box warn">
+<div class="bt">Traps</div>
+<ul>
+<li>Using D alone (ignoring the heights): sample 1 would print 60.00.</li>
+<li>Sorting increasing (a minimum tree): sample 2 would be far too small.</li>
+<li>Taking the M longest lines without the cycle check: the network may contain a loop.</li>
+</ul>
+</div>
+<h2 id="en-s3"><span class="sn">3</span>Solution</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/69_AG3__main.cpp" download>⬇ .cpp</a><button data-copy="code85">Copy</button></div><pre class="hl"><code id="code85" hidden>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+struct Zipline {
+    double length;
+    int a, b;
+};
+
+vector&lt;int&gt; parent;                          // union-find forest over the trees
+
+int findRoot(int tree) {
+    // walk up to the root, pointing every other node at its grandparent (path halving)
+    while (parent[tree] != tree) {
+        parent[tree] = parent[parent[tree]];
+        tree = parent[tree];
+    }
+    return tree;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    vector&lt;int&gt; height(n);
+    // tree = 0..n-1: height of its anchor point
+    for (int tree = 0; tree &lt; n; tree++) cin &gt;&gt; height[tree];
+    vector&lt;Zipline&gt; lines(m);
+    // index = 0..m-1: a measured pair; the wire runs along the slope, so its
+    // length is the hypotenuse of the ground distance and the height difference
+    for (int index = 0; index &lt; m; index++) {
+        int ground;
+        cin &gt;&gt; lines[index].a &gt;&gt; lines[index].b &gt;&gt; ground;
+        int rise = height[lines[index].a] - height[lines[index].b];
+        lines[index].length = sqrt((double)ground * ground + (double)rise * rise);
+    }
+    // Maximum spanning tree: Kruskal with the LONGEST lines first.
+    sort(lines.begin(), lines.end(), [](const Zipline&amp; x, const Zipline&amp; y) { return x.length &gt; y.length; });
+
+    parent.resize(n);
+    // tree = 0..n-1: every tree starts as its own network
+    for (int tree = 0; tree &lt; n; tree++) parent[tree] = tree;
+    double wire = 0;
+    // lines in decreasing length: take a line unless it would close a loop
+    for (const Zipline&amp; line : lines) {
+        int rootA = findRoot(line.a), rootB = findRoot(line.b);
+        if (rootA == rootB) continue;
+        parent[rootA] = rootB;
+        wire += line.length;
+    }
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; wire &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">struct</span><span class="w"> </span><span class="nc">Zipline</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span><span class="w">                          </span><span class="c1">// union-find forest over the trees</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">findRoot</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tree</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// walk up to the root, pointing every other node at its grandparent (path halving)</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">tree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">height</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// tree = 0..n-1: height of its anchor point</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">height</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Zipline</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lines</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..m-1: a measured pair; the wire runs along the slope, so its</span></span><span class="ln"><span class="w">    </span><span class="c1">// length is the hypotenuse of the ground distance and the height difference</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ground</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ground</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">rise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">height</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">height</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">ground</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ground</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">rise</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rise</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// Maximum spanning tree: Kruskal with the LONGEST lines first.</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">lines</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="p">]</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Zipline</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Zipline</span><span class="o">&amp;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">parent</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// tree = 0..n-1: every tree starts as its own network</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">wire</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// lines in decreasing length: take a line unless it would close a loop</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Zipline</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">lines</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">rootA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findRoot</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">a</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">rootB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findRoot</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rootA</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">rootB</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">parent</span><span class="p">[</span><span class="n">rootA</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rootB</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">wire</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">wire</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>Complexity.</strong> Sorting: <strong>O(M log M)</strong>, with M ≤ 4 950. Memory: <strong>O(N + M)</strong>.</p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, 300 random networks against a brute force over every set of N − 1 lines, and N = 100 with all 4 950 pairs in 0.007 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF เครือข่ายสุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกชุดของ N − 1 เส้น และ N = 100 ที่มีครบ 4 950 คู่ ใช้ 0.007 วินาที</span></div></div></div>
+<div class="md th"><h2 id="th-s1"><span class="sn">1</span>เทคนิค: ต้นไม้ทอดข้ามที่มากที่สุดด้วย Kruskal</h2>
+<p>"เชื่อมทุกอย่างเป็นเครือข่ายเดียว" + "ไม่มีทางวนกลับมาที่เดิม" = <strong>ต้นไม้ทอดข้าม</strong> (เชื่อมกัน ไม่มีวงรอบ มี N − 1 เส้น) "ยาวรวมมากที่สุด" ทำให้เป็นต้นไม้ทอดข้าม <strong>ที่มากที่สุด</strong></p>
+<p><strong>Kruskal</strong> สร้างแบบโลภ: เรียงเส้นจากยาวไปสั้น แล้วเลือกทีละเส้น ยกเว้นปลายทั้งสองเชื่อมกันอยู่แล้ว (เส้นนั้นจะทำให้เกิดวงรอบ) <strong>union-find</strong> ตอบ "เชื่อมกันแล้วหรือยัง?" ได้เกือบ O(1) การพิสูจน์คือ cut property ของ MST ที่กลับทุกการเปรียบเทียบ: เส้นที่ยาวที่สุดที่ข้ามรอยแบ่งใด ๆ เลือกได้อย่างปลอดภัย</p>
+<h2 id="th-s2"><span class="sn">2</span>นำมาใช้กับโจทย์นี้อย่างไร</h2>
+<h3>ขั้นที่ 1: น้ำหนักของแต่ละเส้น</h3>
+<p>ลวดขึงระหว่างจุดเชื่อมสองจุดที่สูงต่างกัน ความยาวจึงเป็นระยะทางตรงสามมิติ:</p>
+<pre class="diagram">          Hᵢ ●
+             |\
+       ΔH    | \   ลวด = √(D² + ΔH²)
+             |  \
+             +---● Hⱼ
+               D
+ตัวอย่าง 1: D = 60, ΔH = 45 − 20 = 25  →  √(3600 + 625) = 65.00</pre>
+<p>คำนวณครั้งเดียวตอนอ่าน แล้วเก็บไว้กับเส้น</p>
+<h3>ขั้นที่ 2: Kruskal เริ่มจากยาวที่สุด</h3>
+<p>เรียง M เส้นตามความยาว <strong>จากมากไปน้อย</strong> เริ่มให้ต้นไม้แต่ละต้นอยู่ในเซตของตัวเอง แล้วเลือกเส้นเมื่อ <code>findRoot(a) != findRoot(b)</code> หลังเลือกได้ N − 1 เส้น ทุกต้นอยู่ในเครือข่ายเดียวกัน (โจทย์รับประกันว่าทำได้)</p>
+<div class="viz" data-viz="69_AG3"></div>
+<h3>ขั้นที่ 3: ผลลัพธ์</h3>
+<p><code>fixed &lt;&lt; setprecision(2)</code> ตามที่โจทย์แนะนำ <code>double</code> แม่นยำพอสำหรับความยาว: ผลรวมไม่เกิน 99 เส้น เส้นละราว 2 236 เมตร</p>
+<div class="box warn">
+<div class="bt">กับดัก</div>
+<ul>
+<li>ใช้แค่ D (ไม่สนความสูง): ตัวอย่าง 1 จะได้ 60.00</li>
+<li>เรียงจากน้อยไปมาก (ต้นไม้ที่น้อยที่สุด): ตัวอย่าง 2 จะได้ค่าน้อยเกินไปมาก</li>
+<li>เลือก M เส้นที่ยาวที่สุดโดยไม่ตรวจวงรอบ: เครือข่ายอาจมีวงวน</li>
+</ul>
+</div>
+<h2 id="th-s3"><span class="sn">3</span>โค้ดเฉลย</h2>
+<div class="codebox"><div class="cbar"><span>main.cpp</span><span class="sp"></span><a href="code/69_AG3__main.cpp" download>⬇ .cpp</a><button data-copy="code85">Copy</button></div><pre class="hl"><code id="code85" hidden>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;vector&gt;
+#include &lt;cmath&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+struct Zipline {
+    double length;
+    int a, b;
+};
+
+vector&lt;int&gt; parent;                          // union-find forest over the trees
+
+int findRoot(int tree) {
+    // walk up to the root, pointing every other node at its grandparent (path halving)
+    while (parent[tree] != tree) {
+        parent[tree] = parent[parent[tree]];
+        tree = parent[tree];
+    }
+    return tree;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    vector&lt;int&gt; height(n);
+    // tree = 0..n-1: height of its anchor point
+    for (int tree = 0; tree &lt; n; tree++) cin &gt;&gt; height[tree];
+    vector&lt;Zipline&gt; lines(m);
+    // index = 0..m-1: a measured pair; the wire runs along the slope, so its
+    // length is the hypotenuse of the ground distance and the height difference
+    for (int index = 0; index &lt; m; index++) {
+        int ground;
+        cin &gt;&gt; lines[index].a &gt;&gt; lines[index].b &gt;&gt; ground;
+        int rise = height[lines[index].a] - height[lines[index].b];
+        lines[index].length = sqrt((double)ground * ground + (double)rise * rise);
+    }
+    // Maximum spanning tree: Kruskal with the LONGEST lines first.
+    sort(lines.begin(), lines.end(), [](const Zipline&amp; x, const Zipline&amp; y) { return x.length &gt; y.length; });
+
+    parent.resize(n);
+    // tree = 0..n-1: every tree starts as its own network
+    for (int tree = 0; tree &lt; n; tree++) parent[tree] = tree;
+    double wire = 0;
+    // lines in decreasing length: take a line unless it would close a loop
+    for (const Zipline&amp; line : lines) {
+        int rootA = findRoot(line.a), rootB = findRoot(line.b);
+        if (rootA == rootB) continue;
+        parent[rootA] = rootB;
+        wire += line.length;
+    }
+    cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; wire &lt;&lt; &#x27;\n&#x27;;
+}
+</code><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;cmath&gt;</span></span><span class="ln"><span class="cp">#</span><span class="cp">include</span><span class="w"> </span><span class="cpf">&lt;algorithm&gt;</span></span><span class="ln"><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="k">struct</span><span class="w"> </span><span class="nc">Zipline</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span></span><span class="ln"><span class="p">}</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">parent</span><span class="p">;</span><span class="w">                          </span><span class="c1">// union-find forest over the trees</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">findRoot</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tree</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="c1">// walk up to the root, pointing every other node at its grandparent (path halving)</span></span><span class="ln"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="w"> </span><span class="o">!</span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">tree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span><span class="ln"></span><span class="ln"><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">    </span><span class="n">ios</span><span class="o">:</span><span class="o">:</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">nullptr</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">height</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// tree = 0..n-1: height of its anchor point</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">height</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Zipline</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lines</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// index = 0..m-1: a measured pair; the wire runs along the slope, so its</span></span><span class="ln"><span class="w">    </span><span class="c1">// length is the hypotenuse of the ground distance and the height difference</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">ground</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">cin</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">&gt;</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ground</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">rise</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">height</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">a</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">height</span><span class="p">[</span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">b</span><span class="p">]</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">lines</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sqrt</span><span class="p">(</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">ground</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">ground</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">rise</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rise</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="c1">// Maximum spanning tree: Kruskal with the LONGEST lines first.</span></span><span class="ln"><span class="w">    </span><span class="n">sort</span><span class="p">(</span><span class="n">lines</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">lines</span><span class="p">.</span><span class="n">end</span><span class="p">(</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="p">]</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Zipline</span><span class="o">&amp;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">Zipline</span><span class="o">&amp;</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">y</span><span class="p">.</span><span class="n">length</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="p">)</span><span class="p">;</span></span><span class="ln"></span><span class="ln"><span class="w">    </span><span class="n">parent</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// tree = 0..n-1: every tree starts as its own network</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="n">tree</span><span class="o">+</span><span class="o">+</span><span class="p">)</span><span class="w"> </span><span class="n">parent</span><span class="p">[</span><span class="n">tree</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tree</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">wire</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="c1">// lines in decreasing length: take a line unless it would close a loop</span></span><span class="ln"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Zipline</span><span class="o">&amp;</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">lines</span><span class="p">)</span><span class="w"> </span><span class="p">{</span></span><span class="ln"><span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">rootA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findRoot</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">a</span><span class="p">)</span><span class="p">,</span><span class="w"> </span><span class="n">rootB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findRoot</span><span class="p">(</span><span class="n">line</span><span class="p">.</span><span class="n">b</span><span class="p">)</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rootA</span><span class="w"> </span><span class="o">=</span><span class="o">=</span><span class="w"> </span><span class="n">rootB</span><span class="p">)</span><span class="w"> </span><span class="k">continue</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">parent</span><span class="p">[</span><span class="n">rootA</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rootB</span><span class="p">;</span></span><span class="ln"><span class="w">        </span><span class="n">wire</span><span class="w"> </span><span class="o">+</span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="n">length</span><span class="p">;</span></span><span class="ln"><span class="w">    </span><span class="p">}</span></span><span class="ln"><span class="w">    </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="n">wire</span><span class="w"> </span><span class="o">&lt;</span><span class="o">&lt;</span><span class="w"> </span><span class="sc">&#x27;</span><span class="sc">\n</span><span class="sc">&#x27;</span><span class="p">;</span></span><span class="ln"><span class="p">}</span></span></pre></div>
+<p><strong>ความซับซ้อน</strong> การเรียง: <strong>O(M log M)</strong> โดย M ≤ 4 950 หน่วยความจำ: <strong>O(N + M)</strong></p>
+<div class="tested"><span>✅</span><div><span class="en"><b>Tested.</b> all 3 PDF samples, 300 random networks against a brute force over every set of N − 1 lines, and N = 100 with all 4 950 pairs in 0.007 s.</span><span class="th"><b>ทดสอบแล้ว</b> ตัวอย่างทั้ง 3 ใน PDF เครือข่ายสุ่ม 300 ชุดเทียบกับ brute force ที่ลองทุกชุดของ N − 1 เส้น และ N = 100 ที่มีครบ 4 950 คู่ ใช้ 0.007 วินาที</span></div></div></div>
+<div class="pn"><a class="pv" href="69_AG2.html"><small><span class="en">← previous</span><span class="th">← ข้อก่อนหน้า</span></small><b>69_AG2</b> · <span class="en">Eternal Merit (3 × N dominoes)</span><span class="th">Eternal Merit (ปูกระเบื้อง 3 × N)</span></a><a class="nx" href="69_AG4.html"><small><span class="en">next →</span><span class="th">ข้อถัดไป →</span></small><b>69_AG4</b> · <span class="en">Portal 3</span><span class="th">Portal 3</span></a></div>
+
+</div></main>
+</div>
+<script src="assets/site.js"></script><script src="viz/69_AG3.js"></script>
+</body>
+</html>
